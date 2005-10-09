@@ -1,0 +1,99 @@
+SOCIETY
+-------
+Association Command
+
+Syntax:   society <s>ubcommands argumentlist  
+
+(Subcommands can be accessed by just using the first letter.)
+
+
+List of subcommands
+-------------------
+
+society
+soc - displays a list of members and various info about them depending
+      on your rank. Members higher in rank than you are only shown if online.
+      Also displays some info on the association to higher ranks.
+      Finally it gives a list of people ostracized by your association.
+ 
+society apply member
+soc a Hero - applies to the (senior or higher) member Hero of an association
+             for membership in his association. 
+soc a me - clears an existing application to an association.
+
+society enrol applicant
+soc e Newone - enrols Newone to the association, if he has applied for
+               membership first.
+
+society kickout member
+soc k Twink - kicks member Twink out of the association, erasing his name
+              in the member list. Is also used to delete names from the
+              ostracism list.
+
+society secede [confirm]
+soc s - just displays a warning message that "soc s confirm" has to be typed
+soc s confirm - the member leaves the association. All his data is erased
+                from the member list - except if he was a declared enemy.
+                Then he is automatically put on the ostracism list.
+
+society ostracize name
+soc o Anti - puts the name "Anti" on the ostracism list. The association's
+             guards will then attack any person with the name "Anti" as
+             if they had the rank enemy in the association.
+
+society rank name change
+soc r Lucky 2 - the member Lucky is promoted by two ranks.
+soc r Noluck -3 - the member Noluck is demoted by three ranks.
+                   Note that the minimum mortal rank obtainable with this
+                   normal (member) and the maximum is leader.
+
+society punish name 
+soc p Arrggh - the first punish puts member Arrggh on parole.
+soc p Arrggh - the second one declares Arrggh as enemy, thus making the
+               association guards aggressive to him. The rank subcommand
+               (see above) can be used to reinstate Arrggh, but only a
+               leader can do this once he is of enemy rank.
+
+society challenge member
+soc c Bigger - (this is not allowed by all association) this challenges a
+               member of the next higher rank for his position. This is
+               a political command, there is no auto-attack. The outcome
+               of the challenge depends mainly on experience and the
+               looser faces tough penalties. 
+
+society name rank_keyword new_rank_name
+soc n enemy Hunted by - the new rank name of the enemy rank is "Hunted by".
+                        A list of rank_keywords and current names for them
+                        is shown to the leader with the "soc" list.
+soc n l Master of - the rank keywords can be abbreviated as well, here "l"
+                    stands for leader rank, now called "Master of".
+soc n normal - without a new rank name, the rank name is wiped and in the
+               title only the association name is shown.
+               ANSI can be used in rank names. Note that the association name
+               is pasted directly behind the rank name, so often a trailing
+               space is necessary in the given rank name.
+
+* The following money commands accept multiple arguments for "money" and
+* the coin type is determined by the first letter only. So a valid
+* example would be: "10 plat 2 gc 3 s 5 copper".
+
+society fine name money
+soc f Wrong 20 p 10 sc - issues a fine of 20 platinum and 10 silver coins to
+                         member Wrong of the association.
+soc f Wrong -30 plat - subtracts 30 plat from the debt Wrong has. If he has
+                       less than 30 p debts, then his debt is set to zero.
+soc f all 20 gold - issues a fine of 20 gold (for example as membership fee)
+                    to everybody. Note that one can fine only lower ranks, so
+                    in truth this would give only fines to all lower ranks.
+
+society deposit money
+soc d 12 platinum 30 cc - deposits 12 plat and 30 copper into the association
+                          account. Any debts the member has are lessened
+                          accordingly. This subcommand can be used by
+                          applicants to pay an entrance fee. 
+
+society withdraw money 
+soc w 100 plat - withdraws 100 platinum coins from the association account.
+
+
+SEE ALSO: examples, associations, guildhall

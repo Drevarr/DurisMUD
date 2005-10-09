@@ -1,0 +1,26 @@
+[?7h[40m[2J[3C[0;32m--------- Good Races ---------[16C[1;31m--------- Evil Races --------
+
+  [0;32m(h) Human[11C(H for help)[14C[1;31m(o) Orc[12C(O for help)
+  [0;32m(b) Barbarian[7C(B for help) [37m------------ [1;31m(d) Drow Elf[7C(D for help)
+  [0;32m(f) Half Elf[8C(F for help) [37mPick ------- [1;31m(u) Duergar Dwarf  (U for help)
+  [0;32m(e) Grey Elf[8C(E for help) [37m- Your ----- [1;31m(t) Swamp Troll    (T for help)
+  [0;32m(m) Mountain Dwarf  (M for help) [37m--- Race --- [1;31m(r) Ogre[11C(R for help)
+  [0;32m(l) Halfling[8C(L for help) [37m----- Mortal [1;31m(j) Githyanki[6C(J for help)
+  [0;32m(g) Gnome[11C(G for help) [37m------------ [1;31m(v) Goblin[9C(V for help)
+  [0;32m(c) Centaur[9C(C for Help)
+  (n) Storm Giant[5C(N for Help)
+
+[15C[1;33m---- [32mNeutral Races [33mC[32man Pick Evil [33mO[32mr Good Side [33m----
+[25C([32mk) Thri-kreen[5C(K for help)
+[25C[33m([32ms) Minotaur[7C(S for help)
+[25C[33m([32mp) Harpy   [7C(P for help)
+
+[9C[30m------------------------ Undead Races ------------------------
+
+[8C(1) Lich[11C(( for help)  (5) Wight[10C(% for help)
+[8C(2) Vampire[8C(@ for help)  (6) Phantom[8C(^ for help)
+[8C(3) Death Knight   () for help)  (7) Shade[10C(& for help)
+[8C(4) Shadow Beast   ($ for help)  (8) Revenant[7C(* for help)
+
+[13C[37m(x) General listing of classes available to each race.
+[0m[255D

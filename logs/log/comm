@@ -1,0 +1,1398 @@
+Thu Oct  6 13:29:23 2005::Write to socket error
+Thu Oct  6 13:29:23 2005::EOF encountered on socket read.
+Thu Oct  6 13:29:23 2005::Losing descriptor without char.
+Thu Oct  6 13:29:33 2005::Hoan [ ? @82.182.84.99] has connected.
+Thu Oct  6 13:30:22 2005::Kler [ ? @194.29.140.16] has connected.
+Thu Oct  6 13:30:23 2005::Losing descriptor without char.
+Thu Oct  6 13:31:33 2005::Losing descriptor without char.
+Thu Oct  6 13:32:44 2005::Losing descriptor without char.
+Thu Oct  6 13:33:28 2005::Smork [ ? @80.212.161.231] has connected.
+Thu Oct  6 13:33:54 2005::Losing descriptor without char.
+Thu Oct  6 13:34:30 2005::Kirderf [ ? @151.156.10.3] has connected.
+Thu Oct  6 13:35:05 2005::Losing descriptor without char.
+Thu Oct  6 13:35:12 2005::Miz [ ? @194.236.219.124] has connected.
+Thu Oct  6 13:35:27 2005::EOF encountered on socket read.
+Thu Oct  6 13:35:27 2005::Closing link to: Miz [194.236.219.124].
+Thu Oct  6 13:35:31 2005::Mizz [ ? @194.236.219.124] has connected.
+Thu Oct  6 13:35:46 2005::Losing player: Mizz [194.236.219.124].
+Thu Oct  6 13:35:58 2005::Miz [ ? @194.236.219.124] has reconnected.
+Thu Oct  6 13:36:17 2005::Losing descriptor without char.
+Thu Oct  6 13:37:27 2005::Losing descriptor without char.
+Thu Oct  6 13:38:38 2005::Losing descriptor without char.
+Thu Oct  6 13:38:58 2005::EOF encountered on socket read.
+Thu Oct  6 13:38:58 2005::Closing link to: Kirderf [151.156.10.3].
+Thu Oct  6 13:39:21 2005::Losing descriptor without char.
+Thu Oct  6 13:39:21 2005::Losing descriptor without char.
+Thu Oct  6 13:39:59 2005::Losing descriptor without char.
+Thu Oct  6 13:42:35 2005::Losing descriptor without char.
+Thu Oct  6 13:44:43 2005::Losing descriptor without char.
+Thu Oct  6 13:45:53 2005::Losing descriptor without char.
+Thu Oct  6 13:47:03 2005::Losing descriptor without char.
+Thu Oct  6 13:48:14 2005::Losing descriptor without char.
+Thu Oct  6 13:49:12 2005::Losing player: Asas [194.29.140.16].
+Thu Oct  6 13:49:17 2005::Asas [ ? @194.29.140.16] has connected.
+Thu Oct  6 13:49:21 2005::Losing player: Asas [194.29.140.16].
+Thu Oct  6 13:49:28 2005::Iruzl [ ? @194.29.140.16] has connected.
+Thu Oct  6 13:49:37 2005::Losing descriptor without char.
+Thu Oct  6 13:50:47 2005::Losing descriptor without char.
+Thu Oct  6 13:51:08 2005::Losing player: Smokk [80.212.161.231].
+Thu Oct  6 13:51:12 2005::Gukk [ ? @80.212.161.231] has connected.
+Thu Oct  6 13:51:43 2005::Losing player: Iruzl [194.29.140.16].
+Thu Oct  6 13:51:58 2005::Losing descriptor without char.
+Thu Oct  6 13:53:08 2005::Losing descriptor without char.
+Thu Oct  6 13:54:30 2005::Losing descriptor without char.
+Thu Oct  6 13:55:40 2005::Losing descriptor without char.
+Thu Oct  6 13:56:41 2005::Houn [ ? @82.182.84.99] has connected.
+Thu Oct  6 13:56:51 2005::Losing descriptor without char.
+Thu Oct  6 13:57:59 2005::idle rent for Kirderf in 6208.
+Thu Oct  6 13:58:01 2005::Losing descriptor without char.
+Thu Oct  6 13:59:19 2005::Losing player: Houn [82.182.84.99].
+Thu Oct  6 13:59:24 2005::Losing descriptor without char.
+Thu Oct  6 14:00:35 2005::Losing descriptor without char.
+Thu Oct  6 14:00:49 2005::Mizara [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:01:45 2005::Losing descriptor without char.
+Thu Oct  6 14:02:56 2005::Losing descriptor without char.
+Thu Oct  6 14:04:18 2005::Losing descriptor without char.
+Thu Oct  6 14:05:30 2005::Losing descriptor without char.
+Thu Oct  6 14:06:05 2005::Losing descriptor without char.
+Thu Oct  6 14:06:11 2005::Dran [ ? @217.211.194.138] has connected.
+Thu Oct  6 14:06:40 2005::Losing descriptor without char.
+Thu Oct  6 14:06:46 2005::Losing player: Hoan [82.182.84.99].
+Thu Oct  6 14:06:54 2005::Hoan [ ? @82.182.84.99] has connected.
+Thu Oct  6 14:07:50 2005::Losing descriptor without char.
+Thu Oct  6 14:08:16 2005::Losing player: Mizzy [194.236.219.124].
+Thu Oct  6 14:09:12 2005::Losing descriptor without char.
+Thu Oct  6 14:10:22 2005::Losing descriptor without char.
+Thu Oct  6 14:11:33 2005::Losing descriptor without char.
+Thu Oct  6 14:12:43 2005::Losing descriptor without char.
+Thu Oct  6 14:14:06 2005::Losing descriptor without char.
+Thu Oct  6 14:14:12 2005::Albion [ ? @195.94.222.178] has connected.
+Thu Oct  6 14:14:13 2005::Losing player: Hoan [82.182.84.99].
+Thu Oct  6 14:14:16 2005::Losing player: Mizara [194.236.219.124].
+Thu Oct  6 14:14:18 2005::Sojan [ ? @82.182.84.99] has connected.
+Thu Oct  6 14:14:21 2005::Zorina [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:15:33 2005::EOF encountered on socket read.
+Thu Oct  6 14:15:33 2005::Closing link to: Zorina [194.236.219.124].
+Thu Oct  6 14:16:13 2005::Losing player: Albion [195.94.222.178].
+Thu Oct  6 14:16:17 2005::Milkil [ ? @195.94.222.178] has connected.
+Thu Oct  6 14:17:48 2005::Losing player: Miz [194.236.219.124].
+Thu Oct  6 14:18:49 2005::Losing descriptor without char.
+Thu Oct  6 14:19:59 2005::Zorina [ ? @194.236.219.124] has reconnected.
+Thu Oct  6 14:21:05 2005::Losing player: Milkil [195.94.222.178].
+Thu Oct  6 14:21:08 2005::Albion [ ? @195.94.222.178] has connected.
+Thu Oct  6 14:21:10 2005::Losing player: Zorina [194.236.219.124].
+Thu Oct  6 14:21:26 2005::Losing descriptor without char.
+Thu Oct  6 14:22:11 2005::Zorina [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:22:29 2005::Losing player: Zorina [194.236.219.124].
+Thu Oct  6 14:23:33 2005::Losing descriptor without char.
+Thu Oct  6 14:24:43 2005::Losing descriptor without char.
+Thu Oct  6 14:25:45 2005::Kradz [ ? @69.129.110.7] has connected.
+Thu Oct  6 14:25:50 2005::Mizara [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:25:54 2005::Losing descriptor without char.
+Thu Oct  6 14:26:08 2005::Losing player: Mizara [194.236.219.124].
+Thu Oct  6 14:26:10 2005::Losing player: Albion [195.94.222.178].
+Thu Oct  6 14:26:59 2005::Losing player: Kradz [69.129.110.7].
+Thu Oct  6 14:27:06 2005::Losing descriptor without char.
+Thu Oct  6 14:28:27 2005::Losing descriptor without char.
+Thu Oct  6 14:29:37 2005::Losing descriptor without char.
+Thu Oct  6 14:30:17 2005::Amira [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:30:48 2005::Losing descriptor without char.
+Thu Oct  6 14:31:28 2005::Losing player: Amira [194.236.219.124].
+Thu Oct  6 14:31:32 2005::Amira [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:31:37 2005::Losing player: Amira [194.236.219.124].
+Thu Oct  6 14:31:59 2005::Losing descriptor without char.
+Thu Oct  6 14:33:11 2005::Zorina [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:33:18 2005::Losing player: Zorina [194.236.219.124].
+Thu Oct  6 14:33:20 2005::Losing descriptor without char.
+Thu Oct  6 14:33:43 2005::Mizara [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:34:31 2005::Losing descriptor without char.
+Thu Oct  6 14:35:42 2005::Losing descriptor without char.
+Thu Oct  6 14:36:53 2005::Losing descriptor without char.
+Thu Oct  6 14:37:46 2005::Losing player: Mizara [194.236.219.124].
+Thu Oct  6 14:37:51 2005::Losing player: Miz [194.236.219.124].
+Thu Oct  6 14:37:58 2005::Zor [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:38:02 2005::Losing player: Zor [194.236.219.124].
+Thu Oct  6 14:38:09 2005::Amiras [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:38:11 2005::Losing player: Amiras [194.236.219.124].
+Thu Oct  6 14:38:15 2005::Losing descriptor without char.
+Thu Oct  6 14:38:16 2005::Amiz [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:38:35 2005::EOF encountered on socket read.
+Thu Oct  6 14:38:35 2005::Closing link to: Amiz [194.236.219.124].
+Thu Oct  6 14:38:44 2005::Tazita [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:38:49 2005::EOF encountered on socket read.
+Thu Oct  6 14:38:49 2005::Closing link to: Tazita [194.236.219.124].
+Thu Oct  6 14:38:52 2005::Taz [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:39:23 2005::Losing player: Sojan [82.182.84.99].
+Thu Oct  6 14:39:25 2005::Losing descriptor without char.
+Thu Oct  6 14:40:36 2005::Losing descriptor without char.
+Thu Oct  6 14:41:48 2005::Losing descriptor without char.
+Thu Oct  6 14:41:52 2005::Losing player: Taz [194.236.219.124].
+Thu Oct  6 14:41:58 2005::Losing player: Tazitas [194.236.219.124].
+Thu Oct  6 14:42:02 2005::Tazita [ ? @194.236.219.124] has reconnected.
+Thu Oct  6 14:42:06 2005::EOF encountered on socket read.
+Thu Oct  6 14:42:06 2005::Closing link to: Tazita [194.236.219.124].
+Thu Oct  6 14:42:10 2005::Losing player: Tazitas [194.236.219.124].
+Thu Oct  6 14:42:14 2005::Losing player: Tazitas [194.236.219.124].
+Thu Oct  6 14:42:40 2005::Amira [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:43:09 2005::Losing descriptor without char.
+Thu Oct  6 14:44:00 2005::Losing player: Amira [194.236.219.124].
+Thu Oct  6 14:44:08 2005::Ami [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:44:20 2005::Losing descriptor without char.
+Thu Oct  6 14:45:30 2005::Losing descriptor without char.
+Thu Oct  6 14:46:42 2005::Losing descriptor without char.
+Thu Oct  6 14:48:03 2005::Losing descriptor without char.
+Thu Oct  6 14:49:14 2005::Losing descriptor without char.
+Thu Oct  6 14:50:25 2005::Losing descriptor without char.
+Thu Oct  6 14:51:35 2005::Losing descriptor without char.
+Thu Oct  6 14:51:50 2005::Sev [ ? @84.23.132.122] has connected.
+Thu Oct  6 14:52:56 2005::Losing descriptor without char.
+Thu Oct  6 14:54:07 2005::Losing descriptor without char.
+Thu Oct  6 14:55:17 2005::Losing descriptor without char.
+Thu Oct  6 14:55:29 2005::EOF encountered on socket read.
+Thu Oct  6 14:55:29 2005::Closing link to: Dran [217.211.194.138].
+Thu Oct  6 14:56:12 2005::EOF encountered on socket read.
+Thu Oct  6 14:56:12 2005::Losing descriptor without char.
+Thu Oct  6 14:56:19 2005::Tazita [ ? @194.236.219.124] has reconnected.
+Thu Oct  6 14:56:25 2005::EOF encountered on socket read.
+Thu Oct  6 14:56:25 2005::Closing link to: Tazita [194.236.219.124].
+Thu Oct  6 14:56:27 2005::Losing descriptor without char.
+Thu Oct  6 14:56:40 2005::Amiz [ ? @194.236.219.124] has reconnected.
+Thu Oct  6 14:56:48 2005::EOF encountered on socket read.
+Thu Oct  6 14:56:48 2005::Closing link to: Amiz [194.236.219.124].
+Thu Oct  6 14:57:08 2005::Taz [ ? @194.236.219.124] has connected.
+Thu Oct  6 14:57:32 2005::Dran [ ? @217.211.194.138] has reconnected.
+Thu Oct  6 14:57:36 2005::Reth [ ? @84.23.132.122] has connected.
+Thu Oct  6 14:57:43 2005::Fokor [ ? @217.211.194.138] has connected.
+Thu Oct  6 14:57:50 2005::Losing descriptor without char.
+Thu Oct  6 14:59:01 2005::Losing descriptor without char.
+Thu Oct  6 15:00:11 2005::Losing descriptor without char.
+Thu Oct  6 15:00:59 2005::Losing player: Sev [84.23.132.122].
+Thu Oct  6 15:01:22 2005::Losing descriptor without char.
+Thu Oct  6 15:01:38 2005::Losing player: Dran [217.211.194.138].
+Thu Oct  6 15:01:42 2005::Losing descriptor without char.
+Thu Oct  6 15:02:03 2005::Sev [ ? @84.23.132.122] has connected.
+Thu Oct  6 15:02:44 2005::Losing descriptor without char.
+Thu Oct  6 15:05:19 2005::Losing descriptor without char.
+Thu Oct  6 15:07:27 2005::Losing descriptor without char.
+Thu Oct  6 15:08:12 2005::Losing player: Sev [84.23.132.122].
+Thu Oct  6 15:08:32 2005::Sev [ ? @84.23.132.122] has connected.
+Thu Oct  6 15:08:36 2005::Losing descriptor without char.
+Thu Oct  6 15:08:52 2005::Losing player: Sev [84.23.132.122].
+Thu Oct  6 15:09:47 2005::Losing descriptor without char.
+Thu Oct  6 15:10:17 2005::Sev [ ? @84.23.132.122] has connected.
+Thu Oct  6 15:10:51 2005::Losing player: Sev [84.23.132.122].
+Thu Oct  6 15:10:57 2005::Losing descriptor without char.
+Thu Oct  6 15:12:18 2005::Losing descriptor without char.
+Thu Oct  6 15:12:31 2005::Losing player: Kler [194.29.140.16].
+Thu Oct  6 15:12:38 2005::Closing link to: Kler [194.29.140.16].
+Thu Oct  6 15:12:38 2005::Kler [ ? @194.29.140.16] has reconnected.
+Thu Oct  6 15:13:28 2005::Losing descriptor without char.
+Thu Oct  6 15:14:01 2005::Sev [ ? @84.23.132.122] has connected.
+Thu Oct  6 15:14:16 2005::Losing player: Sev [84.23.132.122].
+Thu Oct  6 15:14:38 2005::Losing descriptor without char.
+Thu Oct  6 15:15:21 2005::idle rent for Tazita in 17140.
+Thu Oct  6 15:15:48 2005::Losing descriptor without char.
+Thu Oct  6 15:16:36 2005::idle rent for Amiz in 233190.
+Thu Oct  6 15:17:09 2005::Losing descriptor without char.
+Thu Oct  6 15:18:19 2005::Losing descriptor without char.
+Thu Oct  6 15:19:29 2005::Losing descriptor without char.
+Thu Oct  6 15:20:23 2005::Mizara [ ? @194.236.219.124] has connected.
+Thu Oct  6 15:20:39 2005::Losing descriptor without char.
+Thu Oct  6 15:22:04 2005::Losing descriptor without char.
+Thu Oct  6 15:22:30 2005::Sev [ ? @84.23.132.122] has connected.
+Thu Oct  6 15:22:38 2005::Losing player: Sev [84.23.132.122].
+Thu Oct  6 15:23:49 2005::Losing player: Mizara [194.236.219.124].
+Thu Oct  6 15:24:41 2005::Losing descriptor without char.
+Thu Oct  6 15:26:17 2005::Mizara [ ? @194.236.219.124] has connected.
+Thu Oct  6 15:26:21 2005::Losing player: Mizara [194.236.219.124].
+Thu Oct  6 15:26:46 2005::Losing descriptor without char.
+Thu Oct  6 15:27:57 2005::EOF encountered on socket read.
+Thu Oct  6 15:27:57 2005::Closing link to: Knok [63.19.139.198].
+Thu Oct  6 15:27:58 2005::Losing descriptor without char.
+Thu Oct  6 15:29:08 2005::Losing descriptor without char.
+Thu Oct  6 15:29:44 2005::Drekster [ ? @217.211.194.138] has connected.
+Thu Oct  6 15:30:19 2005::Losing descriptor without char.
+Thu Oct  6 15:30:41 2005::Losing player: Taz [194.236.219.124].
+Thu Oct  6 15:30:51 2005::Losing player: Ami [194.236.219.124].
+Thu Oct  6 15:30:54 2005::EOF encountered on socket read.
+Thu Oct  6 15:30:54 2005::Losing descriptor without char.
+Thu Oct  6 15:31:04 2005::Nazz [ ? @209.215.22.94] has connected.
+Thu Oct  6 15:31:40 2005::Losing descriptor without char.
+Thu Oct  6 15:32:02 2005::Sev [ ? @84.23.132.122] has connected.
+Thu Oct  6 15:32:09 2005::Losing player: Sev [84.23.132.122].
+Thu Oct  6 15:32:13 2005::Losing player: Nazz [209.215.22.94].
+Thu Oct  6 15:32:20 2005::Nazl [ ? @209.215.22.94] has connected.
+Thu Oct  6 15:32:50 2005::Losing descriptor without char.
+Thu Oct  6 15:33:18 2005::EOF encountered on socket read.
+Thu Oct  6 15:33:18 2005::Closing link to: Nazl [209.215.22.94].
+Thu Oct  6 15:33:28 2005::Nazl [ ? @209.215.22.94] has reconnected.
+Thu Oct  6 15:33:45 2005::Sev [ ? @84.23.132.122] has connected.
+Thu Oct  6 15:34:00 2005::Losing descriptor without char.
+Thu Oct  6 15:34:39 2005::EOF encountered on socket read.
+Thu Oct  6 15:34:39 2005::Closing link to: Kajsavarg [194.236.219.124].
+Thu Oct  6 15:34:46 2005::Mizara [ ? @194.236.219.124] has connected.
+Thu Oct  6 15:34:53 2005::EOF encountered on socket read.
+Thu Oct  6 15:34:53 2005::Closing link to: Nazl [209.215.22.94].
+Thu Oct  6 15:34:57 2005::Nazl [ ? @209.215.22.94] has reconnected.
+Thu Oct  6 15:35:11 2005::Losing descriptor without char.
+Thu Oct  6 15:35:16 2005::EOF encountered on socket read.
+Thu Oct  6 15:35:16 2005::Closing link to: Mizara [194.236.219.124].
+Thu Oct  6 15:35:35 2005::EOF encountered on socket read.
+Thu Oct  6 15:35:35 2005::Combat DropLink: Nazl [209.215.22.94].
+Thu Oct  6 15:35:39 2005::Nazl [ ? @209.215.22.94] has reconnected.
+Thu Oct  6 15:36:31 2005::Losing player: Nazl [209.215.22.94].
+Thu Oct  6 15:36:35 2005::Losing descriptor without char.
+Thu Oct  6 15:37:45 2005::Losing descriptor without char.
+Thu Oct  6 15:38:22 2005::EOF encountered on socket read.
+Thu Oct  6 15:38:22 2005::Losing descriptor without char.
+Thu Oct  6 15:38:55 2005::Losing descriptor without char.
+Thu Oct  6 15:38:58 2005::EOF encountered on socket read.
+Thu Oct  6 15:38:58 2005::Closing link to: Reth [84.23.132.122].
+Thu Oct  6 15:40:06 2005::Losing descriptor without char.
+Thu Oct  6 15:40:54 2005::Losing player: Drekster [217.211.194.138].
+Thu Oct  6 15:41:04 2005::Lief [ ? @67.81.150.229] has connected.
+Thu Oct  6 15:41:28 2005::Losing descriptor without char.
+Thu Oct  6 15:42:16 2005::Donk [ ? @217.211.194.138] has connected.
+Thu Oct  6 15:42:32 2005::Mizara [ ? @194.236.219.124] has reconnected.
+Thu Oct  6 15:42:39 2005::Losing descriptor without char.
+Thu Oct  6 15:43:06 2005::Dreaz [ ? @194.236.219.118] has connected.
+Thu Oct  6 15:43:49 2005::Losing descriptor without char.
+Thu Oct  6 15:43:56 2005::Losing player: Dreaz [194.236.219.118].
+Thu Oct  6 15:44:07 2005::Tristram [ ? @194.236.219.118] has connected.
+Thu Oct  6 15:44:15 2005::Losing player: Mizara [194.236.219.124].
+Thu Oct  6 15:44:31 2005::Taz [ ? @194.236.219.124] has connected.
+Thu Oct  6 15:44:58 2005::Asas [ ? @194.29.140.16] has connected.
+Thu Oct  6 15:45:00 2005::Losing descriptor without char.
+Thu Oct  6 15:45:05 2005::Drask [ ? @217.211.194.138] has connected.
+Thu Oct  6 15:45:42 2005::Losing player: Taz [194.236.219.124].
+Thu Oct  6 15:46:21 2005::Losing descriptor without char.
+Thu Oct  6 15:46:28 2005::EOF encountered on socket read.
+Thu Oct  6 15:46:28 2005::Losing descriptor without char.
+Thu Oct  6 15:46:42 2005::Renlore [ ? @217.211.194.138] has connected.
+Thu Oct  6 15:47:02 2005::EOF encountered on socket read.
+Thu Oct  6 15:47:02 2005::Losing player: Drask [217.211.194.138].
+Thu Oct  6 15:47:30 2005::Kajsavarg [ ? @194.236.219.124] has reconnected.
+Thu Oct  6 15:47:32 2005::Losing descriptor without char.
+Thu Oct  6 15:47:45 2005::idle rent for Knok in 6648.
+Thu Oct  6 15:48:43 2005::Losing descriptor without char.
+Thu Oct  6 15:49:54 2005::Losing descriptor without char.
+Thu Oct  6 15:50:53 2005::Losing player: Kajsavarg [194.236.219.124].
+Thu Oct  6 15:51:16 2005::Losing descriptor without char.
+Thu Oct  6 15:52:02 2005::Losing player: Mizzy [194.236.219.124].
+Thu Oct  6 15:52:05 2005::Mizzy [ ? @194.236.219.124] has connected.
+Thu Oct  6 15:52:27 2005::Losing descriptor without char.
+Thu Oct  6 15:53:37 2005::Losing descriptor without char.
+Thu Oct  6 15:54:47 2005::Losing descriptor without char.
+Thu Oct  6 15:56:08 2005::Losing descriptor without char.
+Thu Oct  6 15:57:18 2005::Losing descriptor without char.
+Thu Oct  6 15:57:43 2005::idle rent for Reth in 36589.
+Thu Oct  6 15:57:52 2005::Amira [ ? @194.236.219.124] has connected.
+Thu Oct  6 15:58:21 2005::Losing player: Donk [217.211.194.138].
+Thu Oct  6 15:58:28 2005::Losing descriptor without char.
+Thu Oct  6 15:58:44 2005::Losing player: Amira [194.236.219.124].
+Thu Oct  6 15:59:39 2005::Losing descriptor without char.
+Thu Oct  6 16:00:44 2005::Szar [ ? @194.29.140.16] has connected.
+Thu Oct  6 16:01:01 2005::Losing descriptor without char.
+Thu Oct  6 16:01:07 2005::EOF encountered on socket read.
+Thu Oct  6 16:01:07 2005::Closing link to: Smork [80.212.161.231].
+Thu Oct  6 16:01:08 2005::EOF encountered on socket read.
+Thu Oct  6 16:01:08 2005::Closing link to: Gukk [80.212.161.231].
+Thu Oct  6 16:01:40 2005::Losing player: Fokor [217.211.194.138].
+Thu Oct  6 16:02:10 2005::Losing descriptor without char.
+Thu Oct  6 16:02:45 2005::Losing player: Szar [194.29.140.16].
+Thu Oct  6 16:03:20 2005::Losing descriptor without char.
+Thu Oct  6 16:03:27 2005::Combat DropLink: Tristram [194.236.219.118].
+Thu Oct  6 16:03:27 2005::Tristram [ ? @194.236.219.118] has reconnected.
+Thu Oct  6 16:03:35 2005::Amira [ ? @194.236.219.124] has connected.
+Thu Oct  6 16:03:36 2005::EOF encountered on socket read.
+Thu Oct  6 16:03:36 2005::Combat DropLink: Tristram [194.236.219.118].
+Thu Oct  6 16:03:54 2005::Losing player: Tristram [194.236.219.118].
+Thu Oct  6 16:03:58 2005::Tristram [ ? @194.236.219.118] has connected.
+Thu Oct  6 16:04:16 2005::Asd [ ? @194.236.219.118] has connected.
+Thu Oct  6 16:04:20 2005::Losing descriptor without char.
+Thu Oct  6 16:04:21 2005::EOF encountered on socket read.
+Thu Oct  6 16:04:21 2005::Closing link to: Tristram [194.236.219.118].
+Thu Oct  6 16:04:30 2005::Losing descriptor without char.
+Thu Oct  6 16:04:41 2005::Trevillian [ ? @194.236.219.118] has connected.
+Thu Oct  6 16:04:49 2005::EOF encountered on socket read.
+Thu Oct  6 16:04:49 2005::Closing link to: Palindor [217.211.194.138].
+Thu Oct  6 16:04:54 2005::EOF encountered on socket read.
+Thu Oct  6 16:04:54 2005::Closing link to: Trevillian [194.236.219.118].
+Thu Oct  6 16:04:58 2005::Losing descriptor without char.
+Thu Oct  6 16:05:05 2005::Losing player: Asd [194.236.219.118].
+Thu Oct  6 16:05:05 2005::Palindor [ ? @217.211.194.138] has reconnected.
+Thu Oct  6 16:05:19 2005::Zae [ ? @194.236.219.118] has connected.
+Thu Oct  6 16:05:47 2005::EOF encountered on socket read.
+Thu Oct  6 16:05:47 2005::Closing link to: Grabarz [194.29.140.16].
+Thu Oct  6 16:05:51 2005::Losing descriptor without char.
+Thu Oct  6 16:06:22 2005::Grabarz [ ? @194.29.140.16] has reconnected.
+Thu Oct  6 16:06:23 2005::Losing player: Amira [194.236.219.124].
+Thu Oct  6 16:06:36 2005::Losing player: Mizzy [194.236.219.124].
+Thu Oct  6 16:06:38 2005::Amira [ ? @194.236.219.124] has connected.
+Thu Oct  6 16:07:01 2005::Losing descriptor without char.
+Thu Oct  6 16:07:31 2005::EOF encountered on socket read.
+Thu Oct  6 16:07:31 2005::Losing descriptor without char.
+Thu Oct  6 16:07:51 2005::Mizzy [ ? @194.236.219.124] has connected.
+Thu Oct  6 16:08:12 2005::Losing descriptor without char.
+Thu Oct  6 16:09:22 2005::Losing descriptor without char.
+Thu Oct  6 16:09:27 2005::Guthar [ ? @84.23.132.122] has connected.
+Thu Oct  6 16:09:28 2005::Losing player: Kler [194.29.140.16].
+Thu Oct  6 16:09:33 2005::Losing player: Amira [194.236.219.124].
+Thu Oct  6 16:10:41 2005::Losing descriptor without char.
+Thu Oct  6 16:10:47 2005::Tristram [ ? @194.236.219.118] has connected.
+Thu Oct  6 16:11:36 2005::EOF encountered on socket read.
+Thu Oct  6 16:11:36 2005::Closing link to: Palindor [217.211.194.138].
+Thu Oct  6 16:11:49 2005::Palindor [ ? @217.211.194.138] has reconnected.
+Thu Oct  6 16:11:51 2005::Losing descriptor without char.
+Thu Oct  6 16:12:13 2005::Meri [ ? @72.146.30.15] has connected.
+Thu Oct  6 16:13:01 2005::Losing descriptor without char.
+Thu Oct  6 16:13:47 2005::Losing player: Meri [72.146.30.15].
+Thu Oct  6 16:14:11 2005::Losing descriptor without char.
+Thu Oct  6 16:15:34 2005::Losing descriptor without char.
+Thu Oct  6 16:16:20 2005::EOF encountered on socket read.
+Thu Oct  6 16:16:20 2005::Losing player: Orax [194.29.140.16].
+Thu Oct  6 16:16:24 2005::idle rent for Smork in 97663.
+Thu Oct  6 16:16:44 2005::Losing descriptor without char.
+Thu Oct  6 16:17:55 2005::Losing descriptor without char.
+Thu Oct  6 16:18:38 2005::Amira [ ? @194.236.219.124] has connected.
+Thu Oct  6 16:18:45 2005::Losing player: Amira [194.236.219.124].
+Thu Oct  6 16:18:55 2005::idle rent for Gukk in 95078.
+Thu Oct  6 16:19:06 2005::Losing descriptor without char.
+Thu Oct  6 16:19:28 2005::Zloin [ ? @217.211.194.138] has connected.
+Thu Oct  6 16:19:38 2005::Losing player: Palindor [217.211.194.138].
+Thu Oct  6 16:19:39 2005::Losing player: Tristram [194.236.219.118].
+Thu Oct  6 16:20:22 2005::Losing descriptor without char.
+Thu Oct  6 16:21:32 2005::Losing descriptor without char.
+Thu Oct  6 16:21:40 2005::Losing player: Grabarz [194.29.140.16].
+Thu Oct  6 16:22:04 2005::Mizara [ ? @194.236.219.124] has connected.
+Thu Oct  6 16:22:42 2005::Losing descriptor without char.
+Thu Oct  6 16:22:42 2005::Losing player: Zloin [217.211.194.138].
+Thu Oct  6 16:23:34 2005::process_input() CON_0 Lief Read: -1 Error: 104
+Thu Oct  6 16:23:34 2005::Closing link to: Lief [67.81.150.229].
+Thu Oct  6 16:23:51 2005::Losing descriptor without char.
+Thu Oct  6 16:23:54 2005::idle rent for Trevillian in 6608.
+Thu Oct  6 16:24:00 2005::Lief [ ? @67.81.150.229] has reconnected.
+Thu Oct  6 16:24:01 2005::Losing descriptor without char.
+Thu Oct  6 16:24:06 2005::Losing player: Dran [217.211.194.138].
+Thu Oct  6 16:25:13 2005::Losing descriptor without char.
+Thu Oct  6 16:26:22 2005::Losing player: Mizzy [194.236.219.124].
+Thu Oct  6 16:26:22 2005::Losing descriptor without char.
+Thu Oct  6 16:26:28 2005::EOF encountered on socket read.
+Thu Oct  6 16:26:28 2005::Closing link to: Mizara [194.236.219.124].
+Thu Oct  6 16:28:21 2005::Milkil [ ? @82.210.185.217] has connected.
+Thu Oct  6 16:28:40 2005::Albion [ ? @82.210.185.217] has connected.
+Thu Oct  6 16:29:47 2005::Losing player: Orax [194.29.140.16].
+Thu Oct  6 16:29:52 2005::Losing descriptor without char.
+Thu Oct  6 16:30:08 2005::Mydrix [ ? @194.29.140.16] has connected.
+Thu Oct  6 16:30:14 2005::Losing player: Alvaro [194.29.140.16].
+Thu Oct  6 16:30:55 2005::Grabarz [ ? @194.29.140.16] has connected.
+Thu Oct  6 16:31:03 2005::Losing descriptor without char.
+Thu Oct  6 16:31:27 2005::Losing player: Zae [194.236.219.118].
+Thu Oct  6 16:31:40 2005::Trevilliam [ ? @194.236.219.118] has connected.
+Thu Oct  6 16:31:44 2005::EOF encountered on socket read.
+Thu Oct  6 16:31:44 2005::Closing link to: Trevilliam [194.236.219.118].
+Thu Oct  6 16:31:50 2005::Avlin [ ? @194.236.219.118] has connected.
+Thu Oct  6 16:32:13 2005::Losing descriptor without char.
+Thu Oct  6 16:32:34 2005::Losing player: Guthar [84.23.132.122].
+Thu Oct  6 16:33:23 2005::Losing descriptor without char.
+Thu Oct  6 16:34:01 2005::Orax [ ? @194.29.140.16] has connected.
+Thu Oct  6 16:34:22 2005::EOF encountered on socket read.
+Thu Oct  6 16:34:22 2005::Closing link to: Avlin [194.236.219.118].
+Thu Oct  6 16:34:42 2005::Losing descriptor without char.
+Thu Oct  6 16:35:53 2005::Losing descriptor without char.
+Thu Oct  6 16:37:03 2005::Losing descriptor without char.
+Thu Oct  6 16:38:13 2005::Losing descriptor without char.
+Thu Oct  6 16:38:48 2005::Dzyiii [ ? @81.216.194.122] has connected.
+Thu Oct  6 16:38:57 2005::Hakon [ ? @82.210.185.217] has connected.
+Thu Oct  6 16:39:01 2005::Alvaro [ ? @194.29.140.16] has connected.
+Thu Oct  6 16:39:34 2005::Losing descriptor without char.
+Thu Oct  6 16:39:38 2005::Bemowo [ ? @194.29.140.16] has connected.
+Thu Oct  6 16:39:47 2005::Losing player: Orax [194.29.140.16].
+Thu Oct  6 16:39:50 2005::Losing player: Hakon [82.210.185.217].
+Thu Oct  6 16:40:00 2005::Wellme [ ? @82.210.185.217] has connected.
+Thu Oct  6 16:40:06 2005::Losing player: Romar [194.29.140.16].
+Thu Oct  6 16:40:12 2005::Araks [ ? @194.29.140.16] has connected.
+Thu Oct  6 16:40:32 2005::Losing player: Wellme [82.210.185.217].
+Thu Oct  6 16:40:36 2005::Hakon [ ? @82.210.185.217] has connected.
+Thu Oct  6 16:40:44 2005::Losing descriptor without char.
+Thu Oct  6 16:41:54 2005::Losing descriptor without char.
+Thu Oct  6 16:42:16 2005::EOF encountered on socket read.
+Thu Oct  6 16:42:16 2005::Losing player: Draum [217.211.194.138].
+Thu Oct  6 16:43:04 2005::Losing descriptor without char.
+Thu Oct  6 16:43:53 2005::Losing player: Araks [194.29.140.16].
+Thu Oct  6 16:43:54 2005::Losing player: Mydrix [194.29.140.16].
+Thu Oct  6 16:44:00 2005::Wellme [ ? @82.210.185.217] has connected.
+Thu Oct  6 16:44:04 2005::Nyar [ ? @194.29.140.16] has connected.
+Thu Oct  6 16:44:23 2005::Losing descriptor without char.
+Thu Oct  6 16:44:54 2005::Losing player: Wellme [82.210.185.217].
+Thu Oct  6 16:44:57 2005::Losing player: Milkil [82.210.185.217].
+Thu Oct  6 16:45:13 2005::EOF encountered on socket read.
+Thu Oct  6 16:45:13 2005::Closing link to: Zaphear [70.92.238.60].
+Thu Oct  6 16:45:34 2005::Losing descriptor without char.
+Thu Oct  6 16:46:21 2005::idle rent for Mizara in 17555.
+Thu Oct  6 16:46:44 2005::Losing descriptor without char.
+Thu Oct  6 16:46:47 2005::Losing player: Lief [67.81.150.229].
+Thu Oct  6 16:47:15 2005::Mydrix [ ? @194.29.140.16] has connected.
+Thu Oct  6 16:47:30 2005::Slithgar [ ? @209.87.17.121] has connected.
+Thu Oct  6 16:47:54 2005::Losing descriptor without char.
+Thu Oct  6 16:48:21 2005::EOF encountered on socket read.
+Thu Oct  6 16:48:21 2005::Losing descriptor without char.
+Thu Oct  6 16:48:24 2005::EOF encountered on socket read.
+Thu Oct  6 16:48:24 2005::Losing descriptor without char.
+Thu Oct  6 16:48:33 2005::EOF encountered on socket read.
+Thu Oct  6 16:48:33 2005::Losing descriptor without char.
+Thu Oct  6 16:48:39 2005::Losing player: Sev [84.23.132.122].
+Thu Oct  6 16:49:03 2005::EOF encountered on socket read.
+Thu Oct  6 16:49:03 2005::Losing descriptor without char.
+Thu Oct  6 16:49:14 2005::Losing descriptor without char.
+Thu Oct  6 16:49:22 2005::EOF encountered on socket read.
+Thu Oct  6 16:49:22 2005::Losing descriptor without char.
+Thu Oct  6 16:49:44 2005::Losing player: Mydrix [194.29.140.16].
+Thu Oct  6 16:49:49 2005::Closing link to: Leodo [217.211.194.138].
+Thu Oct  6 16:49:49 2005::Leodo [ ? @219.74.185.88] has reconnected.
+Thu Oct  6 16:49:53 2005::Deno [ ? @194.236.219.118] has connected.
+Thu Oct  6 16:49:55 2005::Araks [ ? @194.29.140.16] has connected.
+Thu Oct  6 16:50:20 2005::Kler [ ? @194.29.140.16] has connected.
+Thu Oct  6 16:50:24 2005::Losing descriptor without char.
+Thu Oct  6 16:50:29 2005::Closing link to: Leodo [219.74.185.88].
+Thu Oct  6 16:50:29 2005::Leodo [ ? @217.211.194.138] has reconnected.
+Thu Oct  6 16:50:54 2005::Losing player: Kler [194.29.140.16].
+Thu Oct  6 16:51:08 2005::Milkil [ ? @82.210.185.217] has connected.
+Thu Oct  6 16:51:20 2005::idle rent for Trevilliam in 6649.
+Thu Oct  6 16:51:23 2005::EOF encountered on socket read.
+Thu Oct  6 16:51:23 2005::Closing link to: Milkil [82.210.185.217].
+Thu Oct  6 16:51:34 2005::Losing descriptor without char.
+Thu Oct  6 16:51:43 2005::Losing player: Nicram [194.29.140.16].
+Thu Oct  6 16:52:09 2005::Losing player: Araks [194.29.140.16].
+Thu Oct  6 16:52:18 2005::Morenth [ ? @217.211.194.138] has connected.
+Thu Oct  6 16:52:23 2005::Edeimar [ ? @219.74.185.88] has connected.
+Thu Oct  6 16:52:43 2005::Losing descriptor without char.
+Thu Oct  6 16:53:06 2005::Losing player: Mokhs [194.29.140.16].
+Thu Oct  6 16:53:13 2005::Losing player: Morenth [217.211.194.138].
+Thu Oct  6 16:53:20 2005::Rvvynn [ ? @217.211.194.138] has connected.
+Thu Oct  6 16:54:04 2005::Losing descriptor without char.
+Thu Oct  6 16:54:27 2005::Losing player: Leodo [217.211.194.138].
+Thu Oct  6 16:54:30 2005::EOF encountered on socket read.
+Thu Oct  6 16:54:30 2005::Losing player: Edeimar [219.74.185.88].
+Thu Oct  6 16:55:12 2005::Orax [ ? @194.29.140.16] has connected.
+Thu Oct  6 16:55:14 2005::Losing descriptor without char.
+Thu Oct  6 16:55:44 2005::Kattla [ ? @217.209.83.13] has connected.
+Thu Oct  6 16:55:55 2005::EOF encountered on socket read.
+Thu Oct  6 16:55:55 2005::Closing link to: Kattla [217.209.83.13].
+Thu Oct  6 16:55:57 2005::Losing player: Alvaro [194.29.140.16].
+Thu Oct  6 16:56:01 2005::Headd [ ? @217.209.83.13] has connected.
+Thu Oct  6 16:56:25 2005::Losing descriptor without char.
+Thu Oct  6 16:57:35 2005::Losing descriptor without char.
+Thu Oct  6 16:57:56 2005::Alvaro [ ? @194.29.140.16] has connected.
+Thu Oct  6 16:57:57 2005::Fokor [ ? @217.211.194.138] has connected.
+Thu Oct  6 16:58:42 2005::Losing player: Albion [82.210.185.217].
+Thu Oct  6 16:58:45 2005::Milkil [ ? @82.210.185.217] has reconnected.
+Thu Oct  6 16:58:56 2005::Losing descriptor without char.
+Thu Oct  6 16:59:20 2005::Losing player: Vandien [217.211.194.138].
+Thu Oct  6 16:59:31 2005::Vandien [ ? @217.211.194.138] has connected.
+Thu Oct  6 16:59:37 2005::Losing player: Hakon [82.210.185.217].
+Thu Oct  6 16:59:46 2005::EOF encountered on socket read.
+Thu Oct  6 16:59:46 2005::Closing link to: Vandien [217.211.194.138].
+Thu Oct  6 16:59:58 2005::Sainth [ ? @217.211.194.138] has connected.
+Thu Oct  6 17:00:03 2005::Losing player: Sainth [217.211.194.138].
+Thu Oct  6 17:00:06 2005::Losing descriptor without char.
+Thu Oct  6 17:01:16 2005::Losing descriptor without char.
+Thu Oct  6 17:01:22 2005::EOF encountered on socket read.
+Thu Oct  6 17:01:22 2005::Closing link to: Sainth [217.211.194.138].
+Thu Oct  6 17:02:00 2005::EOF encountered on socket read.
+Thu Oct  6 17:02:00 2005::Closing link to: Cian [217.211.194.138].
+Thu Oct  6 17:02:26 2005::Losing descriptor without char.
+Thu Oct  6 17:02:56 2005::Bszar [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:03:23 2005::Losing player: Bszar [194.29.140.16].
+Thu Oct  6 17:03:45 2005::Losing descriptor without char.
+Thu Oct  6 17:04:15 2005::process_input() CON_8 Sakag Read: -1 Error: 104
+Thu Oct  6 17:04:15 2005::Write to socket error
+Thu Oct  6 17:04:15 2005::Losing player: Sakag [70.92.238.60].
+Thu Oct  6 17:04:55 2005::Losing descriptor without char.
+Thu Oct  6 17:05:05 2005::idle rent for Zaphear in 6610.
+Thu Oct  6 17:05:16 2005::Losing player: Bemowo [194.29.140.16].
+Thu Oct  6 17:05:25 2005::Losing descriptor without char.
+Thu Oct  6 17:05:50 2005::Aszar [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:06:05 2005::Losing descriptor without char.
+Thu Oct  6 17:06:35 2005::Losing descriptor without char.
+Thu Oct  6 17:06:51 2005::Losing player: Nyar [194.29.140.16].
+Thu Oct  6 17:07:15 2005::Losing descriptor without char.
+Thu Oct  6 17:07:18 2005::Losing descriptor without char.
+Thu Oct  6 17:07:39 2005::Losing player: Mokhs [194.29.140.16].
+Thu Oct  6 17:07:52 2005::Nyar [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:08:01 2005::Losing descriptor without char.
+Thu Oct  6 17:08:36 2005::Losing descriptor without char.
+Thu Oct  6 17:08:36 2005::Hakon [ ? @82.210.185.217] has connected.
+Thu Oct  6 17:08:51 2005::Closing link to: Aszar [194.29.140.16].
+Thu Oct  6 17:08:51 2005::Aszar [ ? @194.29.140.16] has reconnected.
+Thu Oct  6 17:09:12 2005::Tarf [ ? @204.174.59.183] has connected.
+Thu Oct  6 17:09:12 2005::Losing descriptor without char.
+Thu Oct  6 17:09:46 2005::Losing descriptor without char.
+Thu Oct  6 17:09:55 2005::process_input() CON_0 Tarf Read: -1 Error: 104
+Thu Oct  6 17:09:55 2005::Closing link to: Tarf [204.174.59.183].
+Thu Oct  6 17:10:23 2005::Losing descriptor without char.
+Thu Oct  6 17:10:49 2005::Losing player: Fokor [217.211.194.138].
+Thu Oct  6 17:10:56 2005::Losing descriptor without char.
+Thu Oct  6 17:11:26 2005::Aiji [ ? @81.236.225.57] has connected.
+Thu Oct  6 17:11:28 2005::Losing player: Aiji [81.236.225.57].
+Thu Oct  6 17:11:33 2005::Losing descriptor without char.
+Thu Oct  6 17:12:06 2005::Losing descriptor without char.
+Thu Oct  6 17:12:44 2005::Losing descriptor without char.
+Thu Oct  6 17:13:26 2005::Losing descriptor without char.
+Thu Oct  6 17:13:49 2005::Losing player: Renlore [217.211.194.138].
+Thu Oct  6 17:13:55 2005::Losing descriptor without char.
+Thu Oct  6 17:14:24 2005::Losing player: Grabarz [194.29.140.16].
+Thu Oct  6 17:14:37 2005::Grahk [ ? @64.141.176.82] has connected.
+Thu Oct  6 17:14:37 2005::Losing descriptor without char.
+Thu Oct  6 17:15:03 2005::idle rent for Kattla in 6262.
+Thu Oct  6 17:15:06 2005::Losing descriptor without char.
+Thu Oct  6 17:15:47 2005::Losing descriptor without char.
+Thu Oct  6 17:16:15 2005::Losing descriptor without char.
+Thu Oct  6 17:16:57 2005::Losing descriptor without char.
+Thu Oct  6 17:16:57 2005::Losing player: Headd [217.209.83.13].
+Thu Oct  6 17:17:26 2005::Losing descriptor without char.
+Thu Oct  6 17:17:57 2005::Fidle [ ? @217.211.194.138] has connected.
+Thu Oct  6 17:18:18 2005::Losing descriptor without char.
+Thu Oct  6 17:18:30 2005::Losing player: Kazik [194.29.140.16].
+Thu Oct  6 17:18:33 2005::Losing player: Orax [194.29.140.16].
+Thu Oct  6 17:18:34 2005::Losing player: Aszar [194.29.140.16].
+Thu Oct  6 17:18:36 2005::Losing descriptor without char.
+Thu Oct  6 17:18:36 2005::Losing player: Alvaro [194.29.140.16].
+Thu Oct  6 17:18:46 2005::idle rent for Vandien in 45139.
+Thu Oct  6 17:18:46 2005::Grabarz [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:18:48 2005::Losing player: Nyar [194.29.140.16].
+Thu Oct  6 17:18:54 2005::Araks [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:19:28 2005::Losing descriptor without char.
+Thu Oct  6 17:20:01 2005::Losing descriptor without char.
+Thu Oct  6 17:20:02 2005::idle rent for Sainth in 19445.
+Thu Oct  6 17:20:38 2005::Losing descriptor without char.
+Thu Oct  6 17:21:04 2005::Losing player: Akir [212.151.200.49].
+Thu Oct  6 17:21:08 2005::Akir [ ? @212.151.200.49] has connected.
+Thu Oct  6 17:21:11 2005::Losing descriptor without char.
+Thu Oct  6 17:21:17 2005::idle rent for Cian in 31177.
+Thu Oct  6 17:21:23 2005::Guthar [ ? @84.23.132.122] has connected.
+Thu Oct  6 17:21:49 2005::Losing descriptor without char.
+Thu Oct  6 17:21:52 2005::EOF encountered on socket read.
+Thu Oct  6 17:21:52 2005::Closing link to: Akir [212.151.200.49].
+Thu Oct  6 17:21:57 2005::Dk [ ? @212.151.200.49] has connected.
+Thu Oct  6 17:22:02 2005::Rethgith [ ? @84.23.132.122] has connected.
+Thu Oct  6 17:22:06 2005::Losing player: Rvvynn [217.211.194.138].
+Thu Oct  6 17:22:21 2005::Losing descriptor without char.
+Thu Oct  6 17:22:49 2005::EOF encountered on socket read.
+Thu Oct  6 17:22:49 2005::Closing link to: Rethgith [84.23.132.122].
+Thu Oct  6 17:23:09 2005::Losing descriptor without char.
+Thu Oct  6 17:23:15 2005::Orax [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:23:27 2005::Alvaro [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:23:30 2005::EOF encountered on socket read.
+Thu Oct  6 17:23:30 2005::Closing link to: Dru [194.236.219.118].
+Thu Oct  6 17:23:31 2005::Losing descriptor without char.
+Thu Oct  6 17:24:19 2005::Losing descriptor without char.
+Thu Oct  6 17:24:42 2005::Losing descriptor without char.
+Thu Oct  6 17:24:56 2005::Losing player: Yolis [217.211.194.138].
+Thu Oct  6 17:24:56 2005::Losing player: Dk [212.151.200.49].
+Thu Oct  6 17:25:01 2005::EOF encountered on socket read.
+Thu Oct  6 17:25:01 2005::Losing descriptor without char.
+Thu Oct  6 17:25:07 2005::Yolis [ ? @217.211.194.138] has connected.
+Thu Oct  6 17:25:26 2005::Sev [ ? @84.23.132.122] has connected.
+Thu Oct  6 17:25:30 2005::Losing descriptor without char.
+Thu Oct  6 17:25:37 2005::EOF encountered on socket read.
+Thu Oct  6 17:25:37 2005::Closing link to: Deno [194.236.219.118].
+Thu Oct  6 17:25:52 2005::Faiin [ ? @194.236.219.118] has connected.
+Thu Oct  6 17:25:56 2005::EOF encountered on socket read.
+Thu Oct  6 17:25:56 2005::Closing link to: Faiin [194.236.219.118].
+Thu Oct  6 17:26:07 2005::Roven [ ? @194.236.219.118] has connected.
+Thu Oct  6 17:26:07 2005::Losing descriptor without char.
+Thu Oct  6 17:26:14 2005::Losing player: Orax [194.29.140.16].
+Thu Oct  6 17:26:14 2005::Losing player: Sev [84.23.132.122].
+Thu Oct  6 17:26:19 2005::Losing player: Roven [194.236.219.118].
+Thu Oct  6 17:26:25 2005::Rev [ ? @194.236.219.118] has connected.
+Thu Oct  6 17:26:41 2005::Losing descriptor without char.
+Thu Oct  6 17:27:08 2005::Losing player: Yolis [217.211.194.138].
+Thu Oct  6 17:27:33 2005::Losing descriptor without char.
+Thu Oct  6 17:27:59 2005::Losing descriptor without char.
+Thu Oct  6 17:28:26 2005::Orax [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:28:47 2005::idle rent for Tarf in 6648.
+Thu Oct  6 17:28:48 2005::Losing descriptor without char.
+Thu Oct  6 17:29:09 2005::Losing descriptor without char.
+Thu Oct  6 17:29:59 2005::Losing descriptor without char.
+Thu Oct  6 17:30:19 2005::Losing player: Korush [217.211.194.138].
+Thu Oct  6 17:30:19 2005::Losing descriptor without char.
+Thu Oct  6 17:30:23 2005::Fokor [ ? @217.211.194.138] has connected.
+Thu Oct  6 17:31:19 2005::Losing player: Rev [194.236.219.118].
+Thu Oct  6 17:31:24 2005::Dnic [ ? @194.236.219.118] has connected.
+Thu Oct  6 17:31:25 2005::Losing descriptor without char.
+Thu Oct  6 17:31:30 2005::Losing descriptor without char.
+Thu Oct  6 17:31:44 2005::Losing player: Dnic [194.236.219.118].
+Thu Oct  6 17:31:56 2005::EOF encountered on socket read.
+Thu Oct  6 17:31:56 2005::Losing player: Fein [194.236.219.118].
+Thu Oct  6 17:31:59 2005::Roven [ ? @194.236.219.118] has connected.
+Thu Oct  6 17:32:05 2005::Mydrix [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:32:37 2005::Losing descriptor without char.
+Thu Oct  6 17:32:50 2005::Losing descriptor without char.
+Thu Oct  6 17:33:21 2005::Morgh [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:33:42 2005::Mizzy [ ? @194.236.219.124] has connected.
+Thu Oct  6 17:33:47 2005::Losing descriptor without char.
+Thu Oct  6 17:33:48 2005::idle rent for Grahk in 37716.
+Thu Oct  6 17:33:48 2005::Losing player: Grahk [64.141.176.82].
+Thu Oct  6 17:33:51 2005::Mizara [ ? @194.236.219.124] has connected.
+Thu Oct  6 17:33:57 2005::EOF encountered on socket read.
+Thu Oct  6 17:33:57 2005::Closing link to: Mizara [194.236.219.124].
+Thu Oct  6 17:34:00 2005::Losing player: Morgh [194.29.140.16].
+Thu Oct  6 17:34:00 2005::Losing descriptor without char.
+Thu Oct  6 17:34:06 2005::Myrok [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:34:40 2005::Losing player: Orax [194.29.140.16].
+Thu Oct  6 17:34:42 2005::Losing player: Mydrix [194.29.140.16].
+Thu Oct  6 17:34:51 2005::Losing player: Kashran [217.211.194.138].
+Thu Oct  6 17:34:58 2005::Losing descriptor without char.
+Thu Oct  6 17:35:11 2005::Losing descriptor without char.
+Thu Oct  6 17:35:47 2005::EOF encountered on socket read.
+Thu Oct  6 17:35:47 2005::Closing link to: Milkil [82.210.185.217].
+Thu Oct  6 17:35:49 2005::Mokhs [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:36:01 2005::Amira [ ? @194.236.219.124] has connected.
+Thu Oct  6 17:36:08 2005::Losing descriptor without char.
+Thu Oct  6 17:36:21 2005::Losing descriptor without char.
+Thu Oct  6 17:37:11 2005::Grahk [ ? @64.141.176.82] has connected.
+Thu Oct  6 17:37:19 2005::Losing descriptor without char.
+Thu Oct  6 17:37:35 2005::Losing player: Amira [194.236.219.124].
+Thu Oct  6 17:37:41 2005::Losing descriptor without char.
+Thu Oct  6 17:37:43 2005::Amira [ ? @194.236.219.124] has connected.
+Thu Oct  6 17:37:52 2005::Losing player: Amira [194.236.219.124].
+Thu Oct  6 17:38:00 2005::Losing player: Hakon [82.210.185.217].
+Thu Oct  6 17:38:45 2005::Losing descriptor without char.
+Thu Oct  6 17:38:53 2005::Losing descriptor without char.
+Thu Oct  6 17:39:54 2005::Losing descriptor without char.
+Thu Oct  6 17:39:56 2005::Drask [ ? @217.211.194.138] has connected.
+Thu Oct  6 17:40:02 2005::Losing descriptor without char.
+Thu Oct  6 17:40:15 2005::Rvvynn [ ? @217.211.194.138] has connected.
+Thu Oct  6 17:41:05 2005::Amira [ ? @194.236.219.124] has connected.
+Thu Oct  6 17:41:05 2005::Losing descriptor without char.
+Thu Oct  6 17:41:17 2005::idle rent for Akir in 6648.
+Thu Oct  6 17:41:44 2005::Losing player: Quinthel [217.211.194.138].
+Thu Oct  6 17:42:16 2005::Losing descriptor without char.
+Thu Oct  6 17:42:22 2005::Losing player: Amira [194.236.219.124].
+Thu Oct  6 17:42:32 2005::idle rent for Rethgith in 36589.
+Thu Oct  6 17:42:37 2005::Losing descriptor without char.
+Thu Oct  6 17:43:04 2005::EOF encountered on socket read.
+Thu Oct  6 17:43:04 2005::Closing link to: Rvvynn [217.211.194.138].
+Thu Oct  6 17:43:08 2005::Rvvynn [ ? @217.211.194.138] has reconnected.
+Thu Oct  6 17:43:09 2005::EOF encountered on socket read.
+Thu Oct  6 17:43:09 2005::Losing player: Zaphear [70.92.238.60].
+Thu Oct  6 17:43:18 2005::Sakag [ ? @70.92.238.60] has connected.
+Thu Oct  6 17:43:47 2005::Losing player: Myrok [194.29.140.16].
+Thu Oct  6 17:43:48 2005::Losing descriptor without char.
+Thu Oct  6 17:44:58 2005::Losing descriptor without char.
+Thu Oct  6 17:44:59 2005::EOF encountered on socket read.
+Thu Oct  6 17:44:59 2005::Closing link to: Sakag [70.92.238.60].
+Thu Oct  6 17:45:02 2005::idle rent for Faiin in 6649.
+Thu Oct  6 17:45:57 2005::Losing player: Mokhs [194.29.140.16].
+Thu Oct  6 17:46:06 2005::Losing descriptor without char.
+Thu Oct  6 17:46:13 2005::Losing player: Araks [194.29.140.16].
+Thu Oct  6 17:46:20 2005::Orax [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:47:17 2005::EOF encountered on socket read.
+Thu Oct  6 17:47:17 2005::Closing link to: Dzyiii [81.216.194.122].
+Thu Oct  6 17:47:19 2005::Mizara [ ? @194.236.219.124] has reconnected.
+Thu Oct  6 17:47:24 2005::EOF encountered on socket read.
+Thu Oct  6 17:47:24 2005::Closing link to: Mizara [194.236.219.124].
+Thu Oct  6 17:47:24 2005::Losing descriptor without char.
+Thu Oct  6 17:47:42 2005::Losing player: Mizzy [194.236.219.124].
+Thu Oct  6 17:48:34 2005::Losing descriptor without char.
+Thu Oct  6 17:48:41 2005::Losing player: Roven [194.236.219.118].
+Thu Oct  6 17:48:59 2005::Mydrix [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:49:08 2005::Losing player: Grabarz [194.29.140.16].
+Thu Oct  6 17:49:19 2005::Grabarz [ ? @194.29.140.16] has connected.
+Thu Oct  6 17:49:39 2005::Closing link to: Alvaro [194.29.140.16].
+Thu Oct  6 17:49:39 2005::Alvaro [ ? @194.29.140.16] has reconnected.
+Thu Oct  6 17:49:45 2005::Losing descriptor without char.
+Thu Oct  6 17:50:06 2005::Closing link to: Grabarz [194.29.140.16].
+Thu Oct  6 17:50:06 2005::Grabarz [ ? @194.29.140.16] has reconnected.
+Thu Oct  6 17:50:20 2005::Milenius [ ? @82.210.185.217] has connected.
+Thu Oct  6 17:50:55 2005::Losing descriptor without char.
+Thu Oct  6 17:51:05 2005::Losing player: Milenius [82.210.185.217].
+Thu Oct  6 17:51:59 2005::Losing player: Mydrix [194.29.140.16].
+Thu Oct  6 17:52:15 2005::Losing descriptor without char.
+Thu Oct  6 17:52:20 2005::EOF encountered on socket read.
+Thu Oct  6 17:52:20 2005::Closing link to: Fokor [217.211.194.138].
+Thu Oct  6 17:53:24 2005::Losing descriptor without char.
+Thu Oct  6 17:54:08 2005::EOF encountered on socket read.
+Thu Oct  6 17:54:08 2005::Losing player: Drask [217.211.194.138].
+Thu Oct  6 17:54:34 2005::Losing descriptor without char.
+Thu Oct  6 17:54:55 2005::Losing player: Guthar [84.23.132.122].
+Thu Oct  6 17:54:58 2005::EOF encountered on socket read.
+Thu Oct  6 17:54:58 2005::Losing player: Illithy [217.211.194.138].
+Thu Oct  6 17:55:44 2005::Losing descriptor without char.
+Thu Oct  6 17:56:04 2005::Losing descriptor without char.
+Thu Oct  6 17:56:20 2005::Losing player: Alvaro [194.29.140.16].
+Thu Oct  6 17:57:04 2005::Losing descriptor without char.
+Thu Oct  6 17:57:14 2005::Losing descriptor without char.
+Thu Oct  6 17:57:24 2005::Losing player: Orax [194.29.140.16].
+Thu Oct  6 17:57:28 2005::idle rent for Grahk in 37716.
+Thu Oct  6 17:57:28 2005::Losing player: Grahk [64.141.176.82].
+Thu Oct  6 17:57:38 2005::Losing player: Grabarz [194.29.140.16].
+Thu Oct  6 17:58:15 2005::Losing descriptor without char.
+Thu Oct  6 17:58:25 2005::Losing descriptor without char.
+Thu Oct  6 17:59:07 2005::EOF encountered on socket read.
+Thu Oct  6 17:59:07 2005::Losing descriptor without char.
+Thu Oct  6 17:59:26 2005::Losing descriptor without char.
+Thu Oct  6 18:00:36 2005::Losing descriptor without char.
+Thu Oct  6 18:00:54 2005::Losing player: Fidle [217.211.194.138].
+Thu Oct  6 18:01:36 2005::Orax [ ? @194.29.140.16] has connected.
+Thu Oct  6 18:01:57 2005::Losing descriptor without char.
+Thu Oct  6 18:02:46 2005::Mydrix [ ? @194.29.140.16] has connected.
+Thu Oct  6 18:02:51 2005::Enderias [ ? @193.109.173.243] has connected.
+Thu Oct  6 18:03:07 2005::Losing descriptor without char.
+Thu Oct  6 18:03:12 2005::Endarias [ ? @193.109.173.243] has connected.
+Thu Oct  6 18:03:20 2005::EOF encountered on socket read.
+Thu Oct  6 18:03:20 2005::Closing link to: Endarias [193.109.173.243].
+Thu Oct  6 18:03:22 2005::EOF encountered on socket read.
+Thu Oct  6 18:03:22 2005::Closing link to: Enderias [193.109.173.243].
+Thu Oct  6 18:03:42 2005::idle rent for Sakag in 29203.
+Thu Oct  6 18:03:42 2005::idle rent for Fokor in 6009.
+Thu Oct  6 18:04:05 2005::Grabarz [ ? @194.29.140.16] has connected.
+Thu Oct  6 18:04:18 2005::Losing descriptor without char.
+Thu Oct  6 18:04:30 2005::Losing player: Rvvynn [217.211.194.138].
+Thu Oct  6 18:04:44 2005::Rvvynn [ ? @217.211.194.138] has connected.
+Thu Oct  6 18:05:28 2005::Losing descriptor without char.
+Thu Oct  6 18:05:52 2005::Losing player: Orax [194.29.140.16].
+Thu Oct  6 18:06:10 2005::idle rent for Mizara in 17555.
+Thu Oct  6 18:06:13 2005::Losing player: Grabarz [194.29.140.16].
+Thu Oct  6 18:06:46 2005::Orax [ ? @194.29.140.16] has connected.
+Thu Oct  6 18:06:49 2005::Losing descriptor without char.
+Thu Oct  6 18:07:37 2005::Losing descriptor without char.
+Thu Oct  6 18:07:49 2005::Araks [ ? @194.29.140.16] has connected.
+Thu Oct  6 18:08:00 2005::Losing descriptor without char.
+Thu Oct  6 18:08:56 2005::Losing player: Araks [194.29.140.16].
+Thu Oct  6 18:09:06 2005::Losing player: Mydrix [194.29.140.16].
+Thu Oct  6 18:09:08 2005::Grahk [ ? @64.141.176.82] has connected.
+Thu Oct  6 18:09:10 2005::Losing descriptor without char.
+Thu Oct  6 18:09:55 2005::Losing player: Slithgar [209.87.17.121].
+Thu Oct  6 18:10:21 2005::Losing descriptor without char.
+Thu Oct  6 18:11:40 2005::Losing descriptor without char.
+Thu Oct  6 18:12:50 2005::Losing descriptor without char.
+Thu Oct  6 18:13:30 2005::Araks [ ? @194.29.140.16] has connected.
+Thu Oct  6 18:14:01 2005::Losing descriptor without char.
+Thu Oct  6 18:15:11 2005::Losing descriptor without char.
+Thu Oct  6 18:16:30 2005::Losing descriptor without char.
+Thu Oct  6 18:17:42 2005::Losing descriptor without char.
+Thu Oct  6 18:18:51 2005::Losing descriptor without char.
+Thu Oct  6 18:19:42 2005::Losing player: Rvvynn [217.211.194.138].
+Thu Oct  6 18:19:55 2005::Rvvynn [ ? @217.211.194.138] has connected.
+Thu Oct  6 18:20:02 2005::Losing descriptor without char.
+Thu Oct  6 18:21:22 2005::Losing descriptor without char.
+Thu Oct  6 18:21:33 2005::Losing player: Araks [194.29.140.16].
+Thu Oct  6 18:21:39 2005::Mydrix [ ? @194.29.140.16] has connected.
+Thu Oct  6 18:22:24 2005::idle rent for Endarias in 260630.
+Thu Oct  6 18:22:24 2005::idle rent for Enderias in 14604.
+Thu Oct  6 18:22:33 2005::Losing descriptor without char.
+Thu Oct  6 18:22:37 2005::Losing player: Mydrix [194.29.140.16].
+Thu Oct  6 18:22:48 2005::Klion [ ? @217.211.194.138] has connected.
+Thu Oct  6 18:23:18 2005::Losing player: Orax [194.29.140.16].
+Thu Oct  6 18:23:26 2005::Mydrix [ ? @194.29.140.16] has connected.
+Thu Oct  6 18:23:43 2005::Losing descriptor without char.
+Thu Oct  6 18:24:01 2005::Kvark [ ? @127.0.0.1] has connected.
+Thu Oct  6 18:24:27 2005::EOF encountered on socket read.
+Thu Oct  6 18:24:27 2005::Losing player: Kyoufu [217.211.194.138].
+Thu Oct  6 18:24:53 2005::Losing descriptor without char.
+Thu Oct  6 18:25:08 2005::Kler [ ? @194.29.140.16] has connected.
+Thu Oct  6 18:25:36 2005::Orax [ ? @194.29.140.16] has connected.
+Thu Oct  6 18:25:47 2005::Araks [ ? @194.29.140.16] has connected.
+Thu Oct  6 18:26:00 2005::Losing player: Araks [194.29.140.16].
+Thu Oct  6 18:26:07 2005::Losing player: Klion [217.211.194.138].
+Thu Oct  6 18:26:11 2005::Losing descriptor without char.
+Thu Oct  6 18:26:22 2005::Gukk [ ? @80.212.161.231] has connected.
+Thu Oct  6 18:26:35 2005::EOF encountered on socket read.
+Thu Oct  6 18:26:35 2005::Closing link to: Kvark [127.0.0.1].
+Thu Oct  6 18:27:21 2005::Losing descriptor without char.
+Thu Oct  6 18:27:49 2005::Losing player: Quinthel [217.211.194.138].
+Thu Oct  6 18:28:28 2005::Losing player: Kler [194.29.140.16].
+Thu Oct  6 18:28:31 2005::Losing descriptor without char.
+Thu Oct  6 18:28:33 2005::Losing player: Rvvynn [217.211.194.138].
+Thu Oct  6 18:28:38 2005::idle rent for Grahk in 37716.
+Thu Oct  6 18:28:38 2005::Losing player: Grahk [64.141.176.82].
+Thu Oct  6 18:28:48 2005::Kashran [ ? @217.211.194.138] has connected.
+Thu Oct  6 18:29:18 2005::Losing player: Kashran [217.211.194.138].
+Thu Oct  6 18:29:41 2005::Losing descriptor without char.
+Thu Oct  6 18:31:04 2005::Losing descriptor without char.
+Thu Oct  6 18:32:13 2005::Losing descriptor without char.
+Thu Oct  6 18:32:19 2005::EOF encountered on socket read.
+Thu Oct  6 18:32:19 2005::Losing player: Kyoufu [217.211.194.138].
+Thu Oct  6 18:33:19 2005::Losing descriptor without char.
+Thu Oct  6 18:33:23 2005::Losing descriptor without char.
+Thu Oct  6 18:34:30 2005::Losing descriptor without char.
+Thu Oct  6 18:34:33 2005::Losing descriptor without char.
+Thu Oct  6 18:35:34 2005::Losing descriptor without char.
+Thu Oct  6 18:35:54 2005::Losing descriptor without char.
+Thu Oct  6 18:36:45 2005::Losing descriptor without char.
+Thu Oct  6 18:37:03 2005::Losing descriptor without char.
+Thu Oct  6 18:37:48 2005::Losing descriptor without char.
+Thu Oct  6 18:38:14 2005::Losing descriptor without char.
+Thu Oct  6 18:38:46 2005::Losing descriptor without char.
+Thu Oct  6 18:38:59 2005::Losing descriptor without char.
+Thu Oct  6 18:39:25 2005::Losing descriptor without char.
+Thu Oct  6 18:39:28 2005::Slithgar [ ? @209.87.17.121] has connected.
+Thu Oct  6 18:40:02 2005::Losing descriptor without char.
+Thu Oct  6 18:40:27 2005::Grahk [ ? @64.141.176.82] has connected.
+Thu Oct  6 18:40:33 2005::EOF encountered on socket read.
+Thu Oct  6 18:40:33 2005::Closing link to: Grahk [64.141.176.82].
+Thu Oct  6 18:40:47 2005::Losing descriptor without char.
+Thu Oct  6 18:41:13 2005::Losing descriptor without char.
+Thu Oct  6 18:41:58 2005::Losing descriptor without char.
+Thu Oct  6 18:42:24 2005::Losing descriptor without char.
+Thu Oct  6 18:43:09 2005::Losing descriptor without char.
+Thu Oct  6 18:43:34 2005::idle rent for Kvark in 888.
+Thu Oct  6 18:43:34 2005::Losing descriptor without char.
+Thu Oct  6 18:44:20 2005::Losing descriptor without char.
+Thu Oct  6 18:44:59 2005::EOF encountered on socket read.
+Thu Oct  6 18:44:59 2005::Closing link to: Garith [72.227.2.31].
+Thu Oct  6 18:45:41 2005::Losing descriptor without char.
+Thu Oct  6 18:46:51 2005::Losing descriptor without char.
+Thu Oct  6 18:47:14 2005::Nazz [ ? @209.215.22.172] has connected.
+Thu Oct  6 18:47:39 2005::Losing player: Nazz [209.215.22.172].
+Thu Oct  6 18:47:43 2005::Garith [ ? @72.227.2.31] has reconnected.
+Thu Oct  6 18:50:24 2005::Losing descriptor without char.
+Thu Oct  6 18:50:32 2005::Araks [ ? @194.29.140.16] has connected.
+Thu Oct  6 18:51:04 2005::Hoan [ ? @82.182.84.99] has connected.
+Thu Oct  6 18:51:35 2005::Losing descriptor without char.
+Thu Oct  6 18:52:45 2005::Losing descriptor without char.
+Thu Oct  6 18:53:56 2005::Losing descriptor without char.
+Thu Oct  6 18:54:08 2005::Drekster [ ? @217.211.194.138] has connected.
+Thu Oct  6 18:54:48 2005::Losing player: Mydrix [194.29.140.16].
+Thu Oct  6 18:55:18 2005::Losing descriptor without char.
+Thu Oct  6 18:55:59 2005::Kvark [ ? @127.0.0.1] has connected.
+Thu Oct  6 18:56:00 2005::Honn [ ? @82.182.84.99] has connected.
+Thu Oct  6 18:56:12 2005::Tharkun [ ? @127.0.0.1] has connected.
+Thu Oct  6 18:56:16 2005::Losing player: Araks [194.29.140.16].
+Thu Oct  6 18:56:29 2005::Losing descriptor without char.
+Thu Oct  6 18:56:37 2005::Losing player: Honn [82.182.84.99].
+Thu Oct  6 18:57:38 2005::Losing descriptor without char.
+Thu Oct  6 18:58:49 2005::Losing descriptor without char.
+Thu Oct  6 18:59:14 2005::EOF encountered on socket read.
+Thu Oct  6 18:59:14 2005::Losing player: Garith [72.227.2.31].
+Thu Oct  6 18:59:45 2005::idle rent for Grahk in 37716.
+Thu Oct  6 18:59:46 2005::Losing player: Slithgar [209.87.17.121].
+Thu Oct  6 19:00:12 2005::Losing descriptor without char.
+Thu Oct  6 19:01:12 2005::Losing player: Orax [194.29.140.16].
+Thu Oct  6 19:01:22 2005::Losing descriptor without char.
+Thu Oct  6 19:02:00 2005::Orax [ ? @194.29.140.16] has connected.
+Thu Oct  6 19:02:17 2005::Losing player: Hoan [82.182.84.99].
+Thu Oct  6 19:02:33 2005::Losing descriptor without char.
+Thu Oct  6 19:02:49 2005::Lom [ ? @217.211.194.138] has connected.
+Thu Oct  6 19:03:14 2005::Taranno [ ? @65.114.193.178] has connected.
+Thu Oct  6 19:03:37 2005::Hoin [ ? @82.182.84.99] has connected.
+Thu Oct  6 19:03:44 2005::Losing descriptor without char.
+Thu Oct  6 19:03:46 2005::EOF encountered on socket read.
+Thu Oct  6 19:03:46 2005::Closing link to: Lom [217.211.194.138].
+Thu Oct  6 19:04:06 2005::Losing player: Hoin [82.182.84.99].
+Thu Oct  6 19:04:10 2005::Hoen [ ? @82.182.84.99] has connected.
+Thu Oct  6 19:04:22 2005::Honn [ ? @82.182.84.99] has connected.
+Thu Oct  6 19:05:05 2005::Losing descriptor without char.
+Thu Oct  6 19:05:10 2005::EOF encountered on socket read.
+Thu Oct  6 19:05:10 2005::Closing link to: Taranno [65.114.193.178].
+Thu Oct  6 19:06:16 2005::Losing descriptor without char.
+Thu Oct  6 19:07:00 2005::Slithgar [ ? @209.87.17.121] has connected.
+Thu Oct  6 19:07:26 2005::Losing descriptor without char.
+Thu Oct  6 19:08:37 2005::Losing descriptor without char.
+Thu Oct  6 19:09:55 2005::Write to socket error
+Thu Oct  6 19:09:55 2005::Write to socket error
+Thu Oct  6 19:09:55 2005::Write to socket error
+Thu Oct  6 19:09:55 2005::Write to socket error
+Thu Oct  6 19:09:55 2005::Write to socket error
+Thu Oct  6 19:09:58 2005::Write to socket error
+Thu Oct  6 19:09:58 2005::Write to socket error
+Thu Oct  6 19:09:58 2005::Write to socket error
+Thu Oct  6 19:09:58 2005::Write to socket error
+Thu Oct  6 19:09:58 2005::Write to socket error
+Thu Oct  6 19:09:58 2005::Write to socket error
+Thu Oct  6 19:09:58 2005::Write to socket error
+Thu Oct  6 19:09:58 2005::Write to socket error
+Thu Oct  6 19:10:00 2005::Write to socket error
+Thu Oct  6 19:10:00 2005::Write to socket error
+Thu Oct  6 19:10:00 2005::Write to socket error
+Thu Oct  6 19:10:00 2005::Write to socket error
+Thu Oct  6 19:10:00 2005::Write to socket error
+Thu Oct  6 19:10:01 2005::Losing descriptor without char.
+Thu Oct  6 19:10:23 2005::Losing player: Honn [82.182.84.99].
+Thu Oct  6 19:10:56 2005::Write to socket error
+Thu Oct  6 19:10:56 2005::Write to socket error
+Thu Oct  6 19:10:56 2005::Write to socket error
+Thu Oct  6 19:10:56 2005::Write to socket error
+Thu Oct  6 19:11:13 2005::Losing descriptor without char.
+Thu Oct  6 19:12:25 2005::Losing descriptor without char.
+Thu Oct  6 19:13:35 2005::Losing descriptor without char.
+Thu Oct  6 19:14:56 2005::Losing descriptor without char.
+Thu Oct  6 19:16:07 2005::Losing descriptor without char.
+Thu Oct  6 19:17:09 2005::Losing player: Orax [194.29.140.16].
+Thu Oct  6 19:17:17 2005::Mokhs [ ? @194.29.140.16] has connected.
+Thu Oct  6 19:17:18 2005::Losing descriptor without char.
+Thu Oct  6 19:18:12 2005::Losing player: Slithgar [209.87.17.121].
+Thu Oct  6 19:18:21 2005::Losing player: Hoen [82.182.84.99].
+Thu Oct  6 19:18:25 2005::Honn [ ? @82.182.84.99] has connected.
+Thu Oct  6 19:18:29 2005::Losing descriptor without char.
+Thu Oct  6 19:18:31 2005::Hoan [ ? @82.182.84.99] has connected.
+Thu Oct  6 19:18:48 2005::Losing player: Honn [82.182.84.99].
+Thu Oct  6 19:18:52 2005::Hoen [ ? @82.182.84.99] has connected.
+Thu Oct  6 19:18:53 2005::Romar [ ? @194.29.140.16] has connected.
+Thu Oct  6 19:19:50 2005::Losing descriptor without char.
+Thu Oct  6 19:20:25 2005::Nazz [ ? @216.69.16.50] has connected.
+Thu Oct  6 19:20:31 2005::Losing player: Hoan [82.182.84.99].
+Thu Oct  6 19:20:41 2005::Losing player: Nazz [216.69.16.50].
+Thu Oct  6 19:20:42 2005::Losing player: Romar [194.29.140.16].
+Thu Oct  6 19:20:53 2005::Nyar [ ? @194.29.140.16] has connected.
+Thu Oct  6 19:20:58 2005::Nazl [ ? @216.69.16.50] has connected.
+Thu Oct  6 19:21:01 2005::Losing descriptor without char.
+Thu Oct  6 19:22:11 2005::idle rent for Lom in 11901.
+Thu Oct  6 19:22:11 2005::Losing descriptor without char.
+Thu Oct  6 19:22:54 2005::Losing player: Nyar [194.29.140.16].
+Thu Oct  6 19:23:21 2005::Losing descriptor without char.
+Thu Oct  6 19:23:26 2005::idle rent for Taranno in 15295.
+Thu Oct  6 19:24:44 2005::Losing descriptor without char.
+Thu Oct  6 19:25:46 2005::Aiji [ ? @81.236.225.57] has connected.
+Thu Oct  6 19:25:54 2005::Losing descriptor without char.
+Thu Oct  6 19:27:05 2005::Losing descriptor without char.
+Thu Oct  6 19:28:15 2005::Losing descriptor without char.
+Thu Oct  6 19:29:38 2005::Losing descriptor without char.
+Thu Oct  6 19:30:49 2005::Losing descriptor without char.
+Thu Oct  6 19:31:59 2005::Losing descriptor without char.
+Thu Oct  6 19:32:31 2005::Tronglonok [ ? @217.211.226.71] has connected.
+Thu Oct  6 19:32:46 2005::Losing player: Mokhs [194.29.140.16].
+Thu Oct  6 19:32:52 2005::Araks [ ? @194.29.140.16] has connected.
+Thu Oct  6 19:33:10 2005::Losing descriptor without char.
+Thu Oct  6 19:33:16 2005::Mydrix [ ? @194.29.140.16] has connected.
+Thu Oct  6 19:33:36 2005::Losing player: Araks [194.29.140.16].
+Thu Oct  6 19:33:54 2005::Araks [ ? @194.29.140.16] has connected.
+Thu Oct  6 19:34:03 2005::Losing player: Araks [194.29.140.16].
+Thu Oct  6 19:34:32 2005::Losing descriptor without char.
+Thu Oct  6 19:34:49 2005::Tyran [ ? @64.24.201.107] has connected.
+Thu Oct  6 19:35:25 2005::Mokhs [ ? @194.29.140.16] has connected.
+Thu Oct  6 19:35:42 2005::Losing descriptor without char.
+Thu Oct  6 19:36:08 2005::EOF encountered on socket read.
+Thu Oct  6 19:36:08 2005::Losing player: Tyran [64.24.201.107].
+Thu Oct  6 19:36:20 2005::Lazorus [ ? @64.24.201.107] has connected.
+Thu Oct  6 19:36:52 2005::Losing descriptor without char.
+Thu Oct  6 19:37:29 2005::Norai [ ? @81.83.68.123] has connected.
+Thu Oct  6 19:37:41 2005::EOF encountered on socket read.
+Thu Oct  6 19:37:41 2005::Losing player: Norai [81.83.68.123].
+Thu Oct  6 19:38:06 2005::Losing descriptor without char.
+Thu Oct  6 19:39:25 2005::Losing descriptor without char.
+Thu Oct  6 19:39:34 2005::Losing player: Drekster [217.211.194.138].
+Thu Oct  6 19:40:36 2005::Losing descriptor without char.
+Thu Oct  6 19:41:17 2005::Losing player: Aiji [81.236.225.57].
+Thu Oct  6 19:41:47 2005::Losing descriptor without char.
+Thu Oct  6 19:42:57 2005::Losing descriptor without char.
+Thu Oct  6 19:43:59 2005::Aiji [ ? @81.236.225.57] has connected.
+Thu Oct  6 19:44:16 2005::Losing player: Hoen [82.182.84.99].
+Thu Oct  6 19:44:20 2005::Losing descriptor without char.
+Thu Oct  6 19:45:31 2005::Losing descriptor without char.
+Thu Oct  6 19:45:45 2005::Borix [ ? @217.211.194.138] has connected.
+Thu Oct  6 19:46:38 2005::Romar [ ? @194.29.140.16] has connected.
+Thu Oct  6 19:46:42 2005::EOF encountered on socket read.
+Thu Oct  6 19:46:42 2005::Closing link to: Asas [194.29.140.16].
+Thu Oct  6 19:46:50 2005::Asas [ ? @194.29.140.16] has reconnected.
+Thu Oct  6 19:47:00 2005::Losing player: Mydrix [194.29.140.16].
+Thu Oct  6 19:48:02 2005::Losing player: Romar [194.29.140.16].
+Thu Oct  6 19:48:43 2005::Slithgar [ ? @209.87.17.121] has connected.
+Thu Oct  6 19:49:03 2005::Losing descriptor without char.
+Thu Oct  6 19:49:07 2005::EOF encountered on socket read.
+Thu Oct  6 19:49:07 2005::Losing player: Nazl [216.69.16.50].
+Thu Oct  6 19:49:13 2005::Nazz [ ? @216.69.16.50] has connected.
+Thu Oct  6 19:50:01 2005::Fotenak [ ? @217.211.194.138] has connected.
+Thu Oct  6 19:50:25 2005::EOF encountered on socket read.
+Thu Oct  6 19:50:25 2005::Closing link to: Nazz [216.69.16.50].
+Thu Oct  6 19:50:31 2005::Nazz [ ? @216.69.16.50] has reconnected.
+Thu Oct  6 19:50:57 2005::Losing player: Nazz [216.69.16.50].
+Thu Oct  6 19:52:51 2005::EOF encountered on socket read.
+Thu Oct  6 19:52:51 2005::Closing link to: Nazl [216.69.16.50].
+Thu Oct  6 19:52:52 2005::Losing player: Mokhs [194.29.140.16].
+Thu Oct  6 19:52:57 2005::Nazl [ ? @216.69.16.50] has reconnected.
+Thu Oct  6 19:52:58 2005::Orax [ ? @194.29.140.16] has connected.
+Thu Oct  6 19:54:45 2005::Kler [ ? @194.29.140.16] has connected.
+Thu Oct  6 19:55:49 2005::Losing player: Lazorus [64.24.201.107].
+Thu Oct  6 19:55:51 2005::Losing player: Orax [194.29.140.16].
+Thu Oct  6 19:55:52 2005::Losing player: Asas [194.29.140.16].
+Thu Oct  6 19:56:03 2005::Losing descriptor without char.
+Thu Oct  6 19:56:03 2005::Losing descriptor without char.
+Thu Oct  6 19:56:08 2005::Romar [ ? @194.29.140.16] has connected.
+Thu Oct  6 19:57:00 2005::Losing descriptor without char.
+Thu Oct  6 19:57:27 2005::EOF encountered on socket read.
+Thu Oct  6 19:57:27 2005::Closing link to: Nazl [216.69.16.50].
+Thu Oct  6 19:57:30 2005::Nazl [ ? @216.69.16.50] has reconnected.
+Thu Oct  6 19:58:11 2005::Losing descriptor without char.
+Thu Oct  6 19:59:25 2005::Losing descriptor without char.
+Thu Oct  6 20:00:32 2005::Losing descriptor without char.
+Thu Oct  6 20:00:52 2005::Losing descriptor without char.
+Thu Oct  6 20:02:04 2005::Losing descriptor without char.
+Thu Oct  6 20:02:04 2005::Losing player: Tronglonok [217.211.226.71].
+Thu Oct  6 20:02:07 2005::EOF encountered on socket read.
+Thu Oct  6 20:02:07 2005::Closing link to: Nazl [216.69.16.50].
+Thu Oct  6 20:02:13 2005::Nazl [ ? @216.69.16.50] has reconnected.
+Thu Oct  6 20:03:15 2005::Losing descriptor without char.
+Thu Oct  6 20:04:26 2005::Losing descriptor without char.
+Thu Oct  6 20:04:52 2005::Losing player: Aiji [81.236.225.57].
+Thu Oct  6 20:05:37 2005::Losing descriptor without char.
+Thu Oct  6 20:06:07 2005::Roven [ ? @194.236.219.118] has connected.
+Thu Oct  6 20:06:20 2005::Losing player: Roven [194.236.219.118].
+Thu Oct  6 20:06:25 2005::Deno [ ? @194.236.219.118] has connected.
+Thu Oct  6 20:06:47 2005::Losing descriptor without char.
+Thu Oct  6 20:08:01 2005::Losing descriptor without char.
+Thu Oct  6 20:08:07 2005::Slaukor [ ? @217.211.194.138] has connected.
+Thu Oct  6 20:08:29 2005::EOF encountered on socket read.
+Thu Oct  6 20:08:29 2005::Closing link to: Slaukor [217.211.194.138].
+Thu Oct  6 20:08:35 2005::EOF encountered on socket read.
+Thu Oct  6 20:08:35 2005::Losing descriptor without char.
+Thu Oct  6 20:08:57 2005::EOF encountered on socket read.
+Thu Oct  6 20:08:57 2005::Losing descriptor without char.
+Thu Oct  6 20:09:13 2005::Losing descriptor without char.
+Thu Oct  6 20:10:25 2005::Losing descriptor without char.
+Thu Oct  6 20:10:29 2005::Anema [ ? @217.211.194.138] has connected.
+Thu Oct  6 20:11:37 2005::Losing descriptor without char.
+Thu Oct  6 20:12:48 2005::Losing descriptor without char.
+Thu Oct  6 20:12:53 2005::Losing player: Slithgar [209.87.17.121].
+Thu Oct  6 20:13:59 2005::Losing descriptor without char.
+Thu Oct  6 20:14:00 2005::Kirderf [ ? @151.156.10.3] has connected.
+Thu Oct  6 20:15:11 2005::Losing descriptor without char.
+Thu Oct  6 20:16:23 2005::Losing descriptor without char.
+Thu Oct  6 20:16:48 2005::Slithgar [ ? @209.87.17.121] has connected.
+Thu Oct  6 20:17:35 2005::Losing descriptor without char.
+Thu Oct  6 20:18:41 2005::Losing player: Nazl [216.69.16.50].
+Thu Oct  6 20:18:47 2005::Losing descriptor without char.
+Thu Oct  6 20:19:59 2005::Losing descriptor without char.
+Thu Oct  6 20:21:11 2005::Losing descriptor without char.
+Thu Oct  6 20:21:21 2005::Losing player: Jakko [217.211.226.71].
+Thu Oct  6 20:22:22 2005::Losing descriptor without char.
+Thu Oct  6 20:22:23 2005::EOF encountered on socket read.
+Thu Oct  6 20:22:23 2005::Losing player: Jako [217.211.226.71].
+Thu Oct  6 20:23:34 2005::Losing descriptor without char.
+Thu Oct  6 20:24:37 2005::Losing player: Romar [194.29.140.16].
+Thu Oct  6 20:24:37 2005::Losing player: Kler [194.29.140.16].
+Thu Oct  6 20:24:43 2005::Orax [ ? @194.29.140.16] has connected.
+Thu Oct  6 20:24:46 2005::Losing descriptor without char.
+Thu Oct  6 20:24:46 2005::Asas [ ? @194.29.140.16] has connected.
+Thu Oct  6 20:25:33 2005::Losing player: Anema [217.211.194.138].
+Thu Oct  6 20:25:57 2005::Losing descriptor without char.
+Thu Oct  6 20:26:21 2005::Trevillian [ ? @194.236.219.118] has connected.
+Thu Oct  6 20:27:09 2005::Losing descriptor without char.
+Thu Oct  6 20:28:16 2005::idle rent for Slaukor in 6208.
+Thu Oct  6 20:28:22 2005::Losing descriptor without char.
+Thu Oct  6 20:28:45 2005::Write to socket error
+Thu Oct  6 20:28:45 2005::Write to socket error
+Thu Oct  6 20:28:45 2005::Write to socket error
+Thu Oct  6 20:28:45 2005::Write to socket error
+Thu Oct  6 20:28:45 2005::Write to socket error
+Thu Oct  6 20:28:45 2005::Write to socket error
+Thu Oct  6 20:28:45 2005::Write to socket error
+Thu Oct  6 20:28:45 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:49 2005::Write to socket error
+Thu Oct  6 20:28:51 2005::Write to socket error
+Thu Oct  6 20:28:51 2005::Write to socket error
+Thu Oct  6 20:28:51 2005::Write to socket error
+Thu Oct  6 20:28:51 2005::Write to socket error
+Thu Oct  6 20:29:33 2005::Losing descriptor without char.
+Thu Oct  6 20:30:44 2005::Losing descriptor without char.
+Thu Oct  6 20:31:53 2005::Write to socket error
+Thu Oct  6 20:31:53 2005::Write to socket error
+Thu Oct  6 20:31:53 2005::Write to socket error
+Thu Oct  6 20:31:53 2005::Write to socket error
+Thu Oct  6 20:31:57 2005::Losing descriptor without char.
+Thu Oct  6 20:33:10 2005::Losing descriptor without char.
+Thu Oct  6 20:33:49 2005::Losing player: Aidenn [217.211.194.138].
+Thu Oct  6 20:34:21 2005::Losing descriptor without char.
+Thu Oct  6 20:35:32 2005::Losing descriptor without char.
+Thu Oct  6 20:36:44 2005::Losing descriptor without char.
+Thu Oct  6 20:37:56 2005::Losing descriptor without char.
+Thu Oct  6 20:39:07 2005::Losing descriptor without char.
+Thu Oct  6 20:40:19 2005::Losing descriptor without char.
+Thu Oct  6 20:40:45 2005::EOF encountered on socket read.
+Thu Oct  6 20:40:45 2005::Closing link to: Deno [194.236.219.118].
+Thu Oct  6 20:40:52 2005::Inic [ ? @194.236.219.118] has connected.
+Thu Oct  6 20:41:24 2005::Losing player: Kirderf [151.156.10.3].
+Thu Oct  6 20:41:31 2005::Losing descriptor without char.
+Thu Oct  6 20:42:43 2005::Losing descriptor without char.
+Thu Oct  6 20:43:55 2005::Losing descriptor without char.
+Thu Oct  6 20:44:16 2005::Kabb [ ? @217.211.194.138] has connected.
+Thu Oct  6 20:45:06 2005::Losing descriptor without char.
+Thu Oct  6 20:45:53 2005::EOF encountered on socket read.
+Thu Oct  6 20:45:53 2005::Closing link to: Kabb [217.211.194.138].
+Thu Oct  6 20:46:00 2005::Qenim [ ? @217.211.194.138] has connected.
+Thu Oct  6 20:46:21 2005::Losing descriptor without char.
+Thu Oct  6 20:46:41 2005::Losing player: Asas [194.29.140.16].
+Thu Oct  6 20:46:42 2005::Losing player: Orax [194.29.140.16].
+Thu Oct  6 20:47:32 2005::Losing descriptor without char.
+Thu Oct  6 20:48:44 2005::Losing descriptor without char.
+Thu Oct  6 20:48:51 2005::Losing player: Slithgar [209.87.17.121].
+Thu Oct  6 20:49:10 2005::Grahk [ ? @64.141.176.82] has connected.
+Thu Oct  6 20:49:24 2005::Losing player: Grahk [64.141.176.82].
+Thu Oct  6 20:49:30 2005::Vogul [ ? @64.141.176.82] has connected.
+Thu Oct  6 20:49:54 2005::Losing descriptor without char.
+Thu Oct  6 20:51:05 2005::Losing descriptor without char.
+Thu Oct  6 20:51:24 2005::Losing player: Vogul [64.141.176.82].
+Thu Oct  6 20:51:27 2005::Losing descriptor without char.
+Thu Oct  6 20:52:33 2005::Losing descriptor without char.
+Thu Oct  6 20:53:44 2005::Losing descriptor without char.
+Thu Oct  6 20:54:56 2005::Losing descriptor without char.
+Thu Oct  6 20:56:08 2005::Losing descriptor without char.
+Thu Oct  6 20:56:27 2005::Losing descriptor without char.
+Thu Oct  6 20:56:41 2005::Honn [ ? @82.182.84.99] has connected.
+Thu Oct  6 20:56:50 2005::Losing player: Honn [82.182.84.99].
+Thu Oct  6 20:57:07 2005::Houn [ ? @82.182.84.99] has connected.
+Thu Oct  6 20:57:20 2005::Losing descriptor without char.
+Thu Oct  6 20:58:04 2005::Closing link to: Houn [82.182.84.99].
+Thu Oct  6 20:58:04 2005::Houn [ ? @82.182.84.99] has reconnected.
+Thu Oct  6 20:58:32 2005::Losing descriptor without char.
+Thu Oct  6 20:59:08 2005::EOF encountered on socket read.
+Thu Oct  6 20:59:08 2005::Closing link to: Jako [217.211.226.71].
+Thu Oct  6 20:59:33 2005::EOF encountered on socket read.
+Thu Oct  6 20:59:33 2005::Closing link to: Gorbatjoff [151.156.10.3].
+Thu Oct  6 20:59:33 2005::process_input() CON_8 Doddz Read: -1 Error: 104
+Thu Oct  6 20:59:33 2005::Losing player: Doddz [151.156.10.3].
+Thu Oct  6 20:59:35 2005::Losing player: Inic [194.236.219.118].
+Thu Oct  6 20:59:43 2005::Losing descriptor without char.
+Thu Oct  6 21:00:08 2005::Losing player: Trevillian [194.236.219.118].
+Thu Oct  6 21:00:13 2005::Vesslan [ ? @194.236.219.118] has connected.
+Thu Oct  6 21:00:15 2005::EOF encountered on socket read.
+Thu Oct  6 21:00:15 2005::Losing player: Mig [194.236.219.118].
+Thu Oct  6 21:00:57 2005::Losing descriptor without char.
+Thu Oct  6 21:01:50 2005::EOF encountered on socket read.
+Thu Oct  6 21:01:50 2005::Closing link to: Kvark [127.0.0.1].
+Thu Oct  6 21:01:58 2005::EOF encountered on socket read.
+Thu Oct  6 21:01:58 2005::Losing descriptor without char.
+Thu Oct  6 21:02:09 2005::Losing descriptor without char.
+Thu Oct  6 21:02:31 2005::Balt [ ? @68.195.46.245] has connected.
+Thu Oct  6 21:02:50 2005::EOF encountered on socket read.
+Thu Oct  6 21:02:50 2005::Closing link to: Balt [68.195.46.245].
+Thu Oct  6 21:02:57 2005::Drixxon [ ? @68.195.46.245] has connected.
+Thu Oct  6 21:03:21 2005::Losing descriptor without char.
+Thu Oct  6 21:03:44 2005::Kashran [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:04:11 2005::Losing player: Kashran [217.211.194.138].
+Thu Oct  6 21:04:33 2005::Losing descriptor without char.
+Thu Oct  6 21:04:34 2005::Quinthel [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:05:28 2005::Write to socket error
+Thu Oct  6 21:05:28 2005::Write to socket error
+Thu Oct  6 21:05:28 2005::Write to socket error
+Thu Oct  6 21:05:28 2005::Write to socket error
+Thu Oct  6 21:05:28 2005::Write to socket error
+Thu Oct  6 21:05:28 2005::Write to socket error
+Thu Oct  6 21:05:43 2005::Losing descriptor without char.
+Thu Oct  6 21:05:45 2005::idle rent for Kabb in 6053.
+Thu Oct  6 21:06:55 2005::Losing descriptor without char.
+Thu Oct  6 21:06:58 2005::Morenth [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:08:07 2005::Losing descriptor without char.
+Thu Oct  6 21:08:08 2005::Frizd [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:08:19 2005::EOF encountered on socket read.
+Thu Oct  6 21:08:19 2005::Closing link to: Frizd [217.211.194.138].
+Thu Oct  6 21:08:27 2005::Losing descriptor without char.
+Thu Oct  6 21:08:38 2005::Cearid [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:09:17 2005::Losing descriptor without char.
+Thu Oct  6 21:09:21 2005::EOF encountered on socket read.
+Thu Oct  6 21:09:21 2005::Closing link to: Qenim [217.211.194.138].
+Thu Oct  6 21:10:01 2005::EOF encountered on socket read.
+Thu Oct  6 21:10:01 2005::Closing link to: Mig [194.236.219.118].
+Thu Oct  6 21:10:05 2005::Deno [ ? @194.236.219.118] has connected.
+Thu Oct  6 21:10:30 2005::Losing descriptor without char.
+Thu Oct  6 21:11:42 2005::Losing descriptor without char.
+Thu Oct  6 21:12:53 2005::Losing descriptor without char.
+Thu Oct  6 21:14:04 2005::Losing descriptor without char.
+Thu Oct  6 21:14:53 2005::Drekster [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:15:32 2005::Losing descriptor without char.
+Thu Oct  6 21:16:40 2005::Ediac [ ? @207.179.135.91] has connected.
+Thu Oct  6 21:16:44 2005::Losing descriptor without char.
+Thu Oct  6 21:16:50 2005::Losing player: Ediac [207.179.135.91].
+Thu Oct  6 21:17:00 2005::Ediac [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:17:56 2005::Losing descriptor without char.
+Thu Oct  6 21:18:16 2005::idle rent for Jako in 19439.
+Thu Oct  6 21:18:27 2005::Losing player: Ediac [217.211.194.138].
+Thu Oct  6 21:18:47 2005::EOF encountered on socket read.
+Thu Oct  6 21:18:47 2005::Closing link to: Cearid [217.211.194.138].
+Thu Oct  6 21:19:11 2005::Losing descriptor without char.
+Thu Oct  6 21:19:20 2005::Losing player: Ixath [64.141.176.82].
+Thu Oct  6 21:19:25 2005::Grahk [ ? @64.141.176.82] has connected.
+Thu Oct  6 21:19:38 2005::Losing player: Grahk [64.141.176.82].
+Thu Oct  6 21:20:42 2005::Losing descriptor without char.
+Thu Oct  6 21:20:45 2005::EOF encountered on socket read.
+Thu Oct  6 21:20:45 2005::Losing descriptor without char.
+Thu Oct  6 21:20:48 2005::idle rent for Kvark in 888.
+Thu Oct  6 21:21:01 2005::Losing player: Mal [217.211.194.138].
+Thu Oct  6 21:21:49 2005::Anema [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:21:54 2005::Losing descriptor without char.
+Thu Oct  6 21:22:03 2005::idle rent for Balt in 5374.
+Thu Oct  6 21:23:05 2005::Losing descriptor without char.
+Thu Oct  6 21:23:33 2005::EOF encountered on socket read.
+Thu Oct  6 21:23:33 2005::Losing player: Mal [217.211.194.138].
+Thu Oct  6 21:24:14 2005::Dringel [ ? @24.188.104.169] has connected.
+Thu Oct  6 21:24:17 2005::Losing descriptor without char.
+Thu Oct  6 21:25:29 2005::Losing descriptor without char.
+Thu Oct  6 21:25:36 2005::Slapphonan [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:26:04 2005::Losing player: Houn [82.182.84.99].
+Thu Oct  6 21:26:14 2005::EOF encountered on socket read.
+Thu Oct  6 21:26:14 2005::Closing link to: Dringel [24.188.104.169].
+Thu Oct  6 21:26:18 2005::Losing descriptor without char.
+Thu Oct  6 21:26:23 2005::Wernt [ ? @24.188.104.169] has connected.
+Thu Oct  6 21:26:39 2005::Losing descriptor without char.
+Thu Oct  6 21:26:44 2005::EOF encountered on socket read.
+Thu Oct  6 21:26:44 2005::Losing player: Trongg [217.211.226.71].
+Thu Oct  6 21:27:03 2005::idle rent for Frizd in 6565.
+Thu Oct  6 21:27:51 2005::Losing descriptor without char.
+Thu Oct  6 21:28:03 2005::Losing player: Morenth [217.211.194.138].
+Thu Oct  6 21:28:18 2005::idle rent for Qenim in 5778.
+Thu Oct  6 21:28:18 2005::Morenth [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:29:03 2005::Losing descriptor without char.
+Thu Oct  6 21:29:32 2005::idle rent for Mig in 67745.
+Thu Oct  6 21:30:15 2005::Losing descriptor without char.
+Thu Oct  6 21:30:49 2005::Losing player: Neboe [81.236.225.57].
+Thu Oct  6 21:31:02 2005::EOF encountered on socket read.
+Thu Oct  6 21:31:02 2005::Losing player: Morenth [217.211.194.138].
+Thu Oct  6 21:31:26 2005::Losing descriptor without char.
+Thu Oct  6 21:32:38 2005::Losing descriptor without char.
+Thu Oct  6 21:33:49 2005::Losing descriptor without char.
+Thu Oct  6 21:35:00 2005::Losing descriptor without char.
+Thu Oct  6 21:36:12 2005::Losing descriptor without char.
+Thu Oct  6 21:37:10 2005::Norai [ ? @81.83.68.123] has connected.
+Thu Oct  6 21:37:22 2005::EOF encountered on socket read.
+Thu Oct  6 21:37:22 2005::Losing player: Norai [81.83.68.123].
+Thu Oct  6 21:37:24 2005::Losing descriptor without char.
+Thu Oct  6 21:38:16 2005::idle rent for Cearid in 6648.
+Thu Oct  6 21:38:34 2005::Losing descriptor without char.
+Thu Oct  6 21:39:03 2005::EOF encountered on socket read.
+Thu Oct  6 21:39:03 2005::Closing link to: Tharkun [127.0.0.1].
+Thu Oct  6 21:39:30 2005::idle rent for Tharkun in 107.
+Thu Oct  6 21:39:46 2005::Losing descriptor without char.
+Thu Oct  6 21:40:56 2005::Kazsh [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:40:59 2005::Losing descriptor without char.
+Thu Oct  6 21:42:11 2005::Losing descriptor without char.
+Thu Oct  6 21:42:28 2005::EOF encountered on socket read.
+Thu Oct  6 21:42:28 2005::Closing link to: Wernt [24.188.104.169].
+Thu Oct  6 21:43:16 2005::Losing player: Drixxon [68.195.46.245].
+Thu Oct  6 21:43:18 2005::process_input() CON_1  Read: -1 Error: 104
+Thu Oct  6 21:43:18 2005::Losing descriptor without char.
+Thu Oct  6 21:43:22 2005::Losing descriptor without char.
+Thu Oct  6 21:44:34 2005::Losing descriptor without char.
+Thu Oct  6 21:44:55 2005::Kashran [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:45:46 2005::Losing descriptor without char.
+Thu Oct  6 21:45:46 2005::idle rent for Dringel in 37776.
+Thu Oct  6 21:46:31 2005::Losing player: Kashran [217.211.194.138].
+Thu Oct  6 21:46:41 2005::Losing player: Slapphonan [217.211.194.138].
+Thu Oct  6 21:46:53 2005::EOF encountered on socket read.
+Thu Oct  6 21:46:53 2005::Losing player: Slapphonan [217.211.194.138].
+Thu Oct  6 21:46:57 2005::Losing descriptor without char.
+Thu Oct  6 21:46:58 2005::EOF encountered on socket read.
+Thu Oct  6 21:46:58 2005::Losing descriptor without char.
+Thu Oct  6 21:47:06 2005::Qene [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:47:44 2005::Losing player: Bajs [217.211.194.138].
+Thu Oct  6 21:47:51 2005::EOF encountered on socket read.
+Thu Oct  6 21:47:51 2005::Losing player: Bajs [217.211.194.138].
+Thu Oct  6 21:48:08 2005::Losing descriptor without char.
+Thu Oct  6 21:48:18 2005::Bajs [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:49:22 2005::Losing descriptor without char.
+Thu Oct  6 21:50:24 2005::EOF encountered on socket read.
+Thu Oct  6 21:50:24 2005::Closing link to: Quinthel [217.211.194.138].
+Thu Oct  6 21:50:33 2005::Losing descriptor without char.
+Thu Oct  6 21:50:46 2005::Losing player: Anema [217.211.194.138].
+Thu Oct  6 21:51:10 2005::EOF encountered on socket read.
+Thu Oct  6 21:51:10 2005::Losing descriptor without char.
+Thu Oct  6 21:51:24 2005::EOF encountered on socket read.
+Thu Oct  6 21:51:24 2005::Losing descriptor without char.
+Thu Oct  6 21:51:44 2005::Losing descriptor without char.
+Thu Oct  6 21:52:55 2005::Losing descriptor without char.
+Thu Oct  6 21:53:37 2005::EOF encountered on socket read.
+Thu Oct  6 21:53:37 2005::Losing descriptor without char.
+Thu Oct  6 21:53:46 2005::Quinthel [ ? @217.211.194.138] has reconnected.
+Thu Oct  6 21:53:59 2005::Kvark [ ? @127.0.0.1] has connected.
+Thu Oct  6 21:54:05 2005::Losing descriptor without char.
+Thu Oct  6 21:54:06 2005::Losing descriptor without char.
+Thu Oct  6 21:54:12 2005::Palindor [ ? @217.211.194.138] has connected.
+Thu Oct  6 21:55:18 2005::Losing descriptor without char.
+Thu Oct  6 21:56:29 2005::Losing descriptor without char.
+Thu Oct  6 21:57:41 2005::Losing descriptor without char.
+Thu Oct  6 21:58:29 2005::Losing player: Palindor [217.211.194.138].
+Thu Oct  6 21:58:38 2005::Losing descriptor without char.
+Thu Oct  6 21:58:53 2005::Losing descriptor without char.
+Thu Oct  6 22:00:04 2005::Losing descriptor without char.
+Thu Oct  6 22:01:16 2005::Losing descriptor without char.
+Thu Oct  6 22:02:27 2005::Losing descriptor without char.
+Thu Oct  6 22:03:42 2005::Losing descriptor without char.
+Thu Oct  6 22:04:53 2005::Losing descriptor without char.
+Thu Oct  6 22:06:20 2005::Losing descriptor without char.
+Thu Oct  6 22:06:37 2005::EOF encountered on socket read.
+Thu Oct  6 22:06:37 2005::Closing link to: Qensh [217.211.194.138].
+Thu Oct  6 22:06:37 2005::EOF encountered on socket read.
+Thu Oct  6 22:06:37 2005::Losing player: Kazsh [217.211.194.138].
+Thu Oct  6 22:06:37 2005::EOF encountered on socket read.
+Thu Oct  6 22:06:37 2005::Losing player: Qene [217.211.194.138].
+Thu Oct  6 22:07:32 2005::Losing descriptor without char.
+Thu Oct  6 22:08:25 2005::EOF encountered on socket read.
+Thu Oct  6 22:08:25 2005::Losing descriptor without char.
+Thu Oct  6 22:08:44 2005::Losing descriptor without char.
+Thu Oct  6 22:08:57 2005::Choa [ ? @64.24.201.107] has connected.
+Thu Oct  6 22:10:01 2005::Closing link to: Quinthel [217.211.194.138].
+Thu Oct  6 22:10:01 2005::Quinthel [ ? @81.228.150.218] has reconnected.
+Thu Oct  6 22:10:40 2005::Closing link to: Drekster [217.211.194.138].
+Thu Oct  6 22:10:40 2005::Drekster [ ? @81.228.150.218] has reconnected.
+Thu Oct  6 22:10:55 2005::Closing link to: Kashron [217.211.194.138].
+Thu Oct  6 22:10:55 2005::Kashron [ ? @81.228.150.218] has reconnected.
+Thu Oct  6 22:11:46 2005::Donk [ ? @130.240.198.239] has connected.
+Thu Oct  6 22:11:48 2005::Losing descriptor without char.
+Thu Oct  6 22:12:16 2005::Palindor [ ? @81.228.150.218] has connected.
+Thu Oct  6 22:13:28 2005::Drak [ ? @62.166.207.98] has connected.
+Thu Oct  6 22:13:43 2005::EOF encountered on socket read.
+Thu Oct  6 22:13:43 2005::Closing link to: Drak [62.166.207.98].
+Thu Oct  6 22:13:47 2005::Rhakon [ ? @62.166.207.98] has connected.
+Thu Oct  6 22:16:32 2005::Losing player: Kito [217.211.194.138].
+Thu Oct  6 22:16:55 2005::EOF encountered on socket read.
+Thu Oct  6 22:16:55 2005::Closing link to: Palindor [81.228.150.218].
+Thu Oct  6 22:17:06 2005::Losing descriptor without char.
+Thu Oct  6 22:17:16 2005::Losing player: Palindor [81.228.150.218].
+Thu Oct  6 22:17:23 2005::Palindor [ ? @81.228.150.218] has reconnected.
+Thu Oct  6 22:18:41 2005::Losing player: Choa [64.24.201.107].
+Thu Oct  6 22:18:53 2005::Lazorus [ ? @64.24.201.107] has connected.
+Thu Oct  6 22:19:25 2005::idle rent for Borix in 13810.
+Thu Oct  6 22:19:25 2005::Losing player: Borix [217.211.194.138].
+Thu Oct  6 22:19:31 2005::Guthar [ ? @84.23.132.122] has connected.
+Thu Oct  6 22:20:41 2005::Closing link to: Fotenak [217.211.194.138].
+Thu Oct  6 22:20:41 2005::Fotenak [ ? @81.228.150.218] has reconnected.
+Thu Oct  6 22:21:04 2005::Losing player: Donk [130.240.198.239].
+Thu Oct  6 22:21:15 2005::Kais [ ? @64.24.201.107] has connected.
+Thu Oct  6 22:21:18 2005::Write to socket error
+Thu Oct  6 22:21:18 2005::Write to socket error
+Thu Oct  6 22:21:18 2005::Write to socket error
+Thu Oct  6 22:21:18 2005::Write to socket error
+Thu Oct  6 22:21:18 2005::Write to socket error
+Thu Oct  6 22:22:54 2005::Losing player: Bajs [217.211.194.138].
+Thu Oct  6 22:23:24 2005::EOF encountered on socket read.
+Thu Oct  6 22:23:24 2005::Closing link to: Rhakon [62.166.207.98].
+Thu Oct  6 22:23:26 2005::Losing player: Quinthel [81.228.150.218].
+Thu Oct  6 22:23:29 2005::Drahk [ ? @62.166.207.98] has connected.
+Thu Oct  6 22:23:58 2005::EOF encountered on socket read.
+Thu Oct  6 22:23:58 2005::Closing link to: Guthar [84.23.132.122].
+Thu Oct  6 22:24:09 2005::Retham [ ? @84.23.132.122] has connected.
+Thu Oct  6 22:24:21 2005::Losing player: Kais [64.24.201.107].
+Thu Oct  6 22:25:39 2005::idle rent for Qensh in 4819.
+Thu Oct  6 22:26:21 2005::EOF encountered on socket read.
+Thu Oct  6 22:26:21 2005::Closing link to: Kvark [127.0.0.1].
+Thu Oct  6 22:26:22 2005::EOF encountered on socket read.
+Thu Oct  6 22:26:22 2005::Closing link to: Drahk [62.166.207.98].
+Thu Oct  6 22:26:54 2005::idle rent for Kvark in 888.
+Thu Oct  6 22:27:32 2005::Drok [ ? @62.166.207.98] has connected.
+Thu Oct  6 22:31:33 2005::Losing descriptor without char.
+Thu Oct  6 22:31:35 2005::Mankara [ ? @194.237.146.151] has connected.
+Thu Oct  6 22:32:17 2005::Write to socket error
+Thu Oct  6 22:32:17 2005::Write to socket error
+Thu Oct  6 22:32:17 2005::Write to socket error
+Thu Oct  6 22:33:09 2005::idle rent for Drak in 17140.
+Thu Oct  6 22:37:16 2005::Kvark [ ? @127.0.0.1] has connected.
+Thu Oct  6 22:37:43 2005::EOF encountered on socket read.
+Thu Oct  6 22:37:43 2005::Closing link to: Drok [62.166.207.98].

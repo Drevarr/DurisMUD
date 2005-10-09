@@ -1,0 +1,224 @@
+SHIPS
+
+	Table of Contents for Ships
+-------------------------------------
+
+  SHIP1	-  This talks about the basics of how the ship navigation works
+
+  SHIP2	-  This explains how the combat system works on ships
+
+  SHIP3	-  This explains how to buy and configure a ship
+
+  SHIP4 -  List of all ship commands
+
+  SHIP5	-  Part 2 of ship commands
+#
+SHIP1
+
+  The ship system works on a priciple of speed and heading.  What this means
+is that if you set your ship to a certain speed, it will continue moving
+until the speed is set to 0.  Heading is the direction that the ship is
+pointing and hence will be the direction the ship will be travelling. 
+Heading is done from a 0-360 degree circle with north being 0, east being
+90, south being 180, and west being 270.
+
+  Also  affecting the ships is acceleration and turn rate.  When a speed is 
+set, theship does not immediately jump to that speed, it has to accelerate to 
+the set speed.  Acceleration is faster on smaller ships with large sails than 
+a large ship with small sails.  On the same note, when a heading is set, the
+ship does not immediatly face that direction, it has to turn to that
+direction, this is the turn rate.  Turn rate is higher on smaller ships than
+large Dreadnaughts, so theoretically a small fast Clipper can run circles
+around a Galleon.  Turn rate is also affected by the speed of the ship, the
+faster a ship is traveling the slower they turn, and below a minimum speed,
+the ship also turns slower so it is best to maintain a medium speed for best
+maneuverability.
+#
+SHIP2
+
+  Combat on the ship system works on the priciple of firing arcs, range,
+targets, and damage.  You might be asking what are firing arcs, but it's 
+simple, firing arcs are the direction your weapons are pointing on your ship.  
+For example, a ballistae mounted on your Port(Left) side is pointing to the 
+ship's left, so if the target is on the right side, it is out of that particular weapon's
+arc.  The fore and rear arcs are both 45 degree arcs and the port(left) and
+starboard(right) are 120 degree arcs, so if weapons are mounted only on
+the forward arc, that means the ship only has a cone of fire 45 degrees in
+the front.  If a ship has weapons on all four parts of the ship it can
+basically shoot in any direction.
+
+  Each weapon has a Short, Medium, and Long range to them.  What this means
+is that a Large Ballistae which might have a Short range of 5, Medium of 10,
+and long of 15 can shoot targets as far as 15 squares away, as the ship gets
+closer to the targat and gets within 10 squares, the ship will have a better
+chance of hitting the target, if the gargets gets within 5 squares, it will
+be an almost sure hit.
+
+  When fighting on the oceans a target must be set for your weapons where
+the crew will try to keep them in the weapon's sight.  A Ship can only be
+locked on to one target at a time, but can retarget to another ship at any
+time.
+
+  And last, we come to the wonderful world of DAMAGE, where duris shines in
+all its glory.  When a ship is hit, it is hit on one of the four sides of a
+ship.  Each side of a ship has two types of HP, one is the armor.  Armor is
+made to take damage, as long as a ship has armor, its weapons and insides
+are protected, once the ship's armor is blasted away however, damage goes to
+the internal structure of the ship.  Internal structure is basically the
+framework of the ship, hits in the internal structure can cause critical
+hits where it knocks the crew to the ground or even destroys weapons.  Once
+all the internals of a side are gone, the ship is taking on water, but not
+enough to sink it, but enough to immobilize it.  Once two internal structure
+sides are blown away, the ship no longer can float and will sink.  If the
+ship is fast enough and doesn't want to get blown up, they have the choice
+of running, but be warned, the rear of a ship has about half the armor and
+has more delicate structure than the rest of the ship (Like the Rudder) so
+the ship will be quite vulnerable there.  Also when a ship gets hit, it has
+a chance of getting hit in the sails which makes the ship not able to move
+as fast (can't move if your sails have big holes in it), and even possibly,
+with enough hits get completely destroyed, making the ship dead in the
+water.
+
+One more thing, when a weapon is fired it will take approx 30 seconds to
+reload.
+#
+SHIP3
+
+  Ok so you've got the money to spend, now it's time to talk about money
+sink known as the ship shops.  Here you will find people who will build you
+a better, bigger, stronger, faster ship. They have the parts, they have the 
+technology, they have the power.  The first think to do if you do not already 
+own a ship, is to buy a hull.  Hulls are the basic foundation of a ship, it's 
+where you will mount your one peashooter small ballistae on your sloop, it's 
+where you will place a sail on the ship, and it's where you'll have great fun 
+becoming a full fledged pirate.  To say the least, the larger the hull, the more
+things you can put on it, but one thing to be warned of is, the larger the
+hull, the larger the sail you will need to make the darned thing move an
+inch...  and you know what that means boys and girls.. MONEY!  Be prepared
+to spend your life savings of allowances here for it will cost you an arm
+and a leg to get a Dreadnaught with decent sails and enough firepower to
+wipe out Tharnadia without breaking a sweat, and then some.  After you have
+bought your hull, you MUST equip it with a sail at the very minimum,
+otherwise it won't move. (I'm sorry but paddling a Galleon with your hands
+isn't gonna work) After you buy the sails, now you can buy weapons if you
+have room left.  Take careful consideration where you place weapons.  If you
+place them all in the front, all your other sides will be vulnerable to
+attack.  It's best to configure your ship the way you sail, if you're a
+frontal attack person, then by all means mount them there, if you're a
+sneaky person and mount all your weapons in the back so that fool who's
+headed on a collision course runs past you leaving their rear exposed will
+get their ass kicked (literally), then that's up to you as well.  Once you
+own a ship and decide that your ship isn't big enough, you can opt to
+upgrade the ship (kinda like a remodel).  Upgrading your hull will cost you,
+but not the full cost of a new hull, so you won't lose your entire
+investment.  Also, existing weapons won't be lost either.
+#
+SHIP4
+
+	List of all on Ship commands
+-------==============================--------
+
+Orders - syntax 'Order <subcommand> parameters'
+=======---------------------
+speed <number>
+  - This will set your speed to a specific speed.  (your ship must
+    (d)accelerate to the set speed though)
+
+heading <number or N/E/S/W>
+  - This will change your direction to the specified heading.
+    
+    Headings:
+    North = 0
+    East  = 90
+    South = 180
+    West  = 270
+
+    Note: Remember kids, your ships don't turn instantly, so don't cry bug
+          if the ship crashes while you are running aground and type a
+          heading change at the lase second.
+
+maneuver <N/E/S/W>
+  - This will maneuver your ship into and out of docks.  Since you can't use
+    your sails inside a dock, you maneuver with paddles, ropes, slaves,
+    whatever.  What this means is to move out to the open ocean (map), you
+    must maneuver until you are on the map, and then you can use speed and
+    heading from there.  Conversly, you also use the maneuver command to
+    dock, since using sails will make you crash.  To dock, move your ship
+    next to a dockable place then 'order maneuver <direction of dockable
+    place>' and your ship will dock.  You must be at speed 10 or below to
+    maneuver.
+
+undock 
+  - If your ship is docked, your crew must undock the ship before it can
+    sail.  Your first officer will go through a checklist and when he's 
+    done you can maneuver or sail away.
+-------------------------------------
+SEE SHIP5 for next page.
+#
+SHIP5
+
+Misc commands - syntax is just typing the command with any parameters.
+==============----------------------------
+look <status/ship>
+  - This will show you a detailed status of your ship with HPs and weapon
+    status (whether its reloading or ready to fire) and ammo remaining.  It
+    will also show your position, speed, heading and target(if any)
+
+look weaponspec
+  - This will show you the specifications of all your weapons.  It will show
+    their weapn ranges and damage each shot will do as well as if the weapon is
+    destroyed or not.
+
+look sight <weapon number>
+  - If your have a target this command will show you your percentage to hit
+    the target with that particular weapon.
+
+look tactical (optional parameters are <X> <Y>)
+  - This will show you a tactical map centered on you.  It is displayed as a
+    hex grid and any nearby ships will be displayed according to their ID. 
+    If the optional parameters <X> and <Y> are given the map will center on
+    that coord if it is within 35 hexes.
+
+Combat Commands - syntax is just typing the command with any parameters
+================------------------------------
+look contacts
+  - This will display a list of all ships within a 35 square radius of your
+    ship.  This is the heart of getting info on your target.The list is broken 
+    into several parts and will look kinda like this:
+
+    Contact listing
+    ===============================================
+    [AN] 'NorgDog'         X:53  Y:50  Z:0   R:3.0   B:90  H:0   S:0 |S
+
+    AN is the ship's ID this is the parameter you pass to lock to lock onto
+    this target.
+
+    'Norgdog' is the ship's name.
+
+    X:53 and Y:50 are their x, y coords on your tactical map, so if you do a
+    'look tactical 53 50', it will center the map on Norgdog.
+
+    R:3.0 is Range, so in this case, Norgdog is 3 Squares from you.
+
+    B:90 is their bearing to you, so in this case, Norgdog is to your east 
+    since 90 is east, so if you were to head east, you would be facing
+    Norgdog.
+
+    H:0 is Norgdog's heading.. so in this case, Norgdog is facing north
+    since 0 is North.
+
+    S:0 is Norgdog's speed so in this case, its not moving since it's 0.
+
+    Last but not least is the S, which means it is on your starboard firing
+    arc so if you have any weapons on your starboard side, they can fire at
+    Norgdog.
+
+lock <ID>
+  - This will set your target to the ID, so in the above contact example, if
+    you typed 'lock AN', it would lock onto Norgdog.
+
+fire <weapon number>
+  - This is the happy time command.  This will fire the weapon at the
+    specified target, only if the target is within range, and in the
+    weapon's firing arc.
+#
