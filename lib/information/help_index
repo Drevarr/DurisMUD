@@ -5274,6 +5274,15 @@ monk improves.
 See also: Monk
 
 #
+FLAME  (General Information)
+===========================================================================
+To "flame" someone is to insult them without provocation.  Due to Duris 
+competitive nature, occasional "flaming" is to be expected, though rampant 
+flaming is discouraged and in some cases moderated.
+===========================================================================
+See also: KENON
+
+#
 FLAMEBURST (Spell)
 ===========================================================================
 Area of effect: <victim>
@@ -8310,6 +8319,23 @@ Calls upon the powers of Kanchelsis to increase attack speed, granting extra
 hits and attacks in battle for a limited period of time.
 ===========================================================================
 See also: FLURRY, BLUR, HASTE
+
+#
+KENON (General Information)
+===========================================================================
+Realizing their mistake with the Kvark language script, the coders modified 
+it to produce more coherent English.  Though much easier to understand, the 
+Kenon language script is also not without its flaws.  Due to memory
+restrictions, the range of Kenons pronouncements is rather limited.  This
+often causes Kenon to repeat itself multiple times like a broken record
+because it is incapable of storing more than one response at a time.  Upon
+reboot Kenon develops a new grammatically correct response it repeats until
+its next reboot weeks later.  With the coders growing skills, and the
+ability to learn from the past failures of both the Kvark and Kenon
+scripts, the next attempt at an intelligent language script should be
+successful.
+===========================================================================
+See also: SPAM, FLAME
 
 #
 KICK
