@@ -103,6 +103,14 @@ in battle.
 ===========================================================================
 
 #
+"ADVANCED MEDITATION" (&+REpic Skill&n)
+===========================================================================
+This ability allows the individual to sink into a deeper form of meditation,
+allowing them to further communicate with their body and aid it's healing 
+process.
+===========================================================================
+
+#
 AFK BRB BBL (World Command)
 ===========================================================================
 Common acronyms used by players. These terms are commonly used on Duris by
@@ -300,6 +308,16 @@ This skill allows Brigands (specialized Mercenaries) to stay hidden
 for a surprise attack, even while preparing themselves for battle.
 ===========================================================================
 See also: HIDE, BRIGAND
+
+#
+ANATOMY (&+REpic Skill&n)
+===========================================================================
+When an individual chooses to focus their expertise in this skill area, 
+they gain the ability to direct their attacks at certain areas of the body, 
+inducing some potentially nasty side effects. It is also rumored that those 
+with a healing ability learn to become much more thorough at applying their 
+craft.
+===========================================================================
 
 #
 ANIMALIST (Specialization)
@@ -842,6 +860,14 @@ begin fighting whomever (or whatever) they are fighting. It is useful to
 prevent possibly deadly mistakes if there is more than one of a particular
 monster in a room.
 ===========================================================================
+
+#
+ASTRAL AFFINITY (Innate Ability)
+===========================================================================
+As the Psycheporter progresses in power, the inhabitants of his native 
+plane become enamoured with him, and therefore resist the urge to attack.
+===========================================================================
+See also: PSYCHEPORTER, PLANE SHIFT
 
 #
 "AURA SIGHT" (Spell)
@@ -1940,6 +1966,14 @@ Type of spell:  Generic
 "Channel Negative Energy" causes a huge blast of raw negative planar energy
 to emanate from the caster, striking his victim. The target suffers
 considerable damage, and his lost vitality is transferred to the caster.
+===========================================================================
+
+#
+"CHANT MASTERY" (&+REpic Skill&n)
+===========================================================================
+This mighty ability gives the mage the ability to improve upon the casting 
+time required for spells, offering a slight chance that the spellcast can 
+be sped up greatly.
 ===========================================================================
 
 #
@@ -3464,7 +3498,7 @@ magical items.
 ===========================================================================
 
 #
-"DETONATE" (Spell)
+"DETONATE", "IMPROVED DETONATE (Pyrokinetic)" (Spell)
 ===========================================================================
 Area of effect: <victim>
 Aggressive:     Yes
@@ -3473,7 +3507,8 @@ Duration:       Instantaneous
 Type of spell:  Generic
 
 This terribly destructive spell cause the victims body to be enveloped in a
-series of painful focused explosions.
+series of painful focused explosions. If the caster is specialized as a
+Pyrokinetic, the damage is more focused, and much harder to avoid.
 ===========================================================================
 
 #
@@ -3764,11 +3799,12 @@ surrounding the victim or remove any enchantments on an object.
 ===========================================================================
 
 #
-"DISPERSE FLAMES" (Skill)
+"DISPERSE FLAMES" (Reflexive Skill)
 ===========================================================================
-This spell will allow the character to disperse some of the heat off 
-offensive fire based attacks lowering the damage by a significant amount.
+When in a state of pure mental focus, the Pyrokinetic can twist and bend
+any fire based onslaught, negating the damage entirely. 
 ===========================================================================
+See also: FIRE AURA, FLAME MASTERY
 
 #
 DISPLAY (Command)
@@ -4630,6 +4666,29 @@ by primal fury to cast spells.
 ===========================================================================
 
 #
+ENSLAVER (General Information) [Specialization]
+===========================================================================
+When the Psionicist chooses this path, they regress into the ways of 
+their Illithid captors, and use their willpower to subjugate lesser races
+to do their bidding. It is also rumored that they can use their powers to
+further pry into their victim's mind, causing some nasty side effects.
+
+Skills
+---------------------------------------------------------------------------
+none!
+
+Innate Abilities
+---------------------------------------------------------------------------
+41st level:    improved psychic crush
+
+Spells
+---------------------------------------------------------------------------
+6th circle:    awe
+12th circle:   spinal corruption
+===========================================================================
+See also: PSIONICIST, WILL, AWE, IMPROVED PSYCHIC CRUSH
+
+#
 "ENTANGLE" (Spell)
 ===========================================================================
 Area of effect: <victim>
@@ -4658,6 +4717,29 @@ fear can cause anyone not grouped with the caster to flee in terror in a
 random direction.  
 ===========================================================================
 See also: "CLOAK OF FEAR"
+
+#
+EPIC
+===========================================================================
+Once a character reaches level 50, they can begin to accumulate Epic Points. 
+You can gain these points from either finding and touching the may 
+runestones and monoliths hidden about the lands, or by tasting the blood of 
+your enemies. The epic points will accumulate, and once you reach a certain 
+amount you will gain a skill point. Skill points can be used for several 
+things in the realms, most notably the advancement of epic skills. The epic 
+skills list as follows:
+
+&+WAnatomy
+&+WAdvanced Meditation
+&+WSummon Blizzard
+&+WChant Mastery
+&+WSummon Familiar
+&+WHone Weapon&n
+
+It is also rumored that 50 Epic Points are required to venture into the 
+realm of multiclassing, and that skill points have the capability to reset 
+one's chosen path.
+===========================================================================
 
 #
 "ESHABALAS VITALITY" (Spell)
@@ -5193,6 +5275,20 @@ sizable damage.
 ===========================================================================
 
 #
+"FIRE AURA" (Spell)
+===========================================================================
+Area of effect: <caster>
+Aggressive:     No
+Cumulative:     No
+Duration:       Dependent on proficiency of caster
+Type of spell:  Generic
+
+When the Pyrokinetic unleashes his focused mind upon the plane of fire, 
+the plane itself will bend to his will, infusing him with some or all
+of the abilities inherent to the plane of fire.
+===========================================================================
+
+#
 "FIRE MAGUS" (Specialization)
 ===========================================================================
 The Fire Magus concentrates on offensive magic by using the element of 
@@ -5310,11 +5406,11 @@ This spell summons a blade of pure flame to appear for the Druid to wield.
 #
 "FLAME MASTERY" (Skill)
 ===========================================================================
-This skill grants the character the ability to intercept fire based 
-attacks and to hurl them back at their foes. The chance of success rises
-with skill and level of the character.
+Similar to the DISPERSE FLAMES ability, the Pyrokinetic calls upon the
+force of his willpower to redirect any fire based attack inflicted on
+theirself to their opponent.
 ===========================================================================
-
+See also: FIRE AURA, DISPERSE FLAMES
 
 #
 "FLAME STRIKE" (Spell)
@@ -11038,7 +11134,33 @@ Equipment usage: Psionicists have their own classification of item
 See also: GITHYANKI, MAGIC-USER, SKILL_PSIONICIST
 
 #
-"PSYCHIC CRUSH" (Spell)
+PSYCHEPORTER (General Information) [Specialization]
+===========================================================================
+Some Psionicists grow bored with the inability to efficiently travel between
+the planes, therefore a small sect has chosen to enhance their transit
+abilities. These astral travelers, or Psycheporters, have many means of
+improved transit at their disposal. They have also learned a means to travel
+on their native plane with little or no threat to themselves.
+
+Skills
+---------------------------------------------------------------------------
+none!
+
+Innate Abilities
+---------------------------------------------------------------------------
+30th level:     astral affinity
+46th level:     spacial focus
+
+Spells
+---------------------------------------------------------------------------
+12th circle:   thought beacon
+
+===========================================================================
+See also: PSIONICIST, WILL, SPACIAL FOCUS, ASTRAL AFFINITY, TELEPORT,
+IMPROVED WORMHOLE, THOUGHT BEACON
+
+#
+"PSYCHIC CRUSH" "IMPROVED PSYCHIC CRUSH" (Spell)
 ===========================================================================
 Area of effect: <victim>
 Aggressive:     Yes
@@ -11133,6 +11255,34 @@ Type of Spell:  Fire
 A blast of fire that emits from the reaver to the room, causing a massive
 amount of fire damage to those in the room not in the reaver's group.
 ===========================================================================
+
+#
+PYROKINETIC (General Information) [Specialization]
+===========================================================================
+Upon choosing the path of Pyrokinetic, the psionicist is imbued with the
+willpower to manipulate the flame. Under the effect of such pure focus, he
+or she can greatly reduce/negate the damage from any fire based attack, or
+at higher levels, absorb it completely. Also, due to their superior focus,
+they can channel the power of flames directly through their detonates,
+making them much more deadly.
+
+Skills
+---------------------------------------------------------------------------
+41st level:     disperse flames
+
+46th level:     flame mastery 
+
+Innate Abilities
+---------------------------------------------------------------------------
+30th level:     fireshield, protection from fire
+
+Spells
+---------------------------------------------------------------------------
+7th circle:    improved detonate
+12th circle:   confuse, fire aura
+
+===========================================================================
+See also: PSIONICIST, WILL, FLAME MASTERY, DISPERSE FLAMES, FIRE AURA
 
 #
 PYTHONSTING (Spell)
@@ -14981,6 +15131,17 @@ taking the potency for its own.
 See also: DEATHLORD
 
 #
+SPACIAL FOCUS (Innate Ability)
+===========================================================================
+With the power of this ability, the Psycheporter can open his mind to a
+much wider range of wormhole targets within a certain distance. They have 
+also learned more ways to sustain their wormholes for longer periods, 
+therefore they can handle a greater volume of travelers for a longer period 
+of time. 
+===========================================================================
+See also: WORMHOLE, DIMENSION DOOR
+
+#
 SPAM
 ===========================================================================
 "Spam" is a term used to describe repetitive or excessive scrolling of
@@ -15207,9 +15368,8 @@ Type of spell:  Enchantment
 
 Using the power of his mind, the caster disrupts the victims' brains'
 ability to communicate with the rest of his central nervous system.
-This causes the victim to collapse to the ground in an impotent heap,
-unable to move.  As an added side effect, the victim could also go
-blind.
+This causes the victim to have trouble travelling about, and
+in extreme cases, makes it harder for them to escape from combat.
 ===========================================================================
 
 #
@@ -15672,6 +15832,15 @@ the beast itself is based on the caster's proficiency.
 See also: "GREATER SUMMON BEAST"
 
 #
+"SUMMON BLIZZARD" (&+REpic Skill&n)
+===========================================================================
+Choosing this epic power will grant the user the ability to call upon 
+a fierce blizzard, which will blanked the area in a powerful snowstorm. 
+Rumor says that if coupled with extreme heat, the snow will melt, 
+drenching his victims in a wet slush.
+===========================================================================
+
+#
 "SUMMON BOOK" (Innate)
 ===========================================================================
 Syntax: summon book
@@ -15955,6 +16124,21 @@ it's beautiful forest filled with a variety of animal life, ponds and
 walking trails.
 ===========================================================================
 See also: HOMETOWNS
+
+#
+"THOUGHT BEACON" (Psycheporter Spell)
+===========================================================================
+Area of effect: <room>
+Aggressive:     No
+Cumulative:     No
+Duration:       Until caster quits the game.
+Type of spell:  Generic
+
+This spell allows the caster to focus his mind into a particular room, leaving
+a psychic residue that allows the caster to travel to that room freely,
+without need for a target.
+===========================================================================
+See also: MOONSTONE, WORMHOLE, PSYCHEPORTER, ETHER WARP
 
 #
 TEACH
