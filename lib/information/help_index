@@ -1,4 +1,4 @@
-last update: 30 December 05 (See VERSION)
+last update: 12 January 06 (See VERSION)
 
 #
 "ABOMINAL CONSUMPTION" (Skill)
@@ -2453,7 +2453,7 @@ each one.
   BUG IDEA TYPO         CONSENT                DISPLAY
   EMOTE :               GSAY                   IGNORE
   LANGUAGES             PASSWORD               PETITION
-  READ                  BOARD                  DELETE REPEAT !
+  READ                  BOARD                  DELETE REPEAT
   SHOUT                 SCORE ATTRIBUTES       SAY TELL WHISPER ASK '
   TOGGLE                WRITE                  
 ===========================================================================
@@ -12069,17 +12069,7 @@ time you enter the game, you'll start out at the inn where you rented.
 See also: INNS, CAMP, QUIT, REIMBURSEMENT, IDLE
 
 #
-RENT PET
-===========================================================================
-To rent a pet/mount go to the pet shop or stable in your town and type rent
-pet, or offer pet to get the cost first. The pet shop owner will then give
-you a claim ticket for your pet. DO NOT LOSE THIS TICKET or you will NEVER
-be able to reclaim your pet.
-===========================================================================
-See also: PET, RENT, BUY
-
-#
-REPEAT !
+REPEAT (General Information)
 ===========================================================================
 The "!" command lets you repeat the last command typed at the keyboard.
 ===========================================================================
@@ -13073,11 +13063,16 @@ If you don't like cargo: "help SHIP_LOOKS"
 Note: When a weapon is fired it will take approx 30 seconds to reload. 
 
 Note: As a last resort you can RAM the other ship, which does massive 
-damage to both. 
+damage to both.
+Syntax:  Order Ram
+You need to be moving fast for this to work.
 
 Note: Many players will disembark their own ship after they immobilize 
 yours, and then board yours to kill you AND your destroy your ship 
-afterwards. You can also do this yourself (just don't die on THEIR ship). 
+afterwards. You can also do this yourself (just don't die on THEIR ship).
+
+After Sinking a ship, use the command "Get Money" to collect the prize
+money for sinking your enemy.
 
 =========================================================================== 
 See also: SHIP_LOOKS, SHIP_COMMANDS, SHIP
@@ -13170,8 +13165,8 @@ Buy Sail <*>
 Buy Weapon <*> <F/R/P/S>
 Buy Cargo <*>
 Sell Cargo
-Repair <armor/internal/sail/weapon> <F/R/P/S>
-Reload <Weapon *>
+Repair <armor/internal/sail/weapon> <F/R/P/S/All>
+Reload <Weapon */All>
 Enter *.ship -or- Enter <owner name> -or- Enter *.<shiptype>
 
 Commands on a Ship
@@ -13181,6 +13176,7 @@ Order Maneuver <D>
 Order Heading <*> or <D> - * is an angle measured clockwise from north
 Order Speed <*>
 Order Anchor
+Order Ram
 
 Look Out
 Look Tactical [X] [Y]
@@ -13188,12 +13184,15 @@ Look Cargo
 Look Status / Look Ship
 Look Weaponspec
 Look Sight <Weapon *>
-Look Contacts 
+Look Contacts
+Look Crew
 
 Lock <ID>
+Lock off
 Scan <ID>
 Fire <Weapon *>
 Frag Ship
+Get Money
 Disembark - only from the edge of a ship for large ships
 ===========================================================================
 See also: SHIP
@@ -13241,8 +13240,12 @@ an indicator of how many other ships are sailing the world, also.
 Look Weaponspec
 ---------------------------------------------------------------------------
 This will show you the specifications of all your weapons. It will show 
-their weapon ranges and damage each shot will do as well as if the weapon is 
-destroyed or not. 
+their weapon ranges and damage each shot will do as well as if the weapon
+is destroyed or not. 
+
+Look Sight <#>
+---------------------------------------------------------------------------
+This will show your percent chance to hit with a specific weapon.
 
 Look Sight <weapon number> 
 ---------------------------------------------------------------------------
@@ -17209,7 +17212,7 @@ that the victim or object has spoken the desired text.
 #
 VERSION (General Information)
 ===========================================================================
-Help Files Last updated: 30 December 2005
+Help Files Last updated: 12 January 2006
 Help Files Last updated by: &+BWeebler&n
 ===========================================================================
 See also: HELP
