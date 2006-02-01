@@ -2290,7 +2290,7 @@ Currency on Duris takes the form of coinage, and there are four types to be
 found: &+Wplatinum&+w, &+Ygold&+w, &+csilver&+w, and &+ycopper&+w.&n
 
 Note: coins are not weightless, so be careful in choosing how much to carry
-around with you.
+around with you.  For example, 750 plat weighs 10 lbs.
 ===========================================================================
 See also: EXCHANGE, BANKS
 
@@ -3875,6 +3875,23 @@ The "Dodge" skill benefits those of all classes by allowing them to
 occasionally dodge attacks from opponents, based on the proficiency of this
 skill.
 ===========================================================================
+
+"Doom Blade" (Spell)
+===========================================================================
+Area of effect: <caster>
+Aggressive:     No
+Cumulative:     No
+Duration:       Forever
+Type of spell:  Summoning
+
+This spell creates a demonically possessed weapon.  The weapon is only
+ususable by &+LReap&+wers&n.  The weapon does moderate damage and massively
+increases the wielders chance to hit his foe.  It is also rumored that
+the weapon will reach into the nenetherorld to summon magical energies to
+assist the &+LReap&+wer&n by negatively affecting his foe.  If the blade is
+dropped, it will disappear and a new one will need to be created.  
+===========================================================================
+See also: REAPER, SKILL_NECROMANCER
 
 #
 DOORBASH (Innate)
@@ -11978,44 +11995,24 @@ target, no matter how far away his target may be.
 ===========================================================================
 
 #
-REMORT (General Information)
+REMORT ASCEND (General Information)
 ===========================================================================
-Necromancers once they have gained their 35th level now are able to use
-their knowledge of death and rebirth to transform and remort themselves 
-into new and more powerful forms. 
+The <ascend/remort> command is available to Paladins and Evil Necromancers
+once they have gained their 50th level.  They spend 50 epic points to
+become a new class (and race for necromancers) at the spec teacher for
+their class.
 
 Remort'ed characters retain their pre-remorted character statistics, but
-because of their new forms they are now unwelcome and treated as outcast,
-shunned and deviled from their original places of birth. They remain as one
-with their racewar side, but can never return to the busy hometowns they
-knew and loved.
+all previous choices the mortal has made are unraveled, allowing them to
+choose a new specialization of their liking.
 
-At the necromancer specialist teacher they are able to use the <remort> 
-command to transform themselves into either a wight warrior, a revenant 
-mercenary or a vampire sorcerer. Due to the stress of this resurrection of 
-self they must start over at level 1, and must rebuild their experience as 
-this new race and class. 
+At the necromancer specialist teacher, evils are able to use the <remort> 
+command to transform themselves into a Vampire Dreadlord.
+At the paladin specialist teacher, goodies are able to use the <ascend> 
+command to transform themselves into an Avenger.
 
-When these three new undead classes reach level 50 they may remort again 
-into new powerful races and classes. The following choices open up 
-depending on which choice your first remort was.
-
-Wight warrior may choose:
-      Death Knight anti-paladin
-      Lich dreadlord
-
-Revenant mercenary may choose 
-      Shadow Beast assassin
-      Shade thief
-
-Vampire sorcerer may choose:
-      Phantom conjurer
-      Shade illusionist
-
-Each time a remort happens all previous choices the mortal has made are 
-unraveled allowing them to choose a specialization of their liking.
 ===========================================================================
-See also: NECROMANCER, ANTI-PALADIN, "DEATH KNIGHT", LICH, DREADLORD
+See also: NECROMANCER, VAMPIRE, DREADLORD, AVENGER
 
 #
 REMOVE
@@ -12858,19 +12855,20 @@ period of time.
 See also: GUARDIAN
 
 #
-SHIPS 
+SHIPS
 ===========================================================================
 
-Table of Contents for Ships -Type "Help <Ship_category>" to view 
+Table of Contents for Ships -Type "Help <Ship_category>" to view
 ---------------------------------------------------------------------------
-  SHIP_BASIC      -Buying a ship and preparing to go to sea 
-  SHIP_LIST       -The "List" command when at a docks 
-  SHIP_MOVEMENT   -Moving around in the docks and on the world 
-  SHIP_COMBAT     -Almost everything you need to know about combat 
-  SHIP_CARGO      -Almost everything you need to know about running cargo 
-  SHIP_LOOKS      -All the different ways to "look around" 
-  SHIP_COMMANDS   -A thorough list of all ship commands 
-  
+  SHIP_BASIC      -Buying a ship and preparing to go to sea
+  SHIP_LIST       -The "List" command when at a docks
+  SHIP_MOVEMENT   -Moving around in the docks and on the world
+  SHIP_COMBAT     -Almost everything you need to know about combat
+  SHIP_CARGO      -Almost everything you need to know about running cargo
+  SHIP_LOOKS      -All the different ways to "look around"
+  SHIP_COMMANDS   -A thorough list of all ship commands
+  SHIP_CREWS      -Some extra information about crews
+
 ===========================================================================
 
 #
@@ -12897,6 +12895,47 @@ Next suggested reading: "help SHIP_LIST"
 
 ===========================================================================
 See also: ANSI, TESTCOLOR, SHIP_LIST, SHIP
+
+#
+SHIP_CREWS
+===========================================================================
+In Sarmiz'Duul, you will find a pub that has several crews for hire.
+
+Syntax:
+hire <number> <sail/gun>
+
+-==Sail Crews==-
+Standard Crew        Repair Rating:20      Cost: Free (starting crew)
+Veteran Crew         Repair Rating:30      Cost: 2000 platinum
+Elite Crew           Repair Rating:40      Cost: 5000 platinum
+Repair Crew          Repair Rating:70      Cost: 750 platinum
+-==Gun Crews==-
+Standard Crew        Stamina:70            Cost: Free (starting crew)
+Veteran Archers      Stamina:100           Cost: 2000 platinum
+Elite Catapult Crew  Stamina:130           Cost: 5000 platinum
+Stamina Crew         Stamina:200           Cost: 750 platinum
+
+Veteran crews (of both types) require 500 ship frags to purchase.
+Elite crews require 1000 ship frags to purchase.
+
+It is rumored that an expert machinist has perfected the construction of
+Automoton crews, but most believe this to be just a rumor.
+Under the &+Yremote&n possibility it &+Ywere&n true, it would require an &+RINSANE&n
+number of ship frags for him to even &+Yconsider&n selling you the crews.
+
+Each crew has an experience level that looks like this:  5/10
+The lower number is how much exp your crew currently has, and the higher
+number is the max exp that crew can achieve.
+
+If your ship frags drops below the amount needed to purchase that crew
+you will lose that crew.
+
+At the moment, experience is a reflection of your ship frags:
+200 ship frags = 2 experience.
+500 ship frags = 5 experience.
+
+===========================================================================
+See also: SHIPS
 
 #
 SHIP_LIST
@@ -12940,6 +12979,8 @@ develop your fighting strategy and buy your weapons to match. To buy a
 weapon, you type "buy weapon # <location>" where # is the weapon ID number
 when you type "list" at the docks, and location is the part of the ship you
 wish to place the weapon. 
+
+At the moment, capitol weapons require 2000 ship frags to purchase.
 
 Finally, the commands list at the bottom of the "list" command output a few 
 commands on how to operate the buying, selling, repairing, reloading, etc. 
