@@ -83,7 +83,7 @@ Riding a horse or other mount will make it easier to move across tough terrain.
 Want to see what's for sale?  Try the 'list' command in a shop.
 You take more damage if you're sitting or reclining, so be sure to "stand" if someone knocks you down in battle.
 You can drag a corpse to safety by typing 'drag corpse <direction>'. 
-The 'glance' command allows theives to see equipped items without anyone your target knowing he is being looked at.
+The 'glance' command allows thieves to see equipped items without anyone your target knowing he is being looked at.
 The term 'mob' is short for mobile and refers to any computer-controlled monster.
 Hardcore characters have many advantages, but they are only allowed five deaths.
 Most commands have help files.  Type 'help (command)' to learn how to use game commands.
