@@ -23,9 +23,6 @@ while [ $RESULT != 0 ]; do
     mv logs/log/* logs/old-logs/$DATESTR
   fi
 
-  echo "Creating svn log file.."
-  /usr/bin/svn2cl -f lib/information/changelog.src src
-
   echo "Generating list of function names.."
   nm --demangle dms | grep " T " | sed -e 's/[(].*[)]//g' > lib/event_names
 
