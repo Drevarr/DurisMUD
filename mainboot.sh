@@ -12,6 +12,7 @@ while [ $RESULT != 0 ]; do
     if [ -f src/dms_new ]; then
 			if [ -f dms ]; then
 		  	mv dms dms.$DATESTR
+		  	mv gmon.out gmon.out.$DATESTR
 			fi
       mv src/dms_new dms
     fi
