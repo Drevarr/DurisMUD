@@ -26,11 +26,12 @@ while [ $RESULT != 0 ]; do
   echo "Generating list of function names.."
   nm --demangle dms | grep " T " | sed -e 's/[(].*[)]//g' > lib/event_names
 
-#	if [ -f /usr/local/bin/sendEmail ]; then
-#		/usr/local/bin/sendEmail -t postmaster@angryturnip.com \
-#			-f mud@durismud.com -u "Duris Booting..." \
-#			-m "Mud booting at ${DATESTR}, previous shutdown reason: ${STOP_REASON} [${RESULT}]."
-#	fi
+	if [ -f /usr/local/bin/sendEmail ]; then
+		/usr/local/bin/sendEmail -t postmaster@angryturnip.com \
+			-f mud@durismud.com -u "Duris Booting..." \
+			-m "Mud booting at ${DATESTR}, previous shutdown reason: ${STOP_REASON} [${RESULT}]."
+    sleep 5 # slow down in order to prevent 83284828234 emails from being sent per second
+	fi
 
   echo "Starting duris..."
   ./dms 7777 > dms.out
