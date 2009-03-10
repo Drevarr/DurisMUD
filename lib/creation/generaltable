@@ -9,7 +9,7 @@ CENTAUR  X   X                   X   X
 GREYELF  X   X               X   X       X   X       X       X               	
 DWARF    X                   X                       X   X
 GITHZER                      X           X   X                           X
-HALFLNG  X                   X       X   X           X   X   X               X
+HALFLNG  X   X               X       X   X           X   X   X               X
 ===================================================================================
 TROLL    X                           X                   X
 OGRE     X                           X                 
@@ -20,7 +20,7 @@ DROWELF  X                   X           X   X   X   X       X   X
 ORC      X               X   X           X   X   X   X   X   X   X   X       X   X
 OROG                         X                           X           X 
 ===================================================================================
-MINOTAR  X                           X   X               X
+MINOTAR  X                           X   X               X           X
 THRIKRE  X
 -----------------------------------------------------------------------------------
 Press return to go back to the race selection menu.
