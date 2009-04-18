@@ -1,0 +1,17 @@
+#!/bin/sh
+
+ulimit -c unlimited
+
+  if [ $1 ]; then
+    PORT=$1
+  else
+    PORT=7878
+  fi
+
+  mv src/dms_new dms
+
+  echo "Generating list of function names.."
+  nm --demangle dms | grep " T " | sed -e 's/[(].*[)]//g' > lib/event_names
+
+  echo "Starting duris test enviornment..."
+  gdb -ex "run ${PORT}" dms
