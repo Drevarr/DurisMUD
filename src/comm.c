@@ -342,9 +342,6 @@ void run_the_game(int port)
   //game_up_message(port);
   init_astral_clock();          // fix the map sight distances
 
-  //Clean truman logs in db..
-  sql_clean_truman();
-  
   if (no_random == 0)
     create_randoms();
   else

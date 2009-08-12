@@ -38,8 +38,6 @@ void sql_update_playtime( P_char ch );
 void sql_update_epics( P_char ch );
 void get_log(P_char ch, char *temp);
 void manual_log(P_char ch);
-void sql_save_truman(P_char ch, const char *entry);
-void sql_clean_truman();
 void sql_insert_item(P_char ch, P_obj obj, char *desc);
 void sql_insert_new_item(P_char ch, P_obj obj);
 void perform_wiki_search(P_char ch, const char *buf);
@@ -69,7 +67,6 @@ void update_zone_db();
 void update_zone_epic_level(int,int);
 
 void show_frag_trophy(P_char ch, P_char who);
-void sql_update_news(const char *entry);
 
 string get_mud_info(const char *name);
 void send_mud_info(const char *name, P_char ch);

@@ -108,16 +108,8 @@ int sql_quest_trophy(P_char giver)
 int sql_shop_trophy(P_obj obj){
 	return -1;
 }
-void sql_clean_truman()
-{
-}
-
 int sql_shop_sell(P_char ch, P_obj obj, int value){
-return -1;
-}
-void sql_save_truman(P_char ch, const char *entry)
-{
-  
+  return -1;
 }
 void sql_world_quest_finished(P_char ch, P_char giver, P_obj obj)
 {
@@ -162,10 +154,6 @@ void show_frag_trophy(P_char ch, P_char who)
 {
   send_to_char("Disabled.", ch);
 }
-void sql_update_news(const char *entry)
-{
-}
-
 void sql_log(P_char ch, char * kind, char * format, ...)
 {
 }
@@ -339,38 +327,6 @@ void sql_save_progress(int pid, int delta, const char *type)
   db_query("INSERT INTO progress VALUES( 0, %d, '%s', NOW(), %d )",
            pid, type, delta);
 }
-
-void sql_clean_truman()
-{
-  //fprintf(stderr, "Starting cleaning truman logs..\r\n");
-  //db_query("DELETE FROM TRUMAN_FILE where insert_time < DATE_SUB(CURDATE(), INTERVAL 1 DAY)");
-  //fprintf(stderr, "Done cleaning truman logs..\r\n");
-}
-void sql_save_truman(P_char ch, const char *entry)
-{
- char     entry_sql[MAX_STRING_LENGTH];
-
- mysql_str(entry, entry_sql);
- 
- db_query("DELETE FROM TRUMAN_FILE where insert_time < DATE_SUB(CURDATE(), INTERVAL 1 DAY) and pid=%d",
-                   GET_PID(ch)); 
- 
- db_query("INSERT INTO TRUMAN_FILE VALUES( null, %d, '%s', NOW(), '%s' )",
-                   GET_PID(ch), GET_NAME(ch), entry_sql);
-}
-
-
-void sql_update_news(const char *entry)
-{
- char     entry_sql[MAX_STRING_LENGTH];
-  
-
-  db_query_nolog    ("INSERT INTO DURIS_INFORMATION VALUES( null, 'NEWS', ''");
-
-  mysql_str(entry, entry_sql);
-   db_query("UPDATE DURIS_INFORMATION SET INFORMATION = '%s' where TYPE = 'NEWS' ",  entry_sql);
-}
-                                          
 
 /* Save frags delta */
 void sql_modify_frags(P_char ch, int gain)
