@@ -870,7 +870,9 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
 // Non multi-class mobs exp modifiers are below.
     if(!IS_MULTICLASS_NPC(victim))
     {
-      if(GET_CLASS(victim, CLASS_WARRIOR))
+      if(GET_LEVEL(victim) < 15)
+      { }
+      else if(GET_CLASS(victim, CLASS_WARRIOR))
         XP *= 0.50;
       else if(GET_CLASS(victim, CLASS_MERCENARY))
         XP *= 0.50;
@@ -889,9 +891,9 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
       else if(GET_CLASS(victim, CLASS_PSIONICIST))
         XP *= 1.25;
       else if(GET_CLASS(victim, CLASS_PALADIN))
-        XP *= 0.75;
+        XP *= 1.25;
       else if(GET_CLASS(victim, CLASS_ANTIPALADIN))
-        XP *= 0.90;
+        XP *= 1.25;
       else if(GET_CLASS(victim, CLASS_ETHERMANCER))
         XP *= 1.15;
       else if(GET_CLASS(victim, CLASS_BERSERKER))
@@ -905,6 +907,13 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
       else if(GET_CLASS(victim, CLASS_DRUID))
         XP *= 1.25;
       else
+        XP *= 0.50;
+    }
+    
+    if(GET_LEVEL(victim) > 15)
+    {
+      if(IS_ANIMAL(victim) ||
+         IS_SLIME(victim))
         XP *= 0.50;
     }
     
@@ -928,10 +937,6 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
       
     if(IS_SET(victim->specials.act, ACT_HUNTER))
       XP *= 1.25;
-
-    if(IS_ANIMAL(victim) ||
-       IS_SLIME(victim))
-      XP *= 0.50;
       
     if(IS_GREATER_RACE(victim))
       XP *= 3.00;
