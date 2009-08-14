@@ -3227,12 +3227,12 @@ void select_race(P_desc d, char *arg)
   case 'T':
     strcpy(Gbuf, "SWAMP TROLL");
     break;
-  case 'f':
-    GET_RACE(d->character) = RACE_HALFELF;
-    break;
-  case 'F':
-    strcpy(Gbuf, "HALF ELF");
-    break;
+  // case 'f':
+    // GET_RACE(d->character) = RACE_HALFELF;
+    // break;
+  // case 'F':
+    // strcpy(Gbuf, "HALF ELF");
+    // break;
     /*   case 'i':
        GET_RACE(d->character) = RACE_ILLITHID;
        break;
