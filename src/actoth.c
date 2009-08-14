@@ -2215,18 +2215,23 @@ void do_steal(P_char ch, char *argument, int cmd)
     send_to_char("You're too inexperienced.. get some levels.\r\n", ch);
     return;
   }
+  
   if (IS_RIDING(ch))
   {
     send_to_char("While mounted? I don't think so...\r\n", ch);
     return;
   }
-  if (!CAN_SEE(ch, ch))
+  
+  if((IS_AFFECTED(ch, AFF_INVISIBLE) ||
+      IS_AFFECTED2(ch, AFF2_MINOR_INVIS)) &&
+      !IS_AFFECTED(ch, AFF_DETECT_INVISIBLE))
   {
     send_to_char
       ("You can't even see your own hand. How do you plan on stealing?\r\n",
        ch);
     return;
   }
+  
   if (!GET_CHAR_SKILL(ch, SKILL_STEAL) &&
       !IS_TRUSTED(ch))
   {
