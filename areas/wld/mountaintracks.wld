@@ -1731,7 +1731,7 @@ D5
 0 0 20974
 S
 #20973
-A &+LCollapsed Tunnel&n~
+&+LA &+LTu&N&+rn&+Lne&N&+rl &+LJu&N&+rn&+Lct&N&+ri&+Lion&N~
    There's nothing that stands out in this tunnel, because it is very dark.
 Not many things live deep within these catacombs. It is dark, dirty, and
 difficult to cope with. Every sound echoes easily within these corridors through
@@ -1745,6 +1745,10 @@ richer sections of these catacombs lay the tombs of the rich, finding them
 would be glorious. The darkness in this tunnel is frightening.
 ~
 209 33554433 0
+D0
+~
+~
+0 0 53746
 D3
 ~
 ~

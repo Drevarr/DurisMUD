@@ -15,10 +15,10 @@ D 0 20957 2 0 100 0 0 0
 *
 D 0 20922 4 8 100 0 0 0
 *     up exit from "A Collapsed Tunnel" to
-*     "A Collapsed Tunnel" - open/blocked
+*     "A Tunnel Junctiion" - open/blocked
 *
 D 0 20973 5 8 100 0 0 0
-*     down exit from "A Collapsed Tunnel" to
+*     down exit from "A Tunnel Junctiion" to
 *     "A Collapsed Tunnel" - open/blocked
 *
 D 0 20928 1 5 100 0 0 0
