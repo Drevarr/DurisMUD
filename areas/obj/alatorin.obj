@@ -4709,3 +4709,36 @@ stone fountain~
 &+Wtwo-layered rim around from which a pool of fountain water is splashed
 &+Wup by a geyser in the middle.
 ~
+#83403
+wooden spear red flag~
+&n&+ya wooden spear with a tied off &+Rred flag&N~
+&+yA wooden spear with a tied off &N&+rred flag&N&+y has been left here.~
+~
+5 15 3 0 7 0 4194304 8193 0 0 0
+15 3 8 0 0 0 0 0
+0 0 100
+E
+wooden spear red flag~
+   &+yThis simple wooden spear has a single red flag tied off near the &+Cblade&n&+y.
+&+yThe &+Rflag &N&+ybares the hammer over a sea-line insignia of Deramuth Port.
+~
+A
+18 3
+A
+19 4
+#83404
+jodani wood sign~
+&+ya &+rjodani &+ywood sign&N~
+&+yHanging by a thick &n&+cchain&+y, a &+rjodani &+ywood sign reads '&+YThe Golden Pearl&N&+y' in vibrant letters.~
+~
+8 5 3 0 7 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 100
+E
+jodani wood sign~
+&N&+y __&N&+c||&+y__________&+c||&+y__
+&N&+y|                  |
+&N&+y| &N&+YTHE GOLDEN PEARL&N&+y |
+&N&+y|                  |
+&N&+y|__________________|
+~

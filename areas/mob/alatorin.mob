@@ -3348,7 +3348,7 @@ pm 0 1 -1
 0.0.0.0 0
 8 8 1
 #83310
-sleepy human~
+sleepy human patron~
 &+La sleepy &N&+Chuman&N~
 &+LA sleepy &+Chuman patron &+Llies sprawled out, sound asleep.
 ~
@@ -4085,13 +4085,18 @@ pd 0 8192 -1
 0.0.0.0 0
 8 8 1
 #83358
-mob unnamed~
+deramuth guard patrolling~
 &+Ya Deramuth guard&N~
-&+YA patrolling 
+&+YA patrolling guard of Deramuth Port slowly walks through here&N, eyeing the streets.&N
 ~
+   &+YThis, like many of the Deramuth guards&+Y, is actually an employed
+&N&+yhalfling mercenary&+Y who is providing his &+Cservice&n&+y to the
+&+WPort officials&+Y for a price.  He has a noble, intelligent look to
+&+Yhis eye amidst a youthful gaze.  He clutches a long, &N&+ywooden spear
+&+Yin his hands like many of the other &N&+yhalfling &+Yguards of Deramuth.
 ~
-524440 0 0 0 0 0 0 0 S
-PH 0 0 -1
-1 0 0 1d1+1 1d1+1
+1140850844 0 0 134217752 0 0 0 0 S
+pf 0 16384 -1
+46 0 0 1d1+1 1d1+1
 0.0.0.0 0
-8 8 0
+8 8 1

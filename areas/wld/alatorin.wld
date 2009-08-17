@@ -13264,6 +13264,10 @@ D2
 ~
 ~
 0 0 83752
+D3
+~
+~
+0 0 83774
 S
 #83751
 &+WThe Promenade of Deramuth Port&N~
@@ -13370,6 +13374,11 @@ S
 &+ydock area from flooding during times of high tide.
 ~
 831 0 1
+D1
+&+LA &N&+rjodani &+ywood &+Ldoor to the &+YGolden Pearl &N&+yTavern&N.
+~
+door~
+1 0 83759
 D2
 ~
 ~
@@ -13380,7 +13389,7 @@ D3
 0 0 83755
 S
 #83757
-&+LA &NTw&+yi&+Ls&Nti&+yng &+LC&No&N&+yb&+Lb&Nl&+ys&+Lt&No&+yn&+Le &NSt&+yr&Nee&+yt&N~
+&+LA &N&+yC&No&+Lb&N&+yb&Nle&+yt&+Lo&Nn&+ye S&+Ltr&Ne&+yet &+LBBeside a &n&+yBeach &+LStaircase&N~
    &+LThis long street is made up of huge cobblestones of different shapes,
 &+Lsizes, colors, and origins.  Leading through &+WDeramuth Port&+L, this
 &+ycobblestone &+Lroad sees much traffic by its diverse users.  This street
@@ -13410,4 +13419,626 @@ D0
 ~
 ~
 0 0 83757
+D3
+~
+~
+0 0 83772
+S
+#83759
+&+LEntrance of the &+YGolden &NP&+Wear&Nl &N&+gTavern&N~
+   &+LThis tavern has a low-ceiling, having clearly been designed by one of
+&+Lthe &+Yport's &+Lsmaller-sized inhabitants.  The floors are made of paneled
+&+Limported &N&+rjodani &+Lwood, covered with massive &N&+ybear fur &+Lrugs.
+&+LThere are numerous &N&+yantlered &+Yheads &+Lof slain game native to some of
+&+Lthe neighboring lands.  A large central chamber branches off to a staircase
+&+Ldirectly through a doorway to the north, a large bar to the east, with
+&+Lside area to the south with tables and benches.
+~
+831 0 0
+D0
+&+LA small &N&+ywooden &+Ldoor leads to a staircase.
+~
+door~
+1 0 83763
+D1
+~
+~
+0 0 83760
+D2
+~
+~
+0 0 83762
+D3
+&+LA &N&+rjodani &+ywood &+Ldoor leads back to the street of &+WDeramuth Port.
+~
+door~
+1 0 83756
+S
+#83760
+&+yThe &+rJodani Wood &+yBar of the &+YGolden &NPe&+Warl &N&+gTavern&N~
+   &+LThis tavern has a low-ceiling, having clearly been designed by one of
+&+Lthe &+Yport's &+Lsmaller-sized inhabitants.  The floors are made of paneled
+&+Limported &N&+rjodani &+Lwood, covered with massive &N&+ybear fur &+Lrugs.
+&+LThere are numerous &N&+yantlered &+Yheads &+Lof slain game native to some of
+&+Lthe neighboring lands.  A large central chamber branches off to a staircase
+&+Ldirectly through a doorway to the west, a large bar to the north, with a
+&+Lside area to the east.
+~
+831 0 0
+D2
+~
+~
+0 0 83761
+D3
+~
+~
+0 0 83759
+S
+#83761
+&+LA Shady Corner of the Tavern&N~
+   &+LThis tavern has a low-ceiling, having clearly been designed by one of
+&+Lthe &+Yport's &+Lsmaller-sized inhabitants.  The floors are made of paneled
+&+Limported &N&+rjodani &+Lwood, covered with massive &N&+ybear fur &+Lrugs.
+&+LThere are numerous &N&+yantlered &+Yheads &+Lof slain game native to some of
+&+Lthe neighboring lands.  A large central chamber branches off to a staircase
+&+Ldirectly through a doorway to the west, a large bar to the north, with a
+&+Lside area to the east.
+~
+831 1 0
+D0
+~
+~
+0 0 83760
+D3
+~
+~
+0 0 83762
+S
+#83762
+&+LA Tavern Corner of &N&+yTables &+Land &NStools&N~
+   &+LThis tavern has a low-ceiling, having clearly been designed by one of
+&+Lthe &+Yport's &+Lsmaller-sized inhabitants.  The floors are made of paneled
+&+Limported &N&+rjodani &+Lwood, covered with massive &N&+ybear fur &+Lrugs.
+&+LThere are numerous &N&+yantlered &+Yheads &+Lof slain game native to some of
+&+Lthe neighboring lands.  A large central chamber branches off to a staircase
+&+Ldirectly through a doorway to the west, a large bar to the north, with a
+&+Lside area to the east.
+~
+831 0 0
+D0
+~
+~
+0 0 83759
+D1
+~
+~
+0 0 83761
+S
+#83763
+&+LBottom &Nof &+ya Staircase&N~
+   &+LThis stone staircase is quite wide and very sturdy.  Although
+&+Lsized for and crafted by a dwarf, these stairs are also sufficient
+&+Lfor any sized humanoid.  Along the walls of this portion of the
+&+Lstairs, as well as the others, hang occasional paintings of Mithril
+&+LHall, Berronar Truesilver, and other fables of their short-raced
+&+Llineage.
+~
+831 134250496 0
+D2
+&+LA &N&+ywooden door&+L leads south into the bottom floor of the tavern.
+~
+door~
+1 0 83759
+D4
+~
+~
+0 0 83765
+S
+#83764
+&+WThe &N&+cReception Room &+WOf the &+YGolden &+WPe&Narl &+gTavern&N~
+   &+cThe inn of the Golden Pearl is quite lavish for what it is, a simple
+&+cwooden dwelling with simple but effective craftsmanship.  The walls are
+&+csupported by concrete while the floors are fully carpeted with thick
+&+ctreated fur carpetting.  This inn often sees many faces of the pirates,
+&+cpassangers, adventurers, and warriors of the many ships that cross
+&+cthrough these parts.
+~
+831 524288 0
+D2
+~
+~
+0 0 83766
+D3
+~
+~
+0 0 83765
+S
+#83765
+&n&+yTop of&N a &+LStaircase&N~
+   &+LThis stone staircase is quite wide and very sturdy.  Although
+&+Lsized for and crafted by a dwarf, these stairs are also sufficient
+&+Lfor any sized humanoid.  Along the walls of this portion of the
+&+Lstairs, as well as the others, hang occasional paintings of Mithril
+&+LHall, Berronar Truesilver, and other fables of their short-raced
+&+Llineage.
+~
+831 134250496 0
+D1
+~
+~
+0 0 83764
+D5
+~
+~
+0 0 83763
+S
+#83766
+&+LA &NHallway&+L Between &+WRooms&N~
+   &+cThe inn of the Golden Pearl is quite lavish for what it is, a simple
+&+cwooden dwelling with simple but effective craftsmanship.  The walls are
+&+csupported by concrete while the floors are fully carpeted with thick
+&+ctreated fur carpetting.  This inn often sees many faces of the pirates,
+&+cpassangers, adventurers, and warriors of the many ships that cross
+&+cthrough these parts.
+~
+831 0 0
+D0
+~
+~
+0 0 83764
+D1
+&+RA door to a guest room.
+~
+door~
+1 0 83771
+D2
+~
+~
+0 0 83767
+D3
+&+LA door to a guest room.
+~
+door~
+1 0 83769
+S
+#83767
+&nEnd of a Hallway &+LBetween &+WRooms&N~
+   &+cThe inn of the Golden Pearl is quite lavish for what it is, a simple
+&+cwooden dwelling with simple but effective craftsmanship.  The walls are
+&+csupported by concrete while the floors are fully carpeted with thick
+&+ctreated fur carpetting.  This inn often sees many faces of the pirates,
+&+cpassangers, adventurers, and warriors of the many ships that cross
+&+cthrough these parts.
+~
+831 0 0
+D0
+~
+~
+0 0 83766
+D1
+&+LA door to a guest room.
+~
+door~
+1 0 83768
+D3
+&+LA door to a guest room.
+~
+door~
+1 0 83770
+S
+#83768
+&+LA Guest &N&+cChamber&N~
+   &+LThis spacious guests chamber sits nested within this inn, overlooking the
+&+Ldwarven common district.  This is one of several sleeping chambers within
+&+Lthis inn, all located on this second floor.  A delicate fur carpet sits
+&+Lacross a floor of thick, imported elven moorwood.  A large stone bed with
+&+Lsome fine, yet thick linens sits in the far corner, while a small clothes
+&+Lhold sits at the foot.
+   &+LA small &N&+ycloset &+Lis placed beside the bed.
+~
+831 32768 14
+D3
+&+LA door of the guest room.
+~
+door~
+1 0 83767
+S
+#83769
+&N&+cA Guest &+LChamber&N~
+   &+LThis spacious guests chamber sits nested within this inn, overlooking the
+&+Ldwarven common district.  This is one of several sleeping chambers within
+&+Lthis inn, all located on this second floor.  A delicate fur carpet sits
+&+Lacross a floor of thick, imported elven moorwood.  A large stone bed with
+&+Lsome fine, yet thick linens sits in the far corner, while a small clothes
+&+Lhold sits at the foot.
+   &+LA small &N&+ycloset &+Lis placed beside the bed.
+~
+831 32768 14
+D1
+&+LA door to a guest room.
+~
+door~
+1 0 83766
+S
+#83770
+&nA Guest &+cChamber&N~
+   &+LThis spacious guests chamber sits nested within this inn, overlooking the
+&+Ldwarven common district.  This is one of several sleeping chambers within
+&+Lthis inn, all located on this second floor.  A delicate fur carpet sits
+&+Lacross a floor of thick, imported elven moorwood.  A large stone bed with
+&+Lsome fine, yet thick linens sits in the far corner, while a small clothes
+&+Lhold sits at the foot.
+~
+831 32768 14
+D1
+&+LA door of the guest room.
+~
+door~
+1 0 83767
+S
+#83771
+&NA Guest &+LChamber&N~
+   &+LThis spacious guests chamber sits nested within this inn, overlooking the
+&+Ldwarven common district.  This is one of several sleeping chambers within
+&+Lthis inn, all located on this second floor.  A delicate fur carpet sits
+&+Lacross a floor of thick, imported elven moorwood.  A large stone bed with
+&+Lsome fine, yet thick linens sits in the far corner, while a small clothes
+&+Lhold sits at the foot.
+~
+831 32768 14
+D3
+&+RA door to a guest room.
+~
+door~
+1 0 83766
+S
+#83772
+&+yAtop Some Wooden Steps&+L On a Rocky Embankment&N~
+   &+LThese &N&+ywooden steps&+L have been built in an elaborate manner,
+&+Ldouble-reinforced and bound with thick woven cordage.  These wooden
+&+Lsteps lead from the &Nmerchant street &+Lof &+WDeramuth Port &+Ldown to the
+&N&+ydocks&+L.  They are creeky, yet sturdy and able to support quite a hefty
+&+Lmass, having been constructed to withstand cargo shipments.
+~
+831 0 4
+D1
+~
+~
+0 0 83758
+D5
+~
+~
+0 0 83773
+S
+#83773
+&+yBelow Some Wooden Steps &+Lon a Rocky Embankment~
+   &+LThese &N&+ywooden steps&+L have been built in an elaborate manner,
+&+Ldouble-reinforced and bound with thick woven cordage.  These wooden
+&+Lsteps lead from the &Nmerchant street &+Lof &+WDeramuth Port &+Ldown to the
+&N&+ydocks&+L.  They are creeky, yet sturdy and able to support quite a hefty
+&+Lmass, having been constructed to withstand cargo shipments.
+~
+831 0 4
+D3
+~
+~
+0 0 83781
+D4
+~
+~
+0 0 83772
+S
+#83774
+&+LAtop Some Steps Made of &NStone Slabs&N~
+   &+LThis set of steps has been made of several huge rocky slabs that have
+&+Lbeen arranged on top of one another to form a walkable descent down to the
+&+Lwooden dock below.  The cliffside of &+WDeramuth Port &+Loverlooks the
+&+Ldock down below, which is accessed only by one of the ascents below.
+~
+831 0 4
+D1
+~
+~
+0 0 83750
+D5
+~
+~
+0 0 83775
+S
+#83775
+&+LBelow Some Steps Made of &NStone Slabs&N~
+   &+LThis set of steps has been made of several huge rocky slabs that have
+&+Lbeen arranged on top of one another to form a walkable descent down to the
+&+Lwooden dock below.  The cliffside of &+WDeramuth Port &+Loverlooks the
+&+Ldock down below, which is accessed only by one of the ascents below.
+~
+831 0 4
+D3
+~
+~
+0 0 83776
+D4
+~
+~
+0 0 83774
+S
+#83776
+&+yThe Docks of &+WDeramuth Port&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D1
+~
+~
+0 0 83775
+D2
+~
+~
+0 0 83777
+D3
+~
+~
+0 0 83784
+S
+#83777
+&+yThe Docks of &+WDeramuth Port&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D0
+~
+~
+0 0 83776
+D2
+~
+~
+0 0 83778
+S
+#83778
+&+yThe Docks of &+WDeramuth Port&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D0
+~
+~
+0 0 83777
+D2
+~
+~
+0 0 83779
+D3
+~
+~
+0 0 83787
+S
+#83779
+&+yA Turn in the Docks of &+WDeramuth Port&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D0
+~
+~
+0 0 83778
+D3
+~
+~
+0 0 83780
+S
+#83780
+&+yA Turn in the Docks of &+WDeramuth Port&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D1
+~
+~
+0 0 83779
+D2
+~
+~
+0 0 83781
+S
+#83781
+&+yThe Docks of &+WDeramuth Port&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D0
+~
+~
+0 0 83780
+D1
+~
+~
+0 0 83773
+D2
+~
+~
+0 0 83782
+S
+#83782
+&+yOn the Docks Before the Lighthouse &+WPier&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D0
+~
+~
+0 0 83781
+D1
+~
+~
+0 0 83783
+S
+#83783
+&+yThe Lighthouse &+YPier&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D3
+~
+~
+0 0 83782
+S
+#83784
+&+yA Long Pier of &n&+WDeramuth Port&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D1
+~
+~
+0 0 83776
+D3
+~
+~
+0 0 83785
+S
+#83785
+&+yA Long Pier of &n&+WDeramuth Port&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D1
+~
+~
+0 0 83784
+D3
+~
+~
+0 0 83786
+S
+#83786
+&+YThe Ship Yard &N&+yof &+WDeramuth Port&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D1
+~
+~
+0 0 83785
+S
+#83787
+&+yA Long Pier of &n&+WDeramuth Port&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D1
+~
+~
+0 0 83778
+D3
+~
+~
+0 0 83788
+S
+#83788
+&+yA Long Pier of &n&+WDeramuth Port&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D1
+~
+~
+0 0 83787
+D3
+~
+~
+0 0 83789
+S
+#83789
+&+yThe End of a Pier of &+WDeramuth Port&N~
+   &+yThese long wooden docks stretch for a sizable expanse down the rocky
+&+yshoreline of the Shanatar mountains.  The huge rocky bluffs of the western
+&+ymountains have two huge set of steps leading down to these docks - one on
+&+ythe northern side of the docks from the huge stone slabs layed out upon
+&+yone another, the other being the wooden frame-work steps built upon the
+&+yrocky embankment further down to the south.  These long wooden docks
+&+yare supported by huge posts of thick moorwood.
+~
+831 0 1
+D1
+~
+~
+0 0 83788
 S
