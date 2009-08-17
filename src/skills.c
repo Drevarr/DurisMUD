@@ -687,7 +687,7 @@ void initialize_skills()
   SPELL_ADD(CLASS_MINDFLAYER, 1);
   SPELL_ADD(CLASS_PSIONICIST, 1);
 
-  SPELL_CREATE("detonate", SPELL_DETONATE, PULSE_SPELLCAST * 11/9,
+  SPELL_CREATE("detonate", SPELL_DETONATE, PULSE_SPELLCAST * 1,
                 TAR_CHAR_ROOM + TAR_FIGHT_VICT | TAR_AGGRO, spell_detonate);
   SPELL_ADD(CLASS_PSIONICIST, 7);
   SPELL_ADD(CLASS_MINDFLAYER, 6);
@@ -800,7 +800,7 @@ void initialize_skills()
     //            TAR_SELF_ONLY, spell_ego_blast);
   //SPELL_ADD(CLASS_PSIONICIST, 12);
 
-  SPELL_CREATE("ego blast", SPELL_EGO_BLAST, PULSE_SPELLCAST * 3 / 2,
+  SPELL_CREATE("ego blast", SPELL_EGO_BLAST, PULSE_SPELLCAST * 1,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO, spell_ego_blast);
   SPELL_ADD(CLASS_PSIONICIST, 4);
 
@@ -886,7 +886,7 @@ void initialize_skills()
   SPELL_ADD(CLASS_MINDFLAYER, 7);
   SPELL_ADD(CLASS_PSIONICIST, 8);
 
-  SPELL_CREATE("inflict pain", SPELL_INFLICT_PAIN, PULSE_SPELLCAST * 2,
+  SPELL_CREATE("inflict pain", SPELL_INFLICT_PAIN, PULSE_SPELLCAST * 1,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO, spell_inflict_pain);
   SPELL_ADD(CLASS_PSIONICIST, 5);
   SPELL_ADD(CLASS_MINDFLAYER, 5);
@@ -920,7 +920,7 @@ void initialize_skills()
                 spell_mind_blank, "&+YYour mind is not as concealed anymore!&N");
   SPELL_ADD(CLASS_MINDFLAYER, 12);
 
-  SPELL_CREATE_MSG("psychic crush", SPELL_PSYCHIC_CRUSH, PULSE_SPELLCAST * 16/9,
+  SPELL_CREATE_MSG("psychic crush", SPELL_PSYCHIC_CRUSH, PULSE_SPELLCAST * 1,
                 TAR_CHAR_ROOM + TAR_FIGHT_VICT | TAR_AGGRO,
 				spell_psychic_crush, "&+MYou feel your mind recover from the assault.&n");
   SPELL_ADD(CLASS_PSIONICIST, 9);
