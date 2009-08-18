@@ -2144,12 +2144,12 @@ void static_discharge(P_char ch, P_char victim, int level, int intensity)
       0
   };
     
-  dam = (dice(((level / 5) + 5) * intensity, 6) * 3);
+  dam = (dice(((level / 5) + 5) * intensity, 6));
 
   for (int i = intensity;i;i--)
   {
-    if(!NewSaves(victim, SAVING_SPELL, intensity-1))
-      dam += (int) (dam*0.33/intensity);
+    if(NewSaves(victim, SAVING_SPELL, intensity-1))
+      dam -= (int) (dam*0.33/intensity);
   }
     
   if (IS_AFFECTED5(victim, AFF5_WET))
