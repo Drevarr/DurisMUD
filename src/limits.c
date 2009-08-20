@@ -928,7 +928,7 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
       XP *= (get_property("gain.exp.mod.player.merc", 1.00));
       
 // Exp bonus for clerics, since we really need this class above all else.
-    if(!IS_MULTICLASS(ch) &&
+    if(!IS_MULTICLASS_PC(ch) &&
        GET_CLASS(ch, CLASS_CLERIC))
         XP *= (get_property("gain.exp.mod.player.cleric", 1.00));
     
