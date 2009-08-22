@@ -127,14 +127,14 @@ M 0 35318 9 35352 100 0 0 0        * a guard in training
 E 1 35311 999 16 100 0 0 0         *   a blacksteel sword
 M 0 35315 8 35353 100 0 0 0        * a gorilla
 M 0 35315 8 35354 100 0 0 0        * a gorilla
-M 0 35317 10 35354 100 0 0 0       * A Monkey
+M 0 35317 10 35354 100 0 0 0       * A monkey
 M 0 35315 8 35355 100 0 0 0        * a gorilla
 M 0 35315 8 35356 100 0 0 0        * a gorilla
 M 0 35315 8 35357 100 0 0 0        * a gorilla
-M 0 35317 10 35357 100 0 0 0       * A Monkey
+M 0 35317 10 35357 100 0 0 0       * A monkey
 M 0 35316 7 35359 100 0 0 0        * a panda bear
-M 0 35317 10 35361 100 0 0 0       * A Monkey
-M 0 35317 10 35361 100 0 0 0       * A Monkey
+M 0 35317 10 35361 100 0 0 0       * A monkey
+M 0 35317 10 35361 100 0 0 0       * A monkey
 M 0 35316 7 35362 100 0 0 0        * a panda bear
 M 0 35318 9 35367 100 0 0 0        * a guard in training
 E 1 35311 999 16 100 0 0 0         *   a blacksteel sword
@@ -154,19 +154,19 @@ G 1 35304 999 0 100 0 0 0          *    a pair of tiger fur boots
 G 1 35301 999 0 100 0 0 0          *    some jaguar claw armor
 M 0 35316 7 35375 100 0 0 0        * a panda bear
 E 1 35310 1 13 100 0 0 0           *   a bamboo belt
-M 0 35317 10 35375 100 0 0 0       * A Monkey
-M 0 35317 10 35376 100 0 0 0       * A Monkey
+M 0 35317 10 35375 100 0 0 0       * A monkey
+M 0 35317 10 35376 100 0 0 0       * A monkey
 M 0 35316 7 35377 100 0 0 0        * a panda bear
-M 0 35317 10 35378 100 0 0 0       * A Monkey
+M 0 35317 10 35378 100 0 0 0       * A monkey
 M 0 35316 7 35379 100 0 0 0        * a panda bear
-M 0 35317 10 35379 100 0 0 0       * A Monkey
+M 0 35317 10 35379 100 0 0 0       * A monkey
 M 0 35316 7 35380 100 0 0 0        * a panda bear
 M 0 35316 7 35384 100 0 0 0        * a panda bear
 M 0 35315 8 35385 100 0 0 0        * a gorilla
-M 0 35317 10 35385 100 0 0 0       * A Monkey
+M 0 35317 10 35385 100 0 0 0       * A monkey
 M 0 35315 8 35386 100 0 0 0        * a gorilla
 M 0 35315 8 35387 100 0 0 0        * a gorilla
-M 0 35317 10 35387 100 0 0 0       * A Monkey
+M 0 35317 10 35387 100 0 0 0       * A monkey
 M 0 35319 1 35388 100 0 0 0        * Balgar
 E 1 35303 2 16 100 0 0 0           *   a shimmering staff
 G 1 35313 1 0 100 0 0 0            *    an ancient jade plaque
