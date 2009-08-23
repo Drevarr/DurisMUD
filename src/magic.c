@@ -8382,13 +8382,19 @@ void spell_vitality(int level, P_char ch, char *arg, int type, P_char victim,
   struct affected_type af;
   int  healpoints = 4 * level, duration = 1;
   
+  if(!(ch) ||
+     !IS_ALIVE(ch))
+      return;
+  
   if(IS_NPC(victim) &&
-     GET_VNUM(victim) == 250)
+     GET_VNUM(victim) == IMAGE_RELFECTION_VNUM)
       return;
       
   if(!IS_PC(ch) &&
      !IS_PC(victim))
-        duration = 3;
+        duration = 30;
+  else
+    duration = (int)(MAX(10, GET_LEVEL(ch) / 4));
 
   if(!affected_by_spell(victim, SPELL_VITALITY))
   {
@@ -8398,7 +8404,7 @@ void spell_vitality(int level, P_char ch, char *arg, int type, P_char victim,
 
     bzero(&af, sizeof(af));
     af.type = SPELL_VITALITY;
-    af.duration = KludgeDuration(ch, 25, 4) * duration;
+    af.duration = duration;
     af.modifier = healpoints;
     af.location = APPLY_HIT;
 
@@ -8415,7 +8421,7 @@ void spell_vitality(int level, P_char ch, char *arg, int type, P_char victim,
       {
         send_to_char("&+WYou feel a slight &+cmagical surge&+W that reinforces and refreshes your &+Bvitality.\r\n&n", 
           victim);
-        af1->duration = KludgeDuration(ch, 25, 4) * duration;
+        af1->duration = duration;
       }
   }
 }
