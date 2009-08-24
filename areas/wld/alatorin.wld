@@ -1771,6 +1771,11 @@ D2
 ~
 ~
 0 0 83175
+D3
+&+LA large stone door &+Wburns with a &+Ybrilliant light&+L.
+~
+door~
+2 83436 83831
 S
 #83183
 &+MBelow the Mystic's Tower~
@@ -14570,4 +14575,347 @@ D0
 ~
 ~
 8 0 83699
+S
+#83815
+&+LBeginning of a Rocky Ascent&N~
+   &+LThis rocky ascent creeps up this huge spire, ending in a massive stone
+&+Ltower atop, featuring a parapet-surrounded head with archer slots along the
+&+Lsides.  The deathliness of the jagged peaks of Shanatar are apparent from
+&+Lthe views of rises such as these, exposing the hazardous conditions of the
+&+Lmountain.
+~
+831 33587200 5
+D0
+~
+~
+0 0 122789
+D2
+~
+~
+0 0 83816
+S
+#83816
+&+LA Rocky Ascent&N~
+   &+LThis rocky ascent creeps up this huge spire, ending in a massive stone
+&+Ltower atop, featuring a parapet-surrounded head with archer slots along the
+&+Lsides.  The deathliness of the jagged peaks of Shanatar are apparent from
+&+Lthe views of rises such as these, exposing the hazardous conditions of the
+&+Lmountain.
+~
+831 33587200 5
+D0
+~
+~
+0 0 83815
+D1
+~
+~
+0 0 83817
+S
+#83817
+&+LA Jagged Turn in a Rocky Ascent~
+   &+LThis rocky ascent creeps up this huge spire, ending in a massive stone
+&+Ltower atop, featuring a parapet-surrounded head with archer slots along the
+&+Lsides.  The deathliness of the jagged peaks of Shanatar are apparent from
+&+Lthe views of rises such as these, exposing the hazardous conditions of the
+&+Lmountain.
+~
+831 33587200 5
+D2
+~
+~
+0 0 83818
+D3
+~
+~
+0 0 83816
+S
+#83818
+&+LA Jagged Pass Below a &NSteep Ledge&N~
+   &+LThis rocky ascent creeps up this huge spire, ending in a massive stone
+&+Ltower atop, featuring a parapet-surrounded head with archer slots along the
+&+Lsides.  The deathliness of the jagged peaks of Shanatar are apparent from
+&+Lthe views of rises such as these, exposing the hazardous conditions of the
+&+Lmountain.
+~
+831 33587200 5
+D0
+~
+~
+0 0 83817
+D4
+~
+~
+0 0 83819
+S
+#83819
+&+LA Stone Ledge Above a &NSteep Drop&N~
+   &+LThis rocky ascent creeps up this huge spire, ending in a massive stone
+&+Ltower atop, featuring a parapet-surrounded head with archer slots along the
+&+Lsides.  The deathliness of the jagged peaks of Shanatar are apparent from
+&+Lthe views of rises such as these, exposing the hazardous conditions of the
+&+Lmountain.
+~
+831 33587200 5
+D2
+~
+~
+0 0 83820
+D5
+~
+~
+0 0 83818
+F
+40
+S
+#83820
+&+LA Rocky Pass&N~
+   &+LThis rocky ascent creeps up this huge spire, ending in a massive stone
+&+Ltower atop, featuring a parapet-surrounded head with archer slots along the
+&+Lsides.  The deathliness of the jagged peaks of Shanatar are apparent from
+&+Lthe views of rises such as these, exposing the hazardous conditions of the
+&+Lmountain.
+~
+831 33587200 5
+D0
+~
+~
+0 0 83819
+D1
+~
+~
+0 0 83822
+S
+#83821
+&+LThe &N&+mArched &+LEntrance of the &N&+cTower &+Lof &+CX&N&+ca&+Bmo&N&+cr&+Ca&N~
+   &+LThis large, stone arch is covered with glowing &n&+mrunes &+Lthat
+&+Lseem to glow with an unnatural magic.  This tower stands tall, crafted
+&+Lwith seemingly-dwarven design, yet inscribed with arcane symbols.
+&+LThe rocky mountain pass to the south continues quickly down the
+&+LShanatar peak, while the tower north is that of Xamora, the great halfling
+&+Lmagician.
+~
+831 33587200 5
+D0
+&+LThe rusty &&+ygates &+Lof the tower of &N&+cXamora&+L.
+~
+gates~
+2 83431 83826
+D2
+~
+~
+0 0 83822
+S
+#83822
+&+LA Rocky Path Before a &N&+cTower&N~
+   &+LThis rocky ascent creeps up this huge spire, ending in a massive stone
+&+Ltower atop, featuring a parapet-surrounded head with archer slots along the
+&+Lsides.  The deathliness of the jagged peaks of Shanatar are apparent from
+&+Lthe views of rises such as these, exposing the hazardous conditions of the
+&+Lmountain.
+~
+831 33587200 5
+D0
+~
+~
+0 0 83821
+D3
+~
+~
+0 0 83820
+S
+#83823
+&+MTop of the &N&+cTower&+M of &+CX&N&+ca&+Bmo&N&+cr&+Ca&N~
+   &+LThis tall, glorious tower is that of the great gnomish enchanter,
+&+LXamora.  It is rumored that this tower was forged by Xamora himself,
+&+Lusing the command of earth elementals to form and build the stone of
+&+Lthe structure, with water and air elementals to saturate the earth.
+&+LAll around are small shelves filled with strange oddities, from candles
+&+Lburning odd flames over cursed skulls to fizzing elixirs.  This atrium
+&+Lis very private and quite secretive.  Items are all strewn about
+&+Lnearly obsessively, all arranged and placed intentionally around the
+&+Lentire tower.  The top of the tower features a chamber with two huge
+&+Lportals, while the bottom has a set of strange portals as well.
+~
+831 33587200 0
+D5
+&+LA trapdoor with a large &N&+rele&+bmen&+ytal &+Ckeyhole &+Lis below.
+~
+trapdoor~
+3 83430 83824
+S
+#83824
+&+LWithin the &N&+cTower &+Lof &+CX&N&+ca&+Bmo&N&+cr&+Ca&N~
+   &+LThis tall, glorious tower is that of the great gnomish enchanter,
+&+LXamora.  It is rumored that this tower was forged by Xamora himself,
+&+Lusing the command of earth elementals to form and build the stone of
+&+Lthe structure, with water and air elementals to saturate the earth.
+&+LAll around are small shelves filled with strange oddities, from candles
+&+Lburning odd flames over cursed skulls to fizzing elixirs.  This atrium
+&+Lis very private and quite secretive.  Items are all strewn about
+&+Lnearly obsessively, all arranged and placed intentionally around the
+&+Lentire tower.  The top of the tower features a chamber with two huge
+&+Lportals, while the bottom has a set of strange portals as well.
+~
+831 33587200 0
+D2
+&+LUpon closer investigation, the southern wall seems to be a secret entrance.
+~
+secret wall door~
+5 0 83830
+D4
+&+LA large trapdoor with an &N&+yele&+bmen&+rtal &+Ckeyhole &+Lis here.
+~
+trapdoor~
+3 83430 83823
+D5
+~
+~
+0 0 83825
+S
+#83825
+&+LWithin the &N&+cTower &+Lof &+CX&N&+ca&+Bmo&N&+cr&+Ca&N~
+   &+LThis tall, glorious tower is that of the great gnomish enchanter,
+&+LXamora.  It is rumored that this tower was forged by Xamora himself,
+&+Lusing the command of earth elementals to form and build the stone of
+&+Lthe structure, with water and air elementals to saturate the earth.
+&+LAll around are small shelves filled with strange oddities, from candles
+&+Lburning odd flames over cursed skulls to fizzing elixirs.  This atrium
+&+Lis very private and quite secretive.  Items are all strewn about
+&+Lnearly obsessively, all arranged and placed intentionally around the
+&+Lentire tower.  The top of the tower features a chamber with two huge
+&+Lportals, while the bottom has a set of strange portals as well.
+~
+831 33587200 0
+D4
+~
+~
+0 0 83824
+D5
+~
+~
+0 0 83826
+S
+#83826
+&+cBase of the &+LTower &N&+cof &+CX&N&+ca&+Bmo&N&+cr&+Ca&N~
+   &+LThis tall, glorious tower is that of the great gnomish enchanter,
+&+LXamora.  It is rumored that this tower was forged by Xamora himself,
+&+Lusing the command of earth elementals to form and build the stone of
+&+Lthe structure, with water and air elementals to saturate the earth.
+&+LAll around are small shelves filled with strange oddities, from candles
+&+Lburning odd flames over cursed skulls to fizzing elixirs.  This atrium
+&+Lis very private and quite secretive.  Items are all strewn about
+&+Lnearly obsessively, all arranged and placed intentionally around the
+&+Lentire tower.  The top of the tower features a chamber with two huge
+&+Lportals, while the bottom has a set of strange portals as well.
+~
+831 33587200 0
+D1
+&+LA &N&+ywooden &+Ldoor leads to a small &N&+mlibrary&+L.
+~
+door~
+1 0 83827
+D2
+&+LThe rusty &N&+yiron gates&+L of the tower's entrance.
+~
+gates~
+2 83431 83821
+D3
+&+LA large &N&+ywooden &+Ldoor leads to a &+Wstudy&+L.
+~
+door~
+1 0 83828
+D4
+~
+~
+0 0 83825
+D5
+&+LThis &N&+ytrapdoor&+L has a huge keyhole made out of a &N&+yburning &N&+yearthen &+Lsubstance.
+~
+trapdoor~
+3 83430 83829
+S
+#83827
+&+mA Small Library&N~
+   &+LThis tall, glorious tower is that of the great gnomish enchanter,
+&+LXamora.  It is rumored that this tower was forged by Xamora himself,
+&+Lusing the command of earth elementals to form and build the stone of
+&+Lthe structure, with water and air elementals to saturate the earth.
+&+LAll around are small shelves filled with strange oddities, from candles
+&+Lburning odd flames over cursed skulls to fizzing elixirs.  This atrium
+&+Lis very private and quite secretive.  Items are all strewn about
+&+Lnearly obsessively, all arranged and placed intentionally around the
+&+Lentire tower.  The top of the tower features a chamber with two huge
+&+Lportals, while the bottom has a set of strange portals as well.
+~
+831 33587200 0
+D3
+&+LA large &N&+ywooden &+Ldoor leads back to the base of the &N&+ctower&+L.
+~
+door~
+1 0 83826
+S
+#83828
+&+WA Study&N~
+   &+LThis tall, glorious tower is that of the great gnomish enchanter,
+&+LXamora.  It is rumored that this tower was forged by Xamora himself,
+&+Lusing the command of earth elementals to form and build the stone of
+&+Lthe structure, with water and air elementals to saturate the earth.
+&+LAll around are small shelves filled with strange oddities, from candles
+&+Lburning odd flames over cursed skulls to fizzing elixirs.  This atrium
+&+Lis very private and quite secretive.  Items are all strewn about
+&+Lnearly obsessively, all arranged and placed intentionally around the
+&+Lentire tower.  The top of the tower features a chamber with two huge
+&+Lportals, while the bottom has a set of strange portals as well.
+~
+831 33587200 0
+D1
+&+LA &n&+ywooden &+Ldoor leads back to the base of the &N&+ctower&+L.
+~
+door~
+1 0 83826
+S
+#83829
+&+CAn &N&+rEle&N&+bmen&+ytal &+CPrison&N~
+   &+RSwirling pillars of flame surround &+Wcolossal columns of water&+B.
+&+BGushing waterfalls fall through massive &N&+ychunks of rocky earth
+&+cas tornados swirl amongst a &n&+rflaming maelstrom.  &+BLightning
+&+Bcrackles across &N&+cwindy turbines of &n&+rflaming meteors and
+&+Bpowerful whirlpools.
+~
+831 33587200 21
+D4
+&+LA huge elemental keyhole on the trapdoor.
+~
+trapdoor~
+3 83430 83826
+S
+#83830
+&+WA Meditation &N&+mCh&+yam&+mber&N~
+   &+WA large chamber of &N&+mvelvet pillows&+W and fancy &+Ycandles&+L burning
+&+Wmagical flames are arranged around in a circular pattern in the center
+&+Wof this meditation chamber.  Other then the flames of the candles, this
+&+Wchamber seems to bec ompletely devoid of &N&+mmagic&+W.
+~
+831 33587328 0
+D0
+&+LThis wall seems to actually be a secret door, upon closer investigation.
+~
+secret wall door~
+5 0 83824
+S
+#83831
+&+WA Shimmering Po&+Crt&+Wal&N~
+   &+WThis small atrium, secluded from the eastern &+mMystic Ward&+W of
+&+cAlatorin&+W is illumiated by the bright light of the blazing portal
+&+Wfocused on the western wall of this simple stone hold.  The portal here
+&+Wseems to be focused into a magical workshop amongst numerous other
+&+Wportals all leaidng to other strange places.
+~
+831 33587328 0
+D1
+&+LA large stone door to the east.
+~
+door~
+2 83436 83182
 S

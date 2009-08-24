@@ -5118,3 +5118,138 @@ An unnamed object lies here, looking lonely and forelorn.~
 13 15 3 0 7 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
 0 0 100
+#83428
+cask vintage hammer shield ale~
+&N&+ya cask of vintage &n&+cHammer&N&+y and &+WShield &N&+ybrand ale&N~
+&+yA cask of vintage &N&+cHammer&N&+y and &+WShield &N&+ybrand dwarven ale has been left here.~
+~
+17 6 4 0 7 0 4096 0 0 0 0
+120 120 1 0 0 0 0 0
+9 20333 100
+E
+cask vintage hammer shield ale~
+   &+yThis heavy &+Liron-bound &N&+ywooden cask has a huge insignia of a
+&+chammer&N&+y and &+Wshield&N&+y - that of the legendary military dwarven
+&+ytavern of the same name.  The fine dwarven beer is quite rare and very
+&+ysought-after.
+~
+#83429
+cluttered bookshelf~
+&+ya cl&+Lu&N&+yt&+Lt&N&+ye&+Lr&N&+ye&+Ld &N&+ybookshelf&N~
+&+yA bookshelf stands here, &+Lcluttered &N&+ywith books and magical objects.~
+~
+15 6 3 0 7 0 0 0 0 0 0
+40 0 0 40 0 0 0 0
+0 0 87
+E
+cluttered bookshelf~
+   &+yThis large, wooden bookshelf is full of tomes and spellbooks of all
+&+ysizes.  There are various scrolls and other articles, some magical, others
+&+ymeaningless scattered about and tucked beneath books as well.  The chaos
+&+ychallenges that of Duris itself.
+~
+#83430
+thick elemental key~
+&+La thick &N&+rel&+bem&+Cen&n&+ytal &+Lkey&N~
+&+LA thick &N&+rel&+Bem&+Cent&n&+yal &+Lkey is &N&+cfloating &+Lhere.~
+~
+18 15 3 0 7 0 41943041 16385 64 0 0
+0 0 0 0 0 0 0 0
+0 0 100
+E
+thick elemental key~
+   &+LThis swirling key is made with &+Rfire &N&+Land &+Bwater &+Lteeth over
+&+Lan &N&+yearthen &+Lbase, from which around a swirling &N&n&+cwind &+Lblows.
+~
+#83431
+large rusty key~
+&+La large &N&+yrusty &+Lgate key&N~
+&+LA large &N&+yrusty &+Lgate key has been left here.~
+~
+18 15 4 0 7 0 0 16385 0 0 0
+0 100 0 0 0 0 0 0
+0 0 47
+E
+large rusty key~
+   &+LThis old iron gate key is covered in a thick layer of &N&+yrust&+L and decay.
+~
+#83432
+swirling portal mist~
+&+La swirling portal of mist&N~
+&+LA swirling portal of mist floats here.~
+~
+25 1 3 0 7 0 0 0 64 0 0
+12511 7 -1 0 0 0 0 0
+0 0 100
+E
+swirling portal mist~
+&+LThis dark, two-dimensional portal is that of perpetual swirling mist,
+&+Ldisappearing as it reaches its eye.  One sees &Nan&+Lti&N-m&+Lat&Nter &+Lfloating
+&+Lthrough this strange, magical portal.
+~
+#83433
+shimmering portal~
+&+Wa s&+Wh&+Ci&+Wm&+Cm&+We&+Cr&+Wi&+Cn&+Wg p&+Co&+Wr&+Ct&+Wa&+Cl&N~
+&+WA sh&+Cim&+Wme&+Cri&+Wng portal burns with &+Yblazing &+Wlight&N.~
+~
+25 1 3 0 7 0 0 0 64 0 0
+83823 7 -1 0 0 0 0 0
+0 0 100
+E
+shimmering portal~
+   &+WThis shimmering portal is bright and flickers with crackling light.
+~
+#83434
+shimmering portal~
+&+Wa s&+Wh&+Ci&+Wm&+Cm&+We&+Cr&+Wi&+Cn&+Wg p&+Co&+Wr&+Ct&+Wa&+Cl&N~
+&+WA sh&+Cim&+Wme&+Cri&+Wng portal burns with &+Yblazing &+Wlight&N.~
+~
+25 1 3 0 7 0 0 0 64 0 0
+83831 7 -1 0 0 0 0 0
+0 0 100
+E
+shimmering portal~
+   &+WThis shimmering portal is bright and flickers with crackling light.
+~
+#83435
+scroll revelations~
+&+La &N&+yscroll &+Lof &N&+cr&+Ce&n&+cv&+Ce&N&+cl&+Ca&N&+ct&+Ci&N&+co&+Cn&N&+cs&N~
+&+LA strange &n&+mmagical &+yscroll&+L has been left here.~
+~
+10 29 2 0 7 0 1 8404993 64 0 0
+51 45 262 0 0 0 0 0
+0 14332 100
+E
+scroll revelations~
+   &+yThis parchment scroll was transcribed with a magical, &n&+mglowing
+&n&+yink and bound with animal &n&+rsinew&+y.
+~
+#83436
+key shimmering light~
+&+La &N&+ckey &+Lof &+Wshimmering &+Ylight&N~
+&+LA key of &+Wshimmering &+light &+Lburns brilliantly.~
+~
+18 1 2 0 7 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 50444 100
+E
+key shimmering light~
+   &+LThis small stone key burns with a brilliant magical light.
+~
+#83437
+beautiful blue silk robe~
+&+Ba beautiful blue silk robe&N~
+&+BA beautiful blue silk robe has been left here.~
+~
+9 3 3 0 11 0 1 9 64 0 0
+10 0 0 0 0 0 0 0
+-10 44333 100
+E
+beautiful blue silk robe~
+   &+BThis beautifulk silken garment fits loosely.  It is made of the finest
+&+Bsilk and dyed a pure deep blue.
+~
+A
+38 7
+A
+33 3

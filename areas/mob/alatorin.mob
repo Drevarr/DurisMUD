@@ -4520,3 +4520,86 @@ hg 0 1 -1
 54 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
+#83386
+halfling magician~
+&+La &N&+yhalfling &+Mma&+Yg&+Mici&+Ya&+Mn&N~
+&n&+yA halfling &+Mma&+Ygi&+Mcian &n&+yoversees the office.
+~
+   &+yThis simple halfling man has pale eyes, as he is completely infused
+&+yin both the physical and metal existence with a powerful &+Mmagic&N&+y.
+&+yHe is dressed in loose, silken robes, and floats about repetively,
+&+ybasking in the paradise of his master's tower.
+~
+2250 0 0 24 14528 0 0 800 S
+pf 0 4194816 -1
+56 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83387
+mob unnamed~
+an unnamed mob~
+An unnamed mob stands here, looking lonely and forelorn.
+~
+~
+8 0 0 0 0 0 0 0 S
+PH 0 0 -1
+1 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#83388
+massive flesh golem _spec1_ _ignore_~
+&+La MASSIVE &+Mf&N&+rl&+Me&N&+rs&+Mh &+Rgolem&N~
+&+LA MASSIVE &N&+rf&+Ml&N&+re&+Ms&N&+rh &+Rgolem &+Lstands in front of the tower doorway.
+~
+   &+LThis hulking beast is composed of various organs and muscles of
+&+Lnumerous different sources, all twisted together into one abomination.
+~
+2250 0 0 134217880 2048 0 0 -1000 S
+u 0 1 7
+51 -4 -80 400d30+5000 6d6+6
+5.12.17.22 220500
+8 8 0
+#83389
+halfling scribe~
+&+La &N&+yhalfling &+Wscribe&N~
+&+LA studious &N&+yhalfling &+Lscribe works away on his &N&+mspells&+L.
+~
+   &+LThis halfling &+Mmage &+Lis clearly one of the rare and
+&+Lpriviledged young halflings that has been granted the opportunity
+&+Lto train under the tutelage of &+CX&N&+ca&+Bmo&N&+cr&+Ca &+Lthe magician.
+~
+1073743946 0 0 402727128 14556 0 0 1000 S
+pf 0 512 -1
+51 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83390
+meditative halfling mage~
+&+ya &+Wmeditative &N&+yhalfling &n&+mm&+Mag&N&+me&N~
+&+LA &+Wmeditative &N&+yhalfling &N&+mm&+Mag&N&+me &+Lrests on a pillow.
+~
+   &+LThis halfling &+Mmage &+Lis clearly one of the rare and
+&+Lpriviledged young halflings that has been granted the opportunity
+&+Lto train under the tutelage of &+CX&N&+ca&+Bmo&N&+cr&+Ca &+Lthe magician.
+~
+2122 0 0 402727128 14556 0 0 1000 S
+pf 0 2560 -1
+51 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83391
+xamora halfling master magician~
+&+CX&N&+ca&+Bmo&N&+cr&+Ca &N&+ythe halfling &+Wmaster &N&+bma&+Yg&n&+bic&+Yi&N&+ban&N~
+&+CX&N&+ca&+Bmo&N&+cr&+Ca &N&+ythe halfling &+Wmaster &N&+bma&+Yg&N&+bi&+Yc&N&+bian &+Wflies here.
+~
+   Xamora is rather beautiful for a halfling mage, with flowing brown hair
+and wide, round hazel eyes.  She stands just above three feet tall and boasts
+a powerful magic, legendary amongst her people.  She has taken her craft to the
+far mountains of Shanatar and erected this very stone pillar.  She wears loose,
+but elegant silk robes and flies through her tower having the time of her life.
+~
+1073744074 0 0 0 14528 64 0 1000 S
+pf 0 2560 -1
+60 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2

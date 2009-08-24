@@ -1,7 +1,7 @@
 set MainZoneName alatorin
 set ObjAffect true
-set LastCommand s
-set StartRoom 83364
+set LastCommand l
+set StartRoom 83823
 limit object 74021 999
 limit object 66004 999
 limit object 38639 999
@@ -56,3 +56,9 @@ limit object 83420 999
 limit object 83418 999
 limit object 83419 999
 limit object 83421 999
+limit object 40469 999
+limit object 9428 999
+limit object 66723 999
+limit object 2800 999
+limit object 93914 999
+limit object 83435 999
