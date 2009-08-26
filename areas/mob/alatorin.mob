@@ -4605,3 +4605,33 @@ pf 0 2560 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 2
+#83392
+bimk goblin seafarer~
+&+GBimk &N&+gthe goblin &+Gseafarer&N~
+&+GBimk the goblin seafarer sits here&+L, ranting about his adventures.
+~
+   &+GBimk is a Moregeeth goblin, dressed in silken cloth under leather.  He
+&+Gwalks with a proud swagger and talks with a quick tongue.  A scimitar sits
+&+Gsheathed at his side, readily unleashed upon any foe who challenges the
+&+Gseafarer.  More commonly known as a pirate to the Winterhaven and Venan'Trut
+&+Gport authorities, Bimk can be found at more remote ports such as Deramuth.
+~
+1073744074 0 0 0 0 0 33554432 900 S
+hg 0 2 -1
+53 0 0 1d1+1 1d1+1
+0.0.0.0 0
+5 5 1
+#83393
+manor gate guard~
+&+Ca manor &+Lgate &+Cguard&N~
+&+CA manor &+Lgate &+Cguard &Nstands here, spear crossed with another.
+~
+  &+CThis manor gate guard is dressed in fine scalemail.  He appears to
+&+Cbe a halfling youth who has been recruited like many others his age
+&+Cto the mercenaryship of Deramuth.
+~
+1140852938 0 0 0 0 0 0 1000 S
+pf 0 16384 -1
+50 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1

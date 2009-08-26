@@ -1641,8 +1641,8 @@ O 0 83413 1 83749 100 0 0 0        * a sign
 O 0 83139 7 83754 100 0 0 0        * a small wooden desk
 O 0 83404 1 83756 100 0 0 0        * a jodani wood sign
 O 0 83114 6 83768 100 0 0 0        * a closet
-P 1 94336 4 83114 50 0 0 0         *   (object type not in this .obj file)
-P 1 94336 4 83114 50 0 0 0         *   (object type not in this .obj file)
+P 1 94336 5 83114 50 0 0 0         *   (object type not in this .obj file)
+P 1 94336 5 83114 50 0 0 0         *   (object type not in this .obj file)
 O 0 83114 6 83769 100 0 0 0        * a closet
 P 1 97041 1 83114 100 0 0 0        *   (object type not in this .obj file)
 P 1 97047 1 83114 100 0 0 0        *   (object type not in this .obj file)
@@ -1759,7 +1759,7 @@ M 0 83230 1 83134 100 0 0 0        * a shield dwarf warrior
 M 0 83232 1 83134 100 0 0 0        * a minotaur
 E 1 83234 8 16 100 0 0 0           *   a massive tauren battle-axe
 M 0 83197 1 83135 100 0 0 0        * Gradden the Dwarf Bounty Hunter
-G 1 94336 4 0 100 0 0 0            *    (object type not in this .obj file)
+G 1 94336 5 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 83128 5 83138 100 0 0 0        * a battle-ready seige dwarf
 E 1 83176 1 5 100 0 0 0            *   a suit of heavy spiked seige armor
 E 1 83175 12 16 100 0 0 0          *   a barbed longsword
@@ -2276,7 +2276,7 @@ G 1 19501 2 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 83163 1 83295 30 0 0 0         * Crysanthilis, Noble of Shaledrieth
 E 1 83166 1 1 100 0 0 0            *   a crystal ring set with a jade
 E 1 83167 1 16 100 0 0 0           *   a crystal longsword
-G 1 94336 4 0 100 0 0 0            *    (object type not in this .obj file)
+G 1 94336 5 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 83185 1 83295 30 0 0 0         * Mishanen, the centaur herbalist
 E 1 83186 1 37 100 0 0 0           *   a tail ring of gilded sunpetals
 G 1 83187 1 0 100 0 0 0            *    a gnarled wooden wand
@@ -3038,14 +3038,14 @@ G 1 83412 1 0 100 0 0 0            *    a moorwood lyre
 M 0 43137 7 83752 100 0 0 0        * (mob type not in this .mob file)
 M 0 43152 1 83752 100 0 0 0        * (mob type not in this .mob file)
 M 0 83358 4 83753 100 0 0 0        * a Deramuth guard
-E 1 83403 4 16 100 0 0 0           *   a wooden spear with a tied off red flag
+E 1 83403 6 16 100 0 0 0           *   a wooden spear with a tied off red flag
 M 0 83358 4 83755 100 0 0 0        * a Deramuth guard
-E 1 83403 4 16 100 0 0 0           *   a wooden spear with a tied off red flag
+E 1 83403 6 16 100 0 0 0           *   a wooden spear with a tied off red flag
 M 0 43132 1 83756 100 0 0 0        * (mob type not in this .mob file)
 M 0 43137 7 83757 100 0 0 0        * (mob type not in this .mob file)
 M 0 83375 3 83757 100 0 0 0        * a shield dwarf
 M 0 83358 4 83758 100 0 0 0        * a Deramuth guard
-E 1 83403 4 16 100 0 0 0           *   a wooden spear with a tied off red flag
+E 1 83403 6 16 100 0 0 0           *   a wooden spear with a tied off red flag
 M 0 83360 3 83760 100 0 0 0        * a Deramuth mercenary
 M 0 83360 3 83760 100 0 0 0        * a Deramuth mercenary
 M 0 43133 1 83760 100 0 0 0        * (mob type not in this .mob file)
@@ -3055,6 +3055,7 @@ M 0 83371 1 83760 100 0 0 0        * a burly dwarf bartender
 M 0 93183 2 83761 100 0 0 0        * (mob type not in this .mob file)
 M 0 93183 2 83761 100 0 0 0        * (mob type not in this .mob file)
 M 0 43183 1 83761 100 0 0 0        * (mob type not in this .mob file)
+M 0 83392 1 83761 100 0 0 0        * Bimk the goblin seafarer
 M 0 43134 2 83762 100 0 0 0        * (mob type not in this .mob file)
 G 1 40441 2 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 43134 2 83762 100 0 0 0        * (mob type not in this .mob file)
@@ -3070,7 +3071,7 @@ M 0 43124 2 83771 90 0 0 0         * (mob type not in this .mob file)
 M 0 43149 2 83771 60 0 0 0         * (mob type not in this .mob file)
 M 0 43150 2 83771 60 0 0 0         * (mob type not in this .mob file)
 M 0 83358 4 83778 100 0 0 0        * a Deramuth guard
-E 1 83403 4 16 100 0 0 0           *   a wooden spear with a tied off red flag
+E 1 83403 6 16 100 0 0 0           *   a wooden spear with a tied off red flag
 M 0 83375 3 83778 100 0 0 0        * a shield dwarf
 M 0 83361 7 83782 100 0 0 0        * a halfling dock hand
 M 0 43137 7 83782 100 0 0 0        * (mob type not in this .mob file)
@@ -3116,8 +3117,13 @@ G 1 74274 1 0 15 0 0 0             *    (object type not in this .obj file)
 G 1 74281 1 0 15 0 0 0             *    (object type not in this .obj file)
 G 1 74282 1 0 15 0 0 0             *    (object type not in this .obj file)
 M 0 83365 1 83795 100 0 0 0        * an eager moneychanger
+G 1 94336 5 0 100 0 0 0            *    (object type not in this .obj file)
 F 1 83366 2 83795 100 0 0 0        * a mercenary guard (following)
 F 1 83366 2 83795 100 0 0 0        * a mercenary guard (following)
+M 0 83393 2 83796 100 0 0 0        * a manor gate guard
+E 1 83403 6 16 100 0 0 0           *   a wooden spear with a tied off red flag
+M 0 83393 2 83796 100 0 0 0        * a manor gate guard
+E 1 83403 6 16 100 0 0 0           *   a wooden spear with a tied off red flag
 M 0 83380 8 83813 100 0 0 0        * a human smuggler
 M 0 83380 8 83813 100 0 0 0        * a human smuggler
 M 0 83380 8 83813 100 0 0 0        * a human smuggler

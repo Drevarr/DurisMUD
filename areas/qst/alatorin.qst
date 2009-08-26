@@ -2169,3 +2169,25 @@ gruneegth goblin~
 &+gA Gruneegth goblin leans in real close to $N and says 'Or bring me fabled Gruneegth totem, and goblin pay with special treasure.'
 ~
 S
+#83392
+MA
+qc_action 300~
+&N$n &+gsays 'And one time we were hunted by the Ultranos!  Fast ship, let me
+&+gtell you!' shivering at the thought of the now-ghost ship.
+~
+MA
+ultranos~
+&N$n looks at $N strangely and says 'We nearly sank the Ultranos!  My I remember
+what we were going after, too.. the Eye of the Serpent..'
+&N$n stares off with dreams of the &+Ggem&N in his eyes.
+~
+MA
+eye serpent gem~
+&N$n says 'Bring me the Eye of the Serpent, $N, and I will reward thee.'
+~
+QA
+&N$n says 'Well done, $n!'
+~
+R I 38779
+G I 31538
+S
