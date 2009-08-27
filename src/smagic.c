@@ -4843,9 +4843,9 @@ void event_torment_spirits(P_char ch, P_char victim, P_obj obj, void *data)
 {
   int dam, ts;
   struct damage_messages messages = {
-    0,
+    "&+WYour ancestors plague &n$N&n &+Wwith anguish and &+Lpain...&n",
     "&+LThe &+wghosts &+Lof your lost ancestors shred your inner being!&N",
-    0,
+    "&+WYour ancestors plague &n$N&n 7+Wwith anguish and &+Lpain...&n",
     "$N &+rcollapses in a heap, more dead than a doornail.&n",
     "Your will to live escapes you...",
     "$N &+rcollapses in a heap, $E is as dead as a doornail!&n",
@@ -4863,6 +4863,8 @@ void event_torment_spirits(P_char ch, P_char victim, P_obj obj, void *data)
   {
     act("&+gRelief fills your &+wbones &+gas the &+Ltormenting &+gstops.&n",
       FALSE, ch, 0, victim, TO_VICT);
+    act("&+gYour ancestors depart, stopping their torment of&n $N.&n",
+      FALSE, ch, 0, victim, TO_CHAR);
     return;
   }
   else
