@@ -1,6 +1,6 @@
 set MainZoneName quietus
 set ObjAffect true
-set LastCommand l aresliean
+set LastCommand edit o
 set StartRoom 1784
 limit object 3097 99999
 limit object 1705 999
