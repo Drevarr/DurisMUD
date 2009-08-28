@@ -625,7 +625,7 @@ db_query("INSERT INTO world_quest_accomplished (pid, timestamp, quest_giver, pla
 
 int sql_world_quest_can_do_another(P_char ch)
 {
-  int returning_value = (int) get_property("worldQuest.maxPerDay", 7.00);
+  int returning_value = (int)(get_property("worldQuest.maxPerDay", 7.00));
 	
   MYSQL_RES *db = 0;
  if(GET_LEVEL(ch) < 50)
@@ -634,9 +634,9 @@ int sql_world_quest_can_do_another(P_char ch)
 	 db = db_query("SELECT count(id) FROM world_quest_accomplished where pid = %d and TO_DAYS( NOW() ) - TO_DAYS( timestamp ) <= 0", GET_PID(ch));
 
   if(GOOD_RACE(ch))
-    int returning_value = (int) get_property("worldQuest.maxPerDay.goods", 10.00);
+    returning_value = (int)(get_property("worldQuest.maxPerDay.goods", 10.00));
   else if(EVIL_RACE(ch))
-    int returning_value = (int) get_property("worldQuest.maxPerDay.evils", 7.00);
+    returning_value = (int)(get_property("worldQuest.maxPerDay.evils", 7.00));
   else
   {
     wizlog(56, "&+rBartender Quest Error&n: (%s) is not defined as good or evil race.",
