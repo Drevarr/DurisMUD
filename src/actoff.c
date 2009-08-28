@@ -4231,7 +4231,12 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
   strdex_multiplier = get_property("backstab.StrDexMultiplier", 0.500); 
  
   dam = (double)((dice(weapon->value[1], MAX(1, weapon->value[2] + weapon->value[2]))) * dice_multiplier); 
-  dam += (double)(GET_DAMROLL(ch) * damroll_multiplier); 
+  dam += (double)(GET_DAMROLL(ch) * damroll_multiplier);
+  
+  if(IS_IMMOBILE(victim) ||
+     GET_STAT(victim) <= STAT_SLEEPING)
+      dam = MAX(40, dam);
+  
   strdex = (double)(((GET_C_DEX(ch) + GET_C_STR(ch)) / 24) * strdex_multiplier); 
   final_damage = (double)((1 + GET_LEVEL(ch) / 56) * 
                            strdex * 
@@ -4438,7 +4443,7 @@ int backstab(P_char ch, P_char victim)
     percent_chance = (int) (percent_chance * get_property("backstab.AwareModifier", 0.850));
   }
   
-  if(AWAKE(victim) &&
+  if(!IS_IMMOBILE(victim) &&
     IS_AFFECTED(victim, AFF_SKILL_AWARE))
   {
     for(af_ptr = victim->affected; af_ptr; af_ptr = af_ptr->next)
@@ -4456,7 +4461,8 @@ int backstab(P_char ch, P_char victim)
       logit(LOG_DEBUG, "aware, but no affected structure");
   }
 
-  if(IS_FIGHTING(victim))
+  if(IS_FIGHTING(victim) &&
+     !IS_IMMOBILE(victim))
   {
     percent_chance = (int) (percent_chance / 1.5);
   }
@@ -4523,8 +4529,7 @@ int backstab(P_char ch, P_char victim)
     stabbed = TRUE;
     if(notch_skill(ch, SKILL_BACKSTAB,
                     get_property("skill.notch.offensive", 15)) ||
-        percent_chance > number(0, 100) ||
-        GET_STAT(victim) <= STAT_SLEEPING)
+        percent_chance > number(0, 100))
     {
       if(single_stab(ch, victim, first_w))
         return TRUE;
