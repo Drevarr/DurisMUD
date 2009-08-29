@@ -4844,7 +4844,7 @@ void event_torment_spirits(P_char ch, P_char victim, P_obj obj, void *data)
   int dam, ts;
   struct damage_messages messages = {
     "&+WYour ancestors plague &n$N&n &+Wwith anguish and &+Lpain...&n",
-    "&+LThe &+wghosts &+Lof your lost ancestors shred your inner being!&N",
+    "&+LThe &+wghosts &+Lof &n$n &+Llost ancestors shred your inner being!&N",
     "&+WYour ancestors plague &n$N&n &+Wwith anguish and &+Lpain...&n",
     "$N &+rcollapses in a heap, more dead than a doornail.&n",
     "Your will to live escapes you...",
