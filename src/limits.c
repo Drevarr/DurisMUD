@@ -860,10 +860,6 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
       if((RACE_EVIL(ch) && RACE_EVIL(victim)) ||
          (RACE_GOOD(ch) && RACE_GOOD(victim)))
         new_xp = 0;
-      else if (GET_LEVEL(victim) < 20)    //check if victim is higher then 20
-        new_xp = 0;
-      else if ((GET_LEVEL(ch) - GET_LEVEL(victim)) > 15)  //check if diff is bigger then 15
-        new_xp = 0;
       else                        //else give this..
         new_xp = value; //GET_LEVEL(victim) * (int) get_property("exp.racewar.perLevel", 100000);
       
@@ -1057,7 +1053,8 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
       return 0;
 
   if(!(pvp) &&
-     type != EXP_DEATH)
+     type != EXP_DEATH &&
+     type != EXP_WORLD_QUEST)
   {
     XP = modify_exp_by_zone_trophy(ch, type, (int)(XP));    
   }
