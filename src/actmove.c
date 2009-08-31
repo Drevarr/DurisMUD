@@ -4183,10 +4183,13 @@ void do_wake(P_char ch, char *argument, int cmd)
       {
         send_to_char("You wake up.\n", ch);
         act("$n awakens.", TRUE, ch, 0, 0, TO_ROOM);
-        REMOVE_BIT(ch->specials.affected_by4, AFF4_TUPOR);
+        
+        if(IS_SET(ch->specials.affected_by4, AFF4_TUPOR))
+          REMOVE_BIT(ch->specials.affected_by4, AFF4_TUPOR);
 
-        if (IS_HARPY(ch) && IS_AFFECTED2(ch, AFF2_MEMORIZING))
-          stop_memorizing(ch);
+        if((IS_HARPY(ch) || GET_CLASS(ch, CLASS_ETHERMANCER)) &&
+            IS_AFFECTED2(ch, AFF2_MEMORIZING))
+              stop_memorizing(ch);
 
         SET_POS(ch, GET_POS(ch) + STAT_RESTING);
       }

@@ -3134,6 +3134,7 @@ void do_tupor(P_char ch, char *arg, int cmd)
     send_to_char("You are already in your trance.\n", ch);
     return;
   }
+  
   SET_BIT(ch->specials.affected_by4, AFF4_TUPOR);
   StartRegen(ch, EVENT_MANA_REGEN);
   send_to_char("You slip into a death-like trance...\n", ch);
