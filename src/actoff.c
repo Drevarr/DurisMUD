@@ -7152,29 +7152,25 @@ void do_trample(P_char ch, char *argument, int cmd)
   if(!SanityCheck(ch, "trample"))
     return;
 
-  if(!(mount = get_linked_char(ch, LNK_RIDING)))
-  {
-    send_to_char("You can do this only while riding a mount!\n", ch);
-    return;
-  }
-
   if(GET_CHAR_SKILL(ch, SKILL_MOUNTED_COMBAT) < 1)
   {
     send_to_char("Your skill with a mount is horrible.\r\n", ch);
     return;
   }
-
+  
+  mount = get_linked_char(ch, LNK_RIDING);
+  
+  if(!(mount))
+  {
+    send_to_char("You can do this only while riding a mount!\n", ch);
+    return;
+  }
+  
   if(affected_by_spell(ch, SKILL_BASH))
   {
     send_to_char
       ("You haven't reoriented the mount yet enough for another trample!\n",
        ch);
-    return;
-  }
-  
-  if(mount == victim)
-  {
-    send_to_char("Your mount cannot trample itself!\r\n", ch);
     return;
   }
   
@@ -7184,7 +7180,15 @@ void do_trample(P_char ch, char *argument, int cmd)
   {
     victim = get_char_room_vis(ch, name);
   }
-    
+
+  if(victim &&
+     mount == victim)
+  {
+    send_to_char("&+LYour mount cannot trample itself!\r\n", ch);
+    CharWait(ch, PULSE_VIOLENCE);
+    return;
+  }
+  
   if (!(victim) &&
       IS_FIGHTING(ch))
   {
