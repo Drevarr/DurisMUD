@@ -642,7 +642,7 @@ void chant_calm(P_char ch, char *argument, int cmd)
 
   if (!GET_CLASS(ch, CLASS_MONK) && !IS_TRUSTED(ch))
   {
-    send_to_char("Just breathe deeply, will calm ya right down.\r\n", ch);
+    send_to_char("Just breathe deeply, will calm you right down.\r\n", ch);
     return;
   }
 
@@ -659,9 +659,13 @@ void chant_calm(P_char ch, char *argument, int cmd)
     {
       if (notch_skill(ch, SKILL_CALM, 10) || number(1, 130) < skl_lvl )
       {
-        stop_fighting(d);
-        clearMemory(d);
-        send_to_char("A sense of calm comes upon you.\r\n", d);
+        if(!IS_GREATER_RACE(d) &&
+           !IS_ELITE(d))
+        {
+          stop_fighting(d);
+          clearMemory(d);
+          send_to_char("A sense of calm comes upon you.\r\n", d);
+        }
       }
     }
   }
@@ -671,10 +675,10 @@ void chant_calm(P_char ch, char *argument, int cmd)
 
 void chant_heroism(P_char ch, char *argument, int cmd)
 {
-  struct affected_type af, af1;
+  struct affected_type af, af1, af2;
   char     buf[100];
   int      skl_lvl = 0;
-  int duration = MAX(5, GET_LEVEL(ch) / 4);
+  int duration = MAX(5, (GET_LEVEL(ch) / 4)  + 2);
 
   if (!GET_CLASS(ch, CLASS_MONK) && !IS_TRUSTED(ch))
   {
@@ -720,7 +724,7 @@ void chant_heroism(P_char ch, char *argument, int cmd)
   af.location = APPLY_HITROLL;
   affect_to_char(ch, &af);
   
-  af.modifier = MAX(1, GET_LEVEL(ch) / 8);
+  af.modifier = MAX(2, GET_LEVEL(ch) / 4);
   af.location = APPLY_DAMROLL;
   affect_to_char(ch, &af);
   
@@ -740,8 +744,12 @@ void chant_heroism(P_char ch, char *argument, int cmd)
     GET_SPEC(ch, CLASS_MONK, SPEC_WAYOFSNAKE) &&
     !IS_AFFECTED4(ch, AFF4_DAZZLER))
   {
+    bzero(&af2, sizeof(af2));
+    af2.type = SPELL_DAZZLE;
+    af2.flags = AFFTYPE_NODISPEL;
+    af2.duration = duration / 2;
+    affect_to_char(ch, &af2);
     send_to_char("Your body begins to glow with disorienting colors... \r\n", ch);
-    spell_dazzle(50, ch, 0, 0, ch, NULL);
   }
 
   CharWait(ch, PULSE_VIOLENCE);
@@ -763,7 +771,7 @@ void chant_buddha_palm(P_char ch, char *argument, int cmd)
 
   if (!GET_CLASS(ch, CLASS_MONK) && !IS_TRUSTED(ch))
   {
-    send_to_char("You suck.\r\n", ch);
+    send_to_char("You may not perform the buddha palm chant.\r\n", ch);
     return;
   }
 
@@ -771,7 +779,7 @@ void chant_buddha_palm(P_char ch, char *argument, int cmd)
         WAIT_SEC * get_property("timer.secs.monkBuddha", 30),
         SKILL_BUDDHA_PALM))
   {
-    send_to_char("Yer not in proper mood for that right now!\r\n", ch);
+    send_to_char("You are not in the proper mood for that right now!\r\n", ch);
     return;
   }
 
@@ -865,7 +873,7 @@ void chant_quivering_palm(P_char ch, char *argument, int cmd)
 
   if (!GET_CLASS(ch, CLASS_MONK) && !IS_TRUSTED(ch))
   {
-    send_to_char("Too bad you're not a monk, eh?\r\n", ch);
+    send_to_char("Too bad you're not a monk.\r\n", ch);
     return;
   }
 
@@ -897,7 +905,7 @@ void chant_quivering_palm(P_char ch, char *argument, int cmd)
         WAIT_SEC * get_property("timer.secs.monkQuivering", 30),
         SKILL_QUIVERING_PALM))
   {
-    send_to_char("Yer not in proper mood for that right now!\r\n", ch);
+    send_to_char("You are not in the proper mood for that right now!\r\n", ch);
     return;
   }
   if (CHAR_IN_SAFE_ZONE(ch))
@@ -1105,9 +1113,9 @@ void chant_ki_strike(P_char ch, char *argument, int cmd)
     one_argument(argument, name);
   if (!argument || !*argument || !(vict = get_char_room_vis(ch, name)))
   {
-    if (ch->specials.fighting &&
-        (GET_STAT(ch->specials.fighting) != STAT_DEAD))
-      vict = ch->specials.fighting;
+    if(ch->specials.fighting &&
+      (GET_STAT(ch->specials.fighting) != STAT_DEAD))
+       vict = ch->specials.fighting;
   }
   if (!vict || (GET_STAT(vict) == STAT_DEAD))
   {
@@ -1156,11 +1164,11 @@ void chant_ki_strike(P_char ch, char *argument, int cmd)
     if (!IS_FIGHTING(ch))
       set_fighting(ch, vict);
   {
-    act("&+BYou swiftly strike at $N&+B, delivering a quick, decisive blow to a pressure point!&n", FALSE, ch, 0, vict, TO_CHAR);
+    act("&+BYou swiftly strike at $N&+B, delivering a quick, decisive blow to a pressure point!&n",
+      FALSE, ch, 0, vict, TO_CHAR);
     act("&+B$n&+B lunges at $N&+B striking $S chest, leaving $M slightly dazed!&n",
-        FALSE, ch, 0, vict, TO_NOTVICT);
-    act
-      ("&+B$n&+B lunges at you, and before you can react, you feel somewhat dazed!&n",
+      FALSE, ch, 0, vict, TO_NOTVICT);
+    act("&+B$n&+B lunges at you, and before you can react, you feel somewhat dazed!&n",
        FALSE, ch, 0, vict, TO_VICT);
     CharWait(vict, (int) (1.5 * PULSE_VIOLENCE));
     if (!char_in_list(ch))
@@ -1172,13 +1180,18 @@ void chant_ki_strike(P_char ch, char *argument, int cmd)
   percent = (BOUNDED(0, (GET_LEVEL(ch) - GET_LEVEL(vict)), 100));
   percent += number(-5, 20);
 
-  if (!affected_by_spell(vict, SKILL_KI_STRIKE) && (percent > number(1, 30)))
+  if(!affected_by_spell(vict, SKILL_KI_STRIKE) &&
+    (percent > number(1, 30)) &&
+    !IS_GREATER_RACE(vict) &&
+    !IS_ELITE(vict))
   {
-   	  act("&+bYour attack on $N&+b's pressure point is particularly devastating!&n", FALSE, ch, 0,
-               vict, TO_CHAR);
-      act("&+b$n&+b's attack strikes hard, and you feel yourself slloooowwwww down!&n", FALSE, ch, 0, vict, TO_VICT);
-	  act("&+b$N&+b begins to move MUCH more sluggishly!&n", FALSE, ch, 0, vict, TO_NOTVICT);
-	  struct affected_type af;
+      act("&+bYour attack on $N&+b's pressure point is particularly devastating!&n",
+        FALSE, ch, 0, vict, TO_CHAR);
+      act("&+b$n&+b's attack strikes hard, and you feel yourself slloooowwwww down!&n",
+        FALSE, ch, 0, vict, TO_VICT);
+      act("&+b$N&+b begins to move MUCH more sluggishly!&n",
+        FALSE, ch, 0, vict, TO_NOTVICT);
+      struct affected_type af;
       memset(&af, 0, sizeof(af));
       af.type = SKILL_KI_STRIKE;
       af.duration =  1;
@@ -1240,7 +1253,7 @@ void chant_regenerate(P_char ch, char *argument, int cmd)
   af.modifier = GET_CHAR_SKILL(ch, SKILL_REGENERATE);
   affect_to_char(ch, &af);
 
-  notch_skill(ch, SKILL_REGENERATE, 100);
+  notch_skill(ch, SKILL_REGENERATE, 25);
   CharWait(ch, PULSE_VIOLENCE);
 }
 
@@ -1365,10 +1378,13 @@ void do_chant(P_char ch, char *argument, int cmd)
     send_to_char("Your throat suddenly becomes dry.\r\n", ch);
     act("$n tries to say something, but $s voice is garbled.", FALSE, ch, 0,
         0, TO_ROOM);
-    notch_skill(ch, SKILL_CHANT, 100);
+        
+    notch_skill(ch, SKILL_CHANT,
+      get_property("skill.notch.chants", 25));
     return;
   }
-  notch_skill(ch, SKILL_CHANT, 10);
+  notch_skill(ch, SKILL_CHANT,
+      get_property("skill.notch.chants", 25));
   act("You start to chant in a deep voice.", FALSE, ch, 0, 0, TO_CHAR);
   act("$n starts to chant in a deep voice.", TRUE, ch, 0, 0, TO_ROOM);
   switch (chant_index)
@@ -1397,9 +1413,9 @@ void do_chant(P_char ch, char *argument, int cmd)
     case 7:
       chant_chi_purge(GET_LEVEL(ch), ch, NULL, 0, ch, NULL);
       break;
-	case 8:
-	  chant_ki_strike(ch, argument, cmd);
-	  break;
+    case 8:
+      chant_ki_strike(ch, argument, cmd);
+      break;
     default:
       send_to_char("Error in chant, please report.\r\n", ch);
       break;
