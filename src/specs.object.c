@@ -2960,8 +2960,11 @@ int vapor(P_obj obj, P_char ch, int cmd, char *arg)
   /*
      check for periodic event calls
    */
-  if (!obj)
+  if (!(obj) ||
+      !(ch) ||
+      !IS_ALIVE(ch))
     return FALSE;
+  
   if (cmd == CMD_SET_PERIODIC)
     return TRUE;
 
@@ -2969,20 +2972,24 @@ int vapor(P_obj obj, P_char ch, int cmd, char *arg)
     ch = obj->loc.wearing;
   else if (OBJ_CARRIED(obj))
     ch = obj->loc.carrying;
+  else
+    return false;
 
 
 /*
   Damage proc on.
 */
   curr_time = time(NULL);
-  if (obj->timer[1] + 30 < curr_time)
+  if(obj->timer[1] + 30 < curr_time)
   {
-
-
-    if (ch && IS_FIGHTING(ch))
+    if(ch &&
+       IS_FIGHTING(ch) &&
+       OBJ_WORN(obj))
     {
       vict = ch->specials.fighting;
-      if (!number(0, 10 && GET_HIT(vict) > 40))
+      if(!number(0, 10 &&
+        GET_HIT(vict) > 40) &&
+        GET_MAX_HIT(ch) < (int)(GET_HIT(ch) * 1.250))
       {
 
          act("&+LSuddenly the &+wgr&+gee&+Gn &N&+gha&+wze&n &+Laround you comes alive and a &+bchilling feeling &+Lcreeps down\r\n"
@@ -3012,13 +3019,15 @@ int vapor(P_obj obj, P_char ch, int cmd, char *arg)
   }
 // End normal proc.
 
-
-  if (cmd == CMD_PERIODIC)
+  if(cmd == CMD_GOTHIT)
   {
     if (OBJ_WORN(obj))
       ch = obj->loc.wearing;
     else if (OBJ_CARRIED(obj))
       ch = obj->loc.carrying;
+    else
+      return false;
+      
     // recurse self
     if (!IS_SET(obj->extra_flags, ITEM_NODROP))
     {
@@ -3027,22 +3036,17 @@ int vapor(P_obj obj, P_char ch, int cmd, char *arg)
     // It's on body
     if (OBJ_WORN_BY(obj, ch))
     {
-      if (IS_PC(ch) && !number(0, 4) && !NewSaves(ch, SAVING_PARA, 6) &&
-          !IS_AFFECTED2(ch, AFF2_PROT_COLD))
+      if(IS_PC(ch) &&
+        !affected_by_spell(ch, SPELL_COLDSHIELD))
       {
-        act
-          ("&+rYou let out a silence scream as the $p &+rfeeds on your life force.&n ",
-           FALSE, ch, obj, 0, TO_CHAR);
+        act("&+rYou let out a silence scream as the $p &+rfeeds on your life force.&n ",
+          FALSE, ch, obj, 0, TO_CHAR);
         act("&+r$n lets out a silent scream as the $p &+rfeeds on $m!&n",
             FALSE, ch, obj, 0, TO_ROOM);
         GET_HIT(ch) = MAX(1, GET_HIT(ch) - 30);
-
-      }
-      if (!affected_by_spell(ch, SPELL_COLDSHIELD))
-      {
-        spell_coldshield(55, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
       }
 
+      spell_coldshield(55, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
       return TRUE;
     }
 
@@ -3066,13 +3070,9 @@ int vapor(P_obj obj, P_char ch, int cmd, char *arg)
         act
           ("&+LSuddenly the &+ggreen vapor &+Lby&n $n's &+Lfeet starts to sw&+wi&+Wrl &+Las if&n&L&+Lcoming alive. Staring wide-eyed, as if trying to deny reality, he&n&L&+Lwatches as the &+wvapor &+Lslowly coils itself around his legs. &+WWr&+wi&+Wthing&n&L&+Wtentacles &+Lstart to probe $s body like the arms of a hungry octopus&n&L&+Land within seconds $e is encased in a &+bchilling &+Lcloud of vapor.&n",
            FALSE, ch, obj, 0, TO_ROOM);
-
-
         return TRUE;
       }
     }
-
-
   }
   return FALSE;
 }
