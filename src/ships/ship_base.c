@@ -2900,7 +2900,7 @@ void finish_sinking(P_ship ship)
     ship->timer[T_RAM_WEAPONS] = 0; 
     ship->timer[T_MAINTENANCE] = 0; 
     ship->timer[T_MINDBLAST] = 0; 
-	 	     
+                     
     if(IS_SET(ship->flags, MAINTENANCE)) 
         REMOVE_BIT(ship->flags, MAINTENANCE); 
     if(IS_SET(ship->flags, SINKING)) 
@@ -3773,7 +3773,7 @@ int summon_ship (P_char ch, P_ship ship)
         send_to_char ("Your crew is not responding to our summons!\r\n", ch);
         return TRUE;
     }
-    int summon_cost = SHIPTYPEHULLWEIGHT(ship->m_class) * 100;
+    int summon_cost = SHIPTYPEHULLWEIGHT(ship->m_class) * 50;
     if (GET_MONEY(ch) < summon_cost) 
     {
         sprintf(buf, "It will cost %s to summon your ship!\r\n", coin_stringv(summon_cost));
