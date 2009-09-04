@@ -19590,7 +19590,7 @@ void spell_mielikki_vitality(int level, P_char ch, char *arg, int type, P_char v
   bzero(&af, sizeof(af));
   af.type = SPELL_MIELIKKI_VITALITY;
   af.duration = 10;
-  af.modifier = points + number(0, 10);
+  af.modifier = (int)(points + number(0, 10));
   af.location = APPLY_HIT;
   affect_to_char(victim, &af);
 
