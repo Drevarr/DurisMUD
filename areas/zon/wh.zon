@@ -912,11 +912,11 @@ F 1 55052 4 55401 100 0 0 0        * a grim mercenary (following)
 E 1 55376 6 16 100 0 0 0           *   a blood-soaked dagger
 F 1 55052 4 55401 100 0 0 0        * a grim mercenary (following)
 E 1 55376 6 16 100 0 0 0           *   a blood-soaked dagger
-F 1 55053 1 55401 100 0 0 0        * a slack-jawed prostitute (following)
+F 1 55053 1 55401 20 0 0 0         * a slack-jawed prostitute (following)
 E 1 55378 1 9 100 0 0 0            *   a virulent case of herpes simplex
-F 1 55054 1 55401 100 0 0 0        * a shitting youth (following)
+F 1 55054 1 55401 20 0 0 0         * a shitting youth (following)
 E 1 55380 1 7 100 0 0 0            *   a pair of soiled leather breeches
-F 1 55055 1 55401 100 0 0 0        * a battle scarred mercenary (following)
+F 1 55055 1 55401 20 0 0 0         * a battle scarred mercenary (following)
 E 1 55314 1 20 100 0 0 0           *   a blank expression
 M 0 55550 4 55402 100 0 0 0        * The Incarnate of Fire
 M 0 55550 4 55402 100 0 0 0        * The Incarnate of Fire
