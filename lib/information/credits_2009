@@ -50,7 +50,7 @@
 &+RCity of Brass (Efreeti)           &+L*     &+R51+    &+w-&+L=&+C  Cython
 &+YCity of BogenTok                  &+L* &+Y10-50      &+w-&+L=&+C  Clavados
 &+YCity of Torrhan                   &+L* &+Y20-50      &+w-&+L=&+C  Denel
-&+gCity of Verspin                   &+L*  &+g3-50      &+w-&+L=&+C  Zepline
+&+gCity of Verspin                   &+L*  &+g3-50      &+w-&+L=&+C  Zepline/Mren
 &+YCity of Wemics                    &+L* &+Y10-40      &+w-&+L=&+C  Clavados
 &+gThe Clawed Caverns                &+L* &+g 5-20      &+w-&+L=&+C  Xueqin
 &+YThe Cloud Giant Kingdom           &+L* &+Y10-50      &+w-&+L=&+C  Clavados
@@ -149,6 +149,7 @@
 &+RNew Cave City                     &+L*    &+R51+     &+w-&+L=&+C  Ilienze
 &+gNewhaven                          &+L* &+g20-40      &+w-&+L=&+C  Drevarr/Ilshadrial
 &+gNeverwind Valley                  &+L* &+g15-30      &+w-&+L=&+C  Halcyon
+&+RNexus: Marduk/Antu/Enlil/Ningishzida            &+w-&+L=&+C  Kitsero
 &+gNhavan Island                     &+L* &+g10-30      &+w-&+L=&+C  Oghma
 &+YNizari                            &+L* &+Y20-40      &+w-&+L=&+C  Shadowy
 &+YNorthern Lakes and Settlements    &+L* &+Y20-40      &+w-&+L=&+C  Melkivar
@@ -158,6 +159,7 @@
 &+rThe Obsidian Citadel              &+L* &+r40-50      &+w-&+L=&+C  Zileas
 &+rThe Old Citadel                   &+L* &+r30-50      &+w-&+L=&+C  Shadowy
 &+YOutcast Tower                     &+L* &+Y25-50      &+w-&+L=&+C  Clavados
+&+ROrraks Tower                      &+L*    &+R51+     &+w-&+L=&+C  Zepline/Mren
 &+YThe Outpost                       &+L* &+Y30-50      &+w-&+L=&+C  Kharne
 &+RPalace of the Sultan              &+L*    &+R51+     &+w-&+L=&+C  Cython
 &+gThe Peasant Village of Ako        &+L*  &+g1-50      &+w-&+L=&+C  Arylin
@@ -312,16 +314,16 @@
                                 &+RCURRENT DURIS
                                 &+L*************
 
-      &+rDuris Currently Run By: &+cTorgal, Zion, Lurcrot
+      &+rDuris Currently Run By: &+cTorgal, Lucrot
 
-      &+rDuris Coders: &+cTorgal, Kvark, Venthix, Lom, Zion, Jexni, Lucrot
-      &+rDuris Areas &+rGroup: &+cFotenak, Kharne, Zion, Jexni, Lucrot
+      &+rDuris Coders: &+cTorgal, Odorf, Lom, Lucrot
+      &+rDuris Areas &+rGroup: &+cFotenak, Seif, Kitsero, Lucrot
       &+rCaretakers of Custom DE Editor: &+cTharkun
       &+rDuris Server and Machine: &+cTorgal
       &+rDuris Site provided by: &+cTorgal
-      &+rDuris Quest Creators: &+cKotil, Aceldama
-      &+rDuris Help Files: &+cAxxa, Weebler, Illuminati, Kharne, Jexni, Zion, Lucrot
-      &+rDuris Zone Credits: &+cBeretorn, Jexni
+      &+rDuris Quest Creators: &+cFotenak, Seif, Kitsero
+      &+rDuris Help Files: &+cLucrot
+      &+rDuris Zone Credits: &+cLucrot
 
       &+rDuris Website: &+Whttp://www.durismud.com      
          &+rWebsite run by: &+cTorgal
