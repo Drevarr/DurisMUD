@@ -40,15 +40,15 @@ Updated with warships. Nov08 -Lucrot
 #define ONBUYADJUST         0.3
 #define BUYADJUSTAUTO         1
 #define MINSELLMOD           30
-#define MAXSELLMODAUTO      100
-#define MAXSELLMOD          130
+#define MAXSELLMODAUTO      125
+#define MAXSELLMOD          150
 #define ONSELLADJUST       0.40
 #define ONSELLADJUSTCARGO  0.15
 #define ONSELLADJUSTALL    0.03
 #define SELLADJUSTAUTOINC     1
 #define SELLADJUSTAUTODEC  0.20
 #define MINCONTRAALIGN     1000
-#define MINCONTRAFRAGS     100
+#define MINCONTRAFRAGS      100
 
 
 
