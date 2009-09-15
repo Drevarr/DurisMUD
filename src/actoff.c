@@ -7934,15 +7934,15 @@ void do_whirlwind(P_char ch, char *argument, int cmd)
 
   if(affected_by_spell(ch, SPELL_BLINDNESS))
   {
-   if(GET_CHAR_SKILL(ch, SKILL_BLINDFIGHTING) < 80)
-   {
+    if(GET_CHAR_SKILL(ch, SKILL_BLINDFIGHTING) < 80)
+    {
       send_to_char("You dare not attack any faster considering your current lack of sight!\n", ch);
       return;
-   }
-   else
-   {
+    }
+    else
+    {
       send_to_char("&+WHaving practiced blindfolded before, you ignore your plight and charge!&N\n", ch);
-   }
+    }
   }
 
   if(!IS_FIGHTING(ch))
@@ -7966,6 +7966,7 @@ void do_whirlwind(P_char ch, char *argument, int cmd)
        ch);
     act("$n attempts to fight even faster, but $s coordination failed $m.",
         FALSE, ch, 0, 0, TO_ROOM);
+    GET_VITALITY(ch) -= 20;
     return;
   }
 
@@ -7978,7 +7979,7 @@ void do_whirlwind(P_char ch, char *argument, int cmd)
   memset(&af, 0, sizeof(af));
   af.type = SKILL_WHIRLWIND;
   af.location = APPLY_MOVE_REG;
-  af.modifier = -(mod);
+  af.modifier = -1 * mod;
   af.duration = 3 * PULSE_VIOLENCE;
   af.flags = AFFTYPE_SHORT;
   affect_to_char(ch, &af);
