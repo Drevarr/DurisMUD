@@ -982,6 +982,7 @@ void update_maxspeed(P_ship ship)
     int cargo_weight_mod = MIN(SHIPFREECARGO(ship), cargo_weight);
 
     float weight_mod = 1.0 - ( (float) (SHIPSLOTWEIGHT(ship) - weapon_weight_mod - cargo_weight_mod) / (float) SHIPMAXWEIGHT(ship) );
+
     ship->maxspeed = SHIPTYPESPEED(ship->m_class); // Set to Ship Type Max
     ship->maxspeed = (int)((float)ship->maxspeed * (1.0 + ship->sailcrew.skill_mod));
     ship->maxspeed = (int) ((float)ship->maxspeed * weight_mod);
