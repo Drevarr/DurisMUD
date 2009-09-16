@@ -4364,13 +4364,9 @@ int backstab(P_char ch, P_char victim)
   int      percent_chance;
   bool     stabbed = FALSE;
 
-  if(!ch ||
-     !victim ||
-     !IS_ALIVE(ch) ||
-     !IS_ALIVE(victim))
+  if(!(ch) ||
+     !IS_ALIVE(ch))
   {
-    send_to_char("Backstab who?\n", ch);
-    CharWait(ch, (int)(0.5 * PULSE_VIOLENCE));
     return FALSE;
   }
 
@@ -4387,6 +4383,17 @@ int backstab(P_char ch, P_char victim)
   {
     send_to_char("It's far too narrow in here to sneak up behind someone to stab them in the back...\r\n", ch);
     return false;
+  }
+
+  if(!IS_FIGHTING(ch))
+  {
+    if(!(victim) ||
+       !IS_ALIVE(victim))
+    {
+      send_to_char("Backstab who?\n", ch);
+      CharWait(ch, (int)(0.5 * PULSE_VIOLENCE));
+      return FALSE;
+    }
   }
 
   if(ch->specials.fighting)
