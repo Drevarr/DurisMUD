@@ -377,7 +377,7 @@ void spell_single_prismatic_ray(int level, P_char ch, char *arg, int type,
 void spell_prismatic_ray(int level, P_char ch, char *arg, int type,
                          P_char victim, P_obj obj)
 {
-  int      dam, rays, ray_type, room;
+  int      dam, rays, ray_type, room, i = 0;
   uint     ray_flag;
   
   if(!(ch) ||
@@ -399,10 +399,12 @@ void spell_prismatic_ray(int level, P_char ch, char *arg, int type,
     rays--;
     ray_flag |= ray_type;
     spell_single_prismatic_ray(level, ch, (char *) &ray_type, 0, victim, 0);
+    i++;
     if(GET_STAT(victim) == STAT_DEAD)
       break;
   }
   
+  if(i > 1)
   zone_spellmessage(room,
     "&+CC&+co&+Cl&+co&+Cr&+cf&+Cu&+cl&N &+Crays of &+Wlight &+Cstreak throughout the sky!&n");
 }
