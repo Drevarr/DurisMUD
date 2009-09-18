@@ -504,6 +504,15 @@ bool auction_info(P_char ch, char *args) {
 
  	spell_identify(60, ch, NULL, 0, 0, tmp_obj);
 	
+  if (can_char_use_item(ch, tmp_obj))
+  {
+    send_to_char("&+GYour race and class is permitted to use this item.\r\n", ch);
+  }
+  else
+  {
+    send_to_char("&=LRYOU ARE UNABLE TO USE THIS ITEM.\r\n", ch);
+  }
+  
 	extract_obj(tmp_obj, TRUE);
 
 	return TRUE;
