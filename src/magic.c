@@ -11803,8 +11803,7 @@ void spell_disintegrate(int level, P_char ch, char *arg, int type,
   act("You grin evilly as you send a &+Ggreen beam of disintegration&n streaking towards&n $N!",
     TRUE, ch, 0, victim, TO_CHAR);
   
-  if(!saves_spell(victim, SAVING_SPELL) ||
-    !number(0, 9))
+  if(!saves_spell(victim, SAVING_SPELL))
   {
     if(!IS_AFFECTED4(victim, AFF4_NEG_SHIELD) &&
        !IS_UNDEADRACE(victim))
@@ -11882,7 +11881,8 @@ void spell_disintegrate(int level, P_char ch, char *arg, int type,
           }
           i++;
         }
-        while (i < MAX_WEAR);
+        while (i < MAX_WEAR &&
+               i < 3);
       }
     }
   }                             /* else dam = 0; */
