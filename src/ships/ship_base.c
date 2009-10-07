@@ -2882,10 +2882,13 @@ void finish_sinking(P_ship ship)
 
 
 
-
+    int old_class = ship->m_class;
     ship->m_class = 0; // all ships become sloops after sinking
     setarmor(ship, true);
-    ship->mainsail = SHIPTYPEMAXSAIL(ship->m_class);
+    if (old_class > 0)
+       ship->mainsail = SHIPTYPEMAXSAIL(ship->m_class);
+    else
+       ship->mainsail = 0;
 
     clear_ship_layout(ship);
     set_ship_layout(ship, ship->m_class);
