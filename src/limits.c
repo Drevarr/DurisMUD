@@ -1162,6 +1162,13 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
 // debug("check 6 xp (%d).", XP);  
   XP = BOUNDED(-range, XP, range);
   
+  if(XP > 0 &&
+     GET_EXP(ch) > (new_exp_table[GET_LEVEL(ch) + 1] * 0.75));
+  {
+    XP = 1;
+    send_to_char("&+LYour exps are capped and you must gain a level to accumulate more exps.\r\n", ch);
+  }
+  
   // increase exp only to some limit (cumulative exp till 61)
   if(XP < 0 ||
      GET_EXP(ch) < global_exp_limit)
