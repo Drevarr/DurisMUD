@@ -70,8 +70,7 @@ int is_Raidable(P_char ch, char *argument, int cmd)
     return false;
   }
   else if(IS_TRUSTED(ch) ||
-          IS_NPC(ch) ||
-          (IS_PC(ch) && GET_LEVEL(ch) < 21))
+          IS_NPC(ch))
   {
     return true;
   }

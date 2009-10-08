@@ -317,12 +317,13 @@ void spell_spirit_walk(int level, P_char ch, char *arg, int type,
     // statuslog(57, logbuf);
   }
 
-  if(ch && !is_Raidable(ch, 0, 0))
+  if(ch &&
+     !is_Raidable(ch, 0, 0))
   {
     send_to_char("&+WYou are not raidable. The spell fails!\r\n", ch);
     return;
   }
-  
+
   act
     ("&+C$n's form begins to blur and shift as $s spirit tears free of its physical bonds. With a blast of&N &+Wwi&N&+wn&N&+Wd&N &+Cand the sound of&N &+rs&N&+Ro&N&+rul&N&+Rs&N &+Cscreaming, $n disappears through a door of the&N &+Ldead.&N",
      TRUE, ch, 0, 0, TO_ROOM);
@@ -4411,10 +4412,19 @@ void spell_spirit_jump(int level, P_char ch, char *arg, int type,
     return;
   }
   
-  if((ch && !is_Raidable(ch, 0, 0)) ||
-     (victim && !is_Raidable(victim, 0, 0)))
+  if(ch &&
+     !is_Raidable(ch, 0, 0))
   {
-    send_to_char("&+WYou or your target is not raidable. The spell fails!\r\n", ch);
+    send_to_char("&+WYou are not raidable. The spell fails!\r\n", ch);
+    return;
+  }
+  
+  if(victim &&
+     IS_PC(ch) &&
+     IS_PC(victim) &&
+     !is_Raidable(victim, 0, 0))
+  {
+    send_to_char("&+WYour target is not raidable. The spell fails!\r\n", ch);
     return;
   }
   

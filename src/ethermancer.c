@@ -498,10 +498,19 @@ void spell_windwalk(int level, P_char ch, char *arg, int type, P_char victim,
     return;
   }
   
-  if((ch && !is_Raidable(ch, 0, 0)) ||
-     (victim && !is_Raidable(victim, 0, 0)))
+  if(ch &&
+     !is_Raidable(ch, 0, 0))
   {
-    send_to_char("&+WYou or your target is not raidable. The spell fails!\r\n", ch);
+    send_to_char("&+WYou are not raidable. The spell fails!\r\n", ch);
+    return;
+  }
+  
+  if(victim &&
+     IS_PC(ch) &&
+     IS_PC(victim) &&
+     !is_Raidable(victim, 0, 0))
+  {
+    send_to_char("&+WYour target is not raidable. The spell fails!\r\n", ch);
     return;
   }
   
