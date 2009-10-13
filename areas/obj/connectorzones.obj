@@ -802,11 +802,11 @@ shadowy staff damnation~
 ~
 5 1 3 0 7 0 9473 8193 64 4591108 0
 12 3 4 0 0 0 0 0
-7 0 100 0 0 65536 0
+7 0 100 0 0 65664 0
 A
-45 7
+35 6
 A
-43 7
+33 6
 #53662
 shadowy crown damnation~
 &+Lthe shadowy &+mcrown &+Lof &+rda&+Rmn&+rat&+Rio&+rn&n~
@@ -814,11 +814,11 @@ shadowy crown damnation~
 ~
 9 15 3 0 7 0 9216 17 64 131488 0
 0 0 0 0 0 0 0 0
-0 0 100 524288 0 0 0
+0 0 100 524288 0 64 0
 A
-45 7
+35 6
 A
-44 7
+34 6
 #53663
 shadowy platemail damnation~
 &+Lthe shadowy &+mplatemail &+Lof &+rda&+Rmn&+rat&+Rio&+rn&n~
@@ -826,11 +826,11 @@ shadowy platemail damnation~
 ~
 9 15 3 0 7 0 9473 9 64 87158875 0
 0 0 0 0 0 0 0 0
-0 0 100 0 2048 0 16777216
+0 0 100 1048576 0 0 16777216
 A
-45 7
+35 6
 A
-41 7
+31 6
 #53664
 wicked wand shadow stalker~
 &+Lthe &+rwi&+Rck&+red &+Lwand of the Shadow Stalker&n~
@@ -866,6 +866,19 @@ tent flap~
 &+LThis large tent &N&+yflap &+Lopens up to the fiord dock.
 ~
 #53667
+bowl seafood bisque~
+&+ya bowl of &N&+rseafood &+cbi&+Bsq&N&+cue&N~
+&+yA bowl of &N&+rseafood &N&+cbisque &N&+yhas been left here.~
+~
+19 48 3 0 7 0 0 16385 0 0 0
+35 8 17 0 0 0 0 0
+0 5 100
+E
+bowl seafood bisque~
+&+rThis steaming bowl of soup is filled with large chunks of
+&+rchopped shrimp and huge bits of seasoned &+ycrab &+rmeat.
+~
+#53668
 bowl seafood bisque~
 &+ya bowl of &N&+rseafood &+cbi&+Bsq&N&+cue&N~
 &+yA bowl of &N&+rseafood &N&+cbisque &N&+yhas been left here.~
