@@ -524,7 +524,7 @@ bool sink_ship(P_ship ship, P_ship attacker)
             P_char ch1 = get_char2(str_dup(SHIPOWNER(contacts[i].ship)));
             P_char ch2 = get_char2(str_dup(SHIPOWNER(attacker)));
             
-            if (contacts[i].ship == attacker  || ( ch1 && ch2 & ch1->group && ch1->group == ch2->group) )
+            if (contacts[i].ship == attacker  || ( ch1 && ch2 && ch1->group && ch1->group == ch2->group) )
             {
                 ship_gain_frags(contacts[i].ship, frag_gain);
                 ship_gain_money(contacts[i].ship, ship, salvage, bounty);
