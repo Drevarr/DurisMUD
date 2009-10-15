@@ -3764,7 +3764,7 @@ int summon_ship (P_char ch, P_ship ship)
 
     if (ship->location == ch->in_room) {
         send_to_char("Your ship is already docked here!\r\n", ch);
-        return TRUE;;
+        return TRUE;
     }
     if (IS_SET(ship->flags, SINKING)) {
         send_to_char("We can't summon your ship.  Sorry.\r\n", ch);
@@ -3777,6 +3777,11 @@ int summon_ship (P_char ch, P_ship ship)
     if (ship->timer[T_BSTATION] > 0) 
     {
         send_to_char ("Your crew is not responding to our summons!\r\n", ch);
+        return TRUE;
+    }
+    if (!is_Raidable(ch, 0, 0))
+    {
+        send_to_char("\r\n&+RGET RAIDABLE!\r\n", ch);
         return TRUE;
     }
     int summon_cost = SHIPTYPEHULLWEIGHT(ship->m_class) * 50;
