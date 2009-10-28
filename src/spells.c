@@ -2605,19 +2605,34 @@ void cast_storm_shield(int level, P_char ch, char *arg, int type,
      FALSE, ch, ch->equipment[WEAR_SHIELD], 0, TO_ROOM);
 }
 
-void cast_bloodstone(int level, P_char ch, char *arg, int type, P_char victim,
-                     P_obj tar_obj)
+void cast_bloodstone(int level, P_char ch, char *arg, int type, P_char victim, P_obj tar_obj)
 {
-  struct affected_type af;
+  int random = number(0, 4);
 
+  struct affected_type af;
   bzero(&af, sizeof(af));
 
+  if(!(ch) ||
+     !IS_ALIVE(ch) ||
+     !(victim) ||
+     !IS_ALIVE(victim) ||
+     ch == victim)
+  {
+    return;
+  }
 
-  if (NewSaves(victim, SAVING_FEAR, 8)) {
+  if(resists_spell(ch, victim))
+  {
+    return;
+  }
+
+  if(NewSaves(victim, SAVING_FEAR, random))
+  {
     return;
   }
   
-  if (affected_by_spell(victim, SPELL_BLOODSTONE)) {
+  if (affected_by_spell(victim, SPELL_BLOODSTONE))
+  {
     send_to_char("Their blood is already made of stone!\n", ch);
     return;
   }
@@ -2632,8 +2647,9 @@ void cast_bloodstone(int level, P_char ch, char *arg, int type, P_char victim,
   affect_to_char(victim, &af);
 
   act("You feel as if though your blood starts to flow slower in your veins.",
-      FALSE, victim, 0, 0, TO_CHAR);
-  act("$n grimaces and clutches $s chest.", FALSE, victim, 0, 0, TO_NOTVICT);
+    FALSE, victim, 0, 0, TO_CHAR);
+  act("$n grimaces and clutches $s chest.",
+    FALSE, victim, 0, 0, TO_NOTVICT);
 
 }
 
