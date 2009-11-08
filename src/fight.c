@@ -2196,7 +2196,7 @@ void die(P_char ch, P_char killer)
      P_obj tempobj = read_object(392, VIRTUAL);
      obj_to_char(tempobj, ch);
   }
-/*
+
   //Random object code - Normal kills.  Kvark
   if((IS_PC(killer) ||
       IS_PC_PET(killer)) &&
@@ -2239,7 +2239,7 @@ void die(P_char ch, P_char killer)
       }
     }
   }
-*/
+
   update_pos(ch);
   SET_POS(ch, GET_POS(ch) + STAT_DEAD);
   update_pos(ch);
