@@ -4650,10 +4650,13 @@ void do_score(P_char ch, char *argument, int cmd)
   }
   
   buf[0] = 0;
-  int RemainingBartenderQuests = sql_world_quest_can_do_another(ch);
-
-  sprintf(buf, "&+yBartender Quests Remaining:&n %d\n", RemainingBartenderQuests);
-  send_to_char(buf, ch);
+  
+  if(IS_PC(ch))
+  {
+	int RemainingBartenderQuests = sql_world_quest_can_do_another(ch);
+	sprintf(buf, "&+yBartender Quests Remaining:&n %d\n", RemainingBartenderQuests);
+	send_to_char(buf, ch);
+  }
   
   buf[0] = 0;
 
