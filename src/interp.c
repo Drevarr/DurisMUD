@@ -1966,9 +1966,9 @@ bool special(P_char ch, int cmd, char *arg)
      * special in mobile present?
      */
     for (k = world[ch->in_room].people; k; k = k->next_in_room)
-	  {
+    {
       if(!IS_ALIVE(k) ||
-         k->in_room != NOWHERE)
+         k->in_room == NOWHERE)
       {
         continue;
       }
