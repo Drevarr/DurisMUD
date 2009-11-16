@@ -1305,7 +1305,7 @@ tempered mithril breastplate breast plate~
 &n&+ma te&+Mmp&N&+mer&+Med &+Cmithril &N&+mbr&+Mea&N&+mst&+Mpl&N&+mate&N~
 &+mA tempered &+Cmithril &+Mbreastplate&N has been left here.~
 ~
-9 18 3 0 11 0 0 9 66 0 0
+9 18 3 0 11 0 0 9 64 0 0
 20 0 0 5 0 0 0 0
 5 20111 100
 A
@@ -1317,7 +1317,7 @@ tempered mithril helmet~
 &+Ma te&N&+mmpe&+Mred &+Cmithril &+Mhel&N&+mmet&N~
 &+MA tempered &+Cmithril &+Chelmet has been left here.~
 ~
-9 18 3 0 11 0 0 17 66 0 0
+9 18 3 0 11 0 0 17 64 0 0
 15 0 0 5 0 0 0 0
 5 17000 100
 A
@@ -1341,7 +1341,7 @@ tempered mithril leg plates~
 &+Mso&N&+mme te&+Mmp&+Mere&N&+md &+Cmithril &n&+mle&+Mg &N&+mp&+Mla&N&+mtes&N~
 &+CSome tempered &+Cmithril &+Cleg plates have been left here.~
 ~
-9 18 3 0 11 0 0 33 66 0 0
+9 18 3 0 11 0 0 33 64 0 0
 15 0 0 5 0 0 0 0
 5 18000 100
 A
@@ -1353,7 +1353,7 @@ tempered mithril boots~
 &+Mso&N&+mme te&+Mmp&+Mere&N&+md &+Cmithril &n&+mbo&+Mots&N~
 &+CSome tempered &+Cmithril &+Cboots have been left here.~
 ~
-9 18 3 0 11 0 0 65 66 0 0
+9 18 3 0 11 0 0 65 64 0 0
 15 0 0 5 0 0 0 0
 5 18000 100
 A
@@ -1365,7 +1365,7 @@ well-balanced mithril longsword sword~
 &+Ma &n&+cwell-balanced &+mm&+Mi&N&+mt&+Mh&N&+mr&+Mi&N&+ml &+Wlongsword&N~
 &+MA well-balanced mithril longsword has been left here.~
 ~
-5 18 3 0 14 0 1 8193 64 0 0
+5 18 3 0 14 0 0 8193 64 0 0
 5 4 4 0 0 0 0 0
 2 15993 100
 A
@@ -1377,7 +1377,7 @@ two-handed mithril bastard sword~
 &+Ma &N&+ctwo-handed &+mm&+Mi&n&+mt&+Mh&N&+mr&+Mi&N&+ml &+Wbastard sword&N~
 &+MA &N&+ctwo-handed &N&+mm&+Mi&N&+mt&+Mh&N&+mr&+Mi&N&+ml &+Wbastard sword &Nhas been left here.~
 ~
-5 18 3 0 14 0 4194305 8193 64 0 0
+5 18 3 0 14 0 4194304 8193 64 0 0
 13 4 8 0 0 0 0 0
 4 28000 100
 A
@@ -1568,7 +1568,7 @@ gnomish harm prevention belt~
 ~
 9 14 2 0 9 0 1 2049 64 0 0
 30 0 0 5 0 0 0 0
-1 4333 100 64 0 64 0
+1 4333 100 64 0 0 0
 E
 gnomish harm prevention belt~
    &+yThis strange gnomish belt is made of taught, cured leather.  There
@@ -1579,7 +1579,7 @@ gnomish harm prevention belt~
 A
 17 -60
 A
-13 20
+13 25
 #83207
 steel cutlass~
 &+La &+Csteel &+Lcutlass&N~
@@ -1999,6 +1999,8 @@ gnomish rocket boots~
 ~
 A
 55 3
+A
+14 22
 #83233
 catseye inventor's goggles~
 &+ysome cat&+Ys&N&+yeye &+Yi&N&+cn&+Yv&N&+ce&+Yn&N&+ct&+Yo&N&+cr&+Y'&N&+cs &+ygoggles&N~
@@ -2609,7 +2611,7 @@ heart ancient baobob tree~
 ~
 8 6 3 0 7 0 33558528 16385 66 0 0
 0 0 0 0 0 0 0 0
-0 55343 100 16777216 0 536870944 0
+0 55343 100 16777216 0 32 0
 E
 heart ancient baobob tree~
    &+gThis deep-green heart glows with a deeply-seeded, ancient magic.
@@ -2823,7 +2825,7 @@ ethereal lily~
 &+Cpetals and a pungeant, magical scent.
 ~
 #83285
-ethereal symbiote inner planes~
+ethereal symbiote inner planes _noquest_~
 &+Lan &n&+me&+Lt&N&+mh&+Le&N&+mr&+Le&N&+ma&+Ll &+Gsymbiote &+Lof the &+Yi&N&+gnn&+Ye&N&+gr &+Yp&N&+gla&+Yn&N&+ges&N~
 &+LA strange &N&+met&+Lhe&N&+mre&+Lal &+Gsymbiote &+Lfloats here, awaiting a new &+Mhost&+L.~
 ~
@@ -3056,7 +3058,7 @@ tiny rune-inscribed ring rune inscribed~
 A
 24 -4
 #83299
-flaming halo combustion~
+flaming halo combustion _noquest_~
 &N&+rthe &+Yf&+Rl&N&+rami&+Rn&+Yg &+Whalo &n&+rof &+Rcom&N&+rb&+Wus&N&+rt&+Rion&N~
 &+rThe &+Yf&+Rl&N&+rami&+Rn&+Yg &+Whalo &N&+rof &+Rcom&N&+rbus&+Wtu&N&+ri&+Ron &+Lhas been left here!!~
 ~
@@ -3620,7 +3622,7 @@ rugged gloves thick hide~
 &+Yram&N&+y, the native &+Whorned &N&+ybeasts of the &N&+cSh&+Lan&N&+cat&+Lar &N&+yand surrounding mountains.
 ~
 A
-13 6
+13 8
 A
 1 4
 #83335
@@ -4152,7 +4154,7 @@ display case~
 &+Wa display case&N~
 &+WA shiny glass display case &N&+msits atop a mithril column.~
 ~
-15 15 3 0 7 0 1 0 0 0 0
+15 7 3 0 7 0 1 0 0 0 0
 20 29 83371 5 0 0 0 0
 0 0 100
 E
@@ -4165,7 +4167,7 @@ display case~
 &+Wa display case&N~
 &+WA shiny glass display case &N&+msits atop a mithril column.~
 ~
-15 15 3 0 7 0 1 0 0 0 0
+15 7 3 0 7 0 1 0 0 0 0
 20 29 83371 0 0 0 0 0
 0 0 100
 E
@@ -4178,7 +4180,7 @@ display case~
 &+Wa display case&N~
 &+WA shiny glass display case &N&+msits atop a mithril column.~
 ~
-15 15 3 0 7 0 1 0 0 0 0
+15 7 3 0 7 0 1 0 0 0 0
 20 29 83371 0 0 0 0 0
 0 0 100
 E
@@ -5740,3 +5742,92 @@ An unnamed object lies here, looking lonely and forelorn.~
 13 15 3 0 7 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
 0 0 100
+#83464
+black leather beer-stained beer stained apron~
+&+La black leather &N&+ybeer-stained &+Lapron&N~
+&+LA black leather apron &N&+ystained with dozens of years of &N&+ybeer&+L has been left here.~
+~
+9 14 4 0 8 0 0 1025 0 0 0
+5 0 0 4 0 0 0 0
+4 602 96
+E
+black leather beer-stained beer stained apron~
+   &+LAlthough very old and utterly &N&+ydiscolored by beer&+L, this
+&+Lblack leather apron is in remarkable good shape.  A testament to
+&+Lits dwarven craftsmanship in the thickness and choice hide used
+&+Land cured in creating such an apron.
+~
+A
+1 8
+A
+5 10
+#83465
+horned dwarven war helmet warhelm helm~
+&+ya magnificent &+Yhorned &N&+ydwarven &+rwar&Nhelm&N~
+&+yA horned dwarven &N&+rwar helmet is sitting here.~
+~
+9 18 3 0 7 0 0 17 64 0 0
+20 0 0 0 0 0 0 0
+4 16332 100
+E
+horned dwarven war helmet warhelm helm~
+   &+yThis glorious dwarven war helmet has two large &+Wtusks &+yfrom
+&+ywhat appear to be mountain &+Yrams &n&+ysharped, dipped in blood,
+&+yand fastened on either side.
+~
+A
+19 4
+A
+31 3
+#83466
+suit black ringmail bearing symbol alatorin~
+&+La suit of black &N&+cr&+Ci&N&+cn&+Cg&N&+cm&+Ca&N&+ci&+Cl&+L bearing the &+Wsymbol &+Lof &N&+cAlatorin&N~
+&+LA suit of black &+Crin&N&+cgma&+Cil &nhas been left here.~
+~
+9 18 3 0 7 0 0 9 64 0 0
+35 0 0 4 0 0 0 0
+1 144332 100
+E
+suit black ringmail bearing symbol alatorin~
+   &+LThis magnificent set of black ringmail has a large crest on the breast
+&+Lof a &+Csword&+L and &N&+chammer&+L crossed over a huge &+Wshield&+L.
+~
+A
+18 4
+A
+19 4
+#83467
+earring spinning ice crystals~
+&+Wan &+Cea&N&+crr&+Cin&n&+cg &+Wof &+Ws&N&+cp&+Wi&N&+cn&+Wn&N&+ci&+Wn&N&+cg &+Ci&+Wc&+Ce &+Wcry&+Bs&N&+bt&+Wals&N~
+&+WA magical earring of spinning &+Bice &+Wcrysals has been left here.~
+~
+9 1 1 0 7 0 33554432 524289 64 0 0
+3 0 0 0 0 0 0 0
+0 23222 100 0 64 0 0
+E
+earring spinning ice crystals~
+   &+WThis tiny earring is composed of three magical droplets of frozen
+&+Bwater&+W, each spinning in a constant state of magical movement.
+~
+A
+23 -3
+A
+20 -3
+#83468
+tricksters gloves~
+&+Lsome &+Ytricksters &+Lgloves&N~
+&+LSome &+Ytricksters &+Lgloves&N have been left here.~
+~
+9 3 2 0 14 0 1048576 129 64 0 0
+5 0 0 0 0 0 0 0
+-10 33442 100
+E
+tricksters gloves~
+   &+LThese small &N&+msilken &+Lgloves have a strange magical feel,
+&+Lcontouring to their wearers hands and seeming to be repulsive to
+&N&+bmagic&+L.
+~
+A
+32 3
+A
+24 -3

@@ -176,7 +176,7 @@ A
 13 5
 #29413
 scrap cloth~
-&+yscrap&n of &+Wcloth&n~
+&N&+ya scrap&N of &+Wcloth&N~
 A small &+ypiece&n of &+Wcloth&n lies here.~
 ~
 12 3 2 1 7 0 0 1 0 1 0
@@ -284,7 +284,7 @@ paint set~
 a &+Rp&+ya&+Yi&+Gn&+Bt&n &+mset&n~
 &+cA&n &+Rp&+ya&+Yi&+Gn&+Bt&n &+mset lies here.&n~
 ~
-12 41 2 0 7 0 0 16385 0 1 0
+12 41 2 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
 5 2300 100
 #29421
@@ -292,7 +292,7 @@ stud platinum~
 a &+Wplatinum&n &+cs&+Ct&+cud&n~
 A &+Wplatinum&n &+cs&+Ct&+cud&n lies here.~
 ~
-9 25 1 1 7 0 266240 524289 0 1 0
+9 25 1 1 7 0 266240 524289 0 0 0
 3 0 0 3 0 0 0 0
 1 3322 100
 A
@@ -304,7 +304,7 @@ pin cushion~
 a &+rp&+Ri&+rn&n &+rcush&+Rio&+rn&n~
 A &+rp&+Ri&+rn cush&+Rio&+rn&n lies here gathering dust.~
 ~
-9 3 1 0 7 0 0 20481 0 1 0
+9 3 1 0 7 0 0 20481 0 0 0
 0 0 0 0 0 0 0 0
 2 234 100
 A
@@ -321,6 +321,13 @@ A &+csp&+Car&+ckl&+Cing&n &+Bf&+bou&+Bntain&n is here.~
 17 15 3 0 5 0 0 0 0 0 0
 1000 1000 0 0 0 0 0 0
 0 0 100
+E
+fountain~
+&+CThis glo&N&+crious fountain of &+Csparkling cry&N&+cstal-clear water
+&+csits at the center &+Cof Harrow.  The fountain bubbles &n&+cup from three
+&+Cseperate jets of &N&+cwater, each colliding at one cen&+Ctral stream in the
+&+ccenter&+C.
+~
 #29424
 gnomish ear amplifier~
 a &+Rgnomish&n &+Lear&n &+camp&+Clif&+cier&n~
@@ -541,7 +548,7 @@ fish bowl water fishbowl~
 &+binside a bowl of &+Bwater&n~
 &+gInside&n &+yA Bowl&n &+bOf&n &+BWater&n~
 ~
-25 15 3 0 5 0 8192 0 0 0 0
+25 15 3 0 5 0 8194 0 0 0 0
 29443 264 -1 0 0 0 0 0
 0 0 100
 #29443
@@ -595,7 +602,7 @@ boat sailboat~
 a &+bs&nai&+blb&noa&+bt&n~
 A durable &+bs&nail&+blb&noa&+bt&n with a &+Rred&n sail.~
 ~
-12 15 3 0 5 0 8192 16385 0 0 0
+22 15 3 0 5 0 8192 16385 0 0 0
 0 0 0 0 0 0 0 0
 0 6888 100
 A
@@ -612,7 +619,7 @@ A
 23 -3
 #29450
 scarlet cavalier cloak~
-&+Rsc&+rarl&+Ret&n &+bcav&+Bal&+bier's&n &+Lcl&+wo&+Lak&n~
+&+Ra sc&N&+rarl&+Ret &N&+bcav&+Bal&N&+bier's &+Lcl&No&+Lak&N~
 A &+Rsc&+rarl&+Ret&n &+bcav&+Bal&+bier's&n &+Lcl&+wo&+Lak&n is here.~
 ~
 9 3 3 0 13 0 0 1025 0 0 0
@@ -670,16 +677,16 @@ A handcarved wooden &+ypipe&n that is &+Lsmoking&n.~
 0 7777 100
 #29455
 hat tam o'shanter shanter~
-&+Gtam o'shanter&n~
+&Nan old and frayed &+Gtam o'shanter~
 A very frayed &+Gtam o'shanter&n sits here.~
 ~
-9 15 3 0 5 0 8192 17 64 0 0
+9 3 2 0 12 0 8192 17 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 23443 100
 A
 30 10
 A
-13 10
+13 20
 #29456
 ring golden~
 a &+Ygold&n ring with &+Wd&+wi&+Wa&+wm&+Wo&+wn&+Wd&+ws&n~
@@ -753,7 +760,7 @@ a plate of &+Leel&n &+Ws&+gu&+Ws&+gh&+Wi&n~
 A plate of &+Leel&n &+Ws&+gu&+Ws&+gh&+Wi&n lies here.~
 ~
 19 48 3 0 5 0 0 16385 0 0 0
-10 0 0 0 0 0 0 0
+10 27 11 0 0 0 0 0
 0 1456 100
 #29463
 stew pork~
@@ -761,7 +768,7 @@ a &+ypork&n &+yh&+Ya&+yr&+Yv&+ye&+Ys&+yt&n &+bstew&n~
 Some &+ypork&n &+yh&+Ya&+yr&+Yv&+ye&+Ys&+yt&n &+bstew&n lies here~
 ~
 19 48 3 0 5 0 0 16385 0 0 0
-10 0 0 0 0 0 0 0
+10 47 22 0 0 0 0 0
 0 2056 100
 #29464
 cornish pastry pie~
@@ -769,7 +776,7 @@ a &+Gcornish&n &+ymeat&n &+Ypie&n~
 A &+Gcornish&n &+ymeat&n &+Ypie&n lies here uneaten.~
 ~
 19 48 3 0 5 0 0 0 0 0 0
-10 0 0 0 0 0 0 0
+10 50 22 0 0 0 0 0
 0 2367 100
 #29465
 honey sticks~
@@ -777,7 +784,7 @@ honey sticks~
 Some &+mfresh&n &+Gclover&n &+yhoney sticks&n lie here.~
 ~
 19 48 3 0 5 0 0 0 0 0 0
-10 0 0 0 0 0 0 0
+10 30 0 0 0 0 0 0
 0 1003 100
 #29466
 fungi salad~
@@ -785,7 +792,7 @@ fungi salad~
 &+gA&n &+Wgourmet&n &+yfu&+gn&+rgu&+ys&n &+gsalad&n sits wilting.~
 ~
 19 48 3 0 5 0 0 0 0 0 0
-0 0 0 0 0 0 0 0
+10 47 35 0 0 0 0 0
 0 3245 100
 #29467
 snake~
@@ -889,7 +896,7 @@ flute multi-colored harmony~
 a &+Rmu&+ylt&+Yi-c&+gol&+bor&+med&n &+Cglass&n &+cflute&n of &+Yharmony&n lies here.~
 ~
 32 7 3 0 13 0 3153920 16385 64 0 0
-184 40 0 10 0 0 0 0
+184 50 0 10 0 0 0 0
 0 8666 100
 #29480
 horn dragonslayer~
@@ -897,7 +904,7 @@ the &+ghorn&n of the &+Rdra&+rgonsla&+Ryer&n~
 The &+ghorn&n of the &+Rdra&+rgonsla&+Ryer&n lies here.~
 ~
 32 15 3 0 5 0 8192 8404993 0 0 0
-189 40 0 10 0 0 0 0
+189 50 0 10 0 0 0 0
 0 8666 100
 #29481
 mandolin sight~
@@ -905,7 +912,7 @@ the &+ymand&no&+ylin&n of &+csight&n~
 The &+ymand&no&+ylin&n of &+csight&n lies here.~
 ~
 32 15 3 0 5 0 8192 8404993 0 0 0
-186 40 0 40 0 0 0 0
+186 55 0 40 0 0 0 0
 0 8666 100
 #29482
 leather apron~
@@ -939,6 +946,24 @@ E
 moss~
   &+GA large tangle of moss where something could easily be hidden.&n
 ~
+#29485
+many-pocked many pocketed garden trousers~
+&+ysome &+Wm&N&+ya&+Wn&N&+yy&+W-&N&+yp&+Wo&N&+yc&+Wk&N&+ye&+Wt&N&+ye&+Wd &N&+ygarden trousers~
+&N&+ySome many-pocketed garden trousers have been left here.~
+~
+15 3 2 0 9 0 0 33 0 0 0
+400 0 0 400 0 0 0 0
+-200 11332 100
+E
+many-pocked many pocketed garden trousers~
+   &+yThese soft pants have been finely stitched with intricate gnomish
+&+yembroidery down both legs and around dozens of pockets sewn in
+&+ydifferent shapes and sizes across the entire garment.
+~
+A
+26 8
+A
+13 10
 #29486
 sign~
 &+ra sign&N~

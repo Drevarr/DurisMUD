@@ -140,12 +140,10 @@ M 0 120058 9 121181 60 0 0 0       * a troglodyte hunter
 G 1 11619 22 0 100 0 0 0           *    (object type not in this .obj file)
 G 1 11619 22 0 100 0 0 0           *    (object type not in this .obj file)
 G 1 53610 6 0 100 0 0 0            *    (object type not in this .obj file)
-M 0 120042 3 121189 100 0 0 0      * a burly Khoralator Fort guardian
-E 1 120026 3 16 100 0 0 0          *   an enormous steel axe
-M 0 120042 3 121189 100 0 0 0      * a burly Khoralator Fort guardian
-E 1 120026 3 16 100 0 0 0          *   an enormous steel axe
-M 0 120042 3 121189 100 0 0 0      * a burly Khoralator Fort guardian
-E 1 120026 3 16 100 0 0 0          *   an enormous steel axe
+M 0 120042 2 121189 100 0 0 0      * a burly Khoralator Fort guardian
+E 1 120026 2 16 100 0 0 0          *   an enormous steel axe
+M 0 120042 2 121189 100 0 0 0      * a burly Khoralator Fort guardian
+E 1 120026 2 16 100 0 0 0          *   an enormous steel axe
 M 0 120019 8 121218 100 0 0 0      * an elite Alatorin peacekeeper
 E 1 120010 20 11 100 0 0 0         *   a well-polished mithril body shield
 E 1 120011 20 16 100 0 0 0         *   a heavy mithril dwarven hammer
@@ -242,7 +240,7 @@ M 0 120056 1 121544 2 0 0 0        * the spirit of Brigy Stonehammer
 E 1 120037 1 9 100 0 0 0           *   some spectral gauntlets of the battleragers
 E 1 120011 20 16 100 0 0 0         *   a heavy mithril dwarven hammer
 E 1 120011 20 17 100 0 0 0         *   a heavy mithril dwarven hammer
-M 0 120012 5 121559 100 0 0 0      * a BrightAxe elite stair guard
+M 0 120012 5 121555 100 0 0 0      * a BrightAxe elite stair guard
 E 1 120008 5 16 100 0 0 0          *   a huge dwarven battle-axe
 M 0 120053 5 121573 50 0 0 0       * a troglodyte ambusher
 G 1 11619 22 0 100 0 0 0           *    (object type not in this .obj file)
@@ -466,8 +464,8 @@ M 0 120015 12 123231 100 0 0 0     * a gloomwing
 M 0 120015 12 123234 100 0 0 0     * a gloomwing
 M 0 120011 11 123235 100 0 0 0     * a hooded dwarf
 E 1 120007 11 6 100 0 0 0          *   a silver-lined purple silk hood
-M 0 120048 1 123235 70 0 0 0       * Gramdell the Sage
-E 1 120032 1 1 10 0 0 0            *   a diorite ring set with an opal
+M 0 120048 1 123235 33 0 0 0       * Gramdell the Sage
+E 1 120032 1 1 100 0 0 0           *   a diorite ring set with an opal
 E 1 120031 1 12 100 0 0 0          *   a tattered old hooded sage's cloak
 G 1 87074 1 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 120006 1 123314 100 0 0 0      * a dwarven medic merchant

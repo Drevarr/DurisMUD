@@ -1228,7 +1228,7 @@ O 0 83138 1 83175 100 0 0 0        * a floating bauble
 O 0 83139 7 83188 100 0 0 0        * a small wooden desk
 P 1 58335 5 83139 100 0 0 0        *   (object type not in this .obj file)
 P 1 1310 1 83139 100 0 0 0         *   (object type not in this .obj file)
-P 1 83436 2 83139 100 0 0 0        *   a key of shimmering light
+P 1 83436 1 83139 100 0 0 0        *   a key of shimmering light
 O 0 83144 1 83188 100 0 0 0        * a small concealed chest
 P 1 40474 1 83144 100 0 0 0        *   (object type not in this .obj file)
 P 1 32445 1 83144 100 0 0 0        *   (object type not in this .obj file)
@@ -1910,9 +1910,9 @@ M 0 83120 16 83168 100 0 0 0       * an Alatorin elite guard
 E 1 83112 999 11 100 0 0 0         *   an iron shield bearing the crest of Alatorin
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 M 0 83125 1 83170 100 0 0 0        * Rzayk the githzerai planestraveler
+E 1 83298 1 1 15 0 0 0             *   a tiny rune-inscribed ring
 G 1 22944 2 0 100 0 0 0            *    (object type not in this .obj file)
 G 1 22944 2 0 100 0 0 0            *    (object type not in this .obj file)
-G 1 83298 1 0 15 0 0 0             *    a tiny rune-inscribed ring
 M 0 83186 1 83171 100 0 0 0        * Grem the hooded prophecizer
 M 0 83177 1 83175 100 0 0 0        * a tiny gnome summoner
 E 1 83179 1 18 100 0 0 0           *   a staff of golem creation
@@ -1959,7 +1959,6 @@ G 1 204 999 0 100 0 0 0            *    (object type not in this .obj file)
 G 1 83182 999 0 100 0 0 0          *    an Alatorin spellbook
 G 1 83336 999 0 100 0 0 0          *    a hide-bound spellbook with a glowing Alatorin insignia
 G 1 83435 999 0 100 0 0 0          *    a scroll of revelations
-G 1 83436 2 0 100 0 0 0            *    a key of shimmering light
 M 0 83120 16 83186 100 0 0 0       * an Alatorin elite guard
 E 1 83112 999 11 100 0 0 0         *   an iron shield bearing the crest of Alatorin
 E 1 83119 999 16 100 0 0 0         *   a polished iron broadsword
@@ -1996,6 +1995,7 @@ E 1 83274 8 24 100 0 0 0           *   a badge of Barlow's Brewery
 E 1 83273 10 16 100 0 0 0          *   a heavy oaken mallet
 M 0 120051 7 83195 80 0 0 0        * (mob type not in this .mob file)
 M 0 83169 1 83196 100 0 0 0        * Bernie Bramhost
+E 1 83464 1 12 100 0 0 0           *   a black leather beer-stained apron
 M 0 83108 2 83196 100 0 0 0        * a relaxing Alatorin guard
 M 0 83152 4 83196 100 0 0 0        * a young commoner
 M 0 83152 4 83196 100 0 0 0        * a young commoner
@@ -2177,12 +2177,13 @@ M 0 83269 10 83269 100 0 0 0       * a citadel patrol guardian
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 M 0 83218 7 83271 100 0 0 0        * a citadel summoner
 M 0 83249 1 83271 100 0 0 0        * Grylus the royal bodyguard
+E 1 83466 1 5 100 0 0 0            *   a suit of black ringmail bearing the symbol of Alatorin
 E 1 83264 2 16 100 0 0 0           *   a sharp mithril shortsword
 E 1 83264 2 17 100 0 0 0           *   a sharp mithril shortsword
 G 1 83263 1 0 100 0 0 0            *    a heavy mithril key
-F 1 83245 3 83271 100 0 0 0        * a royal bodyguard (following)
-F 1 83245 3 83271 100 0 0 0        * a royal bodyguard (following)
-F 1 83245 3 83271 100 0 0 0        * a royal bodyguard (following)
+F 1 83245 6 83271 100 0 0 0        * a royal bodyguard (following)
+F 1 83245 6 83271 100 0 0 0        * a royal bodyguard (following)
+F 1 83245 6 83271 100 0 0 0        * a royal bodyguard (following)
 M 0 83287 6 83271 100 0 0 0        * a half-visible dwarf
 E 1 83304 12 16 100 0 0 0          *   an illusionary dagger
 E 1 83304 12 17 100 0 0 0          *   an illusionary dagger
@@ -2324,6 +2325,12 @@ G 1 94336 5 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 83185 1 83295 30 0 0 0         * Mishanen, the centaur herbalist
 E 1 83186 1 37 100 0 0 0           *   a tail ring of gilded sunpetals
 G 1 83187 1 0 100 0 0 0            *    a gnarled wooden wand
+M 0 83417 1 83295 29 0 0 0         * Birgibir the goblin frost magus
+E 1 83467 1 21 100 0 0 0           *   an earring of spinning ice crystals
+G 1 5823 2 0 100 0 0 0             *    (object type not in this .obj file)
+G 1 5823 2 0 100 0 0 0             *    (object type not in this .obj file)
+M 0 83418 1 83295 29 0 0 0         * Sambisam the gnome trickster
+E 1 83468 1 9 100 0 0 0            *   some tricksters gloves
 M 0 83157 19 83295 100 0 0 0       * an Alatorin peacekeeper
 E 1 83112 999 11 100 0 0 0         *   an iron shield bearing the crest of Alatorin
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
@@ -2332,6 +2339,7 @@ E 1 83112 999 11 100 0 0 0         *   an iron shield bearing the crest of Alato
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 M 0 83276 1 83300 100 0 0 0        * Meshadan the recruiter
 E 1 83303 1 3 100 0 0 0            *   a shiny mithril key
+E 1 83465 1 6 100 0 0 0            *   a magnificent horned dwarven warhelm
 E 1 83293 5 16 100 0 0 0           *   a two-handed mithril broadsword
 M 0 83282 7 83300 100 0 0 0        * a legionnaire
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
@@ -2413,6 +2421,7 @@ G 1 338 999 0 100 0 0 0            *    (object type not in this .obj file)
 G 1 74132 999 0 100 0 0 0          *    (object type not in this .obj file)
 G 1 74181 999 0 100 0 0 0          *    (object type not in this .obj file)
 G 1 83309 999 0 100 0 0 0          *    a huge mining sack
+G 1 3069 999 0 100 0 0 0           *    (object type not in this .obj file)
 M 0 120051 7 83352 100 0 0 0       * (mob type not in this .mob file)
 M 0 83251 8 83355 100 0 0 0        * a gnomish tinkerer
 E 1 83302 8 24 100 0 0 0           *   a craftsman's pin of Dweefniggle's workshop
@@ -2490,6 +2499,9 @@ G 1 3102 999 0 100 0 0 0           *    (object type not in this .obj file)
 G 1 83295 999 0 100 0 0 0          *    a tiny wand of weapon enchantment
 G 1 2429 999 0 100 0 0 0           *    (object type not in this .obj file)
 G 1 14097 999 0 100 0 0 0          *    (object type not in this .obj file)
+G 1 2801 999 0 100 0 0 0           *    (object type not in this .obj file)
+G 1 3220 999 0 100 0 0 0           *    (object type not in this .obj file)
+G 1 3239 999 0 100 0 0 0           *    (object type not in this .obj file)
 M 0 83190 1 83385 100 0 0 0        * a walking wooden stool
 M 0 83191 1 83385 100 0 0 0        * a broom sweeping on its own
 M 0 83192 1 83385 100 0 0 0        * a galloping arm chair
@@ -2592,6 +2604,9 @@ E 1 83265 4 16 100 0 0 0           *   a spiked granite-headed warhammer
 E 1 83265 4 17 100 0 0 0           *   a spiked granite-headed warhammer
 E 1 83296 1 24 100 0 0 0           *   an emblem of Shanatar royalty
 G 1 83258 1 0 100 0 0 0            *    a Shanat officer's key
+F 1 83245 6 83432 100 0 0 0        * a royal bodyguard (following)
+F 1 83245 6 83432 100 0 0 0        * a royal bodyguard (following)
+F 1 83245 6 83432 100 0 0 0        * a royal bodyguard (following)
 M 0 83269 10 83434 100 0 0 0       * a citadel patrol guardian
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 E 1 83111 999 17 100 0 0 0         *   an iron broadsword
@@ -2797,6 +2812,7 @@ G 1 16599 2 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 83396 2 83539 100 0 0 0        * a brutish dwarven thug
 M 0 83398 2 83539 100 0 0 0        * an ugly, strong, brutish thug
 M 0 83398 2 83539 100 0 0 0        * an ugly, strong, brutish thug
+M 0 4410 1 83543 50 0 0 0          * (mob type not in this .mob file)
 M 0 83397 2 83549 100 0 0 0        * a strong, brutish thug
 M 0 83397 2 83549 100 0 0 0        * a strong, brutish thug
 M 0 83400 3 83549 100 0 0 0        * a sneaky goblin thief

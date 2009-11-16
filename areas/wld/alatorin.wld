@@ -7932,6 +7932,7 @@ S
 ~
 831 32768 14
 D0
+&+LThe &+Rwall &+Lto the north radiates intense &N&+rheat&+L.
 ~
 ~
 8 0 83489
@@ -7943,6 +7944,10 @@ D3
 ~
 ~
 0 0 83480
+E
+heat~
+&+rThe intense &+Rheat &N&+rcoming from the north is that of the molten &+Ll&+Ra&+Lv&+Ra &+Lwithin &N&+ySha&+Ln&N&+ya&+Lt&N&+ya&+Lr&N.
+~
 S
 #83482
 &+LA Sharp Turn on the Spire&N~

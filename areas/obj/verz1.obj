@@ -502,8 +502,8 @@ potion invisibility~
 &+LA potion of invisibility lies here.~
 ~
 10 7 2 4 7 0 0 16385 64 0 0
-5 29 -1 -1 0 0 0 0
-2 51887 100
+5 189 -1 -1 0 0 0 0
+2 28333 100
 #2998
 tower clock huge~
 &+Wthe clock tower&N~
@@ -1237,7 +1237,7 @@ potion yellow~
 ~
 10 7 2 4 7 0 0 16385 64 0 0
 22 19 -1 -1 0 0 0 0
-1 400 100
+1 26333 100
 E
 potion yellow~
 The potion has a small label 'Detect The Invisible'.
@@ -1443,8 +1443,8 @@ potion speckled~
 A speckled potion lies here.~
 ~
 10 7 2 4 7 0 0 1 0 0 0
-12 15 -1 -1 0 0 0 0
-3 4000 100
+12 98 97 96 0 0 0 0
+3 7000 100
 #3221
 note~
 a note~

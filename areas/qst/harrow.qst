@@ -138,6 +138,11 @@ M
 qc_action 80~
 The &+Ygoldfish&n swims around in circles blowing . . o o O O
 ~
+QA
+&NA &+Ygold&N&+yfish &Nhurridly chomps the &n&+gfish food&N down and then swirls around $N in jubilent appreciation.
+~
+R E 4000
+G I 29460
 S
 #29451
 M

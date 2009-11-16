@@ -648,9 +648,9 @@ odeth hooded deep gnome _spec2_~
 &+Lblack robe and immersed in shadow, Od&+re&+Lth spends his endless
 &+Llife guarding this ancient dark secret of the Alatorin mystic ward.
 ~
-2122 0 0 0 0 0 0 0 S
+2147518538 0 0 0 0 0 0 0 S
 pg 0 4194304 -1
-59 0 0 1d1+1 1d1+1
+56 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #83142
@@ -2389,7 +2389,7 @@ grylus shield dwarf royal bodyguard guard~
 &+Lstern &N&+ybrown &+Leyes.  He looks over the Citadel, guarding the halls of the &n&+mroyal
 &+Lfamily.
 ~
-1140852810 1 0 144 14528 0 0 0 S
+1140852808 1 0 144 14528 0 0 0 S
 pm 0 16385 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -2712,7 +2712,7 @@ strange baobob tree~
 &+gthe foreign blood.
 ~
 268961866 1 0 216 0 0 0 0 S
-vt 0 128 -1
+vt 0 128 6
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -4993,7 +4993,7 @@ black-hooded black hooded dwarf~
 &+Lrunes.  He can be heard repeating the same phrases 'Akoth
 &+Lmon Rringlor Narath.'
 ~
-1409303754 4294164480 234881039 0 0 0 0 -450 S
+1409303752 4294164480 234881039 0 0 0 0 -450 S
 pd 0 548 2
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -5013,3 +5013,36 @@ an 0 128 -1
 41 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
+#83417
+birgibir goblin frost magus _spec2_~
+&+BBir&n&+gg&+Bi&N&+gbi&+Br&+G the goblin &+Cfr&n&+cos&+Ct m&N&+cag&+Cus&N~
+&+BBir&+Gg&+Bi&+Gbi&+Br &+Gthe goblin &+Cfrost &N&+cmagus &+Lfloats on a &N&+cplatform &+Lof &N&+Cf&+Wr&+Co&+Ws&+Ct&+L.
+~
+   &+BBergibir&N&+g, an infamous &+Ggoblin &n&+gwho is the self-proclaimed
+&+gconquerer of the &+YHalf-Cut &N&+ymountain-side of &N&+gKhomani-Khan&N&+g awaits
+&+gthe advisement of the noble king &+RTaark Shanat&n&+g.
+   &+BBergibir &N&+gis dressed in a crystal-colored robe, floating several feet
+&+goff the ground on a &+Cplatform &N&+gmade of magical &+Wice&n&+g.
+~
+133322 0 0 134217752 14528 0 0 -1000 S
+hg 0 33554432 -1
+60 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83418
+sambisam gnome trickster~
+&n&+rSam&+Bb&N&+ri&+Bsam &n&+rthe &+Rgnome &+Ct&+Br&+Li&+Bc&+Ck&+Bs&+Lt&+Be&+Cr&N~
+&+rA mysterious &+Rgnome &N&+rnamed Sam&+Bb&N&+ri&+Bsam&N&+r quietly paces about.
+~
+   &+rSambisam, a once outlawed gnome from Ashrumite who could not keep
+&+rhis hands away from the jewelers stashes in his former homeland, has
+&+rnow sought out the aid of King &+RTaark Shanat&N&+r, ruler of this
+&+rrealm.  Sambisam was also known for his magical trickery, often creating
+&+rdistracting sounds or reflections to grab the attention of his victims
+&+rjust long enough to make his heists.
+~
+2250 0 0 0 0 0 0 0 S
+pg 0 4227072 -1
+60 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
