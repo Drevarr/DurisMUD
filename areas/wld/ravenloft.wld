@@ -2635,9 +2635,10 @@ S
 ~
 583 1249935424 28
 D0
+&+LThe &N&+mr&+Lu&N&+mn&+Le&N&+md &+Lrocks to the north look like they could be moved.
 ~
-~
-4 0 58425
+rocks~
+5 0 58425
 D1
 ~
 ~
@@ -2652,6 +2653,10 @@ S
 &+Wfrom one plane and time to another.
 ~
 583 1249935428 36
+D2
+~
+~
+8 0 58424
 D5
 ~
 ~
@@ -5474,7 +5479,7 @@ door~
 1 0 58520
 S
 #58540
-&+LThe Servants' Quarters~
+&+LBack Room of the Servants' Quarters&N~
    &+gThe basement hallway, to the west, leads into this compact bunking and
 &+gquarterly chamber of the castle servants.  There are four bunk beds, allowing
 &+gup to eight castle servants to sleep here so that they may work around the

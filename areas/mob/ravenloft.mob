@@ -7,7 +7,7 @@ plague rat~
 &+Lplague-&+gridden&+L flesh hanging off its &+Wbones&+L.  It bites viciously
 &+Lwith a fierce hunger for &+Rflesh&+L.
 ~
-1075316808 1 0 134742040 2048 0 4194306 -1000 S
+1075316808 1 0 671612952 14528 0 4194306 -1000 S
 A 0 1 1
 27 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -22,7 +22,7 @@ stone serpent~
 &+Lwrapped in their tongues within their gaping mouths, but these are actually
 &+Lorgans that enable them to breathe cones of fire.
 ~
-1073743978 1 0 24 0 0 4194304 -1000 S
+1073743978 1 0 671088664 14528 0 4194304 -1000 S
 EE 0 1 6
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -37,7 +37,7 @@ gargoyle~
 &+Limpressively big, only medium in height.  Nevertheless, this gargoyle
 &+Lbares two huge stone claws that make it a quite vicious opponent.
 ~
-1073743946 1 0 0 0 0 4194304 -1000 S
+1073743946 1 0 671088664 14528 0 4194304 -1000 S
 EE 0 1 3
 56 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -52,7 +52,7 @@ shade~
 &+Lout with its deathly clawed hands of utter blackness, screeching as it
 &+Lreaches forward.
 ~
-1141901448 1 0 24 0 0 4194304 -1000 S
+1141901448 1 0 671088664 14528 0 4194304 -1000 S
 sw 0 1 3
 55 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -67,7 +67,7 @@ large gargoyle~
 &+Limpressively big, only medium in height.  Nevertheless, this gargoyle
 &+Lbares two huge stone claws that make it a quite vicious opponent.
 ~
-1140852810 1 0 0 0 0 4194304 -1000 S
+1140852810 1 0 671088664 14528 0 4194304 -1000 S
 EE 0 1 4
 59 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -82,7 +82,7 @@ vampire gargoyle~
 &+Lfor blood.  A paled-over face and two huge stong fangs protruding, this
 &+Lsentinel beast comes to life at the scent of fresh &+rblood.
 ~
-2058 1 0 1048576 264192 0 4198912 -1000 S
+2058 1 0 672137240 276672 0 4198912 -1000 S
 uv 0 513 4
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -118,7 +118,7 @@ deathlock image~
 &+Larms twist with evil magic as the deathlock conjures great magic with devilish
 &+Lpower and ferocity.
 ~
-2120 1 0 0 0 0 4194304 -1000 S
+2120 1 0 671088664 14528 0 4194304 -1000 S
 wr 0 512 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -134,7 +134,7 @@ shapeless spawn~
    &+LThe shapeless spawn enjoys its relationship with Strahd and has no wish to
 &+Lsee that relationship severed.
 ~
-1074792522 1 0 0 0 0 4194304 -1000 S
+1074792522 1 0 671088664 14528 0 4194304 -1000 S
 x 0 68 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -149,7 +149,7 @@ gibbering mouther~
 &+Ladventurer, mixed with the chaotic madness of the Count, embodied in this
 &+Lunholy creature.
 ~
-1140853832 1 0 0 0 0 4194304 -1000 S
+1140853832 1 0 671088664 14528 0 4194304 -1000 S
 pw 0 1 5
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -162,7 +162,7 @@ wraith~
    &+BThis fearsome wraith has the face of pure death.  Its body fades in and
 &+Bout of existence.
 ~
-1140869192 1 0 0 0 0 4194304 -1000 S
+1140869192 1 0 671088664 14528 0 4194304 -1000 S
 wr 0 512 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -176,7 +176,7 @@ cursed spirit~
 &+mas a tormented, somewhat manic, humanoid.  Its lower body trails off
 &+minto a ghostly cloud.  Its hollow eyes convey malicious intelligence.
 ~
-1075841096 1 0 805830832 0 0 4194304 -1000 S
+1075841096 1 0 940048568 14528 0 4194304 -1000 S
 ug 0 97 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -194,7 +194,7 @@ lady vey rallen~
 &+Wformer &+rKnight of the Raven&+W wanders these halls, hopelessly trapped
 &+Wwith her spirit in limbo.
 ~
-2248 0 0 0 0 0 4718592 1000 S
+2248 0 0 671088664 14528 0 4718592 1000 S
 ug 0 33 3
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -209,7 +209,7 @@ chain golem~
 &+cinto a massive form.  It has a vaguely humanoid shape.  The chain golem clangs
 &+cand rattles its way into battle.
 ~
-2378 1 0 0 0 262144 4194304 0 S
+2378 1 0 671088664 14528 262144 4194304 0 S
 og 0 1 5
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -235,7 +235,7 @@ tatyana portrait~
 ~
 &+LThis &+Wportrait&+L is a spitting image of &+WIreena Kolyana&+L.
 ~
-2122 1 0 0 0 0 37748736 -1000 S
+2122 1 0 671088664 14528 0 37748736 -1000 S
 ea 0 65 4
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -249,7 +249,7 @@ chelicera~
 &+Lspider, with furry arms and legs and intelligent, beady eyes staring
 &+Lout. This fearsome cross between man and spider hulks here.
 ~
-1140853834 1 0 0 0 0 4194304 -1000 S
+1140853834 1 0 671088664 14528 0 4194304 -1000 S
 dr 0 16777217 5
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -266,7 +266,7 @@ trina witch~
 &+Mold Trina really is, as her face still appears deceptively young,
 &+Mwhile she has the powers of many lifetimes at her fingertips.
 ~
-352340168 1 0 0 0 0 4456448 -1000 S
+352340168 1 0 671088664 14528 0 4456448 -1000 S
 PH 0 131584 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -282,7 +282,7 @@ afina warlock~
 &+Bmoves with ease under her billowing warlocks cloaks.  A dark, fiery
 &+Bflare burns in the eyes of this magical genius, warlock of Ravenloft.
 ~
-1140861128 1 0 0 14528 0 4194304 -1000 S
+1140861128 1 0 671088664 14528 0 4194304 -1000 S
 PH 0 133120 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -299,7 +299,7 @@ cristofor ancient warlock~
 &+Ystrange symbols.  His knuckles are gnarled like roots and his fingers
 &+Yare twisted and long like branches.
 ~
-1140869320 1 0 0 0 0 4194304 -1000 S
+1140869320 1 0 671088664 14528 0 4194304 -1000 S
 PH 0 132096 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -315,7 +315,7 @@ vampire spawn~
 &+rsmall bits of hair grow from different patches of this vampire spawn's
 &+rbody as it hunches here, wings folded, ready to feed.
 ~
-1140852810 1 0 0 0 0 4194304 -1000 S
+1140852810 1 0 671088664 14528 0 4194304 -1000 S
 uv 0 513 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -332,7 +332,7 @@ rafail fighter~
 &+Rcloak of scarlet.  His mesmerizing eyes and canines reveal
 &+Rhim as a vampire, however.
 ~
-1141916874 1 0 536871320 14528 0 37748736 -1000 S
+1141916874 1 0 671089048 14528 0 37748736 -1000 S
 uv 0 19922944 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -364,7 +364,7 @@ garden larva~
 &+ggrapple their victims before secreting their seeds into the throats
 &+gof their victims.
 ~
-525322 1 0 0 0 0 4194304 -1000 S
+525322 1 0 671088664 14528 0 4194304 -1000 S
 ap 0 16384 4
 46 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -377,7 +377,7 @@ wraith~
    &+BThis fearsome wraith has the face of pure death.  Its body fades in and
 &+Bout of existence.
 ~
-1073760330 1 0 0 0 0 4194304 -1000 S
+1073760330 1 0 671088664 14528 0 4194304 -1000 S
 wr 0 512 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -395,7 +395,7 @@ strahd zombie~
 &+ghimself, is a fearless adversary, much more potent then normal
 &+gzombies.
 ~
-1074268234 1 0 0 0 0 4194304 -1000 S
+1074268234 1 0 671088664 14528 0 4194304 -1000 S
 zo 0 1 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -409,7 +409,7 @@ wight~
 &+WIts leathery flesh is drawn tight across its bones,
 &+Wand its teeth are jagged needles.
 ~
-1074268234 1 0 0 0 0 4194304 -1000 S
+1074268234 1 0 671088664 14528 0 4194304 -1000 S
 uw 0 65 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -425,7 +425,7 @@ mohrg zombie tongue~
 &+Berized by its long, spiked black &+Ltongue&+B that lashes out with
 &+Ba parasitic life of its own, paralyzing its victims.
 ~
-269486154 1 0 0 0 0 4194304 -1000 S
+269486154 1 0 671088664 14528 0 4194304 -1000 S
 zo 0 2049 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -442,7 +442,7 @@ ettercap~
 &+Lequal size and shape to its legs, all protruding from a rounded, fleshy
 &+Lbody.  This ettercap has a spider's head with large, sharp mandibles.
 ~
-1074269256 1 0 0 0 0 4194304 -1000 S
+1074269256 1 0 671088664 14528 0 4194304 -1000 S
 tk 0 1 -1
 59 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -456,7 +456,7 @@ large monstrous spider~
 &+Land a tiny head with sizable mandibles.  This spider has grown quite
 &+Llarge, and quite hungry.
 ~
-1073743944 1 0 0 0 0 4194304 -1000 S
+1073743944 1 0 671088664 14528 0 4194304 -1000 S
 as 0 1 4
 56 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -471,7 +471,7 @@ scarab~
 &+Lbe tiny and only a nuissance when they are alone, but when there are
 &+Lmany of them they are much harder to defend.
 ~
-1073743944 1 0 0 0 0 4194304 -1000 S
+1073743944 1 0 671088664 14528 0 4194304 -1000 S
 as 0 1 1
 35 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -486,8 +486,8 @@ web golem~
 &+Lmonstrosity walks on two legs and has two massive twisted arms, that
 &+Lsway as it lurches forward.
 ~
-1067080 1 0 0 0 0 4194304 0 S
-dr 0 1 5
+1067080 1 0 671088664 14528 0 4194304 0 S
+og 0 1 5
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -503,7 +503,7 @@ forsaken shell twisted creature~
 &+yThis is the skin of an unfortunate Barovian villager, now set
 &+yhere as a guard.
 ~
-2122 1 0 0 0 0 4194304 -1000 S
+2122 1 0 671088664 14528 0 4194304 -1000 S
 u 0 257 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -536,7 +536,7 @@ nicoramus troll slayer~
 &+CNicoramus currently scours the halls of Castle Ravenloft, imprisoned
 &+Chere, perhaps as a trophy to the First Vampire himself.
 ~
-1090521288 1 0 0 8388608 0 4721664 -1000 S
+1090521288 1 0 671088664 8403136 0 4721664 -1000 S
 pt 0 2097152 4
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -550,7 +550,7 @@ grotesque flesh golem abomination~
 &+Mreanimated by powerful magic and mutated into this horrible
 &+Mgrotesque creature.
 ~
-18506 65 0 152 0 262208 37748736 -1000 S
+18506 65 0 671088792 14528 262208 37748736 -1000 S
 zo 0 1 5
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -565,8 +565,8 @@ crypt chanter~
 &+Lthis powerful undead creature lurks here, filling these walls with
 &+Lits hymns of the dead.
 ~
-1073744968 1 0 24 0 0 4194304 -1000 S
-wr 0 8389632 -1
+1073744968 1 0 671088664 14528 0 4194304 -1000 S
+wr 0 33792 -1
 58 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -583,7 +583,7 @@ utzelloth dracolich~
 &+Wstudent of Sergei, now roams here, waiting the glorious counsil of
 &+Wthe great Strahd.
 ~
-1091590504 1 0 16 0 0 4194304 -1000 S
+1091590504 1 0 671088664 14528 0 4194304 -1000 S
 ud 0 513 6
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -599,7 +599,7 @@ ranchot troll slayer~
 &+ghis large brow.  This great troll slayer has been brought into
 &+gthe court of the great Strahd, whom he impatiently awaits.
 ~
-1090521160 1 0 0 0 0 4194304 -1000 S
+1090521160 1 0 671088664 14528 0 4194304 -1000 S
 pt 0 1048577 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -631,7 +631,7 @@ mahweeistardala ancient beholder~
 &+Lwithin a &+Mmouth&+L within a &+mmouth&+L.  His breath is as bad as
 &+Lhis bite and his eye pierces into your &+cso&+Cu&+cl&+L.
 ~
-1074792520 1 0 0 0 0 4194304 -1000 S
+1074792520 1 0 671088664 14528 0 4194304 -1000 S
 bh 0 1 6
 59 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -650,7 +650,7 @@ basklez troll stalker~
 &+csummoned ghost spirits, creating these fasing abominations that
 &+crepel magic.
 ~
-1090521160 1 0 0 8388608 0 4721664 -1000 S
+1090521160 1 0 671088664 8403136 0 4721664 -1000 S
 pt 0 2097152 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -663,7 +663,7 @@ large gold wyrm~
    &+YThis long wyrm is a brilliant, shining gold color.  It coils around
 &+Yitself at the Grand Vestibule, guarding it.
 ~
-2154 1 0 402653392 14529 0 71303168 0 S
+2154 1 0 939524312 14529 0 71303168 0 S
 d 0 64 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -680,7 +680,7 @@ shocker lizard~
 &+GReady to burst forth with &-L&+Blightning&+G, this lizard wirely
 &+Gguards Cristofor.  Quite a powerful familiar to the master Warlock.
 ~
-2312 1 0 400 14528 0 4194304 0 S
+2312 1 0 671089048 14528 0 4194304 0 S
 r 0 1 1
 56 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -714,7 +714,7 @@ redcap old man~
 &+rman stands protectively in front of &+BAfina&+r, tamed by the powerful
 &+rand alluring corruption of the Warlocks of Ravenloft.
 ~
-2056 1 0 0 0 0 4194304 -1000 S
+2056 1 0 671088664 14528 0 4194304 -1000 S
 pd 0 16385 2
 56 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -725,7 +725,7 @@ mob unnamed~
 An unnamed mob stands here, looking lonely and forelorn.
 ~
 ~
-8 0 0 0 0 0 4194304 0 S
+8 0 0 671088664 14528 0 4194304 0 S
 PH 0 0 -1
 1 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -744,7 +744,7 @@ perganan rogue vistani~
 &+Lown crime syndicate, this poor, hungry man cowers tirelessly in a tiny crawlspace,
 &+Ldesperate for a solution.
 ~
-2058 0 0 280 0 0 4194304 -666 S
+2058 0 0 671088920 14528 0 4194304 -666 S
 pf 0 12289 2
 56 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -779,7 +779,7 @@ dolghast~
 &+Wemanciated, while the dead half is skeletal and rotted.  The dolghast serves
 &+WLucian.  It was created as a gift from the rumored necromancer below the castle.
 ~
-2100424 1 0 939524504 12480 0 4194304 -1000 S
+2100424 1 0 939524504 14528 0 4194304 -1000 S
 u 0 65 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -793,7 +793,7 @@ bar lguras bar-lguras demon~
 &+Lwith a malevolent gleam in its eyes &+rstaring with bloodlust&+L,
 &+Lhungry to rend &+Rflesh&+L and eat the &+Minnards&+L of any who get too close.
 ~
-1073743882 1 0 939524284 12480 0 4194304 -1000 S
+1073743882 1 0 939524284 14528 0 4194304 -1000 S
 x 0 513 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -809,7 +809,7 @@ babau demon~
 &+LThis demon has a &+Rreddish&+L paste that oozes from pores on its
 &+Lbody, reeking of corruption and death.
 ~
-1074269256 1 0 0 0 0 4194304 -1000 S
+1074269256 1 0 671088664 14528 0 4194304 -1000 S
 x 0 257 6
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -823,7 +823,7 @@ fiendish rutterkin~
 &+Lon its skin.  Churning bones and teeth seem to protrude from just about
 &+Lanywhere on this unpredictable &+rabomination&+L.
 ~
-1073744328 1 0 98456 14529 0 37748736 -1000 S
+1073744328 1 0 671187096 14529 0 37748736 -1000 S
 x 0 131201 2
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -841,7 +841,7 @@ gaunt zombie~
 &+ghimself, is a fearless adversary, much more potent then normal
 &+gzombies.
 ~
-1141377096 1 0 0 0 0 4194304 -1000 S
+1141377096 1 0 671088664 14528 0 4194304 -1000 S
 zo 0 1 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -857,7 +857,7 @@ mohrg zombie tongue~
 &+Berized by its long, spiked black &+Ltongue&+B that lashes out with
 &+Ba parasitic life of its own, paralyzing its victims.
 ~
-336595016 1 0 0 0 0 4194304 -1000 S
+336595016 1 0 671088664 14528 0 4194304 -1000 S
 zo 0 2561 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -872,7 +872,7 @@ completely connected to mortal routine.  He currently walks through the castle
 tidying up after the place, however his presence having no actual affect in this
 &Nexistence.
 ~
-2252 0 0 0 0 0 4194304 420 S
+2252 0 0 671088664 14528 0 4194304 420 S
 ug 0 32 -1
 51 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -886,7 +886,7 @@ plague rat~
 &+ynumerous bald spots showing.  Festering &+Rlegions &+ycover the back and face
 &+yof this vermin, covered in some disgusting &+Lplague&+y.
 ~
-1050696 0 0 0 0 0 37748736 -622 S
+1050696 0 0 671088664 14528 0 37748736 -622 S
 a 0 1 1
 46 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -909,7 +909,7 @@ prucha'skokourung'tagag'onk moon stalker prucha~
 &+Wa race known only as the &+rWar Men&+W, &+rPrucha'shokourung'tagag'onk &+Wstands only
 &+Wa a couple meters tall, lean and lively in his movements.
 ~
-1090914312 0 0 134742040 0 0 4194304 300 S
+1090914312 0 0 671612952 14528 0 4194304 300 S
 h 0 65543 3
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -923,7 +923,7 @@ yanosh poha servant carpathia~
 &+WHe has a receding hair-line and curly, thin hair.  Gnarly teeth protrude from thick
 &+Wlips.  A bedazzled sneer always graces the face of this untrustworthy-looking figure.
 ~
-1090537480 1 0 0 0 0 4194304 -1000 S
+1090537480 1 0 671088664 14528 0 4194304 -1000 S
 PH 0 66081 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -931,13 +931,13 @@ PH 0 66081 -1
 #58359
 skullstone golem~
 &+La &Nskull&+Lstone golem&N~
-&+LAn &+revil &Nskull&+Lwstone golem &+Lstands here, hulking with ferocity.
+&+LAn &N&+revil &nskull&+Lstone golem &N&+rhulks here.
 ~
    &+LThis evil golem is made of pale skullstone, a rock named after
 &+Lits jagged stoney composit mixed with the mutated skulls of
 &+Ltormented souls.
 ~
-1073744138 1 0 0 0 0 4194304 -1000 S
+1073744138 1 0 671088664 14528 0 4194304 -1000 S
 og 0 12289 5
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -952,7 +952,7 @@ tanar'ri soulripper soul ripper nabassu~
 &+Larms of this vicious beast.
    &+LThe &+csoul&+Wripper &+Lhas glaring eyes and shows its &+Cfanged &+Wteeth&+L.
 ~
-1140853000 1 0 24 0 0 4194304 -1000 S
+1140853000 1 0 671088664 14528 0 4194304 -1000 S
 x 0 2097152 -1
 59 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -967,13 +967,13 @@ uridezu~
 &+LNow, scavenging the few remaining obyrinth hovels, this uridezu scurries about
 &+Lthis asteroid, searching for bits of anything.
 ~
-1075841224 1 0 0 0 0 4194304 -1000 S
+1075841224 1 0 671088664 14528 0 4194304 -1000 S
 x 0 524289 2
 59 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
 #58362
-chasme~
+chasme demon~
 &+Wa chasme&N~
 &+WA chasme, an &+Linsectoid &+Wdemon, &+Lfloats here, buzzing its wings.
 ~
@@ -981,7 +981,7 @@ chasme~
 &+Wbeak and two sneering, slanted &+Geyes&+W.  This demon roams this ancient
 &+Lasteroid, buzzing near the &+Gslime &+Lpit.
 ~
-1073744904 1 0 0 0 0 4194304 -1000 S
+1073744904 1 0 671088664 14528 0 4194304 -1000 S
 i 0 64 1
 56 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -999,7 +999,7 @@ enslaved bebilith demon~
 &+Lmulti-legged demon lurks here, fighting for the protection of its master,
 &+Lthe &+robyriths.
 ~
-1141377096 1 0 16 0 0 4194304 -1000 S
+1141377096 1 0 671088664 14528 0 4194304 -1000 S
 x 0 36 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1026,7 +1026,7 @@ obox-ob obox ob demons prince~
 &+Lwith a massive, fat gut and half of a missing horn.  It is rumored that the Queen of
 &+LChaos was responsible for handicapping the horn of this mighty overlord.
 ~
-1091569674 1 0 0 0 0 4194304 -1000 S
+1091569674 1 0 671088664 14528 0 4194304 -1000 S
 x 0 16777233 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1040,7 +1040,7 @@ primal vermin~
 &+Lthe evil corruption of the abyss has caused it to mutate drastically, giving it
 &+La greater threat and ferocity.
 ~
-1073743880 1 0 0 0 0 4194304 -666 S
+1073743880 1 0 671088664 14528 0 4194304 -666 S
 a 0 1 1
 22 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1054,7 +1054,7 @@ borrow worm~
 &+Land a small, shiny black carapace-covered head.  Two small mandibles reach
 &+Lout from the mouth of this massive borrow worm.
 ~
-2058 1 0 0 0 0 4194304 -1000 S
+2058 1 0 671088664 14528 0 4194304 -1000 S
 pw 0 1 6
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1071,7 +1071,7 @@ sabbath wizard~
 &NJust keeps walking.
 &+mSpreading his &+Cmagic&+L.
 ~
-1073760456 0 0 0 0 0 4194304 -666 S
+1073760456 0 0 671088664 14528 0 4194304 -666 S
 PH 0 512 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1086,8 +1086,8 @@ bloated bebilith demon~
 &+Lskin stretched so tightly that his organs are vealed, this horrific abomination
 &+Lswells here in the slime pool.
 ~
-2122 1 0 0 0 0 4194304 -1000 S
-x 0 68 6
+2122 1 0 671088664 14528 0 4194304 -1000 S
+x 0 4 6
 57 0 0 1d1+1 1d1+1
 0.0.0.0 0
 5 5 1
@@ -1101,7 +1101,7 @@ tanar'ri mindripper mind ripper nabassu~
 &+Larms of this vicious beast.
    &+LThe &+mmind&+Wripper &+Lhas glaring eyes and shows its &+Cfanged &+Wteeth&+L.
 ~
-1140853000 1 0 24 0 0 4194304 -1000 S
+1140853000 1 0 671088664 14528 0 4194304 -1000 S
 x 0 2097156 -1
 59 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1114,7 +1114,7 @@ great goristro demon~
 &+R  This greater tanar'ri has the body of a primal man and the head of a mighty &+Bbison&+R.
 &+RThis abomination snorts &-L&+Blightning &+Rand roars &+rbloody murder.
 ~
-1073744136 1 0 0 0 0 4194304 -1000 S
+1073744136 1 0 671088664 14528 0 4194304 -1000 S
 x 0 16896 3
 59 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1127,7 +1127,7 @@ chaos elemental~
    &+LThis horrific vortex of swirling &+Blightning&+L and &+rfire&+L blasts out
 &+Lwith energy and swirls to attack!
 ~
-1074267944 1 0 0 0 0 4194304 -1000 S
+1074267944 1 0 671088664 14528 0 4194304 -1000 S
 ef 0 64 -1
 59 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1140,7 +1140,7 @@ tanar'ri tanar sorrowsworn~
    &+LThis frail tanar'ri is a wingless, humanoid-crossbread with the tanar'ri.
 &+LIt has a bleak expression and a features of frailty.
 ~
-1074800712 1 0 0 8388608 0 4194304 -1000 S
+1074800712 1 0 671088664 8403136 0 4194304 -1000 S
 x 0 32 -1
 58 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1148,14 +1148,14 @@ x 0 32 -1
 #58373
 uridezu ratlord lord~
 &+La &+Mu&+Mr&+Li&+Rd&+re&+Lz&+ru&N &+rrat&+clord&N~
-&+LBA disgusting &+gvermin&+L-demon &+Mu&+mr&+Li&+Rd&+re&+Lz&+ru &+clord of &+yrats&+L crawls here.
+&+LA disgusting &+gvermin&+L-demon &+Mu&+mr&+Li&+Rd&+re&+Lz&+ru &+clord of &+yrats&+L crawls here.
 ~
 &+L  This small tanar'ri demon, known for its rat-like appearance, is called a uridezu.
 &+LThese creatures were originally created by mistake by the obyrinth overlords.
 &+LNow, scavenging the few remaining obyrinth hovels, this uridezu scurries about
 &+Lthis asteroid, searching for bits of anything.
 ~
-1075841224 1 0 0 0 0 4194304 -1000 S
+1075841224 1 0 671088664 14528 0 541065216 -1000 S
 x 0 524289 2
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1171,7 +1171,7 @@ soul butler~
 &+Wthe moment, however, the soul of this long-dead servant of Strahd wanders the
 &+Wcastle, lost in oblivion.
 ~
-2122 0 0 0 0 0 4194304 420 S
+2122 0 0 671088664 14528 0 4194304 420 S
 ug 0 1 -1
 56 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1185,7 +1185,7 @@ soul maid~
 &+Wa lifeless dullness to her eyes and she routinely goes about her once-mortal
 &+Writuals, detached from mortality.
 ~
-2250 0 0 0 0 0 4194304 420 S
+2250 0 0 671088664 14528 0 4194304 420 S
 ug 0 1 -1
 54 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1199,7 +1199,7 @@ chasme~
 &+Wbeak and two sneering, slanted &+Geyes&+W.  This demon roams this ancient
 &+Lasteroid, buzzing near the &+Gslime &+Lpit.
 ~
-1073744904 1 0 0 0 0 4194304 -1000 S
+1073744904 1 0 671088664 14528 0 4194304 -1000 S
 i 0 64 1
 59 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1213,7 +1213,7 @@ hairy ratman~
 &+Rvermin roots.  Standing like a huge rat on its hind legs,  this rat uses its
 &+Rfront arms to grab and claw at its opponents.
 ~
-67110984 0 0 0 0 0 4194304 -669 S
+67110984 0 0 671088664 14528 0 4194304 -669 S
 a 0 16385 3
 42 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1228,7 +1228,7 @@ oboxian high priest~
 &+Lcurl out of a huge cranium.  Large, sharp fangs protrude over the lips of
 &+Lan acid-filled, fire-breathing mouth.
 ~
-3178 1 0 0 0 0 4194304 -1000 S
+3178 1 0 671088664 14528 0 4194304 -1000 S
 x 0 131104 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1250,7 +1250,7 @@ obox ob obox-ob obyrinth demon overlord king~
 &+LObox-ob, obyrinth tanar'ri-enslaver is a ruthless fat, disgusting blob
 &+Lwho is as malicious in combat as he is in appearance.
 ~
-1094192138 1 0 0 0 0 4194304 -1000 S
+1094192138 1 0 671088664 14528 0 4194304 -1000 S
 x 0 16777808 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1265,7 +1265,7 @@ four armed four-armed tanar'ri mindripper nabassu mind ripper~
 &+Larms of this vicious beast.
    &+LThe &+mmind&+Wripper &+Lhas glaring eyes and shows its &+Cfanged &+Wteeth&+L.
 ~
-1140853000 1 0 24 0 262144 4194304 -1000 S
+1140853000 1 0 671088664 14528 262144 4194304 -1000 S
 x 0 2097156 -1
 59 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1281,7 +1281,7 @@ megosh thief nelwyn treasure hunter~
 &+Land masterful thief prowls outside the &+WCourt of the Count&+L, apparently
 &+Lwaiting for something.
 ~
-2058 0 0 1572864 0 0 4194304 420 S
+2058 0 0 672661528 14528 0 4194304 420 S
 pf 0 65536 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1295,7 +1295,7 @@ member vistani secret police~
 &+LEva to protect something in the castle.  If not Strahd himself, the relic
 &+Lthey guard must be of great power.
 ~
-1140852936 1 0 1572864 0 0 4194304 -1000 S
+1140852936 1 0 672661528 14528 0 4194304 -1000 S
 pe 0 8192 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1327,7 +1327,7 @@ strahd von zarovich vampire count~
 &+rof the castle guard.  Even so, he did not die, but went on to rule the land
 &+rof Barovia as the self-proclaimed First Vampire.
 ~
-1360033800 1 0 2970200252 276672 1092092064 46413568 -1000 S
+1360033800 1 0 3104417980 276672 1092092064 46413568 -1000 S
 uv 0 609 3
 61 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1353,7 +1353,7 @@ platinum scarab~
 ~
    &+WThis tiny carniverous insect scurries about, resembling a platinum coin.
 ~
-1140852936 1 0 0 0 0 4194304 -666 S
+1140852936 1 0 671088664 14528 0 4194304 -666 S
 i 0 1 1
 31 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1398,7 +1398,7 @@ bram burns vistani captain~
 &+La very &+Chuman&+L quality.  This endless pursuit of wealth and do-anything
 &+Lgreed is what brought Bram into the courtship service of &+rRavenloft&+L.
 ~
-1090549960 1 0 941107608 0 0 4194304 -1000 S
+1090549960 1 0 941107608 14528 0 4194304 -1000 S
 p2 0 8192 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1409,7 +1409,7 @@ mob unnamed~
 An unnamed mob stands here, looking lonely and forelorn.
 ~
 ~
-8 0 0 0 0 0 0 0 S
+8 0 0 671088664 14528 0 0 0 S
 PH 0 0 -1
 1 0 0 1d1+1 1d1+1
 0.0.0.0 0

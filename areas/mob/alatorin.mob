@@ -4180,7 +4180,7 @@ candella high forest druid~
 ~
 2250 0 0 24 0 0 0 0 S
 pe 0 384 -1
-51 0 0 1d1+1 1d1+1
+56 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 2
 #83364
@@ -4240,7 +4240,7 @@ cheerful dwarven dwarf receptionist~
 &+Yhas a cheerful attitude and flowing blonde hair.
 ~
 2250 0 0 24 0 0 0 1000 S
-pm 0 1 -1
+pm 0 32 -1
 44 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 2
@@ -4313,7 +4313,7 @@ short monk~
 &Nhe remains completely motionless.  He is dressed in loose-fitting monks robes.
 ~
 2250 0 0 0 0 0 0 300 S
-PH 0 0 2
+PH 0 64 2
 44 0 0 1d1+1 1d1+1
 0.0.0.0 0
 6 6 1
@@ -4730,8 +4730,8 @@ merchant sailor~
 &+Win the lands of &N&+yman&+W.  He walks with a familiar grit on his brow,
 &+Wsuggesting that this may be one of many visits to &+WDeramuth.
 ~
-8 0 0 134217752 0 0 0 900 S
-PH 0 4097 -1
+2248 0 0 134217752 0 0 0 900 S
+PH 0 16384 -1
 46 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -4813,7 +4813,7 @@ sg 0 16385 -1
 0.0.0.0 0
 8 8 1
 #83405
-lord deramuth~
+lord deramuth portmaster _spec1_~
 &+WLord Deramuth &N&+rthe portmaster&N~
 &+WLord Deramuth &N&+rsits behind a desk, pondering about you.
 ~
@@ -5107,5 +5107,51 @@ dortweimer cuttlebuck gully dwarf clerk~
 2250 0 0 8 0 0 0 1000 S
 pm 0 16385 -1
 53 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83423
+large barbarian~
+&Na large &+Bbarbarian&N~
+&+CA large and imposing &+Bbarbarian &+Cwalks through Deramuth with a stern look upon his brow.
+~
+   &+CThis large &+Bbarbarian &+Cis a typical northlander - dressed from
+&+Chead to toe in thick furs.  He has dark hair pulled back down his back
+&+Cand a large oversized jaw.
+~
+1073743944 0 0 0 0 0 0 0 S
+pb 0 256 -1
+40 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83424
+steam powered steam-powered mechanical construct~
+&+La &Nsteam&+L-powered &N&+cm&+Le&N&+cc&+Lh&N&+ca&+Ln&N&+ci&+Lc&N&+ca&+Ll &+Lco&N&+bnstru&+Lct&N~
+&+YA magnificent &nsteam&+L-powered &N&+cme&+Lch&N&+can&+Lic&N&+cal &+Lcon&N&+bstr&+Luct &+Ystands here puffing out steam.
+~
+   &+YThis large contraption of steel and silver has been constructed
+&+Ywith total precision.  A large steam-driven engine within forces
+&+Ya turbine to spin and give movement to large overpowering mechanical
+&+Ylimbs.  There is a small seat at the very top with various levers and
+&+Yknobs from which a &+Rgnome &+Yor other small individual may operate
+&+Ythe mechanical giant.  Within the center of the construct is a heat
+&+Ysource, most likely coal-burning, that powers the machine.
+~
+2122 0 0 24 0 0 0 0 S
+cn 0 16384 6
+53 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83425
+locke mountain dwarf mountaineer~
+&+YLocke the mountain dwarf &N&+gmountaineer&N~
+&+YA mountain dwarf &N&+gmountaineer &+Ynamed Locke sharpens a blade.
+~
+   &+YLocke is a middle-aged mountain dwarf from Kimordril.  He has a long
+&+Ygolden-blonde beard that is forked into two long braids.  He is very strong
+&+Yand fills out his bandedmail with his thick bulging muscles.
+~
+1073743882 0 0 0 0 0 0 800 S
+pm 0 16384 -1
+60 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1

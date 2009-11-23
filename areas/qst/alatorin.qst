@@ -1451,6 +1451,20 @@ G I 83317
 G I 83317
 G I 83317
 G I 83317
+QA
+&N$n bows towards $N and says &+W'Well done, $N.  My father's attendant spoke to me earlier about the dish you made for their banquest, and my father wanted you to have this...'
+~
+R I 83250
+G I 83227
+G I 83227
+G I 83227
+G I 83227
+G I 83227
+G I 83227
+G I 83227
+G I 83227
+G I 83227
+G I 83227
 S
 #83262
 M
@@ -2230,6 +2244,26 @@ MA
 eye serpent gem~
 &N$n says 'Bring me the Eye of the Serpent, $N, and I will reward thee.'
 ~
+M
+qc_action 300~
+&N$n takes a huge swig of &N&+ybeer &Nand yells out 'I been with every female in Moregeeth from Agh's sister to Glab's wife!'
+~
+M
+qc_action 300~
+&N$n hiccups and yells out 'Few people know about it' *hiccup* 'but Galban has slaves!'
+~
+MA
+galban slaves~
+&N$n slowly turns towards $N and &+Wspits&N!
+~
+MA
+moregeeth~
+&N$n grabs $N and says 'Bubgol's warg, too' before erupting into ridiculous laughter.
+~
+MA
+gruneegth~
+&N$n glares at $N.
+~
 QA
 &N$n says 'Well done, $n!'
 ~
@@ -2359,6 +2393,28 @@ M
 qc_action 200~
 &N$n gathers enough air to yell out '&+RCOWARDS!&N'
 ~
+MA
+hi hello~
+&N&+yThe halfling says 'Please.. help me..'
+&+LThe &N&+cshackles &+Lof the &N&+yhalflings &+Lbondings jingle as he reaches his &N&+rstumped &+Larms out towards $N.
+~
+MA
+shackle shackles~
+&N&+yThe halfling says 'The key.. you must unlo---'
+He starts choking on &N&+rblood&N.
+~
+MA
+deramuth~
+&N&+yThe halfling says 'Bastard..'
+~
+QA
+&N&+yThe halfling says '$N... thank you.'
+~
+R E 115000
+G I 83481
+D
+&N&+yThe halfling clambers to his feet, and then staggers out the gates.
+~
 S
 #83422
 M
@@ -2387,5 +2443,95 @@ After leaning bringing each extremely close a few times, he tosses them behind h
 M
 qc_action 600~
 &N$n peers out the window for a moment at the sound of a large &+yship &Ndocking.
+~
+M
+qc_action 600~
+&N$n opens and closes drawers on his &+ydesk&N one after another, spending only brief moments scanning the contents of each.
+~
+MA
+hi hello~
+&N$n smiles at $N and says 'Great $N, nice to meet ya.  Welcome to Deramuth.  Check out the Golden Pearl home of the dragon egg omlette.'
+&NAs $n continues rummaging through his desk area, he hurridly-continues 'Okay seeya later!' paying you no more attention then when you entered.
+~
+MA
+deramuth~
+&N$n pauses his rummaging for a moment to look over his shoulder.
+&+Y'Hey, $N!  Ninety nine times a hundred I'd tell ya its a hell-of-a town, but brother not today!'
+He nods at $N and adjusts his &+Wspectacles&N, grumbling as he returns to work, mumbling something about the crates.
+~
+MA
+taark shanat~
+With a warm smile, $n says &+Y'The king?  A fine dwarf of stern and spirit!'
+~
+MA
+paper papers order orders note notes desk help clerk why who what where~
+&N$n looks up at $N and says &+Y'I'm trying to find the latest shipping logs!  All of our shipping crates are gone!  They couldn't of just vanished and the guards haven't seen anything!  Argh!  We gotta find them $N!'
+~
+MA
+crate crates shipment~
+&N$n nods at $N and says &+Y'Listen here $N!  We are missing our shipments.  The town can't bring in money if we don't have goods for the people who come 'ere!'
+&N$n shakes his head with dissapointment before continuing &+Y'Brig me any &N&+yshipping crates&+Y or &+Creinforced &n&+yshipping crates&+Y you come across and you'll get a nice reward.'
+~
+M
+qc_action 650~
+&N$n lets out a huge sigh and mutters &+Y'Dumathoin save me if I don't get those crates..'
+~
+MA
+golden pearl inn~
+&N$n smiles at $N and says &+Y'The richest beer of Shanatar might be in Alatorin, but the biggest bang fer yar buck will be at the Golden Pearl!'
+&n$n pauses for a moment in deep thought, &+Y'Wonder if they got the crates.'
+~
+MA
+shanatar~
+&N$n gulps at $N and says &+Y'Yeah that's right.  Yer here aren't ya?'
+&N$n shakes his head, returning to his work.
+&+Y'Yer alive, aren't ya?' &Nhe scoffs at $N.
+~
+MA
+alatorin~
+&N$n chuckles for a moment and says &+Y'Home of the Shield Dwarves, $N.'
+He leans over a bit to one side and fully extends his arm pointing straight out the northward window.
+&+Y'Right at the top of the mountain, if ya can see' he says, &+Y'right at the top.'
+~
+QA
+&N$n yells out to a group of dock workers, who immediately rush in and carry the crate off.
+&+Y'Well done, $N!  Take this platinum as your reward for the service.'
+~
+R C 5000
+G I 43101
+QA
+&N$n smiles and calls out to a group of dock workers who hurridly carry the crate off.
+&+Y'Excellent work $N!!  Take this platinum as your reward!'
+~
+R C 30000
+G I 43125
+S
+#83423
+M
+qc_action 80~
+&+CA large barbarian cautiously but confidently peers up and over into a storefront.
+~
+MA
+hi hello~
+&+CA large barbarian grunts at $N.
+~
+S
+#83424
+M
+qc_action 400~
+&+L*&NPOOF!&+L*
+A gust of steam erupts from the rear ports of the &+Lco&N&+bnstru&+Lct&N.
+~
+M
+qc_action 400~
+&NA mechanical &+Lco&N&+bnstru&+Lct &Nclanks and &+Yjolts &Nas it twists its torso.
+~
+M
+qc_action 400~
+&NA mechanical &+Lco&N&+bnstru&+Lct &Nreleases a puff of steam followed by two more.
+~
+M
+qc_action 400~
+&NA mechanical &+Lco&N&+bnstru&+Lct takes a few steps, causing the &+Lgears&N and &+Ygizmos &Ninside to turn and &+Yc&Nl&+Ya&Nt&+Yt&Ne&+Yr&N.
 ~
 S

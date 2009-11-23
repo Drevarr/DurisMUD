@@ -1698,7 +1698,7 @@ vial sorrow potion~
 &+LA vial of liquid &+Wso&Nrr&+Low &+Llies here, foregotten.~
 ~
 10 15 3 0 7 0 0 16385 64 0 0
-60 318 136 0 0 0 0 0
+60 318 136 99 0 0 0 0
 0 0 100
 E
 vial sorrow potion~
@@ -1725,19 +1725,33 @@ T
 509 12 2 0
 #58405
 tanar'ri mace fire acid~
-&+La tanar'ri &+rmace&+L of &+Rfire &+Land acid&N~
+&+La massive &+Gs&+Lp&+Gi&+Lk&+Ge&+Ld &N&+rdemon &+Lmace of the &N&+mt&+La&N&+mn&+La&N&+mr&+L'&N&+mr&+Li&N~
 &+LA tanar'ri mace of fire and acid has been left here.~
 ~
-5 11 3 0 7 0 0 8193 64 0 0
-6 3 5 0 0 0 0 0
-12 15349 100 536870912 8192 0 0
+5 11 5 0 7 0 37748736 8193 98 0 0
+6 6 4 0 0 277428 50 100
+8 106554 100 536870912 8192 0 0
 E
 tanar'ri mace fire acid~
    &+LThis large, spiked mace is covered in burning hot spikes that are also
 &+Ldripping with acid.
 ~
+E
+_char_msg~
+You smash your $q into $N and &+Rtear &N&+rit out with a &+Rvicious &N&+rr&+Ri&N&+rp&N, causing an &+Lacidic &+Gs&+Lp&+Gi&+Lk&+Ge &Nto break off in the &N&+rwound&N!
+&N &Ncries out in pain as the &+Lacid &N+rb&+Ru&N&+rr&+Rn&N&+rs &Nand &+Ys&Ni&+Yz&Nz&+Yl&Ne&+Ys&N.
+~
+E
+_victim_msg~
+&n$n smashes $q into you and &+Rtears&N it back out with a violent &+Rrip&N, causing an &+Lacidic &+Gs&+Lp&+Gi&+Lk&+Ge &nto break off in the &+rwound&N!
+~
+E
+_room_msg~
+&n$n swings $q into $N with a mighty force before &+rr&+Ri&N&+rp&+Rp&N&+ri&+Rn&n&+rg &Nit back out with a &+Rviolent &Nyank!
+&N$N cries out in pain as an &+Lacidic &+Gs&+Lp&+Gi&+Lk&+Ge &Nbreaks off in the &+rwound&N, &+Rb&N&+ru&+Rr&N&+rn&+Ri&N&+rn&+Rg &Nand &+Ys&Ni&+Yz&nz&+Yl&Ni&+Yn&Ng.
+~
 A
-18 4
+18 5
 A
 1 11
 #58406
@@ -1794,7 +1808,7 @@ vial mindripper~
 &+LA &+cvial &+Lof the &+mm&+ri&+Mn&+rd&+Wripper &+Llies here, foregotten.~
 ~
 10 7 3 0 7 0 0 16385 0 0 0
-60 163 260 182 33 0 0 0
+60 163 392 182 33 0 0 0
 0 1654 100
 E
 vial mindripper~
@@ -2197,3 +2211,33 @@ A
 13 125
 A
 19 10
+#58436
+crown rat bones~
+&+La &N&+bcr&+Lo&N&+bwn of &+Wr&Na&+Wt &Nb&+Wo&Nn&+We&Ns&N~
+&+bA crown of &+Wrat bones&N has been left here.~
+~
+9 10 3 0 7 0 1 17 64 0 0
+10 0 0 2 0 0 0 0
+0 340 100 0 8194 0 0
+E
+crown rat bones~
+   &+LThis simple crown is made up of hundreds of tiny &+Wrat bones &+Lall fused
+&+Lto a jagged circlet.
+~
+A
+22 -4
+A
+23 -4
+#58437
+torch~
+&+Ya torch&N~
+&+YA torch is placed in a sconce, attached to the northern wall.~
+~
+1 6 2 0 3 0 262144 0 0 0 0
+0 0 -1 0 0 0 0 0
+0 0 77
+E
+torch~
+&+YThis wood and flax torch sits in a sconce, which i screwed into a block
+&+Yalong the northern wall.  The torch burns softly with a soft glow.
+~

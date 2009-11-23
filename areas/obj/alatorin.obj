@@ -4840,7 +4840,7 @@ earring entwined roots~
 A
 23 -3
 A
-20 -2
+20 -3
 #83407
 moorwood harp~
 &+La moorwood harp&N~
@@ -4949,9 +4949,20 @@ sign~
 0 0 100
 E
 sign~
-&+yThis sign reads:
-
-&+WWelcome to Deramuth Port
+&+y        ________________________
+&+y       .                        .
+&+y      /                          \
+&+y    ./   &+WW E L C O M E      &N&+y      \.
+&+y    |        &+W            TO    &N&+y    |
+&+y    |   &N&+b ,,&N&+y\__/&N&+b,,&+y                  |
+&+y    |     &+b,,,,,,  &+W DERAMUTH PORT&N&+y   |
+&+y    |                &+C. &+B. &N&+b. &+B. &+C.&N&+y     |
+&+y    .\                            /.
+&+y      \.________________________./
+&+y                  |   |
+&+y                  |   |
+&+y                  |   |
+&+g\\\|&+G||&n&+g///\&+G\\||&N&+g|/&+G//&N&+y|   |&+G\\/&N&+g/||\\&+G//&N&+g||//\//
 ~
 #83414
 bloody head helgor~
@@ -6044,3 +6055,15 @@ A
 3 8
 A
 26 8
+#83481
+shackle key~
+&+La &Nsh&+Lac&Nkl&+Le &+Ckey&N~
+&+LA &Nsh&+Lac&Nkl&+Le &+Ckey &Nhas been left here.~
+~
+18 15 3 0 7 0 8392704 16385 0 0 0
+0 0 0 0 0 0 0 0
+0 0 100
+E
+shackle key~
+   &+LThis small &N&+ciron key&+L is generic and used to unlock large &N&+ciron shackles&+L.
+~

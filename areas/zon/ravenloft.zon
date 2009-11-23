@@ -229,6 +229,14 @@ D 0 58423 4 2 100 0 0 0
 *     up exit from "The Deep Bottom of the Slime Pit" to
 *     "An Acrid Pool of Slime" - closed/locked
 *
+D 0 58424 0 5 100 0 0 0
+*     north exit from "A Slimey Lair" to
+*     "A Focus of Reality" - closed/secret
+*
+D 0 58425 2 8 100 0 0 0
+*     south exit from "A Focus of Reality" to
+*     "A Slimey Lair" - open/blocked
+*
 D 0 58431 3 1 100 0 0 0
 *     west exit from "The Courtyard Before the Dayheart Tower" to
 *     "The Base of the Dayheart Tower" - closed
@@ -488,6 +496,7 @@ O 0 58396 1 58470 100 0 0 0        * an Eladrin spear
 O 0 58313 1 58513 100 0 0 0        * a map of the cosmos
 O 0 58433 1 58516 100 0 0 0        * a strange granite head
 O 0 58410 1 58517 100 0 0 0        * the Dayheart
+O 0 58437 1 58520 100 0 0 0        * a torch
 O 0 58349 1 58521 100 0 0 0        * a torch
 O 0 58412 1 58527 100 0 0 0        * a young girl named Gertruda
 O 0 58397 1 58532 100 0 0 0        * a dracolich skull
@@ -716,11 +725,10 @@ F 1 58365 120 58422 100 0 0 0      * a primal vermin (following)
 F 1 58365 120 58422 100 0 0 0      * a primal vermin (following)
 F 1 58365 120 58422 100 0 0 0      * a primal vermin (following)
 F 1 58365 120 58422 100 0 0 0      * a primal vermin (following)
-M 0 58363 8 58423 100 0 0 0        * an enslaved bebilith
-M 0 58363 8 58423 100 0 0 0        * an enslaved bebilith
-M 0 58363 8 58423 100 0 0 0        * an enslaved bebilith
-M 0 58363 8 58423 100 0 0 0        * an enslaved bebilith
-M 0 58363 8 58423 100 0 0 0        * an enslaved bebilith
+M 0 58363 7 58423 100 0 0 0        * an enslaved bebilith
+M 0 58363 7 58423 100 0 0 0        * an enslaved bebilith
+M 0 58363 7 58423 100 0 0 0        * an enslaved bebilith
+M 0 58363 7 58423 100 0 0 0        * an enslaved bebilith
 M 0 58364 1 58424 100 0 0 0        * Obox-Ob, the Prince of Demons
 G 1 58393 1 0 100 0 0 0            *    an abyssal essence
 M 0 58356 12 58428 100 0 0 0       * a plague rat
@@ -1069,8 +1077,9 @@ M 0 58367 1 58544 20 0 0 0         * the sabbath Wizard
 M 0 58386 1 58544 75 0 0 0         * Lord Soth
 E 1 58426 1 16 100 0 0 0           *   the sword of scourging
 F 1 12401 1 58544 100 0 0 0        * (mob type not in this .mob file) (following)
-M 0 58363 8 58549 100 0 0 0        * an enslaved bebilith
+M 0 58363 7 58549 100 0 0 0        * an enslaved bebilith
 M 0 58373 4 58550 100 0 0 0        * a uridezu ratlord
+E 1 58436 1 6 100 0 0 0            *   a crown of rat bones
 F 1 58377 8 58550 100 0 0 0        * a hairy ratman (following)
 F 1 58365 120 58550 100 0 0 0      * a primal vermin (following)
 F 1 58365 120 58550 100 0 0 0      * a primal vermin (following)
@@ -1096,9 +1105,9 @@ F 1 58365 120 58551 100 0 0 0      * a primal vermin (following)
 F 1 58365 120 58551 100 0 0 0      * a primal vermin (following)
 F 1 58365 120 58551 100 0 0 0      * a primal vermin (following)
 F 1 58365 120 58551 100 0 0 0      * a primal vermin (following)
-M 0 58363 8 58551 100 0 0 0        * an enslaved bebilith
+M 0 58363 7 58551 100 0 0 0        * an enslaved bebilith
 M 0 58378 1 58552 100 0 0 0        * the oboxian high priest
-E 1 58405 1 16 100 0 0 0           *   a tanar'ri mace of fire and acid
+E 1 58405 1 16 100 0 0 0           *   a massive spiked demon mace of the tanar'ri
 M 0 58373 4 58553 100 0 0 0        * a uridezu ratlord
 F 1 58377 8 58553 100 0 0 0        * a hairy ratman (following)
 F 1 58377 8 58553 100 0 0 0        * a hairy ratman (following)
@@ -1112,7 +1121,7 @@ F 1 58365 120 58553 100 0 0 0      * a primal vermin (following)
 F 1 58365 120 58553 100 0 0 0      * a primal vermin (following)
 F 1 58365 120 58553 100 0 0 0      * a primal vermin (following)
 F 1 58365 120 58553 100 0 0 0      * a primal vermin (following)
-M 0 58363 8 58553 100 0 0 0        * an enslaved bebilith
+M 0 58363 7 58553 100 0 0 0        * an enslaved bebilith
 M 0 58373 4 58555 100 0 0 0        * a uridezu ratlord
 F 1 58377 8 58555 100 0 0 0        * a hairy ratman (following)
 F 1 58377 8 58555 100 0 0 0        * a hairy ratman (following)

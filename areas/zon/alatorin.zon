@@ -1007,10 +1007,10 @@ D 0 83702 1 1 100 0 0 0
 *
 D 0 83695 0 1 100 0 0 0
 *     north exit from "A Turn in the Trail" to
-*     "A Small Dwelling" - closed
+*     "An Overgrown Abandoned Dwelling" - closed
 *
 D 0 83742 2 1 100 0 0 0
-*     south exit from "A Small Dwelling" to
+*     south exit from "An Overgrown Abandoned Dwelling" to
 *     "A Turn in the Trail" - closed
 *
 D 0 83699 2 8 100 0 0 0
@@ -1617,7 +1617,7 @@ O 0 7353 10 83505 100 0 0 0        * (object type not in this .obj file)
 O 0 361 2 83511 100 0 0 0          * (object type not in this .obj file)
 O 0 89008 4 83513 100 0 0 0        * (object type not in this .obj file)
 O 0 89008 4 83514 100 0 0 0        * (object type not in this .obj file)
-O 0 45 1 83516 100 0 0 0           * (object type not in this .obj file)
+O 0 45 2 83516 100 0 0 0           * (object type not in this .obj file)
 O 0 89008 4 83516 100 0 0 0        * (object type not in this .obj file)
 O 0 54605 1 83517 100 0 0 0        * (object type not in this .obj file)
 O 0 89008 4 83518 100 0 0 0        * (object type not in this .obj file)
@@ -1635,7 +1635,7 @@ O 0 500001 1 83544 100 0 0 0       * (object type not in this .obj file)
 O 0 83330 1 83544 100 0 0 0        * a pile of rubble
 P 1 96820 1 83330 100 0 0 0        *   (object type not in this .obj file)
 O 0 83331 1 83544 100 0 0 0        * a circular boulder
-O 0 43125 1 83546 100 0 0 0        * (object type not in this .obj file)
+O 0 43125 2 83546 100 0 0 0        * (object type not in this .obj file)
 O 0 83180 2 83546 100 0 0 0        * a huge crate
 O 0 18718 1 83546 100 0 0 0        * (object type not in this .obj file)
 O 0 83332 1 83547 100 0 0 0        * a small wooden engraving
@@ -1694,6 +1694,7 @@ O 0 83402 1 83745 100 0 0 0        * a small stone fountain
 O 0 83413 1 83749 100 0 0 0        * a sign
 O 0 83139 7 83754 100 0 0 0        * a small wooden desk
 O 0 83404 1 83756 100 0 0 0        * a jodani wood sign
+O 0 45 2 83761 100 0 0 0           * (object type not in this .obj file)
 O 0 83114 6 83768 100 0 0 0        * a closet
 P 1 94336 5 83114 50 0 0 0         *   (object type not in this .obj file)
 P 1 94336 5 83114 50 0 0 0         *   (object type not in this .obj file)
@@ -1701,6 +1702,10 @@ O 0 83114 6 83769 100 0 0 0        * a closet
 P 1 97041 1 83114 100 0 0 0        *   (object type not in this .obj file)
 P 1 97047 1 83114 100 0 0 0        *   (object type not in this .obj file)
 P 1 97048 1 83114 100 0 0 0        *   (object type not in this .obj file)
+O 0 43125 2 83783 10 0 0 0         * (object type not in this .obj file)
+O 0 43101 3 83783 60 0 0 0         * (object type not in this .obj file)
+O 0 43101 3 83783 30 0 0 0         * (object type not in this .obj file)
+O 0 43101 3 83783 10 0 0 0         * (object type not in this .obj file)
 O 0 3097 2 83795 100 0 0 0         * (object type not in this .obj file)
 O 0 83357 1 83796 100 0 0 0        * a broad sign
 O 0 72 2 83801 100 0 0 0           * (object type not in this .obj file)
@@ -2349,6 +2354,12 @@ G 1 5823 2 0 100 0 0 0             *    (object type not in this .obj file)
 G 1 5823 2 0 100 0 0 0             *    (object type not in this .obj file)
 M 0 83418 1 83295 29 0 0 0         * Sambisam the gnome trickster
 E 1 83468 1 9 100 0 0 0            *   some tricksters gloves
+M 0 83425 1 83295 30 0 0 0         * Locke the mountain dwarf mountaineer
+G 1 54 999 0 100 0 0 0             *    (object type not in this .obj file)
+G 1 73 999 0 100 0 0 0             *    (object type not in this .obj file)
+G 1 77 999 0 100 0 0 0             *    (object type not in this .obj file)
+G 1 97 999 0 100 0 0 0             *    (object type not in this .obj file)
+G 1 96 999 0 100 0 0 0             *    (object type not in this .obj file)
 M 0 83157 19 83295 100 0 0 0       * an Alatorin peacekeeper
 E 1 83112 999 11 100 0 0 0         *   an iron shield bearing the crest of Alatorin
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
@@ -2441,6 +2452,7 @@ G 1 74181 999 0 100 0 0 0          *    (object type not in this .obj file)
 G 1 83309 999 0 100 0 0 0          *    a huge mining sack
 G 1 3069 999 0 100 0 0 0           *    (object type not in this .obj file)
 M 0 120051 7 83352 100 0 0 0       * (mob type not in this .mob file)
+M 0 83424 1 83353 100 0 0 0        * a steam-powered mechanical construct
 M 0 83251 8 83355 100 0 0 0        * a gnomish tinkerer
 E 1 83302 8 24 100 0 0 0           *   a craftsman's pin of Dweefniggle's workshop
 M 0 83251 8 83355 100 0 0 0        * a gnomish tinkerer
@@ -3174,6 +3186,7 @@ E 1 83480 1 18 100 0 0 0           *   a long roc-feather quill
 E 1 83479 1 19 100 0 0 0           *   some old wire-framed spectacles
 M 0 83358 4 83755 100 0 0 0        * a Deramuth guard
 E 1 83403 6 16 100 0 0 0           *   a wooden spear with a tied off red flag
+M 0 83423 1 83755 100 0 0 0        * a large barbarian
 M 0 43132 1 83756 100 0 0 0        * (mob type not in this .mob file)
 M 0 43137 7 83757 100 0 0 0        * (mob type not in this .mob file)
 M 0 83375 3 83757 100 0 0 0        * a shield dwarf
@@ -3284,6 +3297,7 @@ M 0 83421 1 83797 100 0 0 0        * a bound halfling with no hands
 M 0 83408 1 83799 100 0 0 0        * a dwarf captain
 E 1 83449 1 5 100 0 0 0            *   a breastplate of gold-trimmed mithril
 G 1 40441 6 0 100 0 0 0            *    (object type not in this .obj file)
+G 1 83481 1 0 100 0 0 0            *    a shackle key
 F 1 83407 8 83799 100 0 0 0        * an angry guard (following)
 G 1 94730 4 0 100 0 0 0            *    (object type not in this .obj file)
 F 1 83407 8 83799 100 0 0 0        * an angry guard (following)
@@ -3296,8 +3310,9 @@ G 1 40444 5 0 100 0 0 0            *    (object type not in this .obj file)
 F 1 83409 1 83801 100 0 0 0        * a crooked advisor (following)
 E 1 83477 1 1 100 0 0 0            *   a blue crystalline band
 G 1 40442 3 0 100 0 0 0            *    (object type not in this .obj file)
-M 0 83404 1 83801 100 0 0 0        * a brutal-looking storm giant bodyguard
+F 1 83404 1 83801 100 0 0 0        * a brutal-looking storm giant bodyguard (following)
 E 1 83416 1 14 60 0 0 0            *   the spiked stone bracer of storms
+G 1 22938 1 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 83380 8 83813 100 0 0 0        * a human smuggler
 M 0 83380 8 83813 100 0 0 0        * a human smuggler
 M 0 83380 8 83813 100 0 0 0        * a human smuggler
