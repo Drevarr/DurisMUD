@@ -410,6 +410,11 @@ favor~
 &N$n nods at $N and says &+W'One of my tinkerer cousins here is a big fan of Barlow's brew.  Well, he overheard some of those brewers say they were looking to..' he gulps and continues &+W'Try to my tinkerers!'
 &NHe scoffs and continues &+W'Well, we'll have to get them before they get us, eh $N?'
 &+W'Return to me with eight of their badges, and I'll know the deed is done'&n, $n whispers with &+rbloodlust&N in his eyes.
+&n$n says &+W'Those medals of honor can be very valuable, 'round here, too!'.
+~
+MA
+medal honor~
+&N$n grins at $N and says &+W'Medals of Honor are rewarded all over Alatorin for certain deeds that honor the king.  Tell ya what, $N, if you bring me &+Rfour&+W of those &+Cmedals of honor&+W, I will repay you with a special &+Rtoken &+Wof &+Rgnome currency&+W!'
 ~
 QA
 &N$n grins and says 'Thanks!  Remember, just give me ten of those pieces and I'll give ya a whole token!'
@@ -467,6 +472,13 @@ G I 83458
 G I 83458
 G I 83458
 G I 83458
+QA
+&N$n says &+W'Well done, $N!  Take this token, it is of special &+Rgnomish &+Wcurrency.  There are numerous people around the world who may offer great services for these &+Rtokens&+W.'
+~
+R I 55033
+G I 83250
+G I 83250
+G I 83250
 S
 #83151
 M
@@ -1925,6 +1937,75 @@ D
 &N'&+rTake this.&n'
 ~
 S
+#83336
+MA
+hi hello~
+&N$n nods at $N and says &+L'Greetings, brother.  Back during the years of Old, when it was not &+YClan Gold Stock &+Lor even &+CSharp Steel &+Wor &n&+cStout Blade &+Lcontrolling &N&+rKhildarak&+L.. it was the &N&+rclansdwarves&+L!  The old way has been lost, I fear, due to the rulership of the &+Yfive kings&N&+r...&+L'
+~
+MA
+five kings king~
+&N$n nods at $N and says &+L'The five kings of the &N&+ydwarves &+Lthat have taken the pride away from honor for the &N&+rclansdwarves&+L but upon &+Ysplendor&+L...'
+With a grimmace on his face, $n turns to $N and says &+L'The &+Yfive kings &+Lare &n&+rBregnar&+L - &N&+rtyr&+Lant of the &N&+munderdark&+L, King StoutDorf the &+Rwar&N&+rmaster&+L, &N&+cGeneral Kimordril&+W lord of the &+Ymountain dwarves&+L, &+YBostas Firebraid&N&+r the maniacal ruler of the &+Ldark iron dwarves&+L, and &+CFirb Derstl&N&+c, Burrow Warden of Dirk'nspire&+L.'
+&+L'Each of the &+Yfive kings &+Lcarry a &+Bmagical &n&+cweapon &+Lblessed beyond mortal understanding.'
+&NWith a brief pause, $n grins and continues &+L'$N, you must &N&+rkill &+Lthe &+Yfive kings &+Land bring me their &N&+bweapons&+L.'
+~
+MA
+bregnar~
+&N$n says &+L'Bregnar lives within the duergar compound between the &N&+mUnderground River &+Land the &N&+mTracks of the Gargantuan Purple Worm&+L.  Also on the outskirts of &+MIx&n&+mar&+Lkon, &N&+rBregnar &+Lcontrols a powerful position in the &N&+munderdark&+L.  He is one of the &+Yfive kings&+L.'
+~
+MA
+stoutdorf~
+&N$n nods at $N and says &+L'King StoutDorf.. he built that army of his from low-life &N&+yderros&+L that fed off his leavings.'
+&N$n spits on the ground beside him, continuing &+L'They even say the great duergar king had the &N&+rdevil &+Lon his side.  King Stoutdorf is one of the &+Yfive kings&+L.'
+~
+MA
+devil~
+&N$n says &+L'Beware the arch-devil in the throne of StoutDorf.'
+~
+MA
+firb derstl~
+&N$n grins at $N and says &+L'Who would of thought the reclusive burrow warden, &+CFirb Derstl&+L, was a &N&+yderro &+Lking?  You will find &+CFirb Derstl &+Lin Dirknspire, unaware of his &N&+rbloodline &+Lamong the &+Yfive kings&+L.'
+~
+MA
+bostas firebraid~
+&N$n says &+L'&+YBostas Firebraid&+L, never has there been a more ruthless dwarf.  Known as the leader of the dark iron dwarves, &+YBostas Firebraid&+L has uncovered some sort of dark &+Yfire &+Rma&N&+rgic&+L.'
+As $n shivers for a moment, he continues &+L'You will find him far away in a keep called &N&+r'Strak'Ash' &+Lin the Blackrock Mountain.  He is one of the &+Yfive kings&+L.'
+~
+MA
+general kimodril~
+&N$n nods at $N and says &+L'I'm sure the "great" &N&+cGeneral Kimordril &+Lwould have ended up one of &N&+bStealth Hunter's &+Ltargets nonetheless.  The ruler of his self-named &+Ymountain dwarf &+Lcity has the &N&+rblood &+Lof &+Ykings&+L running through his veins.'
+~
+MA
+strak'ash strak ash blackrock~
+&N$n says &+L'The Blackrock mountain and Strak'Ash citadel are not easy to find, $N.  Although there are rumors that another way in could be found here in &N&+cAlatorin&+L...'
+~
+MA
+alatorin~
+&N$n says &+L'Alatorin is a glorious city, and full of opportunities.  It is also the location of our den, brother.'
+~
+MA
+taark shanat~
+&N$n says to $N &+L'$N, &+RTaark Shanat &+Lis a powerful ruler - you have seen the size of this place of you have found me - and it would be best not to challenge our existence in &N&+cAlatorin&+L.'
+~
+QA
+&N$n says &+L'Outstanding work!'
+He jumps to his feet, and arranges the weapons out in a large row.
+After carefully examining each, one at a time, down the line, he approaches $N.
+&+L'You have proven yourself well, brother.' &NHe says.
+~
+R E 350000
+R I 83485
+R I 83463
+R I 83463
+G I 78419
+G I 95526
+G I 96835
+G I 34226
+G I 4505
+D
+&N$n says &+LTake two of these &+Wtokens of &+Lstealth, as this has surely been an arduous adventure.'
+~
+S
 #83338
 MA
 hi hello~
@@ -1940,6 +2021,7 @@ QA
 ~
 R I 83463
 R E 160000
+R I 83487
 G I 83353
 G I 83397
 D

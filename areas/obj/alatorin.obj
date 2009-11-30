@@ -2149,7 +2149,7 @@ tiny velvet case~
 ~
 #83242
 royal signet ring alatorin~
-&+Ythe &N&+mr&+Mo&N&+my&+Ma&N&+ml &+Ysignet ring of &n&+cAlatorin&N~
+&+Ythe &N&+mr&+Mo&N&+my&+Ma&N&+ml &+Ysignet of &N&+cAl&+Cator&N&+cin&N~
 &+YThe &+Mroyal &+Ysignet ring of &N&+cAlatorin &+Yhas been left here.~
 ~
 9 24 0 0 7 0 1 3 64 0 0
@@ -4345,7 +4345,7 @@ mithril sign~
 &+m|          *-*-*-*-*-*-*-*          |
 &+m|  &+Wc&nh&+Cr&+Rom&+Ci&+Wu&nm &+Ldragon&N&+cs&+Lc&N&+ca&+Ll&N&+ce&+Lss&n&+m           |
 &+m|        &+Wsome si&+Cl&N&+cver dragonscales&+m   |
-&+m|           &+Ldragon scales &N&+m          |
+&+m|           &+Ldragon scales   &N&+m        |
 &+m|          *-*-*-*-*-*-*-*          |
 &+m+-----------------------------------+
 ~
@@ -6117,3 +6117,69 @@ E
 ball crackling energy~
    &+CThis brilliant ball of energy crackles and fluctuates with magic lightning.
 ~
+#83485
+ancient adamantium warhammer hammer dwarven kings~
+&+Lan ancient &n&+ra&+md&+ra&+mm&+ra&+mn&+rt&+mi&+ru&+mm &+Lwarhammer of &N&+ydwarven kings&N~
+&+LAn ancient &N&+madamantium &+Lwarhammer sits here, propped up on its head.~
+~
+5 19 4 0 15 0 20054288 8193 127 0 0
+4 4 5 0 0 30062057 50 30
+0 233209 100 536870912 12480 0 0
+E
+ancient adamantium warhammer hammer dwarven kings~
+   &+LThis large warhammer is quite dissimilar to the typical sledges found
+&+Lin use by dwarves today.  An ancient design, a huge square-shaped head
+&+Lis off-balanced by a circular ball on the opposing side.  Large spikes sit
+&+Laround both heads, still as sharp as ever.  This ancient, yet massive
+&+Lhammer is made entirely out of &N&+madamantium&+L and bares ancient runes
+&+Lof &N&+ydwarven lore&+L from many centuries, depicting royalty and ultimate
+&+Lprosperity amongst the dwarven people.
+~
+E
+_char_msg~
+You smash $q into the &n&+ye&+La&N&+yr&+Lt&N&+yh &+Lreleasing a &+BHUGE eruption of &-L&+BLiGhTNinG!!&N
+~
+E
+_room_msg~
+&N$n smashes $q into the &+ye&+La&N&+yr&+Lt&N&+yh &+Lcausing a &+BHUGE eruption of &-L&+BLiGhTnInG!!&N
+~
+A
+31 5
+A
+35 5
+#83486
+black leather boots adamantium heel blades~
+&+Lsome black leather boots fit with &N&+madamantium &+Che&n&+mel &+Cbl&N&+ca&+mdes&N~
+&+LA pair of black leather boots are laying here, fit with &N&+madamantium &+Cheel blades&N.~
+~
+9 14 2 0 11 0 0 0 0 0 0
+5 0 0 3 0 0 0 0
+0 13333 100
+E
+black leather boots adamantium heel blades~
+   &+LThese fine black leather boots have retractable &N&+madamantium &+Cblades
+&+Lthat quickly slide out of the heel of the boot.  These &+Cblades &+Lare very
+&+Cshrap &+Land well-maintained.
+~
+A
+18 4
+A
+19 4
+#83487
+adamantium bracer tarkorsh~
+&+Lan &N&+ra&+md&+ra&+mm&+ra&+mn&+rt&+mi&+ru&+mm &+Lbracer of &N&+cTar&+Bko&N&+crsh&N~
+&+LAn &N&+radama&+mntium &+Lbracer of &N&+cTar&+Bko&N&+crsh&+L has been left here.~
+~
+9 19 3 0 7 0 0 0 0 0 0
+5 0 0 0 0 0 0 0
+0 9032 100
+E
+adamantium bracer tarkorsh~
+   &+LThis adamantium bracelet bears the mark of the notorious &N&+rduergar
+&+Linquisitor &N&+cTar&+Bkor&N&+csh Darhelm.  It bares several &+Crazor-lined
+&+Lrivets, which lead up the forearm of the wearer.
+~
+A
+18 4
+A
+19 3
