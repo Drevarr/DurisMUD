@@ -132,9 +132,6 @@ struct CargoStats shipcontra[MAXCARGO];
 
 
 
-
-
-
 //--------------------------------------------------------------------
 // load all ships from file into the world
 //--------------------------------------------------------------------
@@ -2244,6 +2241,12 @@ int look_ship(P_char ch, P_ship ship)
 
 int claim_coffer(P_char ch, P_ship ship)
 {
+    if (!isname(GET_NAME(ch), SHIPOWNER(ship)))
+    {
+        send_to_char("But you are not the captain of this ship...\r\n", ch);
+        return false;
+    }
+
     if (ship->money == 0) 
     {
         send_to_char("The ship's coffers are empty!\r\n", ch);
@@ -2921,12 +2924,19 @@ void finish_sinking(P_ship ship)
     for (int j = 0; j < MAXSLOTS; j++)
         ship->slot[j].clear();
 
-    ship->location = real_room0(ship->anchor);
-    obj_from_room(ship->shipobj);
-    obj_to_room(ship->shipobj, real_room0(ship->anchor));
-    dock_ship(ship, real_room0(ship->anchor));
     ship->speed = 0;
     ship->setspeed = 0;
+    
+    // Holding room in Sea Kingdom
+
+    int DAVY_JONES_LOCKER = 31725;
+    
+    obj_from_room(ship->shipobj);
+    obj_to_room(ship->shipobj, DAVY_JONES_LOCKER);
+    
+    ship->location = DAVY_JONES_LOCKER;
+    dock_ship(ship, DAVY_JONES_LOCKER);
+
     reset_crew_stamina(ship);
     update_ship_status(ship);
     write_newship(ship);
@@ -3791,6 +3801,11 @@ int summon_ship (P_char ch, P_ship ship)
         send_to_char(buf, ch);
         return TRUE;
     }
+    
+    if (ship->location == 31725) {
+        send_to_char("You start to call your ship back from &+LDavy Jones Locker...\r\n", ch);
+    }
+    
     SUB_MONEY(ch, summon_cost, 0);
     int buildtime = (int) (140 * 100 / (SHIPIMMOBILE(ship) ? 1 : ship->get_maxspeed()));
     if( IS_TRUSTED(ch) )
