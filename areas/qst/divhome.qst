@@ -213,6 +213,16 @@ Q
 ~
 R C 25000
 G I 31105
+QA
+&N$n smiles at $N and says &+y'An exotic specimin..'
+~
+R C 55000
+G I 500026
+QA
+&N$n smiles at $N and says &+y'A rare specimin..'
+~
+R C 40000
+G I 99061
 S
 #40717
 M
