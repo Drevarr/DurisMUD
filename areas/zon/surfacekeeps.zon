@@ -475,6 +475,7 @@ E 1 120007 11 6 100 0 0 0          *   a silver-lined purple silk hood
 M 0 120051 23 123035 80 0 0 0      * an osquip
 M 0 120011 11 123037 100 0 0 0     * a hooded dwarf
 E 1 120007 11 6 100 0 0 0          *   a silver-lined purple silk hood
+M 0 120067 1 123047 100 0 0 0      * Rringlor Noroth
 M 0 120039 2 123068 100 0 0 0      * an armored guard of Helgor Outpost
 E 1 120022 2 5 100 0 0 0           *   a full suit of heavy adamantite
 E 1 120021 2 6 100 0 0 0           *   a heavy adamantite full-faced helmet
@@ -526,7 +527,7 @@ M 0 120015 12 123329 100 0 0 0     * a gloomwing
 G 1 120052 12 0 100 0 0 0          *    a gloomwing feather
 M 0 120011 11 123330 100 0 0 0     * a hooded dwarf
 E 1 120007 11 6 100 0 0 0          *   a silver-lined purple silk hood
-M 0 120047 1 123330 20 0 0 0       * Shinziler the githzerai traveller
+M 0 120047 1 123330 10 0 0 0       * Shinziler the githzerai traveller
 E 1 120030 1 13 100 0 0 0          *   a pitch-black belt with a mindstone buckle
 M 0 120015 12 123333 100 0 0 0     * a gloomwing
 G 1 120052 12 0 100 0 0 0          *    a gloomwing feather

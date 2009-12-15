@@ -9240,11 +9240,6 @@ D0
 ~
 ~
 0 0 83539
-D2
-&+LA large &+rjodani wood &+Ldoor with &N&+mmithril &+Lhinges leads to the south.
-~
-door~
-2 0 83895
 D3
 &N&+yA large wooden door leads to a secret tavern.
 ~
@@ -9267,6 +9262,11 @@ D1
 ~
 ~
 0 0 83549
+D2
+&+yA large wooden door leads to the Cutpurse Killers Den.
+~
+door~
+2 0 83895
 D6
 ~
 ~
@@ -9611,7 +9611,7 @@ D8
 0 0 83570
 S
 #83564
-&+LThe &N&+cHall &+Lof &N&+cAlatorin &+CKings&N~
+&+cThe &+LHall &+cof &+LAlatorin &+CKings&N~
 &+L  This hall stretches through the ancient hall of &N&+cAlatorin &+CKings.
 &+LAlthough there has only been a single king of &N&+cAlatorin&+L - Taark
 &+LShanat&+L, these grounds will serve as the honoring point for all further
@@ -9695,7 +9695,7 @@ D9
 0 0 83568
 S
 #83568
-&+LThe &N&+cHall &+Lof &N&+cAlatorin &+CKings&N~
+&+WThe &+BHall &+Wof &+BAlatorin &n&+bKings~
 &+L  This hall stretches through the ancient hall of &N&+cAlatorin &+CKings.
 &+LAlthough there has only been a single king of &N&+cAlatorin&+L - Taark
 &+LShanat&+L, these grounds will serve as the honoring point for all further
@@ -9737,7 +9737,7 @@ D7
 0 0 83570
 S
 #83570
-&+LThe &N&+cHall &+Lof &N&+cAlatorin &+CKings&N~
+&+LThe &+BHall &+Lof &N&+cAlatorin &+BKings&N~
 &+L  This hall stretches through the ancient hall of &N&+cAlatorin &+CKings.
 &+LAlthough there has only been a single king of &N&+cAlatorin&+L - Taark
 &+LShanat&+L, these grounds will serve as the honoring point for all further
@@ -12270,7 +12270,7 @@ S
 &+gshelves of this small stand.  There is a large &N&+Rsign &N&+gposted next to the
 &+gmerchant stall.
 ~
-831 0 0
+831 134250496 0
 D2
 ~
 ~
@@ -16328,7 +16328,7 @@ D0
 &+LA large &N&+ywooden door &+Lwith &N&+mmithril hinges &+Lis set to the north.
 ~
 door~
-1 0 83547
+1 0 83548
 D2
 ~
 ~

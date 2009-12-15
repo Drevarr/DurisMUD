@@ -1,7 +1,7 @@
 set MainZoneName alatorin
 set ObjAffect true
-set LastCommand l
-set StartRoom 83896
+set LastCommand where stealth
+set StartRoom 83227
 limit object 74021 999
 limit object 66004 999
 limit object 38639 999

@@ -1513,7 +1513,7 @@ gradden dwarf bounty hunter _spec2_~
 &+Yhair, tostled across his back and chest.  He has huge muscles and
 &+Ypowerful blue eyes..
 ~
-1073744074 0 0 0 0 0 0 0 S
+3221227722 0 0 0 0 0 0 0 S
 pm 0 16384 -1
 56 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -2041,7 +2041,7 @@ farbash dwarven inquisitor dwarf mountain~
 &+Yfor young shield dwarven cousins, Fargan has taken into the life of treating
 &+Ythe battle arts, rather then continuing the legacy of undead slayer.
 ~
-1140885706 0 0 24 0 262144 0 1000 S
+3288369354 0 0 24 0 262144 0 1000 S
 pm 0 67108864 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -2074,7 +2074,7 @@ in and has been fighting for his entire life.  Now becoming an old man, this onc
 guardian of the city is now teaching those the skills by which he swore his very
 life to.
 ~
-67143882 0 0 268435600 2048 0 0 450 S
+2214627530 0 0 268435600 2048 0 0 450 S
 pm 0 1 -1
 57 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -3419,7 +3419,7 @@ massive seige dwarf~
 &+Lhammer, and a set of towering shoulder plates covered in huge &+rrusty &+L
 &+Lspikes.
 ~
-67110984 0 0 24 0 0 0 -100 S
+1073743944 0 0 24 0 0 0 -100 S
 pm 0 1 -1
 57 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -5296,17 +5296,48 @@ pf 0 16384 -1
 0.0.0.0 0
 8 8 1
 #83435
-godorc forgefire dwarf mountaineer~
-&+GGodorc Forgefire the Mountaineer~
-&+GGodorc Forgefire the &+Ydwarven &+Gmountaineer&+L rests here, &+rsharpening his &+cblade&+L.
+doklin mountain dwarf assassin~
+&+YDoklin the &N&+rassassin&N~
+&+YA sly mountain dwarf named Doklin patiently walks here.
 ~
-&+GFamously known as Crodog's younger brother, Godorc is a proud &+Ymountain
-&+Ydwarf &+Ghailing from &+YKimordril&+G.  He has &+Ygolden blonde &+Ghair with a
-&+Ymatching &+Gbeard.  He is dressed in fine banded armor, and has a distinct
-&+Yaura of cool about him.
+   &+YDoklin is a young, sly mountain dwarf who has gained quite a reputation
+&+Ywith some shady personalities.  Known for his quickness with the blade and
+&+Yhis cunning ability to elude those that inevitablty begin to chase him, it
+&+Yis no wonder to encounter Doklin in such a place.
 ~
-1073743880 4294688768 201326607 8 0 0 0 800 S
-pm 0 16384 -1
-60 0 0 1d1+1 1d1+1
+1073743944 4294688768 234881039 0 0 0 0 -1000 S
+pm 0 12288 -1
+59 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83436
+gimabon tracker~
+&+RGim&+Yabon&+Y the &+Ltracker&N~
+&+RGim&+Yabon the &+Ltracker &+rcalmly flips a coin.
+~
+   &+RGim&+Yabon &+Lis a lithe ruthless mountain dwarf, known for braving
+&+Lthe &+munderdark&+L as a &n&+rraider&+L quite frequently.  He has a full
+&+Rred &+Lbeard with two &+Rfiery &+Leyebrows.  Dressed almost entirely in
+&+Lblack, he moves very well with the shadows.
+~
+1073744072 4294688768 234881039 24 0 0 0 -1000 S
+pm 0 8192 -1
+59 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83437
+tarkorsh dwarf dwarven inquisitor~
+&+BTar&N&+cko&+Brsh~
+&+BTar&N&+cko&+Brsh &+Lthe &+Ydwarven &+Winqu&Nis&+Witor&N&+r lurks here, sh&+Lar&Npe&+Wning &+rhis blades.
+~
+   &+BTar&+cko&+Brsh &+Lis a renowned &+Ymountain dwarf &+Winquisitor&+L known
+&+Lfor the extreme measures he has taken on prisoners.  It was for these unhuman
+&+Lacts that &+BTar&N&+cko&+Brsh &+Lfound himself discharged from the &+YKimordril
+&+Lmilitia, only to be taken in by the &N&+rcutpurse killers&+L - a suitable
+&+Lplacement given his reputation.
+~
+1073743944 4294688768 234881039 24 0 0 0 1000 S
+pm 0 67117057 -1
+59 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1

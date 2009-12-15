@@ -2301,6 +2301,7 @@ large sign tokens~
 &+L------------------------------
 &+g  Dragon&+rslaying &+L-&+W 10 tokens
 &+y  Cooking      &+L -&+W 10 tokens
+&+L  Stealth      &+L -&+W 10 tokens
 &+b  Mining     &+L   -&+W 10 tokens
 &+y  C&No&+yl&nl&+ye&Nc&+yt&Ni&+yn&Ng   &+L -&+W 10 tokens
 &+L------------------------------
@@ -2965,7 +2966,7 @@ two handed two-handed mithril broadsword sword~
 &+mA two-handed mithril broadsword has been left here.~
 ~
 5 18 4 0 11 0 4194304 8193 64 0 0
-13 5 7 0 0 0 0 0
+13 5 6 0 0 0 0 0
 8 60544 100
 E
 two handed two-handed mithril broadsword sword~
@@ -3409,7 +3410,7 @@ gnarled wooden club~
 &+LA &N&+ygnarled wooden club&N has been left here.~
 ~
 5 5 3 0 0 0 0 8193 0 0 0
-10 2 10 0 0 0 0 0
+10 2 6 0 0 0 0 0
 7 2 87
 E
 gnarled wooden club~
@@ -3551,7 +3552,7 @@ crimson hooded cape~
 A
 2 13
 A
-32 4
+32 3
 #83330
 pile rubble~
 &+La pile of &N&+yr&Nu&+yb&Nb&+yl&Ne&N~
@@ -5339,7 +5340,7 @@ spiked torque dwarven kind~
 ~
 9 18 3 0 14 0 0 5 64 0 0
 5 0 0 0 0 0 0 0
-0 22333 100
+0 22333 100 536870912 64 0 0
 E
 spiked torque dwarven kind~
    &+LThis perfect mithril spiked dwarven torque is a thick neckpiece
@@ -5357,7 +5358,7 @@ spiked bracelet dwarven kind~
 ~
 9 18 3 0 7 0 0 0 0 0 0
 5 0 0 0 0 0 0 0
-0 44332 100
+0 44332 100 536870912 64 0 0
 E
 spiked bracelet dwarven kind~
    &+LThis spiked bracelet contains the inner power of the ancient dwarven
@@ -5375,7 +5376,7 @@ smooth torque dwarven kind~
 ~
 9 18 3 0 14 0 0 5 66 0 0
 5 0 0 0 0 0 0 0
-0 33333 100
+0 33333 100 536870912 64 0 0
 E
 smooth torque dwarven kind~
 &+mThis beautiful, polished mithril &+ctorque &+mis polished and &+Wsmooth&+L.
@@ -5393,7 +5394,7 @@ smooth bracelet dwarven kind~
 ~
 9 18 3 0 14 0 0 4097 66 0 0
 5 0 0 0 0 0 0 0
-0 33333 100
+0 33333 100 536870912 64 0 0
 E
 smooth bracelet dwarven kind~
 &+mThis fine, pure mithril bracelet has been polished to an incredible
@@ -6152,7 +6153,7 @@ black leather boots adamantium heel blades~
 &+Lsome black leather boots fit with &N&+madamantium &+Che&n&+mel &+Cbl&N&+ca&+mdes&N~
 &+LA pair of black leather boots are laying here, fit with &N&+madamantium &+Cheel blades&N.~
 ~
-9 14 2 0 11 0 0 0 0 0 0
+9 14 2 0 11 0 0 65 0 0 0
 5 0 0 3 0 0 0 0
 0 13333 100
 E
@@ -6162,15 +6163,15 @@ black leather boots adamantium heel blades~
 &+Cshrap &+Land well-maintained.
 ~
 A
-32 5
+32 4
 A
-19 4
+19 3
 #83487
 adamantium bracer tarkorsh~
 &+Lan &N&+ra&+md&+ra&+mm&+ra&+mn&+rt&+mi&+ru&+mm &+Lbracer of &N&+cTar&+Bko&N&+crsh&N~
 &+LAn &N&+radama&+mntium &+Lbracer of &N&+cTar&+Bko&N&+crsh&+L has been left here.~
 ~
-9 19 3 0 7 0 0 0 0 0 0
+9 19 3 0 7 0 0 4097 0 0 0
 5 0 0 0 0 0 0 0
 0 9032 100
 E
@@ -6422,3 +6423,129 @@ E
 huge boulder~
 &+yThis massive stone boulder fills the entire western end of the tunnel.
 ~
+#83501
+polished adamantite stud~
+&+Wa po&Nli&+Lshed adamantite &Nst&+Wud&N~
+&+WA polished &+Ladamantite stud&+W glistens here.~
+~
+9 19 1 0 10 0 0 524289 64 0 0
+1 0 0 0 0 0 0 0
+0 4333 100 65536 8 0 0
+E
+polished adamantite stud~
+   &+LThis tiny adamantite stud is a simple black sphere.  It has been
+&+Wheavily polished &+Lwith great persistance, resulting in a near-&+mglow
+&+Lwhen held in the &+Ylight&+L.
+~
+A
+18 3
+A
+24 -3
+#83502
+mithril stud carved fist~
+&+ma mithril stud carved like a &+Mfist&N~
+&+mA mithril stud carved like a &+Mfist&N&+m has been left here.~
+~
+9 18 3 0 10 0 0 524289 64 0 0
+2 0 0 3 0 0 0 0
+0 3228 100
+E
+mithril stud carved fist~
+   &+mThis stud juts out from ones ear lobe with a dominating, heavy
+&+mpresence.  A single five-fingered hand squeezed into a fist has been
+&+mmarvelously crafted with intricate detail.
+~
+A
+31 3
+A
+13 12
+#83503
+slender mithril dagger~
+&+ma slender mithril dagger&N~
+&+mA slender mithril dagger has been left here.~
+~
+5 18 2 0 8 0 0 8193 0 0 0
+2 2 8 0 0 0 0 0
+0 11448 100
+E
+slender mithril dagger~
+   &+mThis mithril dagger is long and slender; dreadfully sharp on either side.
+~
+A
+18 3
+A
+19 3
+#83504
+collapsable platinum prospector prospector's monocle~
+&+Wa collapsable platinum &+Yp&N&+yro&+Ys&+ype&+Yc&+yto&+Yr&+y's &+Wm&+Lo&+Wnoc&+Ll&+We&N~
+&+WA collapsable platinum prospectors monocle has been left here.~
+~
+9 25 3 0 15 0 0 131073 0 0 0
+5 0 0 3 0 0 0 0
+0 25332 100 4 0 0 1048576
+E
+collapsable platinum prospector prospector's monocle~
+&+WThis magnificent eyepiece is made out of several small sections of platinum
+&+Wthat can be extended or collapsed in on itself.  Two golden pins sitting
+&+Was guides along a straight track lock the monocle into position when the
+&+Wdesired focus has been reached.  Seeing as how this instrument is so tiny
+&+Wand intricate, it is probably safe to assume that it was crafted by someone
+&+Wwith hands as such.
+~
+A
+18 4
+A
+36 5
+#83505
+black leather gloves mithril blades~
+&+Lsome black leather gloves &n&+mwith mith&+Cril &+mbla&+Cdes&N~
+&+LSome black leather gloves &N&+mwith mit&+chril &+cbla&+Cdes&+L have been left here.~
+~
+9 13 2 0 10 0 0 129 0 0 0
+5 0 0 0 0 0 0 0
+0 11221 100
+E
+black leather gloves mithril blades~
+   &+LThese black leather gloves fit snugly around ones hands.  Small razor blades
+&+Lmade of thin &+cslivers&+L of &+mmithril &+Lprotrude from the knuckles of
+&+Lthese gloves.
+~
+A
+32 4
+A
+19 3
+#83506
+mithril bracer tarkorsh~
+&+La &N&+mm&+Mi&+mt&+Mh&+mr&+Mi&+ml &+Lbracer of &+BTar&N&+cko&+Brsh&N~
+&+LA &+mmithril bracer of &+BTarkorsh&+L has been left here.~
+~
+9 18 2 0 15 0 0 4097 0 0 0
+5 0 0 0 0 0 0 0
+0 10046 100
+E
+bracer mithril tarkorsh~
+   &+LThis small &+mmithril &+Lbracer is smooth to the touch.  Several large
+&+mmithril studs&+L are placed all around the bracelet.  There is a small
+&+minsignia around the inner rim of the bracelet reading &+B'Tar&+cko&+Brsh'
+~
+A
+19 4
+A
+18 3
+#83507
+blood-red blood red inquisitor inquisitor's mask~
+&+ra blood-red inquisitor's mask&N~
+&+rA blood-red inquisitor's mask has been left here.~
+~
+9 14 2 0 8 0 0 262145 64 0 0
+5 0 0 0 0 0 0 0
+0 1222 100
+E
+blood-red blood red inquisitor inquisitor's mask~
+   &+rThis leather mask has been dyed blood-red, after most likely
+&+rhaving been soaked in actual blood for quite some time.
+~
+A
+19 2
+A
+18 2

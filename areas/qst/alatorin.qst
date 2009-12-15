@@ -1193,6 +1193,51 @@ qc_action 60~
 &N$n leaps out and does a flurry of blows in the spaces just around your head.
 &N$n flips back into his fighting stance and bows.
 ~
+MA
+hi hello~
+&N$N asks $n &N'Hi..'
+&N$n pauses his training session for a moment and peers at $N.
+&+M'What do you know if the Githzerai?' &Nis suddenly heard in your mind.
+~
+MA
+nothing~
+&N$n glares at $N.
+~
+MA
+something~
+&n$n peers at $N.
+&+M'What do you know of adamantite?' &Nis suddenly whispered into your mind.
+~
+MA
+githzerai githzerais~
+&+M'What do you know of adamantite?' &nis suddenly whispered into your mind.
+~
+MA
+adamantite~
+&+M'Adamantite is a metal that is very familiar to my people, although marked as contraband among these dwarves.  I wish to visit my people, but I would be a meer pauper amongst them.  You will help me, $N.  Venture to the &+GGith&+yzerai &+LStronghold&+M, $N.  In one of the three guilds in their &+LAdamantite Outpost&+L you will find their stash of &+Ladamantite coins&+M.  Find, take, and bring these &+Ladamantite coins &+Mto me, $N.  They have no value to you, but are precious to my people.  You will be repaid handsomly.'
+&NAfter your mind is invaded with such a lengthy command, you momentarily drop to one knee, catching your breath and re-gaining your vision.
+~
+MA
+stronghold outpost~
+&+M'The Githzerai Stronghold's Outpost is located on a small island amongst a flow of molten &+LAdamantite&+M up in the peaks that surround the desert of Venan'Trut' &Nsuddenly is whispered into your mind.
+~
+MA
+taark shanat~
+&N$n grins at $N.
+~
+QA
+As $N hands the collection of &+Ladamantite coins &Nto $n, the elaphidist's eyes suddenly &+Wlight up&N.
+&+M'Wonderful'&n is whispered into your mind, &+M'And your reward..'&N
+$n tilts his head to the side and removes a small &+Ladamantite &Nst&+Wud&N.
+~
+R E 230000
+R I 83501
+G I 44509
+D
+&N$n grins and says &+W'Thank you once again, $N.'
+After a rare display of verbal communication, several of $n's students halt in their motions, stunned.
+$n &+Lstards fading further and further out of existence until he is gone completely.
+~
 S
 #83237
 M
@@ -1555,6 +1600,20 @@ G I 83227
 G I 83227
 G I 83227
 G I 83227
+QA
+&N$n grins and smiles at $N.
+~
+R I 26631
+G I 83463
+G I 83463
+G I 83463
+G I 83463
+G I 83463
+G I 83463
+G I 83463
+G I 83463
+G I 83463
+G I 83463
 S
 #83262
 M
@@ -2580,7 +2639,6 @@ QA
 &N$n mixes the ingredients.
 ~
 R I 83494
-R I 83494
 G I 55204
 G I 55033
 S
@@ -3043,6 +3101,42 @@ qc_action 400~
 &NA mechanical &+Lco&N&+bnstru&+Lct takes a few steps, causing the &+Lgears&N and &+Ygizmos &Ninside to turn and &+Yc&Nl&+Ya&Nt&+Yt&Ne&+Yr&N.
 ~
 S
+#83425
+MA
+hi hello~
+&N$n peers over his shoulders and says to $N, &+Y'Well Hi..'
+&NAfter taking a closer look at $N, $n smirks and asks &+Y'Friend of Taark?'
+~
+MA
+no nope~
+&N$n laughs with a cackling glee.
+&+Y'I see' &Nhe says with another smirk.
+&+Y'Move along... move along..' &Nhe says sarcastically, waving his arm towards the &+Wthrone room&N.
+~
+MA
+yes yeah king taark shanat~
+&+Y'Well a friend of Taark Shanat is a friend of me!' &Nhe replies.
+Smiling now, he says &+Y'You look like you could be a mountaineer,'&N looking $N up and down.
+~
+MA
+locke~
+&+Y'My name is Locke,'&N he says.
+&+Y'Benlynus appointed me as your leader.'
+~
+MA
+mountaineer~
+&N$n nods at $n and says &+Y'He who travels the trails, braving the blizzards instead of raising the sails!  He'll tear out your gizzards and drink all yer ales!  The Mountaineer!  Hah hah hah!'
+
+&nAfter several moments of billowing laughter and other various song-singing of dwarven lore, $n finally manages to settle himself down and regain his composure.
+
+&+Y'Aye, $N.. Ye can try to become a mountaineer, but I'm not the dwarf to talk to..' &Nhe says.
+
+&+Y'Yer an awful long way from the mountaineers, $N.  Ye best travel back to the land of &+WWinterhaven &+Yand seek out &+GCrodog Ironforge&+Y.  You'll recognize him by the crowd of dwarves he keeps at his side!'
+
+&+Y'Go, $N.' &NHe says.
+&+Y'Once ye become a &n&+gmountaineer&+Y, come back to me with the &+ginsignia &+Yof the Kimordril &+gMountaineers&+Y, and we'll talk again,' &Nhe says with a wink to $N.
+~
+S
 #83426
 M
 qc_action 90~
@@ -3154,4 +3248,104 @@ QA
 R C 100000
 R E 100000
 G I 55247
+S
+#83435
+MA
+hi hello~
+&n$n grins at $N and says &+Y'Greetings, brethren.  Do thy wish to aid your people?'
+~
+MA
+no nope~
+&N$n scoffs at $N &+Y'Then piss off!'
+&N$n shows $N his &+mdaggers&N, with a sneer on his face.
+~
+MA
+yes yeah~
+&N$n grins wickedly at $N and says &+Y'Listen closely brethren.'
+&n$n unfolds a large &+Wmap&N of a oval-shaped &+ymountain &+gvalley&n.
+&+Y'Alteran Valley'&N he says, &+Y'Stompin' grounds of the FrostSharn Orcs..'
+&NBefore finishing his sentence, $n lifts up his &+ypant-leg&N, revealing a &+ywooden stump &Nin the place of his leg.
+
+&+Y'Got this in my first.. and last.. visit to Alteran' &Nhe mutters with a grimmace.
+~
+MA
+alteran valley frostsharn orcs riker clawgrip axelon firstfang thresh blackmane grimmar stonebrow~
+&N$n nods at $N and says &+Y'The FrostSharn Orcs inhabit Alteran Valley.. those vile scourge!'
+&N$n angrily &+Wspits &Non the ground.
+&+Y'Here is your mission, $N.  There are four Orc warlords, Riker FirstFang, Thresh Blackmane, Grimmar Stonebrow, and Axelon ClawGrip - Kill them, gut them, bring me their &+rhearts!&+Y'
+~
+QA
+&N$n grins wickedly and dumps the &N&+rbloody hearts&N into a &+yheavy sack&N.
+&+Y'Well done,' &Nthe assassin whispers, moments before disappearing into the shadows.
+~
+R C 50000
+R I 83463
+R I 83504
+G I 78444
+G I 78442
+G I 78443
+G I 78445
+D
+&+LAnd like that, he is gone!
+~
+S
+#83436
+MA
+hi hello~
+&N$n nods at you and grins.
+&+R'Greetings, brethren' &Nhe says in a raspy voice, stroking his &+rred &+Yfluffy &+Rbeard&N.
+&+R'Will you go on a mission for us?'&N he asks $N.
+~
+MA
+no nope~
+&N$n glares at $N and says &+R'Begone, knave!'
+~
+MA
+yes yep yeah mission quest~
+&n$n nods at $N and leans in closer.
+&+R'Of course you know where the Orcs come from, $N.  Shady Grove, they call it.. never will you find a more wretched and foul-smelling cespool' &Nhe says, grimmacing.
+~
+MA
+shady grove orcs~
+&N$n nods at $N and continues &+R'Our spies found two leaders amongst the Orcish hordes that plague the lands outside of Shady Grove.  One is a cruel orog named Gr'tak, known for his raids on our farming villages.  The other is an orc named Krekish ViceFang, who has a love for combat.'
+
+&nWith a grin on his face, $n says &+R'Bring me their heads, $N!'
+~
+MA
+krekish vicefang gr'tak grtak leaders leader~
+&N$n nods at $N and says &+R'Krekish ViceFang and Gr'Tak the Raider, two brutal fiends outside of Shady Grove.  Find them, and cut their heads off $N!'
+~
+QA
+&N$n holds up both &+rheads &Nand roars with insane glee..
+&+RRRRRRRR&+YRRRRRRR&+ROOOOOOO&+YOOOOOO&+RAAAAAAAA&+YAAAAAAAAA&+RRRRRRRRR&+YRRRRRRR
+~
+R I 83505
+R I 83463
+R E 60000
+G I 500004
+G I 500006
+D
+&N&+LAnd like that, he's gone...
+~
+S
+#83437
+MA
+hi hello~
+&N$n clears his throat and says &+Y'Greetings, $N - brethren to the dwarves.'
+
+Without hesitating, $n approaches $N and continues &+Y'$N, we are in a difficult time.  The duergars of Helgor have solidified their position in the valley, but our own blood in Khoralator have made it difficult for us to move.  We must stir up the chaos within these two outposts - breach their defenses!'
+
+&N$n takes a few steps closer and says &+Y'Bring me the &+Wwar banners &+Yof &+RHel&+rgor Outpost &+Yand &+CKhor&N&+calator &+WFort&+Y and you will be within great favor of the cutpurse killers, $N.'
+~
+QA
+&N$n says &+Y'Well, $N, excellent work!'
+~
+R E 160000
+R I 83463
+R I 83506
+G I 83353
+G I 83397
+D
+&n$n nods and says &+Y'It has been a shame what our people have done to this land.  Hopefully now they will disband their operation.'
+~
 S

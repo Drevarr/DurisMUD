@@ -290,7 +290,7 @@ A
 #120019
 iron shield alatorin~
 &+Lan &N&+ciron &+Lshield of &N&+cAlatorin&N~
-&+LAn &N&+ciron &+lshield of &N&+cAlatorin&+L has been left here.~
+&+LAn &N&+ciron &+Lshield of &N&+cAlatorin&+L has been left here.~
 ~
 37 15 5 0 7 0 0 16897 0 0 0
 1 5 5 100 5 0 0 0
@@ -592,7 +592,7 @@ spectral gauntlets battleragers _noquest_~
 ~
 9 1 3 0 15 0 33555456 129 64 0 0
 4 0 0 3 0 0 0 0
-0 6555 100 8 0 0 0
+0 6555 100 24 0 0 0
 E
 spectral gauntlets battleragers~
    &+cThese strange magical gauntlets &+Wexist.
