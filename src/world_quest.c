@@ -135,8 +135,6 @@ void resetQuest(P_char ch)
 void quest_reward(P_char ch, P_char quest_mob, int type)
 {
   char     Gbuf1[MAX_STRING_LENGTH];
-  int money_reward = 12* GET_LEVEL(ch)* GET_LEVEL(ch);
-  P_obj    reward;
   
   if(!(ch) ||
      !IS_ALIVE(ch) ||
@@ -144,77 +142,42 @@ void quest_reward(P_char ch, P_char quest_mob, int type)
   {
     return;
   }
-
-  if(type != FIND_AND_KILL) // less exp but some money
+  
+  P_obj reward = read_object(real_object(getItemFromZone(real_zone(ch->only.pc->quest_zone_number))), REAL);
+  
+  if(!reward)
+    reward = create_random_eq_new(ch, ch, -1, -1);
+  
+  if(reward)
   {
-    sprintf(Gbuf1, "&=LWYou gain some experience.&n");
-    act(Gbuf1, FALSE, quest_mob, 0, ch, TO_VICT);
+    wizlog(56, "%s reward was: %s", GET_NAME(ch), reward->short_description);
+    
+    REMOVE_BIT(reward->extra_flags, ITEM_SECRET);
+    REMOVE_BIT(reward->extra_flags, ITEM_INVISIBLE);
+    SET_BIT(reward->extra_flags, ITEM_NOREPAIR);
+    REMOVE_BIT(reward->extra_flags, ITEM_NODROP);
+    
+    act("$n gives you $q ", TRUE, quest_mob, reward, ch, TO_VICT);
+    act("$n gives $N $q.", FALSE, quest_mob, reward, ch, TO_NOTVICT);
+    obj_to_char(reward, ch);
+  }
 
-    reward =  read_object(real_object(getItemFromZone(real_zone(ch->only.pc->quest_zone_number))), REAL);
-    if(!reward)
-      reward = create_random_eq_new(ch, ch, -1, -1);
-
-    if(reward)
-    {
-      wizlog(56, "%s reward was: %s", GET_NAME(ch), reward->short_description);
-      
-      if(IS_SET(reward->extra_flags, ITEM_SECRET))
-      {
-        REMOVE_BIT(reward->extra_flags, ITEM_SECRET);
-      }
-      
-      if(IS_SET(reward->extra_flags, ITEM_INVISIBLE))
-      {
-        REMOVE_BIT(reward->extra_flags, ITEM_INVISIBLE);
-      }
-      
-      if(!IS_SET(reward->extra_flags, ITEM_NOREPAIR)) 
-      {
-        SET_BIT(reward->extra_flags, ITEM_NOREPAIR);
-      }
-      
-      if(IS_SET(reward->extra_flags, ITEM_NODROP))
-      {
-        REMOVE_BIT(reward->extra_flags, ITEM_NODROP);
-      }
-        
-      act("$n gives you $q ", TRUE, quest_mob, reward, ch, TO_VICT);
-      act("$n gives $N $q.", FALSE, quest_mob, reward, ch, TO_NOTVICT);
-      obj_to_char(reward, ch);
-    }
-
-    if( GET_CLASS(ch, CLASS_MERCENARY) && GET_LEVEL(ch) > 24  )
+  if( GET_CLASS(ch, CLASS_MERCENARY) )
+  {
+    if( GET_LEVEL(ch) > 24 )
     {
       int temp = GET_LEVEL(ch) * 1256 + number(1,500);
-      mobsay(quest_mob, "As a mercenary i know you dont work for free. Take this.");
-      sprintf(Gbuf1, "You get %s.", coin_stringv(temp) );
+      mobsay(quest_mob, "I know you mercenaries don't work for free. Take this.");
+      sprintf(Gbuf1, "You receive %s.\r\n", coin_stringv(temp) );
       send_to_char(Gbuf1, ch);
       ADD_MONEY(ch, temp);
     }
-    else if (GET_CLASS(ch, CLASS_MERCENARY))
-                   mobsay(quest_mob, "As a mercenary, you will earn money once you grow up a tad!");
-
-  }
-  else // no money but an item.
-  {
-    sprintf(Gbuf1, "&=LWYou gain some experience.&n");
-    act(Gbuf1, FALSE, quest_mob, 0, ch, TO_VICT);
-
-    reward =  read_object(real_object(getItemFromZone(real_zone(ch->only.pc->quest_zone_number))), REAL);
-                  if(!reward)
-                        reward = create_random_eq_new(ch, ch, -1, -1);
-    
-  if(reward){
-      REMOVE_BIT(reward->extra_flags, ITEM_SECRET);
-      SET_BIT(reward->extra_flags, ITEM_NOREPAIR);
-      wizlog(56, "%s reward was: %s", GET_NAME(ch), reward->short_description);
-      act("$n gives you $q ", TRUE, quest_mob, reward, ch, TO_VICT);
-      act("$n gives $N $q.", FALSE, quest_mob, reward, ch, TO_NOTVICT);
-      obj_to_char(reward, ch);
+    else
+    {
+      mobsay(quest_mob, "Sorry, but it's hard to take a little pipsqueek like you seriously as a mercenary. Grow up a bit and you'll start earning your keep.");
     }
-
   }
-
+  
   if(GET_LEVEL(ch) > 45 && ch->only.pc->quest_level > 45)
   {
     sprintf(Gbuf1, "You gain some epic experience.");
@@ -251,27 +214,25 @@ void quest_reward(P_char ch, P_char quest_mob, int type)
       gain_epic(ch, EPIC_QUEST, 0, number(10, 11));
 
     if(ch->only.pc->quest_level > 55)
-    {
       gain_epic(ch, EPIC_QUEST, 0, 15);
-    }
-
   }
 
-  sql_world_quest_finished(ch, quest_mob, reward);
-  
-  
- 	  if(GET_LEVEL(ch) <= 30)
-      gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.30.andUnder", 1.000)), EXP_WORLD_QUEST); 
-    else if(GET_LEVEL(ch) <= 40)
-      gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.40.andUnder", 1.000)), EXP_WORLD_QUEST); 
- 	  else if(GET_LEVEL(ch) <= 50) 
-      gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.50.andUnder", 1.000)), EXP_WORLD_QUEST); 
- 	  else if(GET_LEVEL(ch) <= 55) 
-      gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.55.andUnder", 1.000)), EXP_WORLD_QUEST); 
-    else 
+  if(GET_LEVEL(ch) <= 30)
+    gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.30.andUnder", 1.000)), EXP_WORLD_QUEST); 
+  else if(GET_LEVEL(ch) <= 40)
+    gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.40.andUnder", 1.000)), EXP_WORLD_QUEST); 
+  else if(GET_LEVEL(ch) <= 50) 
+    gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.50.andUnder", 1.000)), EXP_WORLD_QUEST); 
+  else if(GET_LEVEL(ch) <= 55) 
+    gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.55.andUnder", 1.000)), EXP_WORLD_QUEST); 
+  else 
     gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.other.andUnder", 1.000)), EXP_WORLD_QUEST);
+
+  sprintf(Gbuf1, "&+WYou gain some experience.&n");
+  act(Gbuf1, FALSE, quest_mob, 0, ch, TO_VICT);
   
-//  gain_exp(ch, NULL, (EXP_NOTCH(ch) * number(1,4)), EXP_WORLD_QUEST);
+  sql_world_quest_finished(ch, quest_mob, reward);
+
   resetQuest(ch);
 }
 
@@ -291,10 +252,12 @@ void quest_ask(P_char ch, P_char quest_mob)
 
   wizlog(56, "%s finished quest @%s (ask quest)", GET_NAME(ch), quest_mob->player.short_descr );
   do_action(quest_mob, 0, CMD_NOD);
-  send_to_char("&=LWCongratulations&n&n&+W, you finished your quest!&n\r\n", ch);
-  quest_reward(ch, quest_mob, FIND_AND_ASK);
 
+  mobsay(quest_mob, "Thanks for bringing me the message. Here is a little something for your trouble.");
+
+  quest_reward(ch, quest_mob, FIND_AND_ASK);
 }
+
 void quest_kill(P_char ch, P_char quest_mob)
 {
 
@@ -325,7 +288,7 @@ void quest_kill(P_char ch, P_char quest_mob)
   if(ch->only.pc->quest_kill_how_many - ch->only.pc->quest_kill_original == 0)
   {
     ch->only.pc->quest_accomplished = 1;
-    send_to_char("&=LWCongratulations&n&n&+W, you finished your quest!&n\r\n", ch);
+    send_to_char("&+WCongratulations&n&n&+W, you finished your quest!&n\r\n", ch);
     wizlog(56, "%s finished quest @%s (kill quest)", GET_NAME(ch), quest_mob->player.short_descr );
   }
   else
