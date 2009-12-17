@@ -2118,10 +2118,10 @@ void die(P_char ch, P_char killer)
 
     if(IS_NPC(ch) &&
        IS_SET(ch->specials.act, ACT_ELITE) &&
-       GET_LEVEL(ch) > 45)
+       GET_LEVEL(ch) > 49)
     {
       group_gain_epic(killer, EPIC_ELITE_MOB, GET_VNUM(ch),
-        (GET_LEVEL(ch) - 40) / 2);
+        (GET_LEVEL(ch) - 49));
     }
   }
   /* victim is pc */
