@@ -5,6 +5,10 @@
 &+Rof the tortured souls of hell can be heard to the east.
 ~
 196 1115721804 23
+D1
+~
+gate stone~
+1 0 19604
 D2
 ~
 ~
@@ -100,7 +104,7 @@ D2
 D3
 ~
 gate~
-0 0 19600
+1 0 19600
 S
 #19605
 &+RCenter of the Cavern~
@@ -341,7 +345,7 @@ door~
 D3
 ~
 ~
-0 0 19617
+0 0 19622
 S
 #19618
 &+RLarge Side Chamber&N~
