@@ -7493,7 +7493,7 @@ int rod_of_zarbon(P_obj obj, P_char ch, int cmd, char *arg)
   struct damage_messages messages = {
     "&+L$N &+Lturns pale as your $q &+Ldrains $S lifeforce, transferring it to you!&n",
     "&+LYour soul feels hollow, as the power of $n&+L's $q&+L saps your lifeforce!&n",
-    "&+L&+N &+Lscreams out in pain, as $S lifeforce is drained by $n&+L!&n",
+    "&+L$N &+Lscreams out in pain, as $S lifeforce is drained by $n&+L!&n",
     "", "", "", 0, obj};
 
   vict = (P_char) arg;
