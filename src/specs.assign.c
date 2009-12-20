@@ -2614,8 +2614,10 @@ void assign_rooms(void)
   // Lucrot procs 
   obj_index[real_object0(424)].func.obj = lucrot_mindstone;
 
-  
-
+  // Alatorin
+  mob_index[real_mobile0(83414)].func.mob = rentacleric;
+  obj_index[real_object0(120051)].func.obj = wh_corpse_decay;
+  mob_index[real_mobile0(120051)].func.mob = wh_corpse_to_object;
 }
 
 /*
