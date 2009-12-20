@@ -135,7 +135,7 @@ golem flaming br_f _no_move_~
 &+rbut one purpose in this world, and that is preventing anyone unasked
 &+rfrom entering the Palace.&n
 ~
-67176554 1 0 939597976 272644316 393216 8388608 0 S
+67176554 1 0 939597976 272644316 393216 0 0 S
 OG 0 1 -1
 62 -1 -500 7500d2+5000 20d4+40
 0.0.0.0 750000
