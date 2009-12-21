@@ -5761,13 +5761,64 @@ int got_dupe_host(P_desc orig)
   return FALSE;
 }
 
+void do_users_DEPRECATED(P_char ch, char *argument, int cmd);
+
+void do_users(P_char ch, char *argument, int cmd)
+{
+  char linebuf[MAX_STRING_LENGTH], connbuf[MAX_STRING_LENGTH], hostbuf[MAX_STRING_LENGTH];
+
+  half_chop(argument, linebuf, connbuf);
+
+  // when we are sure we don't need the old do_users, remove it completely
+  if( !strcmp("old", linebuf) )
+  {
+    do_users_DEPRECATED(ch, connbuf, cmd);
+    return;
+  }
+  
+  send_to_char("\r\n Character   | State       | Idle | Hostname\r\n-----------------------------------------------------------\r\n", ch);
+  for (P_desc d = descriptor_list; d; d = d->next)
+  {
+    // don't show admins of higher level who are invisible
+    if( d->character && IS_PC(d->character) && WIZ_INVIS(ch, d->character))
+        continue;
+    
+    sprinttype(d->connected, connected_types, connbuf);
+   
+    if( d->host )
+    {
+      if( got_dupe_host(d) )
+      {
+        sprintf(hostbuf, "&+R%s&n", d->host);
+      }
+      else 
+      {
+        sprintf(hostbuf, "%s", d->host);
+      }      
+    }
+    else
+    {
+      sprintf(hostbuf, "&+Yunknown&n");
+    }
+    
+    sprintf(linebuf, " %s | %s | %4d | %s\r\n", 
+            (d->character ? pad_ansi(GET_NAME(d->character), 11).c_str() : "-          "),
+            pad_ansi(connbuf, 11).c_str(),
+            (d->wait / 240),            
+            hostbuf
+            );
+            
+    send_to_char(linebuf, ch);
+  }  
+}
+
 
 /*
  * changed to show linkdeads as well, checks character_list, rather than
  * descriptor_list, added some features too. JAB
  */
-
-void do_users(P_char ch, char *argument, int cmd)
+/* deprecated by Torgal 12/21/09 */
+void do_users_DEPRECATED(P_char ch, char *argument, int cmd)
 {
   char     biglist[MAX_STRING_LENGTH], buf[MAX_STRING_LENGTH];
   char     buf2[MAX_INPUT_LENGTH], line[MAX_INPUT_LENGTH],
