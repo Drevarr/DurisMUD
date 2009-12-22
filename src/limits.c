@@ -1061,7 +1061,7 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
     if(!GET_CLASS(ch, CLASS_CLERIC) &&
        !GET_SPEC(ch, CLASS_SHAMAN, SPEC_SPIRITUALIST))
     {
-      XP = (int)(get_property("exp.factor.healing.class.penalty", 0.250));
+      XP = (int)(XP * get_property("exp.factor.healing.class.penalty", 0.250));
     }
     
     if(ch == victim)
