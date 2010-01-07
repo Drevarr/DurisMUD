@@ -2054,7 +2054,7 @@ void do_epic_zones(P_char ch, char *arg, int cmd)
   // this array depends on the alignment max/min being +/-5
   const char *alignment_strs[] = {
     "&n(&+Lpure evil&n)",
-    "&n(&+lextremely evil&n)",
+    "&n(&+Lextremely evil&n)",
     "&n(&+Lvery evil&n)",
     "&n(&+Levil&n)",
     "&n(&+Lslightly evil&n)",
