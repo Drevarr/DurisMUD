@@ -2607,22 +2607,21 @@ void select_name(P_desc d, char *arg, int flag)
   raise(SIGSEGV);
 }
 
-P_char is_already_in_game(P_desc d)
+P_char find_ch_from_same_host(P_desc d)
 {
-  if( IS_TRUSTED(d->character) )
-  {
-    return NULL;
-  }
-  
   // first, run through descriptor list to see if they are connected
   for (P_desc k = descriptor_list; k; k = k->next)
   {
     if( d == k || !k->character )
       continue;
     
-    if (k->connected == CON_PLYNG && !IS_TRUSTED(k->character) && d->host && k->host && !str_cmp(d->host, k->host) )
+    if (k->connected == CON_PLYNG && 
+        d->character != k->character && 
+        !IS_TRUSTED(k->character) && 
+        d->host && k->host && 
+        !str_cmp(d->host, k->host) )
     {
-      // is already connected
+      // ch connected from same host
       return k->character;
     }
   }  
@@ -2630,13 +2629,56 @@ P_char is_already_in_game(P_desc d)
   // next, run through character list to make sure they didn't just drop link  
   for (P_char tmp_ch = character_list; tmp_ch; tmp_ch = tmp_ch->next)
   {
-    if (!tmp_ch->desc && IS_PC(tmp_ch) && !IS_TRUSTED(tmp_ch) && tmp_ch->only.pc->last_ip == ip2ul(d->host) )
+    if (!tmp_ch->desc && 
+        IS_PC(tmp_ch) && 
+        str_cmp(GET_NAME(tmp_ch), GET_NAME(d->character)) &&
+        !IS_TRUSTED(tmp_ch) && 
+        tmp_ch->only.pc->last_ip == ip2ul(d->host) )
     {
       return tmp_ch;
     }
   }
   
   return NULL;
+}
+
+bool is_multiplaying(P_desc d)
+{
+  if( IS_TRUSTED(d->character) )
+  {
+    return false;
+  }
+  
+  if (P_char t_ch = find_ch_from_same_host(d))
+  {
+    if (whitelisted_host(d->host))
+    {
+      wizlog(AVATAR, "%s on multiplay whitelist, entering game.", GET_NAME(d->character));
+      sql_log(d->character, PLAYERLOG, "On multiplay whitelist, entering game.");
+      
+      SEND_TO_Q("\r\nYou are on the approved list for multiple players from the same network.\r\n"
+                "&+RIf you abuse this privilege, you will be dealt with harshly when we catch you!&n\r\n"
+                "Otherwise, enjoy!\r\n", d);
+      return false;
+    }
+    else
+    {
+      wizlog(AVATAR, "%s tried to enter the game while already logged on as %s", GET_NAME(d->character), GET_NAME(t_ch));
+      sql_log(d->character, PLAYERLOG, "Tried to enter game while already logged on as %s", GET_NAME(t_ch));
+      
+      char buf[MAX_STRING_LENGTH];
+      
+      sprintf(buf, "\r\nYou are already in the game as %s, and you need to rent or camp them before you can\r\n"
+              "enter the game with a new character.\r\n\r\n"
+              "If you are multiple people playing from the same location, please petition or send an email to multiplay@durismud.com\r\n"
+              "and if approved we can allow multiple connections from your location.\r\n\r\n", GET_NAME(t_ch));
+      
+      SEND_TO_Q(buf, d);
+      return true;
+    }
+  }
+  
+  return false;
 }
 
 void select_pwd(P_desc d, char *arg)
@@ -2672,7 +2714,6 @@ void select_pwd(P_desc d, char *arg)
         return;
       }
       /* Check if already playing */
-
       for (k = descriptor_list; k; k = k->next)
       {
         if ((k->character != d->character) && k->character)
@@ -2702,7 +2743,7 @@ void select_pwd(P_desc d, char *arg)
       {
         if (!tmp_ch->desc && IS_PC(tmp_ch) &&
             !str_cmp(GET_NAME(d->character), GET_NAME(tmp_ch)))
-        {
+        {          
           echo_on(d);
           SEND_TO_Q("Reconnecting.\r\n", d);
           free_char(d->character);
@@ -2741,7 +2782,7 @@ void select_pwd(P_desc d, char *arg)
           return;
         }
       }
-
+      
       if ((d->rtype =
            restoreCharOnly(d->character, GET_NAME(d->character))) >= 0)
       {
@@ -2788,6 +2829,13 @@ void select_pwd(P_desc d, char *arg)
                   d);
         SEND_TO_Q
           ("Note 5pm - 8am EST there are no limits on connections.\r\n", d);
+        STATE(d) = CON_FLUSH;
+        return;
+      }
+
+      // multiplay check: if the user already has another character in game, don't let them connect a new character
+      if( is_multiplaying(d) )
+      {
         STATE(d) = CON_FLUSH;
         return;
       }
@@ -2978,37 +3026,6 @@ void select_main_menu(P_desc d, char *arg)
     close_socket(d);
     break;
   case '1':                    /* enter game */
-    // multi check
-    if (P_char t_ch = is_already_in_game(d))
-    {
-      if (whitelisted_host(d->host))
-      {
-        wizlog(AVATAR, "%s on multiplay whitelist, entering game.", GET_NAME(d->character));
-        sql_log(d->character, PLAYERLOG, "On multiplay whitelist, entering game.");
-        
-        SEND_TO_Q("\r\nYou are on the approved list for multiple players from the same network.\r\n"
-                  "&+RIf you abuse this privilege, you will be dealt with harshly when we catch you!&n\r\n"
-                  "Otherwise, enjoy!\r\n", d);
-      }
-      else
-      {
-        wizlog(AVATAR, "%s tried to enter the game while already logged on as %s", GET_NAME(d->character), GET_NAME(t_ch));
-        sql_log(d->character, PLAYERLOG, "Tried to enter game while already logged on as %s", GET_NAME(t_ch));
-        
-        char buf[MAX_STRING_LENGTH];
-        
-        sprintf(buf, "\r\nYou are already in the game as %s, and you need to rent or camp them before you can\r\n"
-                     "enter the game with a new character.\r\n\r\n"
-                     "If you are multiple people playing from the same location, please petition or send an email to multiplay@durismud.com\r\n"
-                     "and if approved we can allow multiple connections from your location.\r\n\r\n", GET_NAME(t_ch));
-                
-        SEND_TO_Q(buf, d);
-        SEND_TO_Q(MENU, d);
-        break;
-      }
-
-    }
-      
     enter_game(d);
     STATE(d) = CON_PLYNG;
     d->prompt_mode = 1;
