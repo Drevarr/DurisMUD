@@ -2566,7 +2566,9 @@ int holy_mace(P_obj obj, P_char ch, int cmd, char *arg)
 
     vict = (P_char) arg;
 
-    if (OBJ_WORN_BY(obj, ch) && vict)
+    if(OBJ_WORN_BY(obj, ch) &&
+       vict &&
+       CheckMultiProcTiming(ch))
     {
       if (!number(0, 15))
       {
