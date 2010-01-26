@@ -323,6 +323,7 @@ interspa                  *999
 random                    *1000 used for random encounter stuff
 tharnrifts                *1100
 *surfacekeeps              *1200
+surfacekeeps_objects      * also a stub until alatorin gets reviewed
 vecna                     *1300
 nexus_ic                  *1301
 nexus_uc                  *1302
