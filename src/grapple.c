@@ -141,12 +141,19 @@ void do_bearhug(P_char ch, char *argument, int cmd)
     send_to_char("The best you could do is a great big warm hug.  How cute!\r\n", ch);
     return;
   }
+  
+  if (affected_by_spell(ch, SKILL_BEARHUG))
+  {
+    send_to_char("You haven't quite reoriented yourself for another attempt.\n", ch);
+    return;
+  }
 
   victim = ParseTarget(ch, argument);
 
   if (!victim)
   {
     send_to_char("Bearhug who?\r\n", ch);
+    set_short_affected_by(ch, SKILL_BEARHUG, PULSE_VIOLENCE);
     return;
   }
 
