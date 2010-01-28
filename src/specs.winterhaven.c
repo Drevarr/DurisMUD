@@ -1806,31 +1806,30 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
           act("&+LThe ghostly image of &+rBel &+Lsuddenly appears and reaches it's hand into the ground.&n", TRUE, ch, obj, vict, TO_VICT);
           act("&+YBoom! &+LA giant pillar of &+Cenergy &+Lerupts from the ground, engulfing &+wyou &+Lin a &+rc&+Ro&+Yl&+Bo&+Cr&+Yf&+Ru&+rl &+Lhaze!&n", TRUE, ch, obj, vict, TO_VICT);
 
-          rand = number(0, 100);
+          rand = number(1, 6);
     
-          if(rand <= 20) // 20%
+          if(rand == 1)
           {
             spell_pword_blind(60, ch, 0, SPELL_TYPE_SPELL, vict, 0);
           }
-          if(21 >= rand <= 40) // 19%
+          if(rand == 2) 
           {
             spell_pword_stun(56, ch, 0, SPELL_TYPE_SPELL, vict, 0);
           }
-          if(41 >= rand <= 60) // 19%
+          if(rand == 3)
           {
             spell_pword_stun(56, ch, 0, SPELL_TYPE_SPELL, vict, 0);
             spell_pword_blind(60, ch, 0, SPELL_TYPE_SPELL, vict, 0);
           }
-          if(61 >= rand <= 85) // 24%
+          if(rand == 4)
           {
             spell_bigbys_clenched_fist(45, ch, 0, SPELL_TYPE_SPELL, vict, 0);
           }
-          if(86 >= rand <= 98) //12%
+          if(rand == 5)
           {
-            spell_bigbys_clenched_fist(45, ch, 0, SPELL_TYPE_SPELL, vict, 0);
-            spell_bigbys_clenched_fist(45, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+            spell_firebrand(50, ch, 0, SPELL_TYPE_SPELL, vict, 0);
           }
-          if(99 >= rand <= 100) // 2%
+          if(rand == 6)
           {
             spell_chaotic_ripple(56, ch, 0, SPELL_TYPE_SPELL, vict, 0);
           }
@@ -1868,7 +1867,7 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
         act("$n &+Lthrusts $q &+Winto the ground!&n", TRUE, ch, obj, vict, TO_ROOM);
         act("&+LA dark &+bportal &+Lappears before you, and &+rEuronymous, the Prince of Demons &+Lsteps out.&n", TRUE, ch, obj, vict, TO_ROOM);
 
-        rand = number(0, 100);
+        rand = number(0, 96);
   
         if(rand <= 31)
         {
@@ -1905,7 +1904,7 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
             spell_enlarge(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
         }
         else
-        if(rand <= 97)
+        if(rand <= 97) //ho ho, hellfire? I think not -Z
         {
             act("&+rThe Prince of Demons &+grins at you and says, &+W'&+rF&+Ru&+rr&+Ry&+W'&n", TRUE, ch, obj, vict, TO_CHAR);
 
@@ -1918,7 +1917,7 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
             GET_HIT(ch) = 50;
         }
         else
-        if(rand > 98)
+        if(rand > 98) //uhh...yeah, i don't think so -Z
         {
             act("&+rThe Prince of Demons &+Llooks at you and laughs, &+W'&+rD&+Re&+ra&+Rt&+rh&+W? &+mU&+Mn&+md&+Me&+ma&+Mt&+mh&+L!'&n", TRUE, ch, obj, vict, TO_CHAR);
             act("&+rEuronymous &+Lleaps forward and bites you in the neck, sinking his fangs deep into your flesh!", TRUE, ch, obj, vict, TO_CHAR);
@@ -2058,10 +2057,7 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
           act("&+L$n's $q &+rfl&+Rar&+res &+Las it channels the powers of &+rBel &+Lupon you!&n", TRUE, ch, obj, vict, TO_VICT);
           act("&+L$n's $q &+rfl&+Rar&+res &+Las it channels the powers of &+rBel &+Lupon $N!&n", TRUE, ch, obj, vict, TO_NOTVICT);
 
-          spell_fireball(30, ch, 0, SPELL_TYPE_SPELL, vict, 0);
-          spell_fireball(30, ch, 0, SPELL_TYPE_SPELL, vict, 0);
-          spell_fireball(30, ch, 0, SPELL_TYPE_SPELL, vict, 0);
-          spell_fireball(30, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+          spell_immolate(50, ch, 0, SPELL_TYPE_SPELL, vict, 0);
  
         break;
         case 1:
@@ -2069,8 +2065,7 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
           act("&+L$n's $q &+bbl&+Cu&+brs &+Las it channels the powers of &+rEuronymous &+Lupon you!&n", TRUE, ch, obj, vict, TO_VICT);
           act("&+L$n's $q &+bbl&+Cu&+brs &+Las it channels the powers of &+rEuronymous &+Lupon $N!&n", TRUE, ch, obj, vict, TO_NOTVICT);
 
-          spell_bigbys_clenched_fist(35, ch, 0, SPELL_TYPE_SPELL, vict, 0);
-          spell_bigbys_clenched_fist(35, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+          spell_pword_kill(GET_LEVEL(ch), ch, 0, SPELL_TYPE_SPELL, vict, 0);
 
         break;
         case 2:
