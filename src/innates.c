@@ -3462,7 +3462,7 @@ int get_innate_regeneration(P_char ch)
       if(affected_by_spell(ch, TAG_TROLL_BURN))
         return 1;
       else
-        return GET_LEVEL(ch) * 7;
+        return GET_LEVEL(ch) * 8;
     }
     case RACE_REVENANT:
       return GET_LEVEL(ch) * 4;
