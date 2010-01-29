@@ -744,7 +744,6 @@ E 1 44505 1 2 100 0 0 0            *   a thick black ring
 E 1 44579 1 16 100 0 0 0           *   something
 E 1 44518 1 18 100 0 0 0           *   a wizard's staff
 E 1 44507 1 20 100 0 0 0           *   a shadow mask of force
-G 1 25103 1 0 100 0 0 0            *    (object type not in this .obj file)
 F 1 44464 1 44590 100 0 0 0        * Evernight, the two-headed shadow dragon (following)
 E 1 44503 1 12 100 0 0 0           *   the shadow wings of evernight
 F 1 44463 3 44590 100 0 0 0        * the githzerai soul (following)
