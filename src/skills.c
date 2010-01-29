@@ -1616,6 +1616,7 @@ SPELL_CREATE("vigorize light", SPELL_VIGORIZE_LIGHT, PULSE_SPELLCAST * 2,
                 spell_negative_energy_barrier, "&+LYour energy barrier fades.&n");
   SPELL_ADD(CLASS_WARLOCK, 6);
   SPELL_ADD(CLASS_CLERIC, 6);
+  SPEC_SPELL_ADD(CLASS_ETHERMANCER, 6, SPEC_COSMOMANCER);
 
   SPELL_CREATE("lesser resurrect", SPELL_LESSER_RESURRECT, PULSE_SPELLCAST * 5,
                 TAR_OBJ_ROOM | TAR_NOCOMBAT | TAR_SPIRIT,
@@ -3062,6 +3063,20 @@ SPELL_ADD(CLASS_NONE, 1);
 	            TAR_IGNORE | TAR_NOCOMBAT, spell_conjure_ice_elemental);
   SPEC_SPELL_ADD(CLASS_ETHERMANCER, 7, SPEC_FROST_MAGUS);
 
+  SPELL_CREATE_MSG("iceflow armor", SPELL_ICE_ARMOR, PULSE_SPELLCAST * 4 / 3,
+                    TAR_SELF_ONLY,
+                    spell_iceflow_armor, "&+CThe &+Bicy&n shell encasing you melts away.&n");
+  SPEC_SPELL_ADD(CLASS_ETHERMANCER, 8, SPEC_FROST_MAGUS);
+
+  SPELL_CREATE_MSG("negative feedback barrier", SPELL_NEG_ARMOR, PULSE_SPELLCAST * 4 / 3,
+                    TAR_SELF_ONLY,
+                    spell_negative_feedback_barrier, "&+LThe negative field encasing you fades away...&n");
+  SPEC_SPELL_ADD(CLASS_ETHERMANCER, 8, SPEC_COSMOMANCER);
+
+  SPELL_CREATE("etheric gust", SPELL_ETHERIC_GUST, PULSE_SPELLCAST,
+                TAR_SELF_ONLY, spell_etheric_gust);
+  SPEC_SPELL_ADD(CLASS_ETHERMANCER, 8, SPEC_WINDTALKER);
+	            
   SPELL_CREATE_MSG("induce tupor", SPELL_INDUCE_TUPOR, PULSE_SPELLCAST * 4,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO,
                 spell_induce_tupor, "You awake from your magical slumber.");

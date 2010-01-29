@@ -638,7 +638,10 @@
 #define SPELL_RAZOR_WIND             589
 #define SPELL_CONJURE_VOID           590
 #define SPELL_CONJURE_ICE            591
-#define LAST_SPELL     SPELL_CONJURE_ICE
+#define SPELL_ICE_ARMOR              592
+#define SPELL_NEG_ARMOR              593
+#define SPELL_ETHERIC_GUST           594
+#define LAST_SPELL     SPELL_ETHERIC_GUST
 
 #define FIRST_SKILL                  1000  /* should be a decent split point */
 #define SKILL_SNEAK                  1000

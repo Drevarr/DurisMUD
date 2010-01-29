@@ -1029,6 +1029,16 @@ void show_visual_status(P_char ch, P_char tar_char)
   	SVS("&+w$E &+wlooks &+Lweakened&+w from the &+Wchilly aura&n&+w surrounding $M&+w.&n");
   }
   
+  if (affected_by_spell(tar_char, SPELL_ICE_ARMOR))
+  {
+        SVS("&+C$E appears to be encased in a barrier of &+Wflowing &+Bice&+C!&n");
+  }
+
+  if (affected_by_spell(tar_char, SPELL_NEG_ARMOR))
+  {
+	    SVS("&+w$E appears to be encased in a &+Lsw&+wir&+Llin&+wg &+Lbarrier &+wof &+Lgravitational energy!&n");
+  }
+
   if (IS_TRUSTED(ch))
   {
     get_class_string(tar_char, buf2);

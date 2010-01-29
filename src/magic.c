@@ -7148,7 +7148,9 @@ bool has_skin_spell(P_char ch)
      !IS_AFFECTED(ch, AFF_BIOFEEDBACK) &&
      !affected_by_spell(ch, SPELL_IRONWOOD) &&
      !affected_by_spell(ch, SPELL_VINES) &&
-     !IS_AFFECTED5(ch, AFF5_VINES))
+     !IS_AFFECTED5(ch, AFF5_VINES) &&
+	 !affected_by_spell(ch, SPELL_ICE_ARMOR) &&
+	 !affected_by_spell(ch, SPELL_NEG_ARMOR))
     return false;
   else
     return true;
@@ -11666,7 +11668,7 @@ void spell_negative_energy_barrier(int level, P_char ch, char *arg, int type,
         TRUE, victim, 0, 0, TO_CHAR);
     bzero(&af, sizeof(af));
     af.type = SPELL_NEG_ENERGY_BARRIER;
-    af.duration =  4;
+    af.duration =  10;
     af.bitvector4 = AFF4_NEG_SHIELD;
     affect_to_char(victim, &af);
   }

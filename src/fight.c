@@ -3722,6 +3722,32 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
         }
       }
     }                             /* end deflectable */
+	
+	/* Guess we'll put the new ether spells here */
+	if (type == SPLDAM_FIRE && affected_by_spell(victim, SPELL_ICE_ARMOR))
+	{
+          act("&+C$N&+C's &+WI&+Cc&+wy &+BShield &+Rmelts &+Caround $M from $n's &+Rf&+ri&+Yer&+Ry &+rassault, &+Cbut leaves $M unharmed!",
+            TRUE, ch, 0, victim, TO_NOTVICT);
+          act("&+C$N&+C's &+WI&+Cc&+wy &+BShield &+Rmelts &+Caround $M from your &+Rf&+ri&+Yer&+Ry &+rassault, &+Cbut leaves $M unharmed!",
+            TRUE, ch, 0, victim, TO_CHAR);
+          act("&+CYour &+Wi&+Cc&+wy &+Bshield &+Rmelts &+Caround you from the &+Rf&+ri&+Yer&+Ry &+rassault, &+Cbut leaves you unharmed!&n",
+            TRUE, ch, 0, victim, TO_VICT);
+	  affect_from_char(victim, SPELL_ICE_ARMOR);
+	  return DAM_NONEDEAD;
+	}
+
+	if (type == SPLDAM_HOLY && affected_by_spell(victim, SPELL_NEG_ARMOR))
+	{
+	 act("$n's &+WH&+wo&+Ll&+Wy &+wspell &+Ldisperses the negative shield surrounding $N&+L, but leaves $M unharmed!&n",
+           TRUE, ch, 0, victim, TO_NOTVICT);
+         act("&+LThe &+WH&+wo&+Ll&+Wy &+wspell &+Ldisperses the negative shield surrounding $N&+L, but leaves $M unharmed!&n",
+           TRUE, ch, 0, victim, TO_CHAR);
+         act("&+LThe barrier of negative energy &=LWFLASHES&n &+Las the &+WH&+wo&+Ll&+Wy &+wspell &+Ldisperses your shield but leaves you unharmed!&n",
+           TRUE, ch, 0, victim, TO_VICT);
+	 affect_from_char(victim, SPELL_NEG_ARMOR);
+	 return DAM_NONEDEAD;
+	}
+	/* End Ethermancer Absorb Spells */
 
     if (!(flags & SPLDAM_NOSHRUG) && resists_spell(ch, victim))
     {
@@ -4578,8 +4604,18 @@ int melee_damage(P_char ch, P_char victim, double dam, int flags,
   }
   else if (affected_by_spell(victim, SPELL_IRONWOOD))
   {
-  reduction = 1. - get_property("damage.reduction.ironwood", 0.80);
+    reduction = 1. - get_property("damage.reduction.ironwood", 0.80);
     skin = SPELL_IRONWOOD;
+  }
+  else if (affected_by_spell(victim, SPELL_ICE_ARMOR))
+  {
+    reduction = 1. - get_property("damage.reduction.icearmor", .75);
+    skin = SPELL_ICE_ARMOR;
+  }
+  else if (affected_by_spell(victim, SPELL_NEG_ARMOR))
+  {
+    reduction = 1. - get_property("damage.reduction.negarmor", .75);
+	skin = SPELL_NEG_ARMOR;
   }
   else
     skin = 0;

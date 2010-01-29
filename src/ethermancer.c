@@ -14,6 +14,9 @@
 #include "justice.h"
 #include "sound.h"
 #include "specs.prototypes.h"
+#include "map.h"
+#include "disguise.h"
+#include "graph.h"
 
 extern P_index obj_index;
 extern P_char character_list;
@@ -53,6 +56,7 @@ extern struct mm_ds *dead_mob_pool;
 extern struct mm_ds *dead_pconly_pool;
 extern Skill skills[];
 extern const char *get_function_name(void *);
+extern bool has_skin_spell(P_char);
 
 #define WIND_BLADE 98
 
@@ -2563,4 +2567,176 @@ void spell_conjure_ice_elemental(int level, P_char ch, char *arg, int type,
     }    
 
   }
+}
+
+void spell_iceflow_armor(int level, P_char ch, char *arg, int type,
+                      P_char victim, P_obj obj)
+{
+  struct affected_type af;
+  int      absorb = (level / 4) + number(1, 4);
+
+
+  if(!IS_AFFECTED3(ch, AFF3_COLDSHIELD))
+  {
+    send_to_char("You lack the &+Cicy&n aura of &+Bcoldshield&n!\n", ch);
+    return;
+  }
+  
+  if(!has_skin_spell(ch))
+  {
+    absorb = (int) (absorb * 2);
+    act("$n&+C is surrounded by a &+Bfrigid&+W aura&+C!&n",
+       TRUE, victim, 0, 0, TO_ROOM);
+    act("&+CFlowing &+Wi&+Cc&+we &+cencases you in a &+Bsolid &+cprotective barrier!&n",
+       TRUE, victim, 0, 0, TO_CHAR);
+  }
+  else
+  {
+	send_to_char("You are already affected by a magical barrier!\n", ch);
+    return;
+  }
+
+
+  bzero(&af, sizeof(af));
+  af.type = SPELL_ICE_ARMOR;
+  af.duration = 4;
+  af.modifier = absorb;
+  affect_to_char(victim, &af);
+}
+
+void spell_negative_feedback_barrier(int level, P_char ch, char *arg, int type,
+                      P_char victim, P_obj obj)
+{
+  struct affected_type af;
+  int      absorb = (level / 4) + number(1, 4);
+
+
+  if(!IS_AFFECTED4(ch, AFF4_NEG_SHIELD))
+  {
+    send_to_char("&+LYou lack the &+rnegative&+L energy to conjure a barrier!&n!\n", ch);
+    return;
+  }
+  
+  if(!has_skin_spell(ch))
+  {
+    absorb = (int) (absorb * 2);
+    act("$n &+Lis encased in a &+rdark &+Lenergy field!&n",
+       TRUE, victim, 0, 0, TO_ROOM);
+    act("&+LGravitational &+wenergy &+Lbegins to &+ws&+Lwi&+wrl &+Laround you in a protective barrier.&n",
+       TRUE, victim, 0, 0, TO_CHAR);
+  }
+  else
+  {
+	send_to_char("You are already affected by a magical barrier!\n", ch);
+    return;
+  }
+
+
+  bzero(&af, sizeof(af));
+  af.type = SPELL_NEG_ARMOR;
+  af.duration = 4;
+  af.modifier = absorb;
+  affect_to_char(victim, &af);
+}
+
+void spell_etheric_gust(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
+{
+  P_char  t_ch;
+  int tries = 0, to_room, dir;
+  int range = get_property("spell.ethericgust.range", 5);
+  
+  if(!(ch) ||
+     !IS_ALIVE(ch) ||
+     !(ch->in_room))
+        return;
+
+  if((IS_SET(world[ch->in_room].room_flags, NO_TELEPORT) ||
+      IS_HOMETOWN(ch->in_room) ||
+      world[ch->in_room].sector_type == SECT_OCEAN) &&
+      level < 60)
+  {
+    send_to_char("The magic in this room prevents you from leaving.\n", ch);
+    return;
+  }
+  
+  if(!victim)
+    victim = ch;
+    
+  if((ch && !is_Raidable(ch, 0, 0)) ||
+     (victim && !is_Raidable(victim, 0, 0)))
+  {
+    send_to_char("&+WYou are not raidable. The spell fails!\r\n", victim);
+    return;
+  }
+
+  if(IS_MAP_ROOM(victim->in_room))
+  {
+    to_room = victim->in_room;
+
+    for( int i = 0; i < range; i++ )
+    {
+      tries = 0;
+      do
+        dir = number(0,3);
+
+      while(tries++ < 10 &&
+             !VALID_TELEPORT_EDGE(to_room, dir, victim->in_room));
+
+      if(tries < 10)
+        to_room = TOROOM(to_room, dir);
+    }
+  }
+  else
+  {
+    do
+    {
+      to_room = number(zone_table[world[victim->in_room].zone].real_bottom,
+          zone_table[world[victim->in_room].zone].real_top);
+      tries++;
+    }
+    while((IS_SET(world[to_room].room_flags, PRIVATE) ||
+          IS_SET(world[to_room].room_flags, PRIV_ZONE) ||
+          IS_SET(world[to_room].room_flags, NO_TELEPORT) ||
+          IS_HOMETOWN(to_room) ||
+          world[to_room].sector_type == SECT_OCEAN) &&
+          tries < 1000);
+  }
+
+  if(tries >= 1000)
+    to_room = victim->in_room;
+
+  if(LIMITED_TELEPORT_ZONE(victim->in_room))
+  {
+    if(how_close(victim->in_room, to_room, 5))
+      send_to_char
+        ("The magic gathers, but somehow fades away before taking effect.\n", victim);
+    return;
+  }
+  
+  act("&+cA strange &+Wwind &+csuddenly fills the area, and carries you away...&n",
+    FALSE, victim, 0, 0, TO_CHAR);
+  act("&+cA strange &+Wwind &+cbegins to blow and carries $n&+c away into a &+Cvortex!&n",
+    FALSE, victim, 0, 0, TO_ROOM);
+  
+  if(IS_FIGHTING(victim))
+    stop_fighting(victim);
+  
+  if(victim->in_room != NOWHERE)
+    for (t_ch = world[victim->in_room].people; t_ch; t_ch = t_ch->next)
+      if(IS_FIGHTING(t_ch) &&
+         t_ch->specials.fighting == victim)
+            stop_fighting(t_ch);
+  
+  if(victim->in_room != to_room)
+  {
+    char_from_room(victim);
+    char_to_room(victim, to_room, -1);
+  }
+  
+  act("&+cand softly deposits you elsewhere!&n",
+    FALSE, victim, 0, 0, TO_CHAR);  
+  act("&+cA strange &+Wvortex &+cappears, and deposits $n&+c in the room!&n",
+    FALSE, victim, 0, 0, TO_ROOM);
+    
+  CharWait(victim, (3 * WAIT_SEC));
 }
