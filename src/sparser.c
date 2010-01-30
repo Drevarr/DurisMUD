@@ -2093,7 +2093,7 @@ void do_cast(P_char ch, char *argument, int cmd)
     dura = (int) (dura * .75);
 	CharWait(ch, dura);
   }
-  else if (GET_CLASS(ch, CLASS_DRUID))
+  else if (GET_CLASS(ch, CLASS_DRUID) && !IS_MULTICLASS_PC(ch))
     CharWait(ch, (dura >> 1) + 6);
   else if (affected_by_spell(ch, SKILL_BERSERK))
   {  
