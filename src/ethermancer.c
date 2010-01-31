@@ -2599,7 +2599,7 @@ void spell_iceflow_armor(int level, P_char ch, char *arg, int type,
 
   bzero(&af, sizeof(af));
   af.type = SPELL_ICE_ARMOR;
-  af.duration = 4;
+  af.duration = 8;
   af.modifier = absorb;
   affect_to_char(victim, &af);
 }
@@ -2634,7 +2634,7 @@ void spell_negative_feedback_barrier(int level, P_char ch, char *arg, int type,
 
   bzero(&af, sizeof(af));
   af.type = SPELL_NEG_ARMOR;
-  af.duration = 4;
+  af.duration = 8;
   af.modifier = absorb;
   affect_to_char(victim, &af);
 }
