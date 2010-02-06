@@ -541,9 +541,9 @@ void game_loop(int s)
                               "Your site has been banned from being able to connect to Duris.\r\n"
                               "You were banned because someone at your site has flagrantly violated\r\n"
                               "the rules to a point where banning your site was necessary.  If you\r\n"
-                              "feel this is in error, please e-mail mud@durismud.com\r\n"
-                              "and give a lengthy reason.\r\n");
+                              "feel this is in error, please e-mail multiplay@durismud.com\r\n");
           banlog(56, "Reject Connect from %s, banned site.", point->host);
+          logit(LOG_STATUS, "Rejected Connect from %s, banned site.", point->host);
           close_socket(point);
           continue;
         }
@@ -1135,13 +1135,17 @@ int bannedsite(char *name, int flag)
     switch (flag)
     {
     case 0:
-      if (strstr(buf, tmp->ban_str))
+      if (match_pattern(tmp->ban_str, buf))
+      {
         return TRUE;
+      }
       break;
     case 1:
       if (tmp->ban_str[0] == '*')
-        if (strstr(buf, (tmp->ban_str + 1)))
+        if (match_pattern((tmp->ban_str + 1), buf))
+        {
           return TRUE;
+        }
       break;
     }
   }
@@ -1726,9 +1730,8 @@ int new_descriptor(int s)
                         "Your site has been banned from being able to connect to Duris.\r\n"
                         "You were banned because someone at your site has flagrantly violated\r\n"
                         "the rules to a point where banning your site was necessary.  If you\r\n"
-                        "feel this is in error, please e-mail mud@durismud.com\r\n"
-                        "and give a lengthy reason.\r\n");
-    //wizlog(56, "Reject Connect from %s, banned site.", newd->host);
+                        "feel this is in error, please e-mail multiplay@durismud.com\r\n");
+    banlog(56, "Reject Connect from %s, banned site.", newd->host);
     logit(LOG_STATUS, "Rejected Connect from %s, banned site.", newd->host);
     STATE(newd) = CON_TERM;
 
