@@ -795,6 +795,7 @@ int malodine_one(P_char, P_char, int, char *);
 int malodine_two(P_char, P_char, int, char *);
 int malodine_three(P_char, P_char, int, char *);
 int black_pudding(P_char, P_char, int, char *);
+int flame_of_north(P_obj, P_char, int, char *);
 
 /* specs.underworld.c */
 

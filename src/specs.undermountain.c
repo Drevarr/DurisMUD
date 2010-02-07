@@ -22,6 +22,8 @@
 #include "specs.prototypes.h"
 #include "weather.h"
 #include "map.h"
+#include "reavers.h"
+#include "damage.h"
 
 /*
    external variables 
@@ -2250,3 +2252,101 @@ int black_pudding(P_char ch, P_char pl, int cmd, char *arg)
   }
   return FALSE;
 }
+
+#define NUM_PROCCING_SLOTS 31
+extern int proccing_slots[];
+
+void event_flame_of_north(P_char ch, P_char victim, P_obj obj, void *data);
+
+int flame_of_north(P_obj obj, P_char ch, int cmd, char *arg)
+{
+  P_char vict;
+
+  if (cmd == CMD_SET_PERIODIC)
+    return TRUE;
+
+  if ( !ch )
+    return FALSE;
+
+  if (!OBJ_WORN_BY(obj, ch))
+  {
+    if(!number(0, 15) && OBJ_ROOM(obj))
+	{
+	  act("&+rStrange, magical &+Rflames&+r seem to dance along the blade of the $q&+r!&n", TRUE,
+      0, obj, 0, TO_ROOM);
+	}
+	return (FALSE);
+  }
+
+  if((cmd == CMD_REMOVE) && arg )
+  {
+    if( isname(arg, obj->name) || isname(arg, "all") )
+    {
+      if (affected_by_spell(ch, SPELL_ILIENZES_FLAME_SWORD))
+        affect_from_char(ch, SPELL_ILIENZES_FLAME_SWORD);
+	  if (affected_by_spell(ch, SPELL_CEGILUNE_BLADE))
+	    affect_from_char(ch, SPELL_CEGILUNE_BLADE);
+	  send_to_char("&+rThe flames surrounding you slowly burn out...&n\r\n", ch);
+    }
+
+   return FALSE;
+  }
+  
+  if( !get_scheduled(ch, event_flame_of_north) )
+  {
+    // character doesn't have the event scheduled, so fire the event which handles the affect and will renew itself
+    add_event(event_flame_of_north, PULSE_VIOLENCE, ch, 0, 0, 0, 0, 0);
+  }
+
+  
+  return FALSE;
+}
+
+void event_flame_of_north(P_char ch, P_char victim, P_obj obj, void *data)
+{
+  // first check to make sure the item is still on the character
+  bool has_item = false;
+  int dam;
+  char buf[256];
+
+  // search through all of the possible proc spots of character
+  // and check to see if the item is equipped
+  for (int i = 0; i < NUM_PROCCING_SLOTS; i++)
+  {
+    P_obj item = ch->equipment[proccing_slots[i]];
+
+    if( item && obj_index[item->R_num].func.obj == flame_of_north )
+      has_item = true;
+  }
+
+  if( !has_item )
+	  return;
+
+  if (!IS_SET(world[ch->in_room].room_flags, NO_MAGIC))
+   {
+     if (!affected_by_spell(ch, SPELL_ILIENZES_FLAME_SWORD) && !number(0, 3))
+        {
+	      spell_ilienzes_flame_sword(70, ch, 0, SPELL_TYPE_SPELL, ch, 0);
+        }
+     if (!affected_by_spell(ch, SPELL_CEGILUNE_BLADE) && affected_by_spell(ch, SPELL_ILIENZES_FLAME_SWORD) && !number(0, 4))
+        {
+	      spell_cegilunes_searing_blade(70, ch, 0, SPELL_TYPE_SPELL, ch, 0);
+        }
+	}
+  if (affected_by_spell(ch, SPELL_ILIENZES_FLAME_SWORD) && !number(0, 15) && !GET_SPEC(ch, CLASS_REAVER, SPEC_FLAME_REAVER) && 
+	  !IS_TRUSTED(ch) && GET_HIT(ch) > 50)
+  {
+    act("$n&+R winces in pain, as the flames surrounding $s sword are too much for $m to handle!&n", TRUE,
+        ch, 0, victim, TO_NOTVICT);
+    act("&+RIn your unskilled hands, the flames surrounding the Flame of the North cause you great pain!&n", TRUE,
+        ch, 0, victim, TO_CHAR);
+	dam = number(20, 50);
+	if (affected_by_spell(ch, SPELL_CEGILUNE_BLADE))
+		dam += number(5, 15);
+
+	spell_damage(ch, ch, dam, SPLDAM_FIRE, SPLDAM_NOSHRUG | SPLDAM_NOVAMP | SPLDAM_NODEFLECT | RAWDAM_NOKILL, 0);
+  }
+
+  add_event(event_flame_of_north, PULSE_VIOLENCE, ch, 0, 0, 0, 0, 0);
+}
+
