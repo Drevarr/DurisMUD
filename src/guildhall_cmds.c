@@ -229,6 +229,8 @@ void do_construct_guildhall(P_char ch, char *arg)
                  "a much lighter wallet.\r\n", ch);
     
     CharWait(ch, PULSE_VIOLENCE*2);
+    logit(LOG_GUILDHALLS, "%s built a main guildhall for %s in %d", GET_NAME(ch), strip_ansi(get_assoc_name(GET_A_NUM(ch)).c_str()).c_str(), world[ch->in_room].number);
+    return;
   }
   else
   {
@@ -316,6 +318,7 @@ void do_construct_room(P_char ch, char *arg)
                  "in the wall. Seconds later the dust settles and your hall has a new room!\r\n", ch);
     
     CharWait(ch, PULSE_VIOLENCE*2);
+    logit(LOG_GUILDHALLS, "%s built a new room for %s in %d", GET_NAME(ch), strip_ansi(get_assoc_name(GET_A_NUM(ch)).c_str()).c_str(), world[ch->in_room].number);
     return;
   }
   else
@@ -418,19 +421,19 @@ void do_construct_golem(P_char ch, char *arg)
   arg = one_argument(arg, buff);
   int type = 0;
   
-  if( isname(buff, "warrior") )
+  if( is_abbrev(buff, "warrior") )
   {
     type = GH_GOLEM_TYPE_WARRIOR;
     plat_cost = get_property("guildhalls.construction.platinum.golem.warrior", 0) * 1000;
     cp_cost = get_property("guildhalls.construction.points.golem.warrior", 0);
   }
-  else if( isname(buff, "cleric") )
+  else if( is_abbrev(buff, "cleric") )
   {
     type = GH_GOLEM_TYPE_CLERIC;    
     plat_cost = get_property("guildhalls.construction.platinum.golem.cleric", 0) * 1000;
     cp_cost = get_property("guildhalls.construction.points.golem.cleric", 0);
   }
-  else if( isname(buff, "sorcerer") )
+  else if( is_abbrev(buff, "sorcerer") )
   {
     type = GH_GOLEM_TYPE_SORCERER;
     plat_cost = get_property("guildhalls.construction.platinum.golem.sorcerer", 0) * 1000;
@@ -473,6 +476,7 @@ void do_construct_golem(P_char ch, char *arg)
                  "and the &+ggremlins&n disappear as quickly as they came.\r\n", ch);
     
     CharWait(ch, PULSE_VIOLENCE*2);
+    logit(LOG_GUILDHALLS, "%s built a type %d golem for %s in %d", GET_NAME(ch), type, strip_ansi(get_assoc_name(GET_A_NUM(ch)).c_str()).c_str(), world[ch->in_room].number);
     return;
   }
   else
@@ -600,6 +604,7 @@ void do_construct_upgrade(P_char ch, char *arg)
                  "they are suddenly gone and the room has had a complete makeover.\r\n", ch);
     
     CharWait(ch, PULSE_VIOLENCE*2);
+    logit(LOG_GUILDHALLS, "%s upgraded room for %s in %d to type %d", GET_NAME(ch), strip_ansi(get_assoc_name(GET_A_NUM(ch)).c_str()).c_str(), world[ch->in_room].number, type);
     return;
   }
   else
@@ -680,6 +685,7 @@ void do_construct_rename(P_char ch, char *arg)
                  "and then disappears. In the silence after his departure you notice that the room has ... changed.\r\n", ch);
     
     CharWait(ch, PULSE_VIOLENCE*2);
+    logit(LOG_GUILDHALLS, "%s renamed for %s room %d to %s", GET_NAME(ch), strip_ansi(get_assoc_name(GET_A_NUM(ch)).c_str()).c_str(), world[ch->in_room].number, arg);
     return;
   }
   else
@@ -794,9 +800,9 @@ void do_guildhall_destroy(P_char ch, char *arg)
   
   int id = atoi(arg);
 
-  // TODO: wizlog it
   if( destroy_guildhall(id) )
   {
+    logit(LOG_GUILDHALLS, "%s destroyed guildhall %d (%s)", GET_NAME(ch), id, strip_ansi(get_assoc_name(GET_A_NUM(ch)).c_str()).c_str());
     send_to_char("Guildhall destroyed.\r\n", ch);
   }
   else
@@ -812,9 +818,9 @@ void do_guildhall_reload(P_char ch, char *arg)
   
   int id = atoi(arg);
   
-  // TODO: wizlog
   if( reload_guildhall(id) )
   {
+    logit(LOG_GUILDHALLS, "%s reloaded guildhall %d (%s)", GET_NAME(ch), id, strip_ansi(get_assoc_name(GET_A_NUM(ch)).c_str()).c_str());
     send_to_char("Guildhall reloaded.\r\n", ch);
   }
   else 
@@ -915,9 +921,12 @@ void do_guildhall_move(P_char ch, char *arg)
     send_to_char("Invalid room vnum.\r\n", ch);
     return;
   }
+
+  int old_vnum = gh->outside_vnum;
   
   if( move_guildhall(gh, vnum) )
   {
+    logit(LOG_GUILDHALLS, "%s moved guildhall %d (%s) from %d to %d", GET_NAME(ch), gh->id, strip_ansi(get_assoc_name(GET_A_NUM(ch)).c_str()).c_str(), old_vnum, vnum);
     send_to_char("Guildhall moved!\r\n", ch);
   }
   else
