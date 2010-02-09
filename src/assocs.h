@@ -135,6 +135,7 @@ int do_soc_ledger(P_char ch);
 void insert_guild_transaction(int soc_id, char *buff);
 
 int get_assoc_prestige(int assoc_id);
+void set_assoc_prestige(int assoc_id, int prestige);
 void add_assoc_prestige(int assoc_id, int prestige);
 int get_assoc_cps(int assoc_id);
 void add_assoc_cps(int assoc_id, int cps);

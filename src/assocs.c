@@ -248,32 +248,50 @@ void do_supervise(P_char god, char *argument, int cmd)
     }
     break;
     /* this gives a bit of help... */
-  case 'k':                    /* found kingdom */
-    if (!atoi(rest))
-    {
-      send_to_char("Missing secondary guild #\n\r", god);
-      return;
-    }
-    //found_kingdom(god, asc_number, atoi(rest));
-    // Lom: disabled for now, maybe will use for alianses later
-    break;
-  case 'l':                    /* acquire land */
-/*     if (asc_number == 0) {
-       if(world[god->in_room].kingdom_type == KINGDOM_TYPE_PC && 
-    world[god->in_room].kingdom_num) {
-         update_kingdom_score(world[god->in_room].kingdom_num, god->in_room, KINGDOM_LAND_LOSS);
-         world[god->in_room].kingdom_type = 0;
-         world[god->in_room].kingdom_num = 0;       
-         send_to_char("This piece of land has just been liberated!\r\n", god);
-       }
-     } else {
-       acquire_land(world[god->in_room].number, asc_number, KINGDOM_TYPE_PC);
-       send_to_char("This piece of land is know part of a kingdom.\r\n", god);
-     }*/
-    break;
-  case 's': /* status of kingdom*/
-     //show_status_kingdom(god, asc_number);
-     // Lom: disabled for now, maybe will use for alianses later
+  case 's': /* setbit */
+      // TODO set bit construction_points or prestige
+      half_chop(rest, third, fourth);
+
+      if( !*third )
+      {
+        send_to_char("Please enter prestige or construction_points.\r\n", god);
+        return;
+      }
+      
+      if( !*fourth )
+      {
+        send_to_char("Please enter a valid number.\r\n", god);
+        return;
+      }
+      
+      if( is_abbrev(third, "prestige") )
+      {
+        int old_prestige = get_assoc_prestige(asc_number);
+        
+        set_assoc_prestige(asc_number, atoi(fourth));
+        send_to_char("Association prestige set.\r\n", god);
+        
+        wizlog(GET_LEVEL(god), "%s set %s&n prestige from %d to %d.", GET_NAME(god), get_assoc_name(asc_number).c_str(), old_prestige, atoi(fourth));
+        logit(LOG_WIZ, "%s set %s&n prestige from %d to %d.", GET_NAME(god), get_assoc_name(asc_number).c_str(), old_prestige, atoi(fourth));
+        return;
+      }
+      else if( is_abbrev(third, "construction_points") )
+      {
+        int old_cps = get_assoc_cps(asc_number);
+
+        set_assoc_cps(asc_number, atoi(fourth));
+        send_to_char("Association construction points set.\r\n", god);
+        
+        wizlog(GET_LEVEL(god), "%s set %s&n construction points from %d to %d.", GET_NAME(god), get_assoc_name(asc_number).c_str(), old_cps, atoi(fourth));
+        logit(LOG_WIZ, "%s set %s&n construction points from %d to %d.", GET_NAME(god), get_assoc_name(asc_number).c_str(), old_cps, atoi(fourth));
+        return;
+      }
+      else
+      {
+        send_to_char("Please enter prestige or construction_points.\r\n", god);
+        return;
+      }
+      
      break;
   case 'h':
   case '?':
@@ -289,17 +307,18 @@ void do_supervise(P_char god, char *argument, int cmd)
     strcat(buf, "<&+Mt&n>ype   <asc_number> <bits_string>\r\n");
     strcat(buf, "<&+Mg&n>overn <asc_number>\r\n");
     strcat(buf, "<&+Mu&n>pdate <asc_number>\r\n");
+    strcat(buf, "<&+Ms&n>etbit <asc_number> <prestige|construction_points> <value>\r\n");
     strcat(buf, "<&+Mb&n>an    <mortal_name>\r\n");
     strcat(buf, "&+m============================&n\r\n");
-    strcat(buf, "   &+y<bits_string>: c = challenge, h = hide title, s = hide subtitle, combine for both&n\r\n");
+    strcat(buf, "   &+y<bits_string>: c = challenge, h = hide title, s = hide subtitle, combine for both, n = none&n\r\n");
     strcat(buf, "   &+y(i.e. sup f johnny ch The Jumpin' Johnnies)&n\r\n");
     strcat(buf, "\r\n");
-    strcat(buf, "&+YKingdoms Only&n\r\n");
-    strcat(buf, "&+y=============&n\r\n");
-    strcat(buf, "<&+Yk&n>ingdom <primary asc #> <2ndary assoc #>\n\r");
-    strcat(buf, "<&+Yl&n>and asc_number\n\r");
-    strcat(buf, "<&+Ys&n>tatus asc_number\n\r\n\r");
-    strcat(buf, "<&+yh&n>elp or <&+y?&n> - this small list\r\n\r\n");
+//    strcat(buf, "&+YKingdoms Only&n\r\n");
+//    strcat(buf, "&+y=============&n\r\n");
+//    strcat(buf, "<&+Yk&n>ingdom <primary asc #> <2ndary assoc #>\n\r");
+//    strcat(buf, "<&+Yl&n>and asc_number\n\r");
+//    strcat(buf, "<&+Ys&n>tatus asc_number\n\r\n\r");
+    strcat(buf, "<&+yh&n>elp or <&+y?&n> - this list\r\n\r\n");
     send_to_char(buf, god);
     break;
   }
