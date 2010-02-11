@@ -7168,7 +7168,7 @@ void do_rearkick(P_char ch, char *argument, int cmd)
 
 void do_trample(P_char ch, char *argument, int cmd)
 {
-  P_char   victim, mount;
+  P_char   victim = NULL, mount = NULL;
   int      knockdown_chance;
   int      percent_chance;
   int      dam, vict_lag;
