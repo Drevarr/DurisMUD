@@ -5755,18 +5755,18 @@ int crew_shop(int room, P_char ch, int cmd, char *arg)
             current_skill = ship->rowingcrew.skill;
             break;
         };
-        if (current_skill > ship_crew_data[j].start_skill)
-        {
-            if (!arg || !(*arg) || !isname(arg, "confirm"))
-            {
-                send_to_char ("&+RYour current crew is more skilled!\r\nIf you are sure you want to hire this crew, type 'hire <sail/gun/repair> <number> confirm'.&N\r\n", ch);
-                return TRUE;
-            }
-        }
+//        if (current_skill > ship_crew_data[j].start_skill)
+//        {
+//            if (!arg || !(*arg) || !isname(arg, "confirm"))
+//            {
+//                send_to_char ("&+RYour current crew is more skilled!\r\nIf you are sure you want to hire this crew, type 'hire <sail/gun/repair> <number> confirm'.&N\r\n", ch);
+//                return TRUE;
+//            }
+//        }
 
         SUB_MONEY(ch, cost, 0);
         send_to_char ("Aye aye cap'n!  We'll be on yer ship before you board!\r\n", ch);
-        setcrew(ship, j, ship_crew_data[j].start_skill);
+        setcrew(ship, j, MAX(current_skill, ship_crew_data[j].start_skill));
         update_ship_status(ship);
         write_newship(ship);
         return TRUE;
