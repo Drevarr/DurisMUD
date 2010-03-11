@@ -2884,12 +2884,12 @@ int shipobj_proc(P_obj obj, P_char ch, int cmd, char *arg)
         return FALSE;
 
       
-    if (ship->m_class >= MAXSHIPCLASSMERCHANT && ship->speed > 0)
+    if (ship->m_class >= MAXSHIPCLASSMERCHANT && ship->speed > 0 && !SHIPSINKING(ship))
     {
        send_to_char("&+RThat ship is moving too fast to board!&n\r\n", ch);
        return TRUE;
     }
-    else if (ship->speed > BOARDING_SPEED)
+    else if (ship->speed > BOARDING_SPEED && !SHIPSINKING(ship))
     {
        send_to_char("&+RThat ship is moving too fast to board!&n\r\n", ch);
        return TRUE;
