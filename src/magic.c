@@ -7580,6 +7580,10 @@ int Summonable(P_char ch)
        IS_SET(ch->equipment[target]->extra_flags, ITEM_NOSUMMON))
           return FALSE;
 
+  if(P_char rider = GET_RIDER(ch))
+    if(IS_PC(rider))
+      return FALSE;
+  
   return TRUE;
 }
 
@@ -7726,6 +7730,9 @@ void spell_summon(int level, P_char ch, char *arg, int type, P_char victim,
   if(IS_PC(victim) &&
      IS_RIDING(victim))
         stop_riding(victim);
+  
+  if(P_char rider = GET_RIDER(victim))
+     stop_riding(rider);
         
   act("$n &+Whas summoned you!", FALSE, ch, 0, victim, TO_VICT);
   char_from_room(victim);
