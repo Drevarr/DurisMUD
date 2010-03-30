@@ -185,16 +185,16 @@ A
 A
 1 12
 #9312
-staff absorption old black~
+wand absorption old black~
 &+La staff of absorption&N~
 &+LAn old black staff has been tossed on the ground here.&N~
 ~
-4 15 3 0 10 53 33570881 16385 0 0 0
+3 15 3 0 10 53 33570881 16385 0 0 0
 53 4 4 25 0 0 0 0
 5 53342 100
 E
-staff absorption old black~
-&+L   This is an old black staff which radiates a very &+revil &+Laura.&N
+wand absorption old black~
+&+L   This is an old black wand which radiates a very &+revil &+Laura.&N
 ~
 #9313
 potion brown~
