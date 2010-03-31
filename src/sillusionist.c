@@ -578,19 +578,21 @@ void spell_stunning_visions(int level, P_char ch, char *arg, int type,
 void spell_reflection(int level, P_char ch, char *arg, int type,
                       P_char victim, P_obj obj)
 {
-  P_char   image, tch;
+  P_char   image, tch, tch2;
   struct affected_type af;
-  char Gbuf1[512];
+  char Gbuf1[MAX_STRING_LENGTH];
   int numb, i, spot, room, targ;
-  struct follow_type *k, *p;
+  struct follow_type *k, *p, *l, *q;
 
-  if(!(ch))
+  if(!(ch) ||
+     !IS_ALIVE(ch))
   {
     return;
   }
   
-  if(IS_NPC(victim) ||
-    IS_NPC(ch))
+  if(IS_NPC(victim) &&
+    (IS_PC(ch) ||
+     IS_PC_PET(ch)))
   {
     send_to_char("You cannot cast this spell on NPCs.\r\n", ch);
     return;
@@ -610,6 +612,25 @@ void spell_reflection(int level, P_char ch, char *arg, int type,
       extract_char(tch);
     }
   }
+
+  if(ch != victim)
+  {
+    for(l = victim->followers; l; l = q)
+    {
+      tch2 = l->follower;
+      q = l->next;
+  
+      if(tch2 &&
+         IS_NPC(tch2) &&
+         GET_VNUM(tch2) == 250)
+      {
+        stop_fighting(tch2);
+        StopAllAttackers(tch2);
+        extract_char(tch2);
+      }
+    }
+  }
+
 
   numb = BOUNDED(1, (level - 26) / 5, 4);
 
@@ -691,6 +712,8 @@ void spell_reflection(int level, P_char ch, char *arg, int type,
     add_follower(image, ch);
 
     /* string it */
+
+    logit(LOG_DEBUG, "REFLECTION: (%s) casting on (%s).", GET_NAME(ch), GET_NAME(victim));
 
     image->only.npc->str_mask = (STRUNG_KEYS | STRUNG_DESC1 | STRUNG_DESC2);
     
