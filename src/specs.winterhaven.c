@@ -1268,124 +1268,120 @@ int illithid_axe(P_obj obj, P_char ch, int cmd, char *arg)
 int dagger_ra(P_obj obj, P_char ch, int cmd, char *arg)
 {
   P_char vict;
-  int room, level;
-  int curr_time;
   struct affected_type af;
 
-  if ( !ch )
+  if(!(obj) ||
+     !(ch) ||
+     !OBJ_WORN_BY(obj, ch))
+  {
     return FALSE;
-
-  if (cmd == CMD_SET_PERIODIC)
-    return TRUE;
-
-  if (cmd == 0)
-    hummer(obj);
-
-  level = MAX(11, MIN(GET_LEVEL(ch), 50));
-  
-  if(cmd == CMD_PERIODIC &&
-     !number(0, 1))
-  {
-    act("$n&+L's $q &+rvi&+Rbra&+rtes &+Lsoftly.&n", TRUE, ch, obj, vict, TO_ROOM);
-    act("&+LYour $q &+rvi&+Rbra&+rtes &+Lsoftly.&n", TRUE, ch, obj, vict, TO_CHAR);
-
-    switch(number(0,1))
-    {
-    case 0:
-      spell_cure_critic(level, ch, 0, SPELL_TYPE_SPELL, ch, 0);
-      break;
-    case 1:
-      spell_invigorate(level, ch, 0, SPELL_TYPE_SPELL, ch, 0);
-      break;
-    default:
-      break;
-    }
-    return TRUE;
   }
-
-  if (arg && (cmd == CMD_SAY))
-  {
-    if (isname(arg, "ra"))
+  
+  if(cmd == CMD_SET_PERIODIC)
+    return TRUE;
+  
+  if (cmd == CMD_PERIODIC)
+  { 
+    int curr_time = time(NULL);
+    
+    if(!CHAR_IN_NO_MAGIC_ROOM(ch))
     {
-      curr_time = time(NULL);
-
-      if (obj->timer[0] + 600 <= curr_time)
+      if(obj->timer[0] + 20 <= curr_time)
       {
-        act("You say '&+YRa&+W'&n", TRUE, ch, obj, vict, TO_CHAR);
-        act("&+LYou &+Yth&+Wr&+Yu&+Wst $q &+Ltowards the sky calling upon the &+Yf&+Wa&+Yb&+Wl&+Ye&+Wd &+Yp&+Wo&+Yw&+We&+Yr&+Ws &+Lof the &+WS&+Yu&+Wn &+YG&+Wo&+Yd&+L!&n", TRUE, ch, obj, vict, TO_CHAR);
-
-        act("$n says '&+YRa&+W'&n", TRUE, ch, obj, vict, TO_ROOM);
-        act("$n &+Yth&+Wr&+Yu&+Wst&+Ys $q &+Ltowards the sky and calls upon the &+Yf&+Wa+Yb&+Wl&+Ye&+Wd &+Yp&+Wo&+Yw&+We&+Yr&+Ws &+Lof the &+WS&+Yu&+Wn &+YG&+Wo&+Yd&+L!&n", TRUE, ch, obj, vict, TO_ROOM);
-
-        if( affected_by_spell(ch, SPELL_COLDSHIELD) )
-        {
-          act("&+LThe &+rflames &+Lmelt away $n&+L's &+Bicy &+Lshield&+L.&n", TRUE, ch, obj, vict, TO_ROOM);
-          act("&+LThe &+rflames &+Lmelt away your &+Bicy &+Lshield&+L.&n", TRUE, ch, obj, vict, TO_CHAR);
-
-          affect_from_char(ch, SPELL_COLDSHIELD);        
-          spell_fireshield(level, ch, 0, SPELL_TYPE_SPELL, ch, 0);
-        }
-        else
-        {        
-          spell_fireshield(level, ch, 0, SPELL_TYPE_SPELL, ch, 0);
-        }
-
-        spell_globe(level, ch, 0, SPELL_TYPE_SPELL, ch, 0);
-        spell_deflect(level, ch, 0, SPELL_TYPE_SPELL, ch, 0);
-
         obj->timer[0] = curr_time;
-        return TRUE;
+        
+        if(GET_HIT(ch) < GET_MAX_HIT(ch))
+        {
+          act("$n&+L's $q &+rvi&+Rbra&+rtes &+Lsoftly.&n", TRUE, ch, obj, vict, TO_ROOM);
+          act("&+LYour $q &+rvi&+Rbra&+rtes &+Lsoftly.&n", TRUE, ch, obj, vict, TO_CHAR);          
+          spell_cure_critic(40, ch, 0, SPELL_TYPE_SPELL, ch, 0);
+          spell_invigorate(40, ch, 0, SPELL_TYPE_SPELL, ch, 0);
+          return TRUE;
+        }
       }
     }
-  }
 
-  room = ch->in_room;
-  vict = ParseTarget(ch, arg);
+    if (arg && (cmd == CMD_SAY))
+    {
+      if (isname(arg, "ra"))
+      {
+        curr_time = time(NULL);
+
+        if (obj->timer[1] + 750 <= curr_time)
+        {
+          act("You say '&+YRa&+W'&n", TRUE, ch, obj, vict, TO_CHAR);
+          act("&+LYou &+Yth&+Wr&+Yu&+Wst $q &+Ltowards the sky calling upon the &+Yf&+Wa&+Yb&+Wl&+Ye&+Wd &+Yp&+Wo&+Yw&+We&+Yr&+Ws &+Lof the &+WS&+Yu&+Wn &+YG&+Wo&+Yd&+L!&n", TRUE, ch, obj, vict, TO_CHAR);
+
+          act("$n says '&+YRa&+W'&n", TRUE, ch, obj, vict, TO_ROOM);
+          act("$n &+Yth&+Wr&+Yu&+Wst&+Ys $q &+Ltowards the sky and calls upon the &+Yf&+Wa&+Yb&+Wl&+Ye&+Wd &+Yp&+Wo&+Yw&+We&+Yr&+Ws &+Lof the &+WS&+Yu&+Wn &+YG&+Wo&+Yd&+L!&n", TRUE, ch, obj, vict, TO_ROOM);
+
+          if( affected_by_spell(ch, SPELL_COLDSHIELD) )
+          {
+            act("&+LThe &+rflames &+Lmelt away $n&+L's &+Bicy &+Lshield&+L.&n", TRUE, ch, obj, vict, TO_ROOM);
+            act("&+LThe &+rflames &+Lmelt away your &+Bicy &+Lshield&+L.&n", TRUE, ch, obj, vict, TO_CHAR);
+
+            affect_from_char(ch, SPELL_COLDSHIELD);        
+            spell_fireshield(40, ch, 0, SPELL_TYPE_SPELL, ch, 0);
+          }
+          else
+          {        
+            spell_fireshield(40, ch, 0, SPELL_TYPE_SPELL, ch, 0);
+          }
+
+          spell_globe(40, ch, 0, SPELL_TYPE_SPELL, ch, 0);
+          spell_deflect(40, ch, 0, SPELL_TYPE_SPELL, ch, 0);
+
+          obj->timer[1] = curr_time;
+        }
+      }
+    }
+    return TRUE;
+  }
     
   if(cmd == CMD_MELEE_HIT &&
-     ch && vict &&
-     !number(0, 3) &&
+     !number(0, 99) && // 2%
      CheckMultiProcTiming(ch))
   {
- 
+    P_char vict = (P_char) arg;
+    
+    if(!(vict))
+      return FALSE;
+   
     act("&+LYour $q &+Lchannels the &+Wb&+Yro&+Wke&+Yn &+Wr&+Ya&+Wy&+Ys &+Lof &+Wm&+Yor&+Wni&+Yng &+rS&+Ru&+rnr&+Ri&+rs&+Re &+Lat&n $N&+L.&n", TRUE, ch, obj, vict, TO_CHAR);
     act("$n's $q &+Lchannels the &+Wb&+Yro&+Wke&+Yn &+Wr&+Ya&+Wy&+Ys &+Lof &+Wm&+Yor&+Wni&+Yng &+rS&+Ru&+rnr&+Ri&+rs&+Re &+Lat&n you&+L.&n", TRUE, ch, obj, vict, TO_VICT);
     act("$n's $q &+Lchannels the &+Wb&+Yro&+Wke&+Yn &+Wr&+Ya&+Wy&+Ys &+Lof &+Wm&+Yor&+Wni&+Yng &+rS&+Ru&+rnr&+Ri&+rs&+Re &+Lat&n $N&+L.&n", TRUE, ch, obj, vict, TO_NOTVICT);
   
-    switch (number(0,3))
+    switch (number(0, 10))
     {
       case 0:
-        spell_solar_flare(level, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+        spell_solar_flare(40, ch, 0, SPELL_TYPE_SPELL, vict, 0);
         break;
       case 1:
-        spell_immolate(level, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+        spell_immolate(40, ch, 0, SPELL_TYPE_SPELL, vict, 0);
         break;
       case 2:
-        spell_magma_burst(level, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+        spell_magma_burst(40, ch, 0, SPELL_TYPE_SPELL, vict, 0);
         break;
       case 3:
-        spell_sunray(level, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+        spell_sunray(40, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+        break;
+      case 4:
+        spell_fireball(40, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+        break;
+      case 5:
+        spell_molten_spray(40, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+        break;
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+        spell_flamestrike(40, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+        break;
       default:
         break;
     }
-
-    act("&+LYour $q &+Lchannels the &+Wb&+Yro&+Wke&+Yn &+Wr&+Ya&+Wy&+Ys &+Lof &+We&+Yve&+Wni&+Yng &+RS&+ru&+Rns&+re&+Rt &+Lat&n $N&+L.&n", TRUE, ch, obj, vict, TO_CHAR);
-    act("$n's $q &+Lchannels the &+Wb&+Yro&+Wke&+Yn &+Wr&+Ya&+Wy&+Ys &+Lof &+We&+Yve&+Wni&+Yng &+RS&+ru&+Rns&+re&+Rt &+Lat&n you&+L.&n", TRUE, ch, obj, vict, TO_VICT);
-    act("$n's $q &+Lchannels the &+Wb&+Yro&+Wke&+Yn &+Wr&+Ya&+Wy&+Ys &+Lof &+We&+Yve&+Wni&+Yng &+RS&+ru&+Rns&+re&+Rt &+Lat&n $N&+L.&n", TRUE, ch, obj, vict, TO_NOTVICT);
-  
-    switch (number(0,2))
-    {
-      case 0:
-        spell_fireball(level - 10, ch, 0, SPELL_TYPE_SPELL, vict, 0);
-        break;
-      case 1:
-        spell_flamestrike(level - 10, ch, 0, SPELL_TYPE_SPELL, vict, 0);
-        break;
-      case 2:
-        spell_molten_spray(level - 10, ch, 0, SPELL_TYPE_SPELL, vict, 0);
-      default:
-        break;
-    }
+    
     return TRUE;
   }
   return FALSE;
