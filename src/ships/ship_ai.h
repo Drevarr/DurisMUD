@@ -112,5 +112,22 @@ struct ShipCombatAI
     int get_room_in_direction_from_ship(float &x, float &y, int dir, float range);
     void set_arc_priority(int current_bearing, int current_arc, int* arc_priority);
     static void normalize_direction(int &dir);
+    static void normalize_direction(float &dir);
     static bool inside_map(float x, float y);
+
+
+
+    // advanced section
+
+    float prev_hd;
+
+    float curr_x, curr_y;
+    float curr_angle[4];
+    
+    float pred_x, pred_y;
+    float pred_angle[4];
+
+    float hd_change;
+
+    void predict_target(int steps);
 };

@@ -270,7 +270,7 @@ void scantarget(P_ship target, P_char ch)
           if (target->slot[j].type == SLOT_WEAPON)
           {
             sprintf(buf, "&+W[%d]&N &+W%-20s&N &+W%-9s\r\n", j,
-                    SHIPWEAPONDESTROYED(target, j) ? "&+LDestroyed&N" : target->slot[j].desc,
+                    SHIPWEAPONDESTROYED(target, j) ? "&+LDestroyed&N" : target->slot[j].get_description(),
                     target->slot[j].get_position_str());
             send_to_char(buf, ch);
           }

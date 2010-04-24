@@ -584,7 +584,8 @@ extern void summon_ship_event(P_char ch, P_char victim, P_obj obj, void *data);
 extern int weaprange(int w_index, char range);
 extern int weaponsight(P_ship ship, P_ship target, int weapon, float mod);
 extern void calc_crew_adjustments(P_ship ship);
-extern bool try_load_pirate_ship(P_ship target, P_char ch);
+extern bool try_load_pirate_ship(P_ship target);
+extern bool try_load_pirate_ship(P_ship target, P_char ch, int level);
 
 
 int sell_cargo(P_char ch, P_ship ship, int slot);

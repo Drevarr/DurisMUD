@@ -1636,16 +1636,6 @@ int do_fire (P_char ch, P_ship ship, char* arg)
         return TRUE;
     }
     arg = skip_spaces(arg);
-    if (isname(arg, "pirate") && IS_TRUSTED(ch)) 
-    {
-        if (try_load_pirate_ship(ship, ch))
-            return true;
-        else
-        {
-            send_to_char("Failed to load pirate ship!\r\n", ch);
-            return false;
-        }
-    }
     if (ship->target == NULL) 
     {
         send_to_char("No target locked.\r\n", ch);
@@ -1680,6 +1670,19 @@ int do_fire (P_char ch, P_ship ship, char* arg)
     else if (is_number(arg)) 
     {
         return fire_weapon(ship, ch, atoi(arg));
+    }
+    half_chop(arg, arg1, arg2);
+    if (isname(arg1, "pirate") && IS_TRUSTED(ch)) 
+    {
+        int lvl = 0;
+        if (is_number(arg2)) lvl = atoi(arg2);
+        if (try_load_pirate_ship(ship, ch, lvl))
+            return true;
+        else
+        {
+            send_to_char("Failed to load pirate ship!\r\n", ch);
+            return true;
+        }
     }
     send_to_char("Valid syntax: 'fire <fore/starboard/port/rear/weapon number>'\r\n", ch);
     return TRUE;
@@ -3461,6 +3464,9 @@ void newship_activity()
             shipai_activity(ship);
             if (ship->combat_ai)
                 ship->combat_ai->activity();
+
+            //if (number(0, 2000) == 0)
+            //    try_load_pirate_ship(ship);
         }
     }
 }
