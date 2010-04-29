@@ -7232,7 +7232,7 @@ int handle_npc_assist(P_char ch)
 // Players with non-undead pets are rescued if the player makes a charisma check. Apr09 -Lucrot
         if(IS_NPC(ch->following) ||
           (IS_PC_PET(ch) &&
-           !IS_UNDEADRACE(ch) &&
+//           !IS_UNDEADRACE(ch) &&
            GET_C_CHA(ch->following) > number(1, 500))) // 100 charisma ~= 20%
         {
           rescue(ch, ch->following, FALSE);
