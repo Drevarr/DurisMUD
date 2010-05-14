@@ -971,8 +971,7 @@ void chant_jin_touch(P_char ch, char *argument, int cmd)
      IS_IMMOBILE(ch))
         return;
 
-  if(!GET_CLASS(ch, CLASS_MONK) &&
-    !IS_TRUSTED(ch))
+  if(!GET_CLASS(ch, CLASS_MONK))
   {
     send_to_char("Too bad you're not a monk, eh?\r\n", ch);
     return;
@@ -1106,7 +1105,7 @@ void chant_ki_strike(P_char ch, char *argument, int cmd)
   int      skl_lvl = 0;
   int      level = GET_LEVEL(ch);
 
-  if (!GET_CLASS(ch, CLASS_MONK) && !IS_TRUSTED(ch))
+  if (!GET_CLASS(ch, CLASS_MONK))
   {
     send_to_char("Too bad you're not a monk, eh?\r\n", ch);
     return;
