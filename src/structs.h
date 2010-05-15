@@ -1866,6 +1866,7 @@ struct  mob_prog_data
 #define LOG_OBJ "logs/log/obj"
 #define LOG_EVENT "logs/log/events"
 #define LOG_DONATION "logs/log/donation"
+#define LOG_PETITION "logs/log/petition"
 
 /* these logs have data of lasting importance, so they are kept longer */
 #define LOG_CORPSE "logs/player-log/corpse"

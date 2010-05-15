@@ -7020,6 +7020,7 @@ void do_ptell(P_char ch, char *arg, int cmd)
           (CAN_SEE(vict, ch) && IS_TRUSTED(ch)) ? ch->player.name :
           IS_TRUSTED(vict) ? ch->player.name : "Someone", msg);
   send_to_char(Gbuf1, vict, LOG_PRIVATE);
+  logit(LOG_PETITION, "(%s) petition response: (%s).", GET_NAME(ch), msg);
 
   for (d = descriptor_list; d; d = d->next)
   {

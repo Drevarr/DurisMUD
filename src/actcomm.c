@@ -279,6 +279,7 @@ void do_petition(P_char ch, char *argument, int cmd)
               "&+RThe petition channel is not for general conversation. Use the idea, typo, or bug commands.&n\r\n",
               argument);
       send_to_char(Gbuf1, ch);
+      logit(LOG_PETITION, "(%s) petitioned (%s).", GET_NAME(ch), argument);
     }
     else
       send_to_char("Ok.\r\n", ch);
