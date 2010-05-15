@@ -287,8 +287,8 @@ int calculate_mana(P_char ch)
 
 int calculate_hitpoints(P_char ch)
 {
-  int hps, i, lvl, old_bonus, hitpoint_bonus, j;
-  int toughness = GET_CHAR_SKILL(ch, SKILL_TOUGHNESS);
+  char buf[128];
+  int hps, i, lvl, old_bonus, hitpoint_bonus, j, mod, toughness;
   P_obj obj;
   bool apply_maxconbonus_hitpoints = false;
   
@@ -334,6 +334,8 @@ int calculate_hitpoints(P_char ch)
     // 10 hps at level 1, 1 points in max con = 1 hp, gains 1 hp per level.
     hps = GET_LEVEL(ch) + 10 + MAX(GET_C_CON(ch), 100) - 100;
   }
+  
+  toughness = GET_CHAR_SKILL(ch, SKILL_TOUGHNESS);
 
   if(toughness > 0 &&
      !GET_CLASS(ch, CLASS_MONK))
@@ -400,8 +402,15 @@ int calculate_hitpoints(P_char ch)
         }
       }
     }
-    
-    hps += (int) (hitpoint_bonus * get_property("hitpoints.spellcaster.maxConBonus", 3.0));
+// Max con hitpoint bonus now uses a racial constitution ratio. May2010 -Lucrot   
+    if(IS_PC(ch) &&
+       hitpoint_bonus)
+    {
+      sprintf(buf, "stats.con.%s", race_names_table[GET_RACE(ch)].no_spaces);
+      mod = (int) get_property(buf, 100.);
+//      debug("mod for race is (%d).", mod);
+      hps += (int) (hitpoint_bonus * get_property("hitpoints.spellcaster.maxConBonus", 5.0) * mod / 100);
+    }
   }
 
   return hps;
