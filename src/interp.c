@@ -1041,6 +1041,7 @@ const char *command[] = {
   "petition_block",
   "area",
   "whitelist",
+  "epicreset",
   "\n"                          /* MAX_CMD_LIST is now 1000 */
 };
 
@@ -2141,6 +2142,7 @@ void assign_command_pointers(void)
   CMD_GRT(CMD_RENAME, STAT_DEAD + POS_PRONE, do_rename, IMMORTAL);
   CMD_GRT(CMD_REROLL, STAT_DEAD + POS_PRONE, do_reroll, GREATER_G);
   CMD_GRT(CMD_RESTORE, STAT_DEAD + POS_PRONE, do_restore, GREATER_G);
+  CMD_GRT(CMD_EPICRESET, STAT_DEAD + POS_PRONE, do_epic_reset, GREATER_G);
  
   CMD_GRT(CMD_SQL, STAT_DEAD + POS_PRONE, do_sql, OVERLORD);
   CMD_GRT(CMD_MAKEEXIT, STAT_DEAD + POS_PRONE, do_makeexit, GREATER_G);
@@ -2190,7 +2192,7 @@ void assign_command_pointers(void)
   CMD_GRT(CMD_STATISTIC, STAT_DEAD + POS_PRONE, do_statistic, FORGER);
   CMD_GRT(CMD_STORAGE, STAT_DEAD + POS_PRONE, do_storage, GREATER_G);
   CMD_GRT(CMD_NEWBSU, STAT_DEAD + POS_PRONE, do_newb_spellup, LESSER_G);
-  CMD_GRT(CMD_GIVEPET, STAT_DEAD + POS_PRONE, do_givepet, LESSER_G);
+  CMD_GRT(CMD_GIVEPET, STAT_DEAD + POS_PRONE, do_givepet, GREATER_G);
   CMD_GRT(CMD_PETITION_BLOCK, STAT_DEAD + POS_PRONE, do_petition_block, FORGER);
   CMD_GRT(CMD_WHITELIST, STAT_DEAD + POS_PRONE, do_whitelist, IMMORTAL);
 
@@ -2512,7 +2514,7 @@ void assign_command_pointers(void)
   CMD_Y(CMD_WEATHER, STAT_RESTING + POS_PRONE, do_weather, 0);
   CMD_Y(CMD_WHIRLWIND, STAT_NORMAL + POS_STANDING, do_whirlwind, 0);
   CMD_Y(CMD_WIELD, STAT_RESTING + POS_PRONE, do_wield, 0);
-  CMD_Y(CMD_WIZHELP, STAT_DEAD + POS_PRONE, do_wizhelp, 0);
+  CMD_Y(CMD_WIZHELP, STAT_DEAD + POS_PRONE, do_wizhelp, IMMORTAL);
   CMD_Y(CMD_WIZMSG, STAT_DEAD + POS_PRONE, do_wizmsg, 0);
   CMD_Y(CMD_WORLD, STAT_DEAD + POS_PRONE, do_world, 0);
   CMD_Y(CMD_CAPTURE, STAT_NORMAL + POS_STANDING, do_capture, 0);

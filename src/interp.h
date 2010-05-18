@@ -825,6 +825,7 @@ extern unsigned int game_locked;
 #define CMD_PETITION_BLOCK 798
 #define CMD_AREA        799
 #define CMD_WHITELIST   800
+#define CMD_EPICRESET   801
 
 /* cmds below are not real commands, they are
                 used in item special procedures to identify
