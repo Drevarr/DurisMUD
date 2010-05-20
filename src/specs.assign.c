@@ -589,8 +589,9 @@ void assign_mobiles(void)
 
 // Newbie guards! - Kvark
   mob_index[real_mobile0(910)].func.mob = newbie_guard_north;
-  mob_index[real_mobile0(911)].func.mob = newbie_guard_south;
   mob_index[real_mobile0(912)].func.mob = newbie_guard_east;
+  mob_index[real_mobile0(911)].func.mob = newbie_guard_south;
+  mob_index[real_mobile0(4800)].func.mob = newbie_guard_east;
   mob_index[real_mobile0(913)].func.mob = newbie_guard_west;
 
   // living earth proc!
