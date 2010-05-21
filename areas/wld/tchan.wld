@@ -126,7 +126,7 @@ S
 &+ythe distance into the mountainous, &+Cicy &+yslopes.&n
 &+yTo the east lies a Monestary.&n
 ~
-48 32768 25
+48 176193600 25
 D1
 ~
 ~
@@ -144,11 +144,11 @@ S
 &+ythe distance into the mountainous, &+Cicy &+yslopes.&n
 &+yTo the east lies a Monestary.&n
 ~
-48 142905412 25
+48 142905408 25
 D1
 ~
 door~
-2 4800 4809
+1 4800 4809
 D3
 ~
 ~
@@ -164,5 +164,5 @@ S
 D3
 ~
 door~
-2 4800 4808
+1 4800 4808
 S

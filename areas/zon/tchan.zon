@@ -5,18 +5,17 @@
 * Zone edited with durisEdit v2.99de
 *
 *
-D 0 4808 1 2 100 0 0 0
+D 0 4808 1 1 100 0 0 0
 *     east exit from "Beside A Small Monestary" to
-*     "The Monestary of Tranquility" - closed/locked
+*     "The Monestary of Tranquility" - closed
 *
-D 0 4809 3 2 100 0 0 0
+D 0 4809 3 1 100 0 0 0
 *     west exit from "The Monestary of Tranquility" to
-*     "Beside A Small Monestary" - closed/locked
+*     "Beside A Small Monestary" - closed
 *
 *
 *
 M 0 4800 1 4808 100 0 0 0          * the tranquility guard
-E 1 4800 1 18 100 0 0 0            *   the key of tranquility
 M 0 22428 1 4809 100 0 0 0         * (mob type not in this .mob file)
 *
 S
