@@ -914,9 +914,15 @@ typedef unsigned int uint;
 #define RACE_AGATHINON       78 /* mob race code: EH */
 #define RACE_V_ELEMENTAL     79 /* mob race code: VE */
 #define RACE_I_ELEMENTAL     80 /* mob race code: IE */
-#define LAST_RACE            80
+#define RACE_ELADRIN         81 /* mob race code: EL */
+#define RACE_KOBOLD          82 /* mob race code: KB */
+#define RACE_PILLITHID       83 /* mob race code: PI */
+#define RACE_KUOTOA          84 /* mob race code: KT */
+#define RACE_WOODELF         85 /* mob race code: WE */
+#define RACE_FIRBOLG         86 /* mob race code: FB */
+#define LAST_RACE            87
 
-#define DEFINED_RACES        79 /* actual number of races defined */
+#define DEFINED_RACES        86 /* actual number of races defined */
 #define MAX_HATRED	     5
 
 #define RACEWAR_NONE         0
@@ -954,7 +960,8 @@ typedef unsigned int uint;
 #define CLASS_DREADLORD         BIT_25
 #define CLASS_ETHERMANCER       BIT_26
 #define CLASS_AVENGER           BIT_27
-#define CLASS_COUNT             27
+#define CLASS_THEURGIST         BIT_28
+#define CLASS_COUNT             28
 
 #define CLASS_TYPE_MAGE      20
 #define CLASS_TYPE_THIEF     21

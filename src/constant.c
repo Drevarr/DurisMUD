@@ -77,66 +77,294 @@ const int troop_costs[NUM_TROOP_TYPES][4] = {
 
 extern const int allowed_secondary_classes[CLASS_COUNT + 1][5];
 const int allowed_secondary_classes[CLASS_COUNT + 1][5] = {
- {-1},
-  {CLASS_MERCENARY, CLASS_CLERIC, CLASS_PSIONICIST, -1},  	// warrior
-  {CLASS_WARRIOR, CLASS_DRUID, -1},          		// ranger
-  {-1},                         		// psi
-  {CLASS_WARRIOR, -1},          		// paladin
-  {CLASS_WARRIOR, -1},          		// anti-pal
-  {CLASS_DRUID, CLASS_BARD, CLASS_WARRIOR, CLASS_SHAMAN, -1}, // cleric
-  {-1},                        	 		// monk
-  {-1}, 	        // druid
-  {CLASS_CONJURER, CLASS_DRUID, CLASS_CLERIC, -1},    	// shaman
-  {CLASS_CONJURER, -1},         		// sorc
-  {-1},                         		// necro
-  {CLASS_SHAMAN, CLASS_SORCERER, -1},   	// conj
-  {CLASS_BARD, CLASS_MERCENARY, -1},                         		// rogue
-  {CLASS_THIEF, CLASS_MERCENARY, -1},      	// assassin
-  {CLASS_ROGUE, CLASS_WARRIOR, -1},     // merc
-  {CLASS_SORCERER, CLASS_ROGUE, CLASS_ILLUSIONIST, -1},    // bard
-  {CLASS_ASSASSIN, CLASS_MERCENARY, -1},    	// thief
-  {-1},                         		// warlock
-  {-1},                         		// mindflayer
-  {-1},                         		// alchemist
-  {-1},                         		// berserker
-  {CLASS_SORCERER, -1},                         	// reaver
-  {-1},                         		// illusionist
-  {-1},                          		// spectral piper
-  {CLASS_WARLOCK, -1},                         	// dreadlord
-  {CLASS_SORCERER, CLASS_SHAMAN, -1},            // ethermancer
-  {-1} // avenger
+ {-1}, 
+ 
+  {CLASS_MERCENARY, CLASS_CLERIC, CLASS_PSIONICIST, -1},      /* War */
+  {CLASS_WARRIOR, CLASS_DRUID, CLASS_ROGUE, -1},              /* Ran */
+  {-1},                         		              /* Psi */
+  {CLASS_WARRIOR, -1},          		              /* Pal */
+  {CLASS_WARRIOR, -1},          		              /* APa */
+  {CLASS_DRUID, CLASS_BARD, CLASS_WARRIOR, CLASS_SHAMAN, -1}, /* Cle */
+  {-1},                        	 		              /* Mon */
+  {-1}, 	                                              /* Dru */
+  {CLASS_CONJURER, CLASS_DRUID, CLASS_CLERIC, -1},    	      /* Sha */
+  {CLASS_CONJURER, -1},         		              /* Sor */
+  {-1},                         		              /* Nec */
+  {CLASS_SORCERER, -1},                   	              /* Con */
+  {CLASS_BARD, CLASS_MERCENARY, CLASS_CLERIC, -1},            /* Rog */
+  {-1},                       /* Assassin not currently in game      */
+  {CLASS_ROGUE, CLASS_WARRIOR, -1},                           /* Mer */
+  {CLASS_SORCERER, CLASS_ROGUE, CLASS_ILLUSIONIST, -1},       /* Bar */
+  {-1},    	             /* Thief not currently in game          */
+  {-1},                      /* Warlock not currently in game        */
+  {-1},                         		              /* MnF */
+  {-1},                         		              /* Alc */
+  {-1},                         		              /* Ber */
+  {CLASS_SORCERER, -1},                         	      /* Rea */
+  {-1},                         		              /* Ilu */
+  {-1},                      /* Spectral Piper not currently in game */
+  {-1},                                  	              /* Dre */
+  {CLASS_SORCERER, CLASS_SHAMAN, -1},                         /* Eth */
+  {-1},                                                       /* Ave */
+  {-1}                                                        /* The */
 };
 
 // class names for particular multiclass combos
 extern const struct mcname multiclass_names[];
 const mcname multiclass_names[] = {
-  {CLASS_SHAMAN, CLASS_DRUID, "&+rBeastmaster "},
-  {CLASS_SHAMAN, CLASS_CONJURER, "&+bChanneler   "},
-  {CLASS_MERCENARY, CLASS_WARRIOR, "&+yGladiator   "},
-  {CLASS_BARD, CLASS_SORCERER, "&+BEnchanter   "},
-  {CLASS_CONJURER, CLASS_SORCERER, "&+RArchmage    "},
-  {CLASS_ANTIPALADIN, CLASS_WARRIOR, "&+LBlackguard  "},
-  {CLASS_PALADIN, CLASS_WARRIOR, "&+WDefender    "},
-//  {CLASS_ASSASSIN, CLASS_THIEF, "&+rRogue       "},
-  {CLASS_RANGER, CLASS_DRUID, "&+gForrestal   "},
-//  {CLASS_BARD, CLASS_THIEF, "&+bGr&+Lift&+ber   "},
-  {CLASS_WARRIOR, CLASS_RANGER, "&+gWoodsman    "},
-//  {CLASS_ASSASSIN, CLASS_MERCENARY, "&+yThug        "},
-//  {CLASS_ASSASSIN, CLASS_BARD, "&+cKnave       "},
-//  {CLASS_THIEF, CLASS_MERCENARY, "&+LProwler     "},
-  {CLASS_CLERIC, CLASS_BARD, "&+rSkald       "},
-  {CLASS_CLERIC, CLASS_DRUID, "&+YCenobite    "},
-  {CLASS_WARRIOR, CLASS_CLERIC, "&+cWar Priest  "},
-  {CLASS_WARRIOR, CLASS_PSIONICIST, "&+YBody &+MTamer   "},
-  {CLASS_REAVER, CLASS_SHAMAN, "&+LS&+wo&+Wulrend&+we&+Lr "},
-  {CLASS_REAVER, CLASS_SORCERER, "&+LDe&+mfil&+Ler&n      "},
-  {CLASS_DREADLORD, CLASS_WARLOCK, "&+LBaneguard   "},
-  {CLASS_ETHERMANCER, CLASS_SORCERER, "&+cSt&+Corm Ma&+cgi  "},
-  {CLASS_ETHERMANCER, CLASS_SHAMAN, "&+yGeo&+Lmancer   "},
-  {CLASS_CLERIC, CLASS_SHAMAN, "&+WSpiritmaster&n"},
-  {CLASS_ROGUE, CLASS_BARD, "&+bGr&+Lift&+ber   "},
-  {CLASS_ROGUE, CLASS_MERCENARY, "&+yThug        "},
-  {CLASS_BARD, CLASS_ILLUSIONIST, "&+LT&+br&+ci&+Cc&+Wk&+Cs&+ct&+be&+Lr&n    "},
+  /* Start Defining Multiclass names here */
+  /* starting with CLASS_WARRIOR */
+  {CLASS_WARRIOR, CLASS_RANGER,          "&+gWoodsman    &n"},
+  {CLASS_WARRIOR, CLASS_PSIONICIST,      "&+YBody &+MTamer  &n"},  
+  {CLASS_WARRIOR, CLASS_PALADIN,         "&+WDefender    &n"},
+  {CLASS_WARRIOR, CLASS_ANTIPALADIN,     "&+LBlackguard  &n"},  
+  {CLASS_WARRIOR, CLASS_CLERIC,          "&+cWar Priest  &n"},
+  {CLASS_WARRIOR, CLASS_MONK,            "&+BBlue Ninja  &n"},  
+  {CLASS_WARRIOR, CLASS_DRUID,           "&+BWo&+Gad        &n"},
+  {CLASS_WARRIOR, CLASS_SHAMAN,          "&+BCh&+Cie&+Bft&+Cai&+Bn   &n"},  
+  {CLASS_WARRIOR, CLASS_SORCERER,        "&+MSpell&+Bsword  &n"},
+  {CLASS_WARRIOR, CLASS_NECROMANCER,     "&+mDeath&+Bwarden &n"},  
+  {CLASS_WARRIOR, CLASS_CONJURER,        "&+LEng&+rineer    &n"},
+  {CLASS_WARRIOR, CLASS_ROGUE,           "&+rCon &+yArtist  &n"},  
+  {CLASS_WARRIOR, CLASS_MERCENARY,       "&+yGladiator   &n"},
+  {CLASS_WARRIOR, CLASS_MINDFLAYER,      "&+MBrain &+BDud   &n"},  
+  {CLASS_WARRIOR, CLASS_BERSERKER,       "&+BV&+ri&+Rk&+ri&+Rn&+Bg      &n"},
+  {CLASS_WARRIOR, CLASS_REAVER,          "&+LC&+wav&+Le &+BLord   &n"},  
+  {CLASS_WARRIOR, CLASS_ILLUSIONIST,     "&+wG&+Wh&+wo&+Ws&+wt &+BTank  &n"},
+  {CLASS_WARRIOR, CLASS_DREADLORD,       "&+BSc&+Lo&+wur&+Lge     &n"},  
+  {CLASS_WARRIOR, CLASS_ETHERMANCER,     "&+BAb&+wominati&+Bon &n"},
+  {CLASS_WARRIOR, CLASS_AVENGER,         "&+BJu&+Yst&+Wic&+Ya&+Br    &n"},  
+  {CLASS_WARRIOR, CLASS_THEURGIST,       "&+BRi&+Ypp&+Ber      &n"},
+  {CLASS_RANGER, CLASS_PSIONICIST,       "&+bKinetic &+GArm &n"},  
+  {CLASS_RANGER, CLASS_PALADIN,          "&+GWar&+Wden      &n"},  
+  {CLASS_RANGER, CLASS_ANTIPALADIN,      "&+LBleak &+GHero  &n"},
+  {CLASS_RANGER, CLASS_CLERIC,           "&+GWild &+YZealot &n"},  
+  {CLASS_RANGER, CLASS_MONK,             "&+GGreen Ninja &n"},  
+  {CLASS_RANGER, CLASS_DRUID,            "&+gForrestal   &n"},
+  {CLASS_RANGER, CLASS_SHAMAN,           "&+GG&+Ca&+Gr&+Co&+Gu       &n"},  
+  {CLASS_RANGER, CLASS_SORCERER,         "&+GOutland &+MMagi&n"},  
+  {CLASS_RANGER, CLASS_NECROMANCER,      "&+GPu&+mtr&+Gif&+mie&+Gr   &n"},
+  {CLASS_RANGER, CLASS_CONJURER,         "&+YElement &+GArc &n"},  
+  {CLASS_RANGER, CLASS_ROGUE,            "&+GS&+Lcou&+Gt       &n"},  
+  {CLASS_RANGER, CLASS_MERCENARY,        "&+GB&+yr&+Gu&+yt&+Ga&+yl&+Gi&+yz&+Ge&+yr  &n"},
+  {CLASS_RANGER, CLASS_BARD,             "&+bT&+Len&+bd&+Ger&+bi&+Lze&+br  &n"},  
+  {CLASS_RANGER, CLASS_MINDFLAYER,       "&+MKinetic &+GGod &n"},  
+  {CLASS_RANGER, CLASS_BERSERKER,        "&+GA&+Rb&+ru&+Rs&+Re&+Gr      &n"},
+  {CLASS_RANGER, CLASS_REAVER,           "&+GR&+Le&+wdu&+Ln&+Gdant   &n"},  
+  {CLASS_RANGER, CLASS_ILLUSIONIST,      "&+GR&+Wa&+Cv&+Wn&+Co&+Gs      &n"},  
+  {CLASS_RANGER, CLASS_DREADLORD,        "&+GH&+rereti&+Gc     &n"},
+  {CLASS_RANGER, CLASS_ETHERMANCER,      "&+wWind &+GHunter &n"},  
+  {CLASS_RANGER, CLASS_AVENGER,          "&+WHoly &+GHunter &n"},  
+  {CLASS_RANGER, CLASS_THEURGIST,        "&+WD&+Yivin&+We &+GScout&n"},
+  {CLASS_PSIONICIST, CLASS_PALADIN,      "&+bPro&+Wphet     &n"},  
+  {CLASS_PSIONICIST, CLASS_ANTIPALADIN,  "&+LFake &+bPro&+Wphet&n"},  
+  {CLASS_PSIONICIST, CLASS_CLERIC,       "&+bArdent &+cSeer &n"},
+  {CLASS_PSIONICIST, CLASS_MONK,         "&+mMind &+LNinja  &n"},  
+  {CLASS_PSIONICIST, CLASS_DRUID,        "&+bOra&+Gcle      &n"},  
+  {CLASS_PSIONICIST, CLASS_SHAMAN,       "&+CTotemic &+bRage&n"},
+  {CLASS_PSIONICIST, CLASS_SORCERER,     "&+bCere&+Mbrum    &n"},  
+  {CLASS_PSIONICIST, CLASS_NECROMANCER,  "&+mDread &+bWave  &n"},
+  {CLASS_PSIONICIST, CLASS_CONJURER,     "&+YEarth&+bbender &n"},  
+  {CLASS_PSIONICIST, CLASS_ROGUE,        "&+LBack&+bbender  &n"},  
+  {CLASS_PSIONICIST, CLASS_MERCENARY,    "&+yArm&+bbender   &n"},
+  {CLASS_PSIONICIST, CLASS_BARD,         "&+MSong&+bbender  &n"},  
+  {CLASS_PSIONICIST, CLASS_MINDFLAYER,   "&+MThe &+bBoss    &n"},  
+  {CLASS_PSIONICIST, CLASS_BERSERKER,    "&+rF&+Rac&+re&+bbender  &n"},
+  {CLASS_PSIONICIST, CLASS_REAVER,       "&+LB&+Wlen&+Ld&+bbender &n"},  
+  {CLASS_PSIONICIST, CLASS_ILLUSIONIST,  "&+bMindbender  &n"},
+  {CLASS_PSIONICIST, CLASS_DREADLORD,    "&+rDe&+Lath&+bbender &n"},  
+  {CLASS_PSIONICIST, CLASS_ETHERMANCER,  "&+wWind&+bbender  &n"},
+  {CLASS_PSIONICIST, CLASS_AVENGER,      "&+WLife&+bbender  &n"},  
+  {CLASS_PSIONICIST, CLASS_THEURGIST,    "&+CH&+Weave&+Cn&+bbender&n"},
+  {CLASS_PALADIN, CLASS_ANTIPALADIN,     "&+wGray Knight &n"},  
+  {CLASS_PALADIN, CLASS_CLERIC,          "&+WDe&+cvout      &n"},  
+  {CLASS_PALADIN, CLASS_MONK,            "&+WWhite Ninja &n"},
+  {CLASS_PALADIN, CLASS_DRUID,           "&+gLeafy &+WWrath &n"},
+  {CLASS_PALADIN, CLASS_SHAMAN,          "&+CTotem &+WWalker&n"},
+  {CLASS_PALADIN, CLASS_SORCERER,        "&+WPur&+Mifier    &n"},
+  {CLASS_PALADIN, CLASS_NECROMANCER,     "&+LBlack &+WKnight&n"},
+  {CLASS_PALADIN, CLASS_CONJURER,        "&+yEarth &+WKnight&n"},
+  {CLASS_PALADIN, CLASS_ROGUE,           "&+rRed &+WKnight  &n"},
+  {CLASS_PALADIN, CLASS_MERCENARY,       "&+yDirty &+WKnight&n"},
+  {CLASS_PALADIN, CLASS_BARD,            "&+MPansy &+WKnight&n"},
+  {CLASS_PALADIN, CLASS_MINDFLAYER,      "&+MPink Knight &n"},
+  {CLASS_PALADIN, CLASS_BERSERKER,       "&+WHoly Wraith &n"},
+  {CLASS_PALADIN, CLASS_REAVER,          "&+LB&+Wlen&+Ld Knight&n"},
+  {CLASS_PALADIN, CLASS_ILLUSIONIST,     "Invis Knight&n"},
+  {CLASS_PALADIN, CLASS_DREADLORD,       "&+LEbony Knight&n"},
+  {CLASS_PALADIN, CLASS_ETHERMANCER,     "&+wSky &+WKnight  &n"},
+  {CLASS_PALADIN, CLASS_AVENGER,         "&+LDread &+WKnight&n"},
+  {CLASS_PALADIN, CLASS_THEURGIST,       "&+WCrucible    &n"},
+  {CLASS_ANTIPALADIN, CLASS_CLERIC,      "&+LSi&+cnn&+Ler      &n"},
+  {CLASS_ANTIPALADIN, CLASS_MONK,        "&+rRed Ninja   &n"},
+  {CLASS_ANTIPALADIN, CLASS_DRUID,       "&+LDe&+gvour&+Ler    &n"},
+  {CLASS_ANTIPALADIN, CLASS_SHAMAN,      "&+LMis&+Cleader   &n"},
+  {CLASS_ANTIPALADIN, CLASS_SORCERER,    "&+LW&+gi&+Gt&+Whe&+Gr&+ge&+Lr    &n"},
+  {CLASS_ANTIPALADIN, CLASS_NECROMANCER, "&+mDread &+LReaper&n"},
+  {CLASS_ANTIPALADIN, CLASS_CONJURER,    "&+YPlanet&+Lbasher&n"},
+  {CLASS_ANTIPALADIN, CLASS_ROGUE,       "&+LDarkness    &n"},
+  {CLASS_ANTIPALADIN, CLASS_MERCENARY,   "&+yDi&+Lrr&+yty      &n"},
+  {CLASS_ANTIPALADIN, CLASS_BARD,        "&+LEvil &+bP&+goe&+bt   &n"},
+  {CLASS_ANTIPALADIN, CLASS_MINDFLAYER,  "&+LDark &+MHaze   &n"},
+  {CLASS_ANTIPALADIN, CLASS_BERSERKER,   "&+LM&+ro&+Rn&+rg&+Rr&+re&+Ll     &n"},
+  {CLASS_ANTIPALADIN, CLASS_REAVER,      "&+LDreadsp&+Wee&+Ld  &n"},
+  {CLASS_ANTIPALADIN, CLASS_ILLUSIONIST, "&+LSudden Death&n"},
+  {CLASS_ANTIPALADIN, CLASS_DREADLORD,   "&+LIns&+rtiga&+Ltor  &n"},
+  {CLASS_ANTIPALADIN, CLASS_ETHERMANCER, "&+wWind&+Lbreaker &n"},
+  {CLASS_ANTIPALADIN, CLASS_AVENGER,     "&+LRap&+Yture     &n"},
+  {CLASS_ANTIPALADIN, CLASS_THEURGIST,   "&+LRup&+Wture     &n"},
+  {CLASS_CLERIC, CLASS_MONK,             "&+wIvory Monk  &n"},
+  {CLASS_CLERIC, CLASS_DRUID,            "&+YCenobite    &n"},
+  {CLASS_CLERIC, CLASS_SHAMAN,           "&+WSpiritmaster&n"},
+  {CLASS_CLERIC, CLASS_SORCERER,         "&+cF&+Mria&+cr       &n"},
+  {CLASS_CLERIC, CLASS_NECROMANCER,      "&+mExor&+ccist    &n"},
+  {CLASS_CLERIC, CLASS_CONJURER,         "&+YPlanes&+cwalker&n"},
+  {CLASS_CLERIC, CLASS_ROGUE,            "&+rW&+Rhi&+rp        &n"},
+  {CLASS_CLERIC, CLASS_MERCENARY,        "&+yDirty &+cPriest&n"},
+  {CLASS_CLERIC, CLASS_BARD,             "&+rSkald       &n"},
+  {CLASS_CLERIC, CLASS_MINDFLAYER,       "&+LS&+Wku&+Lnk       &n"},
+  {CLASS_CLERIC, CLASS_BERSERKER,        "&+rB&+Rr&+ru&+Rt&+ra&+Rl &+cZeal &n"},
+  {CLASS_CLERIC, CLASS_REAVER,           "&+LB&+Wlen&+Ld &+cPriest&n"},
+  {CLASS_CLERIC, CLASS_ILLUSIONIST,      "&+WS&+wl&+Wy &+cPriest  &n"},
+  {CLASS_CLERIC, CLASS_DREADLORD,        "&+cPe&+Ld&+roph&+Li&+cle   &n"},
+  {CLASS_CLERIC, CLASS_ETHERMANCER,      "&+wWind &+cPriest &n"},
+  {CLASS_CLERIC, CLASS_AVENGER,          "&+WWar &+YZealot  &n"},
+  {CLASS_CLERIC, CLASS_THEURGIST,        "&+WHoly &+cPriest &n"},
+  {CLASS_MONK, CLASS_DRUID,              "&+gLeafy Ninja &n"},
+  {CLASS_MONK, CLASS_SHAMAN,             "&+CSky &+wNinja   &n"},
+  {CLASS_MONK, CLASS_SORCERER,           "Pink Ninja  &n"},
+  {CLASS_MONK, CLASS_NECROMANCER,        "Evil Ninja  &n"},
+  {CLASS_MONK, CLASS_CONJURER,           "Yellow Ninja&n"},
+  {CLASS_MONK, CLASS_ROGUE,              "Black Ninja &n"},
+  {CLASS_MONK, CLASS_MERCENARY,          "Dirty Ninja &n"},
+  {CLASS_MONK, CLASS_BARD,               "Ohm Ninja   &n"},
+  {CLASS_MONK, CLASS_MINDFLAYER,         "Brain Ninja &n"},
+  {CLASS_MONK, CLASS_BERSERKER,          "Brutal Ninja&n"},
+  {CLASS_MONK, CLASS_REAVER,             "Quick Ninja &n"},
+  {CLASS_MONK, CLASS_ILLUSIONIST,        "Dream Ninja &n"},
+  {CLASS_MONK, CLASS_DREADLORD,          "&+LDr&+read Nin&+Lja &n"},
+  {CLASS_MONK, CLASS_ETHERMANCER,        "&+wCloud Ninja &n"},
+  {CLASS_MONK, CLASS_AVENGER,            "&+WHoly Ninja  &n"},
+  {CLASS_MONK, CLASS_THEURGIST,          "&+WPure Ninja  &n"},
+  {CLASS_DRUID, CLASS_SHAMAN,            "&+rBeastmaster &n"},
+  {CLASS_DRUID, CLASS_SORCERER,          "Forest Magi "},
+  {CLASS_DRUID, CLASS_NECROMANCER,       "Blighter    "},
+  {CLASS_DRUID, CLASS_CONJURER,          "Sojourner   "},
+  {CLASS_DRUID, CLASS_MERCENARY,         "Forest Boxer"},
+  {CLASS_DRUID, CLASS_BARD,              "Woodsinger  "},
+  {CLASS_DRUID, CLASS_MINDFLAYER,        "Savant      "},
+  {CLASS_DRUID, CLASS_BERSERKER,         "Vendo       "},
+  {CLASS_DRUID, CLASS_REAVER,            "Rough Druid "},
+  {CLASS_DRUID, CLASS_ILLUSIONIST,       "Sly Druid   "},
+  {CLASS_DRUID, CLASS_DREADLORD,         "Black Druid "},
+  {CLASS_DRUID, CLASS_ETHERMANCER,       "Wind Druid  "},
+  {CLASS_DRUID, CLASS_AVENGER,           "Tree Hugger "},
+  {CLASS_DRUID, CLASS_THEURGIST,         "Lenser      "},
+  {CLASS_SHAMAN, CLASS_SORCERER,         "&+CSpirit&+Mwalker&n"},
+  {CLASS_SHAMAN, CLASS_NECROMANCER,      "&+CTotem &+mHorde &n"},
+  {CLASS_SHAMAN, CLASS_CONJURER,         "&+bChanneler   &n"},
+  {CLASS_SHAMAN, CLASS_ROGUE,            "Backtalker  "},
+  {CLASS_SHAMAN, CLASS_MERCENARY,        "Totem Boxer "},
+  {CLASS_SHAMAN, CLASS_BARD,             "Totem Singer"},
+  {CLASS_SHAMAN, CLASS_MINDFLAYER,       "Totemic Wave"},
+  {CLASS_SHAMAN, CLASS_BERSERKER,        "Brutal Totem&n"},
+  {CLASS_SHAMAN, CLASS_REAVER,           "&+LS&+wo&+Wulrend&+we&+Lr &n"},
+  {CLASS_SHAMAN, CLASS_ILLUSIONIST,      "Totem Hider &n"},
+  {CLASS_SHAMAN, CLASS_DREADLORD,        "Dread Totem &n"},
+  {CLASS_SHAMAN, CLASS_ETHERMANCER,      "&+yGeo&nmancer   &n"},
+  {CLASS_SHAMAN, CLASS_AVENGER,          "Vengeance   &n"},
+  {CLASS_SHAMAN, CLASS_THEURGIST,        "Holy Totem  "},
+  {CLASS_SORCERER, CLASS_NECROMANCER,    "Warlock     "},
+  {CLASS_SORCERER, CLASS_CONJURER,       "&+RArchmagi    &n"},
+  {CLASS_SORCERER, CLASS_ROGUE,          "Trapbreaker "},
+  {CLASS_SORCERER, CLASS_MERCENARY,      "Spelltackler"},
+  {CLASS_SORCERER, CLASS_BARD,           "&+bEnchanter   &n"},
+  {CLASS_SORCERER, CLASS_MINDFLAYER,     "Arcane Wave "},
+  {CLASS_SORCERER, CLASS_BERSERKER,      "Magic Maul  "},
+  {CLASS_SORCERER, CLASS_REAVER,         "&+LDe&+mfil&+Ler     &n"},
+  {CLASS_SORCERER, CLASS_ILLUSIONIST,    "Sleuth      "},
+  {CLASS_SORCERER, CLASS_DREADLORD,      "Dreadcaster "},  
+  {CLASS_SORCERER, CLASS_ETHERMANCER,    "&+cSt*+Corm Ma&+cgi  &n"},
+  {CLASS_SORCERER, CLASS_AVENGER,        "Arcane Zeal "},
+  {CLASS_SORCERER, CLASS_THEURGIST,      "Diviner     "},
+  {CLASS_NECROMANCER, CLASS_CONJURER,    "Plane Ruiner"},
+  {CLASS_NECROMANCER, CLASS_ROGUE,       "Pale Dirk   "},
+  {CLASS_NECROMANCER, CLASS_MERCENARY,    "Pale Brawler"},
+  {CLASS_NECROMANCER, CLASS_BARD,        "Pale Singer "},
+  {CLASS_NECROMANCER, CLASS_MINDFLAYER,  "Pale Wave   "},
+  {CLASS_NECROMANCER, CLASS_BERSERKER,   "Pale Maul   "},
+  {CLASS_NECROMANCER, CLASS_REAVER,      "Pale Blend  "},
+  {CLASS_NECROMANCER, CLASS_ILLUSIONIST, "Pale Secret "},
+  {CLASS_NECROMANCER, CLASS_DREADLORD,   "Pale Master "},
+  {CLASS_NECROMANCER, CLASS_ETHERMANCER, "Pale Sky    "},
+  {CLASS_NECROMANCER, CLASS_AVENGER,     "Pale Zeal   "},
+  {CLASS_NECROMANCER, CLASS_THEURGIST,   "Petspammer  "},
+  {CLASS_CONJURER, CLASS_ROGUE,          "Plane Dirk  "},
+  {CLASS_CONJURER, CLASS_MERCENARY,      "Dirty Planes"},
+  {CLASS_CONJURER, CLASS_BARD,           "Plane Singer"},
+  {CLASS_CONJURER, CLASS_MINDFLAYER,     "Plane Wave  "},
+  {CLASS_CONJURER, CLASS_BERSERKER,      "Plane Maul  "},
+  {CLASS_CONJURER, CLASS_REAVER,         "Plane Blend "},
+  {CLASS_CONJURER, CLASS_ILLUSIONIST,    "Plane Secret"},
+  {CLASS_CONJURER, CLASS_DREADLORD,      "Plane Dread "},
+  {CLASS_CONJURER, CLASS_ETHERMANCER,    "Plane Sky   "},
+  {CLASS_CONJURER, CLASS_AVENGER,        "Plane Zeal  "},
+  {CLASS_CONJURER, CLASS_THEURGIST,      "Holy Plane  "},
+  {CLASS_ROGUE, CLASS_MERCENARY,         "&+yThug        &n"},
+  {CLASS_ROGUE, CLASS_BARD,              "&+bGr&+Lift&+ber   "},
+  {CLASS_ROGUE, CLASS_MINDFLAYER,        "Sly Wave    "},
+  {CLASS_ROGUE, CLASS_BERSERKER,         "Sly Maul    "},
+  {CLASS_ROGUE, CLASS_REAVER,            "Sly Blend   "},
+  {CLASS_ROGUE, CLASS_ILLUSIONIST,       "Sly Secret  "},
+  {CLASS_ROGUE, CLASS_DREADLORD,         "Sly Dread   "},
+  {CLASS_ROGUE, CLASS_ETHERMANCER,       "Sly Sky     "},
+  {CLASS_ROGUE, CLASS_AVENGER,           "Sly Zeal    "},
+  {CLASS_ROGUE, CLASS_THEURGIST,         "Holy Sneak  "},
+  {CLASS_MERCENARY, CLASS_BARD,          "Dirty Singer"},
+  {CLASS_MERCENARY, CLASS_MINDFLAYER,    "Dirty Wave  "},
+  {CLASS_MERCENARY, CLASS_BERSERKER,     "Dirty Maul  "},
+  {CLASS_MERCENARY, CLASS_REAVER,        "Dirty Blend "},
+  {CLASS_MERCENARY, CLASS_ILLUSIONIST,   "Dirty Secret"},
+  {CLASS_MERCENARY, CLASS_DREADLORD,     "Dirty Dread "},
+  {CLASS_MERCENARY, CLASS_ETHERMANCER,   "Dirty Sky   "},
+  {CLASS_MERCENARY, CLASS_AVENGER,       "Dirty Zeal  "},
+  {CLASS_MERCENARY, CLASS_THEURGIST,     "Dirty Lenser"},
+  {CLASS_BARD, CLASS_MINDFLAYER,         "Brainsong   "},
+  {CLASS_BARD, CLASS_BERSERKER,          "Maulsong    "},
+  {CLASS_BARD, CLASS_REAVER,             "Blendsong   "},
+  {CLASS_BARD, CLASS_ILLUSIONIST,        "&+LT&+br&+ci&+Cc&+Wk&+Cs&+ct&+be&+Lr&n    "},
+  {CLASS_BARD, CLASS_DREADLORD,          "Dreadsong   "},
+  {CLASS_BARD, CLASS_ETHERMANCER,        "Skysong     "},
+  {CLASS_BARD, CLASS_AVENGER,            "Zealsong    "},
+  {CLASS_BARD, CLASS_THEURGIST,          "Loud Lenser "},
+  {CLASS_MINDFLAYER, CLASS_BERSERKER,    "Brutal Haze "},
+  {CLASS_MINDFLAYER, CLASS_REAVER,       "Blended Haze"},
+  {CLASS_MINDFLAYER, CLASS_ILLUSIONIST,  "Sly Haze    "},
+  {CLASS_MINDFLAYER, CLASS_DREADLORD,    "Dread Haze  "},
+  {CLASS_MINDFLAYER, CLASS_ETHERMANCER,  "Sky Haze    "},
+  {CLASS_MINDFLAYER, CLASS_AVENGER,      "Zealous Haze"},
+  {CLASS_MINDFLAYER, CLASS_THEURGIST,    "Lensed Haze "},
+  {CLASS_BERSERKER, CLASS_REAVER,        "Blended Maul"},
+  {CLASS_BERSERKER, CLASS_ILLUSIONIST,   "Sly Maul    "},
+  {CLASS_BERSERKER, CLASS_DREADLORD,     "Dread Maul  "},
+  {CLASS_BERSERKER, CLASS_ETHERMANCER,   "Sky Maul    "},
+  {CLASS_BERSERKER, CLASS_AVENGER,       "Zealous Maul"},
+  {CLASS_BERSERKER, CLASS_THEURGIST,     "Lensing Maul"},
+  {CLASS_REAVER, CLASS_ILLUSIONIST,      "Sly Blender "},
+  {CLASS_REAVER, CLASS_DREADLORD,        "Dread Blend "},
+  {CLASS_REAVER, CLASS_ETHERMANCER,      "Sky Blend   "},
+  {CLASS_REAVER, CLASS_AVENGER,          "Blended Zeal"},
+  {CLASS_REAVER, CLASS_THEURGIST,        "Lensed Blend"},
+  {CLASS_ILLUSIONIST, CLASS_DREADLORD,   "Sly Dread   "},
+  {CLASS_ILLUSIONIST, CLASS_ETHERMANCER, "Sly Cloud   "},
+  {CLASS_ILLUSIONIST, CLASS_AVENGER,     "Sly Zeal    "},
+  {CLASS_ILLUSIONIST, CLASS_THEURGIST,   "Sly Lense   "},
+  {CLASS_DREADLORD, CLASS_ETHERMANCER,   "Sky Dread   "},
+  {CLASS_DREADLORD, CLASS_AVENGER,       "Dread Zeal  "},
+  {CLASS_DREADLORD, CLASS_THEURGIST,     "Lensed Dread"},
+  {CLASS_ETHERMANCER, CLASS_AVENGER,     "Lensed Zeal "},
+  {CLASS_ETHERMANCER, CLASS_THEURGIST,   "Lensed Cloud"},
+  {CLASS_AVENGER, CLASS_THEURGIST,       "Apostle     "},
   {-1, -1, ""}
 };
 
@@ -1268,8 +1496,14 @@ struct racial_data_type racial_data[LAST_RACE + 1] = {
   {100, 100, 60, 120, -1, 1000},               /* * Drider * */
   {14, 170, 200, 150, 2, 5000} ,               /* * Purple Worm * */
   {500, 130, 200, 150, 1, 3000},               /* * Agathinon * */
-  {8, 170, 200, 150, 1, 20} ,                  /* * Void Elemental */
-  {8, 170, 200, 150, 1, 20} ,                  /* * Ice Elemental */
+  {8, 170, 200, 150, 1, 20},                   /* * Void Elemental */
+  {8, 170, 200, 150, 1, 20},                   /* * Ice Elemental */
+  {150, 120, 10, 50, 1, 3000},                 /* * Eladrin * */
+  {6, 90, 10, 50, -1, 55},                     /* * Kobold * */
+  {3, 120, 250, 600, -3, 24},                  /* * Pillithid * */
+  {12, 120, 10, 50, 1, 3000},                  /* * Kuo Toa * */
+  {250, 120, 10, 50, 1, 3000},                 /* * Wood Elf * */
+  {21, 140, 12, 55, 2, 1500},                  /* * Firbolg * */
 };
 
 /*
@@ -1332,86 +1566,95 @@ const int min_stats_for_class[CLASS_COUNT + 1][8] = {
 extern const int class_table[LAST_RACE + 1][CLASS_COUNT + 1];
 const int class_table[LAST_RACE + 1][CLASS_COUNT + 1] = {
 /*
- *    Wa Ra Ps Pa Ap Cl Mo Dr Sh So Ne Co Ro As Me Ba Th Wl Mf Cm Be RV Il SP DL EM Av=Class
+ *    Wa Ra Ps Pa Ap Cl Mo Dr Sh So Ne Co Ro As Me Ba Th Wl Mf Cm Be RV Il SP DL EM Av Th=Class
  */
-  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* None */
-  {5, 2, 1, 5, 1, 5, 2, 5, 0, 2, 2,-1, 2, 0, 5, 2, 1, 5, 5, 5, 5, 5, 5, 2, 5, 5, 1, 5},  /* Human */
-  {5, 2, 5, 5, 5, 5, 5, 5, 5, 3, 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Barbarian */
-  {5,-1, 5, 5, 5, 5,-1, 5, 5, 5,-1,-1,-1,-1, 5, 5,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5},  /* Drow Elf */
-  {5, 1, 1, 5, 5, 5, 1, 5, 0, 5, 1, 5, 1, 0, 5, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Grey Elf */
-  {5, 1, 5, 5, 5, 5, 1, 5, 5, 5, 5, 5, 5, 0, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Mountain Dwarf*/
-  {5,-1, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5,-1, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Duergar Dwarf*/
-  {5, 1, 1, 5, 5, 5, 1, 5, 1, 3, 1, 5, 5, 3, 5, 1, 3, 5, 5, 5, 5, 5, 5, 1, 5, 5, 5, 5},  /* Halfling */
-  {5, 1, 5, 5, 5, 5, 1, 5, 5, 3, 1, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 5, 5, 1, 5},  /* Gnome */
-  {5,-1, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Ogre */
-  {5,-1, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Troll */
-  {5, 5, 5, 5, 5, 5, 0, 5, 5, 5, 0, -1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Half-Elf */
-  {5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Illithid */
-  {5,-1, 5, 5, 5,-1,-1, 5, 5,-1,-1,-1,-1,-1, 5,-1,-1, 5, 5, 5, 5,-1,-1,-1, 5, 5,-1, 5},  /* Orc */
-  {5, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Thri-Kreen */
-  {5, 1, 1, 5, 5, 5, 5, 5, 0, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Centaur */
-  {5,-1, 5,-1, 5,-1, -1, 5, 5, 5,-1,-1,-1, 5, 5, 5,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5},  /* Githyanki */
-  {5, 2, 5, 5, 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5},  /* Minotaur */
-  {5,-1, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5,-1, 5, 5,-1, 5, 5,-1, 5, 5, 5,-1,-1, 5,-1, 5, 5},  /* Shade */
-  {5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Revenant */
-  {5,-1, 5, 5, 5, 5,-1, 5, 5,-1, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5},  /* Goblin */
-  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1,-1,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5,-1, 5, 5},  /* Lich */
-  {5,-1, 5, 5, 5,-1, 5, 5, 5, 5,-1,-1, 5, 5, 5,-1, 5,-1,-1, 5, 5, 5, 5, 5, 5,-1, 5, 5},  /* Vampire */
-  {5,-1, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Death Knight */
-  {5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Shadow Beast */
-  {5, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Storm Giant */
-  {5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Wight */
-  {5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5},  /* Phantom */
-  {5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 0, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5},  /* Harpy */
-  {5,-1, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5},  /* Orog */
-  {5,-1, 5, 5, 5, 5, 0, 0, 5, 5, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Githzerai */
-  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5},  /* Gargoyle */
-  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 0, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Fire Elemental */
-  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 0, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Air Elemental */
-  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 0, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Water Elemental */
-  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 0, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Earth Elemental */
-  {5,-1, 5,-1, 5,-1,-1, 5, 5,-1,-1, 5, 5, 5,-1,-1, 5, 5,-1, 5, 5, 5,-1, 5, 5,-1, 5, 5},  /* Demon */
-  {5,-1, 5,-1, 5,-1,-1, 5, 5, 5,-1, 5,-1, 5,-1,-1, 5, 5, 5, 5, 5, 5,-1, 5, 5,-1, 5, 5},  /* Devil */
-  {5,-1, 5, 5, 5, 5,-1, 5, 5, 5,-1,-1,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Undead  */
-  {5,-1, 5, 5, 5,-1,-1, 5, 5, 5,-1,-1,-1, 5,-1, 5, 5, 5,-1, 5, 5, 5, 5,-1, 5,-1, 5, 5},  /* Vampire */
-  {5,-1, 5,-1, 5, 5, 5, 5, 5, 5,-1,-1,-1, 5,-1, 5, 5, 5,-1, 5, 5, 5, 5,-1, 5, 5, 5, 5},  /* Ghost */
-  {5,-1, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5},  /* Lycanthrope */
-  {5, 0, 5, 5, 5, 5,-1, 5, 5,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5, 5},  /* Giant */
-  {5, 0, 5, 5, 5,-1,-1, 5, 5,-1,-1,-1,-1, 5,-1,-1, 0,-1, 5, 5,-1,-1,-1,-1, 5, 5, 5, 5},  /* Half Orc */
-  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Golem */
-  {5, 1, 1, 5, 5, 5, 1, 5, 1, 1, 1, 5, 1, 5, 5, 5, 1, 1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5},  /* Faerie */
-  {5, 0, 5,-1, 5,-1, 0, 0, 5, 0, 0,-1, 0, 5, 5, 5, 5, 5,-1, 5,-1, 5,-1,-1, 5,-1, 5, 5},  /* Dragon */
-  {5, 0, 5,-1, 5, 5, 5, 0, 5, 5,-1,-1, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Dragonkin */
-  {5, 0, 5, 5, 5, 5, 0, 0, 1, 5, 0, 5, 5, 5, 0, 0, 5, 0, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5},  /* Reptile */
-  {5, 0, 5, 5, 5, 5, 0, 5, 1, 0, 0, 5, 5, 5, 0, 0, 5, 0, 5, 5, 5, 5, 0, 0, 5, 5, 5, 5},  /* Snake */
-  {5, 0, 5, 5, 5, 5, 5, 5, 1, 0, 0, 5, 5, 5, 0, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Insect */
-  {5, 0, 5, 5, 5, 5, 5, 0, 1, 0, 0,-1, 5, 5, 0, 0, 5, 0,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Arachnid */
-  {5, 0, 5, 5, 5, 5, 5, 5, 1, 5, 0, 5, 0, 5, 0, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Fish */
-  {5, 0, 5, 5, 5, 5, 5, 5, 1, 5, 0, 5, 5, 5, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Flying Animal */
-  {5, 0, 1, 5, 5, 5, 0, 5, 1, 0, 5, 5, 5, 5, 5, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Quadruped */
-  {5, 0, 5, 5, 5, 5, 0, 0, 1, 0, 5, 5, 5, 5, 5, 0, 5, 0, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5},  /* Primate */
-  {5, 0, 1, 5, 5, 5, 0, 0, 1, 0, 0,-1, 0, 5, 0, 0, 0, 0, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5},  /* Humanoid */
-  {5, 0, 5, 5, 5, 5, 0, 5, 1, 0, 0, 5, 5, 5, 5, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Animal */
-  {5, 0, 1, 5, 5, 5, 0, 5, 1, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Plant */
-  {5, 0, 1, 5, 5, 5, 5, 5, 1, 0, 5, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Herbivore */
-  {5, 0, 5, 5, 5, 5, 5, 0, 1, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5},  /* Carnivore */
-  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /*Parasite */
-  {5,-1, 5,-1, 5, 5, 0, 5, 5, 5,-1,-1,-1, 5, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5, 5, 5, 5},  /* Beholder */
-  {5,-1, 5,-1, 5,-1, 5, 5, 5, 5,-1,-1,-1, 5, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5,-1, 5, 5},  /* Dracolich */
-  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Slime */
-  {5, 1, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 5, 5, 5, 1},  /* Angel */
-  {5,-1, 5, 5,-1,-1, 0, 5, 5, 5,-1,-1,-1, 5,-1,-1,-1,-1, 5, 5,-1,-1,-1,-1, 5,-1, 5, 5},  /* Raksasha */
-  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Construct */
-  {5, 0, 5, 5, 5, 5, 0, 5, 5, 5, 0, 5, 0, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 0, 5, 5, 5, 5},  /* Efreet */
-  {5,-1, 5, 5, 5,-1,-1, 5,-1,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5},  /* Snow Ogre */
-  {5,-1,-1, 5,-1,-1, 0, 5, 5, 5,-1,-1,-1, 5,-1,-1,-1,-1, 5, 5,-1,-1,-1,-1, 5,-1, 5, 5},  /* Beholderkin */
-  {5,-1, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5},  /* Zombie */
-  {5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1,-1,-1,-1,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Spectre */
-  {5,-1, 5, 5, 5, 5,-1,-1, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Skeleton */
-  {5, 5, 5,-1, 5, 5, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5},  /* Wraith */
-  {5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Shadow */
-  {5,-1, 5, 5, 5, 5,-1, 5, 5, 5,-1,-1,-1,-1, 5, 5,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5},  /* Drider */
-  {5, 0, 5, 5, 5, 5, 5, 5, 1, 0, 0, 5, 5, 5, 0, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Purple Worm */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* None */
+  {5, 2, 1, 5, 1, 5, 2, 5, 0, 2, 2,-1, 2, 0, 5, 2, 1, 5, 5, 5, 5, 5, 5, 2, 5, 5, 1, 5, 1},  /* Human */
+  {5, 2, 5, 5, 5, 5, 5, 5, 5, 3, 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Barbarian */
+  {5,-1, 5, 5, 5, 5,-1, 5, 5, 5,-1,-1,-1,-1, 5, 5,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5},  /* Drow Elf */
+  {5, 1, 1, 5, 5, 5, 1, 5, 0, 5, 1, 5, 1, 0, 5, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Grey Elf */
+  {5, 1, 5, 5, 5, 5, 1, 5, 5, 5, 5, 5, 5, 0, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Mountain Dwarf*/
+  {5,-1, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5,-1, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Duergar Dwarf*/
+  {5, 1, 1, 5, 5, 5, 1, 5, 1, 3, 1, 5, 5, 3, 5, 1, 3, 5, 5, 5, 5, 5, 5, 1, 5, 5, 5, 5, 5},  /* Halfling */
+  {5, 1, 5, 5, 5, 5, 1, 5, 5, 3, 1, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 5, 5, 1, 5, 5},  /* Gnome */
+  {5,-1, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Ogre */
+  {5,-1, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Troll */
+  {5, 5, 5, 5, 5, 5, 0, 5, 5, 5, 0,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Half-Elf */
+  {5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Illithid */
+  {5,-1, 5, 5, 5,-1,-1, 5, 5,-1,-1,-1,-1,-1, 5,-1,-1, 5, 5, 5, 5,-1,-1,-1, 5, 5,-1, 5, 5},  /* Orc */
+  {5, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Thri-Kreen */
+  {5, 1, 1, 5, 5, 5, 5, 5, 0, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Centaur */
+  {5,-1, 5,-1, 5,-1,-1, 5, 5, 5,-1,-1,-1, 5, 5, 5,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5},  /* Githyanki */
+  {5, 2, 5, 5, 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5},  /* Minotaur */
+  {5,-1, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5,-1, 5, 5,-1, 5, 5,-1, 5, 5, 5,-1,-1, 5,-1, 5, 5, 5},  /* Shade */
+  {5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Revenant */
+  {5,-1, 5, 5, 5, 5,-1, 5, 5,-1, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5},  /* Goblin */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1,-1,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5},  /* Lich */
+  {5,-1, 5, 5, 5,-1, 5, 5, 5, 5,-1,-1, 5, 5, 5,-1, 5,-1,-1, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5},  /* Vampire */
+  {5,-1, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Death Knight */
+  {5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Shadow Beast */
+  {5, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Storm Giant */
+  {5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Wight */
+  {5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5},  /* Phantom */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 0, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 5},  /* Harpy */
+  {5,-1, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5},  /* Orog */
+  {5,-1, 5, 5, 5, 5, 0, 0, 5, 5, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Githzerai */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5},  /* Gargoyle */
+  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 0, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Fire Elemental */
+  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 0, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Air Elemental */
+  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 0, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Water Elemental */
+  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 0, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Earth Elemental */
+  {5,-1, 5,-1, 5,-1,-1, 5, 5,-1,-1, 5, 5, 5,-1,-1, 5, 5,-1, 5, 5, 5,-1, 5, 5,-1, 5, 5, 5},  /* Demon */
+  {5,-1, 5,-1, 5,-1,-1, 5, 5, 5,-1, 5,-1, 5,-1,-1, 5, 5, 5, 5, 5, 5,-1, 5, 5,-1, 5, 5, 5},  /* Devil */
+  {5,-1, 5, 5, 5, 5,-1, 5, 5, 5,-1,-1,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Undead  */
+  {5,-1, 5, 5, 5,-1,-1, 5, 5, 5,-1,-1,-1, 5,-1, 5, 5, 5,-1, 5, 5, 5, 5,-1, 5,-1, 5, 5, 5},  /* Vampire */
+  {5,-1, 5,-1, 5, 5, 5, 5, 5, 5,-1,-1,-1, 5,-1, 5, 5, 5,-1, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5},  /* Ghost */
+  {5,-1, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5},  /* Lycanthrope */
+  {5, 0, 5, 5, 5, 5,-1, 5, 5,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5, 5, 5},  /* Giant */
+  {5, 0, 5, 5, 5,-1,-1, 5, 5,-1,-1,-1,-1, 5,-1,-1, 0,-1, 5, 5,-1,-1,-1,-1, 5, 5, 5, 5, 5},  /* Half Orc */
+  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Golem */
+  {5, 1, 1, 5, 5, 5, 1, 5, 1, 1, 1, 5, 1, 5, 5, 5, 1, 1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5},  /* Faerie */
+  {5, 0, 5,-1, 5,-1, 0, 0, 5, 0, 0,-1, 0, 5, 5, 5, 5, 5,-1, 5,-1, 5,-1,-1, 5,-1, 5, 5, 5},  /* Dragon */
+  {5, 0, 5,-1, 5, 5, 5, 0, 5, 5,-1,-1, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Dragonkin */
+  {5, 0, 5, 5, 5, 5, 0, 0, 1, 5, 0, 5, 5, 5, 0, 0, 5, 0, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5},  /* Reptile */
+  {5, 0, 5, 5, 5, 5, 0, 5, 1, 0, 0, 5, 5, 5, 0, 0, 5, 0, 5, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5},  /* Snake */
+  {5, 0, 5, 5, 5, 5, 5, 5, 1, 0, 0, 5, 5, 5, 0, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Insect */
+  {5, 0, 5, 5, 5, 5, 5, 0, 1, 0, 0,-1, 5, 5, 0, 0, 5, 0,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Arachnid */
+  {5, 0, 5, 5, 5, 5, 5, 5, 1, 5, 0, 5, 0, 5, 0, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Fish */
+  {5, 0, 5, 5, 5, 5, 5, 5, 1, 5, 0, 5, 5, 5, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Flying Animal */
+  {5, 0, 1, 5, 5, 5, 0, 5, 1, 0, 5, 5, 5, 5, 5, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Quadruped */
+  {5, 0, 5, 5, 5, 5, 0, 0, 1, 0, 5, 5, 5, 5, 5, 0, 5, 0, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5},  /* Primate */
+  {5, 0, 1, 5, 5, 5, 0, 0, 1, 0, 0,-1, 0, 5, 0, 0, 0, 0, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5},  /* Humanoid */
+  {5, 0, 5, 5, 5, 5, 0, 5, 1, 0, 0, 5, 5, 5, 5, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Animal */
+  {5, 0, 1, 5, 5, 5, 0, 5, 1, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Plant */
+  {5, 0, 1, 5, 5, 5, 5, 5, 1, 0, 5, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Herbivore */
+  {5, 0, 5, 5, 5, 5, 5, 0, 1, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5},  /* Carnivore */
+  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /*Parasite */
+  {5,-1, 5,-1, 5, 5, 0, 5, 5, 5,-1,-1,-1, 5, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Beholder */
+  {5,-1, 5,-1, 5,-1, 5, 5, 5, 5,-1,-1,-1, 5, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5},  /* Dracolich */
+  {5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Slime */
+  {5, 1, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 5, 5, 5, 1, 1},  /* Angel */
+  {5,-1, 5, 5,-1,-1, 0, 5, 5, 5,-1,-1,-1, 5,-1,-1,-1,-1, 5, 5,-1,-1,-1,-1, 5,-1, 5, 5, 5},  /* Raksasha */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Construct */
+  {5, 0, 5, 5, 5, 5, 0, 5, 5, 5, 0, 5, 0, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5},  /* Efreet */
+  {5,-1, 5, 5, 5,-1,-1, 5,-1,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5},  /* Snow Ogre */
+  {5,-1,-1, 5,-1,-1, 0, 5, 5, 5,-1,-1,-1, 5,-1,-1,-1,-1, 5, 5,-1,-1,-1,-1, 5,-1, 5, 5, 5},  /* Beholderkin */
+  {5,-1, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5, 5},  /* Zombie */
+  {5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1,-1,-1,-1,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Spectre */
+  {5,-1, 5, 5, 5, 5,-1,-1, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Skeleton */
+  {5, 5, 5,-1, 5, 5, 5, 5, 5, 5,-1,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5},  /* Wraith */
+  {5, 5, 5,-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Shadow */
+  {5,-1, 5, 5, 5, 5,-1, 5, 5, 5,-1,-1,-1,-1, 5, 5,-1, 5, 5, 5, 5, 5,-1, 5, 5, 5, 5, 5, 5},  /* Drider */
+  {5, 0, 5, 5, 5, 5, 5, 5, 1, 0, 0, 5, 5, 5, 0, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Purple Worm */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 5},  /* Agathinon */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Void Elemental */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Ice Elemental */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1},  /* Eladrin */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Kobold */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Pillithid */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Kuo Toa */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Wood Elf */
+  {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},  /* Firbolg */
 };
 
 /* arena 'pre-entry' room, start of arena, end of arena */
@@ -1535,7 +1778,7 @@ const int guild_locations[][CLASS_COUNT + 1] = {
  * CLASS_SORCERER, CLASS_NECROMANCER, CLASS_CONJURER, CLASS_ROGUE, CLASS_ASSASSIN
  * CLASS_MERCENARY, CLASS_BARD, CLASS_THIEF, CLASS_WARLOCK, CLASS_MINDFLAYER
  * CLASS_ALCHEMIST, CLASS_BERSERKER, CLASS_REAVER, CLASS_ILLUSIONIST, CLASS_UNUSED
- * CLASS_DREADLORD, CLASS_ETHERMANCER, CLASS_AVENGER
+ * CLASS_DREADLORD, CLASS_ETHERMANCER, CLASS_AVENGER CLASS_THEURGIST
  */
   /* * None */
   {-1, -1, -1, -1, -1,
@@ -1543,22 +1786,22 @@ const int guild_locations[][CLASS_COUNT + 1] = {
    -1, -1, -1, -1, -1,
    -1, -1, -1, -1, -1,
    -1, -1, -1, -1, -1,
-   -1, -1, -1},
+   -1, -1, -1, -1},
 
   /* Winterhaven */
   {55160, 55155, 55159,    -1, 55155,
    55160, 55154, 55159, 55154, 55152,
-   55153, 55158, 55153, 55157, 55157,
+   55153,    -1, 55153, 55157, 55157,
    55157, 55156, 55157,    -1,    -1,
    55160,    -1,    -1, 55158,    -1,
-      -1, 55152, 55155},
+      -1, 55152, 55155, 55158},
 
   /* * Ixarkon */
   {96524,    -1,    -1, 96524,    -1,
       -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1, 96524,
-      -1,    -1, -1},
+      -1,    -1,    -1,    -1},
 
   /* * Arachdrathos */
   {36329, 36329, 36329, 36329, 36329,
@@ -1566,151 +1809,151 @@ const int guild_locations[][CLASS_COUNT + 1] = {
    36329, 36329, 36329, 36329, 36329,
    36329, 36329, 36329,    -1,    -1,
       -1,    -1, 36329,    -1     -1,
-      -1,    -1, -1},
+      -1,    -1,    -1,    -1},
 
   /* * Sylvandawn */
   {8001, 8018, 8307, -1, -1,
-     -1, 8072, -1, 8139, -1,
-   8115, 8314, -1, 8201, -1,
+     -1, 8072,   -1, 8139, -1,
+   8115, 8314,   -1, 8201, -1,
    8320, 8320, 8201, -1, -1,
      -1,   -1,   -1, -1, -1,
-    -1, -1, -1},
+    -1,    -1,   -1, -1},
 
   /* * Kimordril */
-  {95556, 95556, -1, 95556, -1,
-   -1, 95556, -1, -1, -1,
-   -1, -1, 95556, 95556, 95556,
-   95556, -1, 95556, -1, -1,
-    -1,   -1,   -1, -1, -1,
-    -1, -1, -1},
+  {95556, 95556,    -1, 95556,    -1,
+      -1, 95556,    -1,    -1,    -1,
+      -1,    -1, 95556, 95556, 95556,
+   95556,    -1, 95556,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1},
 
   /* * Khildarak */
-  {17001, 17228, -1, -1, -1,
-   -1, 17555, -1, -1, -1,
-   -1, -1, -1, 17140, 17572,
-   17081, -1, 17140, -1, -1,
-    -1,   -1,   -1, -1, -1,
-    -1, -1, -1},
+  {17001, 17228,    -1,    -1,    -1,
+      -1, 17555,    -1,    -1,    -1,
+      -1,    -1,    -1, 17140, 17572,
+   17081,    -1, 17140,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1},
 
   /* * Woodseer */
-  {16558, 16653, -1, -1, -1,
-   -1, 16653, -1, -1, 16676,
-   16676, -1, -1, 16653, -1,
-   16653, -1, 16653, -1, -1,
-    -1, -1, -1, 16675, -1,
-    -1, -1, -1},
+  {16558, 16653,    -1,    -1,    -1,
+      -1, 16653,    -1,    -1, 16676,
+   16676,    -1,    -1, 16653,    -1,
+   16653,    -1, 16653,    -1,    -1,
+      -1,    -1,    -1, 16675,    -1,
+      -1,    -1,    -1,    -1},
 
   /* * Ashrumite */
-  {66001, 66107, -1, -1, -1,
-   -1, 66113, -1, -1, 66131,
-   66103, -1, 66103, 66106, -1,
-   -1, -1, 66106, -1, -1,
-   66103, -1, -1, 66084, -1,
-  -1, 31177, -1},
+  {66001, 66107,    -1,    -1,    -1,
+      -1, 66113,    -1,    -1, 66131,
+   66103,    -1, 66103, 66106,    -1,
+      -1,    -1, 66106,    -1,    -1,
+   66103,    -1,    -1, 66084,    -1,
+      -1, 31177,    -1,    -1},
 
   /* * Faang */
-  {15263, 15295, -1, -1, -1,
-   -1, -1, -1, -1, 15277,
-   -1, -1, -1, -1, -1,
-   15385, -1, -1, -1, -1,
-    -1,   -1,   -1, -1, -1,
-    -1, -1, -1},
+  {15263, 15295,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1, 15277,
+      -1,    -1,    -1,    -1,    -1,
+   15385,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1},
 
   /* * Ghore */
-  {11703, 11610, -1, 11613, -1,
-   -1, -1, -1, -1, 11638,
-   -1, -1, -1, -1, -1,
-   11626, -1, -1, -1, -1,
-    -1,   -1,   -1, -1, -1,
-    -1, -1, -1},
+  {11703, 11610,    -1, 11613,    -1,
+      -1,    -1,    -1,    -1, 11638,
+      -1,    -1,    -1,    -1,    -1,
+   11626,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1},
 
   /* * Ugta */
-  {39100, 39283, -1, -1, -1,
-   -1, -1, -1, -1, 39299,
-   -1, -1, -1, -1, -1,
-   39318, -1, -1, -1, -1,
-    -1,   -1,   -1, -1, -1,
-    -1, -1, -1},
+  {39100, 39283,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1, 39299,
+      -1,    -1,    -1,    -1,    -1,
+   39318,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1},
 
   /* * Bloodstone */
   {74124, 74124, 74124, 74124, 74124,
    74124, 74124, 74124, 74124, 74124,
-   74124, 74124, 74124, -1, 74124,
-   74124, 74124, 74124, 74124, -1,
-    -1, -1, -1, 74124, -1,
-    -1, -1, -1},
+   74124, 74124, 74124,    -1, 74124,
+   74124, 74124, 74124, 74124,    -1,
+      -1,    -1,    -1, 74124,    -1,
+      -1,    -1,    -1,    -1},
 
   /* * Shady */
   {97663, 97663, 97663, 97663, 97663,
    97663, 97663, 97663, 97663, 97663,
    97663, 97663, 97663, 97663, 97663,
-   97663, 97663, 97663, -1, -1,
-   97633, 97663, 97663, 97663, -1,
-   -1, 31177, -1},
+   97663, 97663, 97663,    -1,    -1,
+   97633, 97663, 97663, 97663,    -1,
+      -1, 97633,    -1,    -1},
 
   /* * NaxVaran */
-  {37716, 37776, -1, -1, -1,
-    -1, -1, -1, -1, -1,
-   37944, -1, -1, -1, -1,
-   37763, -1, -1, -1, -1,
-    -1,   -1,   -1, -1, -1,
-    -1, -1, -1},
+  {37716, 37776,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,
+   37944,    -1,    -1,    -1,    -1,
+   37763,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1},
 
   /* Fort Marigot */
-  {5302, -1, 5336, -1, -1,
-   -1, -1, -1, 5374, 5343,
-   -1, -1, -1, -1, -1,
-   -1, 5385, -1, -1, -1,
-    -1,   -1,   -1, -1, -1,
-    -1, -1, -1},
+  {5302,   -1, 5336,   -1,   -1,
+     -1,   -1,   -1, 5374, 5343,
+     -1,   -1,   -1,   -1,   -1,
+     -1, 5385,   -1,   -1,   -1,
+     -1,   -1,   -1,   -1,   -1,
+     -1,   -1,   -1,   -1},
 
   /* * Charing */
-  {45006, 45044, 45139, -1, -1,
-    -1, 45030, -1, 45024,   -1,
-    45093, -1, 45094, 45131, 45131,
-    45131, 45148, 45131, -1, -1,
-    -1,   -1,   -1, -1, -1,
-    -1, -1, -1},
+  {45006, 45044, 45139,    -1,    -1,
+      -1, 45030,    -1, 45024,   -1,
+   45093,    -1, 45094, 45131, 45131,
+   45131, 45148, 45131,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1},
 
   /* City Ruins */
-  {-1, 66345, -1, 66354, -1,
-    66345, -1, -1, -1,   -1,
-    66354, 66354, 66354, 66348, 66348,
-    66345, -1, 66348, 66354, -1,
-    66354, -1, 66354, 66354, 66348,
-    66345,  -1, -1},
+  {   -1, 66345,    -1, 66354,    -1,
+   66345,    -1,    -1,    -1,    -1,
+   66354, 66354, 66354, 66348, 66348,
+   66345,    -1, 66348, 66354,    -1,
+   66354,    -1, 66354, 66354, 66348,
+   66345,    -1,    -1,   -1},
 
   /* thri town */
-  {-1, 67745, -1, -1, -1,
-   -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1,
-   -1, -1, -1, -1, -1,
-   -1,   -1,   -1, -1, -1,
-    -1, -1, -1},
+  {   -1, 67745,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1},
 
   /* gith town */
-  {-1, 19442, -1, 19445, -1,
-  19439, 19450, -1, -1,  -1,
-    19448, 19436, 19448, -1, -1,
-    -1, 19478, -1, -1, -1,
-    -1, -1, 19490, -1, -1,
-    -1, -1, -1},
+  {   -1, 19442,    -1, 19445,    -1,
+   19439, 19450,    -1,    -1,    -1,
+   19448, 19436, 19448,    -1,    -1,
+      -1, 19478,    -1,    -1,    -1,
+      -1,    -1, 19490,    -1,    -1,
+      -1,    -1,    -1,    -1},
 
   /* goblin town */
-  {70190, 70190, -1, -1, -1,
-    -1, 70177, -1, -1, 70277,
-    70029, 70204, 70173, 70210, 70212,
-    70194, 70186, 70210, -1, -1,
-   70177, -1, 70190, 70298, -1,
-    -1, 31177, -1},
+  {70190, 70190,    -1,    -1,    -1,
+      -1, 70177,    -1,    -1, 70277,
+   70029, 70204, 70173, 70210, 70212,
+   70194, 70186, 70210,    -1,    -1,
+   70177,    -1, 70190, 70298,    -1,
+      -1, 31177,    -1,    -1},
 
   /* harpy town */
   {31177, 31177, 31177, 31177, 31177,
-  31177, 31177, 31177, 31177, 31177,
    31177, 31177, 31177, 31177, 31177,
-    31177, 31177, 31177, 31177, 31177,
-    31177, 31177,  31177, 31177, 31177,
-    31177, 31177, -1},
+   31177, 31177, 31177, 31177, 31177,
+   31177, 31177, 31177, 31177, 31177,
+   31177, 31177, 31177, 31177, 31177,
+   31177,    -1,    -1,   -1},
 
   /* newbie zone */
   {29201, 29201, 29201, 29201, 29201,
@@ -1718,7 +1961,7 @@ const int guild_locations[][CLASS_COUNT + 1] = {
    29201, 29201, 29201, 29201, 29201,
    29201, 29201, 29201, 29201, 29201,
    29201, 29201, 29201, 29201, 29201,
-   29201, 29201, -1},
+   29201, 29201,    -1,    -1},
 
   /* plane of life */
   {22800, 22800, 22800, 22800, 22800,
@@ -1726,16 +1969,16 @@ const int guild_locations[][CLASS_COUNT + 1] = {
    22800, 22800, 22800, 22800, 22800,
    22800, 22800, 22800, 22800, 22800,
    22800, 22800, 22800, 22800, 22800,
-   22800, 22800, -1},
+   22800, 22800,    -1,    -1},
 
    
   /* Orog Encampment */
-  {45906, 45905, -1, -1, -1,
-     -1, 45906, -1, -1, -1,
-     -1,   -1, -1, -1, -1,
-   45905,   -1, -1, -1, -1,
-     -1, 45905, -1, -1, -1,
-     -1,   -1, -1},
+  {45906, 45905,    -1,    -1,    -1,
+      -1, 45906,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,
+   45905,    -1,    -1,    -1,    -1,
+      -1, 45905,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1},
 
 };
 

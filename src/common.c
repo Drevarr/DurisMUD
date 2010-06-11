@@ -25,7 +25,8 @@ const char *specdata[][MAX_SPEC] = {
   {"&+LDark Knight", "&+LDem&+ronic Ri&+Lder", "", ""},  //Anti-Paladin
   {"&+YZealot&n", "&+WHealer&n", "&+cHoly&+Wman&n", ""},      //Cleric
   {"&+rRe&+Rd Dra&+rgon", "&+gElap&+Ghi&+gdist", "", ""},   //Monk
-  {"&+gFo&+Gre&+gst Druid", "&+cStorm &+CDruid", "", ""},       //Druid
+  {"&+gFo&+Gre&+gst Druid", "&+cStorm &+CDruid", "&+YLunar &+gDruid&n", 
+""},       //Druid
   {"&+rEl&+Rem&+Lenta&+Rli&n&+rst", "&+WSpir&+Citua&+Wlist", "&+yAni&+Ymal&n&+yist", ""},       //Shaman
   {"&+MWild&+mmage", "&+LWizard", "&+LShadow&+wmage", ""},      //Sorcerer
   {"&+mDia&+rbolis", "&+mNe&+Lcro&+mlyte", "&+LReap&+wer", ""}, //Necromancer
@@ -42,10 +43,10 @@ const char *specdata[][MAX_SPEC] = {
   {"&+CI&+Wc&+Ce &+LR&+Le&+wa&+wv&+Le&+Lr", "&+rF&+Rl&+Ya&+Rm&+re &+LR&+Le&+wa&+wv&+Le&+Lr", "&+bSh&+Bo&+Wck &+LR&+Le&+wa&+wv&+Le&+Lr", ""},      //Reaver
 //  {"&+LD&+Ce&+wc&+Le&+civ&+Ce&+Wr&n", "&+LD&+yar&+Lk D&+yre&+Wam&+Ler&n", "", ""},   Disabled illusionist specs until tested
   {"&+BM&+Yag&+Bic&+Yia&+Bn&n", "&+LDark &+mDreamer&n", "", ""},         // Illusionist
-  {"Medium", "Templar", "Thaumaturge", ""},        // Theurgist
+  {"", "", "", ""},  // Unused
   {"&+LDeath&+rlord", "&+LShadow&+rlord", "", ""},      // Dreadlord
   {"&+cWindtalker", "&+WFro&+cst &+CMagus", "&+WCo&+Ysm&+Wom&+Yanc&+Wer", ""},     // Ethermancer
-  {"&+YLight&+Wbringer", "&+WInq&+wuisi&+Wtor", "", ""}         //Avenger
+  {"&+YLight&+Wbringer", "&+WInq&+wuisi&+Wtor", "", ""},       //Avenger
 };
 
 /*
@@ -85,7 +86,7 @@ const struct race_names race_names_table[LAST_RACE + 2] = {
   {"Vampire", "Vampire", "&+RVam&+rpi&+Rre&n", "UM"},
   {"Death Knight", "DeathKnight", "&+LDeath &+bKnight&n", "UK"},
   {"Shadow Beast", "ShadowBeast", "&+LShadow &+rBeast&n", "US"},
-  {"Firbolg", "StormGiant", "&+cF&+yi&+crb&+yo&+clg&n", "SG"},
+  {"Storm Giant", "StormGiant", "&+wSt&+Wor&+wm G&+Wia&+wnt&n", "SG"},
   {"Wight", "Wight", "&+RW&+ri&+Rg&+rh&+Rt&n", "UW"},
   {"Phantom", "Phantom", "&+WPha&+Lntom&n", "UP"},
   {"Harpy", "Harpy", "&+yHarpy&n", "MH"},
@@ -141,6 +142,12 @@ const struct race_names race_names_table[LAST_RACE + 2] = {
   {"Agathinon", "Agathinon", "&+WAga&+Yt&+Whin&+Yo&+Wn&n", "AG"},
   {"Void Elemental", "VoidElemental", "&+LVoi&+wd Elemen&+Ltal&n", "VE"},
   {"Ice Elemental", "IceElemental", "&+CIc&+We Ele&+cme&+Wnt&+Cal&n", "IE"},
+  {"Eladrin", "Eladrin", "&+cE&+Cl&+Wadr&+Ci&+cn&n", "EL"},
+  {"Kobold", "Kobold", "&+LKobold&n", "KB"},
+  {"Planetbound Illithid", "Pillithid", "&+MIllithid&n", "PI"},
+  {"Kuo Toa", "KuoToa", "&+GKu&+Lo T&+Goa&n", "KT"},
+  {"Wood Elf", "WoodElf", "&+gW&+Goo&+gd E&+Glf&n", "WE"},
+  //{"Firbolg", "Firbolg", "&+yFir&+cbolg&n", "FB"},
   {0}
 };
 
@@ -170,6 +177,7 @@ int race_size(int race)
     case RACE_GOBLIN:
     case RACE_ANIMAL:
     case RACE_SHADE:
+    case RACE_KOBOLD:
       return SIZE_SMALL;
       break;
       
@@ -193,6 +201,7 @@ int race_size(int race)
     case RACE_CARNIVORE:
     case RACE_PLICH:
     case RACE_PVAMPIRE:
+	case RACE_PDKNIGHT:
     case RACE_BARBARIAN:
     case RACE_BEHOLDERKIN:
     case RACE_ZOMBIE:
@@ -202,6 +211,10 @@ int race_size(int race)
     case RACE_OROG:
     case RACE_DUERGAR:
     case RACE_AGATHINON:
+    case RACE_ELADRIN:
+    case RACE_PILLITHID:
+    case RACE_KUOTOA:
+    case RACE_WOODELF:
     default:
       return SIZE_MEDIUM;
       break;
@@ -212,7 +225,6 @@ int race_size(int race)
     case RACE_BEHOLDER:
     case RACE_CENTAUR:
     case RACE_PSBEAST:
-    case RACE_PDKNIGHT:
     case RACE_DRAGONKIN:
     case RACE_SNOW_OGRE:
     case RACE_DRIDER:
@@ -227,11 +239,12 @@ int race_size(int race)
     case RACE_A_ELEMENTAL:
     case RACE_W_ELEMENTAL:
     case RACE_E_ELEMENTAL:
-	case RACE_V_ELEMENTAL:
-	case RACE_I_ELEMENTAL:
+    case RACE_V_ELEMENTAL:
+    case RACE_I_ELEMENTAL:
     case RACE_OGRE:
     case RACE_MINOTAUR:
     case RACE_EFREET:
+    case RACE_FIRBOLG:
       return SIZE_HUGE;
       break;
       
@@ -1097,6 +1110,7 @@ const struct class_names class_names_table[] = {
   {"Dreadlord", "&+LDread&+rlord&n", "Dre", 'e'},
   {"Ethermancer", "&+wEthermancer&n", "Eth", 'g'},
   {"Avenger", "&+WAvenger&n", "Ave", 'z'},
+  {"Theurgist", "&+cTh&+Ceur&+Wgis&+rt&n", "The", 'e'},
   {0}
 };
 
