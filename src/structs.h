@@ -2013,6 +2013,11 @@ struct mcname {
 #define SPEC_OLD_SWASHBUCKLER  3 // Switched to warrior.
 #define SPEC_SHARPSHOOTER 4
 
+// Theurogist Specs
+#define SPEC_MEDIUM
+#define SPEC_TEMPLAR
+#define SPEC_THAUMATURGE
+
 #define MAX_SPEC 4
 
 struct proc_data {
