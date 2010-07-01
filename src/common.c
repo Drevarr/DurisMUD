@@ -25,28 +25,30 @@ const char *specdata[][MAX_SPEC] = {
   {"&+LDark Knight", "&+LDem&+ronic Ri&+Lder", "", ""},  //Anti-Paladin
   {"&+YZealot&n", "&+WHealer&n", "&+cHoly&+Wman&n", ""},      //Cleric
   {"&+rRe&+Rd Dra&+rgon", "&+gElap&+Ghi&+gdist", "", ""},   //Monk
-  {"&+gFo&+Gre&+gst Druid", "&+cStorm &+CDruid", "", ""},       //Druid
+  {"&+gFo&+Gre&+gst Druid", "&+cStorm &+CDruid", "&+YLunar &+gDruid&n", 
+""},       //Druid
   {"&+rEl&+Rem&+Lenta&+Rli&n&+rst", "&+WSpir&+Citua&+Wlist", "&+yAni&+Ymal&n&+yist", ""},       //Shaman
   {"&+MWild&+mmage", "&+LWizard", "&+LShadow&+wmage", ""},      //Sorcerer
   {"&+mDia&+rbolis", "&+mNe&+Lcro&+mlyte", "&+LReap&+wer", ""}, //Necromancer
   {"&+CAir Magus", "&+BWater Magus", "&+rFire Magus", "&+yEarth Magus"},        //Conjurer
   {"&+rAssassin&n", "&+LThief&n","Not Used" , "&+LSh&+wa&+Ldow &+BArc&+bher&n"},         //Rogue
-  {"", "", "", ""}, //Assassin
+  {"&+rAs&+Rs&+ra&+Rs&+rs&+Ri&+rn", "&+LSharpshooter", "&+rRogue", ""}, //Assassin
   {"&+yBr&+Lig&+yand", "&+yBounty &+LHunter", "", ""},  //Mercenary
   {"&+rD&+mis&+gha&+crm&+yon&+bist", "&+RScoundrel", "&+YMin&n&+ystr&+Yel", ""},        //Bard
-  {"", "", "", ""},         //Thief
+  {"", "", "", ""},  //Thief
   {"", "", "", ""},         //Warlock
   {"", "", "", ""},         //MindFlayer
   {"&+CBat&n&+ctle-For&+Cger&n", "&+LBla&+ccksm&+Lith&n", "", ""},   //Alchemist
   {"&+rMa&+RUle&+rR", "&+RRa&+rGe&+Rlo&+rRd", "", ""},  //Berserker
   {"&+CI&+Wc&+Ce &+LR&+Le&+wa&+wv&+Le&+Lr", "&+rF&+Rl&+Ya&+Rm&+re &+LR&+Le&+wa&+wv&+Le&+Lr", "&+bSh&+Bo&+Wck &+LR&+Le&+wa&+wv&+Le&+Lr", ""},      //Reaver
+//  {"&+LD&+Ce&+wc&+Le&+civ&+Ce&+Wr&n", "&+LD&+yar&+Lk D&+yre&+Wam&+Ler&n", "", ""},   Disabled illusionist specs until tested
   {"&+BM&+Yag&+Bic&+Yia&+Bn&n", "&+LDark &+mDreamer&n", "", ""},         // Illusionist
   {"", "", "", ""},  // Unused
   {"&+LDeath&+rlord", "&+LShadow&+rlord", "", ""},      // Dreadlord
   {"&+cWindtalker", "&+WFro&+cst &+CMagus", "&+WCo&+Ysm&+Wom&+Yanc&+Wer", ""},     // Ethermancer
   {"&+YLight&+Wbringer", "&+WInq&+wuisi&+Wtor", "", ""},       //Avenger
-  {"Medium", "Templar", "Thaumaturge", ""}, // Theurgist
 };
+
 /*
  * mob race lookup table, used to assign a race to a mob when reading them
  * from the .mob file.  Need to update this table when adding new races.
@@ -139,20 +141,13 @@ const struct race_names race_names_table[LAST_RACE + 2] = {
   {"Purple Worm", "PurpleWorm", "&+mPurple &+LWorm&n", "PW"},
   {"Agathinon", "Agathinon", "&+WAga&+Yt&+Whin&+Yo&+Wn&n", "AG"},
   {"Void Elemental", "VoidElemental", "&+LVoi&+wd Elemen&+Ltal&n", "VE"},
-  {"Ice Elemental", "IceElemental", "&+CIc&+We Ele&+Cme&+Wnt&+Cal&n", "IE"},
+  {"Ice Elemental", "IceElemental", "&+CIc&+We Ele&+cme&+Wnt&+Cal&n", "IE"},
   {"Eladrin", "Eladrin", "&+cE&+Cl&+Wadr&+Ci&+cn&n", "EL"},
   {"Kobold", "Kobold", "&+LKobold&n", "KB"},
   {"Planetbound Illithid", "Pillithid", "&+MIllithid&n", "PI"},
   {"Kuo Toa", "KuoToa", "&+GKu&+Lo T&+Goa&n", "KT"},
   {"Wood Elf", "WoodElf", "&+gW&+Goo&+gd E&+Glf&n", "WE"},
-  {"Firbolg", "Firbolg", "&+yFir&+cbolg&n", "FB"},
-  {"Phoenix", "Phoenix", "&+rP&+Rh&+Yo&+We&+Yn&+Ri&+rx&n", "PX"},
-  {"Archon", "Archon", "&+RArch&+Wo&+Rn&n", "AR"},
-  {"Asura", "Asura", "&+RAsu&+Yr&+Ra&n", "AU"},
-  {"Titan", "Titan", "&+CT&+Wi&+Ct&+Wa&+Cn&n", "TT"},
-  {"Avatar", "Avatar", "&+cAv&+Ca&+Wt&+Ca&+cr&n" "AV"},
-  {"Bralani", "Bralani", "&+cB&+Cr&+Wala&+Cn&+ci&n" "BR"},
-  {"Ghaele", "Ghaele", "&+cG&+Ch&+Wae&+Cl&+ce&n" "GH"},
+  //{"Firbolg", "Firbolg", "&+yFir&+cbolg&n", "FB"},
   {0}
 };
 
@@ -206,7 +201,7 @@ int race_size(int race)
     case RACE_CARNIVORE:
     case RACE_PLICH:
     case RACE_PVAMPIRE:
-    case RACE_PDKNIGHT:
+	case RACE_PDKNIGHT:
     case RACE_BARBARIAN:
     case RACE_BEHOLDERKIN:
     case RACE_ZOMBIE:
@@ -220,10 +215,6 @@ int race_size(int race)
     case RACE_PILLITHID:
     case RACE_KUOTOA:
     case RACE_WOODELF:
-    case RACE_ARCHON:
-    case RACE_ASURA:
-    case RACE_BRALANI:
-    case RACE_GHAELE:
     default:
       return SIZE_MEDIUM;
       break;
@@ -238,7 +229,8 @@ int race_size(int race)
     case RACE_SNOW_OGRE:
     case RACE_DRIDER:
     case RACE_PWORM:
-    case RACE_PHOENIX:
+    case RACE_DEMON:
+    case RACE_DEVIL:
       return SIZE_LARGE;
       break;
       
@@ -256,12 +248,8 @@ int race_size(int race)
       return SIZE_HUGE;
       break;
       
-    case RACE_DEVIL:
-    case RACE_DEMON:
     case RACE_GIANT:
     case RACE_PLANT:
-    case RACE_AVATAR:
-    case RACE_TITAN:
     return SIZE_GIANT;
       break;
       
@@ -411,8 +399,7 @@ const char *where[] = {
   "<worn on rear feet>  ",
   "<worn in nose>       ",
   "<worn on horns>      ",
-  "<floating about head>",
-/*  "<worn on spider body>" */
+  "<floating about head>"
 };
 
 const char *drinks[] = {
@@ -589,7 +576,6 @@ flagDef  wear_bits[] = {
   {"WEAR_NOSE", "Worn in nose", 1, 0},
   {"WEAR_HORN", "Worn on horns", 1, 0},
   {"WEAR_IOUN", "Worn as ioun stone", 1, 0},
-/*  {"WEAR_SPIDER_BODY", "Worn on spider's body", 1, 0}, */
   {0}
 };
 
@@ -790,7 +776,6 @@ const char *equipment_types[] = {
   "Worn in nose",
   "Worn on horns",
   "Worn above head",
-/*  "Worn on spider body", */
   "\n"
 };
 
@@ -1121,11 +1106,11 @@ const struct class_names class_names_table[] = {
   {"Berserker", "&+rBeR&+RSeR&n&+rKeR&n", "Ber", 'u'},
   {"Reaver", "&+LRe&+Wav&+Ler&n", "Rev", 'v'},
   {"Illusionist", "&+WIl&+Clu&+csi&+Con&+Wist&n", "Ilu", 'y'},
-  {"Unholy Piper", "&+GUnholy Piper&n", "Pip", 'y'},
+  {"Theurgist", "&+cTh&+Ceur&+Wgist&n", "The", 'x'},
   {"Dreadlord", "&+LDread&+rlord&n", "Dre", 'e'},
   {"Ethermancer", "&+wEthermancer&n", "Eth", 'g'},
   {"Avenger", "&+WAvenger&n", "Ave", 'z'},
-  {"Theurgist", "&+cTh&+Ceur&+Wgist&n", "The", 'e'},
+  {"Theurgist", "&+cTh&+Ceur&+Wgis&+rt&n", "The", 'e'},
   {0}
 };
 
