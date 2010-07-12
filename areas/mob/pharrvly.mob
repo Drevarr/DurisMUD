@@ -284,7 +284,7 @@ PH 0 1 -1
 8 8 1
 #40221
 first mate pirate~
-&+Lthe &+bfirst mate &+Lof the &+YNorth&+Wshore &+Lpirates&n~
+&+Lthe &+bfirst mate &+Lof the &+YNorth&+Wshore &+LPirates&n~
 &+LThe &+bfirst mate &+Lstands here, looking hostile.&n
 ~
 &+L   The &+bfirst mate &+Lof the &+YNorth&+WShore &+Lpirates rushes about, helping the
@@ -308,7 +308,7 @@ quarter master quartermaster northshore pirate~
 &+Lseems a very contemplative man, observing all the workers on the
 &+Lship, making sure no one is slacking off.n
 ~
-1073752078 1 0 0 0 0 0 -1000 S
+1074145288 1 0 0 0 0 0 -1000 S
 PH 0 1 -1
 41 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -323,7 +323,7 @@ master gunner pirate northshore~
 &+Lthe dark, sweat stained tunic. An evil look gleams across his eyes as he
 &+Llooks upon his weapons, eager to unlease their fury.&n
 ~
-10314 0 0 0 0 0 0 0 S
+10312 0 0 0 0 0 0 0 S
 PH 0 4 -1
 41 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -338,7 +338,7 @@ helmsman helm northshore pirate~
 &+Lhands control the wheel, he's constantly watching the water, the crew,
 &+Land keeps a weary eye on the clouds.&n
 ~
-10314 0 0 0 0 0 0 0 S
+10312 0 0 0 0 0 0 0 S
 PH 0 1 -1
 41 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -354,7 +354,7 @@ doctor pirate surgeon northshore~
 &+Ldecent health, the doctor is among one of the more respected crew
 &+Lmembers and guarded very heavily during encounters.&n
 ~
-10314 0 0 0 0 0 0 -1000 S
+403528 0 0 0 0 0 0 -1000 S
 PH 0 524320 -1
 41 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -370,9 +370,9 @@ deck standard northshore pirate~
 &+Lthe other crew members, for fear of being pushed into the great seas
 &+Lfor not pulling his own weight.&n
 ~
-8 0 0 0 0 0 0 -850 S
+403528 0 0 0 0 0 0 -850 S
 PH 0 16384 -1
-40 0 0 1d1+1 1d1+1
+35 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40227
@@ -384,24 +384,24 @@ lookout pirate northshore~
 &+Leyesight has already guided these pirates to wealth, and as he plies
 &+Lhis skills, he leers at you, hving spotted your coin purse.&n
 ~
-1073752138 0 0 0 0 0 0 -1000 S
+1073752136 0 0 0 0 0 0 -1000 S
 PH 0 4194304 -1
-41 0 0 1d1+1 1d1+1
+35 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40228
-galley worker pirate northshore~
-&+La ga&+yll&+Ley &+ywo&+Lrk&+yer &+Lof the &+YNorth&+Wshore &+LPirates&n~
-&+LA swifting looking galley worker stands here, fidgeting restlessly.&n
+cut throat cutthroat north shore northshore pirate~
+&+La &+yv&+Liciou&+ys c&+Lutthroa&+yt &+Lof the &+YNorth&+Wshore &+LPirates&n~
+&+LA human cutthroat stands here, ready to send you to the depths.&n
 ~
-&+L   As you look upon this pirte, you see him fast at work repairing damage
-&+Lto the ship. With the sheer number of encounters this ship has had, this
-&+Lworker is always repairing something or enhancing the defensive positions
-&+Laround the ship.&n
+&+L   Standing nearly six feet tall, this human pirate flashes a deadly
+&+Lsmirk. Several long scars run the length of his face, giving him a
+&+Lperminate scowl. Constantly flipping a small, well used knife, this
+&+Lpirate is ready to rip your heart out.&n
 ~
-10314 0 0 402653208 0 0 0 -1000 S
+10312 0 0 402653208 0 0 0 -1000 S
 PH 0 64 -1
-41 0 0 1d1+1 1d1+1
+35 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40229
@@ -415,14 +415,14 @@ swashbuckler swash buckler northshore pirate~
 &+Labout his body. A flowing pirates shirt billows around him as he
 &+Lperpairs to plunder his next victim.&n
 ~
-10314 1 0 402653208 268435456 0 1024 -1000 S
+10312 1 0 402653208 268435456 0 1024 -1000 S
 PH 0 1 -1
-41 0 0 1d1+1 1d1+1
+35 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40230
-powder monkey northshore pirate pirates~
-&+La &+cbolt &+ycarrier &+Lof the &+YNorth&+Wshore &+LPirates&n~
+gunner pirate north shore northshore bolt~
+&+La &+cgunner &+Lof the &+YNorth&+Wshore &+LPirates&n~
 &+LA strong pirate moves about, bringing &+cbolts &+Lto the ballista.&n
 ~
 &+L   This large pirate hussels about running from below deck to the ballista's.
@@ -430,9 +430,9 @@ powder monkey northshore pirate pirates~
 &+Lfrom the weight of the bolts. As the crew goes to war with its next victims,
 &+Lthis man helps fuel the destructive powers the ship can unleash.&n
 ~
-8 0 0 0 0 0 0 -1000 S
+395272 0 0 0 0 0 0 -1000 S
 PH 0 4096 -1
-41 0 0 1d1+1 1d1+1
+35 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
 #40231
@@ -460,7 +460,7 @@ first mate twilight cove buccaneer pirate~
 &+Lorc lashes out at the crew mates, ensuring they stay busy with the
 &+Ltasks at hand.&n
 ~
-10314 0 0 402653208 0 0 0 0 S
+10312 0 0 402653208 0 0 0 0 S
 HO 0 16 -1
 46 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -475,7 +475,7 @@ quartermaster twilight cove buccaneer pirate~
 &+Lit seems as if he has been &+rhording &+Lsupplies for himself and eatting rather
 &+Lwell because of it.&n
 ~
-10378 1 0 402653208 0 0 0 0 S
+10376 1 0 402653208 0 0 0 0 S
 HO 0 1 -1
 46 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -504,7 +504,7 @@ helmsman twilight cove buccaneer pirate~
 &+Lboat through the waters. Adept at his job, this sailor has managed
 &+Lto steer the vessel through the rocky coves with ease.n
 ~
-8 1 0 402653208 0 0 0 -1000 S
+403464 1 0 402653208 0 0 0 -1000 S
 Ho 0 2097152 -1
 45 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -520,7 +520,7 @@ surgeon twilight cove buccaneer pirate~
 &+Lwhite tunic appears to be stained with blood from many different
 &+L"patients".&n
 ~
-1073752138 1 0 402653208 0 0 0 -1000 S
+1073752136 1 0 402653208 0 0 0 -1000 S
 Ho 0 32 -1
 45 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -534,9 +534,9 @@ deck hand twilight cove buccaneer pirate~
 &+LAssigned to the littlest of tasks, this deck hand better obey, or fear getting left
 &+Lon a deserted island.&n
 ~
-10314 0 0 0 0 0 0 -1000 S
+10312 0 0 0 0 0 0 -1000 S
 Ho 0 1 -1
-45 0 0 1d1+1 1d1+1
+40 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40238
@@ -550,23 +550,24 @@ lookout twilight cove buccaneer pirate~
 &+Lcasual, you can also see the lookout watching the quartermasters every
 &+Lmove as well, suspecions of his intent as well.&n
 ~
-10314 1 0 402653208 0 0 0 -1000 S
+10312 1 0 402653208 0 0 0 -1000 S
 Ho 0 32768 -1
-45 0 0 1d1+1 1d1+1
+40 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40239
-galley worker twilight cove buccaneer pirate~
-&+La &+yga&+Lll&+yey &+Lwo&+yrk&+Ler of the &+BT&+bw&+Bi&+bl&+Bi&+bg&+Bh&+bt &+LCove &+rBuccaneers&n~
-&+LAn orc galley worker stands here, husseling about his work.&n
+cut throat cutthroat plunderer~
+&+La vi&+wci&+Lous &+ccut&+Cthroat &+Lof the &+BT&+bw&+Bi&+bl&+Bi&+bg&+Bh&+bt &+LCove &+rBuccaneers&n~
+&+LAn orc cutthroat stands here, ready to plunder the &+bseas&L.&n
 ~
-&+L   This thick orc hussels about the decks in a hurry. Making sure to
-&+Lstay busy, this orc looks battle worn and ready to continue working
-&+Las needed.
+&+L   This short orc, seems to have seen his fair share of battle. A
+&+Lvicious bloodlust sits in his eyes, as he looks around for his next
+&+Lvictim. Carried on his hip, a jagged shortsword clanks around as he
+&+Lrushes to plunder your ship!&n
 ~
-10314 1 0 402653208 0 0 0 -1000 S
+10312 1 0 402653208 0 0 0 -1000 S
 Ho 0 1 -1
-45 0 0 1d1+1 1d1+1
+40 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40240
@@ -578,23 +579,23 @@ swashbuckler twilight cove buccaneer pirate~
 &+Lmuch. Attempting to look important, this orc sticks his chest way out,
 &+Land leers at you with an ugly look upon his face.&n
 ~
-403466 1 0 8 0 0 1024 -1000 S
+403464 1 0 8 0 0 1024 -1000 S
 Ho 0 1 -1
-46 0 0 1d1+1 1d1+1
+41 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40241
-bolt carrier twilight cove buccaneer pirate~
-&+La &+Gb&+go&+Gl&+Gt &+gc&+Ga&+gr&+Gr&+gi&+Ge&+gr &+Lof the &+BT&+bw&+Bi&+bl&+Bi&+bg&+Bh&+bt &+LCove &+rBuccaneers&n~
+gunner bolt pirate twilight cove buccaneer~
+&+La &+Gg&+gu&+Gn&+gn&+Ge&+gr &+Lof the &+BT&+bw&+Bi&+bl&+Bi&+bg&+Bh&+bt &+LCove &+rBuccaneers&n~
 &+LA burly orc pirate stands here, husseling to stack bolts at the ballista.&n
 ~
 &+L   This burly orc hussels about, making sure the weapons are well stocked
 &+Land ready for use. Huge scars criss cross this orcs arms, from various
 &+Lbattles and previously conquered victims.&n
 ~
-2122 1 0 402653208 0 0 0 -1000 S
+2120 1 0 402653208 0 0 0 -1000 S
 Ho 0 16384 -1
-45 0 0 1d1+1 1d1+1
+40 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
 #40242
@@ -626,7 +627,7 @@ first mate marauders four winds pirate~
 &+Lslacking in their duties. Pale flesh seems to hang from his bones
 &+Lgiving him a rather frightening appearance.&n
 ~
-395338 1 0 402653208 2048 0 0 -1000 S
+395336 1 0 402653208 2048 0 0 -1000 S
 UW 0 16384 -1
 50 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -643,7 +644,7 @@ quartermaster marauder four winds~
 &+Learnings. The stentch of death and decay seems to seep from this pirates
 &+Lvery presence.&n
 ~
-10314 1 0 402653208 0 0 0 -1000 S
+10312 1 0 402653208 0 0 0 -1000 S
 U 0 64 -1
 50 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -659,7 +660,7 @@ master gunner marauder four winds~
 &+Lshows the god hurling a massive ballista bolt. Wicked clawed hands reveal
 &+Lthis pirates true undead nature!&n
 ~
-10314 1 0 939524120 0 0 0 -1000 S
+10312 1 0 939524120 0 0 0 -1000 S
 U 0 4 -1
 45 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -676,7 +677,7 @@ helm helmsman maurader four winds~
 &+Ltowards their next conquest with a wicked grin on his face. Wicked red eyes
 &+Land the sheer pale skin shows the vampire heritage of this brutal pirate.&n
 ~
-14410 1 0 939524120 0 0 0 -100 S
+14408 1 0 939524120 0 0 0 -100 S
 UM 0 2097152 -1
 50 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -692,7 +693,7 @@ surgeon marauder four winds~
 &+Lat his clawed hands, and dried blood caked to his face, his undead nature
 &+Lleaps out to assult your senses!
 ~
-395338 1 0 402653336 0 0 0 -1000 S
+395336 1 0 402653336 0 0 0 -1000 S
 U 0 288 -1
 50 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -708,9 +709,9 @@ deck hand marauder four winds~
 &+Lwork. Chunks of flesh seem to have withered away in places and
 &+Lreaveal his &+wundead &+Lnature!&n
 ~
-2122 1 0 402653240 0 0 0 -1000 S
+2120 1 0 402653240 0 0 0 -1000 S
 U 0 16384 -1
-50 0 0 1d1+1 1d1+1
+45 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40249
@@ -725,14 +726,14 @@ lookout marauder four winds~
 &+Lseen as he scan's the waters for victims. &+rBlood red &+Leyes hint
 &+Lat the undead nature of this pirate!&n
 ~
-2122 1 0 402653208 0 0 0 -1000 S
+10312 1 0 402653208 0 0 0 -1000 S
 U 0 4194304 -1
-50 0 0 1d1+1 1d1+1
+45 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40250
 galley worker marauder four winds~
-&+La &+Ygalley worker &+Lof the &+yMa&+Lra&+yud&+Ler&+ys &+Lof the &+cFo&+Cur &+wWi&+Wnds&n~
+&+La &+Ycutthroat plunderer &+Lof the &+yMa&+Lra&+yud&+Ler&+ys &+Lof the &+cFo&+Cur &+wWi&+Wnds&n~
 &+LA galley worker stands here, husseling from task to task.&n
 ~
 &+L   This galley workers looks abused. Constantly under the heel of the
@@ -741,9 +742,9 @@ galley worker marauder four winds~
 &+LFlayed flesh shows where the crew have whiped this poor undead pirate
 &+Linto shape!&n
 ~
-10314 0 0 402653208 0 0 0 -1000 S
+10312 0 0 402653208 0 0 0 -1000 S
 U 0 1 -1
-50 0 0 1d1+1 1d1+1
+45 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40251
@@ -759,12 +760,12 @@ swashbuckler swash buckler marauder four winds _spec3_ undead~
 ~
 10314 1 0 402653208 0 0 0 -1000 S
 U 0 1 -1
-50 0 0 1d1+1 1d1+1
+45 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40252
 bolt carrier marauder four winds~
-&+La &+cb&+Co&+cl&+Ct &+Lc&+Wa&+Lr&+Wr&+Li&+We&+Lr of the &+yMa&+Lra&+yud&+Ler&+ys &+Lof the &+cFo&+Cur &+wWi&+Wnds&n~
+&+La g&+Wu&+Ln&+Wn&+Le&+Wr &+Lof the &+yMa&+Lra&+yud&+Ler&+ys &+Lof the &+cFo&+Cur &+wWi&+Wnds&n~
 &+LA bolt carrier stands here, stacking bolts carefully despite the rolling seas&n
 ~
 &+L    This bolt carrier looks pissed. Constantly being worked into the
@@ -772,9 +773,9 @@ bolt carrier marauder four winds~
 &+Lfor the abuse his crew members put him through. Grumbling about
 &+Leverything, he continues his work, angry at everything around him.&n
 ~
-10314 1 0 402653208 0 0 0 -1000 S
+10312 1 0 402653208 0 0 0 -1000 S
 U 0 4096 -1
-50 0 0 1d1+1 1d1+1
+45 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40253
@@ -809,7 +810,7 @@ first mate dark sun syndicate~
 &+LThe weathered tattoo of the Dark Sun rests on his forearm, as he moves
 &+Labout enforcing the orders of the capain.&n
 ~
-10314 1 0 402653336 0 0 0 -1000 S
+10312 1 0 402653336 0 0 0 -1000 S
 PH 0 256 -1
 55 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -828,7 +829,7 @@ quartermaster dark syn syndicate~
 &+Lcaptain know what contraband the Dark Sun is moving through these
 &+Lwaters.&N
 ~
-10314 1 0 24 0 0 0 -1000 S
+10312 1 0 24 0 0 0 -1000 S
 PH 0 512 -1
 55 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -844,7 +845,7 @@ master gunner dark sun~
 &+Lbolts, this weapon crazied smuggler keeps an eye on his weapons, and
 &+Lthe seas.&n
 ~
-6218 1 0 402653208 0 0 0 -1000 S
+6216 1 0 402653208 0 0 0 -1000 S
 PH 0 4 -1
 55 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -859,7 +860,7 @@ helm helmsman dark sun syndicate~
 &+Lthis helmsman knows more about the seas and the hidden passages to
 &+Lbest sail their contraband without incident.&N
 ~
-10314 1 0 402653208 0 0 0 -1000 S
+10312 1 0 402653208 0 0 0 -1000 S
 PH 0 33554432 -1
 55 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -875,7 +876,7 @@ surgeon dark sun syndicate _spec2_~
 &+Lto operate while at sea makes him ready to hurl over the side of the
 &+Lboat.&n
 ~
-10314 1 0 402653208 0 0 0 -1000 S
+10312 1 0 402653208 0 0 0 -1000 S
 PH 0 32 -1
 55 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -891,9 +892,9 @@ deck hand dark sun syndicate~
 &+Lwhere to go and what to do. Some day he may be trusted more, but for
 &+Lnow, his work alone has to earn his shares of the loot.&n
 ~
-10314 1 0 0 0 0 0 -1000 S
+10312 1 0 0 0 0 0 -1000 S
 PH 0 1 -1
-55 0 0 1d1+1 1d1+1
+50 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40260
@@ -907,15 +908,15 @@ look out lookout dark sun syndicate~
 &+Linside the hull, this pirate is eager to keep his helmsman and captain
 &+Linformed of whats at sea around them.&n
 ~
-8 1 0 939524120 28 0 67108864 -1000 S
+403464 1 0 939524120 28 0 67108864 -1000 S
 PH 0 4194304 -1
-55 0 0 1d1+1 1d1+1
+50 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40261
-galley worker dark sun syndicate~
-&+La &+mga&+Mll&+mey &+Mwo&+mrk&+Mer &+Lof the Dark &+ySun &+LSyndicate&n~
-&+LA large galley worker &+yr&+ru&+ys&+rh&+ye&+rs &+Labout, stowing &+Wcargo &+Lwithin the ship.&n
+vicious cuttthroat dark sun syndicate~
+&+La &+mvic&+Mi&+mous cut&+Mth&+mroat &+Lof the Dark &+ySun &+LSyndicate&n~
+&+LA vicious cutthroat stands here, ready to send you to the depths.&n
 ~
 &+L   Pushing you out of the way, this worker is busy at work, trying to
 &+Lstay away from the baleful eyes of his captain and first mate. Carrying
@@ -924,9 +925,9 @@ galley worker dark sun syndicate~
 &+Land doing their fair share. Working his butt off, he hopes to be
 &+Lpromoted out of the never ending work the crew drags up for him.&n
 ~
-10314 1 0 24 0 0 0 -1000 S
+10312 1 0 24 0 0 0 -1000 S
 PH 0 1048576 -1
-55 0 0 1d1+1 1d1+1
+50 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40262
@@ -948,7 +949,7 @@ PH 0 1 -1
 8 8 1
 #40263
 bolt carrier dark sun syndicate~
-&+La b&+wo&+Ll&+wt &+Lc&+wa&+Lrri&+we&+Lr &+Lof the Dark &+ySun &+LSyndicate&n~
+&+La &+wgu&+Lnn&+wer &+Lof the Dark &+ySun &+LSyndicate&n~
 &+LA large bolt carrier stands here, perpairing the &+cweapons &+Lfor an encounter with the &+bnavy&+L.&n
 ~
 &+L   This strong figure hussels about, taking extra care with the special
@@ -957,9 +958,9 @@ bolt carrier dark sun syndicate~
 &+Lhe dodges and ducks various swinging ropes and beams. As he stacks the
 &+Lstange ammo for the catapults an errie glow seems to seep from the ammo.&n
 ~
-10314 1 0 24 0 0 0 -1000 S
+10312 1 0 24 0 0 0 -1000 S
 PH 0 64 -1
-55 0 0 1d1+1 1d1+1
+50 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #40264
@@ -990,7 +991,7 @@ first mate scion abyss~
 &+rin the fires of the &+WAb&+wy&+Lss&+r. Dark &+Lhorns &+rsprout from his forehead and seem
 &+rto have been used to gore victims in the past.&n
 ~
-10314 1 0 939524248 0 0 0 -1000 S
+10312 1 0 939524248 0 0 0 -1000 S
 x 0 8 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1006,7 +1007,7 @@ quarter master quartermaster scion abyss~
 &+La wisp of smoke from its eyes as it sizes you up and down wonder how
 &+Lmany bites it would take to consume you.&n
 ~
-10314 1 0 24 2049 0 0 -1000 S
+10312 1 0 24 2049 0 0 -1000 S
 x 0 1 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1024,7 +1025,7 @@ boatswain scion abyss~
 &+Lnasty *&-L&+WCRACK&n&+L* of the whip tears the air as he bears
 &+Ldown upon the deckhand!&n
 ~
-10314 1 0 939524248 2076 0 0 -1000 S
+10312 1 0 939524248 2076 0 0 -1000 S
 x 0 2097152 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1041,7 +1042,7 @@ master gunner scion abyss~
 &+LSmall blackened scales cover his body, making him look almost reptilian
 &+Lin nature.&n
 ~
-10314 0 0 0 2076 0 0 -1000 S
+10312 0 0 0 2076 0 0 -1000 S
 x 0 512 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1057,8 +1058,90 @@ chief surgeon scions abyss~
 &+Lfield seem to have been taken and used as cruel weapons, serving this demon
 &+Lwell.&n
 ~
-10314 1 0 402653336 0 0 4096 -1000 S
+10312 1 0 402653336 0 0 4096 -1000 S
 x 0 288 -1
 60 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#40270
+vicious cut throat demon scion abyss~
+&+La &+rvi&+Rc&+rious &+Lcut&+cthroat &+Lof the &+rSci&+Rons &+Lof the &+wAb&+wy&+Lss~
+&+LThe figure of a &+rfi&+Re&+rry &+Ld&+we&+Lm&+wo&+Ln stands here, looking to cut your throat out.&n
+~
+&+L   This slender demon stands roughly eight feet tall. Sharp spikes jut
+&+Lout from various points of his body incuding his elbows, shoulders and
+&+Lfrom his knees. A nasty, acidic saliva drips from long fangs that
+&+Lextend below his disjointed jaw. A look of pure evil fills his
+&+Lface as he attempts to board your ship.&n
+~
+403464 1 0 402653208 1 0 0 -1000 S
+x 0 4096 -1
+55 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#40271
+brutal plunderer scion demon abyss~
+&+La &+rbr&+Ru&+rtal &+Rplu&+rnde&+Rrer &+Lof the &+rSci&+Rons &+Lof the &+WAb&+wy&+Lss&n~
+&+LA &+rbr&+Ru&+rtal &+Llooking, spiked d&+we&+Lm&+wo&+Ln stands here, ready to attack.&n
+~
+&+L   Standing a little under eight feet tall, this demon's dark green skin
+&+Lseems to seep evil. Smoldering wisps of smoke seem to randomly emit from
+&+Lthe large leathery wings behind his back. Blood and fire seem to follow
+&+Lhim where he travels. Ready to plunder to his hearts content, his fiery
+&+Leyes are set upon your vessel!&n
+~
+395272 1 0 402653336 0 0 0 -1000 S
+x 0 16 -1
+55 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#40272
+look out lookout scion abyss demon~
+&+La &+Wlook&+Yout &+Lof the &+rSci&+Rons &+Lof the &+WAb&+wy&+Lss&n~
+&+LA horned d&+we&+Lm&+wo&+Ln stands here, &+Rb&+Yl&+Wazi&+Yn&+Rg &+Leyes watching the seas.&n
+~
+&+L   Climbing to the highest perch possible on the ship, this demon's face
+&+Lcontains a strange third eye located above the fiery pits of his "normal"
+&+Leyes. This third eye emits a pulsing &+bblue &+rfire &+Lthat radiates a strange
+&+Lheat. Clawed hands and feet make his ability to maneuver around the ship
+&+Lvery easy. This demon's focus is on the seas and it would be best to
+&+Lget out of his way.&n
+~
+395272 1 0 402653328 0 0 0 -1000 S
+x 0 33554432 -1
+55 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#40273
+gunner scion abyss demon~
+&+La &+cgu&+Lnn&+cer &+Lof the &+rSci&+Rons &+Lof the &+WAb&+wy&+Lss&n~
+&+LA burly d&+we&+Lm&+wo&+Ln hussels about, reloading guns as they &+rf&+Ri&+rr&+Re&+L.&n
+~
+&+L   This large demon has muscles layered upon even more muscles. Carrying
+&+Lammo for various weapons on board, he is quick to hussel from catapult
+&+Lto ballista as needed. Sprouts of black hair randomly cover his body,
+&+Lhowever it looks like most of it has been burnt off at one time or
+&+Lanother due to handling some of the more volitile weapons ammo.&n
+~
+403464 1 0 24 0 0 0 -1000 S
+x 0 512 -1
+55 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#40274
+deck hand scion demon abyss swab~
+&+La &+yde&+Lck ha&+ynd &+Lof the S&+rci&+Rons &+Lof the &+WAb&+wy&+Lss&n~
+&+LA small d&+we&+Lm&+wo&+Ln stands here, &+cswabbing &+Lthe deck to avoid getting &+wwhiped &+Lby the &+rcaptain&+L.&n
+~
+&+L   The smallest of the crew, these lesser demons are the whipping stock
+&+Lof the ship. Forced to handle the lesser duties, these demons are quick
+&+Lto be blamed for the smallest of faults. Standing barely six feet tall
+&+Lthese demons could almost be passed for a human, except for the fiery
+&+Ltinted skin and sharp claws of course. Pure black eyes stare out
+&+Lunblinking as they move from task to task.&n
+~
+395272 1 0 402653208 0 0 0 -1000 S
+x 0 16384 -1
+55 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
