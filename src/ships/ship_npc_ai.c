@@ -357,6 +357,8 @@ bool NPCShipAI::find_new_target()
         {
             if (contacts[i].range > 30)
                 continue;
+            if (contacts[i].range > 10 && (contacts[i].ship->m_class == SH_SLOOP || contacts[i].ship->m_class == SH_YACHT))
+                continue;
         }
         if (is_valid_target(contacts[i].ship))
         {
