@@ -37,10 +37,6 @@ extern int tics;
 extern struct mm_ds *dead_mob_pool;
 extern struct mm_ds *dead_pconly_pool;
 
-extern bool rename_ship(P_char ch, char *owner_name, char *new_name);
-extern bool rename_ship_owner(char *old_name, char *new_name);
-extern P_ship get_ship(char *ownername);
-
 /* action modes for parse_action */
 #define PARSE_FORMAT            0
 #define PARSE_REPLACE           1

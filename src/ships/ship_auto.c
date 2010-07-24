@@ -22,36 +22,17 @@
 #include "ships.h"
 #include "ship_auto.h"
 
-void  act_to_all_in_ship(P_ship ship, const char *msg);
-int   getmap(P_ship ship);
-int   bearing(float x1, float y1, float x2, float y2);
-float range(float x1, float y1, float z1, float x2, float y2, float z2);
+extern char buf[MAX_STRING_LENGTH];
 
 //Internal variables
-struct shipai_data *shipai;
+static shipai_data *autopilot;
 
 void initialize_shipai()
 {
-  shipai = NULL;
+  autopilot = NULL;
 }
 
-int xbearing(int bearing, int range)
-{
-  float    rad;
-
-  rad = (float) ((float) bearing * M_PI / 180);
-  return (int) (range * sin(rad));
-}
-
-int ybearing(int bearing, int range)
-{
-  float    rad;
-
-  rad = (float) ((float) bearing * M_PI / 180);
-  return (int) (range * cos(rad));
-}
-
-int assign_shipai(P_ship ship)
+int assign_autopilot(P_ship ship)
 {
   struct shipai_data *ai;
   int      i;
@@ -60,22 +41,22 @@ int assign_shipai(P_ship ship)
   {
     return FALSE;
   }
-  if (ship->shipai)
+  if (ship->autopilot)
   {
-    if (IS_SET(ship->shipai->flags, AIB_ENABLED))
+    if (IS_SET(ship->autopilot->flags, AIB_ENABLED))
     {
       return FALSE;
     }
     else
     {
-      ai = ship->shipai;
+      ai = ship->autopilot;
     }
   }
   else
   {
     CREATE(ai, shipai_data, 1, MEM_TAG_SHIPAI);
 
-    ship->shipai = ai;
+    ship->autopilot = ai;
   }
 
   ai->type = 0;
@@ -92,41 +73,145 @@ int assign_shipai(P_ship ship)
   return TRUE;
 }
 
-int shipgroupremove(struct shipai_data *shipai)
+void clear_autopilot(P_ship ship)
+{
+    if (ship->autopilot)
+        FREE(ship->autopilot);
+    ship->autopilot = 0;
+}
+
+void stop_autopilot(P_ship ship)
+{
+    if (IS_SET(ship->autopilot->flags, AIB_ENABLED)) 
+    {
+        if (IS_SET(ship->autopilot->flags, AIB_AUTOPILOT)) 
+        {
+            REMOVE_BIT(ship->autopilot->flags, AIB_AUTOPILOT);
+            REMOVE_BIT(ship->autopilot->flags, AIB_ENABLED);
+            act_to_all_in_ship(ship, "Autopilot stopped.");
+        }
+    }
+}
+
+int engage_autopilot(P_char ch, P_ship ship, char* arg1, char* arg2)
+{
+    int dir = 0;
+    if (is_number(arg1)) 
+    {
+        dir = atoi(arg1);
+        if (dir < 0 || dir > 359) 
+        {
+            if (ch) send_to_char("0-359 degrees or N E S W!\r\n", ch);
+            return TRUE;
+        }
+    } 
+    else 
+    {
+        if (isname(arg1, "north n"))
+            dir = 0;
+        else if (isname(arg1, "east e"))
+            dir = 90;
+        else if (isname(arg1, "south s"))
+            dir = 180;
+        else if (isname(arg1, "west w"))
+            dir = 270;
+        else if (isname(arg1, "off"))
+        {
+            if (ship->autopilot) 
+            {
+                if (!IS_SET(ship->autopilot->flags, AIB_ENABLED) && !IS_SET(ship->autopilot->flags, AIB_AUTOPILOT)) 
+                {
+                    if (ch) send_to_char("There IS no active autopilot atm!\r\n", ch);
+                    return TRUE;
+                } 
+                else 
+                {
+                    REMOVE_BIT(ship->autopilot->flags, AIB_ENABLED);
+                    REMOVE_BIT(ship->autopilot->flags, AIB_AUTOPILOT);
+                    act_to_all_in_ship(ship, "Autopilot disengaged.");
+                    return TRUE;
+                }
+            } 
+            else 
+            {
+                if (ch) send_to_char("There IS no active autopilot atm!\r\n", ch);
+                return TRUE;
+            }
+        } 
+        else 
+        {
+            if (ch) send_to_char ("Valid syntax is order sail <N/E/S/W/Heading> <number of rooms>\r\n", ch);
+            return TRUE;
+        }
+    }
+    int dist = 0;
+    if (is_number(arg2)) 
+    {
+        dist = atoi(arg2);
+        if (dist > 35) 
+        {
+            if (ch) send_to_char("Maximum number of rooms is 35!\r\n", ch);
+            return TRUE;
+        }
+    } 
+    else 
+    {
+        if (ch) send_to_char ("Valid syntax is order sail <N/E/S/W/Heading> <number of rooms>\r\n", ch);
+        return TRUE;
+    }
+    if (ship->autopilot)
+        REMOVE_BIT(ship->autopilot->flags, AIB_ENABLED);
+
+    assign_autopilot(ship);
+    getmap(ship);
+
+    float rad = (float) ((float) dir * M_PI / 180);
+    int xdist = (int) (sin(rad) * (dist + 1));
+    int ydist = (int) (cos(rad) * (dist + 1));
+    ship->autopilot->t_room = tactical_map [(int) (xdist + ship->x)][100 - (int)(ydist + ship->y)].rroom;
+
+    SET_BIT(ship->autopilot->flags, AIB_AUTOPILOT);
+    ship->autopilot->mode = AIM_AUTOPILOT;
+    sprintf(buf, "Autopilot engaged, heading %d for %d rooms. Target room is %d", dir, dist, world[ship->autopilot->t_room].number);
+    act_to_all_in_ship(ship, buf);
+    return TRUE;
+}
+
+int shipgroupremove(struct shipai_data *autopilot)
 {
   struct shipgroup_data *tmpgroup;
   struct shipgroup_data *tmpgroup2;
   struct shipai_data *leader = NULL;
 
-  if (!shipai)
+  if (!autopilot)
   {
     return FALSE;
   }
-  if (!shipai->group)
+  if (!autopilot->group)
   {
     return FALSE;
   }
 
-  if (shipai->group->leader == shipai)
+  if (autopilot->group->leader == autopilot)
   {
-    if (!shipai->group->next)
+    if (!autopilot->group->next)
     {
-      shipai->group->leader = NULL;
-      shipai->group->ai = NULL;
-      FREE(shipai->group);
-      shipai->group = NULL;
+      autopilot->group->leader = NULL;
+      autopilot->group->ai = NULL;
+      FREE(autopilot->group);
+      autopilot->group = NULL;
       return TRUE;
     }
-    tmpgroup2 = shipai->group;
-    tmpgroup = shipai->group->next;
+    tmpgroup2 = autopilot->group;
+    tmpgroup = autopilot->group->next;
     tmpgroup2->leader = NULL;
     tmpgroup2->ai = NULL;
     FREE(tmpgroup2);
-    shipai->group = NULL;
+    autopilot->group = NULL;
 
     while (tmpgroup)
     {
-      if (IS_SET(shipai->flags, AIB_DRONE))
+      if (IS_SET(autopilot->flags, AIB_DRONE))
       {
         //Destroy drone code
         tmpgroup2 = tmpgroup;
@@ -137,41 +222,41 @@ int shipgroupremove(struct shipai_data *shipai)
         FREE(tmpgroup2);
         continue;
       }
-      if (IS_SET(shipai->flags, AIB_MOB))
+      if (IS_SET(autopilot->flags, AIB_MOB))
       {
         if (!leader)
         {
-          tmpgroup->leader = shipai;
-          leader = shipai;
+          tmpgroup->leader = autopilot;
+          leader = autopilot;
         }
         else
         {
           tmpgroup->leader = leader;
         }
-        if (IS_SET(shipai->flags, AIB_HUNTER))
+        if (IS_SET(autopilot->flags, AIB_HUNTER))
         {
-          shipai->mode = AIM_SEEK;
+          autopilot->mode = AIM_SEEK;
         }
         else
         {
-          shipai->mode = AIM_WAIT;
+          autopilot->mode = AIM_WAIT;
         }
       }
       tmpgroup = tmpgroup->next;
     }
     return TRUE;
   }
-  tmpgroup = shipai->group->leader->group;
+  tmpgroup = autopilot->group->leader->group;
   while (tmpgroup)
   {
-    if ((tmpgroup = shipai->group))
+    if ((tmpgroup = autopilot->group))
     {
       tmpgroup2 = tmpgroup;
       tmpgroup = tmpgroup->next;
       tmpgroup2->leader = NULL;
       tmpgroup2->ai = NULL;
       FREE(tmpgroup2);
-      shipai->group = NULL;
+      autopilot->group = NULL;
       continue;
     }
     tmpgroup = tmpgroup->next;
@@ -179,16 +264,16 @@ int shipgroupremove(struct shipai_data *shipai)
   return TRUE;
 }
 
-int shipgroupadd(struct shipai_data *shipai, struct shipgroup_data *group)
+int shipgroupadd(struct shipai_data *autopilot, struct shipgroup_data *group)
 {
   struct shipgroup_data *newgroup;
   struct shipgroup_data *tmpgroup;
 
-  if (!shipai)
+  if (!autopilot)
   {
     return FALSE;
   }
-  if (shipai->group)
+  if (autopilot->group)
   {
     return FALSE;
   }
@@ -196,10 +281,10 @@ int shipgroupadd(struct shipai_data *shipai, struct shipgroup_data *group)
   {
     CREATE(group, shipgroup_data, 1, MEM_TAG_SHIPGRP);
 
-    group->leader = shipai;
+    group->leader = autopilot;
     group->next = NULL;
-    group->ai = shipai;
-    shipai->group = group;
+    group->ai = autopilot;
+    autopilot->group = group;
     return TRUE;
   }
   else
@@ -207,7 +292,7 @@ int shipgroupadd(struct shipai_data *shipai, struct shipgroup_data *group)
     CREATE(newgroup, shipgroup_data, 1, MEM_TAG_SHIPGRP);
 
     newgroup->leader = group->leader;
-    newgroup->ai = shipai;
+    newgroup->ai = autopilot;
     newgroup->next = NULL;
     tmpgroup = group;
     while (tmpgroup->next)
@@ -215,7 +300,7 @@ int shipgroupadd(struct shipai_data *shipai, struct shipgroup_data *group)
       tmpgroup = tmpgroup->next;
     }
     tmpgroup->next = newgroup;
-    shipai->group = newgroup;
+    autopilot->group = newgroup;
     return TRUE;
   }
 }
@@ -249,21 +334,21 @@ void aishipspeedadjust(P_ship ship, int speed)
   }
 }
 
-void shipai_activity(P_ship ship)
+void autopilot_activity(P_ship ship)
 {
   struct shipai_data *ai;
   int      i, j, k, b, x, y;
   float    r;
 
-  if (ship->shipai == NULL)
+  if (ship->autopilot == NULL)
   {
     return;
   }
-  if (!IS_SET(ship->shipai->flags, AIB_ENABLED))
+  if (!IS_SET(ship->autopilot->flags, AIB_ENABLED))
   {
     return;
   }
-  ai = ship->shipai;
+  ai = ship->autopilot;
 /* Ship AI starts here */
 
   switch (ai->type)

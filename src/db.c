@@ -674,7 +674,7 @@ void boot_db(int mini_mode)
 
   fprintf(stderr, "-- Ships\n");
   logit(LOG_STATUS, "Initializing ships.");
-  initialize_newships();
+  initialize_ships();
 
   logit(LOG_STATUS, "Initializing Arena.");
   initialize_arena();

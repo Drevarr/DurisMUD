@@ -20,7 +20,7 @@
 #include "utils.h"
 
 #define PROPERTIES_FILE "lib/duris.properties"
-#define MAX_PROPERTIES 2000
+#define MAX_PROPERTIES 3000
 #ifndef FNM_CASEFOLD
 #   define FNM_CASEFOLD 1<<4
 #endif
@@ -149,7 +149,14 @@ int load_properties(struct property *properties)
   while (fgets(buf, 1024, f) != NULL)
   {
     if (parse_property(&properties[count], buf))
+    {
       count++;
+      if (count == MAX_PROPERTIES)
+      {
+        fprintf(stderr, "Too many properties in file %s, increase MAX_PROPERTIES value!\n", PROPERTIES_FILE);
+        exit(1);
+      }
+    }
   }
 
   fclose(f);

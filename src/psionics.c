@@ -54,8 +54,6 @@ extern P_index mob_index;
 
 //#define POW_DIFF(att, def) (STAT_INDEX(GET_C_POW(def)) - STAT_INDEX(GET_C_POW(att)))
 
-char     buf[MAX_STRING_LENGTH];
-
 void event_illithid_feeding(P_char ch, P_char victim, P_obj obj, void *data)
 {
   if ((!victim) || (ch->in_room != victim->in_room))
@@ -1058,7 +1056,9 @@ void spell_fire_aura(int level, P_char ch, char *arg, int type,
 void spell_control_flames(int level, P_char ch, char *arg, int type, P_char victim,
                 P_obj obj)
 {
-  int      dam;
+  char buf[MAX_STRING_LENGTH];
+  int  dam;
+
   const int dam_each[61] = { 0,
     0, 0, 0, 0, 0, 0, 0, 16, 20, 24,
     28, 32, 35, 38, 40, 42, 44, 45, 45, 45,

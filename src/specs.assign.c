@@ -42,7 +42,7 @@ int resurrect_totem(P_obj obj, P_char ch, int cmd, char *arg);
 int harpy_gate(P_obj obj, P_char ch, int cmd, char *arg);
 int block_dir(P_char ch, P_char pl, int cmd, char *arg);
 
-int newship_shop(int room, P_char ch, int cmd, char *arg);
+int ship_shop_proc(int room, P_char ch, int cmd, char *arg);
 void assign_ship_crew_funcs();
 
 #ifdef SHLIB
@@ -800,7 +800,7 @@ void assign_mobiles(void)
   /* Sarmiz'Duul */
 
   mob_index[real_mobile0(9445)].func.mob = money_changer;
-  mob_index[real_mobile0(9453)].func.mob = erzul;
+  mob_index[real_mobile0(9453)].func.mob = erzul_proc;
 
   /* Undead hometown */
 
@@ -2195,7 +2195,7 @@ void assign_objects(void)
 
   /* Quietus Quay */
   mob_index[real_mobile0(1709)].func.mob = world_quest;
-  world[real_room0(1719)].funct = newship_shop;
+  world[real_room0(1719)].funct = ship_shop_proc;
  
   /* Charcoal Palace */
   mob_index[real_mobile0(88316)].func.mob = kossuth;
@@ -2345,34 +2345,33 @@ void assign_rooms(void)
   world[real_room0(17087)].funct = inn;
 
   /* tharn */
-
- // world[real_room0(6076)].funct = inn;
+  world[real_room0(6076)].funct = inn;
   world[real_room0(6115)].funct = pet_shops;
   world[real_room0(6369)].funct = pet_shops;
   world[real_room0(6244)].funct = pet_shops;
-  world[real_room0(9704)].funct = crew_shop;
-  world[real_room0(6683)].funct = newship_shop;
- // world[real_room0(123113)].funct = newship_shop;
-  world[real_room0(88846)].funct = newship_shop;
-  world[real_room0(43198)].funct = newship_shop;
-  world[real_room0(43158)].funct = newship_shop;
-  world[real_room0(140854)].funct = newship_shop;
-  world[real_room0(258421)].funct = newship_shop;
-  world[real_room0(22441)].funct = newship_shop;
-  world[real_room0(70501)].funct = newship_shop;        /* rax's quest zone */
-  world[real_room0(258421)].funct = newship_shop;
-  world[real_room0(43118)].funct = newship_shop;
-  world[real_room0(635260)].funct = newship_shop;
-  world[real_room0(584171)].funct = newship_shop;
+  world[real_room0(9704)].funct = crew_shop_proc;
+  world[real_room0(6683)].funct = ship_shop_proc;
+  world[real_room0(123113)].funct = ship_shop_proc;
+  world[real_room0(88846)].funct = ship_shop_proc;
+  world[real_room0(43198)].funct = ship_shop_proc;
+  world[real_room0(43158)].funct = ship_shop_proc;
+  world[real_room0(140854)].funct = ship_shop_proc;
+  world[real_room0(258421)].funct = ship_shop_proc;
+  world[real_room0(22441)].funct = ship_shop_proc;
+  world[real_room0(70501)].funct = ship_shop_proc;        /* rax's quest zone */
+  world[real_room0(258421)].funct = ship_shop_proc;
+  world[real_room0(43118)].funct = ship_shop_proc;
+  world[real_room0(635260)].funct = ship_shop_proc;
+  world[real_room0(584171)].funct = ship_shop_proc;
 
   // Fiord on west side of GC.
-  world[real_room0(559633)].funct = newship_shop;
+  world[real_room0(559633)].funct = ship_shop_proc;
 
   /* Myrabolis */
-  world[real_room0(82670)].funct = newship_shop;
+  world[real_room0(82670)].funct = ship_shop_proc;
 
   /* Venan */
-  world[real_room0(49090)].funct = newship_shop;
+  world[real_room0(49090)].funct = ship_shop_proc;
 
   /* Bloodstone */
   world[real_room0(74271)].funct = inn;
@@ -2386,17 +2385,17 @@ void assign_rooms(void)
   world[real_room0(8211)].funct = dump;
   world[real_room0(8323)].funct = pet_shops;
   world[real_room0(8003)].funct = inn;
-  world[real_room0(8287)].funct = newship_shop;
+  world[real_room0(8287)].funct = ship_shop_proc;
 
   /* Sarmiz'Duul */
   world[real_room0(9738)].funct = inn;
-  world[real_room0(9967)].funct = newship_shop;
+  world[real_room0(9967)].funct = ship_shop_proc;
    
   /* Torrhan */
-  world[real_room0(66689)].funct = newship_shop;
+  world[real_room0(66689)].funct = ship_shop_proc;
 
   /* Jade? */
-  world[real_room0(76659)].funct = newship_shop;
+  world[real_room0(76659)].funct = ship_shop_proc;
 
   /* Players Guild */
   world[real_room0(30504)].funct = inn;

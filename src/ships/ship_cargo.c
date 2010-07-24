@@ -80,6 +80,19 @@ const char *contra_name[NUM_PORTS] = {
   "&+mUnderdark &+MMithril&N",
 };
 
+void reset_cargo()
+{
+  for (int i = 0; i < NUM_PORTS; i++) 
+  {
+    for (int j = 0; j < NUM_PORTS; j++) 
+    {
+      ship_cargo_market_mod[i][j] = 1.0;
+      ship_contra_market_mod[i][j] = 1.0;      
+      ship_cargo_market_mod_delayed[i][j] = 1.0;
+    }
+  }  
+}
+
 void initialize_ship_cargo()
 {
   reset_cargo();
@@ -93,59 +106,49 @@ void initialize_ship_cargo()
 int read_cargo()
 {
 #ifdef __NO_MYSQL__
-  return FALSE;
+    return FALSE;
 #else
 
-  if(!qry("select type, port_id, cargo_type, modifier from ship_cargo_market_mods"))
-  {
-    logit(LOG_DEBUG, "read_cargo(): cargo query failed!");
-    return FALSE;
-  }
+    if(!qry("select type, port_id, cargo_type, modifier from ship_cargo_market_mods"))
+    {
+        logit(LOG_DEBUG, "read_cargo(): cargo query failed!");
+        return FALSE;
+    }
   
 	MYSQL_RES *res = mysql_store_result(DB);
   
 	MYSQL_ROW row;
-	while( (row = mysql_fetch_row(res)) ) {
-    char *type = row[0];
-    int port_id = atoi(row[1]);
-    int cargo_type = atoi(row[2]);
-    float modifier = atof(row[3]);
+	while( (row = mysql_fetch_row(res)) ) 
+    {
+        char *type = row[0];
+        int port_id = atoi(row[1]);
+        int cargo_type = atoi(row[2]);
+        float modifier = atof(row[3]);
     
-    if( port_id < 0 || port_id >= NUM_PORTS )
-    {
-      logit(LOG_DEBUG, "read_cargo(): invalid cargo record: (%s, %d, %d, %f)", type, port_id, cargo_type, modifier); 
-      continue;
-    }
+        if( port_id < 0 || port_id >= NUM_PORTS )
+        {
+            logit(LOG_DEBUG, "read_cargo(): invalid cargo record: (%s, %d, %d, %f)", type, port_id, cargo_type, modifier); 
+            continue;
+        }
     
-    if( !strcmp(type, "CARGO") )
-    {
-      ship_cargo_market_mod[port_id][cargo_type] = BOUNDEDF(get_property("ship.cargo.minPriceMod", 0.0), modifier, get_property("ship.cargo.maxPriceMod", 0.0));
-      ship_cargo_market_mod_delayed[port_id][cargo_type] = ship_cargo_market_mod[port_id][cargo_type];
-    }
-    else if( !strcmp(type, "CONTRABAND") )
-    {
-      ship_contra_market_mod[port_id][cargo_type] = BOUNDEDF(get_property("ship.contraband.minPriceMod", 0.0), modifier, get_property("ship.contraband.maxPriceMod", 0.0));
-    }
+        if( !strcmp(type, "CARGO") )
+        {
+            ship_cargo_market_mod[port_id][cargo_type] = BOUNDEDF(get_property("ship.cargo.minPriceMod", 0.0), modifier, get_property("ship.cargo.maxPriceMod", 0.0));
+            ship_cargo_market_mod_delayed[port_id][cargo_type] = ship_cargo_market_mod[port_id][cargo_type];
+        }
+        else if( !strcmp(type, "CONTRABAND") )
+        {
+            ship_contra_market_mod[port_id][cargo_type] = BOUNDEDF(get_property("ship.contraband.minPriceMod", 0.0), modifier, get_property("ship.contraband.maxPriceMod", 0.0));
+        }
 	}
   
 	mysql_free_result(res);
   
-  return TRUE;
+    return TRUE;
+
 #endif
 }
 
-void reset_cargo()
-{
-  for (int i = 0; i < NUM_PORTS; i++) 
-  {
-    for (int j = 0; j < NUM_PORTS; j++) 
-    {
-      ship_cargo_market_mod[i][j] = 1.0;
-      ship_contra_market_mod[i][j] = 1.0;      
-      ship_cargo_market_mod_delayed[i][j] = 1.0;
-    }
-  }  
-}
 
 int write_cargo()
 {
@@ -216,18 +219,6 @@ int write_cargo()
 #endif
 }
 
-// this gets run once every minute
-void cargo_activity()
-{
-  update_cargo();
-  update_delayed_cargo_prices();
-}
-
-void update_cargo()
-{
-  update_cargo(false);
-}
-
 void update_cargo(bool force)
 {
   if(!force && !has_elapsed("update_cargo", get_property("ship.cargo.update.secs", 1800)) )
@@ -269,6 +260,11 @@ void update_cargo(bool force)
   set_timer("update_cargo");
 }
 
+void update_cargo()
+{
+  update_cargo(false);
+}
+
 void update_delayed_cargo_prices()
 {
   if( !has_elapsed("update_delayed_cargo_prices", get_property("ship.cargo.updateDelayedPrices.secs", 1800)) )
@@ -288,6 +284,14 @@ void update_delayed_cargo_prices()
   
   set_timer("update_delayed_cargo_prices");
 }
+
+// this gets run once every minute
+void cargo_activity()
+{
+  update_cargo();
+  update_delayed_cargo_prices();
+}
+
 
 void calculate_port_distances()
 {

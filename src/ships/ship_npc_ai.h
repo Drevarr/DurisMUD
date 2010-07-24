@@ -32,18 +32,20 @@ struct NPCShipAI
     NPC_AI_Type type;
     struct NPCShipCrewData* crew_data;
     bool permanent;
-    bool advanced;
+    int advanced;
 
     NPC_AI_Mode mode;
     NPC_AI_Turning turning;
     
     
+    // Non-combat actions
     NPCShipAI(P_ship s, P_char ch = 0);
     void activity();
     bool check_for_captain_on_bridge();
     void cruise();
     void reload_and_repair();
     void attacked_by(P_ship attacker);
+    bool try_unload();
     
     // General combat
     int t_bearing;
@@ -52,6 +54,7 @@ struct NPCShipAI
     int s_arc;
     float t_range;
     int t_x, t_y;
+    int ldp;
     int contacts_count;
     P_ship did_board;
     bool is_heavy_ship;

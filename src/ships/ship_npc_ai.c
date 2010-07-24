@@ -9,7 +9,6 @@
 #include <math.h>
 #include <stdarg.h> 
 
-#include "ships.h"
 #include "comm.h"
 #include "db.h"
 #include "graph.h"
@@ -21,17 +20,14 @@
 #include "utils.h"
 #include "events.h"
 #include "map.h"
+#include "ships.h"
 #include "ship_npc.h"
 #include "ship_npc_ai.h"
 
-void  act_to_all_in_ship(P_ship ship, const char *msg);
-int   getmap(P_ship ship);
-int   check_ram_arc(int heading, int bearing, int size);
 
-static char buf[MAX_STRING_LENGTH];
+extern char buf[MAX_STRING_LENGTH];
 
-
-bool weapon_ok(P_ship ship, int w_num)
+static bool weapon_ok(P_ship ship, int w_num)
 {
     if (SHIPWEAPONDESTROYED(ship, w_num)) 
         return false;
@@ -42,7 +38,7 @@ bool weapon_ok(P_ship ship, int w_num)
     return true;
 }
 
-bool weapon_ready_to_fire(P_ship ship, int w_num)
+static bool weapon_ready_to_fire(P_ship ship, int w_num)
 {
     if (!weapon_ok(ship, w_num))
         return false;
@@ -55,19 +51,7 @@ bool weapon_ready_to_fire(P_ship ship, int w_num)
     return true;
 }
 
-static const char* get_arc_name(int arc)
-{
-    switch (arc)
-    {
-    case FORE: return "fore";
-    case PORT: return "port";
-    case REAR: return "rear";
-    case STARBOARD: return "starboard";
-    }
-    return "";
-}
-
-int get_arc_central_bearing(int arc)
+static int get_arc_central_bearing(int arc)
 {
     switch (arc)
     {
@@ -79,7 +63,7 @@ int get_arc_central_bearing(int arc)
     return 0;
 }
 
-int get_arc_width(int arc)
+static int get_arc_width(int arc)
 {
     switch (arc)
     {
@@ -93,7 +77,7 @@ int get_arc_width(int arc)
     return 0;
 }
 
-bool is_boardable(P_ship ship)
+static bool is_boardable(P_ship ship)
 {
     if (ship->speed > BOARDING_SPEED)
         return false;
@@ -106,7 +90,7 @@ bool is_boardable(P_ship ship)
 NPCShipAI::NPCShipAI(P_ship s, P_char ch)
 {
     ship = s;
-    advanced = false;
+    advanced = 0;
     permanent = false;
     mode = NPC_AI_IDLING;
     turning = NPC_AI_NOT_TURNING;
@@ -213,7 +197,7 @@ void NPCShipAI::activity()
             break;
         }
 
-        if (advanced)
+        if (advanced == 1)
             advanced_combat_maneuver();
         else
             basic_combat_maneuver();
@@ -245,7 +229,7 @@ void NPCShipAI::activity()
     case NPC_AI_LEAVING:
     {
         cruise();
-        if (!permanent && try_unload_npc_ship(ship))
+        if (!permanent && try_unload())
             return;
     }   break;
 
@@ -315,6 +299,22 @@ void NPCShipAI::attacked_by(P_ship attacker)
         ship->target = attacker;
         mode = NPC_AI_ENGAGING;
     }
+}
+
+bool NPCShipAI::try_unload()
+{
+    if (ship->timer[T_MAINTENANCE] == 1)
+    {
+        for (int i = 0; i < contacts_count; i++)
+        {
+            if (SHIPISDOCKED(contacts[i].ship) || ISNPCSHIP(contacts[i].ship))
+                continue;
+            return FALSE;
+        }
+
+        return try_unload_npc_ship(ship);
+    }
+    return FALSE;
 }
 
 
@@ -390,6 +390,7 @@ void NPCShipAI::update_target(int i) // index in contacts
     t_x = contacts[i].x;
     t_y = contacts[i].y;
     t_arc = get_arc(ship->heading, t_bearing);
+    advanced |= -isverge(contacts[i].ship);
     s_bearing = t_bearing + 180;
     normalize_direction(s_bearing);
     s_arc = get_arc(ship->target->heading, s_bearing);
@@ -433,7 +434,6 @@ bool NPCShipAI::check_boarding_conditions()
     return true;
 }
 
-//bool load_npc_ship_crew_member(P_ship ship, int room_no, int vnum);
 void NPCShipAI::board_target()
 {
     send_message_to_debug_char("=============BOARDING TARGET=============\r\n");
@@ -500,6 +500,7 @@ void NPCShipAI::board_target()
         }
         ship->target = 0;
         mode = NPC_AI_LEAVING;
+        ship->timer[T_MAINTENANCE] = 300;
     }
 }
 
@@ -618,12 +619,12 @@ bool NPCShipAI::worth_ramming()
     if ((float)SHIPHULLWEIGHT(ship->target) / (float)SHIPHULLWEIGHT(ship) >= 1.5)
         return false;
 
-    if (ship->armor[FORE] == 0 || 
-        ship->armor[STARBOARD] == 0 || 
-        ship->armor[PORT] == 0 || 
-        ship->maxarmor[FORE] / ship->armor[FORE] >= 2 ||
-        ship->maxarmor[STARBOARD] / ship->armor[STARBOARD] >= 2 ||
-        ship->maxarmor[PORT] / ship->armor[PORT] >= 2)
+    if (ship->armor[SIDE_FORE] == 0 || 
+        ship->armor[SIDE_STAR] == 0 || 
+        ship->armor[SIDE_PORT] == 0 || 
+        ship->maxarmor[SIDE_FORE] / ship->armor[SIDE_FORE] >= 2 ||
+        ship->maxarmor[SIDE_STAR] / ship->armor[SIDE_STAR] >= 2 ||
+        ship->maxarmor[SIDE_PORT] / ship->armor[SIDE_PORT] >= 2 || advanced < 0)
     {
         return false;
     }
@@ -631,6 +632,7 @@ bool NPCShipAI::worth_ramming()
     return true;
 }
 
+int check_ram_arc(int heading, int bearing, int size);
 bool NPCShipAI::check_ram()
 {
     if (ship->timer[T_RAM] != 0) 
@@ -724,7 +726,7 @@ void NPCShipAI::b_attack()
                 t_range < (float)weapon_data[w_index].max_range &&
                 ship->guncrew.stamina > weapon_data[w_index].reload_stamina)
             {
-                fire_weapon(ship, debug_char, w_num);
+                fire_weapon(ship, w_num, ship->target, t_range, t_bearing, debug_char);
             }
         }
     }
@@ -747,10 +749,7 @@ void NPCShipAI::b_attack()
                             contacts[i].range < (float)weapon_data[w_index].max_range &&
                             ship->guncrew.stamina > weapon_data[w_index].reload_stamina)
                         {
-                            P_ship cur_t = ship->target;
-                            ship->target = contacts[i].ship;
-                            fire_weapon(ship, debug_char, w_num);
-                            ship->target = cur_t;
+                            fire_weapon(ship, w_num, contacts[i].ship, contacts[i].range, contacts[i].bearing, debug_char);
                         }
                     }
                 }
@@ -866,6 +865,7 @@ bool NPCShipAI::b_turn_active_weapon()
     {
         if (active_arc[arc_priority[i]] < 4) // there is weapon ready or almost ready to fire, turning
         {
+            if (advanced < 0) arc_priority[i] &= -2;
             int n_h = t_bearing - get_arc_central_bearing(arc_priority[i]);
             if (is_heavy_ship && arc_priority[i] == SLOT_REAR &&  ((n_h - ship->heading) > 60 || (n_h - ship->heading) < -60))
                 continue; // not turning heavy ship's rear (TODO: check if rear is the only remaining side)
@@ -893,8 +893,9 @@ bool NPCShipAI::b_turn_reloading_weapon()
     }
     if (best_arc != -1)
     {
+        if (advanced < 0) best_arc &= -2;
         new_heading = t_bearing - get_arc_central_bearing(best_arc);
-        send_message_to_debug_char("Turning reloading weapon arc %s: ", get_arc_name(best_arc));
+        send_message_to_debug_char("Turning reloading weapon arc %s: %d", get_arc_name(best_arc), best_arc);
         return true;
     }
     return false;
@@ -1002,7 +1003,7 @@ void NPCShipAI::set_new_dir()
     ship->setspeed = maxspeed;
     ship->setheading = new_heading;
 
-    if (advanced)
+    if (advanced == 1)
     {
         int delta = (int)abs(ship->heading - new_heading);
         if (delta > 180) delta = 360 - delta;
@@ -1027,7 +1028,7 @@ void NPCShipAI::b_set_arc_priority(int current_bearing, int current_arc, int* ar
 {
     switch(current_arc)
     {
-    case FORE:
+    case SIDE_FORE:
     {
         arc_priority[0] = SLOT_FORE;
         arc_priority[3] = SLOT_REAR;
@@ -1042,7 +1043,7 @@ void NPCShipAI::b_set_arc_priority(int current_bearing, int current_arc, int* ar
             arc_priority[2] = SLOT_STAR;
         }
     } break;
-    case STARBOARD:
+    case SIDE_STAR:
     {
         arc_priority[0] = SLOT_STAR;
         arc_priority[3] = SLOT_PORT;
@@ -1057,7 +1058,7 @@ void NPCShipAI::b_set_arc_priority(int current_bearing, int current_arc, int* ar
             arc_priority[2] = SLOT_FORE;
         }
     } break;
-    case PORT:
+    case SIDE_PORT:
     {
         arc_priority[0] = SLOT_PORT;
         arc_priority[3] = SLOT_STAR;
@@ -1072,7 +1073,7 @@ void NPCShipAI::b_set_arc_priority(int current_bearing, int current_arc, int* ar
             arc_priority[2] = SLOT_FORE;
         }
     } break;
-    case REAR:
+    case SIDE_REAR:
     {
         arc_priority[0] = SLOT_REAR;
         arc_priority[3] = SLOT_FORE;
@@ -1231,7 +1232,7 @@ void NPCShipAI::a_attack()
     {
         if (to_fire[w_num])
         {
-            fire_weapon(ship, debug_char, w_num);
+            fire_weapon(ship, w_num, ship->target, t_range, t_bearing, debug_char);
         }
     }
     if (can_fire_but_not_right)
@@ -1604,7 +1605,7 @@ bool NPCShipAI::a_immediate_turn()
                 return true;
             }
         }
-        if ((chosen_side == SLOT_REAR && side_props[SLOT_REAR].ready_timer == 0) && side_props[SLOT_REAR].max_range > proj_range)
+        if (chosen_side == SLOT_REAR && side_props[SLOT_REAR].ready_timer == 0 && side_props[SLOT_REAR].max_range > proj_range)
         {
            new_heading = s_bearing; // turning from target to fire rear
            send_message_to_debug_char(" immediate turn to fire rear!\r\n");
@@ -1636,9 +1637,9 @@ void NPCShipAI::a_choose_dest_point()
     float chosen_range = side_props[chosen_side].good_range;
     if (side_props[chosen_side].min_range > 0)
     {
-        if (chosen_side == FORE)
+        if (chosen_side == SIDE_FORE)
             chosen_range = side_props[chosen_side].min_range + 3;
-        else if (chosen_side == REAR)
+        else if (chosen_side == SIDE_REAR)
             chosen_range = side_props[chosen_side].min_range;
         else
             chosen_range = side_props[chosen_side].min_range + 1;
@@ -1862,4 +1863,11 @@ void NPCShipAI::send_message_to_debug_char(char *fmt, ... )
 
 
 
+// Problems:
+// Take damage_ready into account
 // add target's side-per-time statistic, switch target side if too many
+// make sure repair time adds up
+// make sure people dont attacked twice on same cargo run??
+// make advanced attack support multitarget
+// Validate cargo!
+// Make act_to_all and send_to_char through varargs

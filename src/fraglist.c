@@ -6,12 +6,11 @@
 #include "config.h"
 #include "utils.h"
 #include "spells.h"
+#include "ships.h"
 #define MAX_FRAG_SIZE    10     /* max size of high/low lists */
 extern const struct class_names class_names_table[];
 extern const struct race_names race_names_table[];
 extern P_char misfire_check(P_char ch, P_char spell_target, int flag);
-void newshipfrags();
-void dispshipfrags(P_char ch);
 
 extern P_room world;
 
@@ -445,8 +444,8 @@ void displayFragList(P_char ch, char *arg, int cmd)
     }
     else if (strstr("ship", arg))
     {
-      newshipfrags();
-      dispshipfrags(ch);
+      update_shipfrags();
+      display_shipfrags(ch);
       return;
     }
     else if (strstr("guild", arg))

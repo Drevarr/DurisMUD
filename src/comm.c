@@ -783,7 +783,7 @@ void game_loop(int s)
       timers_activity();
 
     if (!(pulse % WAIT_SEC))
-      newship_activity();
+      ship_activity();
 
     if( !no_ferries && !(pulse % WAIT_SEC) )
       ferry_activity();
@@ -891,7 +891,7 @@ void game_loop(int s)
 
   if( no_ferries == 0 ) shutdown_ferries();
         
-  shutdown_newships();
+  shutdown_ships();
 
   shutdown_auction_houses();
   

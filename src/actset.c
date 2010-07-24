@@ -759,8 +759,7 @@ static void setbit_ship(P_char ch, char *name, char *flag, char *val,
 
   /* Executable Section */
   
-  if ((ship = get_ship(name)) == NULL)
-  //if ((ship = getshipfromchar(get_char(name))) == NULL)
+  if ((ship = get_ship_from_owner(name)) == NULL)
   {
       send_to_char("No ship by that name here.\r\n", ch);
       return;

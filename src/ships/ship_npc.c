@@ -16,10 +16,6 @@
 #include "ship_npc.h"
 #include "ship_npc_ai.h"
 
-void  act_to_all_in_ship(P_ship ship, const char *msg);
-int   getmap(P_ship ship);
-bool load_npc_ship_crew(P_ship ship, int crew_size, int crew_level);
-
 #define LOAD_RANGE 36
 
 extern int top_of_world;
@@ -100,11 +96,12 @@ bool is_npc_ship_name(const char *name)
 // SETUP
 //////////////////////
 
+bool  load_npc_ship_crew(P_ship ship, int crew_size, int crew_level);
 void setup_npc_clipper_01(P_ship ship, NPC_AI_Type type) // level 0
 {
-    set_weapon(ship, 0, W_SMALL_CAT, FORE);
-    set_weapon(ship, 1, W_SMALL_BAL, PORT);
-    set_weapon(ship, 2, W_SMALL_BAL, PORT);
+    set_weapon(ship, 0, W_SMALL_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_BAL, SIDE_PORT);
+    set_weapon(ship, 2, W_SMALL_BAL, SIDE_PORT);
     setcrew(ship, sail_crew_list[0], 200000);
     setcrew(ship, gun_crew_list[0], 200000);
     setcrew(ship, repair_crew_list[0], 200000);
@@ -113,9 +110,9 @@ void setup_npc_clipper_01(P_ship ship, NPC_AI_Type type) // level 0
 }
 void setup_npc_clipper_02(P_ship ship, NPC_AI_Type type) // level 0
 {
-    set_weapon(ship, 0, W_MEDIUM_BAL, FORE);
-    set_weapon(ship, 1, W_SMALL_BAL, PORT);
-    set_weapon(ship, 2, W_SMALL_BAL, STARBOARD);
+    set_weapon(ship, 0, W_MEDIUM_BAL, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_BAL, SIDE_PORT);
+    set_weapon(ship, 2, W_SMALL_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[0], 200000);
     setcrew(ship, gun_crew_list[0], 200000);
     setcrew(ship, repair_crew_list[0], 200000);
@@ -124,10 +121,10 @@ void setup_npc_clipper_02(P_ship ship, NPC_AI_Type type) // level 0
 }
 void setup_npc_clipper_03(P_ship ship, NPC_AI_Type type) // level 0
 {
-    set_weapon(ship, 0, W_SMALL_BAL, FORE);
-    set_weapon(ship, 1, W_SMALL_BAL, PORT);
-    set_weapon(ship, 2, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 3, W_SMALL_BAL, REAR);
+    set_weapon(ship, 0, W_SMALL_BAL, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_BAL, SIDE_PORT);
+    set_weapon(ship, 2, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 3, W_SMALL_BAL, SIDE_REAR);
     setcrew(ship, sail_crew_list[0], 200000);
     setcrew(ship, gun_crew_list[0], 200000);
     setcrew(ship, repair_crew_list[0], 200000);
@@ -136,9 +133,9 @@ void setup_npc_clipper_03(P_ship ship, NPC_AI_Type type) // level 0
 }
 void setup_npc_ketch_01(P_ship ship, NPC_AI_Type type) // level 0
 {
-    set_weapon(ship, 0, W_SMALL_CAT, FORE);
-    set_weapon(ship, 1, W_MEDIUM_BAL, STARBOARD);
-    set_weapon(ship, 2, W_SMALL_BAL, STARBOARD);
+    set_weapon(ship, 0, W_SMALL_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_MEDIUM_BAL, SIDE_STAR);
+    set_weapon(ship, 2, W_SMALL_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[0], 200000);
     setcrew(ship, gun_crew_list[0], 200000);
     setcrew(ship, repair_crew_list[0], 200000);
@@ -147,9 +144,9 @@ void setup_npc_ketch_01(P_ship ship, NPC_AI_Type type) // level 0
 }
 void setup_npc_ketch_02(P_ship ship, NPC_AI_Type type) // level 0
 {
-    set_weapon(ship, 0, W_SMALL_CAT, FORE);
-    set_weapon(ship, 1, W_MEDIUM_BAL, STARBOARD);
-    set_weapon(ship, 2, W_MEDIUM_BAL, PORT);
+    set_weapon(ship, 0, W_SMALL_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_MEDIUM_BAL, SIDE_STAR);
+    set_weapon(ship, 2, W_MEDIUM_BAL, SIDE_PORT);
     setcrew(ship, sail_crew_list[0], 200000);
     setcrew(ship, gun_crew_list[0], 200000);
     setcrew(ship, repair_crew_list[0], 200000);
@@ -158,8 +155,8 @@ void setup_npc_ketch_02(P_ship ship, NPC_AI_Type type) // level 0
 }
 void setup_npc_ketch_03(P_ship ship, NPC_AI_Type type) // level 0
 {
-    set_weapon(ship, 0, W_SMALL_CAT, FORE);
-    set_weapon(ship, 1, W_SMALL_CAT, REAR);
+    set_weapon(ship, 0, W_SMALL_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_CAT, SIDE_REAR);
     setcrew(ship, sail_crew_list[0], 200000);
     setcrew(ship, gun_crew_list[0], 200000);
     setcrew(ship, repair_crew_list[0], 200000);
@@ -168,10 +165,10 @@ void setup_npc_ketch_03(P_ship ship, NPC_AI_Type type) // level 0
 }
 void setup_npc_caravel_01(P_ship ship, NPC_AI_Type type) // level 0
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 2, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 3, W_SMALL_BAL, STARBOARD);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 2, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 3, W_SMALL_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[0], 200000);
     setcrew(ship, gun_crew_list[0], 200000);
     setcrew(ship, repair_crew_list[0], 200000);
@@ -180,9 +177,9 @@ void setup_npc_caravel_01(P_ship ship, NPC_AI_Type type) // level 0
 }
 void setup_npc_caravel_02(P_ship ship, NPC_AI_Type type) // level 0
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 2, W_MEDIUM_BAL, STARBOARD);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 2, W_MEDIUM_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[0], 200000);
     setcrew(ship, gun_crew_list[0], 200000);
     setcrew(ship, repair_crew_list[0], 200000);
@@ -191,10 +188,10 @@ void setup_npc_caravel_02(P_ship ship, NPC_AI_Type type) // level 0
 }
 void setup_npc_caravel_03(P_ship ship, NPC_AI_Type type) // level 1
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 1, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 1, W_MEDIUM_BAL, PORT);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 1, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 1, W_MEDIUM_BAL, SIDE_PORT);
     setcrew(ship, sail_crew_list[0], 600000);
     setcrew(ship, gun_crew_list[0], 600000);
     setcrew(ship, repair_crew_list[0], 600000);
@@ -203,9 +200,9 @@ void setup_npc_caravel_03(P_ship ship, NPC_AI_Type type) // level 1
 }
 void setup_npc_corvette_01(P_ship ship, NPC_AI_Type type) // level 1
 {
-    set_weapon(ship, 0, W_SMALL_CAT, FORE);
-    set_weapon(ship, 1, W_MEDIUM_BAL, STARBOARD);
-    set_weapon(ship, 2, W_MEDIUM_BAL, STARBOARD);
+    set_weapon(ship, 0, W_SMALL_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_MEDIUM_BAL, SIDE_STAR);
+    set_weapon(ship, 2, W_MEDIUM_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[0], 300000);
     setcrew(ship, gun_crew_list[0], 300000);
     setcrew(ship, repair_crew_list[0], 300000);
@@ -214,9 +211,9 @@ void setup_npc_corvette_01(P_ship ship, NPC_AI_Type type) // level 1
 }
 void setup_npc_corvette_02(P_ship ship, NPC_AI_Type type) // level 1
 {
-    set_weapon(ship, 0, W_SMALL_CAT, FORE);
-    set_weapon(ship, 1, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 2, W_MEDIUM_BAL, STARBOARD);
+    set_weapon(ship, 0, W_SMALL_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 2, W_MEDIUM_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[0], 300000);
     setcrew(ship, gun_crew_list[0], 300000);
     setcrew(ship, repair_crew_list[0], 300000);
@@ -225,11 +222,11 @@ void setup_npc_corvette_02(P_ship ship, NPC_AI_Type type) // level 1
 }
 void setup_npc_corvette_03(P_ship ship, NPC_AI_Type type) // level 1
 {
-    set_weapon(ship, 0, W_SMALL_CAT, FORE);
-    set_weapon(ship, 1, W_SMALL_BAL, PORT);
-    set_weapon(ship, 2, W_SMALL_BAL, PORT);
-    set_weapon(ship, 3, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 4, W_SMALL_BAL, STARBOARD);
+    set_weapon(ship, 0, W_SMALL_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_BAL, SIDE_PORT);
+    set_weapon(ship, 2, W_SMALL_BAL, SIDE_PORT);
+    set_weapon(ship, 3, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 4, W_SMALL_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[0], 300000);
     setcrew(ship, gun_crew_list[0], 300000);
     setcrew(ship, repair_crew_list[0], 300000);
@@ -238,13 +235,13 @@ void setup_npc_corvette_03(P_ship ship, NPC_AI_Type type) // level 1
 }
 void setup_npc_corvette_04(P_ship ship, NPC_AI_Type type) // level 2
 {
-    set_weapon(ship, 0, W_SMALL_CAT, FORE);
-    set_weapon(ship, 1, W_SMALL_BAL, PORT);
-    set_weapon(ship, 2, W_SMALL_BAL, PORT);
-    set_weapon(ship, 3, W_SMALL_BAL, PORT);
-    set_weapon(ship, 4, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 5, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 6, W_SMALL_BAL, STARBOARD);
+    set_weapon(ship, 0, W_SMALL_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_BAL, SIDE_PORT);
+    set_weapon(ship, 2, W_SMALL_BAL, SIDE_PORT);
+    set_weapon(ship, 3, W_SMALL_BAL, SIDE_PORT);
+    set_weapon(ship, 4, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 5, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 6, W_SMALL_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[1], 800000);
     setcrew(ship, gun_crew_list[2], 800000);
     setcrew(ship, repair_crew_list[1], 800000);
@@ -253,9 +250,9 @@ void setup_npc_corvette_04(P_ship ship, NPC_AI_Type type) // level 2
 }
 void setup_npc_corvette_05(P_ship ship, NPC_AI_Type type) // level 2
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_LARGE_BAL, PORT);
-    set_weapon(ship, 2, W_LARGE_BAL, PORT);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_PORT);
     setcrew(ship, sail_crew_list[2], 1500000);
     setcrew(ship, gun_crew_list[3], 1500000);
     setcrew(ship, repair_crew_list[1], 1500000);
@@ -266,9 +263,9 @@ void setup_npc_corvette_05(P_ship ship, NPC_AI_Type type) // level 2
 
 void setup_npc_corvette_06(P_ship ship, NPC_AI_Type type) // level 2
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 2, W_LARGE_BAL, PORT);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_PORT);
     setcrew(ship, sail_crew_list[2], 1500000);
     setcrew(ship, gun_crew_list[3], 1500000);
     setcrew(ship, repair_crew_list[1], 1500000);
@@ -278,10 +275,10 @@ void setup_npc_corvette_06(P_ship ship, NPC_AI_Type type) // level 2
 
 void setup_npc_corvette_07(P_ship ship, NPC_AI_Type type) // level 2
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_MEDIUM_BAL, STARBOARD);
-    set_weapon(ship, 2, W_MEDIUM_BAL, STARBOARD);
-    set_weapon(ship, 3, W_MEDIUM_BAL, STARBOARD);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_MEDIUM_BAL, SIDE_STAR);
+    set_weapon(ship, 2, W_MEDIUM_BAL, SIDE_STAR);
+    set_weapon(ship, 3, W_MEDIUM_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[2], 1800000);
     setcrew(ship, gun_crew_list[3], 1500000);
     setcrew(ship, repair_crew_list[1], 1500000);
@@ -291,12 +288,12 @@ void setup_npc_corvette_07(P_ship ship, NPC_AI_Type type) // level 2
 
 void setup_npc_corvette_08(P_ship ship, NPC_AI_Type type) // level 2
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_SMALL_CAT, REAR);
-    set_weapon(ship, 2, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 3, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 4, W_SMALL_BAL, PORT);
-    set_weapon(ship, 5, W_SMALL_BAL, PORT);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_CAT, SIDE_REAR);
+    set_weapon(ship, 2, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 3, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 4, W_SMALL_BAL, SIDE_PORT);
+    set_weapon(ship, 5, W_SMALL_BAL, SIDE_PORT);
     setcrew(ship, sail_crew_list[2], 1500000);
     setcrew(ship, gun_crew_list[3], 1500000);
     setcrew(ship, repair_crew_list[1], 1500000);
@@ -306,10 +303,10 @@ void setup_npc_corvette_08(P_ship ship, NPC_AI_Type type) // level 2
 
 void setup_npc_corvette_09(P_ship ship, NPC_AI_Type type) // level 3
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 2, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 3, W_MINDBLAST, STARBOARD);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 3, W_MINDBLAST, SIDE_STAR);
     setcrew(ship, sail_crew_list[2], 2500000);
     setcrew(ship, gun_crew_list[3], 2500000);
     setcrew(ship, repair_crew_list[2], 2500000);
@@ -319,10 +316,10 @@ void setup_npc_corvette_09(P_ship ship, NPC_AI_Type type) // level 3
 
 void setup_npc_corvette_10(P_ship ship, NPC_AI_Type type) // level 3
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_LARGE_BAL, PORT);
-    set_weapon(ship, 2, W_LARGE_BAL, PORT);
-    set_weapon(ship, 3, W_MINDBLAST, PORT);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 3, W_MINDBLAST, SIDE_PORT);
     setcrew(ship, sail_crew_list[2], 2500000);
     setcrew(ship, gun_crew_list[3], 2500000);
     setcrew(ship, repair_crew_list[2], 2500000);
@@ -332,10 +329,10 @@ void setup_npc_corvette_10(P_ship ship, NPC_AI_Type type) // level 3
 
 void setup_npc_corvette_11(P_ship ship, NPC_AI_Type type) // level 3
 {
-    set_weapon(ship, 0, W_QUARTZ, FORE);
-    set_weapon(ship, 1, W_LARGE_BAL, PORT);
-    set_weapon(ship, 2, W_LARGE_BAL, PORT);
-    set_weapon(ship, 3, W_LARGE_BAL, PORT);
+    set_weapon(ship, 0, W_QUARTZ, SIDE_FORE);
+    set_weapon(ship, 1, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 3, W_LARGE_BAL, SIDE_PORT);
     setcrew(ship, sail_crew_list[2], 2400000);
     setcrew(ship, gun_crew_list[3], 2400000);
     setcrew(ship, repair_crew_list[2], 2200000);
@@ -345,13 +342,13 @@ void setup_npc_corvette_11(P_ship ship, NPC_AI_Type type) // level 3
 
 void setup_npc_destroyer_01(P_ship ship, NPC_AI_Type type) // level 1
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 2, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 3, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 4, W_SMALL_BAL, PORT);
-    set_weapon(ship, 5, W_SMALL_BAL, PORT);
-    set_weapon(ship, 6, W_SMALL_BAL, PORT);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 2, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 3, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 4, W_SMALL_BAL, SIDE_PORT);
+    set_weapon(ship, 5, W_SMALL_BAL, SIDE_PORT);
+    set_weapon(ship, 6, W_SMALL_BAL, SIDE_PORT);
     setcrew(ship, sail_crew_list[0], 400000);
     setcrew(ship, gun_crew_list[0], 400000);
     setcrew(ship, repair_crew_list[0], 400000);
@@ -361,9 +358,9 @@ void setup_npc_destroyer_01(P_ship ship, NPC_AI_Type type) // level 1
 
 void setup_npc_destroyer_02(P_ship ship, NPC_AI_Type type) // level 1
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 2, W_LARGE_BAL, STARBOARD);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[1], 500000);
     setcrew(ship, gun_crew_list[0], 500000);
     setcrew(ship, repair_crew_list[0], 500000);
@@ -373,11 +370,11 @@ void setup_npc_destroyer_02(P_ship ship, NPC_AI_Type type) // level 1
 
 void setup_npc_destroyer_03(P_ship ship, NPC_AI_Type type) // level 2
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_SMALL_CAT, FORE);
-    set_weapon(ship, 2, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 3, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 4, W_MEDIUM_BAL, PORT);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_CAT, SIDE_FORE);
+    set_weapon(ship, 2, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 3, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 4, W_MEDIUM_BAL, SIDE_PORT);
     setcrew(ship, sail_crew_list[2], 1500000);
     setcrew(ship, gun_crew_list[3], 1500000);
     setcrew(ship, repair_crew_list[1], 1500000);
@@ -386,10 +383,10 @@ void setup_npc_destroyer_03(P_ship ship, NPC_AI_Type type) // level 2
 }
 void setup_npc_destroyer_04(P_ship ship, NPC_AI_Type type) // level 2
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 2, W_LARGE_BAL, PORT);
-    set_weapon(ship, 3, W_LARGE_BAL, STARBOARD);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 3, W_LARGE_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[2], 1500000);
     setcrew(ship, gun_crew_list[3], 1500000);
     setcrew(ship, repair_crew_list[1], 1500000);
@@ -398,13 +395,13 @@ void setup_npc_destroyer_04(P_ship ship, NPC_AI_Type type) // level 2
 }
 void setup_npc_destroyer_05(P_ship ship, NPC_AI_Type type) // level 2
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 2, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 3, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 4, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 5, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 6, W_SMALL_BAL, STARBOARD);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 2, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 3, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 4, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 5, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 6, W_SMALL_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[2], 1500000);
     setcrew(ship, gun_crew_list[3], 1500000);
     setcrew(ship, repair_crew_list[1], 1500000);
@@ -414,12 +411,12 @@ void setup_npc_destroyer_05(P_ship ship, NPC_AI_Type type) // level 2
 
 void setup_npc_destroyer_06(P_ship ship, NPC_AI_Type type) // level 2
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_SMALL_CAT, REAR);
-    set_weapon(ship, 2, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 3, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 4, W_MEDIUM_BAL, STARBOARD);
-    set_weapon(ship, 5, W_MEDIUM_BAL, STARBOARD);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_CAT, SIDE_REAR);
+    set_weapon(ship, 2, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 3, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 4, W_MEDIUM_BAL, SIDE_STAR);
+    set_weapon(ship, 5, W_MEDIUM_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[2], 1500000);
     setcrew(ship, gun_crew_list[3], 1500000);
     setcrew(ship, repair_crew_list[1], 1500000);
@@ -429,11 +426,11 @@ void setup_npc_destroyer_06(P_ship ship, NPC_AI_Type type) // level 2
 
 void setup_npc_destroyer_07(P_ship ship, NPC_AI_Type type) // level 2
 {
-    set_weapon(ship, 0, W_LARGE_CAT, FORE);
-    set_weapon(ship, 1, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 2, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 3, W_MEDIUM_BAL, STARBOARD);
-    set_weapon(ship, 4, W_MEDIUM_BAL, STARBOARD);
+    set_weapon(ship, 0, W_LARGE_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 2, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 3, W_MEDIUM_BAL, SIDE_STAR);
+    set_weapon(ship, 4, W_MEDIUM_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[2], 1500000);
     setcrew(ship, gun_crew_list[3], 1500000);
     setcrew(ship, repair_crew_list[1], 1500000);
@@ -443,10 +440,10 @@ void setup_npc_destroyer_07(P_ship ship, NPC_AI_Type type) // level 2
 
 void setup_npc_destroyer_08(P_ship ship, NPC_AI_Type type) // level 2
 {
-    set_weapon(ship, 0, W_LARGE_CAT, FORE);
-    set_weapon(ship, 1, W_LARGE_BAL, PORT);
-    set_weapon(ship, 2, W_LARGE_BAL, PORT);
-    set_weapon(ship, 3, W_MEDIUM_BAL, PORT);
+    set_weapon(ship, 0, W_LARGE_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 3, W_MEDIUM_BAL, SIDE_PORT);
     setcrew(ship, sail_crew_list[2], 1500000);
     setcrew(ship, gun_crew_list[3], 1500000);
     setcrew(ship, repair_crew_list[1], 1500000);
@@ -456,12 +453,12 @@ void setup_npc_destroyer_08(P_ship ship, NPC_AI_Type type) // level 2
 
 void setup_npc_destroyer_09(P_ship ship, NPC_AI_Type type) // level 2
 {
-    set_weapon(ship, 0, W_LARGE_CAT, FORE);
-    set_weapon(ship, 1, W_LARGE_BAL, PORT);
-    set_weapon(ship, 2, W_LARGE_BAL, PORT);
-    set_weapon(ship, 3, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 4, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 5, W_SMALL_BAL, STARBOARD);
+    set_weapon(ship, 0, W_LARGE_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 3, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 4, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 5, W_SMALL_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[2], 1500000);
     setcrew(ship, gun_crew_list[3], 1500000);
     setcrew(ship, repair_crew_list[1], 1500000);
@@ -471,12 +468,12 @@ void setup_npc_destroyer_09(P_ship ship, NPC_AI_Type type) // level 2
 
 void setup_npc_destroyer_10(P_ship ship, NPC_AI_Type type) // level 3
 {
-    set_weapon(ship, 0, W_FRAG_CAN, FORE);
-    set_weapon(ship, 1, W_SMALL_CAT, REAR);
-    set_weapon(ship, 2, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 3, W_MEDIUM_BAL, STARBOARD);
-    set_weapon(ship, 4, W_LARGE_BAL, PORT);
-    set_weapon(ship, 5, W_MEDIUM_BAL, PORT);
+    set_weapon(ship, 0, W_FRAG_CAN, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_CAT, SIDE_REAR);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 3, W_MEDIUM_BAL, SIDE_STAR);
+    set_weapon(ship, 4, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 5, W_MEDIUM_BAL, SIDE_PORT);
     setcrew(ship, sail_crew_list[2], 2800000);
     setcrew(ship, gun_crew_list[3], 2500000);
     setcrew(ship, repair_crew_list[1], 2500000);
@@ -486,11 +483,11 @@ void setup_npc_destroyer_10(P_ship ship, NPC_AI_Type type) // level 3
 
 void setup_npc_destroyer_11(P_ship ship, NPC_AI_Type type) // level 3
 {
-    set_weapon(ship, 0, W_DARKSTONE, FORE);
-    set_weapon(ship, 1, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 2, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 3, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 4, W_LARGE_BAL, STARBOARD);
+    set_weapon(ship, 0, W_DARKSTONE, SIDE_FORE);
+    set_weapon(ship, 1, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 3, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 4, W_LARGE_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[2], 2800000);
     setcrew(ship, gun_crew_list[3], 2500000);
     setcrew(ship, repair_crew_list[2], 2500000);
@@ -500,13 +497,13 @@ void setup_npc_destroyer_11(P_ship ship, NPC_AI_Type type) // level 3
 
 void setup_npc_destroyer_12(P_ship ship, NPC_AI_Type type) // level 3
 {
-    set_weapon(ship, 0, W_DARKSTONE, FORE);
-    set_weapon(ship, 1, W_SMALL_CAT, REAR);
-    set_weapon(ship, 2, W_LARGE_BAL, PORT);
-    set_weapon(ship, 3, W_LARGE_BAL, PORT);
-    set_weapon(ship, 4, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 5, W_SMALL_BAL, STARBOARD);
-    set_weapon(ship, 6, W_SMALL_BAL, STARBOARD);
+    set_weapon(ship, 0, W_DARKSTONE, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_CAT, SIDE_REAR);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 3, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 4, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 5, W_SMALL_BAL, SIDE_STAR);
+    set_weapon(ship, 6, W_SMALL_BAL, SIDE_STAR);
     setcrew(ship, sail_crew_list[2], 2800000);
     setcrew(ship, gun_crew_list[3], 2500000);
     setcrew(ship, repair_crew_list[2], 2500000);
@@ -516,13 +513,13 @@ void setup_npc_destroyer_12(P_ship ship, NPC_AI_Type type) // level 3
 
 void setup_npc_destroyer_13(P_ship ship, NPC_AI_Type type) // level 3
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_SMALL_CAT, REAR);
-    set_weapon(ship, 2, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 3, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 4, W_MEDIUM_BAL, STARBOARD);
-    set_weapon(ship, 5, W_MEDIUM_BAL, STARBOARD);
-    set_weapon(ship, 6, W_MINDBLAST, REAR);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_SMALL_CAT, SIDE_REAR);
+    set_weapon(ship, 2, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 3, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 4, W_MEDIUM_BAL, SIDE_STAR);
+    set_weapon(ship, 5, W_MEDIUM_BAL, SIDE_STAR);
+    set_weapon(ship, 6, W_MINDBLAST, SIDE_REAR);
     setcrew(ship, sail_crew_list[2], 2800000);
     setcrew(ship, gun_crew_list[3], 2500000);
     setcrew(ship, repair_crew_list[2], 2500000);
@@ -532,13 +529,13 @@ void setup_npc_destroyer_13(P_ship ship, NPC_AI_Type type) // level 3
 
 void setup_npc_frigate_01(P_ship ship, NPC_AI_Type type) // level 3
 {
-    set_weapon(ship, 0, W_LARGE_CAT, FORE);
-    set_weapon(ship, 1, W_FRAG_CAN, FORE);
-    set_weapon(ship, 2, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 3, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 4, W_LARGE_BAL, PORT);
-    set_weapon(ship, 5, W_LARGE_BAL, PORT);
-    set_weapon(ship, 6, W_SMALL_CAT, REAR);
+    set_weapon(ship, 0, W_LARGE_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_FRAG_CAN, SIDE_FORE);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 3, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 4, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 5, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 6, W_SMALL_CAT, SIDE_REAR);
     setcrew(ship, sail_crew_list[2], 4000000);
     setcrew(ship, gun_crew_list[3], 3000000);
     setcrew(ship, repair_crew_list[2], 2500000);
@@ -548,15 +545,15 @@ void setup_npc_frigate_01(P_ship ship, NPC_AI_Type type) // level 3
 
 void setup_npc_frigate_02(P_ship ship, NPC_AI_Type type) // level 3
 {
-    set_weapon(ship, 0, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 1, W_MEDIUM_CAT, FORE);
-    set_weapon(ship, 2, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 3, W_MEDIUM_BAL, STARBOARD);
-    set_weapon(ship, 4, W_MEDIUM_BAL, STARBOARD);
-    set_weapon(ship, 5, W_LARGE_BAL, PORT);
-    set_weapon(ship, 6, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 7, W_MEDIUM_BAL, PORT);
-    set_weapon(ship, 8, W_MINDBLAST, REAR);
+    set_weapon(ship, 0, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_MEDIUM_CAT, SIDE_FORE);
+    set_weapon(ship, 2, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 3, W_MEDIUM_BAL, SIDE_STAR);
+    set_weapon(ship, 4, W_MEDIUM_BAL, SIDE_STAR);
+    set_weapon(ship, 5, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 6, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 7, W_MEDIUM_BAL, SIDE_PORT);
+    set_weapon(ship, 8, W_MINDBLAST, SIDE_REAR);
     setcrew(ship, sail_crew_list[2], 4000000);
     setcrew(ship, gun_crew_list[3], 3000000);
     setcrew(ship, repair_crew_list[2], 2500000);
@@ -567,46 +564,46 @@ void setup_npc_frigate_02(P_ship ship, NPC_AI_Type type) // level 3
 
 void setup_npc_dreadnought_01(P_ship ship, NPC_AI_Type type) // level 4
 {
-    set_weapon(ship, 0, W_LONGTOM, FORE);
-    set_weapon(ship, 1, W_FRAG_CAN, FORE);
-    set_weapon(ship, 2, W_LARGE_CAT, FORE);
-    set_weapon(ship, 3, W_HEAVY_BAL, STARBOARD);
-    set_weapon(ship, 4, W_HEAVY_BAL, STARBOARD);
-    set_weapon(ship, 5, W_HEAVY_BAL, STARBOARD);
-    set_weapon(ship, 6, W_HEAVY_BAL, STARBOARD);
-    set_weapon(ship, 7, W_LARGE_BAL, PORT);
-    set_weapon(ship, 8, W_LARGE_BAL, PORT);
-    set_weapon(ship, 9, W_LARGE_BAL, PORT);
-    set_weapon(ship,10, W_LARGE_BAL, PORT);
-    set_weapon(ship,11, W_LARGE_BAL, PORT);
-    set_weapon(ship,12, W_SMALL_CAT, REAR);
-    set_weapon(ship,13, W_SMALL_CAT, REAR);
-    setcrew(ship, sail_crew_list[3], 7500000);
-    setcrew(ship, gun_crew_list[4], 7500000);
-    setcrew(ship, repair_crew_list[2], 7500000);
+    set_weapon(ship, 0, W_LONGTOM, SIDE_FORE);
+    set_weapon(ship, 1, W_FRAG_CAN, SIDE_FORE);
+    set_weapon(ship, 2, W_LARGE_CAT, SIDE_FORE);
+    set_weapon(ship, 3, W_HEAVY_BAL, SIDE_STAR);
+    set_weapon(ship, 4, W_HEAVY_BAL, SIDE_STAR);
+    set_weapon(ship, 5, W_HEAVY_BAL, SIDE_STAR);
+    set_weapon(ship, 6, W_HEAVY_BAL, SIDE_STAR);
+    set_weapon(ship, 7, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 8, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 9, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,10, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,11, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,12, W_SMALL_CAT, SIDE_REAR);
+    set_weapon(ship,13, W_SMALL_CAT, SIDE_REAR);
+    setcrew(ship, sail_crew_list[3], 10000000);
+    setcrew(ship, gun_crew_list[4], 10000000);
+    setcrew(ship, repair_crew_list[2], 10000000);
     ship->frags = number(3000, 4000);
     load_npc_ship_crew(ship, 20, 4);
 }
 
 void setup_npc_dreadnought_02(P_ship ship, NPC_AI_Type type) // level 4
 {
-    set_weapon(ship, 0, W_LONGTOM, FORE);
-    set_weapon(ship, 1, W_LARGE_CAT, FORE);
-    set_weapon(ship, 2, W_LARGE_CAT, FORE);
-    set_weapon(ship, 3, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 4, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 5, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 6, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 7, W_LARGE_BAL, STARBOARD);
-    set_weapon(ship, 8, W_LARGE_BAL, PORT);
-    set_weapon(ship, 9, W_LARGE_BAL, PORT);
-    set_weapon(ship,10, W_LARGE_BAL, PORT);
-    set_weapon(ship,11, W_LARGE_BAL, PORT);
-    set_weapon(ship,12, W_LARGE_BAL, PORT);
-    set_weapon(ship,13, W_MINDBLAST, REAR);
-    setcrew(ship, sail_crew_list[3], 7500000);
-    setcrew(ship, gun_crew_list[4], 7500000);
-    setcrew(ship, repair_crew_list[2], 7500000);
+    set_weapon(ship, 0, W_LONGTOM, SIDE_FORE);
+    set_weapon(ship, 1, W_LARGE_CAT, SIDE_FORE);
+    set_weapon(ship, 2, W_LARGE_CAT, SIDE_FORE);
+    set_weapon(ship, 3, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 4, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 5, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 6, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 7, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 8, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 9, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,10, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,11, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,12, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,13, W_MINDBLAST, SIDE_REAR);
+    setcrew(ship, sail_crew_list[3], 10000000);
+    setcrew(ship, gun_crew_list[4], 10000000);
+    setcrew(ship, repair_crew_list[2], 10000000);
     ship->frags = number(3000, 4000);
     load_npc_ship_crew(ship, 20, 4);
 }
@@ -795,13 +792,13 @@ P_ship try_load_npc_ship(P_ship target, P_char ch, NPC_AI_Type type, int level)
     if (!ship) 
         return 0;
 
-    ship->npc_ai->advanced = false;
+    ship->npc_ai->advanced = 0;
     if (level == 1 && number(1, 3) == 1)
-        ship->npc_ai->advanced = true;
+        ship->npc_ai->advanced = 1;
     if (level == 2 && number(1, 2) == 1)
-        ship->npc_ai->advanced = true;
+        ship->npc_ai->advanced = 1;
     if (level == 3)
-        ship->npc_ai->advanced = true;
+        ship->npc_ai->advanced = 1;
 
     ship->target = target;
     int ship_heading = dir + 180;
@@ -823,8 +820,8 @@ P_ship try_load_npc_ship(int location, P_ship target, P_char ch, NPC_AI_Type typ
         return 0;
     }
 
-    int target_speed = target ? SHIPTYPESPEED(target->m_class) : -1;
-    P_ship ship = load_npc_ship(level, type, target_speed, -1, location, ch);
+    int min_speed = target ? (SHIPTYPESPEED(target->m_class) - 10) : -1;
+    P_ship ship = load_npc_ship(level, type, min_speed, -1, location, ch);
     if (!ship)
         ship = load_npc_ship(level, type, 0, -1, location, ch);
     if (!ship)
@@ -839,14 +836,10 @@ P_ship try_load_npc_ship(int location, P_ship target, P_char ch, NPC_AI_Type typ
 
 bool try_unload_npc_ship(P_ship ship)
 {
-    if (ship->timer[T_MAINTENANCE] == 1)
-    {
-        everyone_get_out_newship(ship);
-        shipObjHash.erase(ship);
-        delete_ship(ship, true);
-        return TRUE;
-    }
-    return FALSE;
+    everyone_get_out_newship(ship);
+    shipObjHash.erase(ship);
+    delete_ship(ship, true);
+    return TRUE;
 }
 
 
@@ -866,7 +859,7 @@ bool load_npc_dreadnought()
         {
             int name_index = number(0, sizeof(dreadnoughtShipNames)/sizeof(char*) - 1);
             name_ship(dreadnoughtShipNames[name_index], npc_dreadnought);
-            npc_dreadnought->npc_ai->advanced = true;
+            npc_dreadnought->npc_ai->advanced = 1;
             npc_dreadnought->npc_ai->permanent = true;
             return true;
         }
@@ -1136,6 +1129,3 @@ bool load_npc_ship_crew(P_ship ship, int crew_size, int crew_level)
 
 
 
-// Problems:
-// if you cant hit target for too long in advanced mode, switch to basic
-// Take damage_ready into account

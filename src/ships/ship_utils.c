@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -17,28 +16,9 @@
 #include <math.h>
 
 
-extern const char *ship_symbol[35];
-
-extern void    dock_ship(P_ship ship, int to_room);
-extern float   range(float x1, float y1, float z1, float x2, float y2, float z2);
-extern int     write_ship(P_ship temp);
-
-void  summon_ship_event(P_char ch, P_char victim, P_obj obj, void *data);
-int   getmap(P_ship ship);
-void  everyone_look_out_newship(P_ship ship);
-void  everyone_get_out_newship(P_ship ship);
-void  act_to_all_in_ship(P_ship ship, const char *msg);
-void  act_to_outside(P_ship ship, const char *msg);
-void  act_to_outside_ships(P_ship ship, const char *msg, P_ship target);
-
-P_ship   getshipfromchar(P_char ch);
-int      num_people_in_ship(P_ship ship);
-void     assignid(P_ship ship, char *id);
-int      pilotroll(P_ship ship);
-void     dispshipfrags(P_char ch);
+extern char buf[MAX_STRING_LENGTH];
 
 
-//--------------------------------------------------------------------
 ShipObjHash shipObjHash;
 
 ShipObjHash::ShipObjHash()
@@ -141,7 +121,7 @@ bool ShipObjHash::erase(visitor& vs)
 }
 
 //--------------------------------------------------------------------
-P_ship get_ship(char *ownername)
+P_ship get_ship_from_owner(char *ownername)
 {
     ShipVisitor svs;
     for (bool fn = shipObjHash.get_first(svs); fn; fn = shipObjHash.get_next(svs))
@@ -153,125 +133,7 @@ P_ship get_ship(char *ownername)
 }
 
 //--------------------------------------------------------------------
-bool rename_ship_owner(char *old_name, char *new_name)
-{
-   char tmp_buf[MAX_STRING_LENGTH];
-   P_ship ship;
-   
-   ship = get_ship(old_name);
-   if( !ship )
-      return TRUE;
 
-   str_free(ship->ownername);
-   ship->ownername = str_dup(new_name);
-   name_ship(SHIPNAME(ship), ship);
-   write_ship(ship);
-   write_ships_index(); // reset index file
-
-   sprintf(tmp_buf, "Ships/%s", old_name);
-   unlink(tmp_buf);
-
-   return TRUE;
-}
-
-
-/* ------------------------------------------------------------------------------ */
-/* pure ship rename function, to be called from rename hooks or command functions */
-/* ------------------------------------------------------------------------------ */
-bool rename_ship(P_char ch, char *owner_name, char *new_name)
-{
-   char buf[MAX_STRING_LENGTH];
-   P_ship temp;
-   
-   temp = get_ship(owner_name);
-   if( !temp )
-   {
-      if( isname(GET_NAME(ch), owner_name) )
-      {
-         send_to_char("You do not own a ship yet, buy one first!\n", ch);
-      }
-      else
-      {
-         sprintf(buf, "%s does not own a ship!\n", owner_name);
-         send_to_char(buf, ch);
-      }
-
-      return FALSE;
-   }
-
-   if( IS_TRUSTED(ch) )
-   {
-      if( !is_valid_ansi(new_name, FALSE) )
-      {
-         send_to_char("Invalid ANSI characters in name.\n", ch);
-         return FALSE;
-      }
-   }
-   else
-   {
-      if ((int) strlen(strip_ansi(new_name).c_str()) > 20)
-      {
-         send_to_char("Name must be less than 20 chars (not including ansi))\r\n", ch);
-         return FALSE;
-      }
-
-      if( !is_valid_ansi_with_msg(ch, new_name, FALSE) )
-      {
-         return FALSE;
-      }
-   }
-
-   name_ship(new_name, temp);
-   write_ship(temp);
-
-   return TRUE;
-}
-
-void summon_ship_event(P_char ch, P_char victim, P_obj obj, void *data)
-{
-  int      i;
-  char     tmp_buf[MAX_STRING_LENGTH];
-  int      to_room;
-  int      is_trusted;
-
-  if (sscanf((const char *) data, "%s %d %d", tmp_buf, &to_room, &is_trusted) == 3)
-  {
-    ShipVisitor svs;
-    for (bool fn = shipObjHash.get_first(svs); fn; fn = shipObjHash.get_next(svs))
-    {
-      P_ship temp = svs;
-      if (isname(tmp_buf, temp->ownername) && temp->timer[T_BSTATION] == 0 && !SHIPSINKING(temp))
-      {
-        if( !is_trusted )
-        {
-          for (i = 0; i < MAXSLOTS; i++)
-          {
-            if (temp->slot[i].type == SLOT_CARGO || temp->slot[i].type == SLOT_CONTRABAND)
-            {
-              temp->slot[i].type = SLOT_EMPTY;
-            }
-          }
-        }
-        
-        everyone_get_out_newship(temp);
-        sprintf(tmp_buf, "&+y%s is called away elsewhere.&N\r\n", temp->name);
-        send_to_room(tmp_buf, temp->location);
-        temp->location = to_room;
-        obj_from_room(temp->shipobj);
-        obj_to_room(temp->shipobj, to_room);
-        sprintf(tmp_buf, "&+y%s arrives at port.\r\n&N", temp->name);
-        send_to_room(tmp_buf, to_room);
-        dock_ship(temp, to_room);
-        check_contraband(temp, SHIPLOCATION(temp));
-        REMOVE_BIT(temp->flags, SUMMONED);
-        temp->speed = 0;
-        temp->setspeed = 0;
-        write_ship(temp);
-        return;
-      }
-    }
-  }
-}
 
 void everyone_look_out_newship(P_ship ship)
 {
@@ -395,7 +257,7 @@ void act_to_outside_ships(P_ship ship, const char *msg, P_ship target)
   }
 }
 
-P_ship getshipfromchar(P_char ch)
+P_ship get_ship_from_char(P_char ch)
 {
   int      j;
   
@@ -407,15 +269,14 @@ P_ship getshipfromchar(P_char ch)
   ShipVisitor svs;
   for (bool fn = shipObjHash.get_first(svs); fn; fn = shipObjHash.get_next(svs))
   {
-    P_ship temp = svs;
-    if (!IS_SET(temp->flags, LOADED))
+    if (!SHIPISLOADED(svs))
       continue;
 
     for (j = 0; j < MAX_SHIP_ROOM; j++)
     {
-      if (world[ch->in_room].number == temp->room[j].roomnum)
+      if (world[ch->in_room].number == svs->room[j].roomnum)
       {
-        return temp;
+        return svs;
       }
     }
   }
@@ -427,7 +288,7 @@ int num_people_in_ship(P_ship ship)
   int      i, num = 0;
   P_char   ch;
 
-  if (!IS_SET(ship->flags, LOADED))
+  if (!SHIPISLOADED(ship))
     return 0;
 
   for (i = 0; i < MAX_SHIP_ROOM; i++)
@@ -449,6 +310,41 @@ int num_people_in_ship(P_ship ship)
   }
   return (num);
 }
+
+int get_turning_speed(P_ship ship)
+{
+    if (SHIPIMMOBILE(ship))
+    {
+        return 2;
+    }
+    int tspeed = (int) (ship->speed / 10);
+    tspeed += (int) ((280 - SHIPHULLWEIGHT(ship)) / 10);
+
+    if (tspeed < 5)
+        tspeed = 5;
+
+    float turn_mod = 1.0 + ship->sailcrew.skill_mod;
+    tspeed = (int) ((float)tspeed * turn_mod);
+    return tspeed;
+}
+
+void update_maxspeed(P_ship ship)
+{
+    int weapon_weight = ship->slot_weight(SLOT_WEAPON);
+    int weapon_weight_mod = MIN(SHIPFREEWEAPON(ship), weapon_weight);
+    int cargo_weight = ship->slot_weight(SLOT_CARGO) + ship->slot_weight(SLOT_CONTRABAND);
+    int cargo_weight_mod = MIN(SHIPFREECARGO(ship), cargo_weight);
+
+    float weight_mod = 1.0 - ( (float) (SHIPSLOTWEIGHT(ship) - weapon_weight_mod - cargo_weight_mod) / (float) SHIPMAXWEIGHT(ship) );
+
+    ship->maxspeed = SHIPTYPESPEED(ship->m_class);
+    ship->maxspeed = (int)((float)ship->maxspeed * (1.0 + ship->sailcrew.skill_mod));
+    ship->maxspeed = (int) ((float)ship->maxspeed * weight_mod);
+    ship->maxspeed = BOUNDED(1, ship->maxspeed, SHIPTYPESPEED(ship->m_class));
+    ship->maxspeed = (int) ((float)ship->maxspeed * (float)ship->mainsail / (float)SHIPMAXSAIL(ship)); // Adjust for sail condition
+}
+
+
 
 void assignid(P_ship ship, char *id, bool npc)
 {
@@ -509,54 +405,6 @@ void assignid(P_ship ship, char *id, bool npc)
 
 }
 
-void dispshipfrags(P_char ch)
-{
-  int      i, found;
-  char     tmp_buf[MAX_STRING_LENGTH];
-
-  send_to_char("&+L10 most dangerous ships\r\n", ch);
-  send_to_char
-    ("&+L-======================================================-&N\r\n\r\n",
-     ch);
-  for (i = 0; i < 10; i++)
-  {
-    if (shipfrags[i].ship == NULL)
-    {
-      break;
-    }
-    found = 0;
-    ShipVisitor svs;
-    for (bool fn = shipObjHash.get_first(svs); fn; fn = shipObjHash.get_next(svs))
-    {
-      if (svs == shipfrags[i].ship)
-      {
-        found = 1;
-      }
-    }
-    if (!found)
-    {
-      break;
-    }
-    if (shipfrags[i].ship->frags == 0)
-    {
-      break;
-    }
-    if (i != 0)
-    {
-      if (shipfrags[i].ship == shipfrags[i - 1].ship)
-      {
-        break;
-      }
-    }
-    sprintf(tmp_buf,
-            "&+W%d:&N %s\r\n&+LCaptain: &+W%-20s &+LClass: &+y%-15s&+R Tonnage Sunk: &+W%d&N\r\n\r\n",
-            i + 1, shipfrags[i].ship->name, shipfrags[i].ship->ownername,
-            SHIPTYPENAME(SHIPCLASS(shipfrags[i].ship)),
-            shipfrags[i].ship->frags);
-    send_to_char(tmp_buf, ch);
-  }
-}
-
 int getmap(P_ship ship)
 {
   int      x, y, rroom;
@@ -602,6 +450,101 @@ int getmap(P_ship ship)
 
   return TRUE;
 }
+
+int get_arc(int heading, int bearing)
+{
+  bearing -= heading;
+  normalize_direction(bearing);
+  if (bearing <= 40 || bearing >= 320)
+    return SIDE_FORE;
+  if (bearing >= 140 && bearing <= 220)
+    return SIDE_REAR;
+  if (bearing >= 40 && bearing <= 140)
+    return SIDE_STAR;
+  if (bearing >= 220 && bearing <= 320)
+    return SIDE_PORT;
+  return SIDE_FORE;
+}
+
+const char *get_arc_indicator(int arc_no)
+{
+  switch(arc_no)
+  {
+  case SIDE_FORE:
+    return "F";
+  case SIDE_REAR:
+    return "R";
+  case SIDE_STAR:
+    return "S";
+  case SIDE_PORT:
+    return "P";
+  }
+  return "*";
+}
+
+void setcontact(int i, P_ship target, P_ship ship, int x, int y)
+{
+  contacts[i].bearing = bearing(ship->x, ship->y, (float) x + (target->x - 50.0), (float) y + (target->y - 50.0));
+
+  contacts[i].range = range(ship->x, ship->y, ship->z, (float) x + (target->x - 50.0), (float) y + (target->y - 50.0), target->z);
+
+  contacts[i].x = x;
+  contacts[i].y = y;
+
+  contacts[i].z = (int) target->z;
+  contacts[i].ship = target;
+  
+  sprintf(contacts[i].arc, "%s%s", 
+      get_arc_indicator(get_arc(ship->heading, contacts[i].bearing)), 
+      get_arc_indicator(get_arc(target->heading, (contacts[i].bearing >= 180) ? (contacts[i].bearing - 180) : (contacts[i].bearing + 180))));
+}
+
+int getcontacts(P_ship ship, bool limit_range)
+{
+  int      i, j, counter;
+  P_obj    obj;
+  P_ship temp;
+  
+  if(!(ship))
+  {
+    return 0;
+  }
+
+  counter = 0;
+  getmap(ship);
+  for (i = 0; i < 100; i++)
+  {
+    for (j = 0; j < 100; j++)
+    {
+      if (world[tactical_map[j][i].rroom].contents)
+      {
+        for (obj = world[tactical_map[j][i].rroom].contents; obj;
+             obj = obj->next_content)
+        {
+          if(!(obj))
+          {
+            continue;
+          }
+
+          if ((GET_ITEM_TYPE(obj) == ITEM_SHIP) && (obj->value[6] == 1))
+          {
+            if (obj != ship->shipobj)
+            {
+              temp = shipObjHash.find(obj);
+              if (!limit_range || range(ship->x, ship->y, ship->z, j, 100 - i, temp->z) <= 35)
+              {
+                setcontact(counter, temp, ship, j, 100 - i);
+                counter++;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return counter;
+}
+
 
 int bearing(float x1, float y1, float x2, float y2)
 {
@@ -696,20 +639,24 @@ void ShipSlot::show(P_char ch) const
   
   switch( this->position )
   {
-    case FORE:
+    case SIDE_FORE:
       send_to_char("F  ", ch);
       break;
       
-    case PORT:
+    case SIDE_PORT:
       send_to_char("P  ", ch);
       break;
       
-    case REAR:
+    case SIDE_REAR:
       send_to_char("R  ", ch);
       break;
       
-    case STARBOARD:
+    case SIDE_STAR:
       send_to_char("S  ", ch);
+      break;
+
+    case HOLD:
+      send_to_char("H  ", ch);
       break;
       
     default:
@@ -762,14 +709,16 @@ const char* ShipSlot::get_position_str()
 {
   switch (position) 
   {
-  case FORE:
+  case SIDE_FORE:
       return "Forward";
-  case REAR:
+  case SIDE_REAR:
       return "Rear";
-  case PORT:
+  case SIDE_PORT:
       return "Port";
-  case STARBOARD:
+  case SIDE_STAR:
       return "Starboard";
+  case HOLD:
+      return "Cargo Hold";
   default:
       return "ERROR";
   }
@@ -847,6 +796,52 @@ void ShipCrew::replace_members(float percent)
     skill = ship_crew_data[index].min_skill + (int)( (float)(skill - ship_crew_data[index].min_skill) * (100.0 - percent) / 100.0);
 }
 
+void setcrew(P_ship ship, int crew_index, int skill)
+{
+    if (crew_index < 0 || crew_index > MAXCREWS)
+        return;
+
+    if (ship == NULL)
+        return;
+
+    switch (ship_crew_data[crew_index].type)
+    {
+    case SAIL_CREW:
+      {
+        ship->sailcrew.index = crew_index;
+        ship->sailcrew.skill = skill;
+        ship->sailcrew.update();
+        ship->sailcrew.reset_stamina();
+      }
+      break;
+
+    case GUN_CREW:
+      {
+        ship->guncrew.index = crew_index;
+        ship->guncrew.skill = skill;
+        ship->guncrew.update();
+        ship->guncrew.reset_stamina();
+      }
+      break;
+
+    case REPAIR_CREW:
+      {
+        ship->repaircrew.index = crew_index;
+        ship->repaircrew.skill = skill;
+        ship->repaircrew.update();
+        ship->repaircrew.reset_stamina();
+      }
+
+    case ROWING_CREW:
+      {
+        ship->rowingcrew.index = crew_index;
+        ship->rowingcrew.skill = skill;
+        ship->rowingcrew.update();
+        ship->rowingcrew.reset_stamina();
+      }
+    };
+}
+
 void ShipCrew::update()
 {
     skill = MAX(ship_crew_data[index].min_skill, skill);
@@ -870,6 +865,7 @@ void ShipCrew::update()
         skill_mod = 0;
     };
 }
+
 
 void ShipCrew::reset_stamina() 
 { 
@@ -927,6 +923,20 @@ P_char captain_is_aboard(P_ship ship)
     return NULL;
 }
 
+int anchor_room(int room)
+{
+    ShipVisitor svs;
+    for (bool fn = shipObjHash.get_first(svs); fn; fn = shipObjHash.get_next(svs))
+    {
+        for (int i = 0; i < MAX_SHIP_ROOM; i++)
+        {
+            if (room == svs->room[i].roomnum)
+                return svs->anchor;
+        }
+    }
+    return room;
+}
+
 void set_weapon(P_ship ship, int slot, int w_num, int arc)
 {
     ship->slot[slot].type = SLOT_WEAPON;
@@ -963,4 +973,43 @@ void normalize_direction(int &dir)
     while (dir < 0) dir = dir + 360;
 }
 
+const char* get_arc_name(int arc)
+{
+    switch (arc)
+    {
+    case SIDE_FORE: return "forward";
+    case SIDE_PORT: return "port";
+    case SIDE_REAR: return "rear";
+    case SIDE_STAR: return "starboard";
+    }
+    return "";
+}
+
+const char* condition_prefix(int maxhp, int curhp, bool light)
+{
+  if (curhp < (maxhp / 3))
+  {
+    return light ? "&+R" : "&+r";
+  }
+  else if (curhp < ((maxhp * 2) / 3))
+  {
+    return light ? "&+Y" : "&+y";
+  }
+  else
+  {
+    return light ? "&+G" : "&+g";
+  }
+}
+
+float range(float x1, float y1, float z1, float x2, float y2, float z2)
+{
+  float    dx, dy, dz, range;
+
+  dx = x2 - x1;
+  dy = y2 - y1;
+  dz = z2 - z1;
+
+  range = sqrt((dx * dx) + (dy * dy) + (dz * dz));
+  return range;
+}
 

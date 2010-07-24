@@ -273,6 +273,7 @@ depend .depend:
 
 clean:
 	rm -f *.o *~ dms_new .depend
+	rm -f ships/*.a ships/*.o ships/*~ ships/.depend
 
 -include .depend
 

@@ -1,21 +1,17 @@
 #ifndef _SHIPS_H_
 #define _SHIPS_H_
 
+#include "defines.h"
+#include "structs.h"
+
+
 #define PANEL_OBJ 50000
 #define SHIP_ZONE_START 50001
 #define SHIP_ZONE_END 50999
 #define MAX_SHIPS 400
 #define BUILDTIME 1
 
-#include "defines.h"
-#include "structs.h"
-
-/*#ifndef M_PI
-#define M_PI   3.14159265358979323846
-#endif*/
-
 // Ship status
-
 #define DOCK              0
 #define T_UNDOCK          1
 #define T_MANEUVER        2
@@ -26,15 +22,6 @@
 #define T_MAINTENANCE     7
 #define T_MINDBLAST       8
 #define MAXTIMERS         9
-
-#define MINCONTRAALIGN     1000
-#define MINCONTRAFRAGS      100
-
-// defines for adjust_ship_market
-#define SOLD_CARGO 1
-#define BOUGHT_CARGO 2
-#define SOLD_CONTRA 3
-#define BOUGHT_CONTRA 4
 
 #define MAXSHIPS         500
 #define MAX_SHIP_ROOM     10
@@ -52,32 +39,15 @@
 #define BOARDING_SPEED     9
 #define SCAN_RANGE        20
 
-//Inactivity time in seconds
+// Inactivity time in seconds
 #define NEWSHIP_INACTIVITY 1814400
 
-/*#define MING                0
-#define MAXG                1
-#define MINS                2
-#define MAXS                3
-#define RSPEED              4
-#define MINFRAG             5*/
-
-#define SAIL_CREW           0
-#define GUN_CREW            1
-#define REPAIR_CREW         2
-#define ROWING_CREW         3
-
-#define FORE                0
-#define PORT                1
-#define REAR                2
-#define STARBOARD           3
+#define SIDE_FORE              0
+#define SIDE_PORT              1
+#define SIDE_REAR              2
+#define SIDE_STAR              3
                             
-#define SHRTRANGE           0
-#define MEDRANGE            1
-#define LNGRANGE            2
-#define MINRANGE            0
-#define MAXRANGE            1
-
+// Ship Types
 #define SH_SLOOP               0
 #define SH_YACHT               1
 #define SH_CLIPPER             2
@@ -90,43 +60,35 @@
 #define SH_FRIGATE             9
 #define SH_CRUISER            10
 #define SH_DREADNOUGHT        11
+#define MAXSHIPCLASS          12
 
 #define SHK_MERCHANT          1
 #define SHK_WARSHIP           2
 
-#define MAXSHIPCLASS          12
-
 // Ship Flags
-#define LOADED              BIT_2
-#define AIR                 BIT_3
-#define SINKING             BIT_4
-#define IMMOBILE            BIT_5
-#define DOCKED              BIT_6
-#define RAMMING             BIT_7
-#define MAINTENANCE         BIT_8
-#define ANCHOR              BIT_9
-#define NEWSHIP_DELETE      BIT_11
-#define SQUID_SHIP          BIT_12
-#define SUMMONED            BIT_13
-#define SUNKBYNPC           BIT_14
+#define LOADED              BIT_1
+#define AIR                 BIT_2
+#define SINKING             BIT_3
+#define IMMOBILE            BIT_4
+#define DOCKED              BIT_5
+#define RAMMING             BIT_6
+#define ANCHOR              BIT_7
+#define TO_DELETE           BIT_8
+#define SQUID_SHIP          BIT_9
+#define SUMMONED            BIT_10
+#define SUNKBYNPC           BIT_11
 
 #define EVILSHIP          0
 #define GOODIESHIP        1
 #define UNDEADSHIP        2
 #define NPCSHIP           3
 
-// Weapon Flags
-#define FORE_ALLOWED     BIT_1
-#define PORT_ALLOWED     BIT_2
-#define REAR_ALLOWED     BIT_3
-#define STAR_ALLOWED     BIT_4
-#define SHOTGUN          BIT_5
-#define CAPITOL          BIT_6
-#define MINDBLAST        BIT_7
-#define SAILSHOT         BIT_8
-#define RANGEDAM         BIT_9
+#define FORE_BIT          BIT_1
+#define PORT_BIT          BIT_2
+#define REAR_BIT          BIT_3
+#define STAR_BIT          BIT_4
 
-
+// Weapons
 #define W_SMALL_BAL         0
 #define W_MEDIUM_BAL        1
 #define W_LARGE_BAL         2
@@ -140,6 +102,17 @@
 #define W_FRAG_CAN         10
 #define W_LONGTOM          11
 
+// Weapon Flags
+#define FORE_ALLOWED     FORE_BIT
+#define PORT_ALLOWED     PORT_BIT
+#define REAR_ALLOWED     REAR_BIT
+#define STAR_ALLOWED     STAR_BIT
+#define SHOTGUN          BIT_5
+#define CAPITOL          BIT_6
+#define MINDBLAST        BIT_7
+#define SAILSHOT         BIT_8
+#define RANGEDAM         BIT_9
+#define BALLISTIC        BIT_10
 
 // Slot Types
 #define SLOT_EMPTY      0
@@ -149,17 +122,39 @@
 #define SLOT_AMMO       4
 
 // Slot Position
-#define SLOT_FORE       0
-#define SLOT_PORT       1
-#define SLOT_REAR       2
-#define SLOT_STAR       3
-#define SLOT_HOLD       4
+#define SLOT_FORE       SIDE_FORE
+#define SLOT_PORT       SIDE_PORT
+#define SLOT_REAR       SIDE_REAR
+#define SLOT_STAR       SIDE_STAR
+#define SLOT_HOLD       SIDE_STAR + 1
 
+// Cargo
 #define MAXCARGOPERSLOT 10
 #define MAXCONTRAPERSLOT 10
 
 #define WEIGHT_CARGO 2
 #define WEIGHT_CONTRABAND 2
+
+#define MINCONTRAALIGN     1000
+#define MINCONTRAFRAGS      100
+
+// defines for adjust_ship_market
+#define SOLD_CARGO 1
+#define BOUGHT_CARGO 2
+#define SOLD_CONTRA 3
+#define BOUGHT_CONTRA 4
+
+
+// Crews
+#define SAIL_CREW           0
+#define GUN_CREW            1
+#define REPAIR_CREW         2
+#define ROWING_CREW         3
+
+#define MAXCREWS            13
+#define SAIL_AUTOMATONS      3
+#define GUN_AUTOMATONS       8
+
 
 typedef struct ShipData *P_ship;
 
@@ -215,8 +210,7 @@ struct ShipArcProperties
     int internal[4];
 };
 extern const ShipArcProperties ship_arc_properties[MAXSHIPCLASS];
-extern const ulong slotmap[4];
-extern const char *arc_name[4];
+extern const ulong arcbitmap[4];
 
 struct ShipSlot
 {
@@ -246,18 +240,6 @@ struct ShipSlot
     int val4; //
 };
 
-struct VolleyData
-{
-    P_ship target;
-    P_ship attacker;
-    int weapon_index;
-    int hit_chance;
-};
-
-
-#define MAXCREWS            13
-#define SAIL_AUTOMATONS      3
-#define GUN_AUTOMATONS       8
 
 struct ShipCrew
 {
@@ -289,6 +271,7 @@ extern const int gun_crew_list[MAXCREWS];
 extern const int repair_crew_list[MAXCREWS];
 extern const int rowing_crew_list[MAXCREWS];
 
+
 struct ShipRoom
 {
   int roomnum, exit[NUM_EXITS];
@@ -316,7 +299,7 @@ struct ShipData
     *id;  //designation of ship AA-ZZ
     int num; //Ship Number
     int location;  //Current room ship is in might remove and make
-                  //same as Docked
+    int hashcode;
     int heading;  //current heading
     int setheading; //set heading
     int maxspeed;
@@ -330,7 +313,7 @@ struct ShipData
     char *keywords;
     ulong flags;
     struct ShipData *next, *target;
-    struct shipai_data *shipai;
+    struct shipai_data *autopilot;
     struct NPCShipAI *npc_ai;
     int time;
     int race;
@@ -365,6 +348,7 @@ struct PortData
   const char * loc_name;
   int ocean_map_room;
 };
+extern const PortData ports[NUM_PORTS];
 
 struct CargoData
 {
@@ -373,7 +357,6 @@ struct CargoData
     int required_frags;
 };
 
-extern const PortData ports[NUM_PORTS];
 
 struct WeaponData
 {
@@ -402,37 +385,43 @@ struct WeaponData
 extern const WeaponData weapon_data[MAXWEAPON];
 
 
-extern const char *armor_condition_prefix[3];                                                                       
-extern const char *internal_condition_prefix[3];
+struct VolleyData
+{
+    P_ship target;
+    P_ship attacker;
+    int weapon_index;
+    int hit_chance;
+};
+
+
 extern struct ShipMap tactical_map[101][101];
 extern struct ContactData contacts[MAXSHIPS];
 extern struct ShipFragData shipfrags[10];
+extern const char *ship_symbol[NUM_SECT_TYPES];
 
 /* ship variable access macros */
 
-
-
 //Armor defines
-#define SHIPMAXFARMOR(shipdata) (shipdata)->maxarmor[FORE]
-#define SHIPMAXRARMOR(shipdata) (shipdata)->maxarmor[REAR]
-#define SHIPMAXPARMOR(shipdata) (shipdata)->maxarmor[PORT]
-#define SHIPMAXSARMOR(shipdata) (shipdata)->maxarmor[STARBOARD]
+#define SHIPMAXFARMOR(shipdata) (shipdata)->maxarmor[SIDE_FORE]
+#define SHIPMAXRARMOR(shipdata) (shipdata)->maxarmor[SIDE_REAR]
+#define SHIPMAXPARMOR(shipdata) (shipdata)->maxarmor[SIDE_PORT]
+#define SHIPMAXSARMOR(shipdata) (shipdata)->maxarmor[SIDE_STAR]
 #define SHIPARMOR(shipdata, arc) (shipdata)->armor[(arc)]
-#define SHIPFARMOR(shipdata) (shipdata)->armor[FORE]
-#define SHIPRARMOR(shipdata) (shipdata)->armor[REAR]
-#define SHIPPARMOR(shipdata) (shipdata)->armor[PORT]
-#define SHIPSARMOR(shipdata) (shipdata)->armor[STARBOARD]
+#define SHIPFARMOR(shipdata) (shipdata)->armor[SIDE_FORE]
+#define SHIPRARMOR(shipdata) (shipdata)->armor[SIDE_REAR]
+#define SHIPPARMOR(shipdata) (shipdata)->armor[SIDE_PORT]
+#define SHIPSARMOR(shipdata) (shipdata)->armor[SIDE_STAR]
 
 //Internal defines
-#define SHIPMAXRINTERNAL(shipdata) (shipdata)->maxinternal[REAR]
-#define SHIPMAXFINTERNAL(shipdata) (shipdata)->maxinternal[FORE]
-#define SHIPMAXPINTERNAL(shipdata) (shipdata)->maxinternal[PORT]
-#define SHIPMAXSINTERNAL(shipdata) (shipdata)->maxinternal[STARBOARD]
+#define SHIPMAXRINTERNAL(shipdata) (shipdata)->maxinternal[SIDE_REAR]
+#define SHIPMAXFINTERNAL(shipdata) (shipdata)->maxinternal[SIDE_FORE]
+#define SHIPMAXPINTERNAL(shipdata) (shipdata)->maxinternal[SIDE_PORT]
+#define SHIPMAXSINTERNAL(shipdata) (shipdata)->maxinternal[SIDE_STAR]
 #define SHIPINTERNAL(shipdata,arc) (shipdata)->internal[(arc)]
-#define SHIPFINTERNAL(shipdata) (shipdata)->internal[FORE]
-#define SHIPRINTERNAL(shipdata) (shipdata)->internal[REAR]
-#define SHIPPINTERNAL(shipdata) (shipdata)->internal[PORT]
-#define SHIPSINTERNAL(shipdata) (shipdata)->internal[STARBOARD]
+#define SHIPFINTERNAL(shipdata) (shipdata)->internal[SIDE_FORE]
+#define SHIPRINTERNAL(shipdata) (shipdata)->internal[SIDE_REAR]
+#define SHIPPINTERNAL(shipdata) (shipdata)->internal[SIDE_PORT]
+#define SHIPSINTERNAL(shipdata) (shipdata)->internal[SIDE_STAR]
 #define SHIPHULLWEIGHT(shipdata) SHIPTYPEHULLWEIGHT((shipdata)->m_class)
 #define SHIPSLOTWEIGHT(shipdata) (shipdata)->slot_weight(-1)
 #define SHIPMAXWEIGHT(shipdata)  SHIPTYPEMAXWEIGHT((shipdata)->m_class)
@@ -449,20 +438,13 @@ extern struct ShipFragData shipfrags[10];
 #define SHIPCLASS(shipdata) (shipdata)->m_class
 #define SHIPOWNER(shipdata) (shipdata)->ownername
 #define SHIPNAME(shipdata) (shipdata)->name
-#define SHIPNUMFROMOBJ(obj) obj->value[0]
 #define SHIPOBJ(shipdata) (shipdata)->shipobj
-#define SHIPISLOADED(shipdata) IS_SET((shipdata)->flags, LOADED)
-//#define SHIPFRAGS(shipdata) (shipdata)->frags
-#define CURSHIPLOADED SHIPISLOADED(obj->value[0])
 #define SHIPROOMNUM(shipdata, num) (shipdata)->room[(num)].roomnum
 #define SHIPROOMEXIT(shipdata, num, ext) (shipdata)->room[(num)].exit[(ext)]
-#define SHIPKEYWORDS(shipdata) (shipdata)->keywords
-//#define SHIPCAPACITY(shipdata) SHIPTYPEPEOPLE((shipdata)->m_class)
-//#define SHIPPEOPLE(shipdata) (shipdata)->people
-//#define SHIPTARGET(shipdata) (shipdata)->target
 #define SHIPCLASSNAME(shipdata) SHIPTYPENAME((shipdata)->m_class)
-#define SHIPARMORCOND(maxhp, curhp) armor_condition_prefix[armorcondition((maxhp),(curhp))]
-#define SHIPINTERNALCOND(maxhp,curhp) internal_condition_prefix[armorcondition((maxhp),(curhp))]
+#define SHIPARMORCOND(maxhp, curhp) condition_prefix((maxhp), (curhp), true)
+#define SHIPINTERNALCOND(maxhp, curhp) condition_prefix((maxhp), (curhp), false)
+#define SHIPISLOADED(shipdata) IS_SET((shipdata)->flags, LOADED)
 #define SHIPSINKING(shipdata) IS_SET((shipdata)->flags, SINKING)
 #define SHIPSUNKBYNPC(shipdata) IS_SET((shipdata)->flags, SUNKBYNPC)
 #define SHIPIMMOBILE(shipdata) (shipdata->get_maxspeed() == 0)
@@ -471,24 +453,6 @@ extern struct ShipFragData shipfrags[10];
 #define ISNPCSHIP(shipdata) ((shipdata)->race == NPCSHIP)
 #define ISMERCHANT(shipdata) (SHIPTYPEKIND((shipdata)->m_class) == SHK_MERCHANT)
 #define ISWARSHIP(shipdata) (SHIPTYPEKIND((shipdata)->m_class) == SHK_WARSHIP)
-
-
-//movement related stuff
-//#define SHIPX(shipdata) (shipdata)->x
-//#define SHIPY(shipdata) (shipdata)->y
-//#define SHIPZ(shipdata) (shipdata)->z
-//#define SHIPDX(shipdata) (shipdata)->dx
-//#define SHIPDY(shipdata) (shipdata)->dy
-//#define SHIPDZ(shipdata) (shipdata)->dz
-//#define SHIPHEADING(shipdata) (shipdata)->heading
-//#define SHIPSETHEADING(shipdata) (shipdata)->setheading
-//#define SHIPSPEED(shipdata) ((shipdata)->speed)
-//#define SHIPSETSPEED(shipdata) (shipdata)->setspeed
-//#define SHIPMAXSPEED(shipdata) (shipdata)->maxspeed
-//#define SHIPMAXTURNRATE(shipdata) (shipdata)->maxturnrate
-//#define SHIPTURNRATE(shipdata) (shipdata)->turnrate
-#define SHIPDOCK(shipdata) (shipdata)->dock
-#define SHIPROOM(shipdata) (shipdata)->shiproom
 #define SHIPLOCATION(shipdata) (shipdata)->location
 
 //Cargo related stuff
@@ -500,108 +464,87 @@ extern struct ShipFragData shipfrags[10];
 #define SHIPCARGOLOAD(shipdata) (SHIPCARGO(shipdata) + SHIPCONTRA(shipdata))
 #define SHIPMAXCARGOLOAD(shipdata) (SHIPCARGOLOAD(shipdata) + SHIPAVAILCARGOLOAD(shipdata))
 
-// Prototyping for ships
-void newship_activity();
-void cargo_activity();
-void volley_hit_event(P_char ch, P_char victim, P_obj obj, void *data);
-void initialize_newships();
-void shutdown_newships();
-void update_crew(P_ship ship);
-void reset_crew_stamina(P_ship ship);
-bool ship_loss_on_sink(P_ship target, P_ship attacker, int frags);
-bool ship_gain_frags(P_ship ship, P_ship target, int frags);
-void setcrew(P_ship ship, int crew_index, int skill);
-void update_ship_status(P_ship ship, P_ship attacker = 0);
-int bearing(float x1, float y1, float x2, float y2);
 
-P_ship get_ship(char *ownername);
-P_ship getshipfromchar(P_char ch);
-bool rename_ship(P_char ch, char *owner_name, char *new_name);
 
-int read_ships();
-int write_ship(P_ship ship);
+
+
+//////////////////////
+// Prototypes
+//////////////////////
+void initialize_ships();
+void shutdown_ships();
+
 int write_ships_index();
-
-void name_ship(const char *name, P_ship ship);
-int load_ship(P_ship shipdata, int to_room);
+int write_ship(P_ship ship);
+int read_ships();
 
 struct ShipData *new_ship(int m_class, bool npc = false);
+void name_ship(const char *name, P_ship ship);
+bool rename_ship(P_char ch, char *owner_name, char *new_name);
+bool rename_ship_owner(char *old_name, char *new_name);
+int load_ship(P_ship shipdata, int to_room);
+
 void delete_ship(P_ship ship, bool npc = false);
+void clear_references_to_ship(P_ship ship);
+
+void set_ship_layout(P_ship ship, int m_class);
+void clear_ship_layout(P_ship ship);
+void set_ship_physical_layout(P_ship ship);
+
+void set_ship_armor(P_ship ship, bool equal);
+
+void reset_ship(P_ship ship);
+
+int ship_obj_proc(P_obj obj, P_char ch, int cmd, char *arg);
+int ship_room_proc(int room, P_char ch, int cmd, char *arg);
+
+void ship_activity();
+void dock_ship(P_ship ship, int to_room);
+void crash_land(P_ship ship);
+void finish_sinking(P_ship ship);
+void summon_ship_event(P_char ch, P_char victim, P_obj obj, void *data);
+
+bool check_ship_name(P_ship ship, P_char ch, char* name);
+bool check_undocking_conditions(P_ship ship, P_char ch);
+
+void update_shipfrags();
+void display_shipfrags(P_char ch);
 
 // shops
-int newship_shop(int room, P_char ch, int cmd, char *arg);
-int crew_shop(int room, P_char ch, int cmd, char *arg);
-int erzul(P_char ch, P_char pl, int cmd, char *arg);
+int ship_shop_proc(int room, P_char ch, int cmd, char *arg);
+int crew_shop_proc(int room, P_char ch, int cmd, char *arg);
+int erzul_proc(P_char ch, P_char pl, int cmd, char *arg);
 
-// proc
-int newshiproom_proc(int room, P_char ch, int cmd, char *arg);
-int fire_arc(P_ship ship, P_char ch, int arc);
-int fire_weapon(P_ship ship, P_char ch, int w_num);
+// control
+int ship_panel_proc(P_obj obj, P_char ch, int cmd, char *arg);
+
+// autopilot
+int  engage_autopilot(P_char ch, P_ship ship, char* arg1, char* arg2);
+void stop_autopilot(P_ship ship);
+void clear_autopilot(P_ship ship);
+void autopilot_activity(P_ship ship);
+
+// combat
+int try_ram_ship(P_ship ship, P_ship target, int contact_j);
+int weaponsight(P_ship ship, P_ship target, int weapon, float range, int bearing, P_char ch);
+int fire_weapon(P_ship ship, int w_num, P_ship target, float range, int bearing, P_char ch);
+void volley_hit_event(P_char ch, P_char victim, P_obj obj, void *data);
+void stun_all_in_ship(P_ship ship, int timer);
+int damage_sail(P_ship ship, P_ship target, int dam);
+int damage_hull(P_ship ship, P_ship target, int dam, int arc, int armor_pierce);
+void damage_weapon(P_ship ship, P_ship target, int arc, int dam);
 void force_anchor(P_ship ship);
-int newship_proc(P_obj obj, P_char ch, int cmd, char *arg);
-int shiploader_proc(P_obj obj, P_char ch, int cmd, char *arg);
-int shipobj_proc(P_obj obj, P_char ch, int cmd, char *arg);
+bool ship_gain_frags(P_ship ship, P_ship target, int frags);
+bool ship_loss_on_sink(P_ship target, P_ship attacker, int frags);
+void update_ship_status(P_ship ship, P_ship attacker = 0);
+void scan_target(P_ship ship, P_ship target, P_char ch);
 
-int  bearing(float x1, float y1, float x2, float y2);
-int anchor_room(int room);
-void newshipfrags();
-void crash_land(P_ship ship);
-
-void setarmor(P_ship ship, bool equal);
-void set_weapon(P_ship ship, int slot, int w_num, int arc);
-void clear_ship_layout(P_ship ship);
-void set_ship_layout(P_ship ship, int m_class);
-void reset_ship_physical_layout(P_ship ship);
-void dock_ship(P_ship ship, int to_room);
+// cargo
+void cargo_activity();
 void check_contraband(P_ship ship, int to_room);
-void update_maxspeed(P_ship ship);
-
-
-extern void shipai_activity(P_ship ship);
-extern void act_to_all_in_ship(P_ship ship, const char *msg);
-extern void act_to_outside_ships(P_ship ship, const char *msg, P_ship notarget);
-extern void act_to_outside(P_ship ship, const char *msg);
-extern void everyone_get_out_newship(P_ship ship);
-extern void everyone_look_out_newship(P_ship ship);
-extern int  armorcondition(int maxhp, int curhp);
-extern void assignid(P_ship ship, char *id, bool npc = false);
-extern int  assign_shipai(P_ship ship);
-extern int damage_sail(P_ship ship, P_ship target, int dam);
-extern int  damage_hull(P_ship ship, P_ship target, int dam, int arc, int armor_pierce);
-//extern void dispcontact(int i);
-//extern int  getarc(P_ship ship1, int x, int y);
-void normalize_direction(int &dir);
-extern int  get_arc(int heading, int bearing);
-extern int  get_arc_indicator(int heading, int bearing);
-extern int  ybearing(int bearing, int range);
-extern int  xbearing(int bearing, int range);
-extern int getcontacts(P_ship ship, bool limit_range = true);
-extern int getmap(P_ship ship);
-extern P_ship getshipfromchar(P_char ch);
-extern int num_people_in_ship(P_ship ship);
-extern int try_ram_ship(P_ship ship, P_ship target, int contact_j);
-extern int pilotroll(P_ship ship);
-extern float range(float x1, float y1, float z1, float x2, float y2, float z2);
-extern void scantarget(P_ship target, P_char ch);
-extern void stun_all_in_ship(P_ship ship, int timer);
-extern void summon_ship_event(P_char ch, P_char victim, P_obj obj, void *data);
-extern int weaprange(int w_index, char range);
-extern int weaponsight(P_ship ship, P_ship target, int weapon, float mod);
-extern void calc_crew_adjustments(P_ship ship);
-
-
-int sell_cargo(P_char ch, P_ship ship, int slot);
-int sell_cargo_slot(P_char ch, P_ship ship, int slot, int rroom);
-int sell_contra(P_char ch, P_ship ship, int slot);
-int sell_contra_slot(P_char ch, P_ship ship, int slot, int rroom);
-
 void initialize_ship_cargo();
 int read_cargo();
 int write_cargo();
-void reset_cargo();
-void update_cargo();
-void update_cargo(bool force);
-void update_delayed_cargo_prices();
 int cargo_sell_price(int location);
 int cargo_sell_price(int location, bool delayed);
 int cargo_buy_price(int location, int type);
@@ -613,27 +556,63 @@ void adjust_ship_market(int transaction, int location, int type, int volume);
 int required_ship_frags_for_contraband(int type);
 const char *cargo_type_name(int type);
 const char *contra_type_name(int type);
-
 void show_cargo_prices(P_char ch);
 void show_contra_prices(P_char ch);
 int ship_cargo_info_stick(P_obj obj, P_char ch, int cmd, char *arg);
 void do_world_cargo(P_char ch, char *arg);
 
+
+
+// utilities
+int getmap(P_ship ship);
+int getcontacts(P_ship ship, bool limit_range = true);
+
+void setcrew(P_ship ship, int crew_index, int skill);
+void update_crew(P_ship ship);
+void reset_crew_stamina(P_ship ship);
+
+void set_weapon(P_ship ship, int slot, int w_num, int arc);
+void update_maxspeed(P_ship ship);
+
+void assignid(P_ship ship, char *id, bool npc = false);
+
+int bearing(float x1, float y1, float x2, float y2);
+float range(float x1, float y1, float z1, float x2, float y2, float z2);
+void normalize_direction(int &dir);
+int  get_arc(int heading, int bearing);
+const char* get_arc_indicator(int arc);
+const char* get_arc_name(int arc);
+const char* condition_prefix(int maxhp, int curhp, bool light);
+
+P_ship get_ship_from_owner(char *ownername);
+P_ship get_ship_from_char(P_char ch);
+int anchor_room(int room);
+int num_people_in_ship(P_ship ship);
+P_char captain_is_aboard(P_ship ship);
+int get_turning_speed(P_ship ship);
+
+void act_to_all_in_ship(P_ship ship, const char *msg);
+void act_to_outside_ships(P_ship ship, const char *msg, P_ship notarget);
+void act_to_outside(P_ship ship, const char *msg);
+void everyone_get_out_newship(P_ship ship);
+void everyone_look_out_newship(P_ship ship);
+
+
 // Externals
 extern P_index obj_index;
 extern P_index mob_index;
-extern P_obj object_list;
 extern P_room world;
-extern P_event current_event;
-extern P_event event_list;
-extern struct time_info_data time_info;
-extern int top_of_zone_table;
 extern struct zone_data *zone_table;
 extern const char *dirs[];
 extern const int rev_dir[];
+extern int shiperror;
 
 
+// Ship object hash
 #define SHIP_OBJ_TABLE_SIZE 509
+#define BEG_HASH 23346
+#define END_HASH 23402
+#define isverge(ship) (ship->hashcode == BEG_HASH || ship->hashcode == END_HASH)
 
 class ShipObjHash
 {

@@ -15,31 +15,11 @@
 #include "ship_auto.h"
 #include "utils.h"
 #include "events.h"
+#include "ship_npc.h"
 #include "ship_npc_ai.h"
 
-char  arc[3];
-extern char  contact[256];
-extern char  weapon[100];
-
-int   write_ship(P_ship temp);
-P_ship getshipfromchar(P_char ch);
-void  setcontact(int i, P_ship obj, P_ship ship, int x, int y);
-int   bearing(float x1, float y1, float x2, float y2);
-float range(float x1, float y1, float z1, float x2, float y2, float z2);
-int   getmap(P_ship ship);
-void  act_to_all_in_ship(P_ship ship, const char *msg);
-void  act_to_outside(P_ship ship, const char *msg);
-void  act_to_outside_ships(P_ship ship, const char *msg, P_ship target);
-//void  calc_crew_adjustments(P_ship ship);
-void  update_maxspeed(P_ship ship);
-int   damage_hull(P_ship ship, P_ship target, int dam, int arc, int armor_pierce);
-int   damage_sail(P_ship attacker, P_ship target, int dam);
-void  damage_weapon(P_ship ship, P_ship target, int arc, int dam);
-//void  destroy_weapon(P_ship ship, P_ship target, int slot);
-P_char captain_is_aboard(P_ship ship);
-
-static char buf[MAX_STRING_LENGTH], buf2[MAX_STRING_LENGTH];
-
+//char  arc[3];
+extern char buf[MAX_STRING_LENGTH], buf2[MAX_STRING_LENGTH];
 
 int epic_ship_damage_control(P_char ch, int dam)
 {
@@ -64,90 +44,6 @@ int epic_ship_damage_control(P_char ch, int dam)
 
     return dam;
 }
-
-int getcontacts(P_ship ship, bool limit_range)
-{
-  int      i, j, counter;
-  P_obj    obj;
-  P_ship temp;
-  
-  if(!(ship))
-  {
-    return 0;
-  }
-
-  counter = 0;
-  getmap(ship);
-  for (i = 0; i < 100; i++)
-  {
-    for (j = 0; j < 100; j++)
-    {
-      if (world[tactical_map[j][i].rroom].contents)
-      {
-        for (obj = world[tactical_map[j][i].rroom].contents; obj;
-             obj = obj->next_content)
-        {
-          if(!(obj))
-          {
-            continue;
-          }
-
-          if ((GET_ITEM_TYPE(obj) == ITEM_SHIP) && (obj->value[6] == 1))
-          {
-            if (obj != ship->shipobj)
-            {
-              temp = shipObjHash.find(obj);
-              if (!limit_range || range(ship->x, ship->y, ship->z, j, 100 - i, temp->z) <= 35)
-              {
-                setcontact(counter, temp, ship, j, 100 - i);
-                counter++;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  return counter;
-}
-
-void setcontact(int i, P_ship target, P_ship ship, int x, int y)
-{
-  contacts[i].bearing = bearing(ship->x, ship->y, (float) x + (target->x - 50.0), (float) y + (target->y - 50.0));
-
-  contacts[i].range = range(ship->x, ship->y, ship->z, (float) x + (target->x - 50.0), (float) y + (target->y - 50.0), target->z);
-
-  contacts[i].x = x;
-  contacts[i].y = y;
-
-  contacts[i].z = (int) target->z;
-  contacts[i].ship = target;
-  
-  char your_arc[3];
-  get_arc_indicator(ship->heading, contacts[i].bearing);
-  sprintf(your_arc, "%s", arc);
-  
-  get_arc_indicator(target->heading, (contacts[i].bearing >= 180) ? (contacts[i].bearing - 180) : (contacts[i].bearing + 180));
-  sprintf(contacts[i].arc, "%s%s", your_arc, arc);
-}
-
-int armorcondition(int maxhp, int curhp)
-{
-  if (curhp < (maxhp / 3))
-  {
-    return 0;
-  }
-  else if (curhp < ((maxhp * 2) / 3))
-  {
-    return 1;
-  }
-  else
-  {
-    return 2;
-  }
-}
-
-
 
 void stun_all_in_ship(P_ship ship, int timer)
 {
@@ -174,23 +70,12 @@ void stun_all_in_ship(P_ship ship, int timer)
 }
 
 
-float range(float x1, float y1, float z1, float x2, float y2, float z2)
-{
-  float    dx, dy, dz, range;
-
-  dx = x2 - x1;
-  dy = y2 - y1;
-  dz = z2 - z1;
-
-  range = sqrt((dx * dx) + (dy * dy) + (dz * dz));
-  return range;
-}
-
-void scantarget(P_ship target, P_char ch)
+float range(float x1, float y1, float z1, float x2, float y2, float z2);
+void scan_target(P_ship ship, P_ship target, P_char ch)
 {
   int      i, j, k;
 
-  k = getcontacts(getshipfromchar(ch));
+  k = getcontacts(ship);
   for (i = 0; i < k; i++)
   {
     if (target == contacts[i].ship)
@@ -245,7 +130,7 @@ void scantarget(P_ship target, P_char ch)
                 SHIPPINTERNAL(target), 
                 SHIPMAXPINTERNAL(target),
                 contacts[i].bearing,
-                arc_name[get_arc(getshipfromchar(ch)->heading, contacts[i].bearing)]);
+                get_arc_name(get_arc(ship->heading, contacts[i].bearing)));
         send_to_char(buf, ch);
 
         sprintf(buf, "%s %s\r\n",
@@ -446,13 +331,10 @@ bool sink_ship(P_ship ship, P_ship attacker)
         REMOVE_BIT(ship->flags, ANCHOR);
     if(IS_SET(ship->flags, RAMMING))
         REMOVE_BIT(ship->flags, RAMMING);
-    if (ship->shipai)
-    {
-      if(IS_SET(ship->shipai->flags, AIB_ENABLED))
-        REMOVE_BIT(ship->shipai->flags, AIB_ENABLED);
-      if(IS_SET(ship->shipai->flags, AIB_AUTOPILOT))
-        REMOVE_BIT(ship->shipai->flags, AIB_AUTOPILOT);
-    }
+
+    if (ship->autopilot)
+        clear_autopilot(ship);
+
     if(!IS_SET(ship->flags, SINKING))
         SET_BIT(ship->flags, SINKING);
 
@@ -651,6 +533,7 @@ void volley_hit_event(P_char ch, P_char victim, P_obj obj, void *data)
             sprintf(buf, "&+W[%s]&N:%s&N has been hit with a powerful &+Mmental blast&N!", SHIPID(target), SHIPNAME(target));
             act_to_outside_ships(target, buf, ship);
             int stuntime = (int)(5.0 + 15.0 * range_mod);
+            if (target == npc_dreadnought) stuntime /= 3; // demons are resistant to mindblast
             target->timer[T_MINDBLAST] = stuntime;
         }
         update_ship_status(target, ship);
@@ -667,109 +550,6 @@ void volley_hit_event(P_char ch, P_char victim, P_obj obj, void *data)
     return;
 }
                
-/*int weapon_hit(P_ship ship, int w_num)
-{
-    P_ship target = ship->slot[w_num].target;
-    int hit_chance = ship->slot[w_num].hit_chance;
-
-    ship->slot[w_num].target = 0;
-    ship->slot[w_num].hit_chance = 0;
-    ship->slot[w_num].timer2 = 0;
-
-    if (SHIPISDOCKED(target))
-        return FALSE;
-    if ((world[SHIPLOCATION(target)].number < 110000) && !IS_SET(target->flags, AIR)) 
-        return FALSE;
-
-    // forcing target into battle state
-    if (target->timer[T_BSTATION] == 0) 
-        act_to_all_in_ship(target, "&=LRYour crew scrambles to their battlestions&N!\r\n");
-    target->timer[T_BSTATION] = BSTATION;
-
-    if (dice(2, 50) >= 100 - hit_chance) 
-    { // we have a hit!
-        // calculating your bearing relative to target
-        int your_bearing = 0;
-        float range = 35.0;
-        int k = getcontacts(target);
-        for (int j = 0; j < k; j++) 
-        {
-            if (ship == contacts[j].ship)
-            {
-                your_bearing = contacts[j].bearing;
-                range = contacts[j].range;
-            }
-        } // yes, if target leaves sight while volley flies, it will be hit from zero bearing and range 35
-
-        int w_index = ship->slot[w_num].index;
-        float range_mod = ((float)weapon_data[w_index].max_range - range) / ((float)weapon_data[w_index].max_range - (float)weapon_data[w_index].min_range);
-        for (int f_no = 0; f_no < weapon_data[w_index].fragments; f_no++)
-        {
-            if (weapon_data[w_index].max_damage > 0)
-            {
-                int damage = 0;
-                if (IS_SET(weapon_data[w_index].flags, RANGEDAM))
-                {
-                    damage = weapon_data[w_index].min_damage + (int)((float)(weapon_data[w_index].max_damage - weapon_data[w_index].min_damage) * range_mod);
-                }
-                else
-                {
-                    damage = number(weapon_data[w_index].min_damage, weapon_data[w_index].max_damage);
-                }
-
-                if ((SHIPSAIL(target) > 0) && (number (0, 99) < weapon_data[w_index].sail_hit))
-                {// hitting sails
-                    damage = (int)( (float)damage * (float)weapon_data[w_index].sail_dam / 100.0 );
-                    damage_sail(ship, target, damage);
-                }
-                else
-                {// hitting hull
-                    int hit_dir = your_bearing + number(-(weapon_data[w_index].hit_arc / 2), (weapon_data[w_index].hit_arc / 2));
-                    if (hit_dir >= 360)    hit_dir -= 360;
-                    else if (hit_dir < 0)  hit_dir = 360 + hit_dir;
-                    int hit_arc = get_arc(target->heading, hit_dir);
-
-                    damage = (int)( (float)damage * (float)weapon_data[w_index].hull_dam / 100.0 );
-                    damage_hull(ship, target, damage, hit_arc, weapon_data[w_index].armor_pierce);
-                }
-            }
-            //
-            // per-fragment effects should go here:
-            //
-        }
-        //
-        // per-shot effects should go here:
-        //
-        if (IS_SET (weapon_data[w_index].flags, MINDBLAST)) 
-        {
-            act_to_all_in_ship(target, "&+MA powerful mental wave hits your ship!&N");
-            act_to_all_in_ship(target, "&+MYour crew is completely disoriented by the blast!&N");
-            if (range <= (weapon_data[w_index].max_range + weapon_data[w_index].min_range) / 2) 
-            {
-                stun_all_in_ship(target, PULSE_VIOLENCE * 2);
-                act_to_all_in_ship(target, "&+MYour mind reels from the blast, you huddle in pain!&N");
-            }
-            sprintf(buf, "You hit &+W[%s]&N:%s&N with a powerful &+Mmental blast&N!", SHIPID(target), SHIPNAME(target));
-            act_to_all_in_ship(ship, buf);
-            sprintf(buf, "&+W[%s]&N:%s&N hits &+W[%s]&N:%s&N with a powerful &+Mmental blast&N!", SHIPID(ship), SHIPNAME(ship), SHIPID(target), SHIPNAME(target));
-            act_to_outside_ships(target, buf, ship);
-            float stuntime = 5.0 + 15.0 * range_mod;
-            target->timer[T_MINDBLAST] = (int)stuntime;
-        }
-        update_ship_status(target, ship);
-        return TRUE;
-    }
-    else 
-    {
-        sprintf(buf, "You miss &+W[%s]&N:%s&N.", SHIPID(target), SHIPNAME(target));
-        act_to_all_in_ship(ship, buf);
-        sprintf(buf, "&+W[%s]&N:%s&N misses your ship.", SHIPID(ship), SHIPNAME(ship));
-        act_to_all_in_ship(target, buf);
-        sprintf(buf, "&+W[%s]&N:%s&N misses &+W[%s]&N:%s&N.", SHIPID(ship), SHIPNAME(ship), SHIPID(target), SHIPNAME(target));
-        act_to_outside_ships(target, buf, ship);
-    }
-    return FALSE;
-}*/
 
 int damage_sail(P_ship attacker, P_ship target, int dam)
 {
@@ -824,12 +604,12 @@ int damage_hull(P_ship attacker, P_ship target, int dam, int arc, int armor_pier
     
     if (attacker)
     {
-        sprintf(buf, "You hit &+W[%s]&N:%s&N for &+G%d&N %s of damage on the %s side!", SHIPID(target), SHIPNAME(target), dam, (dam == 1) ? "point" : "points", arc_name[arc]);
+        sprintf(buf, "You hit &+W[%s]&N:%s&N for &+G%d&N %s of damage on the %s side!", SHIPID(target), SHIPNAME(target), dam, (dam == 1) ? "point" : "points", get_arc_name(arc));
         act_to_all_in_ship(attacker, buf);
     }
-    sprintf(buf, "&+WYour ship&N has been hit for &+R%d&N %s of damage on the %s side!", dam, (dam == 1) ? "point" : "points", arc_name[arc]);
+    sprintf(buf, "&+WYour ship&N has been hit for &+R%d&N %s of damage on the %s side!", dam, (dam == 1) ? "point" : "points", get_arc_name(arc));
     act_to_all_in_ship(target, buf);
-    sprintf(buf, "&+W[%s]&N:%s&N has been hit for %d %s of damage on the %s side!", SHIPID(target), SHIPNAME(target), dam, (dam == 1) ? "point" : "points", arc_name[arc]);
+    sprintf(buf, "&+W[%s]&N:%s&N has been hit for %d %s of damage on the %s side!", SHIPID(target), SHIPNAME(target), dam, (dam == 1) ? "point" : "points", get_arc_name(arc));
     act_to_outside_ships(target, buf, attacker);
 
     
@@ -996,22 +776,6 @@ void update_ship_status(P_ship ship, P_ship attacker)
     }   
 }
 
-void update_maxspeed(P_ship ship)
-{
-    int weapon_weight = ship->slot_weight(SLOT_WEAPON);
-    int weapon_weight_mod = MIN(SHIPFREEWEAPON(ship), weapon_weight);
-    int cargo_weight = ship->slot_weight(SLOT_CARGO) + ship->slot_weight(SLOT_CONTRABAND);
-    int cargo_weight_mod = MIN(SHIPFREECARGO(ship), cargo_weight);
-
-    float weight_mod = 1.0 - ( (float) (SHIPSLOTWEIGHT(ship) - weapon_weight_mod - cargo_weight_mod) / (float) SHIPMAXWEIGHT(ship) );
-
-    ship->maxspeed = SHIPTYPESPEED(ship->m_class); // Set to Ship Type Max
-    ship->maxspeed = (int)((float)ship->maxspeed * (1.0 + ship->sailcrew.skill_mod));
-    ship->maxspeed = (int) ((float)ship->maxspeed * weight_mod);
-    ship->maxspeed = BOUNDED(1, ship->maxspeed, SHIPTYPESPEED(ship->m_class));
-    ship->maxspeed = (int) ((float)ship->maxspeed * (float)ship->mainsail / (float)SHIPMAXSAIL(ship)); // Adjust for sail condition
-}
-
 
 int check_ram_arc(int heading, int bearing, int size)
 {
@@ -1129,12 +893,12 @@ int try_ram_ship(P_ship ship, P_ship target, int tbearing)
         // Calculating damage
         int ram_damage = (SHIPHULLWEIGHT(ship) + 100) / 10;
         ram_damage = (int)((float)ram_damage * (0.1 + 0.4 * (float)ship->speed / (float)SHIPTYPESPEED(ship->m_class) + 0.5 * (float)ram_speed / (float)SHIPTYPESPEED(ship->m_class)));
-        if (get_arc(ship->heading, tbearing) == FORE)
+        if (get_arc(ship->heading, tbearing) == SIDE_FORE)
             ram_damage = (int)((float)ram_damage * 1.2);
 
         int counter_damage = (SHIPHULLWEIGHT(target) + 100) / 10;
         counter_damage = (int)((float)counter_damage * (0.1 + 0.3 * (float)ship->speed / (float)SHIPTYPESPEED(ship->m_class) + 0.4 * (float)counter_speed / (float)SHIPTYPESPEED(target->m_class)));
-        if (get_arc(target->heading, sbearing) == FORE)
+        if (get_arc(target->heading, sbearing) == SIDE_FORE)
             counter_damage = (int)((float)counter_damage * 1.2);
 
         counter_damage += SHIPHULLWEIGHT(target) / SHIPHULLWEIGHT(ship);
@@ -1227,27 +991,7 @@ int try_ram_ship(P_ship ship, P_ship target, int tbearing)
 }
 
 
-int weaprange(int w_index, char range)
-{
-  switch (range)
-  {
-  case SHRTRANGE:
-    return (int) ((float) (weapon_data[w_index].max_range - weapon_data[w_index].min_range) / 3 + weapon_data[w_index].min_range);
-    break;
-  case MEDRANGE:
-    return (int) ((float) (weapon_data[w_index].max_range - weapon_data[w_index].min_range) / 3) * 2 + weapon_data[w_index].min_range;
-    break;
-  case LNGRANGE:
-    return weapon_data[w_index].max_range;
-    break;
-  default:
-    return 0;
-    break;
-  }
-  return 0;
-}
-
-int weaponsight(P_ship ship, P_ship target, int slot, float range)
+int weaponsight(P_ship ship, P_ship target, int slot, float range, int bearing, P_char ch)
 {
   int percent = 50;
 
@@ -1270,71 +1014,193 @@ int weaponsight(P_ship ship, P_ship target, int slot, float range)
   return 0;
 }
 
-/*int getarc(int shipheading, int bearing)
+/*#define ABS(x) ((x) < 0 ? -(x) : (x));
+
+int weaponsight(P_ship ship, P_ship target, int slot, float range, int bearing, P_char ch)
 {
-  if (shipheading < bearing)
-    shipheading += 360;
-  sprintf(arc, "*");
-  if ((bearing >= (shipheading - 140)) && (bearing <= (shipheading - 40)))
+  float max = (float)weapon_data[ship->slot[slot].index].max_range;
+  float min = (float)weapon_data[ship->slot[slot].index].min_range;
+  //if ((range > max) || (range < min)) // uncomment!
+  //    return 0;
+
+  int sr_heading = ship->heading - bearing;
+  if (sr_heading < 0) sr_heading += 360;
+  int tr_heading = target->heading - bearing;
+  if (tr_heading < 0) tr_heading += 360;
+
+  float sr_rad = (float) ((float) (sr_heading) * M_PI / 180.000);
+  float tr_rad = (float) ((float) (tr_heading) * M_PI / 180.000);
+
+  float closing_speed = ABS(cos(tr_rad) * (float)target->speed - cos(sr_rad) * (float)ship->speed);
+
+  sprintf(buf, "cl_sp=%f", closing_speed);
+  send_to_char(buf, ch);
+  
+
+  float ortogonal_rel_speed = sin(tr_rad) * (float)target->speed - sin(sr_rad) * (float)ship->speed; // speed in 'ship' units
+
+  sprintf(buf, " ort_r_sp=%f", ortogonal_rel_speed);
+  send_to_char(buf, ch);
+  
+  // check if your turning compensates for target relative movement
+  int next_turn = 0;
+  if (ship->heading != ship->setheading)
   {
-    sprintf(arc, "P");
-    return PORT;
+    next_turn = get_turning_speed(ship);
+    int diff = ship->setheading - ship->heading;
+    if (diff > 180)
+      diff -= 360;
+    if (diff < -180)
+      diff += 360;
+
+    if (diff > 0)
+      next_turn = MIN(diff, next_turn);
+    else
+      next_turn = MAX(diff, -next_turn);
   }
-  if ((bearing >= (shipheading - 220)) && (bearing <= (shipheading - 40)))
+
+  sprintf(buf, " n_t=%d", next_turn);
+  send_to_char(buf, ch);
+
+  if (next_turn)
   {
-    sprintf(arc, "R");
-    return REAR;
+    float ortogonal_turn_speed = sin((float) (next_turn) * M_PI / 180.000) * range; // speed in map squares
+    ortogonal_turn_speed *= 150.0; // speed in ship units
+
+    sprintf(buf, " ort_t_sp=%f", ortogonal_turn_speed);
+    send_to_char(buf, ch);
+    
+    float compensated = ABS(ortogonal_rel_speed - ortogonal_turn_speed);
+
+    sprintf(buf, " comp=%f", compensated);
+    send_to_char(buf, ch);
+    
+    ortogonal_rel_speed = ABS(ortogonal_rel_speed);
+    if (compensated < ortogonal_rel_speed)
+    {
+      ortogonal_rel_speed = compensated;
+    }
+    else
+    {
+      ortogonal_rel_speed += ABS((float)next_turn * 2); // no compensation, only additional disturbance from turning (1 degree of turn equals to 2 additional speed)
+    }
   }
-  if ((bearing > (shipheading - 320)) && (bearing <= (shipheading - 40)))
+  else
   {
-    sprintf(arc, "S");
-    return STARBOARD;
+    ortogonal_rel_speed = ABS(ortogonal_rel_speed);
   }
-  if (((bearing >= (shipheading - 40)) && (bearing <= (shipheading + 40))) ||
-      (bearing <= (shipheading - 320)) || (bearing == shipheading))
+
+  sprintf(buf, " ort_r_sp1=%f", ortogonal_rel_speed);
+  send_to_char(buf, ch);
+
+  float rel_speed;
+  if (IS_SET(weapon_data[ship->slot[slot].index].flags, BALLISTIC))
   {
-    sprintf(arc, "F");
-    return FORE;
+    rel_speed = (ortogonal_rel_speed + closing_speed * 2.0) / 3.0; // catapults mostly depend on approaching speed
   }
-  return FORE;
+  else
+  {
+    rel_speed = (ortogonal_rel_speed * 4.0 + closing_speed) / 5.0; // straight weapons almost exclusively depend on ortogonal speed
+  }
+
+  sprintf(buf, " r_sp1=%f", rel_speed);
+  send_to_char(buf, ch);
+
+  float hit_chance = 0.3; // sloop with zero relative speed at max range
+
+  float rel_speed_mod = sqrt(rel_speed + 100.0) - 9.0; // 1 for speed 0 and raising by shifted squareroot (20->2.0 50->3,2 100->5,1 200->8,2)
+  hit_chance /= rel_speed_mod;
+
+  sprintf(buf, " hit_1=%f", hit_chance);
+  send_to_char(buf, ch);
+
+  float miss_chance = 1.0 - hit_chance;
+  float size_to_speed_mod = miss_chance * miss_chance* miss_chance * (1.0 + sqrt(SHIPHULLWEIGHT(target)) / 5.0); // the faster it goes, the more hullsize affects it (from 1,7 to 5 between sloop/cruiser)
+  hit_chance = hit_chance * size_to_speed_mod;
+
+  sprintf(buf, " hit_2=%f", hit_chance);
+  send_to_char(buf, ch);
+  
+  miss_chance = 1.0 - hit_chance;
+  float max_range_miss = miss_chance;
+  miss_chance -= 0.05;
+  float min_range_miss = miss_chance * miss_chance * miss_chance * miss_chance;
+  float range_mod = (max - range) / (max * 0.66); // if range below max/3, there is no-penalty
+  range_mod = BOUND(0, range_mod, 1);
+  if (range_mod < 0.0) range_mod = 0.0;
+  if (range_mod > 1.0) range_mod = 1.0;
+
+  miss_chance = max_range_miss - (max_range_miss - min_range_miss) * range_mod;  // ok here we have our miss chance for the basic crew
+
+  sprintf(buf, " hit_3=%f", 1.0 - miss_chance);
+  send_to_char(buf, ch);
+
+  
+  miss_chance /= (1.0 + ship->guncrew.skill_mod);
+  hit_chance = 1.0 - miss_chance;
+
+  sprintf(buf, " hit_4=%f\n", hit_chance);
+  send_to_char(buf, ch);
+  
+  if ((range > (float) max) || (range < (float) min)) // remove it
+      return 0;
+
+  return (int)(hit_chance * 100);
 }*/
 
-int get_arc_indicator(int heading, int bearing)
+int fire_weapon(P_ship ship, int w_num, P_ship target, float range, int bearing, P_char ch)
 {
-  int arc_no = get_arc(heading, bearing);
-  switch(arc_no)
-  {
-  case FORE:
-    sprintf(arc, "F");
-    break;
-  case REAR:
-    sprintf(arc, "R");
-    break;
-  case STARBOARD:
-    sprintf(arc, "S");
-    break;
-  case PORT:
-    sprintf(arc, "P");
-    break;
-  default:
-    sprintf(arc, "*");
-    break;
-  }
-  return arc_no;
+    int w_index = ship->slot[w_num].index;
+
+    // calculating hit chance/displaying firing messages
+    int hit_chance = weaponsight(ship, target, w_num, range, bearing, ch);
+    sprintf(buf, "Your ship fires &+W%s&N at &+W[%s]&N:%s! Chance to hit: &+W%d%%&N",
+            ship->slot[w_num].get_description(), target->id, target->name, hit_chance);
+    act_to_all_in_ship(ship, buf);
+    sprintf(buf, "&+W[%s]&N:%s&N fires %s at your ship!",
+            SHIPID(ship), ship->name, ship->slot[w_num].get_description());
+    act_to_all_in_ship(target, buf);
+    sprintf(buf, "%s&N fires %s at %s!",
+            ship->name, ship->slot[w_num].get_description(), target->name);
+    act_to_outside(ship, buf);
+    sprintf(buf, "&+W[%s]&N:%s&N fires %s at &+W[%s]&N:%s!",
+            SHIPID(ship), ship->name, ship->slot[w_num].get_description(), target->id, target->name);
+    act_to_outside_ships(ship, buf, target);
+
+    // setting volley
+    float volley_time = (range / (float)weapon_data[w_index].max_range) * (float)weapon_data[w_index].volley_time;
+    volley_time *= 0.9 + 0.01 * (float) number(0, 20);
+    if (volley_time < 1.0)
+        volley_time = 1.0;
+
+    VolleyData vd;
+    vd.attacker = ship;
+    vd.target = target;
+    vd.weapon_index = w_num;
+    vd.hit_chance = hit_chance;
+    add_event(volley_hit_event, (int)volley_time, NULL, NULL, NULL, 0, (void*)&vd, sizeof(VolleyData));
+
+
+    ship->timer[T_BSTATION] = BSTATION;
+
+    // initiating reload
+    if (ship->slot[w_num].val1 == 1 && ch) 
+        send_to_char("&+RWarning! This is the last round of ammo!\r\n", ch);
+    if (ship->slot[w_num].val1 > 0)
+       ship->slot[w_num].val1--;
+    ship->slot[w_num].timer = MAX(1, (int)((float)weapon_data[w_index].reload_time * (1.0 - ship->guncrew.skill_mod * 0.15)));
+
+    // reducing crew stamina
+    ship->guncrew.stamina -= weapon_data[ship->slot[w_num].index].reload_stamina;
+    if (ship->guncrew.stamina <= 0) 
+    {
+        force_anchor(ship);
+    } 
+    else if (ship->guncrew.stamina <= 20) 
+    {
+        act_to_all_in_ship(ship, "&+RWarning, Crew stamina critical!&N\r\n");
+    }
+    return TRUE;
 }
 
 
-int get_arc(int heading, int bearing)
-{
-  bearing -= heading;
-  normalize_direction(bearing);
-  if (bearing <= 40 || bearing >= 320)
-    return FORE;
-  if (bearing >= 140 && bearing <= 220)
-    return REAR;
-  if (bearing >= 40 && bearing <= 140)
-    return STARBOARD;
-  if (bearing >= 220 && bearing <= 320)
-    return PORT;
-  return FORE;
-}

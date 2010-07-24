@@ -27,56 +27,6 @@ const PortData ports[NUM_PORTS] = {
   { 43158,  "Thur'Gurax", 616546 },  
 };
 
-/*const char *guncrewname[MAXGUNCREW] = {
-  "Standard Crew",
-  "Veteran Archers",
-  "Elite Catapult Crew",
-  "Stamina Crew",
-  "Magical Automotons"
-};
-
-const int guncrewstats[MAXGUNCREW][MAXCREWSTATS] = {
-  {0,       5,          0,      0,      70,         0},
-  {5,       10,         0,      0,      100,        500},
-  {10,      15,         0,      5,      130,        1000},
-  {0,       0,          0,      0,      200,        0},
-  {20,      20,         5,     10,      200,        3000}
-};
-
-const int guncrewcost[MAXGUNCREW] = {
-  0,
-  2000000,
-  5000000,
-  750000,
-  20000000
-};
-
-const char *sailcrewname[MAXSAILCREW] = {
-  "Standard Crew",
-  "Veteran Crew",
-  "Elite Crew",
-  "Repair Crew",
-  "Magical Automotons"
-};
-
-const int sailcrewstats[MAXSAILCREW][MAXCREWSTATS] = {
-// Min gun,     max gun,    min sail,   max sail,   repair%,    min frags
-  {0,           0,          0,          5,          20,         0},          
-  {0,           0,          5,          10,         30,         500},
-  {0,           5,          10,         15,         40,         1000},
-  {0,           0,          0,          10,         70,         0},
-  {5,          10,          15,         20,         50,         3000}
-};
-
-const int sailcrewcost[MAXSAILCREW] = {
-  0,
-  2000000,
-  5000000,
-  750000,
-  20000000
-};*/
-
-
 // DO NOT move crews, just add new ones!
 const ShipCrewData ship_crew_data[MAXCREWS] = {
 //      Type          Name                    Start     Min  Skill   Base      Hire   Min
@@ -104,49 +54,37 @@ const int repair_crew_list[MAXCREWS] = { 9,  10, 11, -1 , -1, -1, -1, -1, -1, -1
 const int rowing_crew_list[MAXCREWS] = { 12, -1, -1, -1 , -1, -1, -1, -1, -1, -1, -1, -1, -1};
 
 
-#define WPNFLAG01   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED,                        //small ball        
-#define WPNFLAG02   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED,                        //med ball          
-#define WPNFLAG03   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED,                        //lrg ball          
-#define WPNFLAG04   FORE_ALLOWED | REAR_ALLOWED |                               SHOTGUN,              //small cat         
-#define WPNFLAG05   FORE_ALLOWED | REAR_ALLOWED |                               SHOTGUN,              //med cat           
-#define WPNFLAG06   FORE_ALLOWED | REAR_ALLOWED |                               SHOTGUN,              //large cat         
-#define WPNFLAG07                                 PORT_ALLOWED | STAR_ALLOWED,                        //hvy ball          
-#define WPNFLAG08   FORE_ALLOWED | REAR_ALLOWED |                               RANGEDAM | CAPITOL,   //darkstone         
-#define WPNFLAG09   FORE_ALLOWED | REAR_ALLOWED |                               RANGEDAM | CAPITOL,   //heavy darkstone   
-#define WPNFLAG10   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED | MINDBLAST| CAPITOL,   //mind blast        
-#define WPNFLAG11   FORE_ALLOWED | REAR_ALLOWED |                               SAILSHOT | CAPITOL,   //frag cannon       
-#define WPNFLAG12   FORE_ALLOWED | REAR_ALLOWED |                               SHOTGUN  | CAPITOL    //long tom          
+#define WPNFLAG01   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED                                   //small ball        
+#define WPNFLAG02   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED                                   //med ball          
+#define WPNFLAG03   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED                                   //lrg ball          
+#define WPNFLAG04   FORE_ALLOWED | REAR_ALLOWED |                               SHOTGUN            | BALLISTIC  //small cat         
+#define WPNFLAG05   FORE_ALLOWED | REAR_ALLOWED |                               SHOTGUN            | BALLISTIC  //med cat           
+#define WPNFLAG06   FORE_ALLOWED | REAR_ALLOWED |                               SHOTGUN            | BALLISTIC  //large cat         
+#define WPNFLAG07                                 PORT_ALLOWED | STAR_ALLOWED                                   //hvy ball          
+#define WPNFLAG08   FORE_ALLOWED | REAR_ALLOWED |                               RANGEDAM | CAPITOL              //darkstone         
+#define WPNFLAG09   FORE_ALLOWED | REAR_ALLOWED |                               RANGEDAM | CAPITOL              //heavy darkstone   
+#define WPNFLAG10   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED | MINDBLAST| CAPITOL              //mind blast        
+#define WPNFLAG11   FORE_ALLOWED | REAR_ALLOWED |                               SAILSHOT | CAPITOL              //frag cannon       
+#define WPNFLAG12   FORE_ALLOWED | REAR_ALLOWED |                               SHOTGUN  | CAPITOL | BALLISTIC  //long tom          
 
 const WeaponData weapon_data[MAXWEAPON] = {
 // Name                          Cost Weight Ammo    Min     Max     Min     Max  Fragments Damage  Sail   Hull    Sail    Armor   Reload  Reload  Volley      Flags
 //                                                  range   range  damage  damage   count     arc    hit  damage  damage  pierce     time stamina    time 
- { "Small Ballistae",          50000,    3,   60,      0,      8,      2,      4,      1,      10,   20,    100,     50,     10,      30,      3,      7,  WPNFLAG01 },
- { "Medium Ballistae",        100000,    6,   50,      0,     10,      4,      6,      1,      10,   20,    100,     50,     10,      30,      5,      8,  WPNFLAG02 },
- { "Large Ballistae",         500000,   10,   30,      0,     12,      6,      9,      1,      10,   20,    100,     50,     10,      30,      7,     10,  WPNFLAG03 },
- { "Small Catapult",          500000,   10,   30,      4,     15,      2,      3,      4,     160,   20,    100,    100,      2,      30,     10,     18,  WPNFLAG04 },
- { "Medium Catapult",         800000,   13,   20,      5,     20,      2,      4,      5,     260,   20,    100,    100,      2,      30,     15,     24,  WPNFLAG05 },
- { "Large Catapult",         1200000,   17,   12,      6,     25,      2,      5,      6,     360,   20,    100,    100,      2,      30,     20,     30,  WPNFLAG06 },
- { "Heavy Ballistae",        1000000,   15,    6,      0,      5,     15,     22,      1,      10,    0,    100,      0,     15,      30,     20,      3,  WPNFLAG07 },
- { "Quartz Beamcannon",      4000000,    7,   40,      0,     20,      4,     16,      1,      10,   20,    100,     50,     15,      45,     10,      0,  WPNFLAG08 },
- { "Darkstone Beamcannon",   5000000,    9,   40,      0,     23,      5,     22,      1,      10,   20,    100,     50,     15,      45,     12,      0,  WPNFLAG09 },
- { "Mind Blast Cannon",      4000000,    5,   50,      0,     20,      0,      0,      1,     360,    0,      0,      0,      0,      45,      2,      0,  WPNFLAG10 },
- { "Fragmentation Cannon",   5000000,    7,   20,      0,     15,      4,      6,      5,      90,   50,     50,    100,      0,      45,     10,     12,  WPNFLAG11 },
- { "Long Tom Catapult",      5000000,    9,    6,     20,     32,      3,      6,      8,     360,   20,    100,    100,      3,      45,     20,     36,  WPNFLAG12 },
+ { "Small Ballistae",          50000,    3,   60,      0,      8,      2,      4,      1,      10,   20,    100,     50,     10,      30,      3,      7,  WPNFLAG01, },
+ { "Medium Ballistae",        100000,    6,   50,      0,     10,      4,      6,      1,      10,   20,    100,     50,     10,      30,      5,      8,  WPNFLAG02, },
+ { "Large Ballistae",         500000,   10,   30,      0,     12,      6,      9,      1,      10,   20,    100,     50,     10,      30,      7,     10,  WPNFLAG03, },
+ { "Small Catapult",          500000,   10,   30,      4,     15,      2,      3,      4,     160,   20,    100,    100,      2,      30,     10,     18,  WPNFLAG04, },
+ { "Medium Catapult",         800000,   13,   20,      5,     20,      2,      4,      5,     260,   20,    100,    100,      2,      30,     15,     24,  WPNFLAG05, },
+ { "Large Catapult",         1200000,   17,   12,      6,     25,      2,      5,      6,     360,   20,    100,    100,      2,      30,     20,     30,  WPNFLAG06, },
+ { "Heavy Ballistae",        1000000,   15,    6,      0,      5,     15,     22,      1,      10,    0,    100,      0,     15,      30,     20,      3,  WPNFLAG07, },
+ { "Quartz Beamcannon",      4000000,    7,   40,      0,     20,      4,     16,      1,      10,   20,    100,     50,     15,      45,     10,      0,  WPNFLAG08, },
+ { "Darkstone Beamcannon",   5000000,    9,   40,      0,     23,      5,     22,      1,      10,   20,    100,     50,     15,      45,     12,      0,  WPNFLAG09, },
+ { "Mind Blast Cannon",      4000000,    5,   50,      0,     20,      0,      0,      1,     360,    0,      0,      0,      0,      45,      2,      0,  WPNFLAG10, },
+ { "Fragmentation Cannon",   5000000,    7,   20,      0,     15,      4,      6,      5,      90,   50,     50,    100,      0,      45,     10,     12,  WPNFLAG11, },
+ { "Long Tom Catapult",      5000000,    9,    6,     20,     32,      3,      6,      8,     360,   20,    100,    100,      3,      45,     20,     36,  WPNFLAG12, },
 };                                                                                             
                                                                                                
                                                                                                
-const char *armor_condition_prefix[3] = {                                                                       
-  "&+R",
-  "&+Y",
-  "&+G"
-};
-
-const char *internal_condition_prefix[3] = {
-  "&+r",
-  "&+y",
-  "&+g"
-};
-
 /* NEVER CHANGE SHIP IDs Just add new ones. */
 extern const ShipTypeData ship_type_data[MAXSHIPCLASS];
 const ShipTypeData ship_type_data[MAXSHIPCLASS] = {
@@ -207,18 +145,11 @@ const int ship_allowed_weapons [MAXSHIPCLASS][MAXWEAPON] = {
 };
 
 
-const char *arc_name[4] = {
-  "forward",
-  "port",
-  "rear",
-  "starboard"
-};
-
-const ulong slotmap[4] = {
-  BIT_1,
-  BIT_2,
-  BIT_3,
-  BIT_4
+const ulong arcbitmap[4] = {
+  FORE_BIT,
+  PORT_BIT,
+  REAR_BIT,
+  STAR_BIT
 };
 const char *ship_symbol[NUM_SECT_TYPES] = {
   "&=wl^^&N",                   /* * larger towns */

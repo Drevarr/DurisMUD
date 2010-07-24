@@ -994,12 +994,11 @@ int youth_one(P_char, P_char, int, char *);
 int youth_two(P_char, P_char, int, char *);
 void verzanan_city_noises(void);
 
-// newship.c
-int newship_proc(P_obj, P_char, int, char *);
-int shiploader_proc(P_obj, P_char, int, char *);
-int shipobj_proc(P_obj, P_char, int, char *);
-int crew_shop(int,P_char,int,char *);
-int erzul(P_char, P_char, int, char *);
+// ships
+int ship_panel_proc(P_obj, P_char, int, char *);
+int ship_obj_proc(P_obj, P_char, int, char *);
+int crew_shop_proc(int,P_char,int,char *);
+int erzul_proc(P_char, P_char, int, char *);
 
 
 // sea kingdom stuff
