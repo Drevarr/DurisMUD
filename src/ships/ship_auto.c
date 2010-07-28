@@ -172,7 +172,7 @@ int engage_autopilot(P_char ch, P_ship ship, char* arg1, char* arg2)
 
     SET_BIT(ship->autopilot->flags, AIB_AUTOPILOT);
     ship->autopilot->mode = AIM_AUTOPILOT;
-    act_to_all_in_ship(ship, "Autopilot engaged, heading %d for %d rooms. Target room is %d", dir, dist, world[ship->autopilot->t_room].number);
+    act_to_all_in_ship_f(ship, "Autopilot engaged, heading %d for %d rooms. Target room is %d", dir, dist, world[ship->autopilot->t_room].number);
     return TRUE;
 }
 
@@ -306,12 +306,12 @@ int shipgroupadd(struct shipai_data *autopilot, struct shipgroup_data *group)
 
 void announceheading(P_ship ship, int heading)
 {
-  act_to_all_in_ship(ship, "AI:Heading changed to %d", heading);
+  act_to_all_in_ship_f(ship, "AI:Heading changed to %d", heading);
 }
 
 void announcespeed(P_ship ship, int speed)
 {
-  act_to_all_in_ship(ship, "AI:Speed changed to %d", speed);
+  act_to_all_in_ship_f(ship, "AI:Speed changed to %d", speed);
 }
 
 void aishipspeedadjust(P_ship ship, int speed)

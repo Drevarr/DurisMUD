@@ -648,7 +648,7 @@ void check_contraband(P_ship ship, int to_room)
                 statuslog(56, buf);
                 logit(LOG_SHIP, strip_ansi(buf).c_str());
                 
-                act_to_all_in_ship(ship, "and find %d crates of %s&n, which they confiscate.", confiscated, contra_type_name(type));
+                act_to_all_in_ship_f(ship, "and find %d crates of %s&n, which they confiscate.", confiscated, contra_type_name(type));
                 ship->slot[slot].val0 -= confiscated;
                 if (ship->slot[slot].val0 <= 0)
                     ship->slot[slot].clear();

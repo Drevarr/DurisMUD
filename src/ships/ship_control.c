@@ -231,9 +231,12 @@ int order_maneuver(P_char ch, P_ship ship, char* arg)
         if (ship->autopilot) 
             stop_autopilot(ship);
 
-        if ((world[dir_room].sector_type != SECT_OCEAN) || (world[ship->location].sector_type != SECT_OCEAN) ||
-        //if ((world[dir_room].number < 110000) || (world[ship->location].number < 110000) ||
+        if ((world[ship->location].sector_type != SECT_OCEAN) || 
+            (world[ship->location].number < 110000) ||
+            (world[dir_room].sector_type != SECT_OCEAN) || 
+            (world[dir_room].number < 110000) ||
             IS_SET(world[dir_room].room_flags, DOCKABLE)) 
+        //if ((world[dir_room].number < 110000) || (world[ship->location].number < 110000) ||
         {
             ship->speed = 0;
             ship->setspeed = 0;
@@ -242,7 +245,7 @@ int order_maneuver(P_char ch, P_ship ship, char* arg)
             obj_from_room(SHIPOBJ(ship));
             obj_to_room(SHIPOBJ(ship), ship->location);
             send_to_room_f(ship->location, "%s maneuvers in from the %s.\r\n", ship->name, dirs[rev_dir[dir]]);
-            act_to_all_in_ship(ship, "Your ship manuevers to the %s.", dirs[dir]);
+            act_to_all_in_ship_f(ship, "Your ship manuevers to the %s.", dirs[dir]);
             ship->timer[T_MANEUVER] = 5;
             if (ship->target != NULL)
                 ship->target = NULL;
@@ -410,7 +413,7 @@ int order_heading(P_char ch, P_ship ship, char* arg)
             return TRUE;
         }
     }
-    act_to_all_in_ship(ship, "Heading set to &+W%d&N.", (int)ship->setheading);
+    act_to_all_in_ship_f(ship, "Heading set to &+W%d&N.", (int)ship->setheading);
     return TRUE;
 }
 
@@ -435,7 +438,7 @@ int order_speed(P_char ch, P_ship ship, char* arg)
             if ((speed <= ship->get_maxspeed()) && speed >=0) 
             {
                 ship->setspeed = speed;
-                act_to_all_in_ship(ship, "Speed set to &+W%d&N.", ship->setspeed);
+                act_to_all_in_ship_f(ship, "Speed set to &+W%d&N.", ship->setspeed);
             } 
             else 
             {
@@ -447,7 +450,7 @@ int order_speed(P_char ch, P_ship ship, char* arg)
             if (!SHIPIMMOBILE(ship)) 
             {
                 ship->setspeed = ship->get_maxspeed();
-                act_to_all_in_ship(ship, "Speed set to &+W%d&N.", ship->setspeed);
+                act_to_all_in_ship_f(ship, "Speed set to &+W%d&N.", ship->setspeed);
             } 
             else 
                 send_to_char("&+RThe ship is immobile, it cannot move!\r\n", ch);
@@ -457,7 +460,7 @@ int order_speed(P_char ch, P_ship ship, char* arg)
             if (!SHIPIMMOBILE(ship)) 
             {
                 ship->setspeed = MAX(1, ship->get_maxspeed() * 2 / 3);
-                act_to_all_in_ship(ship, "Speed set to &+W%d&N.", ship->setspeed);
+                act_to_all_in_ship_f(ship, "Speed set to &+W%d&N.", ship->setspeed);
             } 
             else 
                 send_to_char("&+RThe ship is immobile, it cannot move!\r\n", ch);
@@ -467,7 +470,7 @@ int order_speed(P_char ch, P_ship ship, char* arg)
             if (!SHIPIMMOBILE(ship)) 
             {
                 ship->setspeed = MAX(1, ship->get_maxspeed() / 3);
-                act_to_all_in_ship(ship, "Speed set to &+W%d&N.", ship->setspeed);
+                act_to_all_in_ship_f(ship, "Speed set to &+W%d&N.", ship->setspeed);
             } 
             else
                 send_to_char("&+RThe ship is immobile, it cannot move!\r\n", ch);
@@ -522,7 +525,7 @@ int order_signal(P_char ch, P_ship ship, char* arg1, char* arg2)
             }
 
             send_to_char_f(ch, "&+GYou've sent a &+Ys&+Bi&+Wg&+yn&+Ma&+Cl &+Gmessage to &+W[%s]&N:%s&+G.&N\r\n", SHIPID(target), SHIPNAME(target));
-            act_to_all_in_ship(target, "&+GYour ship has recieved a &+Ys&+Bi&+Wg&+yn&+Ma&+Cl &+Gmessage from &+W[%s]&N:%s &+Gdecoded as \'&+Y%s&+G\'.&n", SHIPID(ship), SHIPNAME(ship), arg2);
+            act_to_all_in_ship_f(target, "&+GYour ship has recieved a &+Ys&+Bi&+Wg&+yn&+Ma&+Cl &+Gmessage from &+W[%s]&N:%s &+Gdecoded as \'&+Y%s&+G\'.&n", SHIPID(ship), SHIPNAME(ship), arg2);
             return TRUE;
         }
     }
@@ -822,7 +825,7 @@ int do_lock_target(P_char ch, P_ship ship, char* arg)
                 ship->timer[T_BSTATION] = BSTATION;
             }
             ship->target = temp;
-            act_to_all_in_ship(ship, "Locked onto &+W[%s]:&N %s&N\r\n", temp->id, temp->name);
+            act_to_all_in_ship_f(ship, "Locked onto &+W[%s]:&N %s&N\r\n", temp->id, temp->name);
             return TRUE;
         }
     }

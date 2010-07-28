@@ -204,7 +204,7 @@ void everyone_get_out_newship(P_ship ship)
 }
 
 static char local_buf[MAX_STRING_LENGTH];
-void act_to_all_in_ship(P_ship ship, const char *msg, ... )
+void act_to_all_in_ship_f(P_ship ship, const char *msg, ... )
 {
   if (ship == NULL)
     return;
@@ -214,12 +214,20 @@ void act_to_all_in_ship(P_ship ship, const char *msg, ... )
   vsnprintf(local_buf, sizeof(local_buf) - 1, msg, args);
   va_end(args);
 
+  act_to_all_in_ship(ship, local_buf);
+}
+
+void act_to_all_in_ship(P_ship ship, const char *msg)
+{
+  if (ship == NULL)
+    return;
+
   for (int i = 0; i < MAX_SHIP_ROOM; i++)
   {
     if ((SHIPROOMNUM(ship, i) != -1) && world[real_room(SHIPROOMNUM(ship, i))].people)
     {
-      act(local_buf, FALSE, world[real_room(SHIPROOMNUM(ship, i))].people, 0, 0, TO_ROOM);
-      act(local_buf, FALSE, world[real_room(SHIPROOMNUM(ship, i))].people, 0, 0, TO_CHAR);
+      act(msg, FALSE, world[real_room(SHIPROOMNUM(ship, i))].people, 0, 0, TO_ROOM);
+      act(msg, FALSE, world[real_room(SHIPROOMNUM(ship, i))].people, 0, 0, TO_CHAR);
     }
   }
 }

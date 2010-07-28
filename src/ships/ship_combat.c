@@ -228,7 +228,7 @@ bool ship_gain_frags(P_ship ship, P_ship target, int frags)
     if (frags > 0)
     {
         ship->frags += frags;
-        act_to_all_in_ship(ship, "Your ship has gained %d frags!\r\n", frags);
+        act_to_all_in_ship_f(ship, "Your ship has gained %d frags!\r\n", frags);
     }
     ship->sailcrew.skill   += skill_frags * ship_crew_data[ship->sailcrew.index].skill_gain;
     ship->guncrew.skill    += skill_frags * ship_crew_data[ship->guncrew.index].skill_gain;
@@ -292,14 +292,14 @@ bool ship_gain_money(P_ship ship, P_ship target, int salvage, int bounty)
 {
   if (salvage > 0)
   {
-    act_to_all_in_ship(ship, "You recieve %s for the salvage of %s!\r\nIt is currently in your ship's coffers.  To look, use 'look cargo', to get, use 'get money'\r\n", coin_stringv(salvage), target->name);
+    act_to_all_in_ship_f(ship, "You recieve %s for the salvage of %s!\r\nIt is currently in your ship's coffers.  To look, use 'look cargo', to get, use 'get money'\r\n", coin_stringv(salvage), target->name);
   }
   if (bounty > 0)
   {
     if (target->frags > 1000)
-      act_to_all_in_ship(ship, "In addition to salvage, you recieve a bounty of %s for sinking THIS ship.\r\n", coin_stringv(bounty));
+      act_to_all_in_ship_f(ship, "In addition to salvage, you recieve a bounty of %s for sinking THIS ship.\r\n", coin_stringv(bounty));
     else
-      act_to_all_in_ship(ship, "In addition to salvage, you recieve a bounty of %s for sinking this ship.\r\n", coin_stringv(bounty));
+      act_to_all_in_ship_f(ship, "In addition to salvage, you recieve a bounty of %s for sinking this ship.\r\n", coin_stringv(bounty));
   }
   ship->money += (salvage + bounty);
 
@@ -508,7 +508,7 @@ void volley_hit_event(P_char ch, P_char victim, P_obj obj, void *data)
                 stun_all_in_ship(target, PULSE_VIOLENCE * 2);
                 act_to_all_in_ship(target, "&+MYour mind reels from the blast, you huddle in pain!&N");
             }
-            act_to_all_in_ship(ship, "You hit &+W[%s]&N:%s&N with a powerful &+Mmental blast&N!", SHIPID(target), SHIPNAME(target));
+            act_to_all_in_ship_f(ship, "You hit &+W[%s]&N:%s&N with a powerful &+Mmental blast&N!", SHIPID(target), SHIPNAME(target));
             act_to_outside_ships(target, ship, "&+W[%s]&N:%s&N has been hit with a powerful &+Mmental blast&N!", SHIPID(target), SHIPNAME(target));
             int stuntime = (int)(5.0 + 15.0 * range_mod);
             if (target == npc_dreadnought) stuntime /= 3; // demons are resistant to mindblast
@@ -518,8 +518,8 @@ void volley_hit_event(P_char ch, P_char victim, P_obj obj, void *data)
     }
     else 
     {
-        act_to_all_in_ship(ship, "You miss &+W[%s]&N:%s&N.", SHIPID(target), SHIPNAME(target));
-        act_to_all_in_ship(target, "&+W[%s]&N:%s&N misses your ship.", SHIPID(ship), SHIPNAME(ship));
+        act_to_all_in_ship_f(ship, "You miss &+W[%s]&N:%s&N.", SHIPID(target), SHIPNAME(target));
+        act_to_all_in_ship_f(target, "&+W[%s]&N:%s&N misses your ship.", SHIPID(ship), SHIPNAME(ship));
         act_to_outside_ships(target, ship, "&+W[%s]&N:%s&N misses &+W[%s]&N:%s&N.", SHIPID(ship), SHIPNAME(ship), SHIPID(target), SHIPNAME(target));
     }
     return;
@@ -544,9 +544,9 @@ int damage_sail(P_ship attacker, P_ship target, int dam)
     
     if (attacker)
     {
-        act_to_all_in_ship(attacker, "You hit &+W[%s]&N:%s&N for &+G%d&N %s of damage on the &+Wsails&N!", SHIPID(target), SHIPNAME(target), dam, (dam == 1) ? "point" : "points");
+        act_to_all_in_ship_f(attacker, "You hit &+W[%s]&N:%s&N for &+G%d&N %s of damage on the &+Wsails&N!", SHIPID(target), SHIPNAME(target), dam, (dam == 1) ? "point" : "points");
     }
-    act_to_all_in_ship(target, "&+WYour ship&N has been hit for &+R%d&N %s of damage on the &+Wsails&N!", dam, (dam == 1) ? "point" : "points");
+    act_to_all_in_ship_f(target, "&+WYour ship&N has been hit for &+R%d&N %s of damage on the &+Wsails&N!", dam, (dam == 1) ? "point" : "points");
     act_to_outside_ships(target, attacker, "&+W[%s]&N:%s&N has been hit for %d %s of damage on the &+Wsails&N!", SHIPID(target), SHIPNAME(target), dam, (dam == 1) ? "point" : "points");
 
     target->mainsail -= dam;
@@ -567,9 +567,9 @@ int damage_hull(P_ship attacker, P_ship target, int dam, int arc, int armor_pier
     
     if (attacker)
     {
-        act_to_all_in_ship(attacker, "You hit &+W[%s]&N:%s&N for &+G%d&N %s of damage on the %s side!", SHIPID(target), SHIPNAME(target), dam, (dam == 1) ? "point" : "points", get_arc_name(arc));
+        act_to_all_in_ship_f(attacker, "You hit &+W[%s]&N:%s&N for &+G%d&N %s of damage on the %s side!", SHIPID(target), SHIPNAME(target), dam, (dam == 1) ? "point" : "points", get_arc_name(arc));
     }
-    act_to_all_in_ship(target, "&+WYour ship&N has been hit for &+R%d&N %s of damage on the %s side!", dam, (dam == 1) ? "point" : "points", get_arc_name(arc));
+    act_to_all_in_ship_f(target, "&+WYour ship&N has been hit for &+R%d&N %s of damage on the %s side!", dam, (dam == 1) ? "point" : "points", get_arc_name(arc));
     act_to_outside_ships(target, attacker, "&+W[%s]&N:%s&N has been hit for %d %s of damage on the %s side!", SHIPID(target), SHIPNAME(target), dam, (dam == 1) ? "point" : "points", get_arc_name(arc));
 
     
@@ -643,18 +643,18 @@ void damage_weapon(P_ship attacker, P_ship target, int arc, int dam)
         target->slot[w_index].val2 += dam;
         if (SHIPWEAPONDESTROYED(target, w_index))
         {
-            act_to_all_in_ship(target, " &+RYour &+W%s &+Rhas been destroyed!&N", target->slot[w_index].get_description());
+            act_to_all_in_ship_f(target, " &+RYour &+W%s &+Rhas been destroyed!&N", target->slot[w_index].get_description());
             if (attacker)
             {
-                act_to_all_in_ship(attacker, " &+GYou destroy a &+W%s&+G!&N", target->slot[w_index].get_description());
+                act_to_all_in_ship_f(attacker, " &+GYou destroy a &+W%s&+G!&N", target->slot[w_index].get_description());
             }
         }
         else
         {
-            act_to_all_in_ship(target, " &+WYour %s has been damaged!&N", target->slot[w_index].get_description());
+            act_to_all_in_ship_f(target, " &+WYour %s has been damaged!&N", target->slot[w_index].get_description());
             if (attacker)
             {
-                act_to_all_in_ship(attacker, " &+GYou damage a &+W%s&+G!&N", target->slot[w_index].get_description());
+                act_to_all_in_ship_f(attacker, " &+GYou damage a &+W%s&+G!&N", target->slot[w_index].get_description());
             }
         }
     }
@@ -802,31 +802,31 @@ int try_ram_ship(P_ship ship, P_ship target, float tbearing)
     int hit_chance = BOUNDED(0, (int)chance, 100);
 
 
-    act_to_all_in_ship(ship, "You attempt to ram &+W[%s]&N: %s! Chance to hit: &+W%d%%&N", SHIPID(target), SHIPNAME(target), hit_chance);
+    act_to_all_in_ship_f(ship, "You attempt to ram &+W[%s]&N: %s! Chance to hit: &+W%d%%&N", SHIPID(target), SHIPNAME(target), hit_chance);
     if (target->timer[T_BSTATION] == 0)
         act_to_all_in_ship(target, "&=LRYour crew scrambles madly to battlestations!&N\r\n");
     target->timer[T_BSTATION] = BSTATION;
-    act_to_all_in_ship(target, "&+W[%s]&N: %s attempts to ram you!", SHIPID(ship), SHIPNAME(ship));
+    act_to_all_in_ship_f(target, "&+W[%s]&N: %s attempts to ram you!", SHIPID(ship), SHIPNAME(ship));
     act_to_outside_ships(ship, target, "&+W[%s]&N:%s&N attempts to ram &+W[%s]&N:%s&N!", SHIPID(ship), SHIPNAME(ship), SHIPID(target), SHIPNAME(target));
 
     if (number(0, 99) < hit_chance)
     { // Successful ram
         if (ram_speed < ship->speed / 2)
         {
-            act_to_all_in_ship(ship, "&+yYour ship &+Llurches &+yas you &+rcrunch &+yinto the stern of &+W[%s]&N:%s&+y!&N", SHIPID(target), SHIPNAME(target));
-            act_to_all_in_ship(target, "&+W[%s]&N:%s &+rcrunches &+yinto the stern of your ship!&N", SHIPID(ship), SHIPNAME(ship));
+            act_to_all_in_ship_f(ship, "&+yYour ship &+Llurches &+yas you &+rcrunch &+yinto the stern of &+W[%s]&N:%s&+y!&N", SHIPID(target), SHIPNAME(target));
+            act_to_all_in_ship_f(target, "&+W[%s]&N:%s &+rcrunches &+yinto the stern of your ship!&N", SHIPID(ship), SHIPNAME(ship));
             act_to_outside_ships(target, ship, "&+W[%s]&N:%s &+rcrunches &+yinto the stern of &+W[%s]&N:%s&+y!&N", SHIPID(ship), SHIPNAME(ship), SHIPID(target), SHIPNAME(target));
         }
         else if (counter_speed > ram_speed / 2)
         {
-            act_to_all_in_ship(ship, "&+yTimbers &+rcrunch &+yand &+Ycrack &+yas you &=LRcollide &+yhead on with &+W[%s]&N:%s&+y!&N", SHIPID(target), SHIPNAME(target));
-            act_to_all_in_ship(target, "&+yTimbers &+rcrunch &+yand &+Ycrack &+yas &+W[%s]&N:%s &=LRcollides &+yhead on with your ship!&N", SHIPID(ship), SHIPNAME(ship));
+            act_to_all_in_ship_f(ship, "&+yTimbers &+rcrunch &+yand &+Ycrack &+yas you &=LRcollide &+yhead on with &+W[%s]&N:%s&+y!&N", SHIPID(target), SHIPNAME(target));
+            act_to_all_in_ship_f(target, "&+yTimbers &+rcrunch &+yand &+Ycrack &+yas &+W[%s]&N:%s &=LRcollides &+yhead on with your ship!&N", SHIPID(ship), SHIPNAME(ship));
             act_to_outside_ships(target, ship, "&+W[%s]&N:%s &+Rcollides &+y head on with &+W[%s]&N:%s&+y!&N", SHIPID(ship), SHIPNAME(ship), SHIPID(target), SHIPNAME(target));
         }
         else
         {
-            act_to_all_in_ship(ship, "&+yTimbers &+rcrunch &+yand &+Ycrack &+yas you &=LRcrash &+yinto &+W[%s]&N:%s&+y!&N", SHIPID(target), SHIPNAME(target));
-            act_to_all_in_ship(target, "&+yTimbers &+rcrunch &+yand &+Ycrack &+yas &+W[%s]&N:%s &=LRcrashes &+yinto your ship!&N", SHIPID(ship), SHIPNAME(ship));
+            act_to_all_in_ship_f(ship, "&+yTimbers &+rcrunch &+yand &+Ycrack &+yas you &=LRcrash &+yinto &+W[%s]&N:%s&+y!&N", SHIPID(target), SHIPNAME(target));
+            act_to_all_in_ship_f(target, "&+yTimbers &+rcrunch &+yand &+Ycrack &+yas &+W[%s]&N:%s &=LRcrashes &+yinto your ship!&N", SHIPID(ship), SHIPNAME(ship));
             act_to_outside_ships(target, ship, "&+W[%s]&N:%s &+Rcrashes &+yinto &+W[%s]&N:%s&+y!&N", SHIPID(ship), SHIPNAME(ship), SHIPID(target), SHIPNAME(target));
         }
 
@@ -1067,8 +1067,8 @@ int fire_weapon(P_ship ship, int w_num, int t_contact, int hit_chance, P_char ch
     int w_index = ship->slot[w_num].index;
 
     // displaying firing messages
-    act_to_all_in_ship(ship, "Your ship fires &+W%s&N at &+W[%s]&N:%s! Chance to hit: &+W%d%%&N", ship->slot[w_num].get_description(), target->id, target->name, hit_chance);
-    act_to_all_in_ship(target, "&+W[%s]&N:%s&N fires %s at your ship!", SHIPID(ship), ship->name, ship->slot[w_num].get_description());
+    act_to_all_in_ship_f(ship, "Your ship fires &+W%s&N at &+W[%s]&N:%s! Chance to hit: &+W%d%%&N", ship->slot[w_num].get_description(), target->id, target->name, hit_chance);
+    act_to_all_in_ship_f(target, "&+W[%s]&N:%s&N fires %s at your ship!", SHIPID(ship), ship->name, ship->slot[w_num].get_description());
     act_to_outside(ship, "%s&N fires %s at %s!", ship->name, ship->slot[w_num].get_description(), target->name);
     act_to_outside_ships(ship, target, "&+W[%s]&N:%s&N fires %s at &+W[%s]&N:%s!", SHIPID(ship), ship->name, ship->slot[w_num].get_description(), target->id, target->name);
 

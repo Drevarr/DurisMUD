@@ -1274,17 +1274,14 @@ void NPCShipAI::a_attack()
                     continue;
 
                 bool fire = false;
-                if (t_range > weapon_data[w_index].max_range) // main target is too far anyways, fire it
-                    fire = true;
+                if (t_range > weapon_data[w_index].max_range || t_range < weapon_data[w_index].min_range)
+                    fire = true;  // main target is not in range anyways, fire it
 
-                if (t_range < weapon_data[w_index].min_range) // main target is too close anyways, fire it
-                    fire = true;
+                if (t_a == (t_arc + 2) % 4)
+                    fire = true;  // main target is at opposite arc, fire away
 
                 if (IS_SET(weapon_data[w_index].flags, MINDBLAST) && contacts[i].ship->timer[T_MINDBLAST] == 0)
-                    fire = true;
-
-                if (t_a == (t_arc + 2) % 4) // main target is at opposite arc, fire away
-                    fire = true;
+                    fire = true; // use mindblast whenever possible
 
                 if (fire)
                 {
@@ -1916,3 +1913,4 @@ void NPCShipAI::send_message_to_debug_char(const char *fmt, ... )
 // make sure people dont attacked twice on same cargo run??
 // make advanced attack support multitarget
 // Validate cargo!
+// Pirate Crews: lower levels, remove necros, set di!

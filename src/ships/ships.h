@@ -597,7 +597,8 @@ P_char captain_is_aboard(P_ship ship);
 float get_turning_speed(P_ship ship);
 float get_next_heading_change(P_ship ship);
 
-void act_to_all_in_ship(P_ship ship, const char *msg, ... );
+void act_to_all_in_ship_f(P_ship ship, const char *msg, ... );
+void act_to_all_in_ship(P_ship ship, const char *msg);
 void act_to_outside_ships(P_ship ship, P_ship notarget, const char *msg, ... );
 void act_to_outside(P_ship ship, const char *msg, ... );
 void everyone_get_out_newship(P_ship ship);

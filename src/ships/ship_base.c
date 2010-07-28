@@ -1225,7 +1225,7 @@ void ship_activity()
                                 ship->slot[j].val2--;
                                 if (!SHIPWEAPONDAMAGED(ship, j))
                                 {
-                                    act_to_all_in_ship(ship, "&+W%s &+Ghas been repaired!&N", weapon_data[ship->slot[j].index].name);
+                                    act_to_all_in_ship_f(ship, "&+W%s &+Ghas been repaired!&N", weapon_data[ship->slot[j].index].name);
                                     ship->slot[j].timer = (int)((float)weapon_data[j].reload_time * (1.0 - ship->guncrew.skill_mod * 0.15));
                                 }
                                 if (!number(0, 4))
@@ -1541,7 +1541,7 @@ void ship_activity()
                             ship->slot[j].timer--;
                             if (ship->slot[j].timer == 0) 
                             {
-                                act_to_all_in_ship(ship, "Weapon &+W[%d]&N: [%s] has finished reloading.", j, ship->slot[j].get_description());
+                                act_to_all_in_ship_f(ship, "Weapon &+W[%d]&N: [%s] has finished reloading.", j, ship->slot[j].get_description());
                             }
                         }
                     }
