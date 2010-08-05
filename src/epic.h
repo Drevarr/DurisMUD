@@ -107,6 +107,7 @@ int two_weapon_check(P_char ch);
 #define EPIC_QUEST 3
 #define EPIC_RANDOM_ZONE 4
 #define EPIC_NEXUS_STONE 5
+#define EPIC_SHIP_PVP 6
 
 #define SPILL_BLOOD -10
 

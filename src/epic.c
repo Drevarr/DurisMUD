@@ -530,7 +530,7 @@ void gain_epic(P_char ch, int type, int data, int amount)
 	amount = (int) ( amount * get_property("epic.witch.multiplier", 1.5));
   }
 
-  if(type != EPIC_PVP && has_epic_task(ch))
+  if(type != EPIC_PVP && type != EPIC_SHIP_PVP && has_epic_task(ch))
   {
     send_to_char("You have not completed the task given to you by the Gods, \n" \
                  "so you are not able to progress at usual pace.\n", ch);
@@ -558,6 +558,9 @@ void gain_epic(P_char ch, int type, int data, int amount)
       break;
     case EPIC_PVP:
       strcpy(type_str, "PVP");
+      break;
+    case EPIC_SHIP_PVP:
+      strcpy(type_str, "PVP_SHIP");
       break;
     case EPIC_ELITE_MOB:
       strcpy(type_str, "ELITE_MOB");
@@ -666,6 +669,9 @@ void epic_feed_artifacts(P_char ch, int epics, int epic_type)
     case EPIC_PVP:
       feed_seconds = (int) (feed_seconds * get_property("artifact.feeding.epic.typeMod.pvp", 2.0));
       break;
+    case EPIC_SHIP_PVP:
+      feed_seconds = (int) (feed_seconds * get_property("artifact.feeding.epic.typeMod.pvpShip", 2.0));
+      break;
     case EPIC_ELITE_MOB:
       feed_seconds = (int) (feed_seconds * get_property("artifact.feeding.epic.typeMod.eliteMob", 1.0));
       break;
@@ -690,7 +696,7 @@ void epic_feed_artifacts(P_char ch, int epics, int epic_type)
     P_obj obj = ch->equipment[i];
     if ( obj && IS_ARTIFACT(obj) )
     {
-      feed_artifact(ch, ch->equipment[i], feed_seconds, (epic_type == EPIC_PVP ? TRUE : FALSE));
+      feed_artifact(ch, ch->equipment[i], feed_seconds, ((epic_type == EPIC_PVP || epic_type == EPIC_SHIP_PVP) ? TRUE : FALSE));
     }
   }
 }
