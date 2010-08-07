@@ -17378,7 +17378,7 @@ void spell_ether_sense(int level, P_char ch, char *arg, int type, P_char vict,
   char     buf[256];
 
 
-  if(!IS_ILLITHID(ch))
+  if(!IS_ILLITHID(ch) || !IS_PILLITHID(ch))
   {
     send_to_char
       ("A flood of strange images stream into your brain at a mind-numbing pace..  Woah man, the colors.  Alas, you can't make sense of any of it.\n",
@@ -17397,7 +17397,7 @@ void spell_ether_sense(int level, P_char ch, char *arg, int type, P_char vict,
       /*found char in same zone */
       if((GET_LEVEL(d->character) > 25) && !IS_TRUSTED(d->character))
       {
-        if(IS_ILLITHID(d->character))
+        if(IS_ILLITHID(d->character) || IS_PILLITHID(ch))
         {
           ilevel += GET_LEVEL(d->character);
         }
@@ -17445,7 +17445,7 @@ void spell_ether_sense(int level, P_char ch, char *arg, int type, P_char vict,
     }
     send_to_char(buf, ch);
   }
-  if(!IS_ILLITHID(ch))
+  if(!IS_ILLITHID(ch) && !IS_PILLITHID(ch))
   {
     if(ilevel == 0)
     {
