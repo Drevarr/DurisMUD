@@ -713,14 +713,6 @@ void AddFrags(P_char ch, P_char victim)
       gain = (int)(gain * get_property("frag.evil.penalty", 0.666));
 
         
-  if(GET_LEVEL(ch) > GET_LEVEL(victim) + 5)
-    gain = (int)(gain * get_property("frag.leveldiff.modifier.low", 0.500));
-    
-  if(GET_LEVEL(ch) + 5 < GET_LEVEL(victim))
-    gain = (int)(gain * get_property("frag.leveldiff.modifier.high", 1.200));
-        
-  sprintf(buffer, "You just gained %.02f frags!\r\n", ((float) gain) / 100);
-
   for (tch = world[ch->in_room].people; tch; tch = tch->next_in_room)
   { 
 
@@ -737,62 +729,68 @@ void AddFrags(P_char ch, P_char victim)
           recfrag = afp->modifier;
         }
       }
-  
-      tch->only.pc->oldfrags = tch->only.pc->frags;
-      tch->only.pc->frags += gain;
-      sql_modify_frags(tch, gain);
-      
-      send_to_char(buffer, tch);
-      
-      if(gain + recfrag >= get_property("epic.frag.threshold", 0.10)*100 )
+          
+      if (fragWorthy(tch, victim))
       {
-			frag_gain = (int) ((gain/100.00) * (float)
-			(get_property("epic.frag.amount", 20.000)));
-        
-			epic_frag(tch, GET_PID(victim), frag_gain);
-      }
+        int real_gain = gain;
+        if(GET_LEVEL(tch) > GET_LEVEL(victim) + 5)
+          real_gain = (int)(real_gain * get_property("frag.leveldiff.modifier.low", 0.500));
+    
+        if(GET_LEVEL(tch) + 5 < GET_LEVEL(victim))
+          real_gain = (int)(real_gain * get_property("frag.leveldiff.modifier.high", 1.200));
+        sprintf(buffer, "You just gained %.02f frags!\r\n", ((float) real_gain) / 100);
 
-      if(!affected_by_spell(tch, TAG_PLR_RECENT_FRAG))
-      {
-        memset(&af, 0, sizeof(af));
-        af.type = TAG_PLR_RECENT_FRAG;
-        af.flags = AFFTYPE_SHORT | AFFTYPE_NODISPEL | AFFTYPE_NOAPPLY;
-        af.modifier = recfrag + gain;
-        af.duration = get_property("epic.frag.thrill.duration", 45) *
-          WAIT_SEC;
-        affect_to_char(tch, &af);
-      }
-      else if(affected_by_spell(tch, TAG_PLR_RECENT_FRAG))
-      {
-        struct affected_type *af1;
-
-        for (af1 = tch->affected; af1; af1 = af1->next)
+        tch->only.pc->oldfrags = tch->only.pc->frags;
+        tch->only.pc->frags += real_gain;
+        sql_modify_frags(tch, real_gain);
+      
+        send_to_char(buffer, tch);
+      
+        if(real_gain + recfrag >= get_property("epic.frag.threshold", 0.10)*100 )
         {
-          if(af1->type == TAG_PLR_RECENT_FRAG)
+		   frag_gain = (int) ((real_gain/100.00) * (float)
+		   (get_property("epic.frag.amount", 20.000)));
+        
+		   epic_frag(tch, GET_PID(victim), frag_gain);
+        }
+
+        if(!affected_by_spell(tch, TAG_PLR_RECENT_FRAG))
+        {
+          memset(&af, 0, sizeof(af));
+          af.type = TAG_PLR_RECENT_FRAG;
+          af.flags = AFFTYPE_SHORT | AFFTYPE_NODISPEL | AFFTYPE_NOAPPLY;
+          af.modifier = recfrag + real_gain;
+          af.duration = get_property("epic.frag.thrill.duration", 45) * WAIT_SEC;
+          affect_to_char(tch, &af);
+        }
+        else if(affected_by_spell(tch, TAG_PLR_RECENT_FRAG))
+        {
+          struct affected_type *af1;
+
+          for (af1 = tch->affected; af1; af1 = af1->next)
           {
-            af1->modifier = af1->modifier + gain;
-	    af1->duration = get_property("epic.frag.thrill.duration", 45) *
-              WAIT_SEC;;
+            if(af1->type == TAG_PLR_RECENT_FRAG)
+            {
+              af1->modifier = af1->modifier + real_gain;
+              af1->duration = get_property("epic.frag.thrill.duration", 45) * WAIT_SEC;;
+            }
           }
         }
+
+        if (GET_RACE(ch) == RACE_HALFLING)
+        {
+          char     tmp[1024];
+          sprintf(tmp, "You get %s in blood money.\r\n", coin_stringv(10000 * real_gain));
+          send_to_char(tmp, ch);
+          ADD_MONEY(ch, 10000 * real_gain);
+        }
+
+        if ((tch->only.pc->frags / 100) > (tch->only.pc->oldfrags / 100))
+          checkFragList(tch);
+
+        if (IS_ILLITHID(tch))
+          illithid_advance_level(tch);
       }
-
-      if (GET_RACE(ch) == RACE_HALFLING)
-      {
-        char     tmp[1024];
-
-        sprintf(tmp, "You get %s in blood money.\r\n",
-                coin_stringv(10000 * gain));
-        send_to_char(tmp, ch);
-
-        ADD_MONEY(ch, 10000 * gain);
-      }
-
-      if ((tch->only.pc->frags / 100) > (tch->only.pc->oldfrags / 100))
-        checkFragList(tch);
-
-      if (IS_ILLITHID(tch))
-        illithid_advance_level(tch);
     }
   }
 

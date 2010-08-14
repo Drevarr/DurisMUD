@@ -1041,7 +1041,7 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
 
     // When someone else is tanking mob you damage, they get tanking exp
     P_char tank = GET_OPPONENT(victim);
-    if (tank && tank != ch && IS_PC(tank) && tank->group == ch->group)
+    if (tank && tank != ch && IS_PC(tank) && grouped(tank, ch))
     {
       if (GET_LEVEL(tank) >= GET_LEVEL(ch) - 15)  // powerleveling stopgap
       {
@@ -1073,7 +1073,7 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
     if(IS_NPC(victim))
       return 0;
 
-    if (victim->group && victim->group != ch->group) // only for healing groupies
+    if (grouped(victim, ch)) // only for healing groupies
         return 0;
 
     P_char attacker = GET_OPPONENT(victim);
