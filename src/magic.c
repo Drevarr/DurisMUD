@@ -6334,12 +6334,11 @@ void spell_natures_touch(int level, P_char ch, char *arg, int type,
     af.bitvector4 = AFF4_REGENERATION;
     affect_to_char(victim, &af);
     
-    if(MIN(healpoints, GET_MAX_HIT(victim) - GET_HIT(victim)) > 30 &&
-       IS_FIGHTING(victim))
-      {
-        gain_exp(ch, GET_OPPONENT(victim), (int)(GET_LEVEL(ch) / 2), EXP_HEALING);
-        update_pos(victim);
-      } 
+    if(IS_FIGHTING(victim))
+    {
+      gain_exp(ch, GET_OPPONENT(victim), MIN(healpoints, GET_MAX_HIT(victim) - GET_HIT(victim)), EXP_HEALING);
+      update_pos(victim);
+    }
   }
   
   if(ch == victim)
@@ -7316,7 +7315,7 @@ void spell_stone_skin(int level, P_char ch, char *arg, int type,
   }
 
   if(GET_OPPONENT(victim))
-    gain_exp(ch, GET_OPPONENT(victim), number(20, 40), EXP_DAMAGE); // stoning the tank equal to small nuke in exp -Odorf
+    gain_exp(ch, GET_OPPONENT(victim), 50 + GET_LEVEL(ch) * 2, EXP_HEALING); // stoning the tank equal to small heal in exp -Odorf
 
   bzero(&af, sizeof(af));
   af.type = SPELL_STONE_SKIN;
@@ -7353,7 +7352,7 @@ void spell_ironwood(int level, P_char ch, char *arg, int type,
   }
 
   if(GET_OPPONENT(victim))
-    gain_exp(ch, GET_OPPONENT(victim), number(20, 40), EXP_DAMAGE); // stoning the tank equal to small nuke in exp -Odorf
+    gain_exp(ch, GET_OPPONENT(victim), 50 + GET_LEVEL(ch) * 2, EXP_HEALING); // stoning the tank equals to heal in exp -Odorf
 
   bzero(&af, sizeof(af));
   af.type = SPELL_IRONWOOD;
@@ -15205,7 +15204,6 @@ void spell_mass_heal(int level, P_char ch, char *arg, int type, P_char victim,
 {
   P_char tch;
   int healed;
-  bool gotexp = false;
 
   for (tch = world[ch->in_room].people; tch; tch = tch->next_in_room) {
     spell_cure_blind(level, ch, NULL, SPELL_TYPE_SPELL, tch, obj);
@@ -15216,9 +15214,8 @@ void spell_mass_heal(int level, P_char ch, char *arg, int type, P_char victim,
     int maxhits = IS_HARDCORE(ch) ? 110 : 100;
 
     healed = vamp(tch, (int) maxhits + number(1, level / 3), GET_MAX_HIT(tch) - number(1, 4));
-    if(healed >= 100 && !gotexp && tch->specials.fighting) {
-      gain_exp(ch, tch->specials.fighting, 0, EXP_HEALING);
-      gotexp = true;
+    if(tch->specials.fighting) {
+      gain_exp(ch, tch, healed, EXP_HEALING);
     }
     update_pos(tch);
     if(RACE_PUNDEAD(tch))
@@ -16449,7 +16446,7 @@ void spell_immolate(int level, P_char ch, char *arg, int type, P_char victim,
       if(ch &&
         IS_ALIVE(victim)) // Adding another check.
       {
-        gain_exp(ch, victim, 0, EXP_DAMAGE);
+        //gain_exp(ch, victim, 0, EXP_DAMAGE);
         add_event(event_immolate, PULSE_VIOLENCE, ch, victim, NULL, 0, &burn, sizeof(burn));
       }
     }
@@ -16647,8 +16644,8 @@ void spell_magma_burst(int level, P_char ch, char *arg, int type,
     affect_to_char(victim, af);
     add_event(event_magma_burst, 0, ch, victim, NULL, 0, &level, sizeof(level));
 
-    if( IS_ALIVE(ch) && IS_ALIVE(victim) )
-      gain_exp(ch, victim, 0, EXP_DAMAGE);
+    //if( IS_ALIVE(ch) && IS_ALIVE(victim) )
+    //  gain_exp(ch, victim, 0, EXP_DAMAGE);
   }
   else
   {
@@ -16768,8 +16765,8 @@ void event_cdoom(P_char ch, P_char vict, P_obj obj, void *data)
     if(spell_damage(ch, tch, doomdam, SPLDAM_GENERIC, SPLDAM_NODEFLECT,
       &messages) == DAM_NONEDEAD)
     {
-      if(IS_ALIVE(ch) && IS_ALIVE(tch))
-        gain_exp(ch, tch, 0, EXP_DAMAGE);
+      //if(IS_ALIVE(ch) && IS_ALIVE(tch))
+      //  gain_exp(ch, tch, 0, EXP_DAMAGE);
     }
   }
   add_event(event_cdoom, PULSE_VIOLENCE, ch, vict, NULL, 0, &num, sizeof(num));
@@ -18195,7 +18192,7 @@ void spell_acidimmolate(int level, P_char ch, char *arg, int type,
     if(IS_ALIVE(victim)) // Adding double check.
     {
       add_event(event_acidimmolate, PULSE_VIOLENCE, ch, victim, NULL, 0, &acidburn, sizeof(acidburn));
-      gain_exp(ch, victim, 0, EXP_DAMAGE);
+      //gain_exp(ch, victim, 0, EXP_DAMAGE);
     }
   }
 }
@@ -19945,7 +19942,7 @@ void spell_electrical_execution(int level, P_char ch, char *arg, int type, P_cha
     if(ch &&
       IS_ALIVE(victim))
     {
-      gain_exp(ch, victim, 0, EXP_DAMAGE);
+      //gain_exp(ch, victim, 0, EXP_DAMAGE);
       add_event(event_electrical_execution, (int) (0.5 * PULSE_VIOLENCE), ch, victim,
         NULL, 0, &fry, sizeof(fry));
     }

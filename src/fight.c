@@ -5343,11 +5343,14 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
       victim->desc->prompt_mode = 1;
     }
     
-// Exps for damage
-    if(//dam > 5 &&  // any amount of damage yields exp  -Odorf
-      !(flags & RAWDAM_NOEXP))
+    // Exps for damage
+    if (IS_NPC(victim) && GET_HIT(victim) < GET_LOWEST_HIT(victim)) // only getting damage exp once from the same mob, to prevent cheese
     {
-      gain_exp(ch, victim, dam, EXP_DAMAGE);
+      if(!(flags & RAWDAM_NOEXP))
+      {
+        gain_exp(ch, victim, MIN(dam, GET_LOWEST_HIT(victim) - GET_HIT(victim)), EXP_DAMAGE);
+      }
+      GET_LOWEST_HIT(victim) = GET_HIT(victim);
     }
 
     sprintf(buffer, "Damage: %d\n", (int) dam);

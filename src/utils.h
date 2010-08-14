@@ -384,6 +384,7 @@ int race_size(int race);
 
 #define GET_HIT(ch)     ((ch)->points.hit)
 #define GET_MAX_HIT(ch) ((ch)->points.max_hit)
+#define GET_LOWEST_HIT(ch)     ((ch)->only.npc->lowest_hit)
 
 #define GET_VITALITY(ch)    ((ch)->points.vitality)
 #define GET_MAX_VITALITY(ch) ((ch)->points.max_vitality)

@@ -1030,14 +1030,12 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
       return 0;
     }
     
-// Do not provide exps for same side racewar damage.
     if(IS_PC(ch) && IS_PC(victim))
     {
 // debug("Pvp damage exp returning 0", XP);
       return 0;
     }
 
-    //XP = XP * GET_LEVEL(ch) * GET_LEVEL(victim) * (get_property("exp.factor.damage", 0.050))); old one - Odorf
     XP = (XP / (GET_MAX_HIT(victim) + 30)) * GET_EXP(victim); // damaging mob to death summarily yields same exp as kill itself
                                                               // +30 is + 10 to account for incap damage and + 20 for lowbie mobs with very low hps
 
@@ -1075,17 +1073,17 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
     if(IS_NPC(victim))
       return 0;
 
-    if (victim->group != ch->group) // only for healing groupies
+    if (victim->group && victim->group != ch->group) // only for healing groupies
+        return 0;
+
+    P_char attacker = GET_OPPONENT(victim);
+    if (!attacker) // only for healing in fight
         return 0;
 
     if (GET_LEVEL(victim) <= GET_LEVEL(ch) - 15 || GET_LEVEL(victim) >= GET_LEVEL(ch) + 15)  // powerleveling stopgap
     {
       return 0;
     }
-
-    P_char attacker = GET_OPPONENT(victim);
-    if (!attacker) // only for healing tank
-        return 0;
 
     XP = ((XP + 10) / 5) * ((GET_LEVEL(ch) + GET_LEVEL(victim)) / 2);
     XP = XP * get_property("exp.factor.healing", 1.00);
@@ -1162,7 +1160,6 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
 // debug("Same side melee returning 0");      
       return 0;
     }
-    //XP = XP * GET_LEVEL(ch) * GET_LEVEL(victim) * get_property("exp.factor.melee", 0.1)); old one - Odorf
     XP = XP * GET_LEVEL(victim) * get_property("exp.factor.melee", 1.00);  // Just a small boost for lowbies, becomes insignificant at higher levels  -Odorf
 // debug("melee 1 exp gain (%d)", (int)XP);     
     if (GET_LEVEL(victim) < GET_LEVEL(ch) - 5)
