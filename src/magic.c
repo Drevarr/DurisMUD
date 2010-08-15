@@ -4746,9 +4746,8 @@ void spell_group_teleport(int level, P_char ch, char *arg, int type,
 void spell_teleport(int level, P_char ch, char *arg, int type, P_char victim,
                     P_obj obj)
 {
-  int from_room, dir, to_room, tries;
+  int from_room, dir, to_room;
   P_char   vict, t_ch;
-  int      range = get_property("spell.teleport.range", 30);
 
   if((IS_SET(world[ch->in_room].room_flags, NO_TELEPORT) ||
       IS_HOMETOWN(ch->in_room) ||
@@ -4769,13 +4768,13 @@ void spell_teleport(int level, P_char ch, char *arg, int type, P_char victim,
     return;
   }
 
+  int range = get_property("spell.teleport.range", 30);
+  to_room = vict->in_room;
   if(IS_MAP_ROOM(vict->in_room))
   {
-    to_room = vict->in_room;
-
     for( int i = 0; i < range; i++ )
     {
-      tries = 0;
+      int tries = 0;
       do
       {
         dir = number(0,3);
@@ -4787,6 +4786,7 @@ void spell_teleport(int level, P_char ch, char *arg, int type, P_char victim,
   }
   else
   {
+    int tries = 0;
     do
     {
       to_room = number(zone_table[world[vict->in_room].zone].real_bottom,
@@ -4798,10 +4798,10 @@ void spell_teleport(int level, P_char ch, char *arg, int type, P_char victim,
           IS_SET(world[to_room].room_flags, NO_TELEPORT) ||
           IS_HOMETOWN(to_room) ||
           world[to_room].sector_type == SECT_OCEAN) && tries < 1000);
+    if(tries >= 1000)
+      to_room = vict->in_room;
   }
 
-  if(tries >= 1000)
-    to_room = vict->in_room;
 
   if(LIMITED_TELEPORT_ZONE(vict->in_room))
   {
