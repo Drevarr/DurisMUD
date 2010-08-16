@@ -697,7 +697,9 @@ P_ship try_load_npc_ship(P_ship target)
     int n = number(0, SHIPHULLWEIGHT(target)) + target->frags;
     if (ISMERCHANT(target))
     {
-        if (n < 200)
+        if(IS_SET(target->flags, ATTACKBYNPC)) 
+            return 0;
+        if (n < 250)
         {
             level = 0;
         }
@@ -738,6 +740,9 @@ P_ship try_load_npc_ship(P_ship target)
     {
         statuslog(AVATAR, "%s's ship is attacked by a %s!", target->ownername, (type == NPC_AI_PIRATE) ? "pirate" : ((type == NPC_AI_HUNTER) ? "hunter" : "unknown"));
     }
+
+    if(!IS_SET(target->flags, ATTACKBYNPC)) 
+      SET_BIT(target->flags, ATTACKBYNPC); 
 
     return ship;
 }

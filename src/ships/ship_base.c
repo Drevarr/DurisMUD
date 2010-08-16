@@ -392,6 +392,8 @@ int load_ship(P_ship ship, int to_room)
      REMOVE_BIT(ship->flags, SINKING); 
    if(IS_SET(ship->flags, SUNKBYNPC)) 
      REMOVE_BIT(ship->flags, SUNKBYNPC); 
+   if(IS_SET(ship->flags, ATTACKBYNPC)) 
+     REMOVE_BIT(ship->flags, ATTACKBYNPC); 
    if(IS_SET(ship->flags, RAMMING)) 
      REMOVE_BIT(ship->flags, RAMMING); 
    SET_BIT(ship->flags, DOCKED);
@@ -812,6 +814,8 @@ void reset_ship(P_ship ship, bool clear_slots)
         REMOVE_BIT(ship->flags, SINKING); 
     if(IS_SET(ship->flags, SUNKBYNPC)) 
         REMOVE_BIT(ship->flags, SUNKBYNPC); 
+    if(IS_SET(ship->flags, ATTACKBYNPC)) 
+        REMOVE_BIT(ship->flags, ATTACKBYNPC); 
     if(IS_SET(ship->flags, RAMMING)) 
         REMOVE_BIT(ship->flags, RAMMING); 
     if(IS_SET(ship->flags, ANCHOR)) 
@@ -1581,6 +1585,8 @@ void dock_ship(P_ship ship, int to_room)
     assignid(ship, "**");
     act_to_all_in_ship(ship, "Your ship has completed docking procedures.");
     SET_BIT(ship->flags, DOCKED);
+    if(IS_SET(ship->flags, ATTACKBYNPC)) 
+      REMOVE_BIT(ship->flags, ATTACKBYNPC); 
     reset_crew_stamina(ship);
     update_ship_status(ship);
 }
@@ -1709,6 +1715,8 @@ void summon_ship_event(P_char ch, P_char victim, P_obj obj, void *data)
         dock_ship(ship, to_room);
         check_contraband(ship, ship->location);
         REMOVE_BIT(ship->flags, SUMMONED);
+        if(IS_SET(ship->flags, ATTACKBYNPC)) 
+          REMOVE_BIT(ship->flags, ATTACKBYNPC); 
         ship->speed = 0;
         ship->setspeed = 0;
         write_ship(ship);

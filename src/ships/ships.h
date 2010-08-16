@@ -75,6 +75,7 @@
 #define SQUID_SHIP          BIT_9
 #define SUMMONED            BIT_10
 #define SUNKBYNPC           BIT_11
+#define ATTACKBYNPC         BIT_12
 
 #define EVILSHIP          0
 #define GOODIESHIP        1
