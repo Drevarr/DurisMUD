@@ -1646,6 +1646,9 @@ void assign_objects(void)
   
   obj_index[real_object0(192)].func.obj = disarm_pick_gloves;
   
+    obj_index[real_object0(67279)].func.obj = roulette_pistol;
+    obj_index[real_object0(67282)].func.obj = orb_of_deception;
+    
   
 /* Hall of the Ancients */
   obj_index[real_object0(77706)].func.obj = trap_razor_hooks;
