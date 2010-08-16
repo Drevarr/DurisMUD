@@ -217,16 +217,18 @@ void quest_reward(P_char ch, P_char quest_mob, int type)
       gain_epic(ch, EPIC_QUEST, 0, 15);
   }
 
+  int exp_gain = 0;
   if(GET_LEVEL(ch) <= 30)
-    gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.30.andUnder", 1.000)), EXP_WORLD_QUEST); 
+    exp_gain = EXP_NOTCH(ch) * get_property("world.quest.exp.level.30.andUnder", 1.300);
   else if(GET_LEVEL(ch) <= 40)
-    gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.40.andUnder", 1.000)), EXP_WORLD_QUEST); 
+    exp_gain = EXP_NOTCH(ch) * get_property("world.quest.exp.level.40.andUnder", 1.000);
   else if(GET_LEVEL(ch) <= 50) 
-    gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.50.andUnder", 1.000)), EXP_WORLD_QUEST); 
+    exp_gain = EXP_NOTCH(ch) * get_property("world.quest.exp.level.50.andUnder", 0.800);
   else if(GET_LEVEL(ch) <= 55) 
-    gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.55.andUnder", 1.000)), EXP_WORLD_QUEST); 
+    exp_gain = EXP_NOTCH(ch) * get_property("world.quest.exp.level.55.andUnder", 0.500);
   else 
-    gain_exp(ch, NULL, (int)(EXP_NOTCH(ch) * get_property("world.quest.exp.level.other.andUnder", 1.000)), EXP_WORLD_QUEST);
+    exp_gain = EXP_NOTCH(ch) * get_property("world.quest.exp.level.other", 1.000);
+  gain_exp(ch, NULL, exp_gain, EXP_WORLD_QUEST); 
 
   sprintf(Gbuf1, "&+WYou gain some experience.&n");
   act(Gbuf1, FALSE, quest_mob, 0, ch, TO_VICT);
@@ -452,14 +454,14 @@ void do_quest(P_char ch, char *args, int cmd)
 
 
       if(ch->only.pc->quest_level < GET_LEVEL(victim) - 
-         get_property("worldQuest.level.high.value", 6))
+         get_property("world.quest.level.high.value", 6))
       {
         send_to_char("They are much too experienced for that quest!\r\n", ch);
         return;
       }
       
       if(ch->only.pc->quest_level > GET_LEVEL(victim) + 
-         get_property("worldQuest.level.low.value", 6)) 
+         get_property("world.quest.level.low.value", 6)) 
       { 
         send_to_char("They are too inexperienced for that quest!\r\n", ch); 
         return; 
@@ -1016,8 +1018,7 @@ int suggestQuestMob(int zone_num, P_char ch, int QUEST_TYPE)
 
             if(aggressive_to(t_mob, ch) &&
                KIND_OF_QUEST == FIND_AND_ASK || 
-               !CAN_SPEAK(t_mob) && KIND_OF_QUEST == FIND_AND_ASK ||
-               isname("_noquest_", t_mob->player.name))
+               !CAN_SPEAK(t_mob) && KIND_OF_QUEST == FIND_AND_ASK)
             {
               //dont suggest aggresive ask mobs..nor not humanoids
               ;
