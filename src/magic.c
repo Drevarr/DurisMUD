@@ -6336,7 +6336,7 @@ void spell_natures_touch(int level, P_char ch, char *arg, int type,
     
     if(IS_FIGHTING(victim))
     {
-      gain_exp(ch, GET_OPPONENT(victim), MIN(healpoints, GET_MAX_HIT(victim) - GET_HIT(victim)), EXP_HEALING);
+      gain_exp(ch, victim, MIN(healpoints, GET_MAX_HIT(victim) - GET_HIT(victim)), EXP_HEALING);
       update_pos(victim);
     }
   }
@@ -7315,7 +7315,7 @@ void spell_stone_skin(int level, P_char ch, char *arg, int type,
   }
 
   if(GET_OPPONENT(victim))
-    gain_exp(ch, GET_OPPONENT(victim), 50 + GET_LEVEL(ch) * 2, EXP_HEALING); // stoning the tank equal to small heal in exp -Odorf
+    gain_exp(ch, victim, 50 + GET_LEVEL(ch) * 2, EXP_HEALING); // stoning the tank equal to small heal in exp -Odorf
 
   bzero(&af, sizeof(af));
   af.type = SPELL_STONE_SKIN;
@@ -7352,7 +7352,7 @@ void spell_ironwood(int level, P_char ch, char *arg, int type,
   }
 
   if(GET_OPPONENT(victim))
-    gain_exp(ch, GET_OPPONENT(victim), 50 + GET_LEVEL(ch) * 2, EXP_HEALING); // stoning the tank equals to heal in exp -Odorf
+    gain_exp(ch, victim, 50 + GET_LEVEL(ch) * 2, EXP_HEALING); // stoning the tank equals to heal in exp -Odorf
 
   bzero(&af, sizeof(af));
   af.type = SPELL_IRONWOOD;
