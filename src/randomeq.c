@@ -1122,7 +1122,7 @@ P_obj create_random_eq_new(P_char killer, P_char mob, int object_type,
 
 P_obj setsuffix_obj_new(P_obj obj)
 {
-  switch (dice(3,8))
+  switch (dice(5,5))
   {
   case 3:
     SET_BIT(obj->bitvector, AFF_DETECT_INVISIBLE);
@@ -1167,27 +1167,30 @@ P_obj setsuffix_obj_new(P_obj obj)
     SET_BIT(obj->bitvector, AFF_PROT_FIRE);
     break;
   case 17:
-    SET_BIT(obj->bitvector2, AFF2_PROT_ACID);
+    SET_BIT(obj->bitvector5, AFF5_PROT_UNDEAD);
     break;
   case 18:
-    SET_BIT(obj->bitvector, AFF_SENSE_LIFE);
+    SET_BIT(obj->bitvector2, AFF2_PROT_ACID);
     break;
   case 19:
-    SET_BIT(obj->bitvector, AFF_MINOR_GLOBE);
+    SET_BIT(obj->bitvector, AFF_SENSE_LIFE);
     break;
   case 20:
-    SET_BIT(obj->bitvector, AFF_FARSEE);
+    SET_BIT(obj->bitvector, AFF_MINOR_GLOBE);
     break;
   case 21:
-    SET_BIT(obj->bitvector3, AFF3_COLDSHIELD);
+    SET_BIT(obj->bitvector, AFF_FARSEE);
     break;
   case 22:
-    SET_BIT(obj->bitvector2, AFF2_SOULSHIELD);
+    SET_BIT(obj->bitvector3, AFF3_COLDSHIELD);
     break;
   case 23:
-    SET_BIT(obj->bitvector, AFF_BARKSKIN);
+    SET_BIT(obj->bitvector2, AFF2_SOULSHIELD);
     break;
   case 24:
+    SET_BIT(obj->bitvector, AFF_BARKSKIN);
+    break;
+  case 25:
     SET_BIT(obj->bitvector, AFF_HASTE);
     break;
   default:
