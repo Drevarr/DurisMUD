@@ -1337,7 +1337,9 @@ int door, target_room;
   /* Victim might get lucky */
   if((GET_C_LUCK(victim) / 10) < number(1, 100))
     takedown_chance /= 2;
-   
+
+  dam = dam * get_property("spell.area.damage.factor.squall", 1.000);
+  
   if(spell_damage(ch, victim, dam, SPLDAM_COLD, SPLDAM_NODEFLECT, &messages) ==
       DAM_NONEDEAD);
   {
@@ -1589,6 +1591,7 @@ void spell_single_supernova(int level, P_char ch, char *arg, int type, P_char vi
   };
 
   dam = 120 + level * 6 + number(1, 40);
+  dam = dam * get_property("spell.area.damage.factor.nova", 1.000);
   if (spell_damage(ch, victim, dam, SPLDAM_GENERIC, 0, &messages))
     return;
 
@@ -1985,6 +1988,7 @@ void spell_polar_vortex(int level, P_char ch, char *arg, int type, P_char victim
           stop_fighting(tch);
       }
       send_to_char("&+CYou find no shelter from the savage vortex!&n\n", tch);
+      dam = dam * get_property("spell.area.damage.factor.polarvortex", 1.000);
       spell_damage(ch, tch, dam, SPLDAM_COLD, 0, &messages);
     }
   }

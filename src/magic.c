@@ -3140,6 +3140,7 @@ void spell_single_meteorswarm(int level, P_char ch, char *arg, int type,
       return;
 
   dam = 100 + level * 6 + number(1, 40);
+  dam = dam * get_property("spell.area.damage.factor.meteorswarm", 1.000);
   spell_damage(ch, victim, dam, SPLDAM_GENERIC, 0, &messages);
 }
 
@@ -3471,6 +3472,7 @@ void spell_single_firestorm(int level, P_char ch, char *arg, int type,
   dam = dice(level, 10);
   if(NewSaves(victim, SAVING_SPELL, 0))
     dam >>= 1;
+  dam = dam * get_property("spell.area.damage.factor.firestorm", 1.000);
   spell_damage(ch, victim, dam, SPLDAM_FIRE, 0, &messages);
 }
 
@@ -6317,6 +6319,9 @@ void spell_natures_touch(int level, P_char ch, char *arg, int type,
   default:
     break;
   }
+
+  if (!(GET_CLASS(ch, CLASS_DRUID) || GET_CLASS(ch, CLASS_RANGER)))
+    healpoints /= 3;
 
   if(IS_NPC(victim))
   {
@@ -11943,6 +11948,8 @@ void spell_single_incendiary_cloud(int level, P_char ch, char *arg, int type,
     dam /= 2;
   }
 
+  dam = dam * get_property("spell.area.damage.factor.incendiary", 1.000);
+
   spell_damage(ch, victim, dam, SPLDAM_FIRE, 0, &messages);
 }
 
@@ -12373,6 +12380,8 @@ void spell_ice_storm(int level, P_char ch, char *arg, int type, P_char victim,
   int num_dice = MIN(level, 36);
   int dam = dice(num_dice, 8);
 
+  dam = dam * get_property("spell.area.damage.factor.icestorm", 1.000);
+
   if(rain) {
     send_to_char("Your storm of ice turns into a fountain of &+bwater&n from the heat&n!\n", ch);
     act("$n conjures an ice storm!", FALSE, ch, 0, 0, TO_ROOM);
@@ -12665,6 +12674,8 @@ void spell_ghastly_touch(int level, P_char ch, char *arg, int type, P_char victi
 
   int dam;
   dam = (int) number(level * 4, level * 6);
+  
+  dam = dam * get_property("spell.area.damage.factor.ghastlytouch", 1.000);
 
   if(spell_damage (ch, victim, dam, SPLDAM_NEGATIVE, SPLDAM_NODEFLECT, &messages) == DAM_NONEDEAD)
   {
@@ -12701,6 +12712,8 @@ void spell_heavens_aid(int level, P_char ch, char *arg, int type, P_char victim,
 
   int dam;
   dam = (int) number(level * 4, level * 6);
+  
+  dam = dam * get_property("spell.area.damage.factor.aidoftheheavens", 1.000);
 
   if(spell_damage (ch, victim, dam, SPLDAM_HOLY, SPLDAM_NODEFLECT, &messages) == DAM_NONEDEAD)
   {
@@ -12836,6 +12849,7 @@ void single_unholy_word(int level, P_char ch, char *arg, int type,
   {
     int dam = level * 3 + 20;
     dam = GET_RACE(victim) == RACE_GITHZERAI ? (int) (dam * 1.5) : dam;
+    dam = dam * get_property("spell.area.damage.factor.unholyword", 1.000);
     if(spell_damage(ch, victim, dam, SPLDAM_HOLY, 0, &messages) == DAM_NONEDEAD)
     {
       if(lev < (level / 2 + 2))        /* 14-27 blind */
@@ -16761,6 +16775,8 @@ void event_cdoom(P_char ch, P_char vict, P_obj obj, void *data)
     {
       doomdam = (int) (doomdam * 0.75);
     }
+    
+    doomdam = doomdam * get_property("spell.area.damage.factor.doom", 1.000);
 
     if(spell_damage(ch, tch, doomdam, SPLDAM_GENERIC, SPLDAM_NODEFLECT,
       &messages) == DAM_NONEDEAD)
@@ -20090,6 +20106,7 @@ void spell_mielikki_vitality(int level, P_char ch, char *arg, int type, P_char v
     affect_to_char(victim, &af);
   }
   
+  /*  // They get endurance, no need for this.
   if((GET_CLASS(ch, CLASS_RANGER) &&
      !affected_by_spell(ch, SPELL_ENDURANCE)) ||
      GET_SPEC(ch, CLASS_RANGER, SPEC_WOODSMAN))
@@ -20098,6 +20115,7 @@ void spell_mielikki_vitality(int level, P_char ch, char *arg, int type, P_char v
     af.location = APPLY_MOVE_REG;
     affect_to_char(victim, &af);    
   }    
+  */
 
   send_to_char("&+GYou feel the &+ywarm &+Gbreathe of the Goddess Mielikki.\r\n", ch);
 }

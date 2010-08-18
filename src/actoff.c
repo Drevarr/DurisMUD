@@ -4841,13 +4841,14 @@ char isBashable(P_char ch, P_char victim)
 int good_for_skewering(P_obj obj)
 {
 
-  if(obj->value[0] == WEAPON_LONGSWORD ||
-     obj->value[0] == WEAPON_2HANDSWORD ||
-     obj->value[0] == WEAPON_POLEARM ||
-     obj->value[0] == WEAPON_SPEAR ||
-     obj->value[0] == WEAPON_LANCE ||
-     obj->value[0] == WEAPON_TRIDENT ||
-     obj->value[0] == WEAPON_HORN)
+  if((obj->value[0] == WEAPON_LONGSWORD ||
+      obj->value[0] == WEAPON_2HANDSWORD ||
+      obj->value[0] == WEAPON_POLEARM ||
+      obj->value[0] == WEAPON_SPEAR ||
+      obj->value[0] == WEAPON_LANCE ||
+      obj->value[0] == WEAPON_TRIDENT ||
+      obj->value[0] == WEAPON_HORN) &&
+     IS_SET(obj->extra_flags, ITEM_TWOHANDS))
      {
        return 1;
      }
@@ -6234,13 +6235,16 @@ void maul(P_char ch, P_char victim)
   dam = dice(MIN(30, GET_LEVEL(ch)), 6) *
     (int) (get_property("skill.maul.damfactor", 1.000));
   
+  if (GET_SPEC(ch, CLASS_BERSERKER, SPEC_MAULER))
+    dam *= 1.5;
+  
   percent_chance = (int) (percent_chance * 
     (int) (get_property("skill.maul.hitchance", 1.000)));
  
   if(IS_AFFECTED(victim, AFF_AWARE))
     percent_chance = (int) (percent_chance * 0.84);
     
-  if(IS_ELITE(ch))
+  if(IS_ELITE(ch) || GET_SPEC(ch, CLASS_BERSERKER, SPEC_MAULER))
     percent_chance = (int) (percent_chance * 1.25);
 
   if(GET_POS(victim) != POS_STANDING)
@@ -6251,7 +6255,8 @@ void maul(P_char ch, P_char victim)
    */
   if(IS_FIGHTING(ch) &&
     victim->specials.fighting != ch &&
-    ch->specials.fighting != victim)
+    ch->specials.fighting != victim &&
+    !GET_SPEC(ch, CLASS_BERSERKER, SPEC_MAULER))
   {
     send_to_char("You are fighting something else! Nevertheless, you attempt the maul...\n", ch);
     percent_chance = (int) (percent_chance * 0.7);
@@ -6338,7 +6343,7 @@ void maul(P_char ch, P_char victim)
        IS_ELITE(ch))
     { 
       CharWait(victim, (int) (PULSE_VIOLENCE * 1.500));
-      CharWait(ch, (int) (PULSE_VIOLENCE * 1.850));
+      CharWait(ch, (int) (PULSE_VIOLENCE * 1.700));
       set_short_affected_by(ch, SKILL_BASH, (int) (PULSE_VIOLENCE * 
         get_property("skill.maul.IsMauler.ShieldBashlag", 1.000)));
     }
