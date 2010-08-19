@@ -790,7 +790,6 @@ void spell_invoke_negative_energy(int level, P_char ch, char *arg, int type,
   spell_damage(ch, victim, dam, SPLDAM_NEGATIVE, SPLDAM_GLOBE, &messages);
 }
 
-// This spell really needs to be rethought.
 void spell_restore_spirit(int level, P_char ch, char *arg, int type,
                             P_char victim, P_obj tar_obj)
 {
@@ -818,7 +817,7 @@ void spell_restore_spirit(int level, P_char ch, char *arg, int type,
 
   if(IS_ANGEL(victim))
   {
-    send_to_char("&+LRestoring the undead is impossible.\r\n", ch);
+    send_to_char("&+wThat wouldn't be very nice, they are angelic.\r\n", ch);
     return;
   }
 
@@ -830,7 +829,7 @@ void spell_restore_spirit(int level, P_char ch, char *arg, int type,
   dam = (int) ((level * 2.5) + number(-10, 10));
   
   if(IS_PC(ch) &&
-    !(GET_CLASS(ch, CLASS_NECROMANCER | CLASS_ANTIPALADIN)))
+    !(GET_CLASS(ch, CLASS_THEURGIST | CLASS_PALADIN)))
   {
     send_to_char("&+rLacking the proper training in holy spiritry, you do not utilize the full potential of the spell!\r\n", ch);
     dam = (int)(dam*0.80);
