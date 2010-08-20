@@ -3737,8 +3737,10 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
 
   case 6:
     if (CAN_WEAR(obj_object, ITEM_WEAR_FEET) 
-        && (!IS_CENTAUR(ch) || !IS_DRIDER(ch) || !strcmp(obj_object->name, "horseshoe")) 
-        && !IS_THRIKREEN(ch) && !IS_HARPY(ch) && !IS_MINOTAUR(ch))
+	&& !IS_DRIDER(ch) && !IS_THRIKREEN(ch)
+	&& !IS_HARPY(ch) && !IS_MINOTAUR(ch)
+	&& (!IS_CENTAUR(ch)
+        || (IS_CENTAUR(ch) && !strcmp(obj_object->name, "horseshoe")))) 
     {
       if (ch->equipment[WEAR_FEET])
       {
