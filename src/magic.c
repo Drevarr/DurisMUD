@@ -1906,10 +1906,21 @@ void spell_conjour_elemental(int level, P_char ch, char *arg, int type,
   act(summons[sum].message, TRUE, mob, 0, 0, TO_ROOM);
   justice_witness(ch, NULL, CRIME_SUMMON);
 
+  // Reworking level code for conj pets.
+  /*
   mlvl = (level / 5) * 2;
   lvl = number(mlvl, mlvl * 3);
 
   mob->player.level = BOUNDED(10, lvl, 45);
+  */
+
+  if (number(1, 100) < 20)
+    lvl = level + number(2, 5);
+  else
+    lvl = level - number(-1, 5);
+
+  mob->player.level = BOUNDED(10, lvl, 45);
+
   MonkSetSpecialDie(mob);
   
   if(!IS_SET(mob->specials.affected_by, AFF_INFRAVISION))
