@@ -5691,6 +5691,7 @@ int calculate_thac_zero(P_char ch, int skill)
   else if(GET_CLASS(ch, CLASS_SORCERER) ||
          GET_CLASS(ch, CLASS_CONJURER) ||
          GET_CLASS(ch, CLASS_NECROMANCER) ||
+         GET_CLASS(ch, CLASS_THEURGIST) ||
          GET_CLASS(ch, CLASS_ILLUSIONIST) ||
          GET_CLASS(ch, CLASS_MINDFLAYER))
   {
@@ -6716,6 +6717,9 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
   {
     dam *= get_property("damage.modifier.divineforce", 1.250);
   }
+
+  if (has_innate(ch, INNATE_MELEE_MASTER))
+    dam *= get_property("damage.modifier.meleemastery", 1.100);
 
   memset(&messages, 0, sizeof(struct damage_messages));
   messages.attacker = attacker_msg;

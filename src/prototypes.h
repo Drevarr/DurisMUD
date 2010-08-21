@@ -2103,6 +2103,7 @@ void spell_spinal_corruption(int, P_char, char*, int, P_char, P_obj);
 void spell_memory_block(int, P_char, char*, int, P_char, P_obj);
 void spell_psionic_cloud(int, P_char, char*, int, P_char, P_obj);
 void spell_psychic_crush(int, P_char, char*, int, P_char, P_obj);
+void spell_pyrokinesis(int, P_char, char*, int, P_char, P_obj);
 void spell_ethereal_rift(int, P_char, char*, int, P_char, P_obj);
 void spell_radial_navigation(int, P_char, char*, int, P_char, P_obj);
 void spell_sever_link(int, P_char, char *, int, P_char, P_obj);

@@ -1906,10 +1906,21 @@ void spell_conjour_elemental(int level, P_char ch, char *arg, int type,
   act(summons[sum].message, TRUE, mob, 0, 0, TO_ROOM);
   justice_witness(ch, NULL, CRIME_SUMMON);
 
+  // Reworking level code for conj pets.
+  /*
   mlvl = (level / 5) * 2;
   lvl = number(mlvl, mlvl * 3);
 
   mob->player.level = BOUNDED(10, lvl, 45);
+  */
+
+  if (number(1, 100) < 20)
+    lvl = level + number(2, 5);
+  else
+    lvl = level - number(-1, 5);
+
+  mob->player.level = BOUNDED(10, lvl, 45);
+
   MonkSetSpecialDie(mob);
   
   if(!IS_SET(mob->specials.affected_by, AFF_INFRAVISION))
@@ -2753,7 +2764,7 @@ void spell_bigbys_clenched_fist(int level, P_char ch, char *arg, int type,
     "$n's &+Ymagic fist&N punches $N into so much pulp!", 0
   };
 
-  int dam = 7 * level + number(1, 25);
+  int dam = 10 * level + number(1, 25);
 
   if(!NewSaves(victim, SAVING_SPELL, 0))
     dam = (int) (dam * 2.0);
@@ -2795,7 +2806,7 @@ void spell_bigbys_crushing_hand(int level, P_char ch, char *arg, int type,
       0
   };
 
-  int dam = 8 * level + number(1, 25);
+  int dam = 14 * level + number(1, 25);
 
   if(!NewSaves(victim, SAVING_SPELL, 0))
     dam = (int) (dam * 2);
@@ -12675,7 +12686,7 @@ void spell_ghastly_touch(int level, P_char ch, char *arg, int type, P_char victi
   int dam;
   dam = (int) number(level * 4, level * 6);
   
-  dam = dam * get_property("spell.area.damage.factor.ghastlytouch", 1.000);
+  dam = dam * get_property("spell.area.damage.factor.summonghasts", 1.000);
 
   if(spell_damage (ch, victim, dam, SPLDAM_NEGATIVE, SPLDAM_NODEFLECT, &messages) == DAM_NONEDEAD)
   {
@@ -12736,7 +12747,7 @@ void event_aid_of_the_heavens(P_char ch, P_char victim, P_obj obj, void *data)
   if(!number(0, 3))
   {
     act("$n's &+Wlight from above glides about the area.",FALSE, ch, 0, 0, TO_ROOM);
-    add_event(event_summon_ghasts, PULSE_VIOLENCE * 1, ch, 0, 0, 0, &room, sizeof(room));
+    add_event(event_aid_of_the_heavens, PULSE_VIOLENCE * 1, ch, 0, 0, 0, &room, sizeof(room));
     return;
   }
   
