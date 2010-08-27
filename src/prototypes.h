@@ -146,6 +146,7 @@ const char *prestige_to_string(P_char);
 string save_to_string(int);
 const char *stat_to_string1(int);
 const char *stat_to_string2(int);
+const char *stat_to_string3(int);
 void ShowCharSpellBookSpells(P_char, P_obj);
 void argument_split_2(char *, char *, char *);
 void do_attributes(P_char, char *, int);
@@ -2805,6 +2806,7 @@ int MAX(int, int);
 int MIN(int, int);*/
 int NumAttackers(P_char);
 int STAT_INDEX(int);
+int STAT_INDEX2(int);
 int SUB_MONEY(P_char, int, int);
 int SUB_BALANCE(P_char, int, int);
 int ac_can_see(P_char, P_char, bool);
