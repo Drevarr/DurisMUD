@@ -165,6 +165,22 @@ const char *stat_names2[18] = {
   "quite excellent",            /* * 100+ */
 };
 
+const char *stat_names3[13] = {
+  "atrociously bad",            /* * 0-55 */
+  "very bad",                   /* * 56-65 */
+  "bad",                        /* * 66-75 */
+  "poor",                       /* * 76-85 */
+  "below average",              /* * 86-95 */
+  "average",                    /* * 96-105 */
+  "above average",              /* * 106-115 */
+  "good",                       /* * 116-125 */
+  "very good",                  /* * 126-135 */
+  "formidable",                 /* * 136-145 */
+  "excellent",                  /* * 146-155 */
+  "awesome",                    /* * 156-165 */
+  "incredible"                  /* * 166+ */
+};
+
 const char *stat_outofrange[2] = {
   "sucks",
   "abnormally good"
@@ -339,6 +355,18 @@ const char *stat_to_string2(int val)
     return (stat_names2[17]);
   else
     return (stat_names2[si]);
+}
+
+const char *stat_to_string3(int val)
+{
+  int     si = STAT_INDEX2(val);
+
+  if (si < 0)
+    return (stat_names3[0]);
+  else if (si > 12)
+    return (stat_names3[12]);
+  else
+    return (stat_names3[si]);
 }
 
 const char *align_to_string(int val)

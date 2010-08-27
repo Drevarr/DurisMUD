@@ -2714,6 +2714,39 @@ int STAT_INDEX(int v)
   return ((v - 101) / 8 + 17);
 }
 
+// This relates to stat_names3 where average = human at 100
+int STAT_INDEX2(int v)
+{
+  if (v < 54)
+    return 0;
+  else if (v < 66)
+    return 1;
+  else if (v < 76)
+    return 2;
+  else if (v < 86)
+    return 3;
+  else if (v < 96)
+    return 4;
+  else if (v < 106)
+    return 5;
+  else if (v < 116)
+    return 6;
+  else if (v < 126)
+    return 7;
+  else if (v < 136)
+    return 8;
+  else if (v < 146)
+    return 9;
+  else if (v < 156)
+    return 10;
+  else if (v < 166)
+    return 11;
+  else
+    return 12;
+
+  return 12;
+}
+
 bool are_together(P_char ch1, P_char ch2)
 {                               /*
                                  * SKB - 20 May 1995

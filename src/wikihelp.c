@@ -1,9 +1,14 @@
 #include "sql.h"
 #include "wikihelp.h"
+#include "prototypes.h"
+#include "string.h"
 #include <string>
 #include <algorithm>
 #include <iostream>
 using namespace std;
+
+extern struct race_names race_names_table[];
+extern const char *stat_to_string3(int);
 
 void debug( const char *format, ... );
 
@@ -132,12 +137,74 @@ string wiki_help(string str)
   return return_str;  
 }
 
+// display racial stats for a race category help file
+string wiki_racial_stats(string title)
+{
+  string return_str, race_str;
+  char race[MAX_STRING_LENGTH];
+
+  for (int i = 0; i < RACE_PLAYER_MAX; i++)
+  {
+    if (!strcmp(tolower(race_names_table[i].normal).c_str(), tolower(title).c_str()))
+    { 
+      debug("matched");
+      race_str += race_names_table[i].no_spaces;
+      break;
+    }
+  }
+
+  return_str += "Strenght    : &+c";
+  sprintf(race, "stats.str.%s", race_str.c_str());
+  return_str += stat_to_string3((int)get_property(race, 100));
+  return_str += "&n\n";
+  return_str += "Agility     : &+c";
+  sprintf(race, "stats.agi.%s", race_str.c_str());
+  return_str += stat_to_string3((int)get_property(race, 100));
+  return_str += "&n\n";
+  return_str += "Dexterity   : &+c";
+  sprintf(race, "stats.dex.%s", race_str.c_str());
+  return_str += stat_to_string3((int)get_property(race, 100));
+  return_str += "&n\n";
+  return_str += "Constitution: &+c";
+  sprintf(race, "stats.con.%s", race_str.c_str());
+  return_str += stat_to_string3((int)get_property(race, 100));
+  return_str += "&n\n";
+  return_str += "Power       : &+c";
+  sprintf(race, "stats.pow.%s", race_str.c_str());
+  return_str += stat_to_string3((int)get_property(race, 100));
+  return_str += "&n\n";
+  return_str += "Intelligence: &+c";
+  sprintf(race, "stats.int.%s", race_str.c_str());
+  return_str += stat_to_string3((int)get_property(race, 100));
+  return_str += "&n\n";
+  return_str += "Wisdom      : &+c";
+  sprintf(race, "stats.wis.%s", race_str.c_str());
+  return_str += stat_to_string3((int)get_property(race, 100));
+  return_str += "&n\n";
+  return_str += "Charisma    : &+c";
+  sprintf(race, "stats.cha.%s", race_str.c_str());
+  return_str += stat_to_string3((int)get_property(race, 100));
+  return_str += "&n\n";
+  return_str += "Luck        : &+c";
+  sprintf(race, "stats.luk.%s", race_str.c_str());
+  return_str += stat_to_string3((int)get_property(race, 100));
+  return_str += "&n\n";
+  return_str += "Karisma     : &+c";
+  sprintf(race, "stats.kar.%s", race_str.c_str());
+  return_str += stat_to_string3((int)get_property(race, 100));
+  return_str += "&n\n";
+  return_str += "\n"; 
+  
+  return return_str;
+}
+
 // display a single help topic
 string wiki_help_single(string str)
 {
-  string return_str;
-  
-  if( !qry("select title, text from pages where title = '%s' limit 1", str.c_str()) )
+  string return_str, race;
+  int category;
+
+  if( !qry("select title, text, category_id from pages where title = '%s' limit 1", str.c_str()) )
   {
     return string("&+GSorry, but there was an error with the help system.");
   }
@@ -160,6 +227,14 @@ string wiki_help_single(string str)
   
   return_str += dewikify(trim(string(row[1]), " \t\n"));
   
+  // Making racial stats display automatically
+  if (atoi(row[2]) == 25)
+  {
+    race += row[0];
+    return_str += "==Statistics==\n";
+    return_str += wiki_racial_stats(race);
+  }
+
   mysql_free_result(res);
   
   return return_str;
