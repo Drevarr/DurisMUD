@@ -5920,6 +5920,12 @@ void do_setattr(P_char ch, char *arg, int cmd)
     "cha", OFFSET(base_stats.Cha), sa_byteCopy}
     ,
     {
+    "luck", OFFSET(base_stats.Luck), sa_byteCopy}
+    ,
+    {
+    "Karma", OFFSET(base_stats.Karma), sa_byteCopy}
+    ,
+    {
     "hit", OFFSET(points.max_hit), sa_shortCopy}
     ,
     {
