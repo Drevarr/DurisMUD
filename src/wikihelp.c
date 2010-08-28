@@ -258,7 +258,7 @@ string wiki_innates(string title)
 
   return_str += "==Innate abilities==\n";
   return_str += list_innates(race, 0);
-  return_str += "\n'*' Designates passive ability.\n";
+  return_str += "\n'*' Designates passive ability.";
 
   return return_str;
 }
