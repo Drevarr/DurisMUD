@@ -23,7 +23,7 @@
 #define MAXTIMERS        10
 
 #define MAXSHIPS        2000
-#define MAX_SHIP_ROOM     10
+#define MAX_SHIP_ROOM     15
 #define SHIPZONE         600
 
 #define COSTPERSAIL        0
