@@ -17260,7 +17260,8 @@ void spell_vampire(int level, P_char ch, char *arg, int type, P_char vict,
   if(affected_by_spell(ch, SPELL_VAMPIRE) || affected_by_spell(ch, SPELL_ANGELIC_COUNTENANCE))
   {
     for (afp = ch->affected; afp; afp = afp->next)
-      if(afp->type == (SPELL_VAMPIRE || SPELL_ANGELIC_COUNTENANCE))
+      if(afp->type == SPELL_VAMPIRE ||
+	 afp->type == SPELL_ANGELIC_COUNTENANCE)
       {
         afp->duration = 10;
       }
