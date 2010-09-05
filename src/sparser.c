@@ -1728,11 +1728,9 @@ void do_will(P_char ch, char *argument, int cmd)
   P_char tar_char;
 
   memset(&tmp_spl, 0, sizeof(tmp_spl));
-  if (!GET_CLASS(ch, CLASS_PSIONICIST) && !GET_CLASS(ch, CLASS_MINDFLAYER) &&
-      !IS_TRUSTED(ch))
+  if (!GET_CLASS(ch, CLASS_PSIONICIST) && !GET_CLASS(ch, CLASS_MINDFLAYER) && !IS_TRUSTED(ch))
   {
-    send_to_char("Your character lacks the training to enforce his will.\n",
-                 ch);
+    send_to_char("Your character lacks the training to enforce his will.\n", ch);
     return;
   }
 
@@ -1753,8 +1751,34 @@ void do_will(P_char ch, char *argument, int cmd)
 
   send_to_char("&+mYou begin to focus your will...\n", ch);
   dura = (SpellCastTime(ch, spl));
+
+  if ((GET_CHAR_SKILL(ch, SKILL_SPATIAL_FOCUS) > 0) &&
+      (5 + GET_CHAR_SKILL(ch, SKILL_SPATIAL_FOCUS) / 10 > number(0,100)))
+  {
+      int chant_bonus = MAX(0, GET_CHAR_SKILL(ch, SKILL_SPATIAL_FOCUS) / 40 + number(-1,1));
+      if (chant_bonus > 1)
+        send_to_char("&+MFocusing your mind, you bend reality a lot more easily...&n\n", ch);
+      else
+        send_to_char("&+MFocusing your mind, you bend reality a bit more easily...&n\n", ch);
+
+      if (chant_bonus == 3) {
+        CharWait(ch, 1);
+        dura = 1;
+      } else if (chant_bonus == 2) {
+        CharWait(ch, dura >> 1);
+        dura = 1;
+      } else if (chant_bonus == 1) {
+        CharWait(ch, dura * 0.8);
+        dura = dura * 0.6;
+      } else {
+        CharWait(ch, dura);
+        dura = dura * 0.8;
+      }
+  }
+  else
+      CharWait(ch, dura);
+
   splnum = spl;
-  CharWait(ch, dura);
   SpellCastShow(ch, spl);
 
   if (IS_SET(world[ch->in_room].room_flags, NO_PSI) && !IS_TRUSTED(ch))

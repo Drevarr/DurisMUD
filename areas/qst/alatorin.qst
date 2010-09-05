@@ -2787,11 +2787,6 @@ gruneegth goblin~
 &+gA Gruneegth goblin leans in real close to $N and says 'Or bring me fabled Gruneegth totem, and goblin pay with special treasure.'
 ~
 QA
-&N$n exclaims &+G'YESSS!'
-~
-R E 24705
-G I 40468
-QA
 &N$n exclaims &+Y'OH YES!!!!!!!!!'
 ~
 R I 83495

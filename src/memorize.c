@@ -1689,7 +1689,6 @@ void use_spell(P_char ch, int spell)
 {
   struct affected_type *af;
   char buf[128];
-  int spatial = GET_CHAR_SKILL(ch, SKILL_SPATIAL_FOCUS);
 
   if(!(ch) ||
      !IS_ALIVE(ch))
@@ -1706,6 +1705,7 @@ void use_spell(P_char ch, int spell)
        number(0, 1))
           return;
     
+    int spatial = GET_CHAR_SKILL(ch, SKILL_SPATIAL_FOCUS); // old spatial focus usage
     if(spatial > 0 &&
        (int)(spatial / 3) > number(1, 100))
     {
