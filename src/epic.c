@@ -118,7 +118,7 @@ struct epic_reward {
   CLASS_ANTIPALADIN | CLASS_PALADIN | CLASS_AVENGER | CLASS_DREADLORD },
   {EPIC_REWARD_SKILL, SKILL_TOUGHNESS, 100, 1, 500000,
     0 },
-//  {EPIC_REWARD_SKILL, SKILL_SPATIAL_FOCUS, 100, 1, 1000000, CLASS_PSIONICIST},
+  {EPIC_REWARD_SKILL, SKILL_SPATIAL_FOCUS, 100, 1, 1000000, CLASS_PSIONICIST},
   {EPIC_REWARD_SKILL, SKILL_IMPROVED_ENDURANCE, 100, 1, 500000,
     0 },
   {EPIC_REWARD_SKILL, SKILL_IMPROVED_TRACK, 100, 1, 1000000,
@@ -1918,22 +1918,19 @@ int chant_mastery_bonus(P_char ch, int dura)
     return dura;
   }
 
-  if (chant_bonus == 3)
-  {
+  if (chant_bonus == 3) {
     CharWait(ch, 1);
     return 1;
-  }
-  else if (chant_bonus == 2)
-  {
+  } else if (chant_bonus == 2) {
     CharWait(ch, dura >> 1);
     return  1;
-  }
-  else
-  {
+  } else if (chant_bonus == 1) {
+    CharWait(ch, dura * 0.8);
+    return (int) (dura * 0.6);
+  } else {
     CharWait(ch, dura);
     return (int) (dura * 0.8);
   }
-
 }
 
 vector<string> get_epic_players(int racewar)
