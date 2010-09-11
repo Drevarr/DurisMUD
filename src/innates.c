@@ -1466,8 +1466,12 @@ void vampire_bite(P_char ch, P_char victim)
       DAM_NONEDEAD || affected_by_spell(victim, TAG_VAMPIRE_BITE))
     return;
 
-  send_to_char(
-    "You are stunned and unable to defend yourself properly!\n", victim);
+  if (!IS_STUNNED(victim) && number(0, 100) < 30)
+  {
+    send_to_char(
+      "You are stunned and unable to defend yourself properly!\n", victim);
+    Stun(victim, PULSE_VIOLENCE);
+  }
 
   memset(&af, 0, sizeof(af));
   af.type = TAG_VAMPIRE_BITE;
