@@ -1641,14 +1641,14 @@ int salvage_cargo(P_char ch, P_ship ship, int crates)
     if (crates <= 0)
     {
         if (ch) send_to_char("Invalid number of crates!\r\n", ch);
-        return FALSE;
+        return TRUE;
     }
 
     int available = SHIP_AVAIL_CARGO_SALVAGE(ship);
     if (available <= 0)
     {
         if (ch) send_to_char("You have no space on your ship!\r\n", ch);
-        return FALSE;
+        return TRUE;
     }
 
     crates = MIN(crates, available);
@@ -1673,7 +1673,7 @@ int salvage_cargo(P_char ch, P_ship ship, int crates)
     if (i == 0)
     {
         if (ch) send_to_char("There is not nothing to pick up here.\r\n", ch);
-        return FALSE;
+        return TRUE;
     }
     if (ch) send_to_char_f(ch, "Your crew hooks %d crates from the ocean surface.\r\n", i);
 
