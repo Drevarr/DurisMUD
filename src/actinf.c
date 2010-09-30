@@ -4797,6 +4797,24 @@ void do_score(P_char ch, char *argument, int cmd)
   
   buf[0] = 0;
   
+  if (GET_LEVEL(ch) > 50)
+  {
+    struct affected_type *af;
+	
+    if((af = get_spell_from_char(ch, TAG_POOL)) == NULL)
+    {
+      send_to_char("Stat pool timeout: none\n", ch);
+    }
+	  else
+	  {
+	    sprintf(buf, "Stat Pool timeout: %d hours\n", 
+	            af->duration * PULSES_IN_TICK / (WAIT_SEC * SECS_PER_REAL_HOUR));
+	    send_to_char(buf, ch);
+	  }
+  }
+  
+  buf[0] = 0;
+  
   if(IS_PC(ch))
   {
 	int RemainingBartenderQuests = sql_world_quest_can_do_another(ch);
