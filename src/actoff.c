@@ -5390,7 +5390,6 @@ void do_tackle(P_char ch, char *arg, int cmd)
     if(!vict)
     {
       send_to_char("Tackle who?\n", ch);
-      CharWait(ch, 1 * WAIT_SEC);
       return;
     }
   }
@@ -7258,7 +7257,6 @@ void do_trample(P_char ch, char *argument, int cmd)
      mount == victim)
   {
     send_to_char("&+LYour mount cannot trample itself!\r\n", ch);
-    CharWait(ch, PULSE_VIOLENCE);
     return;
   }
   
@@ -7270,7 +7268,6 @@ void do_trample(P_char ch, char *argument, int cmd)
   else if(!(victim))
   {
     send_to_char("Trample who or what?\r\n", ch);
-    CharWait(ch, 1 * WAIT_SEC);
     return;
   }
 
@@ -7473,7 +7470,6 @@ void do_bodyslam(P_char ch, char *arg, int cmd)
   if(!victim)
   {
     send_to_char("Bodyslam who?\n", ch);
-    CharWait(ch, 1 * WAIT_SEC);
     return;
   }
   
@@ -8057,7 +8053,6 @@ void do_trip(P_char ch, char *argument, int cmd)
   if(!vict)
   {
     send_to_char("Trip who?\n", ch);
-    CharWait(ch, 1 * WAIT_SEC);
     return;
   }
   
@@ -8613,7 +8608,6 @@ void do_gaze(P_char ch, char *argument, int cmd)
     else
     {
       send_to_char("Gaze at who?\n", ch);
-      CharWait(ch, 1 * WAIT_SEC);      
     }
   }
   else
