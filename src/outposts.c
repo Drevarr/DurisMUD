@@ -52,6 +52,9 @@ extern bool create_walls(int room, int exit, P_char ch, int level, int type,
 extern vector<Building*> buildings;
 extern const long boot_time;
 
+int upkeep_time;
+
+
 #define CAN_CONSTRUCT_CMD(ch) ( GET_A_NUM(ch) && (IS_LEADER(GET_M_BITS(GET_A_BITS(ch), A_RK_MASK)) || GT_LEADER(GET_M_BITS(GET_A_BITS(ch), A_RK_MASK))) )
 
 #ifdef __NO_MYSQL__
@@ -166,7 +169,7 @@ void show_outposts(P_char ch)
   for (i = 0; i <= buildings.size(); i++)
   {
     building = get_building_from_id(i+1);
-    if (!qry("SELECT id, owner_id FROM outposts WHERE id = %d", i))
+    if (!qry("SELECT id, owner_id, archers, portal_room, golems, hitpoints FROM outposts WHERE id = %d", i))
     {
       debug("show_outposts() cant read from db");
       return;
@@ -183,6 +186,10 @@ void show_outposts(P_char ch)
     MYSQL_ROW row = mysql_fetch_row(res);
 
     int owner = atoi(row[1]);
+    int archers = atoi(row[2]);
+    int portal = atoi(row[3]);
+    int golems = atoi(row[4]);
+    int hitp = atoi(row[5]);
 
     mysql_free_result(res);
 
@@ -203,6 +210,22 @@ void show_outposts(P_char ch)
 
     sprintf(buff, "&+W*ID: &+c%2d &+WContinent: &+c%-18s&n &+WOwner: &+c%-15s&n\r\n", i+1, pad_ansi(continent_name(world[building->location()].continent), 18).c_str(), title);
     send_to_char(buff, ch);
+    if (IS_TRUSTED(ch) || (owner == GET_A_NUM(ch)))
+    {
+      sprintf(buff, "       &+LGateguards: &+c%d &+LPortal: &+c%-4s &+LArchers: &+c%-4s&n\r\n", golems, (portal ? "Yes" : "No"), (archers ? "Yes" : "No"));
+      send_to_char(buff, ch);
+      int basehit = building_types[BUILDING_OUTPOST-1].hitpoints;
+      sprintf(buff, "       &+LOutpost Condition: %s%-6d&+L/&+c%d&n\r\n",
+	  ((hitp <= basehit*10/100) ? "&+R" :
+	   (hitp <= basehit*30/100) ? "&+r" :
+	   (hitp <= basehit*50/100) ? "&+m" :
+	   (hitp <= basehit*70/100) ? "&+M" :
+	   (hitp <= basehit*90/100) ? "&+y" :
+	   "&+c"), hitp, basehit);
+      send_to_char(buff, ch);
+      if (i+1 < buildings.size())
+	send_to_char("\r\n", ch);
+    }
   }
 }
 
@@ -483,6 +506,7 @@ void do_outpost(P_char ch, char *arg, int cmd)
       }
       // Ok we own it, so begin repairs.
       send_to_char("You begin repairing the outpost.\r\n", ch);
+      SET_POS(ch, POS_STANDING + STAT_NORMAL);
       char_to_room(op, ch->in_room, -2);
       extract_obj(rubble, TRUE);
       act("$n begins repairs on the outpost.", TRUE, ch, 0, 0, TO_ROOM);
@@ -1290,6 +1314,11 @@ void outposts_upkeep()
   int deduct = 0;
   int owners[MAX_ASC];
 
+  if (time(0) - upkeep_time < (60*60))
+    return;
+  else
+    upkeep_time = time(0);
+
   for (j = 0; j < MAX_ASC; j++)
     owners[j] = 0;
 
@@ -1301,7 +1330,7 @@ void outposts_upkeep()
     owners[building->guild_id]++;
   }
   
-  for (j = 0; j < MAX_ASC; j++)
+  for (j = 1; j < MAX_ASC; j++)
   {
     if (owners[j])
     {
