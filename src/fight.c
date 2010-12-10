@@ -5138,7 +5138,6 @@ void check_vamp(P_char ch, P_char victim, double fdam, uint flags)
     (flags & RAWDAM_HOLYSAC) &&
     !affected_by_spell(victim, SPELL_PLAGUE))
   {
-    wizlog(56, "dam = %d", dam);
     sac_gain = dam * get_property("vamping.holySacrifice", 0.050);
 
     for (group = victim->group; group; group = group->next)
