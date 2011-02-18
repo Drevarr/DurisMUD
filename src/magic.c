@@ -5897,8 +5897,7 @@ void spell_cure_light(int level, P_char ch, char *arg, int type,
   send_to_char("&+WYou feel a little better!\n", victim);
 }
 
-void spell_curse(int level, P_char ch, char *arg, int type, P_char victim,
-                 P_obj obj)
+void spell_curse(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
 
@@ -5909,9 +5908,9 @@ void spell_curse(int level, P_char ch, char *arg, int type, P_char victim,
     if(!IS_TRUSTED(ch) && resists_spell(ch, victim))
       return;
 
-  if(IS_TRUSTED(victim) || affected_by_spell(victim, SPELL_CURSE)))
+  if(IS_TRUSTED(victim) || affected_by_spell(victim, SPELL_CURSE))
   {
-    send_to_char("Aren't they already cursed enough?");
+    send_to_char("Aren't they already cursed enough?", ch);
     return;
   }
 
@@ -5930,16 +5929,22 @@ void spell_curse(int level, P_char ch, char *arg, int type, P_char victim,
      if(!NewSaves(victim, SAVING_SPELL, 5))
        return;
   }
-  else if(!NewSaves(victim, SAVING_SPELL, 2))
+  else if(IS_NPC(victim) && !NewSaves(victim, SAVING_SPELL, 2))
   {
       return;
   }
+  else if(IS_PC(victim) && !NewSaves(victim, SAVING_SPELL, 0))
+  {
+     return;
+  }
+  else
+  {
 
     bzero(&af, sizeof(af));
 
     af.type = SPELL_CURSE;
     af.duration = GET_LEVEL(ch);
-    af.modifier = IS_NPC(victim) ? -10 : -5;
+    af.modifier = (IS_NPC(victim) ? -10 : -5);
     af.location = APPLY_HITROLL;
     affect_to_char(victim, &af);
     af.modifier = 10;

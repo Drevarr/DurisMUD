@@ -2655,7 +2655,7 @@ void event_combination(P_char ch, P_char victim, P_obj obj, void *data)
     if(result == DAM_NONEDEAD && stage == 6 && GET_LEVEL(ch) >= 50)
     {
       Stun(victim, ch, PULSE_VIOLENCE * 2);
-      if(IS_AFFECTED2(ch, AFF2_STUNNED))
+      if(IS_AFFECTED2(victim, AFF2_STUNNED))
       {
         act("Your final move stuns $N!", FALSE, ch, 0, victim, TO_CHAR);
         act("$N is stunned by $n's vicious combination!", FALSE, ch, 0, victim, TO_NOTVICT);
