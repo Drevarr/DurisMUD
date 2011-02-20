@@ -898,9 +898,13 @@ for ((IN_ROOM) = world[(PLAYER)->in_room].people; (IN_ROOM) != NULL; (IN_ROOM) =
 
 #define USES_COMMUNE(ch) ( \
     (IS_NPC(ch) || IS_SET((ch)->player.m_class, CLASS_DRUID)))
-#define USES_FOCUS(ch) ( \
-    (IS_NPC(ch) || IS_SET((ch)->player.m_class, CLASS_PSIONICIST)) || \
-    IS_SET((ch)->player.m_class, CLASS_MINDFLAYER))
+#define USES_FOCUS(ch) ((GET_RACE(ch) == RACE_PILLITHID) || \
+						(GET_RACE(ch) == RACE_ILLITHID)  || \
+						(GET_CLASS(ch, CLASS_PSIONICIST)) || \
+						(GET_CLASS(ch, CLASS_MINDFLAYER)))
+										
+    //(IS_NPC(ch) || IS_SET((ch)->player.m_class, CLASS_PSIONICIST)) || \
+    //IS_SET((ch)->player.m_class, CLASS_MINDFLAYER))
 #define USES_SPELL_SLOTS(ch) ( \
         USES_COMMUNE(ch) || \
         IS_PUNDEAD(ch) || \
@@ -1238,6 +1242,7 @@ IS_GIANT(ch) || IS_PC_PET(ch) || IS_PC(ch) || IS_UNDEAD(ch)) && !IS_ANIMAL(ch))
         affected_by_spell(victim, SPELL_PLAGUE) || \
         affected_by_spell(victim, TAG_ARMLOCK) || \
         affected_by_spell(victim, TAG_LEGLOCK) || \
+        affected_by_spell(victim, SPELL_BMANTLE) || \
         affected_by_spell(victim, SPELL_ENERGY_DRAIN))
 
 // Simply change these defines to focus reaver preferred weapons.

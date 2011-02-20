@@ -521,6 +521,28 @@ void apply_affs(P_char ch, int mode)
     {
       REMOVE_BIT(ch->specials.affected_by4, AFF4_NEG_SHIELD);
     }
+    if (IS_AFFECTED2(ch, AFF2_FIRE_AURA))
+    {
+      REMOVE_BIT(ch->specials.affected_by2, AFF2_WATER_AURA);
+      REMOVE_BIT(ch->specials.affected_by2, AFF2_EARTH_AURA);
+      REMOVE_BIT(ch->specials.affected_by2, AFF2_AIR_AURA);
+      REMOVE_BIT(ch->specials.affected_by4, AFF4_ICE_AURA);
+    }
+    if (IS_AFFECTED2(ch, AFF2_EARTH_AURA))
+    {
+      REMOVE_BIT(ch->specials.affected_by2, AFF2_WATER_AURA);
+      REMOVE_BIT(ch->specials.affected_by2, AFF2_AIR_AURA);
+      REMOVE_BIT(ch->specials.affected_by4, AFF4_ICE_AURA);
+    }
+    if (IS_AFFECTED2(ch, AFF2_AIR_AURA))
+    {
+      REMOVE_BIT(ch->specials.affected_by2, AFF2_WATER_AURA);
+      REMOVE_BIT(ch->specials.affected_by4, AFF4_ICE_AURA);
+    }
+    if (IS_AFFECTED4(ch, AFF4_ICE_AURA))
+    {
+      REMOVE_BIT(ch->specials.affected_by2, AFF2_WATER_AURA);
+    }
   }
   else
   {
@@ -803,7 +825,102 @@ void apply_affs(P_char ch, int mode)
   ch->points.hit_reg = TmpAffs.hit_reg;
   ch->points.move_reg = TmpAffs.move_reg;
   ch->points.mana_reg = TmpAffs.mana_reg;
+  switch(TmpAffs.spell_pulse)
+  {
+    case 10:
+      TmpAffs.spell_pulse = 4;
+      break;
+    case 9:
+    case 8:
+    case 7:
+    case 6:
+    case 5:
+      TmpAffs.spell_pulse = 3;
+      break;
+    case 4:
+    case 3:
+    case 2:
+      TmpAffs.spell_pulse = 2;
+      break;
+    case 1:
+      TmpAffs.spell_pulse = 1;
+      break;
+    case 0:
+      TmpAffs.spell_pulse = 0;
+      break;
+    case -1:
+      TmpAffs.spell_pulse = -1;
+      break;
+    case -2:
+    case -3:
+    case -4:
+      TmpAffs.spell_pulse = -2;
+      break;
+    case -5:
+    case -6:
+    case -7:
+    case -8:
+    case -9:
+      TmpAffs.spell_pulse = -3;
+      break;
+    case -10:
+      TmpAffs.spell_pulse = -4;
+      break;
+    default:
+      TmpAffs.spell_pulse = 0;
+      break;
+  }
   ch->points.spell_pulse = TmpAffs.spell_pulse;
+  
+  switch(TmpAffs.combat_pulse)
+  {
+    case 12:
+    case 11:
+    case 10:
+      TmpAffs.combat_pulse = 4;
+      break;
+    case 9:
+    case 8:
+    case 7:
+    case 6:
+    case 5:
+      TmpAffs.combat_pulse = 3;
+      break;
+    case 4:
+    case 3:
+    case 2:
+      TmpAffs.combat_pulse = 2;
+      break;
+    case 1:
+      TmpAffs.combat_pulse = 1;
+      break;
+    case 0:
+      TmpAffs.combat_pulse = 0;
+      break;
+    case -1:
+      TmpAffs.combat_pulse = -1;
+      break;
+    case -2:
+    case -3:
+    case -4:
+      TmpAffs.combat_pulse = -2;
+      break;
+    case -5:
+    case -6:
+    case -7:
+    case -8:
+    case -9:
+      TmpAffs.combat_pulse = -3;
+      break;
+    case -10:
+    case -11:
+    case -12:
+      TmpAffs.combat_pulse = -4;
+      break;
+    default:
+      TmpAffs.combat_pulse = 0;
+      break;
+  }
   ch->points.combat_pulse = TmpAffs.combat_pulse;
 
   if (mode)
@@ -2679,51 +2796,98 @@ int blind(P_char ch, P_char victim, int duration)
 }
 
 //---------------------------------------------------------------------------------
-void Stun(P_char ch, int duration)
+void Stun(P_char stunnee, P_char stunner, int duration, bool Fear_Check)
 {
   struct affected_type af;
+  int attlevel = GET_LEVEL(stunner), deflevel = GET_LEVEL(stunnee);
 
-  if(!IS_ALIVE(ch))
+  if(!IS_ALIVE(stunnee))
   {
     return;
   }
   
-// Elite mobs are !stun. Oct08 -Lucrot
-  if(IS_ELITE(ch))
+  // Elite mobs are !stun. Oct08 -Lucrot
+  if(IS_ELITE(stunnee))
   {
     return;
   }
   
-// Greater races are harder to stun based on their level. Level 60+ greater races
-// cannot be stunned when this function is called. Oct08 -Lucrot
-  if(IS_GREATER_RACE(ch) || GET_RACE(ch) == RACE_PLANT || 
-                            GET_RACE(ch) == RACE_GOLEM || 
-                            GET_RACE(ch) == RACE_CONSTRUCT)
+  // Greater races are harder to stun based on their level. Level 60+ greater races
+  // cannot be stunned when this function is called. Oct08 -Lucrot
+  if(IS_GREATER_RACE(stunnee) || 
+     GET_RACE(stunnee) == RACE_PLANT || 
+     GET_RACE(stunnee) == RACE_GOLEM || 
+     GET_RACE(stunnee) == RACE_CONSTRUCT)
   {
-    if(!number(0, (int) BOUNDED(0, (60 - GET_LEVEL(ch)), 59)))
+    if(!number(0, (int) BOUNDED(0, (60 - deflevel), 59)))
     {
       return;
     }
   }
 
-  if(IS_AFFECTED2(ch, AFF2_STUNNED))
+  if(IS_AFFECTED2(stunnee, AFF2_STUNNED))
   {
-    send_to_char("&+wIf you could get more stunned you would.\r\n", ch);
+    send_to_char("&+wIf you could get more stunned you would.\r\n", stunnee);
     return;
   }
 
-  memset(&af, 0, sizeof(af));
-  af.type = SPELL_PWORD_STUN;
-  af.flags = AFFTYPE_SHORT | AFFTYPE_NOSHOW | AFFTYPE_NODISPEL;
-  af.bitvector2 = AFF2_STUNNED;
-  af.duration = duration;
-  affect_to_char(ch, &af);
+  // SAVING_FEAR can now protect against stun, if there isn't a save already applied by calling function - Jexni 2/18/11
+  // You have to save twice against stun effect, as stun is fairly nasty, 2nd is half duration
+  // Fear_Check is passed by calling function to determine if stunnee gets to save w/ fear
+  // Power word stun and similar spells have their own save breakdown and pass FALSE to this function
 
-  send_to_char("&+wThe world starts spinning, and your ears are ringing!\r\n", ch);
-  act("$n&n is &+Wstunned!&n", TRUE, ch, 0, 0, TO_ROOM);
-  if(IS_FIGHTING(ch))
+  int chance = BOUNDED(-25, attlevel - deflevel, 25);
+  
+  if(Fear_Check)
   {
-    stop_fighting(ch);
+    if(!NewSaves(stunnee, SAVING_FEAR, chance))
+    {
+      memset(&af, 0, sizeof(af));
+      af.type = SPELL_PWORD_STUN;
+      af.flags = AFFTYPE_SHORT | AFFTYPE_NOSHOW | AFFTYPE_NODISPEL;
+      af.bitvector2 = AFF2_STUNNED;
+      af.duration = duration;
+      affect_to_char(stunnee, &af);  
+
+      send_to_char("&+wThe world starts spinning, and your ears are ringing!\r\n", stunnee);
+      act("$n&n is &+Wstunned!&n", TRUE, stunnee, 0, 0, TO_ROOM);
+      if(IS_FIGHTING(stunnee))
+      {
+        stop_fighting(stunnee);
+      }
+    }
+    else if(!NewSaves(stunnee, SAVING_FEAR, chance + number(0, 3)))
+    {
+      memset(&af, 0, sizeof(af));
+      af.type = SPELL_PWORD_STUN;
+      af.flags = AFFTYPE_SHORT | AFFTYPE_NOSHOW | AFFTYPE_NODISPEL;
+      af.bitvector2 = AFF2_STUNNED;
+      af.duration = duration / 2;
+      affect_to_char(stunnee, &af);
+
+      send_to_char("&+wWow that &+Rsmarts... &+Wbut you manage to recover quickly!\r\n", stunnee);
+      act("$n&n is momentarily &+Wdazed...&n", TRUE, stunnee, 0, 0, TO_ROOM);
+      if(!number(0, 3) && IS_FIGHTING(stunnee))
+      {
+        stop_fighting(stunnee);
+      }
+    }
+  }
+  else
+  {
+    memset(&af, 0, sizeof(af));
+    af.type = SPELL_PWORD_STUN;
+    af.flags = AFFTYPE_SHORT | AFFTYPE_NOSHOW | AFFTYPE_NODISPEL;
+    af.bitvector2 = AFF2_STUNNED;
+    af.duration = duration;
+    affect_to_char(stunnee, &af);
+
+    send_to_char("&+wThe world starts spinning, and your ears are ringing!\r\n", stunnee);
+    act("$n&n is &+Wstunned!&n", TRUE, stunnee, 0, 0, TO_ROOM);
+    if(IS_FIGHTING(stunnee))
+    {
+      stop_fighting(stunnee);
+    }
   }
 }
 
@@ -3263,7 +3427,7 @@ bool falling_char(P_char ch, const int kill_char, bool caller_is_event)
       }
 
       SET_POS(ch, number(0, 2) + GET_STAT(ch));
-      Stun(ch, (100 * dam / GET_MAX_HIT(ch)));  /* 1-100  */
+      Stun(ch, ch, (100 * dam / GET_MAX_HIT(ch)), FALSE);  /* 1-100  */
       /* also can knock them out for a time.  */
       if (number(1, (100 * dam / GET_MAX_HIT(ch))) >
           number(STAT_INDEX(GET_C_CON(ch)) / 2,
@@ -3297,7 +3461,7 @@ bool falling_char(P_char ch, const int kill_char, bool caller_is_event)
         }
 
         SET_POS(chr, number(0, 2) + GET_STAT(chr));
-        Stun(chr, (100 * dam / GET_MAX_HIT(chr)));
+        Stun(chr, chr, (100 * dam / GET_MAX_HIT(chr)), FALSE);
 
         if (number(1, (100 * dam / GET_MAX_HIT(chr))) >
             number(STAT_INDEX(GET_C_CON(chr)) / 2,

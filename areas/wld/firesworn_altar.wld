@@ -1,5 +1,5 @@
 #135101
-A Cobblestone Road~
+&+LA Co&+ybb&+Lle&+yst&+Lon&+ye &+LPath~
 Zone notes:
 
 Altar of the Firesworn...
@@ -28,9 +28,13 @@ D0
 ~
 ~
 0 0 135102
+D1
+~
+~
+0 0 135132
 S
 #135102
-&+LA Co&+ybb&+Lle&+yst&+Lon&+ye &+LPath Enshrouded By Thick &+gFoliage&n~
+&+LA Co&+ybb&+Lle&+yst&+Lon&+ye &+LPath&n~
 ~
 1351 0 0 0
 D0
@@ -43,7 +47,7 @@ D2
 0 0 135101
 S
 #135103
-&+LA Bend in the Co&+ybb&+Lle&+yst&+Lon&+ye &+LRoad&n~
+&+LA Bend in the Co&+ybb&+Lle&+yst&+Lon&+ye &+LPath&n~
 ~
 1351 0 0 0
 D1
@@ -74,8 +78,8 @@ S
 1351 0 0 0
 D0
 ~
-~
-0 0 135106
+gate~
+2 135111 135106
 D2
 ~
 ~
@@ -92,7 +96,7 @@ D0
 D2
 ~
 ~
-0 0 135105
+2 135111 135105
 S
 #135107
 &+LWithin the Foyer of the &+rF&+Ri&+Yr&+Wesw&+Yo&+Rr&+rn &+LSpires&n~
@@ -296,7 +300,7 @@ S
 D0
 ~
 ~
-0 0 135123
+2 135110 135123
 D5
 ~
 ~
@@ -317,7 +321,7 @@ D1
 D2
 ~
 ~
-0 0 135122
+2 135110 135122
 D3
 ~
 ~
@@ -414,4 +418,204 @@ D5
 ~
 ~
 0 0 135130
+S
+#135132
+&+LA Co&+ybb&+Lle&+yst&+Lon&+ye &+LPath&n~
+~
+1351 0 0 0
+D1
+~
+~
+0 0 135133
+D2
+~
+~
+0 0 135135
+D3
+~
+~
+0 0 135101
+S
+#135133
+&+LA Co&+ybb&+Lle&+yst&+Lon&+ye &+LPath&n~
+~
+1351 0 0 0
+D1
+~
+~
+0 0 135134
+D2
+~
+~
+0 0 135136
+D3
+~
+~
+0 0 135132
+S
+#135134
+&+LWithin the &+bIllusionary &+yWoods &+Lof &+gDr&+Ga&+gk&+Ge&+gnst&+Go&+gn&+Ge&n~
+~
+1351 0 0 0
+D2
+~
+~
+0 0 135137
+D3
+~
+~
+0 0 135133
+S
+#135135
+&+LWithin the &+bIllusionary &+yWoods &+Lof &+gDr&+Ga&+gk&+Ge&+gnst&+Go&+gn&+Ge~
+~
+1351 0 0 0
+D0
+~
+~
+0 0 135132
+D1
+~
+~
+0 0 135136
+D2
+~
+~
+0 0 135138
+S
+#135136
+&+LA &+yCo&+Lbb&+yle&+Lst&+yon&+Le Path&n~
+~
+1351 0 0 0
+D0
+~
+~
+0 0 135133
+D1
+~
+~
+0 0 135137
+D2
+~
+~
+0 0 135139
+D3
+~
+~
+0 0 135135
+S
+#135137
+&+LA &+yCo&+Lbb&+yle&+Lst&+yon&+Le Path&n~
+~
+1351 0 0 0
+D0
+~
+~
+0 0 135134
+D2
+~
+~
+0 0 135140
+D3
+~
+~
+0 0 135136
+S
+#135138
+&+LWithin the &+bIllusionary &+yWoods &+Lof &+gDr&+Ga&+gk&+Ge&+gnst&+Go&+gn&+Ge~
+~
+1351 0 0 0
+D0
+~
+~
+0 0 135135
+D1
+~
+~
+0 0 135139
+D2
+~
+~
+0 0 135141
+S
+#135139
+&+LWithin the &+bIllusionary &+yWoods &+Lof &+gDr&+Ga&+gk&+Ge&+gnst&+Go&+gn&+Ge~
+~
+1351 0 0 0
+D0
+~
+~
+0 0 135136
+D1
+~
+~
+0 0 135140
+D2
+~
+~
+0 0 135142
+D3
+~
+~
+0 0 135138
+S
+#135140
+&+LA Co&+ybb&+Lle&+yst&+Lon&+ye &+LPath&n~
+~
+1351 0 0 0
+D0
+~
+~
+0 0 135137
+D2
+~
+~
+0 0 135143
+D3
+~
+~
+0 0 135139
+S
+#135141
+&+LWithin the &+bIllusionary &+yWoods &+Lof &+gDr&+Ga&+gk&+Ge&+gnst&+Go&+gn&+Ge~
+~
+1351 0 0 0
+D0
+~
+~
+0 0 135138
+D1
+~
+~
+0 0 135142
+S
+#135142
+&+LWithin the &+bIllusionary &+yWoods &+Lof &+gDr&+Ga&+gk&+Ge&+gnst&+Go&+gn&+Ge~
+~
+1351 0 0 0
+D0
+~
+~
+0 0 135139
+D1
+~
+~
+0 0 135143
+D3
+~
+~
+0 0 135141
+S
+#135143
+&+LA Co&+ybb&+Lle&+yst&+Lon&+ye &+LPath&n~
+~
+1351 0 0 0
+D0
+~
+~
+0 0 135140
+D3
+~
+~
+0 0 135142
 S

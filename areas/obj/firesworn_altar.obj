@@ -71,10 +71,26 @@ An unnamed object lies here, looking lonely and forelorn.~
 0 0 0 0 0 0 0 0
 0 0 100
 #135110
-object unnamed~
-key to last spire~
-An unnamed object lies here, looking lonely and forelorn.~
+key divine passage~
+&+Lthe key of &+Wdivine &+Lpassage&n~
+&+LA key lies here, glowing with a &+wdivine &+Llight.&n~
 ~
-13 15 3 0 7 0 0 0 0 0 0
-0 0 0 0 0 0 0 0
+18 15 3 0 7 0 0 1 0 0 0
+0 100 0 0 0 0 0 0
+0 0 100
+#135111
+forged steel key~
+&+La key of forged &+csteel&n~
+&+LA key of forged &+csteel &+Llies here, discarded.&n~
+~
+18 15 3 0 7 0 8388608 0 0 0 0
+0 100 0 0 0 0 0 0
+0 0 100
+#135112
+sword dancing fire~
+&+Lthe sword of dancing &+rf&+Ri&+Yr&+We&n~
+&+LA sword of smoldering flames lies here.&n~
+~
+5 15 3 0 7 0 0 0 2048 0 0
+5 5 5 0 0 0 0 0
 0 0 100

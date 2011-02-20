@@ -91,7 +91,7 @@ const int allowed_secondary_classes[CLASS_COUNT + 1][5] = {
   {CLASS_CONJURER, -1},         		              /* Sor */
   {-1},                         		              /* Nec */
   {CLASS_SORCERER, CLASS_SHAMAN, -1},                   	              /* Con */
-  {CLASS_BARD, CLASS_MERCENARY, CLASS_CLERIC, -1},            /* Rog */
+  {CLASS_BARD, CLASS_MERCENARY, -1},            /* Rog */
   {-1},                       /* Assassin not currently in game      */
   {CLASS_ROGUE, CLASS_WARRIOR, -1},                           /* Mer */
   {CLASS_SORCERER, CLASS_ROGUE, CLASS_ILLUSIONIST, -1},       /* Bar */
@@ -162,7 +162,7 @@ const mcname multiclass_names[] = {
   {CLASS_PSIONICIST, CLASS_MONK,         "&+mMind &+LNinja  &n"},  
   {CLASS_PSIONICIST, CLASS_DRUID,        "&+bOra&+Gcle      &n"},  
   {CLASS_PSIONICIST, CLASS_SHAMAN,       "&+CTotemic &+bRage&n"},
-  {CLASS_PSIONICIST, CLASS_SORCERER,     "&+bCere&+Mbrum    &n"},  
+  {CLASS_PSIONICIST, CLASS_SORCERER,     "Arcane Mentalist&n"},  
   {CLASS_PSIONICIST, CLASS_NECROMANCER,  "&+mDread &+bWave  &n"},
   {CLASS_PSIONICIST, CLASS_CONJURER,     "&+YEarth&+bbender &n"},  
   {CLASS_PSIONICIST, CLASS_ROGUE,        "&+LBack&+bbender  &n"},  
@@ -177,7 +177,7 @@ const mcname multiclass_names[] = {
   {CLASS_PSIONICIST, CLASS_AVENGER,      "&+WLife&+bbender  &n"},  
   {CLASS_PSIONICIST, CLASS_THEURGIST,    "&+CH&+Weave&+Cn&+bbender&n"},
   {CLASS_PALADIN, CLASS_ANTIPALADIN,     "&+wGray Knight &n"},  
-  {CLASS_PALADIN, CLASS_CLERIC,          "&+WDe&+cvout      &n"},  
+  {CLASS_PALADIN, CLASS_CLERIC,          "Divine Champion&n"},  
   {CLASS_PALADIN, CLASS_MONK,            "&+WWhite Ninja &n"},
   {CLASS_PALADIN, CLASS_DRUID,           "&+gLeafy &+WWrath &n"},
   {CLASS_PALADIN, CLASS_SHAMAN,          "&+CTotem &+WWalker&n"},
@@ -195,7 +195,7 @@ const mcname multiclass_names[] = {
   {CLASS_PALADIN, CLASS_ETHERMANCER,     "&+wSky &+WKnight  &n"},
   {CLASS_PALADIN, CLASS_AVENGER,         "&+LDread &+WKnight&n"},
   {CLASS_PALADIN, CLASS_THEURGIST,       "&+WCrucible    &n"},
-  {CLASS_ANTIPALADIN, CLASS_CLERIC,      "&+LSi&+cnn&+Ler      &n"},
+  {CLASS_ANTIPALADIN, CLASS_CLERIC,      "Unholy Champion&n"},
   {CLASS_ANTIPALADIN, CLASS_MONK,        "&+rRed Ninja   &n"},
   {CLASS_ANTIPALADIN, CLASS_DRUID,       "&+LDe&+gvour&+Ler    &n"},
   {CLASS_ANTIPALADIN, CLASS_SHAMAN,      "&+LMis&+Cleader   &n"},
@@ -1590,13 +1590,12 @@ const int class_table[LAST_RACE + 1][CLASS_COUNT + 1] = {
   { 5 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 },  /* Illithid */
   { 5 , -1 ,  5 ,  5 ,  5 , -1 , -1 ,  5 ,  5 , -1 , -1 , -1 , -1 , -1 ,  5 , -1 , -1 ,  5 ,  5 ,  5 ,  5 , -1 , -1 , -1 ,  5 ,  5 , -1 ,  5 ,  5 },  /* Orc */
   { 5 ,  2 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 },  /* Thri-Kreen */
-  { 5 ,  1 ,  1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  0 ,  3 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  
-5 ,  5 ,  5 ,  5 ,  5 ,  5 },  /* Centaur */
+  { 5 ,  1 ,  1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  0 ,  3 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 },  /* Centaur */
   { 5 , -1 ,  5 ,  -1 ,  5 , -1 , -1 ,  5 ,  5 ,  5 , -1 , -1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 },  /* Githyanki */
   { 5 ,  2 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  2 ,  5 ,  5 ,  5 ,  5 ,  5 ,  2 ,  5 ,  5 ,  5 ,  5 ,  5 ,  2 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 },  /* Minotaur */
   { 5 , -1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 , -1 ,  5 , -1 ,  5 ,  5 , -1 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 , -1 , -1 ,  5 , -1 ,  5 ,  5 ,  5 },  /* Shade */
   { 5 , -1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 },  /* Revenant */
-  { 5 , -1 ,  5 ,  5 ,  5 ,  5 , -1 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 , -1 ,  5 ,  5 },  /* Goblin */
+  { 5 , -1 ,  5 ,  5 ,  5 ,  5 , -1 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  1 ,  5 ,  5 , -1 ,  5 ,  5 },  /* Goblin */
   { 5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 },  /* Lich */
   { 5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 },  /* Vampire */
   { 5 , -1 ,  5 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 },  /* Death Knight */

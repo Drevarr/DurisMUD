@@ -4,11 +4,11 @@ firesworn soldier demon~
 An unnamed mob stands here, looking lonely and forelorn.
 ~
 ~
-8 0 0 0 0 0 0 0 S
-PH 0 0 -1
-1 0 0 1d1+1 1d1+1
+8 1 0 402653336 0 0 0 -1000 S
+y 0 1 -1
+55 0 0 1d1+1 1d1+1
 0.0.0.0 0
-8 8 0
+8 8 1
 #135102
 commander firesworn legion demon~
 &+La &+ccom&+Cman&+cder &+Lof the &+rf&+Ri&+Yr&+Wesw&+Yo&+Rr&+rn &+Llegion&n~
@@ -17,31 +17,31 @@ commander firesworn legion demon~
 ~
 268466184 1 0 24 0 0 0 -1000 S
 Y 0 513 -1
-51 0 0 1d1+1 1d1+1
+55 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #135103
-mob unnamed~
+guardian blood~
 &+Lthe guardian of the &+rbl&+Roo&+rd&n~
 &+LA priest garbed in &+rblood s&+Lp&+rl&+La&+rt&+Lt&+re&+Lr&+re&+Ld robes stands here, guarding the altar.&n
 ~
 ~
-8 0 0 0 0 0 0 0 S
-PH 0 0 -1
-1 0 0 1d1+1 1d1+1
+268453960 0 0 0 0 0 0 -1000 S
+y 0 768 -1
+59 0 0 1d1+1 1d1+1
 0.0.0.0 0
-8 8 0
+8 8 1
 #135104
-mob unnamed~
+guardian fire _spec1_~
 &+Lthe guardian of the &+Rf&+ri&+Rr&+re&n~
 &+LA priest dressed in &+Wb&+wi&+Wl&+wl&+Wo&+ww&+Wi&+wn&+Wg &+Lrobes of &+Rf&+ri&+Rr&+re &+Lstands here, guarding the altar.&n
 ~
 ~
-8 0 0 0 0 0 0 0 S
-PH 0 0 -1
-1 0 0 1d1+1 1d1+1
+2088 0 0 0 0 0 0 -1000 S
+y 0 2097152 -1
+59 0 0 1d1+1 1d1+1
 0.0.0.0 0
-8 8 0
+8 8 2
 #135105
 mob unnamed~
 &+Lthe guardian of the &+cm&+Ci&+cs&+Ct&+cs&n~
@@ -101,6 +101,50 @@ PH 0 0 -1
 maelshem false god~
 &+bMaelshem&+L, the &+Yfalse &+Wgod&n~
 &+BMaelshem&+L, the &+Yfalse &+Wgod&+L, stands here awaiting &+Btr&+Can&+Wsend&+Cen&+Bce&+L.&n
+~
+~
+8 0 0 0 0 0 0 0 S
+PH 0 0 -1
+1 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#135111
+mob unnamed~
+&+La shadow infused &+rhell&+Rhound&n~
+An unnamed mob stands here, looking lonely and forelorn.
+~
+~
+8 0 0 0 0 0 0 0 S
+PH 0 0 -1
+1 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#135112
+calian high priestess human~
+&+LCalian, &+chigh priestess &+Lof &+bMaelshem&n~
+&+LA small &+Chuman &+Ygirl &+Lstands here, draped in &+rpriestess &+Lrobes.&n
+~
+~
+268453962 0 0 939524248 0 0 0 -1000 S
+PH 0 544 -1
+60 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#135113
+construct infused shadowsteel golem~
+&+La &+rconstruct &+Lof infused &+bshadow&+csteel&n~
+&+LA &+bshadow&+csteel &+rconstruct &+Lstands here, blocking entrance to the upper spire.&n
+~
+~
+30792 0 0 0 0 0 0 0 S
+CN 0 16777280 -1
+60 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#135114
+mob unnamed~
+an unnamed mob~
+An unnamed mob stands here, looking lonely and forelorn.
 ~
 ~
 8 0 0 0 0 0 0 0 S

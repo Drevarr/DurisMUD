@@ -1013,7 +1013,7 @@ void update_pos(P_char ch)
           /*
            * ouchness
            */
-          Stun(ch, dice(3, 4) * 4);     /* 3 rounds max, avg, ~1.5 */
+          Stun(ch, ch, dice(3, 4) * 4, FALSE);     /* 3 rounds max, avg, ~1.5 */
           break;
         }
         act("$n falls off $s mount!", TRUE, ch, 0, 0, TO_ROOM);
@@ -1044,7 +1044,7 @@ void update_pos(P_char ch)
           if (!number(0, 2))
           {
             if (GET_STAT(ch) > STAT_INCAP)
-              Stun(ch, dice(2, 3) * 4); /*
+              Stun(ch, ch, dice(2, 3) * 4, FALSE); /*
                                          * 1.5 rounds max,
                                          * avg, ~1
                                          */
@@ -5619,7 +5619,7 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
            victim);
 
       if (GET_HIT(victim) < 2 && new_stat > STAT_INCAP && number(0, 1))
-        Stun(victim, PULSE_VIOLENCE);
+        Stun(victim, ch, PULSE_VIOLENCE, FALSE);
     }
 
     /* new, unless vicious, no auto attacks on helpless targets */
@@ -7707,7 +7707,7 @@ int MonkRiposte(P_char victim, P_char attacker, P_obj wpn)
   
   percent = (int)(skl / 2) - (int)(WeaponSkill(attacker, wpn) / 3);
 
-  percent += dex_app[STAT_INDEX(GET_C_DEX(victim))].reaction * 4;
+  percent += dex_app[STAT_INDEX(GET_C_DEX(victim))].reaction * 2;
   percent += str_app[STAT_INDEX(GET_C_STR(victim))].tohit * 1.5;
   percent -= (str_app[STAT_INDEX(GET_C_STR(attacker))].tohit +
               str_app[STAT_INDEX(GET_C_STR(attacker))].todam);
