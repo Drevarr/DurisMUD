@@ -823,15 +823,22 @@ int doombringer(P_obj obj, P_char ch, int cmd, char *arg)
     }
   }
 
-  vict = ((P_char) arg);
+  if(IS_FIGHTING(ch))
+    vict = ch->specials.fighting;
+  else
+    vict = (P_char) arg;
+
   room = ch->in_room;
 
   if(!(vict) ||
      !(room))
   {
-    return false;
+    return FALSE;
   }
 
+  if(cmd != CMD_MELEE_HIT)
+    return FALSE;
+  
   if((obj->loc.wearing == ch) &&
      vict &&
      (!number(0, 24)) &&
