@@ -1174,10 +1174,13 @@ int outpost_gateguard_proc(P_char ch, P_char pl, int cmd, char *arg)
       // don't show anything when immortals enter the GH
       return FALSE;
     }
-    else if(allowed && !number(0, 2))
+    else if(allowed)
     {
-      act("$N stands impassively as you pass by.", FALSE, pl, 0, ch, TO_CHAR);
-      act("$N stands impassively as $n passes by.", FALSE, pl, 0, ch, TO_NOTVICTROOM);
+      if(!number(0, 2))
+      {
+         act("$N stands impassively as you pass by.", FALSE, pl, 0, ch, TO_CHAR);
+         act("$N stands impassively as $n passes by.", FALSE, pl, 0, ch, TO_NOTVICTROOM);
+      }
       return FALSE;
     }
     else
