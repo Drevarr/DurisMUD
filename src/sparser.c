@@ -35,6 +35,7 @@
 #include "sql.h"
 #include "profile.h"
 #include "guildhall.h"
+#include "buildings.h"
 
 /*
    external variables
@@ -69,7 +70,7 @@ int top_save, starting_save;
 extern struct spell_target_data common_target_data;
 
 extern bool divine_blessing_check(P_char, P_char, int);
-extern int devotion_check(P_char);
+extern int devotion_skill_check(P_char);
 void event_spellcast(P_char, P_char, P_obj, void *);
 void event_abort_spell(P_char, P_char, P_obj, void *);
 int chant_mastery_bonus(P_char, int);
@@ -241,7 +242,7 @@ int is_racewar_in_room(P_char ch)
     {
       return TRUE;
     }
-    if( IS_GH_GOLEM(t_char) )
+    if(IS_GH_GOLEM(t_char) || IS_OP_GOLEM(t_char))
     {
       return TRUE;
     }
@@ -2605,8 +2606,11 @@ void event_spellcast(P_char ch, P_char victim, P_obj obj, void *data)
    ((int) GET_LEVEL(ch), ch, args, SPELL_TYPE_SPELL, tar_char, tar_obj));
 
   int dev_power;
-  if (IS_AGG_SPELL(arg->spell) && is_char_in_room(tar_char, room) &&
-      is_char_in_room(ch, room) && (dev_power = devotion_check(ch)) > 0)
+  if (IS_AGG_SPELL(arg->spell) && 
+      is_char_in_room(tar_char, room) &&
+      is_char_in_room(ch, room) && 
+      devotion_spell_check(arg->spell) &&
+     (dev_power = devotion_skill_check(ch)) > 0)
     ((*skills[arg->spell].spell_pointer)
      (dev_power, ch, args, SPELL_TYPE_SPELL, tar_char, tar_obj));
 
