@@ -50,6 +50,7 @@ int get_killing_association(P_char);
 void outposts_upkeep();
 int get_outpost_archers(Building*);
 int outpost_archer_attack(P_char, P_char);
+int outpost_meurtriere_attack(P_char);
 
 // For op_resources.c
 #define RES_COPSE_VNUM      97820
