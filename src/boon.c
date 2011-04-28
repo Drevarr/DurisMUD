@@ -3,9 +3,9 @@
 // Created April 2011 - Venthix
 
 // TODO:
-// make giving plat goto bank instead of player, or redeemed by boon shop instead.
-// make the zone criteria able to accept either or the zone->filename or the real zone number.
-// make a check to make sure a zone is an epic zone when accepting the zone criteria
+// update AGGR_* flags to new setup.
+// learn to compile de in windows
+// figure out how to update website with updated copies of de for download.
 // in addition to the debug's setup some real logging incase someone completes a boon
 //   and gets an error message to contact an imm because the db wouldn't update or
 //   create.
@@ -52,6 +52,7 @@ extern P_desc descriptor_list;
 extern P_room world;
 extern Skill skills[];
 extern struct race_names race_names_table[];
+extern P_index mob_index;
 extern const struct attr_names_struct attr_names[];
 extern int top_of_zone_table;
 extern struct zone_data *zone_table;
@@ -379,7 +380,7 @@ bool get_boon_shop_data(int pid, BoonShop *bshop)
   if (!bshop)
     return FALSE;
 
-  if (!qry("SELECT id, pid, points, stats, cash WHERE pid = '%d'", bshop->pid))
+  if (!qry("SELECT id, pid, points, stats, WHERE pid = '%d'", bshop->pid))
   {
     debug("get_boon_shop_data(): cant read from db");
     return FALSE;
@@ -400,7 +401,6 @@ bool get_boon_shop_data(int pid, BoonShop *bshop)
   bshop->pid = atoi(row[1]);
   bshop->points = atoi(row[2]);
   bshop->stats = atoi(row[3]);
-  bshop-cash = atoi(row[4]);
 
   mysql_free_result(res);
   
@@ -455,6 +455,7 @@ int validate_boon_data(BoonData *bdata, int flag)
 	  case BOPT_NONE:
 	  case BOPT_ZONE:
 	    {
+	      debug("crit begin %d", (int)bdata->criteria);
 	      i = 0;
 	      while (i <= top_of_zone_table)
 	      {
@@ -467,12 +468,27 @@ int validate_boon_data(BoonData *bdata, int flag)
 	      {
 		return 1;
 	      }
-	      // Check and see if zone is already complete
 	      vector<epic_zone_data> epic_zones = get_epic_zones();
-	      if (bdata->option == BOPT_ZONE &&
-		  epic_zone_done_now(epic_zones[i].number))
-		return 2;
-	    break;
+	      if (bdata->option == BOPT_ZONE)
+	      {
+		int j;
+		// is epic zone complete
+		if (epic_zone_done_now(zone_table[i].number))
+		  return 2;
+		// is it even an epic zone
+		for (j = 0; j <= epic_zones.size(); j++)
+		{
+		  debug("%d %f", epic_zones[j].number, bdata->criteria);
+		  if (epic_zones[j].number == (int)bdata->criteria)
+		  {
+		    debug("found");
+		    break;
+		  }
+		}
+		if (j > epic_zones.size())
+		  return 3;
+	      }
+	      break;
 	    }
 	  case BOPT_MOB:
 	    {
@@ -881,13 +897,39 @@ int parse_boon_args(P_char ch, BoonData *bdata, char *argument)
 
     // Handle criteria argument
     argument = setbit_parseArgument(argument, arg);
-    
-    if (!*arg || atof(arg) < 0)
+
+    if (bdata->option == BOPT_NONE ||
+	bdata->option == BOPT_ZONE)
+    {
+      if (*arg && !isdigit(*arg))
+      {
+	for (i = 0; i <= top_of_zone_table; i++)
+	{
+	  if (is_abbrev(strip_ansi(zone_table[i].name).c_str(), arg) ||
+	      !strcmp(zone_table[i].filename, arg))
+	  {
+	    debug("strip: %s, zt: %s, arg: %s", strip_ansi(zone_table[i].name).c_str(), zone_table[i].filename, arg);
+	    break;
+	  }
+	}
+	if (i > top_of_zone_table)
+	{
+	  send_to_char_f(ch, "&+W'%s' is not a valid zone name or filename.  Try using single quotes (') if you're using the zone name.\r\n", arg);
+	  return FALSE;
+	}
+	bdata->criteria = zone_table[i].number;
+	debug("bdata->criteria: %d, i: %d, num: %d", (int)bdata->criteria, i, zone_table[i].number);
+      }
+    }
+
+    if (!bdata->criteria && (!*arg || !isdigit(*arg)))
     {
       send_to_char_f(ch, "&+W'%s' is not a valid criteria.  Please enter a number.&n\r\n", arg);
       return FALSE;
     }
-    bdata->criteria = atof(arg);
+    
+    if (!bdata->criteria)
+      bdata->criteria = atof(arg);
     
     if ((bdata->option == BOPT_MOB ||
 	 bdata->option == BOPT_RACE) &&
@@ -936,6 +978,8 @@ int parse_boon_args(P_char ch, BoonData *bdata, char *argument)
 	      send_to_char_f(ch, "&+W'%d' is an invalid criteria.  Zone does not exist.&n\r\n", (int)bdata->criteria);
 	    if (retval == 2)
 	      send_to_char("&+WThat zone is already complete.&n\r\n", ch);
+	    if (retval == 3)
+	      send_to_char("&+WThat is not an epic zone.&n\r\n", ch);
 	    break;
 	  }
 	case BOPT_MOB:
@@ -1782,8 +1826,8 @@ int create_boon_shop_entry(BoonShop *bshop)
     return FALSE;
   }
 
-  if (!qry("INSERT into boon_shops (pid, points, stats, cash) VALUES (%d, %d, %d, %d)",
-	bshop->pid, bshop->points, bshop->stats, bshop->cash))
+  if (!qry("INSERT into boon_shops (pid, points, stats) VALUES (%d, %d, %d)",
+	bshop->pid, bshop->points, bshop->stats))
   {
     return FALSE;
   }
@@ -2121,7 +2165,7 @@ void check_boon_completion(P_char ch, P_char victim, double data, int option)
     sprintf(buff, " AND (criteria = '%d' OR criteria = '0')", GET_LEVEL(ch));
   else if (option == BOPT_MOB &&
            IS_NPC(victim))
-    sprintf(buff, " AND (criteria2 = '%d')", GET_RNUM(victim));
+    sprintf(buff, " AND (criteria2 = '%d')", GET_VNUM(victim));
   else if (option == BOPT_RACE &&
            (IS_NPC(victim) ||
 	    racewar(ch, victim)))
@@ -2262,11 +2306,11 @@ void check_boon_completion(P_char ch, P_char victim, double data, int option)
       case BTYPE_CASH:
 	{
 	  boon_notify(bdata.id, ch, BN_COMPLETE);
-	  send_to_char_f(ch, "You receive %s&n.\r\n", coin_stringv(bdata.bonus));
-	  GET_PLATINUM(ch) += (bdata.bonus / 1000);
-	  GET_GOLD(ch) += (((int)bdata.bonus % 1000) / 100);
-	  GET_SILVER(ch) += ((((int)bdata.bonus % 1000) % 100) / 10);
-	  GET_COPPER(ch) += ((((int)bdata.bonus % 1000) % 100) % 10);
+	  send_to_char_f(ch, "Your bank receives a deposit of %s&n.\r\n", coin_stringv(bdata.bonus));
+	  GET_BALANCE_PLATINUM(ch) += (bdata.bonus / 1000);
+	  GET_BALANCE_GOLD(ch) += (((int)bdata.bonus % 1000) / 100);
+	  GET_BALANCE_SILVER(ch) += ((((int)bdata.bonus % 1000) % 100) / 10);
+	  GET_BALANCE_COPPER(ch) += ((((int)bdata.bonus % 1000) % 100) % 10);
 	  break;
 	}
       case BTYPE_LEVEL:
