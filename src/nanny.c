@@ -1815,7 +1815,7 @@ bool _parse_name(char *arg, char *name)
   if (strlen(arg) > 12)         /* max name size */
     return TRUE;
 
-  if (strlen(arg) < 2)          /* min name size */
+  if (strlen(arg) < 4)          /* min name size */
     return TRUE;
 
   for (i = 0; i < strlen(arg); i++)
@@ -1919,7 +1919,7 @@ bool valid_password(P_desc d, char *arg)
 
 
 /*
- * Turn on echoing (sepcific to telnet client)
+ * Turn on echoing (specific to telnet client)
  * Turn on echoing after echo has been turned off by "echo_off".  This
  * function only works if the player is using a telnet client since
  * it sends it TELNET protocol sequence to turn echo on.  "sock" is
@@ -2422,7 +2422,7 @@ void enter_game(P_desc d)
   }
 
   // chaos - level them up, and setbit hardcore off them!
-#if defined(CHAOS_MUD) && (CHAOS_MUD == 1)
+#if defined(CHAOS_MUD) && (CHAOS_MUD == 1) && (CTF_MODE == 0)
   // setbit hardcore  off
   REMOVE_BIT(ch->specials.act2, PLR2_HARDCORE_CHAR);
   // if not trusted, make sure they are level 55
@@ -3130,8 +3130,6 @@ void select_pwd(P_desc d, char *arg)
       return;
     }
     echo_on(d);
-
-	// send to "are you a newbie on duris?" question
 	SEND_TO_Q("\r\nAre you new to the World of Duris? (y/n) ", d);
 	STATE(d) = CON_NEWBIE;
 /*    SEND_TO_Q(racetable, d);
@@ -3535,7 +3533,7 @@ void select_race(P_desc d, char *arg)
   case 'T':
     strcpy(Gbuf, "SWAMP TROLL");
     break;
-  case 'f':
+/*  case 'f':
     GET_RACE(d->character) = RACE_HALFELF;
     break;
   case 'F':
@@ -3547,7 +3545,7 @@ void select_race(P_desc d, char *arg)
   case 'I':
     strcpy(Gbuf, "ILLITHID");
     break;
-    /*   case 'i':
+       case 'i':
        GET_RACE(d->character) = RACE_ILLITHID;
        break;
        case 'I':                                     REMOVED ILLITHIDS
@@ -3586,12 +3584,12 @@ void select_race(P_desc d, char *arg)
   case 'V':
     strcpy(Gbuf, "GOBLIN");
     break;
-  case 'c':
+/*  case 'c':
     GET_RACE(d->character) = RACE_CENTAUR;
     break;
   case 'C':
     strcpy(Gbuf, "CENTAUR");
-    break;
+    break; */
   case 's':
     GET_RACE(d->character) = RACE_MINOTAUR;
     break;
@@ -3599,14 +3597,14 @@ void select_race(P_desc d, char *arg)
     strcpy(Gbuf, "MINOTAUR");
     break;
   case 'p':
-    GET_RACE(d->character) = RACE_FIRBOLG;
+    GET_RACE(d->character) = RACE_OROG;
     break;
   case 'P':
-    strcpy(Gbuf, "FIRBOLG");
+    strcpy(Gbuf, "OROG");
     break;
-  case 'w':
+/*  case 'w':
     GET_RACE(d->character) = RACE_WOODELF;
-    break;
+    break;  
   case 'W':
     strcpy(Gbuf, "WOOD ELF");
     break;
@@ -3628,7 +3626,7 @@ void select_race(P_desc d, char *arg)
   case '#':
     strcpy(Gbuf, "KUO TOA");
     break;
-    /*   
+       // RACEWAR 3 RACES, if RACEWAR 3 is ever opened
        case '1':
        GET_RACE(d->character) = RACE_PLICH;
        break;
