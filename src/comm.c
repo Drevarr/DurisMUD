@@ -52,6 +52,7 @@
 #include "guildhall.h"
 #include "outposts.h"
 #include "boon.h"
+#include "ctf.h"
 
 /* external variables */
 
@@ -384,10 +385,7 @@ void run_the_game(int port)
   fprintf(stderr, "-- Loading alliances\r\n");
   load_alliances();
   
-#if CTF_MODE
-  fprintf(stderr, "-- CTF MODE engaged\r\n");
-  init_CTF();
-#endif
+  init_ctf();
 
   loadHints();
   epic_initialization();
@@ -704,6 +702,9 @@ void game_loop(int s)
       else if (IS_AFFECTED2(t_ch, AFF2_SLOW) && !IS_TRUSTED(t_ch) &&
                (pulse % 2) && !GET_CLASS(t_ch, CLASS_MONK))
         continue;
+      else if (affected_by_spell(t_ch, TAG_CTF) && !IS_TRUSTED(t_ch) &&
+	       (pulse % (int)get_property("ctf.slowness", 3)))
+	continue;
 
       /* check for hella long wait time here..  bandaid solution but it should (sort of) work */
 

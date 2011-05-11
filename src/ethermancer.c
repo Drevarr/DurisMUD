@@ -17,6 +17,7 @@
 #include "map.h"
 #include "disguise.h"
 #include "graph.h"
+#include "ctf.h"
 
 extern P_index obj_index;
 extern P_char character_list;
@@ -547,6 +548,14 @@ void spell_windwalk(int level, P_char ch, char *arg, int type, P_char victim,
          FALSE, ch, 0, tmp, TO_VICT);
     send_to_char(buf, tmp);
   }
+
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+    if (ctf_carrying_flag(ch) == CTF_PRIMARY)
+    {
+      send_to_char("You can't carry that with you.\r\n", ch);
+      drop_ctf_flag(ch);
+    }
+#endif
 
   char_from_room(ch);
   char_to_room(ch, location, -1);
@@ -2085,6 +2094,14 @@ void spell_ethereal_travel(int level, P_char ch, char *arg, int type,
     // if they're fighting, break it up
     if (IS_FIGHTING(ch))
       stop_fighting(ch);
+
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+    if (ctf_carrying_flag(ch) == CTF_PRIMARY)
+    {
+      send_to_char("You can't carry that with you.\r\n", ch);
+      drop_ctf_flag(ch);
+    }
+#endif
 
     // move the char
     char_from_room(ch);

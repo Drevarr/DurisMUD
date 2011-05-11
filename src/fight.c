@@ -44,6 +44,7 @@
 #include "dreadlord.h"
 #include "outposts.h"
 #include "boon.h"
+#include "ctf.h"
 
 /*
  * external variables
@@ -811,7 +812,6 @@ void AddFrags(P_char ch, P_char victim)
         if (IS_ILLITHID(tch))
           illithid_advance_level(tch);
 
-	debug("Someone died2");
 	check_boon_completion(tch, victim, ((double)real_gain/100), BOPT_FRAG);
 	check_boon_completion(tch, victim, ((double)real_gain/100), BOPT_FRAGS);
       }
@@ -2095,6 +2095,16 @@ void die(P_char ch, P_char killer)
     return;
   }
   
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+  if (affected_by_spell(ch, TAG_CTF))
+  {
+    int stat = GET_STAT(ch);
+    SET_POS(ch, GET_POS(ch) + STAT_NORMAL);
+    drop_ctf_flag(ch);
+    SET_POS(ch, GET_POS(ch) + stat);
+  }
+#endif
+  
   for (af = ch->affected; af; af = af->next)
   {
     if(af->type == TAG_RACE_CHANGE)
@@ -2116,7 +2126,7 @@ void die(P_char ch, P_char killer)
   /* count xp gained by killer */
 
   /* make mirror images disappear */
-  if(IS_NPC(ch) &&
+  if(IS_ALIVE(ch) && IS_NPC(ch) &&
     GET_VNUM(ch) == 250)
   {
     act("Upon being struck, $n disappears into thin air.", TRUE, ch, 0, 0, TO_ROOM);
@@ -2261,12 +2271,6 @@ void die(P_char ch, P_char killer)
   {
     death_cry(ch);
   }
-  
-  if (!IS_PC_PET(ch))
-  {
-    check_boon_completion(killer, ch, 0, BOPT_MOB);
-    check_boon_completion(killer, ch, 0, BOPT_RACE);
-  }
 
   // dragon mobs now will drop a dragon scale
   if(GET_RACE(ch) == RACE_DRAGON)
@@ -2328,6 +2332,12 @@ void die(P_char ch, P_char killer)
     //world quest hook
     if((IS_PC(killer) || IS_PC_PET(killer)) && killer->in_room >= 0)
     {
+      if (!IS_PC_PET(ch))
+      {
+	check_boon_completion(killer, ch, 0, BOPT_MOB);
+	check_boon_completion(killer, ch, 0, BOPT_RACE);
+      }
+
       quest_kill(killer , ch);
       if (killer->group)
       {
@@ -2335,6 +2345,12 @@ void die(P_char ch, P_char killer)
         {
           if(killer->group == tmp_ch->group && tmp_ch != killer && tmp_ch != ch)
           {
+	    if (!IS_PC_PET(ch))
+	    {
+	      check_boon_completion(tmp_ch, ch, 0, BOPT_MOB);
+	      check_boon_completion(tmp_ch, ch, 0, BOPT_RACE);
+	    }
+
             quest_kill(tmp_ch , ch);
           }
         }

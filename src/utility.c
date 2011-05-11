@@ -1171,9 +1171,10 @@ int ac_can_see(P_char sub, P_char obj, bool check_z)
   }
 
   /* Object is invisible and subject does not have detect invis */
-  if(IS_AFFECTED(obj, AFF_INVISIBLE) ||
+  if((IS_AFFECTED(obj, AFF_INVISIBLE) ||
     IS_AFFECTED2(obj, AFF2_MINOR_INVIS) ||
-    IS_AFFECTED3(obj, AFF3_ECTOPLASMIC_FORM))
+    IS_AFFECTED3(obj, AFF3_ECTOPLASMIC_FORM)) &&
+    !affected_by_spell(obj, TAG_CTF))
   {
     /* if the fellow is non-detectable you ain't gonna see jack */
 
@@ -1200,7 +1201,7 @@ int ac_can_see(P_char sub, P_char obj, bool check_z)
   if(IS_BLIND(sub))
     return 0;
   
-  if(IS_AFFECTED(obj, AFF_HIDE))// && (obj != sub))
+  if(IS_AFFECTED(obj, AFF_HIDE) && !affected_by_spell(obj, TAG_CTF))// && (obj != sub))
     return 0;
 
   /*
@@ -2143,6 +2144,7 @@ bool aggressive_to(P_char ch, P_char target)
 
     if ((GET_LEVEL(ch) <= (GET_LEVEL(target) - 10)) && \
         has_innate(target, INNATE_UNDEAD_FEALTY) && \
+	!affected_by_spell(ch, TAG_CTF) && \
         !CheckFor_remember(ch, target))
       return FALSE;  // Liches are revered/feared by lower level undead - Jexni 8/18/08
 
