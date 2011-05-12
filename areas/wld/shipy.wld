@@ -898,10 +898,6 @@ D0
 ~
 ~
 0 0 544943
-D1
-~
-~
-0 0 545344
 D2
 ~
 ~
@@ -925,7 +921,7 @@ There is a ship yard to the north.
 D1
 ~
 ~
-0 0 616947
+0 0 267914
 S
 #43141
 &+LThe Spiked &+yGates &+Lof &+rThur'Gurax Port&N~
@@ -1414,6 +1410,10 @@ D1
 ~
 ~
 0 0 43146
+D2
+~
+~
+0 0 268213
 S
 #43161
 &+bThe Ship Yard Harbor&N~
@@ -1674,6 +1674,10 @@ D2
 ~
 ~
 0 0 43168
+D3
+~
+~
+0 0 267912
 S
 #43173
 &+bThe Ship Yard Harbor&N~

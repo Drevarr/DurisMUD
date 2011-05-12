@@ -36,12 +36,16 @@ from the fact that many of the bricks making it up are missing.
 D0
 ~
 ~
-0 0 625367
+0 0 269124
 D2
 The road continues through the troll hills.
 ~
 ~
 0 0 1802
+D3
+~
+~
+0 0 269423
 S
 #1802
 Edge of the Troll Hills~
@@ -594,10 +598,14 @@ The wooden road crosses the deadly fields that way.
 ~
 ~
 0 0 1819
+D1
+~
+~
+0 0 270625
 D2
 ~
 ~
-0 0 626167
+0 0 270924
 E
 sign~
 The sign is written in large black letters, reading:

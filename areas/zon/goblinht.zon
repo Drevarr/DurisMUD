@@ -126,20 +126,20 @@ D 0 70178 3 1 100 0 0 0
 *     "Behind the Altar" - closed
 *
 D 0 70179 0 0 100 0 0 0
-*     north exit from "Amoungst Rows of Seats" to
+*     north exit from "Amongst Rows of Seats" to
 *     "Within a Confessional" - open
 *
 D 0 70181 2 0 100 0 0 0
 *     south exit from "Within a Confessional" to
-*     "Amoungst Rows of Seats" - open
+*     "Amongst Rows of Seats" - open
 *
 D 0 70179 2 0 100 0 0 0
-*     south exit from "Amoungst Rows of Seats" to
+*     south exit from "Amongst Rows of Seats" to
 *     "Within a Confessional" - open
 *
 D 0 70180 0 0 100 0 0 0
 *     north exit from "Within a Confessional" to
-*     "Amoungst Rows of Seats" - open
+*     "Amongst Rows of Seats" - open
 *
 D 0 70182 1 1 100 0 0 0
 *     east exit from "Within the Church Vestibule" to

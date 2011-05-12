@@ -19,11 +19,6 @@ A path continues along the base of the cliff.
 ~
 ~
 0 -1 16903
-D4
-A narrow stone stairway leads up.
-~
-~
-0 -1 154581
 S
 #16501
 &+LOn a Stone Stairway&N~
@@ -9395,7 +9390,7 @@ east and the path heads down past a jagged stone below.
 D0
 ~
 ~
-0 0 568910
+0 0 208320
 D2
 ~
 ~
@@ -9831,7 +9826,7 @@ makes its steep descent, but otherwise this area is quite peaceful and calm.
 D3
 ~
 ~
-0 0 569309
+0 0 208619
 D4
 ~
 ~

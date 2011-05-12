@@ -8870,7 +8870,7 @@ S
 D1
 ~
 ~
-0 0 570424
+0 0 210385
 D3
 ~
 ~
@@ -13747,11 +13747,6 @@ The docks continue south.
 ~
 ~
 0 0 133052
-D3
-A great ocean can be seen in that direction
-~
-~
-0 0 230408
 S
 #133054
 &+BSouthern Pier~
@@ -13785,11 +13780,6 @@ The docks continue north.
 ~
 ~
 0 0 133054
-D2
-A vast ocean can be seen to the south.
-~
-~
-0 0 -1
 S
 #133056
 &+GOutside the Southern City Gates&n~
@@ -13979,7 +13969,7 @@ D0
 D2
 ~
 ~
-0 0 570823
+0 0 210684
 S
 #133065
 Inside the Northern Gates~
@@ -14092,7 +14082,7 @@ north towards the open road.
 D0
 ~
 ~
-0 0 570023
+0 0 210084
 D2
 ~
 ~

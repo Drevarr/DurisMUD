@@ -119,10 +119,10 @@ D 0 23501 4 1 100 0 0 0
 *
 D 0 23546 3 1 100 0 0 0
 *     west exit from "A Closed Path Into the Woods" to
-*     "ve" - closed
+*     "A Golden Field of Wheat" - closed
 *
 D 0 23547 1 1 100 0 0 0
-*     east exit from "ve" to
+*     east exit from "A Golden Field of Wheat" to
 *     "A Closed Path Into the Woods" - closed
 *
 D 0 23550 0 1 100 0 0 0
