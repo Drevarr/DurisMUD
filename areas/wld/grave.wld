@@ -8,14 +8,18 @@ to rot on the south side of the path here.  Exits lead east towards the gate of
 the graveyard, and west away from cemetery.
 ~
 84 33554432 2
+D0
+~
+~
+0 0 250432
 D1
 ~
 ~
 0 0 8401
-D2
+D3
 ~
 ~
-0 0 593389
+0 0 250731
 E
 sign wooden~
 &+yThis small wooden sign reads: "In reverence to our fallen comrades"
@@ -543,7 +547,7 @@ D0
 D1
 ~
 ~
-0 0 592593
+0 0 250736
 D2
 ~
 ~
@@ -2391,7 +2395,7 @@ D3
 0 0 8516
 S
 #8518
-&+LA Coffin Lined Crypt~
+&+LA Partially &+yCollapsed &+LCrypt&n~
    Many generations of a family have been buried in this immense crypt which
 has been constructed under the graveyard.  The sheer darkness in this area is
 overwhelming.  Caskets line the crypt here in four rows, with 3 paths leading
@@ -2404,6 +2408,10 @@ D0
 ~
 ~
 0 0 8515
+D1
+~
+~
+0 0 8604
 D2
 ~
 ~
@@ -4192,4 +4200,22 @@ D2
 ~
 ~
 0 0 8602
+S
+#8604
+&+LOutside the &+yCrumbled &+LWall of the Crypt&n~
+   This narrow passage lies directly behind a dark and coffin lined crypt. Decades of
+neglect caused the walls to collapse into the crypt, opening passage to a &+ynarrow, muddy
+trail&n. Small tufts of dead grass line this seldone used passage. You can see recent
+evidence of activity from the many ghouls and ghasts that re know to roam these haunted
+paths.&n
+~
+84 0 0
+D1
+~
+~
+0 0 14300
+D3
+~
+~
+0 0 8518
 S

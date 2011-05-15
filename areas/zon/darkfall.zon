@@ -7,38 +7,51 @@
 *
 *
 *
-M 0 95300 25 95303 100 0 0 0       * a su-monster
-M 0 95300 25 95304 100 0 0 0       * a su-monster
-M 0 95300 25 95304 100 0 0 0       * a su-monster
-M 0 95300 25 95305 100 0 0 0       * a su-monster
-M 0 95300 25 95307 100 0 0 0       * a su-monster
-M 0 95300 25 95308 100 0 0 0       * a su-monster
-M 0 95300 25 95308 100 0 0 0       * a su-monster
-M 0 95300 25 95309 100 0 0 0       * a su-monster
-M 0 95300 25 95309 100 0 0 0       * a su-monster
-M 0 95300 25 95312 100 0 0 0       * a su-monster
-M 0 95300 25 95316 100 0 0 0       * a su-monster
-M 0 95300 25 95320 100 0 0 0       * a su-monster
-M 0 95300 25 95324 100 0 0 0       * a su-monster
-M 0 95300 25 95326 100 0 0 0       * a su-monster
-M 0 95300 25 95327 100 0 0 0       * a su-monster
-M 0 95300 25 95329 100 0 0 0       * a su-monster
-M 0 95300 25 95334 100 0 0 0       * a su-monster
-M 0 95300 25 95335 100 0 0 0       * a su-monster
-M 0 95300 25 95335 100 0 0 0       * a su-monster
-M 0 95300 25 95336 100 0 0 0       * a su-monster
-M 0 95300 25 95336 100 0 0 0       * a su-monster
-M 0 95300 25 95337 100 0 0 0       * a su-monster
-M 0 95300 25 95337 100 0 0 0       * a su-monster
+M 0 95300 14 95303 100 0 0 0       * a su-monster
+M 0 95305 12 95303 100 0 0 0       * a young su-monster
+M 0 95306 8 95303 100 0 0 0        * a large su-monster
+M 0 95300 14 95304 100 0 0 0       * a su-monster
+M 0 95300 14 95304 100 0 0 0       * a su-monster
+M 0 95306 8 95304 100 0 0 0        * a large su-monster
+M 0 95306 8 95304 100 0 0 0        * a large su-monster
+M 0 95305 12 95304 100 0 0 0       * a young su-monster
+M 0 95305 12 95304 100 0 0 0       * a young su-monster
+M 0 95305 12 95304 100 0 0 0       * a young su-monster
+M 0 95300 14 95305 100 0 0 0       * a su-monster
+M 0 95307 4 95308 100 0 0 0        * a vicious su-monster
+M 0 95307 4 95309 100 0 0 0        * a vicious su-monster
+M 0 95300 14 95312 100 0 0 0       * a su-monster
+M 0 95305 12 95312 100 0 0 0       * a young su-monster
+M 0 95300 14 95316 100 0 0 0       * a su-monster
+M 0 95306 8 95316 100 0 0 0        * a large su-monster
+M 0 95305 12 95316 100 0 0 0       * a young su-monster
+M 0 95300 14 95320 100 0 0 0       * a su-monster
+M 0 95305 12 95322 100 0 0 0       * a young su-monster
+M 0 95305 12 95322 100 0 0 0       * a young su-monster
+M 0 95306 8 95324 100 0 0 0        * a large su-monster
+M 0 95300 14 95326 100 0 0 0       * a su-monster
+M 0 95305 12 95326 100 0 0 0       * a young su-monster
+M 0 95300 14 95327 100 0 0 0       * a su-monster
+M 0 95300 14 95329 100 0 0 0       * a su-monster
+M 0 95305 12 95334 100 0 0 0       * a young su-monster
+M 0 95305 12 95334 100 0 0 0       * a young su-monster
+M 0 95306 8 95334 100 0 0 0        * a large su-monster
+M 0 95307 4 95335 100 0 0 0        * a vicious su-monster
+M 0 95307 4 95336 100 0 0 0        * a vicious su-monster
+M 0 95300 14 95337 100 0 0 0       * a su-monster
+M 0 95300 14 95337 100 0 0 0       * a su-monster
 M 0 95301 1 95339 100 0 0 0        * the su-elder
 E 1 95300 1 9 100 0 0 0            *   some disease covered spiked talons
-M 0 95300 25 95339 100 0 0 0       * a su-monster
+M 0 95300 14 95339 100 0 0 0       * a su-monster
+M 0 95306 8 95339 100 0 0 0        * a large su-monster
+M 0 95306 8 95339 100 0 0 0        * a large su-monster
 M 0 95303 1 95340 100 0 0 0        * Myle, the merchant
 E 1 95302 1 15 100 0 0 0           *   some iron-plated bracers
 M 0 95302 1 95341 100 0 0 0        * Graly, the traveling bard
 E 1 95301 1 18 100 0 0 0           *   a golden lyre
-M 0 95300 25 95344 100 0 0 0       * a su-monster
+M 0 95300 14 95344 100 0 0 0       * a su-monster
 M 0 95304 1 95346 100 0 0 0        * Grellinar, the high ranger
 E 1 95303 1 8 100 0 0 0            *   some boots of forest running
+M 0 95305 12 95347 100 0 0 0       * a young su-monster
 *
 S

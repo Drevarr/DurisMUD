@@ -11,7 +11,7 @@ D 0 71203 0 2 100 0 0 0
 *
 D 0 71204 2 2 100 0 0 0
 *     south exit from "Just Inside the Shield" to
-*     "Decending Into The Valley" - closed/locked
+*     "Descending Into The Valley" - closed/locked
 *
 D 0 71240 5 1 100 0 0 0
 *     down exit from "Dead End In The Burning Barricade" to
@@ -64,8 +64,8 @@ D 0 71282 2 2 100 0 0 0
 *
 O 0 71205 1 71271 100 0 0 0        * an heirloom ring
 O 0 71219 1 71271 100 0 0 0        * a strip of young demon hide
-O 0 71249 1 71275 100 0 0 0        * an abandoned souvenir cart
-P 1 71250 1 71249 100 0 0 0        *   a small souvenir charm of the Nital dragon
+O 0 71249 1 71275 100 0 0 0        * an abandoned souveneir cart
+P 1 71250 1 71249 100 0 0 0        *   a small souveneir charm of the Nital dragon
 O 0 71207 5 71277 100 0 0 0        * a pile of coins
 O 0 71238 1 71283 100 0 0 0        * the temple chest
 P 1 71207 5 71238 100 0 0 0        *   a pile of coins
@@ -96,7 +96,7 @@ M 0 71208 4 71212 100 0 0 0        * an extremely scared bear
 M 0 71203 4 71213 100 0 0 0        * a lieutenant of the heavens
 F 1 71202 12 71213 100 0 0 0       * a soldier of the heavens (following)
 F 1 71202 12 71213 100 0 0 0       * a soldier of the heavens (following)
-M 0 71204 1 71215 100 0 0 0        * a mighty griffin
+M 0 71204 1 71215 100 0 0 0        * a mighty griffon
 M 0 71227 1 71216 100 0 0 0        * a large air elemental
 M 0 71203 4 71218 100 0 0 0        * a lieutenant of the heavens
 F 1 71202 12 71218 100 0 0 0       * a soldier of the heavens (following)
