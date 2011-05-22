@@ -41,6 +41,7 @@ using namespace std;
 #include "grapple.h"
 #include "nexus_stones.h"
 #include "ships.h"
+#include "ctf.h"
 
 /* * external variables */
 
@@ -929,10 +930,11 @@ void show_visual_status(P_char ch, P_char tar_char)
   else
     percent = -1;
 
-  if (IS_NPC(tar_char) && !IS_TRUSTED(ch)) {
-    sprintf(buf, "$N %%s");
-  }
-  else if (!racewar(ch, tar_char) || IS_ILLITHID(ch) || IS_TRUSTED(ch))
+  //if (IS_NPC(tar_char) && !IS_TRUSTED(ch)) {
+  //  sprintf(buf, "$N %%s");
+  //}
+  //else
+  if (!racewar(ch, tar_char) || IS_ILLITHID(ch)/* || IS_TRUSTED(ch)*/)
   {
     sprintf(buf, "$N appears to be %s and %%s",
             GET_RACE(tar_char) ? race_names_table[(int) GET_RACE1(tar_char)].
@@ -1600,6 +1602,18 @@ void show_char_to_char(P_char i, P_char ch, int mode)
           }
         }
       }
+
+#if defined (CTF_MUD) && (CTF_MUD == 1)
+      if ((af = get_spell_from_char(i, TAG_CTF)) != NULL)
+      {
+	if (af->modifier == CTF_FLAG_GOOD)
+	  strcat(buffer, " &+W(&+YFlag&+W)&n");
+	else if (af->modifier == CTF_FLAG_EVIL)
+	  strcat(buffer, " &+W(&+rFlag&+W)&n");
+	else
+	  strcat(buffer, " &+W(&+LFlag&+W)&n");
+      }
+#endif
 
       create_in_room_status(ch, i, buffer);
 
@@ -5027,7 +5041,8 @@ void do_score(P_char ch, char *argument, int cmd)
     for (aff = ch->affected; aff; aff = aff->next)
       if(aff->type &&
          skills[aff->type].name &&
-         aff->type <= LAST_SKILL)
+	 (aff->type <= LAST_SKILL ||
+	  aff->type == TAG_CTF))
       {
         switch (aff->type)
         {
@@ -5108,6 +5123,12 @@ void do_score(P_char ch, char *argument, int cmd)
         }
         last = aff->type - 1;
       }
+    
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+    affected_type *af2;
+    if ((af2 = get_spell_from_char(ch, TAG_CTF_BONUS)) != NULL)
+      sprintf(buf + strlen(buf), "CTF Bonus Level %d", af2->modifier);
+#endif
     
     if(*buf &&
        !affected_by_spell(ch, SPELL_FEEBLEMIND))

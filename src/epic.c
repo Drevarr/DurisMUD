@@ -25,6 +25,7 @@ using namespace std;
 #include "assocs.h"
 #include "nexus_stones.h"
 #include "auction_houses.h"
+#include "boon.h"
 
 extern P_room world;
 extern P_index obj_index;
@@ -582,6 +583,9 @@ void gain_epic(P_char ch, int type, int data, int amount)
     case EPIC_NEXUS_STONE:
       strcpy(type_str, "NEXUS_STONE");
       break;
+    case EPIC_BOON:
+      strcpy(type_str, "BOON");
+      break;
     default:
       strcpy(type_str, "");
       break;
@@ -852,6 +856,7 @@ void epic_free_level(P_char ch)
      }
 
 }
+
 void epic_stone_level_char(P_obj obj, P_char ch)
 {
   if( IS_MULTICLASS_PC(ch) &&
@@ -867,6 +872,10 @@ void epic_stone_level_char(P_obj obj, P_char ch)
   {
     epics_for_level *= (int) get_property("exp.multiEpicMultiplier", 3);
   }
+
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+  epics_for_level = (int)(epics_for_level/3);
+#endif
 
   if( GET_EXP(ch) >= new_exp_table[GET_LEVEL(ch)+1] &&
       ch->only.pc->epics >= epics_for_level )
@@ -923,6 +932,7 @@ void epic_stone_one_touch(P_obj obj, P_char ch, int epic_value)
   {
     epic_stone_level_char(obj, ch);
   }
+  check_boon_completion(ch, NULL, obj->value[2], BOPT_ZONE);
 }
 
 int epic_stone(P_obj obj, P_char ch, int cmd, char *arg)
@@ -1059,8 +1069,8 @@ int epic_stone(P_obj obj, P_char ch, int cmd, char *arg)
       int delta = GET_RACEWAR(ch) == RACEWAR_EVIL ? -1 : 1;
       update_epic_zone_alignment(zone_number, delta);
 
-		  // set completed flag
-		  epic_zone_completions.push_back(epic_zone_completion(zone_number, time(NULL), delta));
+      // set completed flag
+      epic_zone_completions.push_back(epic_zone_completion(zone_number, time(NULL), delta));
       db_query("UPDATE zones SET last_touch='%d' WHERE number='%d'", time(NULL), zone_number);
     }
 
@@ -2054,6 +2064,17 @@ void do_epic(P_char ch, char *arg, int cmd)
     send_to_char("\n", ch);
   }
 
+}
+
+bool epic_zone_done_now(int zone_number)
+{
+	for( vector<epic_zone_completion>::iterator it = epic_zone_completions.begin();
+			 it != epic_zone_completions.end();
+			 it++ )
+	{
+		if( (it->number == zone_number) ) return true;
+	}
+	return false;
 }
 
 bool epic_zone_done(int zone_number)

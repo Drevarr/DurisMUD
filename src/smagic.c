@@ -32,7 +32,7 @@
 #   include "damage.h"
 #   include "disguise.h"
 #   include "graph.h"
-
+#   include "ctf.h"
 
 /*
  * external variables
@@ -4442,6 +4442,14 @@ void spell_spirit_jump(int level, P_char ch, char *arg, int type,
     
     act(buf, FALSE, ch, 0, tmp, TO_VICT);
   }
+
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+    if (ctf_carrying_flag(ch) == CTF_PRIMARY)
+    {
+      send_to_char("You can't carry that with you.\r\n", ch);
+      drop_ctf_flag(ch);
+    }
+#endif
 
   char_from_room(ch);
   char_to_room(ch, location, -1);

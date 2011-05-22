@@ -25,6 +25,7 @@ Updated with warships. Nov08 -Lucrot
 #include "events.h"
 #include "map.h"
 #include "limits.h"
+#include "ctf.h"
 
 extern char buf[MAX_STRING_LENGTH];
 

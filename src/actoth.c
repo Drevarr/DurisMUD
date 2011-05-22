@@ -3781,7 +3781,9 @@ void show_toggles(P_char ch)
           "&+r     Group Needed:&+g %-3s    &+y|&N"
           "&+r     Showspec    :&+g %-3s    &+y|&N\r\n"
 	  "&+r   Web Info    :&+g %-3s    &+y|&N"
-	  "&+r     Show Quests :&+g %-3s    &+y|&N\r\n"
+	  "&+r     Show Quests :&+g %-3s    &+y|&N"
+          "&+rBoon Notification:&+g %-3s    &+y|&N\r\n"
+	  "&+r   Newbie EQ   :&+g %-3s    &+y|&N\r\n"
           "&+y-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
           "-=-=-=-=-=-=-=-=-=-=-=-=-=-&N\r\n",
           ONOFF(!PLR_FLAGGED(ch, PLR_NOTELL)),
@@ -3816,7 +3818,9 @@ void show_toggles(P_char ch)
           ONOFF(PLR2_FLAGGED(ch, PLR2_LGROUP)),
           ONOFF(PLR2_FLAGGED(ch, PLR2_SPEC)),
           ONOFF(PLR2_FLAGGED(ch, PLR2_WEBINFO)),
-	  ONOFF(PLR2_FLAGGED(ch, PLR2_SHOW_QUEST)));
+	  ONOFF(PLR2_FLAGGED(ch, PLR2_SHOW_QUEST)),
+	  ONOFF(PLR2_FLAGGED(ch, PLR2_NEWBIEEQ)),
+	  ONOFF(PLR2_FLAGGED(ch, PLR2_BOON)));
   send_to_char(Gbuf1, send_ch);
 
   if (GET_LEVEL(ch) >= AVATAR)
@@ -3954,6 +3958,8 @@ static const char *toggles_list[] = {
   "webinfo",
   "acc",
   "quest",
+  "boon",
+  "newbie",
   "\n"
 };
 
@@ -4060,7 +4066,11 @@ static const char *tog_messages[][2] = {
   {"You will no longer see the acc channel.\r\n",
    "You will now see the acc channel.\r\n"},
   {"Quest NPC's will no longer show a &+Y(Q)&n.\r\n",
-   "Quest NPC's will show a &+Y(Q)&n.\r\n"}
+   "Quest NPC's will show a &+Y(Q)&n.\r\n"},
+  {"You will no longer see boon notifications.\r\n",
+    "You will now see boon notifications.\r\n"},
+  {"You will not load with newbie EQ when you die.\r\n",
+   "You will now load with newbie EQ when you die.\r\n"}
 };
 
 void do_more(P_char ch, char *arg, int cmd)
@@ -4543,6 +4553,12 @@ void do_toggle(P_char ch, char *arg, int cmd)
     break;
   case 55:
     result = PLR2_TOG_CHK(ch, PLR2_SHOW_QUEST);
+    break;
+  case 56:
+    result = PLR2_TOG_CHK(ch, PLR2_BOON);
+    break;
+  case 57:
+    result = PLR2_TOG_CHK(ch, PLR2_NEWBIEEQ);
     break;
   default:
     break;

@@ -2338,7 +2338,7 @@ void enter_game(P_desc d)
     load_obj_to_newbies(ch);
     set_town_flag_justice(ch, TRUE);
   }
-  else if (GET_LEVEL(ch) <= 3 && !ch->carrying)
+  else if (IS_SET(ch->specials.act2, PLR2_NEWBIEEQ) && !ch->carrying)
     load_obj_to_newbies(ch);
 
   // hack to handle improperly set highest_level
@@ -2421,6 +2421,23 @@ void enter_game(P_desc d)
       }
     }
   }
+
+  // CTF - level them up, and setbit hardcore off them!
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+  // setbit hardcore  off
+  REMOVE_BIT(ch->specials.act2, PLR2_HARDCORE_CHAR);
+  // if not trusted, make sure they are level 55
+  if (GET_LEVEL(ch) == 53)
+  {
+    ch->player.level = 52;  // so they are raised one level, which will fix skills
+  }
+  //while ((GET_LEVEL(ch) < 56 && !IS_MULTICLASS_PC(ch)) || GET_LEVEL(ch) < 51)
+  // changing this to conform with Kitsero's version of chaos
+  while (GET_LEVEL(ch) < 53)
+  {
+    advance_level(ch);
+  }
+#endif
 
   // chaos - level them up, and setbit hardcore off them!
 #if defined(CHAOS_MUD) && (CHAOS_MUD == 1) && (CTF_MODE == 0)

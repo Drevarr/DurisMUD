@@ -36,6 +36,8 @@ using namespace std;
 #include "map.h"
 #include "specializations.h"
 #include "defines.h"
+#include "sql.h"
+#include "mm.h"
 
 /*
  * extern variables
@@ -73,6 +75,8 @@ extern P_index mob_index;
 extern const int rev_dir[];
 extern void event_spellcast(P_char, P_char, P_obj, void *);
 int ship_obj_proc(P_obj obj, P_char ch, int cmd, char *arg);
+extern struct mm_ds *dead_mob_pool;
+extern struct mm_ds *dead_pconly_pool;
 
 char     GS_buf1[MAX_STRING_LENGTH];
 
@@ -1168,9 +1172,10 @@ int ac_can_see(P_char sub, P_char obj, bool check_z)
   }
 
   /* Object is invisible and subject does not have detect invis */
-  if(IS_AFFECTED(obj, AFF_INVISIBLE) ||
+  if((IS_AFFECTED(obj, AFF_INVISIBLE) ||
     IS_AFFECTED2(obj, AFF2_MINOR_INVIS) ||
-    IS_AFFECTED3(obj, AFF3_ECTOPLASMIC_FORM))
+    IS_AFFECTED3(obj, AFF3_ECTOPLASMIC_FORM)) &&
+    !affected_by_spell(obj, TAG_CTF))
   {
     /* if the fellow is non-detectable you ain't gonna see jack */
 
@@ -1183,7 +1188,7 @@ int ac_can_see(P_char sub, P_char obj, bool check_z)
         return 0;
   }
   
-  if(IS_AFFECTED(obj, AFF_HIDE))// && (obj != sub))
+  if(IS_AFFECTED(obj, AFF_HIDE) && !affected_by_spell(obj, TAG_CTF))// && (obj != sub))
     return 0;
 
   /*
@@ -1925,7 +1930,40 @@ bool aggressive_to_race(P_char ch, P_char target)
     if (IS_AGGRO2FLAG(ch, AGGR2_PDKNIGHT) && (GET_RACE1(target) == RACE_PDKNIGHT))
       return TRUE;
 
-    if (IS_AGGRO2FLAG(ch, AGGR2_PSBEAST) && (GET_RACE1(target) == RACE_PSBEAST))
+    if (IS_AGGRO2FLAG(ch, AGGR2_SHADE) && (GET_RACE1(target) == RACE_SHADE))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR2_REVENANT) && (GET_RACE1(target) == RACE_REVENANT))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR2_GITHZERAI) && (GET_RACE1(target) == RACE_GITHZERAI))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_OROG) && (GET_RACE1(target) == RACE_OROG))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_DRIDER) && (GET_RACE1(target) == RACE_DRIDER))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_KOBOLD) && (GET_RACE1(target) == RACE_KOBOLD))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_KUOTOA) && (GET_RACE1(target) == RACE_KUOTOA))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_WOODELF) && (GET_RACE1(target) == RACE_WOODELF))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_FIRBOLG) && (GET_RACE1(target) == RACE_FIRBOLG))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_AGATHINON) && (GET_RACE1(target) == RACE_AGATHINON))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_ELADRIN) && (GET_RACE1(target) == RACE_ELADRIN))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_PILLITHID) && (GET_RACE1(target) == RACE_PILLITHID))
       return TRUE;
 
     return FALSE;
@@ -1973,7 +2011,7 @@ bool aggressive_to_class(P_char ch, P_char target)
     if (IS_AGGRO2FLAG(ch, AGGR2_ROGUE) && GET_CLASS1(target, CLASS_ROGUE))
       return TRUE;
 
-    if(IS_AGGRO2FLAG(ch, AGGR2_ASSASSIN) && GET_SPEC(target, CLASS_ROGUE, SPEC_ASSASSIN))
+    if (IS_AGGRO2FLAG(ch, AGGR2_ASSASSIN) && GET_SPEC(target, CLASS_ROGUE, SPEC_ASSASSIN))
       return TRUE;
     
     if (IS_AGGRO2FLAG(ch, AGGR2_MERCENARY) && GET_CLASS1(target, CLASS_MERCENARY))
@@ -1989,6 +2027,30 @@ bool aggressive_to_class(P_char ch, P_char target)
       return TRUE;
 
     if (IS_AGGRO2FLAG(ch, AGGR2_MINDFLAYER) && GET_CLASS1(target, CLASS_MINDFLAYER))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR2_THEURGIST) && GET_CLASS1(target, CLASS_THEURGIST))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_ALCHEMIST) && GET_CLASS1(target, CLASS_ALCHEMIST))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_BERSERKER) && GET_CLASS1(target, CLASS_BERSERKER))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_REAVER) && GET_CLASS1(target, CLASS_REAVER))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_ILLUSIONIST) && GET_CLASS1(target, CLASS_ILLUSIONIST))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_ETHERMANCER) && GET_CLASS1(target, CLASS_ETHERMANCER))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_DREADLORD) && GET_CLASS1(target, CLASS_DREADLORD))
+      return TRUE;
+
+    if (IS_AGGRO2FLAG(ch, AGGR3_AVENGER) && GET_CLASS1(target, CLASS_AVENGER))
       return TRUE;
 
     return FALSE;
@@ -2054,6 +2116,7 @@ bool aggressive_to(P_char ch, P_char target)
 
     if ((GET_LEVEL(ch) <= (GET_LEVEL(target) - 10)) && \
         has_innate(target, INNATE_UNDEAD_FEALTY) && \
+	!affected_by_spell(ch, TAG_CTF) && \
         !CheckFor_remember(ch, target))
       return FALSE;  // Liches are revered/feared by lower level undead - Jexni 8/18/08
 
@@ -4642,6 +4705,76 @@ P_char find_player_by_name(const char *name)
   }
   
   return NULL;  
+}
+
+// Doesn't have to be logged in
+P_char get_player_from_name(char *name)
+{
+  P_char player;
+
+  player = (struct char_data *) mm_get(dead_mob_pool);
+  player->only.pc = (struct pc_only_data *) mm_get(dead_pconly_pool);
+
+  if (restoreCharOnly(player, skip_spaces(name)) < 0 || !player)
+  {
+    if (player)
+      free_char(player);
+    return NULL;
+  }
+  return player;
+}
+
+// Doesn't have to be logged in
+int get_player_pid_from_name(char *name)
+{
+  P_char player;
+  int pid = 0;
+
+  player = (struct char_data *) mm_get(dead_mob_pool);
+  player->only.pc = (struct pc_only_data *) mm_get(dead_pconly_pool);
+
+  if (restoreCharOnly(player, skip_spaces(name)) < 0 || !player)
+  {
+    if (player)
+      free_char(player);
+    return 0;
+  }
+  if (player)
+  {
+    pid = GET_PID(player);
+    free_char(player);
+  }
+  return pid;
+}
+
+char *get_player_name_from_pid(int pid)
+{
+  static char name[MAX_STRING_LENGTH];
+
+  if (!pid)
+    return NULL;
+
+  if (!qry("SELECT name FROM players_core WHERE pid = '%d'", pid))
+  {
+    debug("get_player_name_from_pid(): cant read from db");
+    return NULL;
+  }
+
+  MYSQL_RES *res = mysql_store_result(DB);
+
+  if (mysql_num_rows(res) < 1)
+  {
+    mysql_free_result(res);
+    return NULL;
+  }
+
+  MYSQL_ROW row = mysql_fetch_row(res);
+
+  sprintf(name, "%s", row[0]);
+ 
+  mysql_free_result(res);
+
+  return name;
 }
 
 sh_int *char_stat(P_char ch, int stat)

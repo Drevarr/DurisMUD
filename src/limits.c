@@ -30,6 +30,8 @@
 #include "alliances.h"
 #include "defines.h"
 #include "nexus_stones.h"
+#include "boon.h"
+#include "ctf.h"
 
 /*
  * external variables
@@ -651,6 +653,8 @@ void advance_level(P_char ch)
 
   affect_total(ch, FALSE);
   update_pos(ch);
+
+  check_boon_completion(ch, NULL, 0, BOPT_LEVEL);
 }
 
 /*
@@ -963,9 +967,6 @@ int exp_mod(P_char k, P_char victim)
   return mod;
 }
 
-
-// DO NOT TOUCH THIS FUNCTION UNLESS YOU KNOW WHAT YOU ARE DOING!!!! 
-// -Lucrot Sep09
 int gain_exp(P_char ch, P_char victim, const int value, int type)
 {
   int goodcap = get_property("exp.level.cap.good", 15);
@@ -1038,14 +1039,17 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
       return 0;
     }
 
-    XP = (XP / (GET_MAX_HIT(victim) + 30)) * GET_EXP(victim); // damaging mob to death summarily yields same exp as kill itself
-                                                              // +30 is + 10 to account for incap damage and + 20 for lowbie mobs with very low hps
+    // damaging mob to death summarily yields same exp as kill itself
+    // +30 is + 10 to account for incap damage and + 20 for lowbie mobs
+    // with very low hps
+    XP = (XP / (GET_MAX_HIT(victim) + 30)) * GET_EXP(victim);
 
     // When someone else is tanking mob you damage, they get tanking exp
     P_char tank = GET_OPPONENT(victim);
     if (tank && tank != ch && IS_PC(tank) && grouped(tank, ch))
     {
-      if (GET_LEVEL(tank) >= GET_LEVEL(ch) - (RACE_GOOD(ch) ? goodcap : evilcap))  // powerleveling stopgap
+      // powerleveling stopgap
+      if (GET_LEVEL(tank) >= GET_LEVEL(ch) - (RACE_GOOD(ch) ? goodcap : evilcap))
       {
         gain_exp(tank, victim, XP, EXP_TANKING);
       }
@@ -1204,7 +1208,9 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
     }
     
 // Hard coding goodie anti-griefing code for hometowns. Oct09 -Lucrot
-    if(IS_PC(ch) &&
+// This is a pure pvp mud.  Learn to intergrate into the pbase.
+/*     
+       if(IS_PC(ch) &&
        IS_PC(victim) &&
        CHAR_IN_TOWN(ch) &&
        GOOD_RACE(ch) &&
@@ -1244,6 +1250,7 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
     }
     else
     {
+    */
       if (!IS_PC(victim))
       {
         XP = XP * get_property("exp.factor.kill", 1.00) ;
@@ -1265,7 +1272,7 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
             "KILL EXP: %s (%d) killed by %s (%d): old exp: %d, new exp: %d, +exp: %d",
             GET_NAME(victim), GET_LEVEL(victim), GET_NAME(ch),
             GET_LEVEL(ch), GET_EXP(ch), GET_EXP(ch) + (int)XP, (int)XP);
-    }
+    //}
     
     if(pvp)
     {
@@ -1283,7 +1290,7 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
     XP = gain_exp_modifiers_race_only(ch, NULL, XP); 
 // debug("quest 1 (%d)", (int)XP);   
   }
-
+  
   int XP_final = (int)XP;
 // debug("check 3 xp (%d)", XP_final);  
   int range = new_exp_table[GET_LEVEL(ch) + 1] / 3;
@@ -1323,6 +1330,14 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
     }
   }
   
+  // Check boon exp modifier
+  if (type != EXP_BOON &&
+      type != EXP_DEATH &&
+      type != EXP_RESURRECT)
+    check_boon_completion(ch, victim, (int)XP, BOPT_NONE);
+  if (type == EXP_KILL)
+    check_boon_completion(ch, victim, (int)XP, BOPT_RACE);
+
 // debug("Gain exps final return (%d).", XP_final);
   return XP_final;
 }
@@ -1454,7 +1469,17 @@ void point_update(void)
 
     if (i->specials.timer > 3)
       if (!IS_SET(i->specials.act, PLR_AFK))
+      {
         SET_BIT(i->specials.act, PLR_AFK);
+#if defined (CTF_MUD) && (CTF_MUD == 1)
+	if (affected_by_spell(i, TAG_CTF))
+	{
+	  send_to_char("You're idling has caused you to forget about the flag.\r\n", i);
+	  while (affected_by_spell(i, TAG_CTF))
+	    drop_ctf_flag(i);
+	}
+#endif
+      }
 
     if ((i->specials.timer > 15) &&
         ((GET_LEVEL(i) <= 56) || ((!i->desc) && (GET_LEVEL(i) > 58))))

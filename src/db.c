@@ -1917,7 +1917,7 @@ P_char read_mobile(int nr, int type)
   P_char   mob = NULL;
   char     Gbuf1[MAX_STRING_LENGTH], buf[MAX_INPUT_LENGTH], letter = 0;
   int      foo, bar, i, j;
-  long     tmp, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, tmp7, tmp8;
+  long     tmp, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, tmp7, tmp8, tmp9;
   static int idnum = 0;
 
   i = nr;
@@ -2035,12 +2035,28 @@ P_char read_mobile(int nr, int type)
 
   fgets(buf, sizeof(buf) - 1, mob_f);
   if (sscanf
+      (buf, " %u %u %u %u %u %u %u %u %u %c \n", &tmp1, &tmp7, &tmp8, &tmp9,
+       &tmp2, &tmp3, &tmp4, &tmp5, &tmp6, &letter) == 10)
+  {
+    mob->specials.act = tmp1;
+    mob->only.npc->aggro_flags = tmp7;
+    mob->only.npc->aggro2_flags = tmp8;
+    mob->only.npc->aggro3_flags = tmp9;
+    mob->specials.affected_by = tmp2;
+    mob->specials.affected_by2 = tmp3;
+    mob->specials.affected_by3 = tmp4;
+    mob->specials.affected_by4 = tmp5;
+    mob->specials.affected_by5 = 0;
+    mob->specials.alignment = tmp6;
+  }
+  else if (sscanf
       (buf, " %lu %lu %lu %lu %lu %lu %lu %lu %c \n", &tmp1, &tmp7, &tmp8,
        &tmp2, &tmp3, &tmp4, &tmp5, &tmp6, &letter) == 9)
   {
     mob->specials.act = tmp1;
     mob->only.npc->aggro_flags = tmp7;
     mob->only.npc->aggro2_flags = tmp8;
+    mob->only.npc->aggro3_flags = 0;
     mob->specials.affected_by = tmp2;
     mob->specials.affected_by2 = tmp3;
     mob->specials.affected_by3 = tmp4;
@@ -2090,28 +2106,52 @@ P_char read_mobile(int nr, int type)
 
   if (letter == 'S')
   {
-    fscanf(mob_f, " %s ", Gbuf1);
-    mob->player.race = 0;
+    fgets(buf, sizeof(buf) - 1, mob_f);
+    if (sscanf
+	(buf, " %s %i %u %i %i \n", Gbuf1, &tmp, &tmp2, &tmp3, &tmp4) == 5)
+    {
+      mob->player.race = 0;
 
-    /* defaults to RACE_NONE */
-    for (i = 0; (i <= LAST_RACE) && !mob->player.race; i++)
-      if (!str_cmp(race_names_table[i].code, Gbuf1))
-        mob->player.race = i;
+      /* defaults to RACE_NONE */
+      for (i = 0; (i <= LAST_RACE) && !mob->player.race; i++)
+	if (!str_cmp(race_names_table[i].code, Gbuf1))
+	  mob->player.race = i;
+      
+      GET_HOME(mob) = tmp;
+      mob->player.m_class = tmp2;
+      mob->player.spec = tmp3;
+      mob->player.size = tmp4;
+    }
+    else
+    {
+      sscanf(buf, " %s %i %u %i \n", Gbuf1, &tmp, &tmp2, &tmp3);
 
-    fscanf(mob_f, " %ld ", &tmp);
-    GET_HOME(mob) = tmp;
+      mob->player.race = 0;
 
-    fscanf(mob_f, " %lu ", &tmp);
-//    GET_CLASS(mob) = tmp;
-    mob->player.m_class = tmp;
-
-    fscanf(mob_f, " %ld \n ", &tmp);
-    mob->player.size = tmp;
-
+      /* defaults to RACE_NONE */
+      for (i = 0; (i <= LAST_RACE) && !mob->player.race; i++)
+	if (!str_cmp(race_names_table[i].code, Gbuf1))
+	  mob->player.race = i;
+      
+      GET_HOME(mob) = tmp;
+      mob->player.m_class = tmp2;
+      mob->player.size = tmp3;
+    }
     /* The new easy monsters */
     fscanf(mob_f, " %ld ", &tmp);
 //    GET_LEVEL(mob) = tmp;
     mob->player.level = tmp;
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+    if (!IS_SET(mob->specials.act, ACT_ELITE))
+      mob->player.level = MAX(1, (int)(mob->player.level/2));
+
+    if (IS_SET(mob->specials.act, ACT_ELITE))
+      mob->player.level -= number(10, 20);
+    
+    if (IS_SET(mob->specials.act, ACT_TEACHER) ||
+	IS_SET(mob->specials.act, ACT_SPEC_TEACHER))
+      mob->player.level = 56;
+#endif
 
 /*
  * The following initialises the # of spells useable for NPCs in a given
@@ -2480,6 +2520,18 @@ P_char read_mobile(int nr, int type)
 //    GET_LEVEL(mob) = tmp;
     mob->player.level = tmp;
 
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+    if (!IS_SET(mob->specials.act, ACT_ELITE))
+      mob->player.level = (int)(mob->player.level/2);
+
+    if (IS_SET(mob->specials.act, ACT_ELITE))
+      mob->player.level -= number(5, 15);
+    
+    if (IS_SET(mob->specials.act, ACT_TEACHER) ||
+	IS_SET(mob->specials.act, ACT_SPEC_TEACHER))
+      mob->player.level = 56;
+#endif
+
     fscanf(mob_f, " %ld ", &tmp);
     mob->player.time.birth = time(0);
     mob->player.time.played = 0;
@@ -2747,6 +2799,7 @@ P_obj read_object(int nr, int type)
     skip_fread(obj_f);
     obj->action_description = obj_index[nr].desc3;
   }
+  obj->str_mask = 0;
 
   /* *** numeric data *** */
 
@@ -3858,6 +3911,8 @@ void free_obj(P_obj obj)
 
   if ((obj->str_mask & STRUNG_DESC3) && obj->action_description)
     str_free(obj->action_description);
+
+  obj->str_mask = 0;
 
   for (th = obj->ex_description; th; th = next_one)
   {

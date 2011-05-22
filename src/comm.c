@@ -51,6 +51,8 @@
 #include "profile.h"
 #include "guildhall.h"
 #include "outposts.h"
+#include "boon.h"
+#include "ctf.h"
 
 /* external variables */
 
@@ -383,6 +385,8 @@ void run_the_game(int port)
   fprintf(stderr, "-- Loading alliances\r\n");
   load_alliances();
   
+  init_ctf();
+
   loadHints();
   epic_initialization();
   time_after = clock();
@@ -698,6 +702,9 @@ void game_loop(int s)
       else if (IS_AFFECTED2(t_ch, AFF2_SLOW) && !IS_TRUSTED(t_ch) &&
                (pulse % 2) && !GET_CLASS(t_ch, CLASS_MONK))
         continue;
+      else if (affected_by_spell(t_ch, TAG_CTF) && !IS_TRUSTED(t_ch) &&
+	       (pulse % (int)get_property("ctf.slowness", 3)))
+	continue;
 
       /* check for hella long wait time here..  bandaid solution but it should (sort of) work */
 
@@ -813,6 +820,9 @@ void game_loop(int s)
       epic_zone_balance();
       outposts_upkeep();
     }
+
+    if (!(pulse % WAIT_SEC))
+      boon_maintenance();
 
     PROFILE_END(activities);
 
@@ -3111,7 +3121,7 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj,
   P_char   to, vict;
   bool     found;
   char     buf[MAX_STRING_LENGTH], tbuf[MAX_STRING_LENGTH];
-  char     mybuf[MAX_STRING_LENGTH];
+  char     mybuf[MAX_STRING_LENGTH], tbuf2[MAX_STRING_LENGTH];
   int      mycheck;
   int      j, tbp, skip, which_z, sil = type & ACT_SILENCEABLE;
   bool ig_zc = type & ACT_IGNORE_ZCOORD;
@@ -3360,7 +3370,7 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj,
                     skip = 2;
                   else if (*(i + 1) == '=')
                     skip = 3;
-                }
+		}
 
                 // a and an
 
@@ -3500,8 +3510,45 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj,
           }
 
           if (i)
-            while (*(i + j))
+	  {
+	    // Making it so we don't get A or An in the middle of a sentence!
+            *tbuf2 = '\0';
+            tbp = 0;
+	    for (; *i; i++)
+	    {
+	      found = FALSE;
+	      // a and an
+	      if (!found && (*i == 'A') && (*(i + 1)))
+	      {
+		if (*(i + 1) == ' ')
+		  found = TRUE;
+		if ((LOWER(*(i + 1)) == 'n') && *(i + 2) &&
+		    (*(i + 2) == ' '))
+		  found = TRUE;
+	      }
+
+	      // the
+	      if (!found && (*i == 'T'))
+		if ((LOWER(*(i + 1)) == 'h') && (LOWER(*(i + 2)) == 'e') &&
+		    (*(i + 3) == ' '))
+		  found = TRUE;
+
+	      // some
+	      if (!found && (*i == 'S') && (LOWER(*(i + 1)) == 'o')
+		  && (LOWER(*(i + 2)) == 'm') && (LOWER(*(i + 3)) == 'e') &&
+		  (LOWER(*(i + 4)) == ' '))
+		found = TRUE;
+	      if (found)
+		tbuf2[tbp++] = LOWER(*i);
+	      else
+		tbuf2[tbp++] = *i;
+            }
+            tbuf2[tbp++] = 0;
+            i = tbuf2;
+	    
+	    while (*(i + j))
               *(point++) = *(i + j++);
+	  }
 
           ++strp;
         }

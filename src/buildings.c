@@ -18,6 +18,7 @@
 #include "assocs.h"
 #include "outposts.h"
 #include "events.h"
+#include "ctf.h"
 
 extern P_room world;
 extern P_index mob_index;
@@ -394,7 +395,15 @@ int building_mob_proc(P_char ch, P_char pl, int cmd, char *arg)
            
     if( !building->rooms[0]->number )
       return FALSE;
-  
+ 
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+    if (ctf_carrying_flag(pl) == CTF_PRIMARY)
+    {
+      send_to_char("You can't carry that with you.\r\n", pl);
+      drop_ctf_flag(pl);
+    }
+#endif
+
     act("You enter $N.", TRUE, pl, 0, tmob, TO_CHAR);
     act("$n enters $N.", TRUE, pl, 0, tmob, TO_NOTVICT);
 

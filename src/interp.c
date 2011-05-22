@@ -47,6 +47,8 @@
 #include "guildhall.h"
 #include "outposts.h"
 #include "buildings.h"
+#include "boon.h"
+#include "ctf.h"
 
 /*
  * external variables
@@ -1045,6 +1047,8 @@ const char *command[] = {
   "whitelist",            /* 800 */
   "epicreset",
   "focus",
+  "boon",
+  "ctf",
   "garrote",
   "\n"                          /* MAX_CMD_LIST is now 1000 */
 };
@@ -2223,6 +2227,7 @@ void assign_command_pointers(void)
   CMD_N(CMD_QUIT, STAT_DEAD + POS_PRONE, do_camp, 0);
   CMD_Y(CMD_BERSERK, STAT_NORMAL + POS_STANDING, do_berserk, 0);
   CMD_CNF_N(CMD_SUICIDE, STAT_DEAD, do_suicide, 1);
+
   /*
    * level restricted commands
    */
@@ -2561,6 +2566,8 @@ void assign_command_pointers(void)
   CMD_N(CMD_OUTPOST, STAT_RESTING + POS_PRONE, do_outpost, 0);
   CMD_Y(CMD_OFFENSIVE, STAT_RESTING + POS_PRONE, do_offensive, 0);
   CMD_Y(CMD_FOCUS, STAT_RESTING + POS_KNEELING, do_assimilate, 0);
+  CMD_Y(CMD_BOON, STAT_SLEEPING + POS_PRONE, do_boon, 0);
+  CMD_Y(CMD_CTF, STAT_NORMAL + POS_STANDING, do_ctf, 0);
   CMD_Y(CMD_GARROTE, STAT_NORMAL + POS_STANDING, do_garrote, 0);
 
   /*

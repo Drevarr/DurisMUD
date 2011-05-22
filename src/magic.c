@@ -41,6 +41,7 @@
 #include "sql.h"
 #include "graph.h"
 #include "outposts.h"
+#include "ctf.h"
 
 /*
  * external variables
@@ -4635,6 +4636,14 @@ void spell_dimension_door(int level, P_char ch, char *arg, int type,
     send_to_char(buf, tmp);
   }
 
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+    if (ctf_carrying_flag(ch) == CTF_PRIMARY)
+    {
+      send_to_char("You can't carry that with you.\r\n", ch);
+      drop_ctf_flag(ch);
+    }
+#endif
+
   char_from_room(ch);
   char_to_room(ch, location, -1);
 
@@ -4749,6 +4758,14 @@ void spell_relocate(int level, P_char ch, char *arg, int type, P_char victim,
     FALSE, ch, 0, 0, TO_ROOM);
   act("&+WYou start to become less solid, then fade into nothing!",
     FALSE, ch, 0, 0, TO_CHAR);
+
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+    if (ctf_carrying_flag(ch) == CTF_PRIMARY)
+    {
+      send_to_char("You can't carry that with you.\r\n", ch);
+      drop_ctf_flag(ch);
+    }
+#endif
 
   char_from_room(ch);
   char_to_room(ch, victim->in_room, -1);
@@ -4956,6 +4973,13 @@ void spell_teleport(int level, P_char ch, char *arg, int type, P_char victim,
       if(IS_FIGHTING(t_ch) && (t_ch->specials.fighting == vict))
         stop_fighting(t_ch);
   if(vict->in_room != to_room) {
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+    if (ctf_carrying_flag(ch) == CTF_PRIMARY)
+    {
+      send_to_char("You can't carry that with you.\r\n", ch);
+      drop_ctf_flag(ch);
+    }
+#endif
     char_from_room(vict);
     char_to_room(vict, to_room, -1);
   }
@@ -7780,6 +7804,14 @@ void spell_word_of_recall(int level, P_char ch, char *arg, int type,
 
   logit(LOG_RECALL, "WORD OF RECALL: (%s) recalled from [%d].",
     GET_NAME(victim), world[victim->in_room].number);
+
+#if defined(CTF_MUD) && (CTF_MUD == 1)
+    if (ctf_carrying_flag(ch) == CTF_PRIMARY)
+    {
+      send_to_char("You can't carry that with you.\r\n", ch);
+      drop_ctf_flag(ch);
+    }
+#endif
 
   char_from_room(victim);
   
@@ -17012,7 +17044,6 @@ void spell_immolate(int level, P_char ch, char *arg, int type, P_char victim,
     if(IS_ALIVE(victim) &&
       (spell_damage(ch, victim, (int) GET_LEVEL(ch) * 4 + number(4, 20), SPLDAM_FIRE, SPLDAM_NODEFLECT, NULL) == DAM_NONEDEAD));
     {
-      debug("adding event");
       if(ch &&
         IS_ALIVE(victim)) // Adding another check.
       {
