@@ -1652,7 +1652,7 @@ P_char morph(P_char ch, int rnum, int mode)
    */
   if (!is_avatar)
   {
-    mob->points.base_armor = 0 - (GET_LEVEL(mob) * 4);
+    mob->points.base_armor = 100 - (GET_LEVEL(mob) * 4);
     mob->points.base_hitroll = mob->points.hitroll = GET_LEVEL(mob) / 4;
     mob->points.base_damroll = mob->points.damroll = GET_LEVEL(mob) / 5;
     MonkSetSpecialDie(mob);

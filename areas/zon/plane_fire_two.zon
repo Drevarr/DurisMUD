@@ -456,17 +456,17 @@ D 0 139351 3 1 100 0 0 0
 *
 O 0 139126 1 139027 100 0 0 0      * A MASSIVE FURNACE
 O 0 48012 1 139063 100 0 0 0       * (object type not in this .obj file)
-O 0 2097 30 139095 100 0 0 0       * (object type not in this .obj file)
 O 0 139033 1 139241 100 0 0 0      * a quartz crystal
 O 0 139030 1 139246 100 0 0 0      * a Flame
 O 0 139132 1 139252 100 0 0 0      * a fountain of flames
 O 0 139020 1 139313 100 0 0 0      * a pile of platinum coins
 O 0 60 1 139313 100 0 0 0          * (object type not in this .obj file)
-O 0 139019 1 139335 80 0 0 0       * a shield of dancing flames
+O 0 139019 1 139335 60 0 0 0       * a shield of dancing flames
 O 0 139134 1 139335 100 0 0 0      * chief of the guard's armoire
 P 1 67244 1 139134 100 0 0 0       *   (object type not in this .obj file)
-O 0 139090 1 139335 80 0 0 0       * a ring of fire protection
-O 0 139039 1 139335 80 0 0 0       * a fiery cloak
+O 0 139090 1 139335 60 0 0 0       * a ring of fire protection
+O 0 139039 1 139335 60 0 0 0       * a fiery cloak
+O 0 139049 1 139335 60 0 0 0       * a pair of fiery boots
 *
 M 0 25400 2 139000 100 0 0 0       * (mob type not in this .mob file)
 M 0 25400 2 139000 100 0 0 0       * (mob type not in this .mob file)
@@ -516,14 +516,13 @@ M 0 139090 47 139022 100 0 0 0     * an efreeti commoner
 M 0 139054 37 139022 100 0 0 0     * a guard member of the Illuminated
 M 0 139061 2 139022 100 0 0 0      * an illithid slaver
 E 1 139061 1 1 100 0 0 0           *   a finger band made from an illithids tentacle
-M 0 139090 47 139023 100 0 0 0     * an efreeti commoner
 M 0 139121 1 139024 100 0 0 0      * an efreeti armorer
 G 1 82416 1 0 80 0 0 0             *    (object type not in this .obj file)
-G 1 139123 1 0 80 0 0 0            *    a suit of fire salamander scalemail
 G 1 3532 1 0 60 0 0 0              *    (object type not in this .obj file)
 G 1 3524 1 0 40 0 0 0              *    (object type not in this .obj file)
 G 1 139124 1 0 50 0 0 0            *    a glass ring filled with the essence of a smoke mephit
 G 1 139125 1 0 80 0 0 0            *    quartz crystal leg plates
+G 1 139123 1 0 70 0 0 0            *    a suit of fire salamander scalemail
 M 0 139074 5 139024 100 0 0 0      * a large fire elemental
 M 0 139122 1 139025 100 0 0 0      * an efreeti weapon-smith
 G 1 139120 2 0 70 0 0 0            *    a flaming two-handed hammer
@@ -532,13 +531,24 @@ G 1 139121 1 0 60 0 0 0            *    a flaming demon claw club
 G 1 139003 1 0 60 0 0 0            *    a holy flaming mace
 G 1 139122 1 0 65 0 0 0            *    a two-handed mithril sword with a spiked pommel
 M 0 139078 1 139026 100 0 0 0      * Oto Glittermaker
+G 1 19127 1 0 80 0 0 0             *    (object type not in this .obj file)
+G 1 37144 1 0 70 0 0 0             *    (object type not in this .obj file)
+G 1 12426 1 0 40 0 0 0             *    (object type not in this .obj file)
+G 1 139148 1 0 80 0 0 0            *    a tin toy box
 M 0 139054 37 139027 100 0 0 0     * a guard member of the Illuminated
 M 0 139054 37 139027 100 0 0 0     * a guard member of the Illuminated
+M 0 139090 47 139027 100 0 0 0     * an efreeti commoner
 M 0 139079 1 139028 100 0 0 0      * Hutzparoon the mason
+G 1 87011 1 0 60 0 0 0             *    (object type not in this .obj file)
+G 1 85716 1 0 70 0 0 0             *    (object type not in this .obj file)
+G 1 83469 1 0 60 0 0 0             *    (object type not in this .obj file)
+G 1 1604 1 0 100 0 0 0             *    (object type not in this .obj file)
 M 0 139076 1 139029 100 0 0 0      * Hellspiniger the unjust
 G 1 139118 1 0 80 0 0 0            *    a saddle with flaming medal decore
 G 1 139119 1 0 70 0 0 0            *    bronze-made barding with spikes
 G 1 120047 1 0 60 0 0 0            *    (object type not in this .obj file)
+G 1 139147 1 0 60 0 0 0            *    a brass tail ring with two dangling rubies
+G 1 37142 1 0 50 0 0 0             *    (object type not in this .obj file)
 M 0 139077 1 139030 100 0 0 0      * Lucky Lokke
 G 1 97 1 0 70 0 0 0                *    (object type not in this .obj file)
 G 1 96 1 0 70 0 0 0                *    (object type not in this .obj file)
@@ -591,14 +601,14 @@ M 0 139054 37 139047 100 0 0 0     * a guard member of the Illuminated
 M 0 139069 2 139048 100 0 0 0      * a djinni
 E 1 139046 2 21 100 0 0 0          *   a large polished pearl stud
 M 0 139105 45 139049 100 0 0 0     * an efreeti commoner
-M 0 139100 60 139050 100 0 0 0     * an efreeti noble
-M 0 139100 60 139051 100 0 0 0     * an efreeti noble
-M 0 139100 60 139052 100 0 0 0     * an efreeti noble
-M 0 139100 60 139053 100 0 0 0     * an efreeti noble
-M 0 139100 60 139053 100 0 0 0     * an efreeti noble
-M 0 139100 60 139054 100 0 0 0     * an efreeti noble
-M 0 139100 60 139054 100 0 0 0     * an efreeti noble
-M 0 139100 60 139055 100 0 0 0     * an efreeti noble
+M 0 139100 13 139050 100 0 0 0     * an efreeti noble
+M 0 139100 13 139051 100 0 0 0     * an efreeti noble
+M 0 139100 13 139052 100 0 0 0     * an efreeti noble
+M 0 139100 13 139053 100 0 0 0     * an efreeti noble
+M 0 139100 13 139053 100 0 0 0     * an efreeti noble
+M 0 139100 13 139054 100 0 0 0     * an efreeti noble
+M 0 139100 13 139054 100 0 0 0     * an efreeti noble
+M 0 139100 13 139055 100 0 0 0     * an efreeti noble
 M 0 139105 45 139056 100 0 0 0     * an efreeti commoner
 M 0 139054 37 139056 100 0 0 0     * a guard member of the Illuminated
 M 0 139071 2 139056 100 0 0 0      * a beautiful succubus
@@ -606,12 +616,11 @@ E 1 139068 6 16 100 0 0 0          *   a brass longsword
 E 1 139068 6 17 100 0 0 0          *   a brass longsword
 E 1 139068 6 25 100 0 0 0          *   a brass longsword
 E 1 139045 2 26 100 0 0 0          *   an ethereal blade scimitar
+M 0 139075 10 139056 100 0 0 0     * an efreeti noble
 M 0 139105 45 139057 100 0 0 0     * an efreeti commoner
 M 0 139054 37 139058 100 0 0 0     * a guard member of the Illuminated
-M 0 139100 60 139059 100 0 0 0     * an efreeti noble
-M 0 139100 60 139059 100 0 0 0     * an efreeti noble
-M 0 139075 10 139060 100 0 0 0     * an efreeti noble
-M 0 139090 47 139061 100 0 0 0     * an efreeti commoner
+M 0 139100 13 139059 100 0 0 0     * an efreeti noble
+M 0 139100 13 139059 100 0 0 0     * an efreeti noble
 M 0 139090 47 139061 100 0 0 0     * an efreeti commoner
 M 0 139075 10 139061 100 0 0 0     * an efreeti noble
 M 0 139090 47 139062 100 0 0 0     * an efreeti commoner
@@ -728,13 +737,14 @@ F 1 139008 2 139125 100 0 0 0      * an efreeti high priestess guard (following)
 F 1 139008 2 139125 100 0 0 0      * an efreeti high priestess guard (following)
 M 0 139002 4 139125 100 0 0 0      * an efreeti templar
 M 0 139002 4 139125 100 0 0 0      * an efreeti templar
+M 0 139090 47 139129 100 0 0 0     * an efreeti commoner
 M 0 139105 45 139130 100 0 0 0     * an efreeti commoner
 M 0 139073 6 139130 100 0 0 0      * a medium fire elemental
 M 0 139090 47 139131 100 0 0 0     * an efreeti commoner
 M 0 139105 45 139131 100 0 0 0     * an efreeti commoner
-M 0 139100 60 139132 100 0 0 0     * an efreeti noble
-M 0 139100 60 139132 100 0 0 0     * an efreeti noble
-M 0 139100 60 139132 100 0 0 0     * an efreeti noble
+M 0 139100 13 139132 100 0 0 0     * an efreeti noble
+M 0 139100 13 139132 100 0 0 0     * an efreeti noble
+M 0 139100 13 139132 100 0 0 0     * an efreeti noble
 M 0 139105 45 139133 100 0 0 0     * an efreeti commoner
 M 0 139090 47 139134 100 0 0 0     * an efreeti commoner
 M 0 139105 45 139135 100 0 0 0     * an efreeti commoner
@@ -748,13 +758,13 @@ M 0 139090 47 139139 100 0 0 0     * an efreeti commoner
 M 0 139105 45 139139 100 0 0 0     * an efreeti commoner
 M 0 139072 2 139140 100 0 0 0      * an Unquenchable
 M 0 139072 2 139140 100 0 0 0      * an Unquenchable
-M 0 43450 5 139142 100 0 0 0       * (mob type not in this .mob file)
+M 0 43540 5 139142 100 0 0 0       * (mob type not in this .mob file)
 M 0 94740 5 139143 100 0 0 0       * (mob type not in this .mob file)
 M 0 94740 5 139146 100 0 0 0       * (mob type not in this .mob file)
-M 0 43450 5 139148 100 0 0 0       * (mob type not in this .mob file)
-M 0 43450 5 139154 100 0 0 0       * (mob type not in this .mob file)
+M 0 43540 5 139148 100 0 0 0       * (mob type not in this .mob file)
+M 0 43540 5 139154 100 0 0 0       * (mob type not in this .mob file)
 M 0 94740 5 139158 100 0 0 0       * (mob type not in this .mob file)
-M 0 43450 5 139164 100 0 0 0       * (mob type not in this .mob file)
+M 0 43540 5 139164 100 0 0 0       * (mob type not in this .mob file)
 M 0 139090 47 139165 100 0 0 0     * an efreeti commoner
 M 0 139090 47 139171 100 0 0 0     * an efreeti commoner
 M 0 139059 2 139171 100 0 0 0      * a mountain dwarf priest
@@ -781,9 +791,6 @@ M 0 139054 37 139179 100 0 0 0     * a guard member of the Illuminated
 M 0 139068 2 139179 100 0 0 0      * a titan resident
 E 1 139048 2 16 100 0 0 0          *   a titan's whip
 M 0 139082 1 139180 100 0 0 0      * efreeti alchemist
-G 1 139103 1 0 65 0 0 0            *    a metal flask marked "battle ecstasy"
-G 1 139104 1 0 65 0 0 0            *    a metal flask marked "full heal"
-G 1 139105 1 0 60 0 0 0            *    a metal flask marked "teleport"
 G 1 139106 1 0 90 0 0 0            *    a metal flask marked "fire ward"
 G 1 139107 1 0 75 0 0 0            *    a metal flask marked "create sound"
 G 1 139108 1 0 65 0 0 0            *    a metal flask marked "molecular control"
@@ -796,6 +803,9 @@ G 1 139114 1 0 60 0 0 0            *    a metal flask marked "wandering woods"
 G 1 139115 1 0 50 0 0 0            *    a metal flask marked "sneaky ways"
 G 1 139116 1 0 65 0 0 0            *    a metal flask marked "healing salve"
 G 1 139117 1 0 40 0 0 0            *    a metal flask marked "blur"
+G 1 139103 1 0 50 0 0 0            *    a metal flask marked "battle ecstasy"
+G 1 139104 1 0 50 0 0 0            *    a metal flask marked "full heal"
+G 1 139105 1 0 50 0 0 0            *    a metal flask marked "teleport"
 M 0 139090 47 139181 100 0 0 0     * an efreeti commoner
 M 0 139065 2 139181 100 0 0 0      * a genasi earthsoul
 M 0 139083 1 139181 100 0 0 0      * Herl the ranger lord
@@ -823,10 +833,10 @@ G 1 67359 999 0 100 0 0 0          *    (object type not in this .obj file)
 M 0 139123 1 139183 100 0 0 0      * Saladeem the efreeti clothier
 G 1 139096 1 0 60 0 0 0            *    a suit of copper dragonskin armor
 G 1 139097 1 0 60 0 0 0            *    a suit of blue dragonskin armor
-G 1 139098 1 0 60 0 0 0            *    a suit of white dragonskin armor
-G 1 139099 1 0 60 0 0 0            *    a ring made from faerie-skin
 G 1 139100 1 0 60 0 0 0            *    a devil-hide bracer with strange markings
 G 1 139101 1 0 80 0 0 0            *    a leather purse made of purple worms larvae
+G 1 139099 1 0 40 0 0 0            *    a ring made from faerie-skin
+G 1 139098 1 0 40 0 0 0            *    a suit of white dragonskin armor
 M 0 139090 47 139184 100 0 0 0     * an efreeti commoner
 M 0 139105 45 139185 100 0 0 0     * an efreeti commoner
 M 0 139090 47 139186 100 0 0 0     * an efreeti commoner
@@ -894,28 +904,28 @@ G 1 139075 1 0 70 0 0 0            *    a brass and copper woven ring
 G 1 139076 1 0 60 0 0 0            *    a silver ring engraved with leaves
 G 1 139077 1 0 80 0 0 0            *    an ivory promise ring
 M 0 139081 1 139215 100 0 0 0      * Shanaanaa
-G 1 139087 1 0 80 0 0 0            *    Shanaanaa's adventuring notes on Githzerai Stronghold
-G 1 139088 1 0 80 0 0 0            *    Shanaanaa's adventuring notes on Apocalypse Castle
-G 1 139091 1 0 80 0 0 0            *    Shanaanaa's adventuring notes on Jotunheim
-G 1 139092 1 0 80 0 0 0            *    Shanaanaa's adventuring notes on The Lair of the Gibberling King
-G 1 139093 1 0 80 0 0 0            *    Shanaanaa's adventuring notes on Mazzolin
-G 1 139094 1 0 80 0 0 0            *    Shanaanaa's adventuring notes on Shadamehr Keep
-G 1 139095 1 0 80 0 0 0            *    Shanaanaa's adventuring notes on Celestial Plane
-G 1 139145 1 0 80 0 0 0            *    Shanaanaa's adventuring notes on The Sky City of Ultarium
-G 1 139146 1 0 80 0 0 0            *    Shanaanaa's adventuring notes on Arachdrathos Guilds
+G 1 139088 1 0 70 0 0 0            *    Shanaanaa's adventuring notes on Apocalypse Castle
+G 1 139091 1 0 70 0 0 0            *    Shanaanaa's adventuring notes on Jotunheim
+G 1 139092 1 0 70 0 0 0            *    Shanaanaa's adventuring notes on The Lair of the Gibberling King
+G 1 139093 1 0 70 0 0 0            *    Shanaanaa's adventuring notes on Mazzolin
+G 1 139094 1 0 70 0 0 0            *    Shanaanaa's adventuring notes on Shadamehr Keep
+G 1 139095 1 0 70 0 0 0            *    Shanaanaa's adventuring notes on Celestial Plane
+G 1 139145 1 0 70 0 0 0            *    Shanaanaa's adventuring notes on The Sky City of Ultarium
+G 1 139146 1 0 70 0 0 0            *    Shanaanaa's adventuring notes on Arachdrathos Guilds
+G 1 139087 1 0 70 0 0 0            *    Shanaanaa's adventuring notes on Githzerai Stronghold
 M 0 139048 1 139216 100 0 0 0      * a fire giant
 E 1 139032 2 16 100 0 0 0          *   a flaming two-handed sword
 M 0 139073 6 139217 100 0 0 0      * a medium fire elemental
 M 0 139124 1 139217 100 0 0 0      * Yodono the efreeti magi shop owner
-G 1 139081 1 0 70 0 0 0            *    a large tome engulfed in blue flames
-G 1 139082 1 0 80 0 0 0            *    a petrified illithids tentacle
-G 1 139007 17 0 90 0 0 0           *    a wand of flames
-G 1 139055 3 0 85 0 0 0            *    a frosty icicle wand
-G 1 139083 1 0 80 0 0 0            *    a wand of power
 G 1 83179 1 0 50 0 0 0             *    (object type not in this .obj file)
 G 1 139084 1 0 60 0 0 0            *    the staff of a frost magus
 G 1 132632 1 0 60 0 0 0            *    (object type not in this .obj file)
 G 1 87859 1 0 80 0 0 0             *    (object type not in this .obj file)
+G 1 139082 1 0 70 0 0 0            *    a petrified illithids tentacle
+G 1 139055 3 0 80 0 0 0            *    a frosty icicle wand
+G 1 139007 17 0 90 0 0 0           *    a wand of flames
+G 1 139081 1 0 70 0 0 0            *    a large tome engulfed in blue flames
+G 1 139083 1 0 80 0 0 0            *    a wand of power
 M 0 139055 2 139219 100 0 0 0      * a titan disciple
 M 0 139085 1 139219 100 0 0 0      * the repair man
 M 0 139090 47 139220 100 0 0 0     * an efreeti commoner
@@ -946,7 +956,7 @@ E 1 139053 1 7 100 0 0 0           *   a pair of bronze shinguards
 M 0 94740 5 139238 100 0 0 0       * (mob type not in this .mob file)
 M 0 139132 1 139238 10 0 0 0       * a hidden djinni spy
 M 0 94740 5 139241 100 0 0 0       * (mob type not in this .mob file)
-M 0 43450 5 139242 100 0 0 0       * (mob type not in this .mob file)
+M 0 43540 5 139242 100 0 0 0       * (mob type not in this .mob file)
 M 0 139127 1 139243 100 0 0 0      * Grand Hurloo
 M 0 139043 4 139244 100 0 0 0      * an efreeti commoner
 M 0 139049 1 139244 100 0 0 0      * a magma elemental
@@ -957,13 +967,12 @@ F 1 139046 1 139246 100 0 0 0      * a giant fire elemental (following)
 F 1 139047 1 139246 100 0 0 0      * a noble flame salamander (following)
 M 0 139099 1 139247 70 0 0 0       * Gyrowizniptzzl, the ancient red dragon
 G 1 139012 1 0 100 0 0 0           *    some leggings of red flames
-G 1 139136 4 0 100 0 0 0           *    a pile of platinum coins
+G 1 139136 3 0 100 0 0 0           *    a pile of platinum coins
 M 0 139101 1 139247 25 0 0 0       * Rikitizzilayn, an ancient brass dragon
-G 1 139136 4 0 100 0 0 0           *    a pile of platinum coins
+G 1 139136 3 0 100 0 0 0           *    a pile of platinum coins
 G 1 139138 1 0 100 0 0 0           *    a thin dragonskin cloak coated with brass
 M 0 139102 1 139247 60 0 0 0       * a ten-headed pyrohydra
-G 1 139136 4 0 100 0 0 0           *    a pile of platinum coins
-G 1 139136 4 0 100 0 0 0           *    a pile of platinum coins
+G 1 139136 3 0 100 0 0 0           *    a pile of platinum coins
 G 1 139142 1 0 100 0 0 0           *    a pile of ancient pyrohydra scales
 M 0 139015 6 139249 100 0 0 0      * an Unquenchable
 F 1 139017 7 139249 100 0 0 0      * a hellhound (following)
@@ -1010,6 +1019,7 @@ G 1 139130 1 0 100 0 0 0           *    a key of green fire
 F 1 139091 2 139283 100 0 0 0      * the Branded (following)
 M 0 139010 1 139286 100 0 0 0      * the efreeti padashaw Artoon Branan
 E 1 139069 1 1 100 0 0 0           *   an amethyst ring
+G 1 139144 1 0 100 0 0 0           *    the flaming head of Artoon Branan
 M 0 139040 4 139288 100 0 0 0      * the harem girl
 M 0 139040 4 139288 100 0 0 0      * the harem girl
 M 0 139040 4 139288 100 0 0 0      * the harem girl
@@ -1045,6 +1055,7 @@ M 0 139108 3 139308 100 0 0 0      * a flaming Azer slave
 M 0 139108 3 139308 100 0 0 0      * a flaming Azer slave
 M 0 139108 3 139308 100 0 0 0      * a flaming Azer slave
 M 0 139080 1 139309 100 0 0 0      * the royal chef
+E 1 139089 1 6 100 0 0 0           *   a red chef's hat
 M 0 139075 10 139311 100 0 0 0     * an efreeti noble
 M 0 139011 1 139312 100 0 0 0      * Shadam Quilen, the Efreeti Sultan
 E 1 139036 1 6 100 0 0 0           *   the crown of might

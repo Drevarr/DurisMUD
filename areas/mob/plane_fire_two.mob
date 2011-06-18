@@ -63,7 +63,7 @@ latisia efreeti clerist _no_lure_~
 ~
 100730891 0 2153768432 56832 805380120 47297 0 0 -1000 S
 e 0 416 0 -1
-61 -10 -120 100d100+25000 5d5+40
+61 -10 -120 100d100+10000 5d5+40
 0.0.0.1000 1000000
 8 8 2
 #139005
@@ -204,7 +204,7 @@ shaped eye sockets filled with black eyes that are difficult to tell which
 way exactly he may be looking. He takes his employment very seriously and
 will defend the Palace to the death.
 ~
-16930858 1 0 0 939598008 14556 0 37752832 0 S
+153642 1 0 0 939598008 14556 0 37752832 0 S
 ar 0 67108896 0 5
 56 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -266,7 +266,7 @@ a circlet upon its head that denotes its affiliation as one of the
 ~
 1073874988 1 0 0 184 14403 0 33554432 -1000 S
 ef 0 528 0 5
-60 0 0 1d1+1 1d1+1
+56 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
 #139019
@@ -484,7 +484,7 @@ mf 0 4 0 5
 #139033
 watchfire legion member efreet efreeti~
 &+ba&n &+WWa&ntch&+Rf&+ri&+Rre&n Leg&+Lion&n &+bmember&n~
-&+bA &+rEf&+Rre&+ret&+Ri &+WWa&ntch&+Rf&+ri&+Rre&n Leg&+Lion&n &+bmember stands behind and to the side of the&n &+Yauctioneer&+b.
+&+bA &+ref&+Rre&+ret&+Ri &+WWa&ntch&+Rf&+ri&+Rre&n Leg&+Lion&n &+bmember stands behind and to the side of the&n &+Yauctioneer&+b.
 ~
 As an efreet irregular his troop is known as the Watchfire Legion.
 Their current charge is the protection of the highly profitable
@@ -542,7 +542,7 @@ tk 0 73728 0 3
 #139037
 watchfire legion member efreet efreeti~
 &+ba&n &+WWa&ntch&+Rf&+ri&+Rre&n Leg&+Lion&n &+bmember&n~
-&+bA &+rEf&+Rre&+ret&+Ri &+WWa&ntch&+Rf&+ri&+Rre&n Leg&+Lion&n &+bmember slowly patrols the slave market.
+&+bA &+ref&+Rre&+ret&+Ri &+WWa&ntch&+Rf&+ri&+Rre&n Leg&+Lion&n &+bmember slowly patrols the slave market.
 ~
 As an efreet irregular his troop is known as the Watchfire Legion.
 Their current charge is the protection of the highly profitable
@@ -567,7 +567,7 @@ above her sandaled feet. She is engrossed in her duties as one of the
 priests of Surtr and gives little notice to you unless you have an
 offering in your hand.
 ~
-117458954 0 0 0 939524152 2049 0 4096 -500 S
+100681738 0 0 0 939524152 2049 0 4096 -500 S
 fg 0 288 0 6
 61 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -674,7 +674,7 @@ feet. His sleeves are rolled up above the elbows exposing his bronze
 bracers. He is linked hands with two fellow worshipers as you enter
 and does not look happy that you have interupted his prayers.
 ~
-16779306 1 0 0 268509208 2049 0 0 -1000 S
+2058 1 0 0 268509208 2049 0 0 -1000 S
 e 0 320 0 6
 63 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -751,7 +751,7 @@ EF 0 1 0 -1
 7.9.5.6 210600
 8 8 0
 #139051
-scorpion manscorpion member black dark~
+scorpion manscorpion member black dart~
 a &+Lm&na&+Ln&+Yscorp&+yion&n member of the &+LBl&+ra&+Lck D&+ra&+Lrt~
 A member of the &+LBl&+ra&+Lck D&+ra&+Lrt&n chitters around on its &+Yscorp&+yion&n legs.
 ~
@@ -817,7 +817,7 @@ titan disciple~
 a &+Ct&+Wi&+Ct&+Wa&+Cn&n disciple~
 &+LVisiting the &+ycity&N, &+Lthis &+Cdisciple&n &+Lmoves through the streets.
 ~
-A visitor to the City of Brass this Titan is head and shoulders above
+A visitor to the City of Brass this titan is head and shoulders above
 a greater majority of the population here. She is dressed in a form
 of bandedmail armor and has a huge hammer at the ready.
 ~
@@ -859,8 +859,8 @@ orc slave~
 an &+Lorc&n slave~
 &+LAn orc slave hustles through the &+ystreets&n &+Lrunning an errand.
 ~
-A very average looking orc wearing nothing but a slave band, loin cloth, and
-some sandals looks like he belongs in this city. He is very fit however
+A very average looking orc wearing nothing but a slave band, loin cloth,
+and some sandals looks like he belongs in this city. He is very fit however
 probably from all the labor he does for his master.
 ~
 1073744012 1048576 0 0 536870936 12352 0 0 -1000 S
@@ -929,9 +929,9 @@ archon hound dog-face humanoid~
 a &+Lhound &+Rarch&+Wo&+Rn~
 A large humanoid with a &+Ldog-face&n moves through the &+ycity&n with confidence.
 ~
-With red-skin and boldging muscles this being looks much like a dog walking on
-two feet. It wears a kilt around his waist and large bracers covering his fore
-arms while his main features is its pointy ears and chin.
+With red-skin and boldging muscles this being looks much like a dog walking
+on two feet. It wears a kilt around his waist and large bracers covering his
+forearms while his main features is its pointy ears and chin.
 ~
 1140852744 10496 1006632974 0 939532312 0 0 0 1000 S
 ar 0 8 1 4
@@ -943,10 +943,10 @@ genasi firesoul~
 a &+Wg&ne&+cna&Ns&+Wi&n &+rf&+Ri&+rre&+Ws&nou&+Wl&n~
 &+LA &+Ytattooed &+Wg&ne&+cna&ns&+Wi&n &+Ltwirls a small&n &+rfl&+Ra&+rme&n &+Lbetween his fingers nearby here.
 ~
-A humanoid body covered in runes enhanced with tattoos are just a couple of the
-noticeable attributes of this creature. His robes are solid grey with two red
-stripes that run over his shoulders. He is just over five feet tall, has no
-hair, and is average build.
+A humanoid body covered in runes enhanced with tattoos are just a couple of
+the noticeable attributes of this creature. His robes are solid grey with two
+red stripes that run over his shoulders. He is just over five feet tall, has
+no hair, and is average build.
 ~
 1140852744 268435456 0 32 671154176 0 0 0 -500 S
 ph 0 768 0 3
@@ -958,9 +958,9 @@ genasi slave earthsoul~
 a &+Wg&ne&+cna&ns&+Wi &+ye&+La&+yrth&n&+Ws&nou&+Wl&n~
 A &+Wg&ne&+cna&ns&+Wi&n slave wanders the &+ycity&n streets.
 ~
-Grey skinned humanoid with runes covering his body has an average build and his
-right wrist is covered with an efreeti's slave marker. He has no clothing or
-any genitalia visible.
+Grey skinned humanoid with runes covering his body has an average build and
+his right wrist is covered with an efreeti's slave marker. He has no clothing
+or any genitalia visible.
 ~
 1140852872 524288 0 8 536871040 0 0 0 -500 S
 PH 0 2048 4 -1
@@ -972,10 +972,11 @@ demon ambassador~
 a &+Ld&ne&+Lm&no&+Ln&n &+mambassador~
 &+YA &+Ld&ne&+Lm&no&+Ln &+mambassador &+Yfrom Hell &+Ycarries out his business in the city.
 ~
-This demon bares markings of those found on the Nine Hells upon his chestplate.
-He demon face has no nose but just two nostril holes above his mouth and two
-tiny horns like those found on a baby goat. His skin is charcoal color which
-can be seen easily in the seperations of his piece mail armor.
+This demon bares markings of those found on the Nine Hells upon his
+chestplate. He demon face has no nose but just two nostril holes above his
+mouth and two tiny horns like those found on a baby goat. His skin is
+charcoal color which can be seen easily in the seperations of his piece mail
+armor.
 ~
 1073743880 0 0 128 671088664 0 0 0 -1000 S
 x 0 16 1 4
@@ -1001,7 +1002,10 @@ titan resident~
 a &+Ct&+Wi&+Ct&+Wa&+Cn&n &+cresident~
 A &+Ct&+Wi&+Ct&+Wa&+Cn &+cresident&n moves through the &+ycity&n with a watchful eye.
 ~
-This titan is anything but common. He has made the City of Brass his home. He is towering at twenty feet in height and wears a kilt on his waist covering his knees. The upper part of the kilt covers over his left torso and is made of some fine quality threads.
+This titan is anything but common. He has made the City of Brass his home. He
+is towering at twenty feet in height and wears a kilt on his waist covering
+his knees. The upper part of the kilt covers over his left torso and is made
+of some fine quality threads.
 ~
 1140852744 1077936128 0 0 536870936 0 0 0 -500 S
 tt 0 1048576 2 -1
@@ -1013,10 +1017,10 @@ djinni~
 a &+Wdj&nin&+Wni&n~
 A &+Wdj&nin&+Wni&n hovers effortlessly over head to avoid the &+ycity&n crowds.
 ~
-A Djinn is a genie from the Elemental Plane of Air. He is visiting the City of
-Brass to conduct some business. His lower body is almost impossible to make out
-as it seems to be inside a swirling tornado of air. His upper torso is only
-covered by a sash.
+A Djinn is a genie from the Elemental Plane of Air. He is visiting the City
+Brass to conduct some business. His lower body is almost impossible to make
+out as it seems to be inside a swirling tornado of air. His upper torso is
+only covered by a sash.
 ~
 1073743880 134217728 0 2 671088666 8388608 0 0 500 S
 dv 0 33554432 1 4
@@ -1041,7 +1045,9 @@ a &+Lb&+ce&+Cautif&+cu&n&+Ll s&+ru&+Rccub&+ru&+Ls&n~
 &+rA &+Rvolupuous&+r &+Lb&+ce&+Cautif&+cu&+Ll&n &+rwoman draws your attention onto her.
 ~
 This beautiful woman is some form of a demon. She has four arms which was not
-apparent from far away. She has long flowing black hair and redish pink skin. Her breasts are uncovered and surrounded by a weapon harness. The yellowish orange kilt shows off her toned legs and sandaled feet.
+apparent from far away. She has long flowing black hair and redish pink skin.
+Her breasts are uncovered and surrounded by a weapon harness. The yellowish
+orange kilt shows off her toned legs and sandaled feet.
 ~
 1140852744 67125248 0 0 671088664 0 262144 0 -500 S
 su 0 2 1 -1
@@ -1059,7 +1065,7 @@ their incrediable size. The focus in their eyes gives the impression
 that they are a formitable opponent and will stop at nothing to do their
 duty of protecting the palace and Sultan.
 ~
-1140852744 0 0 0 134217784 2141 128 33558528 -1000 S
+1140852746 0 0 0 134217784 2141 128 33558528 -1000 S
 e 0 3 0 5
 61 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1069,7 +1075,9 @@ fire elemental medium~
 &+ra medium fire elemental~
 A &+rfire elemental&n shaped like a humanoid wanders the &+ytown&n.
 ~
-Looking more like a man in shape but still made of wisping fire this creature moves effortlessly on this plane. It has two appendages that resemble arms and something you would consider to be its head. Unlike other fire elementals it is attempting to look humanoid here in the city.
+Looking more like a man in shape but still made of wisping fire this creature moves effortlessly on this plane. It has two appendages that resemble arms
+and something you would consider to be its head. Unlike other fire elementals
+it is attempting to look humanoid here in the city.
 ~
 67110920 0 0 0 536870968 1 0 0 -250 S
 ef 0 4096 0 3
@@ -1081,7 +1089,10 @@ large fire elemental~
 &+ra large fire elemental~
 A &+rfire elemental&n resembling a large humanoid looks around &+ytown&n.
 ~
-Looking more like a man in shape but still made of wisping fire this creature moves effortlessly on this plane. It has two appendages that resemble arms and something you would consider to be its head. Unlike other fire elementals it is attempting to look humanoid here in the city.
+Looking more like a man in shape but still made of wisping fire this creature
+moves effortlessly on this plane. It has two appendages that resemble arms
+and something you would consider to be its head. Unlike other fire elementals
+it is attempting to look humanoid here in the city.
 ~
 67110920 0 0 0 536870968 1 0 0 -250 S
 ef 0 1 0 4
@@ -1093,10 +1104,11 @@ efreeti noble~
 &+Yan &+ref&+Rre&+ret&+Ri &+Ynoble&n~
 &+YAn &+ref&+Rre&+ret&+Ri &+Ynoble is standing here glowing with power.
 ~
-This efreeti noble has a more regal standing then most, he is working on his studies of magic utilizing the library and its massive collection of books.
+This efreeti noble has a more regal standing then most, he is working on his
+studies of magic utilizing the library and its massive collection of books.
 ~
 1140852746 0 0 0 536870968 0 0 0 -800 S
-e 0 1024 1 -1
+e 0 2 3 -1
 55 -7 -127 57d143+5985 7d6+35
 0.0.0.0 230850
 8 8 1
@@ -1105,7 +1117,8 @@ hellspiniger centaur~
 &+gHellspin&+Liger &+Ythe unjust~
 &+YA &+gcen&+Ltaur &+Ynamed &+gHellspin&+Liger &+Yruns the bit and tackle store.
 ~
-A large centaur who has a two-handed sword sheathed along his left flank looks very comfortable running his shop here in the City of Brass.
+A large centaur who has a two-handed sword sheathed along his left flank looks
+very comfortable running his shop here in the City of Brass.
 ~
 2058 0 0 0 671088696 0 0 0 0 S
 ct 0 16 1 -1
@@ -1117,7 +1130,10 @@ dwarf lucky lokke locksmith chubby dwarven~
 &+ML&+mucky &+ML&+mokke~
 &+cThe chubby &+Ydwarven&n &+clocksmith named &+ML&+mucky &+ML&+mokke &+csits at his work station.
 ~
-This chubby mountain dwarf is just under five feet tall and has tiny hands. As he works the lock his skills shine through with great dexterity and precishion. He has green eyes and blonde hair with streaks of red running through his shoulder length beard.
+This chubby mountain dwarf is just under five feet tall and has tiny hands. As
+he works the lock his skills shine through with great dexterity and
+precishion. He has green eyes and blonde hair with streaks of red running
+through his shoulder length beard.
 ~
 2186 0 0 0 805306424 28 0 0 500 S
 pm 0 4096 2 -1
@@ -1129,7 +1145,9 @@ halfling glittermaker oto~
 &+GOto Glittermaker&n~
 &+GOto Glittermaker&n &+gmoves from one side to the other helping customers.&n
 ~
-This small halfling carries himself proudly as he seems to enjoy everything he is doing. His skin is a deep tan and wears overalls without a shirt or shoes. As you approach he greets you with a smile.
+This small halfling carries himself proudly as he seems to enjoy everything he
+is doing. His skin is a deep tan and wears overalls without a shirt or shoes.
+As you approach he greets you with a smile.
 ~
 2058 0 0 0 939524152 0 0 0 1000 S
 pf 0 32800 0 -1
@@ -1141,7 +1159,9 @@ efreeti hutzparoon mason~
 &+RH&+rut&+Rz&+rpar&+Ro&+ron&n &+rthe mason&n~
 An &+ref&+Rre&+ret&+Ri &nnamed &+RH&+rut&+Rz&+rpar&+Ro&+ron&n works his masonry and looks to you as you enter.
 ~
-With hair that looks like a deep red and orange flame and pink pigmentation covered skin this efreeti gives you a once over as you enter his shop. He stands and turns to you stopping what he was doing.
+With hair that looks like a deep red and orange flame and pink pigmentation
+covered skin this efreeti gives you a once over as you enter his shop. He
+stands and turns to you stopping what he was doing.
 ~
 10 0 0 0 536870968 0 0 0 -500 S
 e 0 1 0 5
@@ -1166,7 +1186,11 @@ shanaanaa~
 &+bSha&+Bnaa&+bna&+Ba~
 &+BSha&+bnaa&+bna&+Ba&n &+Ysits behind his desk bouncing a ball off a wall.
 ~
-Enjoying himself as he bounces the ball against the wall this human is of average size and a bit over weight. He is dressed in t-shirt and shorts that are a bit tattered but not torn. As you approach he catches the ball from the last bounce and turns to you waiting to sell you some of his information.
+Enjoying himself as he bounces the ball against the wall this human is
+of average size and a bit over weight. He is dressed in t-shirt and
+shorts that are a bit tattered but not torn. As you approach he catches
+the ball from the last bounce and turns to you waiting to sell you some
+of his information.
 ~
 2058 0 0 0 536870920 32768 0 0 -1000 S
 PH 0 8 1 -1
@@ -1178,10 +1202,13 @@ efreeti alchemist~
 &+ref&+Rre&+ret&+Ri &+Calc&+chem&+Cist&n~
 &+YMixing a fresh batch this &+ref&+Rre&+ret&+Ri &+Calc&+chem&+Cist&n &+Ystirs slowly and carefully.
 ~
-A huge efreeti female with long flowing fire red hair and dressed in a cut blouse works patiently with her agents mixing her potions. She wears a belt that was specially made to hold several ready to use potions at a moments notice.
+A huge efreeti female with long flowing fire red hair and dressed in a cut
+blouse works patiently with her agents mixing her potions. She wears a belt
+that was specially made to hold several ready to use potions at a moments
+notice.
 ~
 10 0 0 0 671088648 0 0 0 -500 S
-e 0 524288 2 -1
+e 0 4096 2 -1
 51 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 2
@@ -1190,7 +1217,12 @@ herl ranger~
 &+CHe&+crl&n &+Lthe &+granger&n &+Llord&n~
 &+CHe&+crl&n &+Wthe known &+granger&n &+Wattends to his shop retired from adventure.
 ~
-Old and greying this half-elf man is a well seasoned adventurer who is retirement and now works his shop here in the City of Brass. His skills as a ranger are unsurpassed and is known for being able to find any rare herbs, of course for a substantial price. He carries a two-handed sword and has traded in his chainmail for some more common cloths.
+Old and greying this half-elf man is a well seasoned adventurer who
+is retirement and now works his shop here in the City of Brass. His
+skills as a ranger are unsurpassed and is known for being able to
+find any rare herbs, of course for a substantial price. He carries
+a two-handed sword and has traded in his chainmail for some more
+common cloths.
 ~
 2058 0 0 0 536870968 0 0 0 500 S
 p2 0 2 2 -1
@@ -1202,7 +1234,13 @@ satyr musician filippie~
 &+YFil&+yip&+Ypie&n the &+gSa&+ytyr~
 Singing and dancing a tune, &+YFil&+yip&+Ypie &nthe &+gSa&+ytyr &nentertains those around his shop.
 ~
-This half-human half-goat humanoid prances around on his two goat hooves playing a Y-shaped flute with his human hands. His head has a small pair of horns no bigger than a thumb on a human and are dull and rounded at their tip. His legs look extremely muscular and are coated with a brown fur. His torso is only covered in a single strap backpack leaving his humanoid toned chest to bear. He seems quite happy entertaining people who visit the marketplace and attend his shop.
+This half-human half-goat humanoid prances around on his two goat hooves
+playing a Y-shaped flute with his human hands. His head has a small pair
+of horns no bigger than a thumb on a human and are dull and rounded at
+their tip. His legs look extremely muscular and are coated with a brown
+fur. His torso is only covered in a single strap backpack leaving his
+humanoid toned chest to bear. He seems quite happy entertaining people
+who visit the marketplace and attend his shop.
 ~
 10 0 0 0 570425352 2 0 0 500 S
 h 0 32768 3 3
@@ -1214,7 +1252,11 @@ flesh golem~
 &+Lthe &+Bre&+bpair &+Lm&+Ba&+bn&n~
 &+BA flesh golem leans in the corner arms crossed and one foot pressed against the wall.&n
 ~
-A massive flesh golem made of different forms of flesh has been sewn together with the additions of magics to make up this construct that stands before you. This renown golem known through the City of Brass is called the "repair man". It can not create but can only magically fix damaged pieces of equipment and some repairs to flesh as well.
+A massive flesh golem made of different forms of flesh has been sewn
+together with the additions of magics to make up this construct that
+stands before you. This renown golem known through the City of Brass
+is called the "repair man". It can not create but can only magically
+fix damaged pieces of equipment and some repairs to flesh as well.
 ~
 10 0 0 0 570425628 2 0 0 0 S
 cn 0 32 0 5
@@ -1226,7 +1268,12 @@ ether fire giant~
 &+RE&+Yth&+ye&+rr~
 &+RE&+Yth&+ye&+rr &+ythe &+rfi&+Rre gia&+rnt &+ylooks to pawn his magical wears.
 ~
-A seasoned fire giant standing twenty five feet tall with massive biceps and extremely large hands to match is acting as a vendor in one of the daily rental tents trying to sell his wares. Looking closely you can see he has no ears anymore as both have been cut off by a blade. He has two large scimitars sheathed around his waist and wears a suit of dull bronze half-plate covered in battle scars of many types.
+A seasoned fire giant standing twenty five feet tall with massive biceps
+and extremely large hands to match is acting as a vendor in one of the
+daily rental tents trying to sell his wares. Looking closely you can see
+he has no ears anymore as both have been cut off by a blade. He has two
+large scimitars sheathed around his waist and wears a suit of dull bronze
+half-plate covered in battle scars of many types.
 ~
 10 0 0 0 939524156 2078 0 0 -500 S
 fg 0 1 1 6
@@ -1250,7 +1297,9 @@ angry drider pissed~
 &+Lan &+ran&+Rgr&+ry&n &+mdri&+Lder&n~
 &+LA p&nisse&+Ld&n off &+mdri&+Lder&n &+Lcharges towards the exit.
 ~
-A Lloth abomination that is a drider is angry at being a cross breed and even more so at being captured and put on display here in the City of Brass. He is half-man half-spider and looks for ways to escape.
+A Lloth abomination that is a drider is angry at being a cross breed and even
+more so at being captured and put on display here in the City of Brass. He is
+half-man half-spider and looks for ways to escape.
 ~
 2060 1 0 0 671088664 2048 0 0 -1000 S
 dr 0 2097152 3 4
@@ -1262,7 +1311,11 @@ efreeti padashaw wrinyen otis~
 the &+ref&+Rre&+ret&+Ri&n pa&+Lda&nshaw&n &+CW&+crinyen &+CO&+ctis~
 &+LThe &npa&+Lda&nshaw &+CW&+crinyen &+CO&+ctis&n &+Lhelps instruct the new recruits in battle techniques.
 ~
-As one of the six padashaw's in the palace he has been assigned to oversee the guard chief's education of the palace's private troops. He is a massive efreeti and well dressed with a decorated tunic and what looks to be a kilt around his waist. He does not look happy to see someone is disturbing him and turns to charge you.
+As one of the six padashaw's in the palace he has been assigned to oversee
+the guard chief's education of the palace's private troops. He is a massive
+efreeti and well dressed with a decorated tunic and what looks to be a kilt
+around his waist. He does not look happy to see someone is disturbing him
+and turns to charge you.
 ~
 1124075532 1 0 0 671088696 2048 0 0 -500 S
 e 0 1 1 -1
@@ -1303,7 +1356,8 @@ efreeti padashaw hakim okewonaku~
 the &+ref&+Rre&+ret&+Ri&n pa&+Lda&nshaw&n H&+Lakim&n O&+Lkewonaku&n~
 &+LThe &npa&+Lda&nshaw H&+Lakim&n O&+Lkewonaku&n &+Lis maintaining the unique mounts&n.
 ~
-The padashaw of the efreet royal palaces' flying brigade, Hakim Okewonaku works with the mounts. He turns as he hears your enter and moves to see why he is being interupted.
+The padashaw of the efreet royal palaces' flying brigade, Hakim Okewonaku works with the mounts. He turns as he hears your enter and moves to see why
+he is being interupted.
 ~
 117508108 1 0 0 671088824 399577 0 536870912 -1000 S
 e 0 16384 2 4
@@ -1315,7 +1369,9 @@ magma magmaman man~
 &+ra m&+La&+rg&+Lm&+ra man~
 A &+rm&+La&+rg&+Lm&+ra&n shaped into a &+rman&n moves through the hallway on an errand.
 ~
-A humanoid shaped being made entirely from hardened magma moves slowly and loudly through the area. The cracks in its rocky skin shin bright as you can see what looks to be molten lava as his core.
+A humanoid shaped being made entirely from hardened magma moves slowly and
+loudly through the area. The cracks in its rocky skin shin bright as you can
+see what looks to be molten lava as his core.
 ~
 1141114888 0 0 0 24 0 0 0 -200 S
 ef 0 1 2 3
@@ -1327,7 +1383,9 @@ fire mephit magician~
 a captivating &+Rf&+Yi&+Rre&n &+rme&+Rph&+rit&n &+ym&+Yagicia&+yn&n~
 This tiny &+rme&+Rph&+rit&n &+ym&+Yagicia&+yn&n captivates the crowds attention.
 ~
-Hovering around the room looking to capture someones eye this fire mephit is an entertainer. He uses his magics in unique ways that can cause a chuckle from almost anyone.
+Hovering around the room looking to capture someones eye this fire mephit is
+an entertainer. He uses his magics in unique ways that can cause a chuckle
+from almost anyone.
 ~
 1140852776 0 0 0 0 0 0 0 -200 S
 ef 0 2048 3 1
@@ -1339,7 +1397,11 @@ elder fire elemental~
 &+ran &+Relder &+rfire elemental~
 &+LThe largest &+rfire elemental&n &+Lyou have ever seen moves around the &+ypalace&n &+Lignoring you.
 ~
-This fire elemental is giant in size and doesnt burn nearly as bright as a smaller one of its cousins. It has the shape of a giant above the area which you would think would be its torso and the lower flows into a blend of fire. Seeing this massive elemental gives you the impression that it is extremely powerful.
+This fire elemental is giant in size and doesnt burn nearly as bright as a
+smaller one of its cousins. It has the shape of a giant above the area which
+you would think would be its torso and the lower flows into a blend of fire.
+Seeing this massive elemental gives you the impression that it is extremely
+powerful.
 ~
 1140852780 0 0 0 939597880 34816 32896 33562624 -500 S
 ef 0 1048576 1 6
@@ -1351,7 +1413,10 @@ giant smoke elemental~
 &+La g&nian&+Lt&n s&nm&+Wo&nk&+Le elemental~
 &+LA g&nian&+Lt elemental made entirely of misty s&nm&+Wo&nk&+Le swirls through the hall.
 ~
-A elemental made of smoke is shaped into a humanoid creature and hovers above the ground. It moves through the area and can easily disperse its shape to move into and through tight spaces. It pays no attention to the visitors here as it is moving with some purpose.
+A elemental made of smoke is shaped into a humanoid creature and hovers
+above the ground. It moves through the area and can easily disperse its
+shape to move into and through tight spaces. It pays no attention to the
+visitors here as it is moving with some purpose.
 ~
 1140852876 0 0 0 671162392 0 128 0 -500 S
 ve 0 1 3 6
@@ -1363,7 +1428,10 @@ efreeti gardener~
 an &+ref&+Rre&+ret&+Ri &+Gg&+gardene&+Gr&n~
 Helping maintain the courtyard this &+ref&+Rre&+ret&+Ri&n &+Gg&+gardene&+Gr&n kneels nearby.
 ~
-An efreeti female carrying snips in here hand and some sort of apron around her waist looks to be busy at work. Maintaining a garden that is made mostly of fire and different shapes of them she somehow keeps herself busy and busy enough to pay no attention to you.
+An efreeti female carrying snips in here hand and some sort of apron
+around her waist looks to be busy at work. Maintaining a garden that
+is made mostly of fire and different shapes of them she somehow keeps
+herself busy and busy enough to pay no attention to you.
 ~
 1140852744 0 0 0 671088664 0 0 0 -500 S
 e 0 128 2 4
@@ -1375,7 +1443,10 @@ fire troll slave~
 &+La &+rfir&+Re tr&+roll&n &+Lslave~
 &+LA &+rfir&+Re tr&+roll &+Lsl&na&+Lve assists with maintance of the garden.
 ~
-This troll resembles a very skinny and tall humanoid but unlike other trolls you would see in swamps this one has deep red skin. He has a red aura around him and does not seem too nervous about working around fire. Captured and sold into slavery he now spends his time in the palace working in hot places.
+This troll resembles a very skinny and tall humanoid but unlike other trolls
+you would see in swamps this one has deep red skin. He has a red aura around
+him and does not seem too nervous about working around fire. Captured and
+sold into slavery he now spends his time in the palace working in hot places.
 ~
 1140852744 0 0 0 402726936 4202496 0 0 -500 S
 pt 0 32 1 5
@@ -1438,11 +1509,11 @@ ten ten-headed headed pyrohydra hydra~
 &+La t&Ne&+Ln&n-&+Lh&ne&+Wa&nd&+Led&n &+rpy&+Rro&+Yhy&+Wdra~
 &+yA head of a &+Lt&ne&+Ln&n-&+Lh&ne&+Wa&nd&+Led&n &+rpy&+Rro&+Yhy&+Wdra&n &+ysee's you and &+Wroars &+yas the beast turns to attack!
 ~
-&+LFour immense claws noisely clank as they scratch the hardened brass floor as the &+Lpyrohydra moves about.  Each of the claws is attached to a muscular limb which leads &+Lback to the rather small torso.  Ten stalk-like necks extend outward from the torso
-&+Lending in identical draconian heads.  Each of the heads swings about from side
-&+Lto side, surveying the surroundings and searching for prey or danger.  The scales
-&+Lof the beast are a wonder in themselves, seemingly blending into the brass walls and &+Lshimmering with the fire throughout the area. The heads work in concert with each
-&+Lother in combat making this foe extremely dangerous.
+&+LFour immense claws noisely clank as they scratch the hardened brass floor &+Las the pyrohydra moves about.  Each of the claws is attached to a muscular &+Llimb which leads &+Lback to the rather small torso.  Ten stalk-like necks
+&+Lextend outward from the torso ending in identical draconian heads.  Each of &+Lthe heads swings about from side to side, surveying the surroundings and &+Lsearching for prey or danger.  The scales of the beast are a wonder in
+&+Lthemselves, seemingly blending into the brass walls and &+Lshimmering with the
+&+Lfire throughout the area. The heads work in concert with each other in combat
+&+Lmaking this foe extremely dangerous.
 ~
 1124605736 1 0 0 671162392 14528 67371008 33554432 -1000 S
 d 0 80 0 7
@@ -1454,9 +1525,9 @@ efreeti disciple~
 &+Yan &+ref&+Rre&+ret&+Ri &+Ydisciple~
 &+YAn &+ref&+Rre&+ret&+Ri&n &+Ydisciple listens intently to the high priest.
 ~
-This efreeti is devoted to the worship of his god and inspires to be a
-great servant in the near future. In the meantime he learns what he can
-from the high priest of the efreeti palace.
+This efreeti is devoted to the worship of his god and inspires to be a great
+servant in the near future. In the meantime he learns what he can from the
+high priest of the efreeti palace.
 ~
 67110922 0 0 0 671088648 0 0 0 0 S
 e 0 32 3 -1
@@ -1497,9 +1568,9 @@ efreeti magi disciple~
 an &+ref&+Rre&+ret&+Ri&n &+Lma&ng&+Wi&n &+rdis&+Rci&+rple~
 &+rAn ef&+Rre&+ret&+Ri&n &+Lma&ng&+Wi&n &+ris standing here pondering the aspects of magic.
 ~
-An efreeti dressed in robes and holding a wand in one hand and a glass vial in
-the other listens to the arch-magi as he gives instructions. He looks focused
-on the task and pays little attention to you as you enter.
+An efreeti dressed in robes and holding a wand in one hand and a glass vial
+in the other listens to the arch-magi as he gives instructions. He looks
+focused on the task and pays little attention to you as you enter.
 ~
 67110922 0 0 0 671162368 28 0 0 -500 S
 e 0 512 2 -1
@@ -1615,7 +1686,7 @@ kick the living crap out of anything that dares disturb his rest.
 ~
 100730922 0 2154364480 12800 671088792 14529 0 0 -1000 S
 e 0 16387 0 -1
-61 -10 -142 60d143+6300 7d6+35
+61 -10 -142 60d200+9000 7d6+35
 0.0.0.0 243000
 8 8 1
 #139115
@@ -1672,7 +1743,7 @@ one magi that should be left alone!
 ~
 100731022 0 8331248 60928 671088824 407745 0 0 -1000 S
 e 0 3584 0 -1
-60 -10 -142 50d50+20000 7d6+35
+60 -10 -142 100d100+10000 7d6+35
 0.0.0.1000 243000
 8 8 1
 #139119
@@ -1711,8 +1782,8 @@ efreeti armorer~
 &+Yan &+ref&+Rre&+ret&+Ri &+Yarmorer&N~
 &+YAn &+ref&+Rre&+ret&+Ri &+Yarmorer works on his anvil and sells his wares.
 ~
-This efreeti has huge budging muscles and as impossible
-as it may seem, it almost looks as if he is sweating.
+This efreeti has huge budging muscles and as impossible as it may seem, it
+almost looks as if he is sweating.
 ~
 2190 0 0 0 536870952 0 0 0 -1000 S
 e 0 34816 0 6
@@ -1805,7 +1876,8 @@ talosoa effreeti banker~
 &+YTalosoa the &+ref&+Rre&+ret&+Ri &+Ybanker&N~
 &+YTalosoa the &+ref&+Rre&+ret&+Ri &+Ybanker stands here.
 ~
-This efreeti wears glasses over his eyes made of flaming coins, he seems to be able to tell just how much money your worth just by looking at you.
+This efreeti wears glasses over his eyes made of flaming coins, he seems to be
+able to tell just how much money your worth just by looking at you.
 ~
 2190 0 0 0 536870968 0 0 0 -1000 S
 e 0 544 0 6
@@ -1870,7 +1942,8 @@ slave efreeti priest priestly~
 &+La &+Wpr&+Ciest&+Wly &+ref&+Rre&+ret&+Ri &+Lslave~
 &+LAn &+ref&+Rre&+ret&+Ri&n &+Lslave stands nearby waiting for his masters command.
 ~
-Born into slavery this efreet obeys without question. He has training as a priest and is battle ready and awaits orders.
+Born into slavery this efreet obeys without question. He has training as
+a priest and is battle ready and awaits orders.
 ~
 264204 0 0 0 0 0 0 0 -500 S
 e 0 32 1 -1
@@ -1882,7 +1955,8 @@ illithid slave psionicist psionic planetbound~
 &+La pl&nane&+Ltbou&nnd &+Millithid&n &+bps&+Bion&+bic&n &+Lslave&n~
 &+LAn &+Millithid&n &+Lslave stands nearby awaiting orders from its master.
 ~
-This illithid has been captured and forced into slavery. It will obey its masters bidding until the bonds of servitude are broken or complete.
+This illithid has been captured and forced into slavery. It will obey its
+masters bidding until the bonds of servitude are broken or complete.
 ~
 264204 0 0 0 0 0 0 0 -1000 S
 pi 0 4 1 -1
@@ -1894,7 +1968,9 @@ battle battle-hardened fire giant slave~
 &+La ba&ntt&+Lle&n-&+Lhar&nden&+Led&n &+rfi&+Rre gia&+rnt&n &+Lslave&n~
 &+LA &+rfi&+Rre gia&+rnt&n &+Lslave stands here awaiting orders from his master.
 ~
-This fire giant slave was born into slavery and has been through various masters over the years. He is battle ready and will perform his masters bidding without question.
+This fire giant slave was born into slavery and has been through various
+masters over the years. He is battle ready and will perform his masters
+bidding without question.
 ~
 264204 0 0 0 0 0 0 0 -750 S
 fg 0 1 1 6
@@ -1906,7 +1982,9 @@ demon sorceress slave~
 &+La d&ne&+Lm&no&+Ln&n &+Msor&+mcer&+Mess&n &+Lslave&n~
 &+LA d&ne&+Lm&no&+Ln slave stands here awaiting her masters bidding.
 ~
-Captured and forced into slavery this demon regrets coming to the City of Brass and violating the laws. It is now bound to complete its servitude and will follow its masters bidding until then.
+Captured and forced into slavery this demon regrets coming to the City of
+Brass and violating the laws. It is now bound to complete its servitude
+and will follow its masters bidding until then.
 ~
 264204 0 0 0 0 0 0 0 0 S
 x 0 512 2 -1
@@ -1933,7 +2011,9 @@ magus githyanki slave~
 &+La&n &+rf&+Ri&+rre&n &+rm&+Ra&+rgus&n &+Ggith&+Wyanki &+Lslave~
 &+LA &+Ggith&+Wyanki&n &+Lslave stands waiting for his masters commands.
 ~
-This captured githyanki has been forced into slavery and sold in the City of Brass. He has magical abilities but will use them as instructed by his master.
+This captured githyanki has been forced into slavery and sold in the
+City of Brass. He has magical abilities but will use them as instructed
+by his master.
 ~
 264204 0 0 0 0 0 0 0 -800 S
 gi 0 2048 3 -1
@@ -1945,7 +2025,9 @@ githzerai minstrel slave~
 &+La &+Wgith&+Gzerai&n &+Ymin&+ystr&+Yel &+Lslave~
 &+LA &+Wgith&+Gzerai &+Lslave stands waiting for his masters commands.
 ~
-Captured and forced into slavery this githzerai is as happy as can be and will break into song at a moments notice. He will follow his masters orders however at a moments notice.
+Captured and forced into slavery this githzerai is as happy as can be
+and will break into song at a moments notice. He will follow his masters
+orders however at a moments notice.
 ~
 264204 0 0 0 0 0 0 0 800 S
 gz 0 32768 3 -1
@@ -1957,7 +2039,8 @@ large fire elemental slave~
 &+La large &+rf&+Ri&+rre&n &+relemental &+Lslave~
 &+LA large &+rfire elemental &+Lslave hovers nearby waiting for its masters bidding.
 ~
-Born and bread for slavery this fire elemental will do its masters bidding without question.
+Born and bread for slavery this fire elemental will do its masters
+bidding without question.
 ~
 2056 0 0 0 0 0 0 0 0 S
 ef 0 1 2 4
@@ -1969,7 +2052,9 @@ human female priestess slave~
 &+La &+Chuman&n &+Lfemale&n &+Ypri&+yest&+Yess&n &+Lslave~
 &+LA &+Chuman&n &+Lslave stands waiting for her masters next command.
 ~
-Captured very young this woman has been taught the ways of her diety and can harness her energy. She will follow her masters bidding until death or completion of her contract.
+Captured very young this woman has been taught the ways of her diety and
+can harness her energy. She will follow her masters bidding until death
+or completion of her contract.
 ~
 264204 0 0 0 0 0 0 0 500 S
 PH 0 32 2 -1
@@ -1981,7 +2066,8 @@ raging minotaur slave~
 &+La &+Rra&+rgi&+Rng &+Lmino&+rtaur&n &+Lslave&n~
 A &+Lmino&+rtaur&n &+Lslave&n stands waiting for his masters next order.
 ~
-Angry at his capture and current arrangment this minotaur grinds his teeth at each of his masters order.
+Angry at his capture and current arrangment this minotaur grinds his teeth
+at each of his masters order.
 ~
 264204 0 0 0 0 0 0 0 -1000 S
 mt 0 1048576 2 -1
@@ -1993,7 +2079,9 @@ crazy drow elf slave~
 &+La &+Mcra&+mz&+My &+mdrow&n &+melf&n &+Lslave&n~
 &+LA &+mdrow elf&n &+Lslave waits for his masters next command.
 ~
-A bit wild and crazy this drow elf wields magic to the point uncontrollable. He waits for his final day and freedom from his boundment to his master.
+A bit wild and crazy this drow elf wields magic to the point
+uncontrollable. He waits for his final day and freedom from
+his boundment to his master.
 ~
 264204 0 0 0 0 0 0 0 -500 S
 PL 0 512 1 -1

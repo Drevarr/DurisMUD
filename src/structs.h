@@ -1577,7 +1577,7 @@ struct dex_app_type {
   byte miss_att;
   byte p_pocket;
   byte p_locks;
-  byte traps;
+  byte hitroll;
 };
 
 struct agi_app_type {

@@ -1162,9 +1162,9 @@ githzerai stronghold shanaanaa parchment piece paper note notes~
 &+BSha&+bnaana&+Ba's&n adventuring notes on &+gGith&+yzerai&n &+LStronghold~
 A piece of parchment labelled "&+gGith&+yzerai &+LStronghold&n" is crumbled here.~
 ~
-16 28 1 0 11 0 8192 1 0 0 0
+16 28 1 0 11 0 134225920 1 0 0 0
 0 0 0 0 0 0 0 0
-0 150150 100
+0 25050 100
 E
 githzerai stronghold shannanna parchment piece paper~
 At 1st you will need to find the captain because he has the key to the magical door that hides the rift into their realm. He can be bribed for around 500 platinum pieces. Otherwise you will need to complete what other mundane task he needs.
@@ -1187,9 +1187,9 @@ apocalypse castle shanaanaa parchment piece paper note notes~
 &+BSha&+bnaana&+Ba's&n adventuring notes on &+LApocalypse &+mCastle~
 A piece of parchment labelled "&+LApocalypse &+mCastle&n" is crumbled here.~
 ~
-16 28 1 0 11 0 8192 1 0 0 0
+16 28 1 0 11 0 134225920 1 0 0 0
 0 0 0 0 0 0 0 0
-0 150150 100
+0 25050 100
 E
 apocalypse castle shanaanaa parchment piece paper note notes~
 Apocalypse Castle
@@ -1252,9 +1252,9 @@ jotunheim jot shanaanaa parchment piece paper note notes~
 &+BSha&+bnaana&+Ba's&n adventuring notes on &+CJotunheim&n~
 A piece of parchment labelled "&+CJotunheim&n" is crumbled here.~
 ~
-16 28 1 0 11 0 8192 1 0 0 0
+16 28 1 0 11 0 134225920 1 0 0 0
 0 0 0 0 0 0 0 0
-0 150150 100
+0 25050 100
 E
 jotunheim jot shanaanaa parchment piece paper note notes~
 Jotunheim
@@ -1287,9 +1287,9 @@ lair gibberling king shanaanaa parchment piece paper note notes~
 &+BSha&+bnaana&+Ba's&n adventuring notes on The Lair of the Gibberling King~
 A piece of parchment labelled "The Lair of the Gibberling King" is crumbled here.~
 ~
-16 28 1 0 11 0 8192 1 0 0 0
+16 28 1 0 11 0 134225920 1 0 0 0
 0 0 0 0 0 0 0 0
-0 150150 100
+0 25050 100
 E
 lair gibberling king shanaanaa parchment piece paper note notes~
 The Lair of the Gibberling King
@@ -1320,9 +1320,9 @@ mazzolin shanaanaa parchment piece paper note notes~
 &+BSha&+bnaana&+Ba's&n adventuring notes on &+BMazzolin&n~
 A piece of parchment labelled "&+BMazzolin&n" is crumbled here.~
 ~
-16 28 1 0 11 0 8192 1 0 0 0
+16 28 1 0 11 0 134225920 1 0 0 0
 0 0 0 0 0 0 0 0
-0 150150 100
+0 25050 100
 E
 mazzolin shanaanaa parchment piece paper note notes~
 Mazzolin
@@ -1353,9 +1353,9 @@ shadamehr keep shanaanaa parchment piece paper note notes~
 &+BSha&+bnaana&+Ba's&n adventuring notes on &+mShadamehr Keep&n~
 A piece of parchment labelled "&+mShadamehr Keep&n" is crumbled here.~
 ~
-16 28 1 0 11 0 8192 1 0 0 0
+16 28 1 0 11 0 134225920 1 0 0 0
 0 0 0 0 0 0 0 0
-0 150150 100
+0 25050 100
 E
 shadamehr keep shanaanaa parchment piece paper note notes~
 Shadamehr Keep
@@ -1392,9 +1392,9 @@ celestial plane shanaanaa parchment piece paper note notes~
 &+BSha&+bnaana&+Ba's&n adventuring notes on &+WCel&+Ces&+ctia&+Cl Pl&+Wane&n~
 A piece of parchment labelled "&+WCel&+Ces&+ctia&+Cl Pl&+Wane&n" is crumbled here.~
 ~
-16 28 1 0 11 0 8192 1 0 0 0
+16 28 1 0 11 0 134225920 1 0 0 0
 0 0 0 0 0 0 0 0
-0 150150 100
+0 25050 100
 E
 celestial plane shanaanaa parchment piece paper note notes~
 Celestial Plane
@@ -1561,7 +1561,7 @@ A metal flask with a small label was left here.~
 ~
 10 15 1 0 7 0 8193 8388609 0 0 0
 41 2 0 0 0 0 0 0
-1 600000 100
+1 500000 100
 E
 metal flask teleport~
 A metal flask made of tin and a single stopper is marked with a label "teleport"
@@ -1585,7 +1585,7 @@ A metal flask with a small label was left here.~
 ~
 10 15 1 0 7 0 8193 8388609 0 0 0
 41 165 0 0 0 0 0 0
-1 100000 100
+1 35000 100
 E
 metal flask create sound~
 A metal flask made of tin and a single stopper is marked with a label "create sound"
@@ -1621,7 +1621,7 @@ A metal flask with a small label was left here.~
 ~
 10 15 1 0 7 0 8193 8388609 0 0 0
 41 42 0 0 0 0 0 0
-1 800000 100
+1 1100000 100
 E
 metal flask word of recall~
 A metal flask made of tin and a single stopper is marked with a label "word of recall"
@@ -1633,7 +1633,7 @@ A metal flask with a small label was left here.~
 ~
 10 15 1 0 7 0 8193 8388609 0 0 0
 65 274 0 0 0 0 0 0
-1 99000 100
+1 50000 100
 E
 metal flask airy water~
 A metal flask made of tin and a single stopper is marked with a label "airy water"
@@ -1645,7 +1645,7 @@ A metal flask with a small label was left here.~
 ~
 10 15 1 0 7 0 8193 8388609 0 0 0
 65 249 0 0 0 0 0 0
-1 200000 100
+1 100000 100
 E
 metal flask reduce~
 A metal flask made of tin and a single stopper is marked with a label "reduce"
@@ -1776,7 +1776,7 @@ sword two two-handed mithril~
 &+LA large two-handed sword made of &+mmithril &+Lsits upon the floor.~
 ~
 5 18 4 0 11 0 37749760 8193 64 83886105 0
-13 5 6 0 0 0 0 0
+13 5 7 0 0 0 0 0
 8 750000 100
 E
 sword two two-handed mithril~
@@ -1844,14 +1844,18 @@ furnace massive~
 10000 10000000 100
 E
 furnace massive~
-This massive furnace has been built over an large opening that must run to the planes hottest area. There are several access points to allow all the different smiths to use it. The outside of the furnace has been decorated with plated pieces of brass that have different designs of all the crafts surrounding its structure.
+This massive furnace has been built over an large opening that must run to the
+planes hottest area. There are several access points to allow all the
+different smiths to use it. The outside of the furnace has been decorated with
+plated pieces of brass that have different designs of all the crafts
+surrounding its structure.
 ~
 #139127
 pile elder hydra scales scale~
 &+La p&ni&+Lle of &+ye&+Yld&+yer&n &+Gh&+gydr&+Ga&n &+Lscales~
 &+LA pile of &+ye&+Yld&+yer&n &+Gh&+gydr&+Ga&n &+Lscales are scattered on the floor.~
 ~
-8 35 2 0 15 0 8193 16385 0 0 0
+8 35 2 0 15 0 12289 16385 0 0 0
 0 0 0 0 0 0 0 0
 11 550000 100
 E
@@ -1944,7 +1948,8 @@ armoire~
 0 0 100
 E
 armoire~
-A large brass armoire with two doors are adorned with a lock and emblazed with a circular symbol of the palace's chief of the guard.
+A large brass armoire with two doors are adorned with a lock and emblazed
+with a circular symbol of the palace's chief of the guard.
 ~
 #139135
 flaming skeleton key~
@@ -1971,7 +1976,7 @@ shimmering pyrohydra bracer pyro hydra~
 &+La&n &+csh&+Cim&+Wme&+Cri&+cng&n &+rpy&+Rro&+Yhy&+Wdra &nsc&+Lal&ned &+Lbr&nac&+Ler&n~
 &+cSh&+Cim&+Wme&+Cri&+cng&n on the ground in the room is a sc&+Lal&ned &+Lbr&nac&+Ler&n.~
 ~
-9 35 2 0 14 0 4097 4097 64 0 0
+9 35 2 0 14 0 1 4097 64 0 0
 15 0 0 0 0 0 0 0
 3 250000 100 536870928 0 0 0
 A
@@ -2019,7 +2024,7 @@ pile ancient pyro pyrohydra hydra scales scale~
 &+La p&ni&+Lle of &+Lan&nci&+Lent &+rpy&+Rro&+Yhy&+Wdra&n &+Lsc&na&+Lles~
 &+LA pile of ancient &+rpy&+Rro&+Yhy&+Wdra&n &+Lscales are scattered on the floor.~
 ~
-8 35 2 0 15 0 8193 16385 0 0 0
+8 35 2 0 15 0 12289 16385 0 0 0
 0 0 0 0 0 0 0 0
 11 550000 100
 E
@@ -2054,9 +2059,9 @@ shanaanaa parchment piece paper note notes ultarium city sky~
 &+BSha&+bnaana&+Ba's&n adventuring notes on &+WThe &+bSky&n &+WCity of Ultarium&n~
 A piece of parchment labelled "&+WThe &+bSky&n &+WCity of Ultarium&n" is crumbled here.~
 ~
-16 28 1 0 11 0 8192 1 0 0 0
+16 28 1 0 11 0 134225920 1 0 0 0
 0 0 0 0 0 0 0 0
-0 150150 100
+0 25050 100
 E
 shanaanaa parchment piece paper note notes sky ultarium city~
 The Sky city of Ultarium
@@ -2105,9 +2110,9 @@ shanaanaa parchment piece paper note notes arachdrathos guilds drow _id_~
 &+BSha&+bnaana&+Ba's&n adventuring notes on &+mArachdrathos Guilds&n~
 A piece of parchment labelled "&+mArachdrathos Guilds&n" is crumbled here.~
 ~
-16 28 1 0 11 0 8192 1 0 0 0
+16 28 1 0 11 0 134225920 1 0 0 0
 0 0 0 0 0 0 0 0
-0 150150 100
+0 25050 100
 E
 shanaanaa parchment piece paper note notes arachdrathos guilds drow~
 Arachdrathos Guilds (Drow)
@@ -2182,3 +2187,29 @@ P.S. The Warmaster wears the platemail of might and can be challenging to gain.
 
 P.S.S. There is a room you can cast Gate from near the web near the backdoor.
 ~
+#139147
+brass tail ring rubies~
+&+La &+yb&+Yr&+ya&+Ys&+ys &+Ltail &+yring&n &+Lwith &ntwo &+Ldangling &+Rr&+ru&+Rb&+ri&+Re&+rs&n~
+Two &+Rr&+ru&+Rb&+ri&+Re&+rs&n are attached to a thick &+yb&+Yr&+ya&+Ys&+ys&n ring is just lying on the ground.~
+~
+9 17 1 0 11 0 1 33554433 64 0 0
+0 0 0 0 0 0 0 0
+1 750000 100 0 0 128 0
+E
+brass tail ring rubies~
+Two beautiful rubies are attached with their own seperate chain to a thick
+brass ring. The thickness of the band is perfect to secure the course hair of
+a tail.
+~
+A
+17 -50
+A
+22 5
+#139148
+toy box tin~
+a &+Ltin &+Wt&+Yo&+Gy&n &+Cb&+Mo&+Rx~
+A &+Ltin &+Wt&+Yo&+Gy &+Cb&+Mo&+Rx&n with a &+ycopper&n latch rests here.~
+~
+15 17 3 0 10 0 33816577 16385 64 0 0
+150 1 0 150 0 0 0 0
+1 5390 100

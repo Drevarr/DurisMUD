@@ -2700,15 +2700,15 @@ void do_stat(P_char ch, char *argument, int cmd)
     strcat(o_buf, buf);
 
     i = calculate_ac(k, FALSE);
-    sprintf(buf, "&+cAgility Armor Class: &+Y%d&n", i);
+    sprintf(buf, "&+cAgility Armor Class: &+Y%d&n  ", i);
     strcat(o_buf, buf);
 
     i = calculate_ac(k, TRUE);
 
     if(i > 0)
-        sprintf(buf, "&+cTotal Armor Class: &+Y%d&n,  Increase melees damage by &+W%+.2f&n percent.\n", i, (double)(i * 0.10) );
+        sprintf(buf, "&+cTotal Armor Class: &+Y%d&n,  Increases melee damage by &+W%+.2f&n percent.\n", i, (double)(i * 0.10) );
       else
-        sprintf(buf, "&+cTotal Armor Class: &+Y%d&n,  Reduce melees damage by &+W%+.2f&n.\n", i, (double)(i * 0.10) );
+        sprintf(buf, "&+cTotal Armor Class: &+Y%d&n,  Reduces melee damage by &+W%+.2f&n.\n", i, (double)(i * 0.10) );
 
     strcat(o_buf, buf);
 
@@ -4897,7 +4897,6 @@ void do_start(P_char ch, int nomsg)
     ch->only.pc->skills[i].learned = 0;
   }
 
-//  ch->only.pc->trophy = NULL;
   ZONE_TROPHY(ch) = NULL;
 
   ch->only.pc->prestige = 0;
@@ -4911,7 +4910,6 @@ void do_start(P_char ch, int nomsg)
   GET_EXP(ch) = 1;
 
   if (isname("Duris", GET_NAME(ch)))
-//    GET_LEVEL(ch) = OVERLORD;
     ch->player.level = OVERLORD;
   GET_HIT(ch) = ch->points.base_hit;
   GET_MAX_HIT(ch) = GET_HIT(ch);

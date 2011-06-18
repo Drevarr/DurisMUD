@@ -14,8 +14,8 @@
 extern P_index mob_index;       /* for IS_SHOPKEEPER() macro */
 extern struct stat_data stat_factor[];
 extern float class_hitpoints[];
-float    hp_mob_con_factor;
-float    hp_mob_npc_pc_ratio;
+float    hp_mob_con_factor = get_property("hitpoints.mob.conFactor", 1.000);
+float    hp_mob_npc_pc_ratio = get_property("hitpoints.mob.NpcPcRatio", 2.250);
 extern P_room world;
 extern struct zone_data *zone_table;
 extern char *specdata[][MAX_SPEC];
@@ -409,14 +409,13 @@ void convertMob(P_char ch)
    * hitpoints etc. the goal was to make it intuitively adjustable via
    * two provided properties. /tharkun
    */
-  hits = (int) ((0.00000045 *
+  hits = (int) ((.00000045 *
                  (stat_factor[GET_RACE(ch)].Con *
                   stat_factor[GET_RACE(ch)].Con * hp_mob_con_factor +
                   100 * 100 * (1 - hp_mob_con_factor)) * level * level +
                  2) * level * hp_mob_npc_pc_ratio);
-  hits -=
-    (int) (0.5 * hits *
-           (1.0 - class_hitpoints[flag2idx(ch->player.m_class)]));
+
+  hits *= class_hitpoints[flag2idx(ch->player.m_class)];
 
 #if defined(CHAOS_MUD) && (CHAOS_MUD == 1)
   hits = (int)(hits * (1/10));

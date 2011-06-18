@@ -450,7 +450,7 @@ to all the shops, and other businesses that are set up in this section
 of the city. The smithe's make this district their home and are the main
 businesses found here.
 ~
-252 167809088 11 0
+252 167809092 11 0
 D0
 ~
 ~
@@ -469,7 +469,8 @@ S
 #139024
 &+yThe Keffinspire Armorer&n~
    This shop has all sorts of armor for sale, from simple iron worked
-armor to royal brass armor. The furnace to the north provides the necessary forge for the armorsmithy.
+armor to royal brass armor. The furnace to the north provides the
+necessary forge for the armorsmithy.
 ~
 252 167809088 11 0
 D0
@@ -489,7 +490,10 @@ The entrance to the bizarre is in that direction.
 S
 #139025
 &+yThe Keffinspire Weapon Smithy&n~
-   Many various types of weapons can be found in this glowing building of solid brass.  A display case showing several weapons is on display in the center of the floor, as well as smaller cases here and there. The massive furnace is to the northwest allowing easy access for this shop.
+   Many various types of weapons can be found in this glowing building
+of solid brass.  A display case showing several weapons is on display in
+the center of the floor, as well as smaller cases here and there. The
+massive furnace is to the northwest allowing easy access for this shop.
 ~
 252 167809088 11 0
 D0
@@ -509,7 +513,12 @@ D6
 S
 #139026
 &+yGlittermaker's Room, Tinker and Brownsmith&n~
-   This is just a small corner of the Keffinspire Bazaar and is fitting for the size of the propiertor. The tables are set just away from the wall to allow him to work behind them and are just three feet off the ground. There are many tin and copper works lining the wall displaying the type of craft performed here. To the west is a massive furnace used by this shop as well as all the others in the bazaar.
+   This is just a small corner of the Keffinspire Bazaar and is fitting
+for the size of the propiertor. The tables are set just away from the
+wall to allow him to work behind them and are just three feet off the
+ground. There are many tin and copper works lining the wall displaying
+the type of craft performed here. To the west is a massive furnace used
+by this shop as well as all the others in the bazaar.
 ~
 252 167809088 11 0
 D2
@@ -525,7 +534,11 @@ a magic shop can be seen in that direction
 S
 #139027
 &+yKeffinspires Community Forge Furnace&n~
-Placed in the center of the bazaar is a massive furnace. There are several openings around it allowing each shop surrounding it to use the fires for their craft. The furnace is made of a covering of brass and is highly decorated with impressions of hammers, anvils, and faces of smithy's past.
+Placed in the center of the bazaar is a massive furnace. There are
+several openings around it allowing each shop surrounding it to use
+the fires for their craft. The furnace is made of a covering of brass
+and is highly decorated with impressions of hammers, anvils, and faces
+of smithy's past.
 ~
 252 167809088 11 0
 D0
@@ -557,7 +570,10 @@ D9
 S
 #139028
 &+yStone Mason's Shop in the Keffinspires District&n~
-  This area in the market is designated for the stone mason. There is a furnace set up along the western wall utiziling the planes heat source when it is needed. Most of the work however is done with chisel and hammer on the the massive table set up near the southern exit. To the east is the bazaar's massive furnace used by this shop to create its craft.
+  This area in the market is designated for the stone mason. There is
+a furnace to the east utiziling the planes heat source when it is needed. Most
+of the work however is done with chisel and hammer on the the massive table
+set up near the southern exit.
 ~
 252 167809088 11 0
 D0
@@ -600,7 +616,11 @@ D9
 S
 #139030
 &+yLucky Lokke's Locksmithy&n~
-A small tent set up in the center of this area covers just a singular table. The table has two cabinets set into it which hold either the products of the shop or the tools to craft them. Laying on the work table are many different pieces to various locks. To the south is the massive furnace used for his crafting of the pieces needed.
+A small tent set up in the center of this area covers just a singular
+table. The table has two cabinets set into it which hold either the
+products of the shop or the tools to craft them. Laying on the work
+table are many different pieces to various locks. To the south is the
+massive furnace used for his crafting of the pieces needed.
 ~
 252 167809088 11 0
 D1
@@ -1138,10 +1158,10 @@ door~
 S
 #139059
 &+yNorth West Watch Tower&n~
-   This huge tower some one thousand five hundred feet high overlooks
-the city and the surrounding areas of the plane of fire.  There are no stairs
-here to clime, and the tower seem hollow except for a huge platform
-barely visible from this distance at the top of the tower.
+   This huge tower some one thousand five hundred feet high overlooks the
+city and the surrounding areas of the plane of fire.  There are no stairs
+here to clime, and the tower seem hollow except for a huge platform barely
+visible from this distance at the top of the tower.
 ~
 252 167809088 11 0
 D2
@@ -1158,7 +1178,7 @@ buildings of the city.  Great doors over one hundred feet tall make up
 the entrance to the building.  And the great symbol of the Sultan of the
 efreeti is encrusted upon the doors.
 ~
-252 167809088 11 0
+252 167809092 11 0
 D1
 Another room in the library can be seen that way
 ~
@@ -3479,7 +3499,11 @@ D2
 S
 #139180
 &+yCommoners Marketplace~
-Many different potions can be seen lining the walls here onto shelves that reach fifteen feet high. There are labels on each one and between you and the wall is a display case with even more elixers that are ready for sale. A small circular table is set up on the east side of the room where the brewing equipment is placed.
+Many different potions can be seen lining the walls here onto shelves
+that reach fifteen feet high. There are labels on each one and between
+you and the wall is a display case with even more elixers that are ready
+for sale. A small circular table is set up on the east side of the room
+where the brewing equipment is placed.
 ~
 252 167809088 11 0
 D0
@@ -3497,7 +3521,11 @@ D3
 S
 #139181
 &+yCommoners Marketplace~
-This room is decorated with demon heads, dragon teeth, owlbear pelts, and similar trophies alike. They have been collected and put on display here in this shop corner. A canopy extends away from the eastern wall to give some cover from the ash that occasionally falls and the southern wall is polished to help highlight the trophies.
+This room is decorated with demon heads, dragon teeth, owlbear pelts,
+and similar trophies alike. They have been collected and put on display
+here in this shop corner. A canopy extends away from the eastern wall to
+give some cover from the ash that occasionally falls and the southern
+wall is polished to help highlight the trophies.
 ~
 252 167809088 11 0
 D0
@@ -3529,8 +3557,11 @@ D2
 S
 #139183
 &+yCommoners Marketplace~
-This section of the bazaar houses the shop of the royal clothier of the city,
-Saladeem Karontoo.  He is more well known however for the exotic leatherworks he has crafted in the past and possibly in the future. Saladeem is a gentle fellow for an efreeti and seems happy to server any customer that walks in the door.
+This section of the bazaar houses the shop of the royal clothier of the
+city, Saladeem Karontoo.  He is more well known however for the exotic
+leatherworks he has crafted in the past and possibly in the future.
+Saladeem is a gentle fellow for an efreeti and seems happy to server any
+customer that walks in the door.
 ~
 252 167809088 11 0
 D0
@@ -3863,7 +3894,12 @@ D3
 S
 #139199
 &+yBrass Harbor Shop~
-This room is filled with various seafares objects such as anchors made of brass, chains of harden metals, huge lanterns, and a massive sail. All these objects have little use on this plane or for any of the ships that make their way through the docks. Most of the ships are spelljammers and have no need for the more common ship equipment. The owner of the shop has been gone for quite sometime.
+This room is filled with various seafares objects such as anchors made of
+brass, chains of harden metals, huge lanterns, and a massive sail. All
+these objects have little use on this plane or for any of the ships that
+make their way through the docks. Most of the ships are spelljammers and
+have no need for the more common ship equipment. The owner of the shop has
+been gone for quite sometime.
 ~
 252 167809096 11 0
 D3
@@ -3873,7 +3909,11 @@ D3
 S
 #139200
 &+yBrass Harbor Customs Office~
-Bustling with traders the City's custom office is constantly filled with traffic. There is a system where people can been seen in a timely manner and the office workers are consistantly moving. The papers are shuffled and filed into boxes in the western corner and the products are stored and visually checked along the eastern wall and outside the building.
+Bustling with traders the City's custom office is constantly filled with
+traffic. There is a system where people can been seen in a timely manner
+and the office workers are consistantly moving. The papers are shuffled
+and filed into boxes in the western corner and the products are stored
+and visually checked along the eastern wall and outside the building.
 ~
 252 167809096 11 0
 D1
@@ -4030,7 +4070,13 @@ D3
 S
 #139208
 &+yThe Pyraculum Marketplace~
-This is a massive bazaar with large copper paved roads in a circle pattern in two layers, inner and outer, as it directs its passengers around to its shops. The businesses line both sides of the road and each business has a booth that has its own canopy covering with a small tabletop counter. The larger shops are much more elaborant and some have made themselves a more permenant building. The Pyraculum market is reknown for the high quality goods that move through.
+This is a massive bazaar with large copper paved roads in a circle
+pattern in two layers, inner and outer, as it directs its passengers
+around to its shops. The businesses line both sides of the road and
+each business has a booth that has its own canopy covering with a small
+tabletop counter. The larger shops are much more elaborant and some
+have made themselves a more permenant building. The Pyraculum market is
+reknown for the high quality goods that move through.
 ~
 252 167809088 11 0
 D0
@@ -4052,7 +4098,13 @@ D3
 S
 #139209
 &+yThe Pyraculum Marketplace~
-You can hear musicial sounds throughout the marketplace but this area is definitely where the music was coming from. There is a Satyr who is skipping around in an undefined pattern playing various instruments keeping those who are interested entertained. He has a small circular tent set up in what would be considered the center of the bazaar with many instruments that are made of mostly medals or of some speciality woods.
+You can hear musicial sounds throughout the marketplace but this area
+is definitely where the music was coming from. There is a Satyr who is
+skipping around in an undefined pattern playing various instruments
+keeping those who are interested entertained. He has a small circular
+tent set up in what would be considered the center of the bazaar with
+many instruments that are made of mostly medals or of some speciality
+woods.
 ~
 252 167809088 11 0
 D0
@@ -4074,7 +4126,13 @@ D3
 S
 #139210
 &+yThe Pyraculum Marketplace~
-This is a massive bazaar with large copper paved roads in a circle pattern in two layers, inner and outer, as it directs its passengers around to its shops. The businesses line both sides of the road and each business has a booth that has its own canopy covering with a small tabletop counter. The larger shops are much more elaborant and some have made themselves a more permenant building. The Pyraculum market is reknown for the high quality goods that move through.
+This is a massive bazaar with large copper paved roads in a circle
+pattern in two layers, inner and outer, as it directs its passengers
+around to its shops. The businesses line both sides of the road and
+each business has a booth that has its own canopy covering with a small
+tabletop counter. The larger shops are much more elaborant and some
+have made themselves a more permenant building. The Pyraculum market is
+reknown for the high quality goods that move through.
 ~
 252 167809088 11 0
 D0
@@ -4096,7 +4154,13 @@ D3
 S
 #139211
 &+yThe Pyraculum Marketplace~
-This is a massive bazaar with large copper paved roads in a circle pattern in two layers, inner and outer, as it directs its passengers around to its shops. The businesses line both sides of the road and each business has a booth that has its own canopy covering with a small tabletop counter. The larger shops are much more elaborant and some have made themselves a more permenant building. The Pyraculum market is reknown for the high quality goods that move through.
+This is a massive bazaar with large copper paved roads in a circle
+pattern in two layers, inner and outer, as it directs its passengers
+around to its shops. The businesses line both sides of the road and
+each business has a booth that has its own canopy covering with a small
+tabletop counter. The larger shops are much more elaborant and some
+have made themselves a more permenant building. The Pyraculum market is
+reknown for the high quality goods that move through.
 ~
 252 167809088 11 0
 D0
@@ -4114,7 +4178,9 @@ D3
 S
 #139212
 &+yThe Pyraculum Marketplace~
-This glowing corner of the Pyraculum Marketplace houses the shop of the famous gem cutters of the city of brass.  All sorts of wondrous gem stones can be found within, as well as cut and set jewels.
+This glowing corner of the Pyraculum Marketplace houses the shop of
+the famous gem cutters of the city of brass.  All sorts of wondrous
+gem stones can be found within, as well as cut and set jewels.
 ~
 252 167809088 11 0
 D0
@@ -4128,7 +4194,11 @@ D1
 S
 #139213
 &+yThe Pyraculum Marketplace~
-In these rows of the marketplace visitors or residents can rent a tent for the day or longer and sell their goods. The tents are not as private as the others you see here in the bazaar but are more elongated to provide a greater amount of vendors to fit under one roof. They are well maintained and are currently all in use for the day.
+In these rows of the marketplace visitors or residents can rent a tent
+for the day or longer and sell their goods. The tents are not as private
+as the others you see here in the bazaar but are more elongated to pro-
+vide a greater amount of vendors to fit under one roof. They are well
+maintained and are currently all in use for the day.
 ~
 252 167809088 11 0
 D0
@@ -4146,7 +4216,13 @@ D2
 S
 #139214
 &+yThe Pyraculum Marketplace~
-This is a massive bazaar with large copper paved roads in a circle pattern in two layers, inner and outer, as it directs its passengers around to its shops. The businesses line both sides of the road and each business has a booth that has its own canopy covering with a small tabletop counter. The larger shops are much more elaborant and some have made themselves a more permenant building. The Pyraculum market is reknown for the high quality goods that move through.
+This is a massive bazaar with large copper paved roads in a circle
+pattern in two layers, inner and outer, as it directs its passengers
+around to its shops. The businesses line both sides of the road and
+each business has a booth that has its own canopy covering with a small
+tabletop counter. The larger shops are much more elaborant and some have
+made themselves a more permenant building. The Pyraculum market is
+reknown for the high quality goods that move through.
 ~
 252 167809088 11 0
 D0
@@ -4168,7 +4244,11 @@ D3
 S
 #139215
 &+yPyraculum Information Emporium~
-A single desk stands in the corner about five feet from each wall. Behind is a single chair which Shanaanaa sits. The wall to the north is a bit marred from the constant contact with the ball that is bounced against it. On the opposing wall is a sign that reads, "Information for Sale"
+A single desk stands in the corner about five feet from each wall.
+Behind is a single chair which Shanaanaa sits. The wall to the north
+is a bit marred from the constant contact with the ball that is bounced
+against it. On the opposing wall is a sign that reads,
+                       "Information for Sale"
 ~
 252 167809088 11 0
 D1
@@ -4200,7 +4280,10 @@ D2
 S
 #139217
 &+yThe Pyraculum Marketplace~
-This odd round tent seems most odd, the walls part as people get close to it to allow access to the inside.  This tends to be un-nerving to the faint of heart.  All sorts off magic devices and items are to be found within.
+This odd round tent seems most odd, the walls part as people get close
+to it to allow access to the inside.  This tends to be un-nerving to the
+faint of heart.  All sorts off magic devices and items are to be found
+within.
 ~
 252 167809088 11 0
 D0
@@ -4218,7 +4301,13 @@ D3
 S
 #139218
 &+yThe Pyraculum Marketplace~
-This is a massive bazaar with large copper paved roads in a circle pattern in two layers, inner and outer, as it directs its passengers around to its shops. The businesses line both sides of the road and each business has a booth that has its own canopy covering with a small tabletop counter. The larger shops are much more elaborant and some have made themselves a more permenant building. The Pyraculum market is reknown for the high quality goods that move through.
+This is a massive bazaar with large copper paved roads in a circle
+pattern in two layers, inner and outer, as it directs its passengers
+around to its shops. The businesses line both sides of the road and
+each business has a booth that has its own canopy covering with a small
+tabletop counter. The larger shops are much more elaborant and some
+have made themselves a more permenant building. The Pyraculum market is
+reknown for the high quality goods that move through.
 ~
 252 167809088 11 0
 D0
@@ -4240,7 +4329,12 @@ D3
 S
 #139219
 &+yThe Pyraculum Marketplace~
-A very dusty and not well travelled corner of the bazaar is tucked away in the corner here. Just a single being resides here, the construct called "the repair man". Flakes of its flesh forms layers upon layers of dust as it stands motionless until needed. Several vacant shops are adjacent nearby as their inhabitents probably found it a bit creepy as did the bazaar traffic since not many visit here.
+A very dusty and not well travelled corner of the bazaar is tucked away
+in the corner here. Just a single being resides here, the construct
+called "the repair man". Flakes of its flesh forms layers upon layers of
+dust as it stands motionless until needed. Several vacant shops are
+adjacent nearby as their inhabitents probably found it a bit creepy as
+did the bazaar traffic since not many visit here.
 ~
 252 167809088 11 0
 D2
@@ -4765,7 +4859,7 @@ S
 #139247
 &+WRare Load Room for Brass Palace~
 ~
-252 0 0 0
+252 176193608 11 0
 D0
 ~
 ~
@@ -6414,11 +6508,11 @@ armory door~
 S
 #139335
 &+yAn Armory~
-The palace armory is here, holding all sorts of oversized swords,
-daggers, clubs, maces, battle-axes, suits of armor mostly made
-of brass or bronze, and shields of all sizes. Nearly all the items
-here in this room are of such a huge size they are not usable by
-anyone but those who made this place their home.
+The palace armory is decorated with unused and captured equipment hanging on
+the walls. In the weapon racks and upon the shelves are all sorts of oversized
+pieces of equipment ranging from weapons and armor to human-sized pieces
+unsuitable for the efreeti. An armoire is mounted against the southern wall
+completing the decore of the room.
 ~
 252 167809096 11 0
 D0
