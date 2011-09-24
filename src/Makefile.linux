@@ -197,7 +197,8 @@ OBJS	=  \
 	sql.o	\
 	statistics.o \
 	storage_lockers.o \
-  timers.o \
+	tether.o \
+	timers.o \
 	track.o \
 	tradeskill.o \
   trap.o \

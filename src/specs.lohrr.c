@@ -4,15 +4,6 @@
 #include "comm.h"
 #include "prototypes.h"
 
-void tether_broken(struct char_link_data *cld)
-{
-   P_char ch = cld->linking;
-   P_char victim = cld->linked;
-
-   act( "Your reach exceeded, you release $n's soul.", FALSE, ch, NULL, victim, TO_CHAR );
-   act( "You feel a cold vacancy within.", FALSE, ch, NULL, victim, TO_VICT );
-}
-
 // This is an old proc for Lohrr's eq..
 void proc_lohrr( P_obj obj, P_char ch, int cmd, char *argument )
 {
