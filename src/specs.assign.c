@@ -1305,6 +1305,8 @@ void assign_objects(void)
 {
   obj_index[real_object0(354)].func.obj = artifact_monolith;
 
+  obj_index[real_object0(83457)].func.obj = miners_helmet;
+
   /* outposts */
   //obj_index[real_object0(97800)].func.obj = outpost_rubble; 
   mob_index[real_mobile0(97800)].func.mob = building_mob_proc;
