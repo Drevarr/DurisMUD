@@ -44,20 +44,21 @@ void proc_lohrr( P_obj obj, P_char ch, int cmd, char *argument )
 
 // It's a percentage chance to make them attack a few extra times.
 // It's size dependdent: < medium = 10, medium/large = 6, > large = 4
-void dagger_of_wind( P_obj obj, P_char ch, int cmd, char *argument )
+int dagger_of_wind( P_obj obj, P_char ch, int cmd, char *argument )
 {
    int numhits = 0;
    int i = 0;
 
    // Verify that obj is dagger of wind and being wielded by ch.
-   if( cmd != CMD_MELEE_HIT || !ch || !obj || !OBJ_WORN(obj) || obj->loc.wearing != ch )
-      return;
+   if( cmd != CMD_PERIODIC || !ch || !obj
+      || !OBJ_WORN(obj) || obj->loc.wearing != ch )
+      return FALSE;
    // Verify that ch is in battle with someone.
    if( !IS_FIGHTING(ch) || !ch->specials.fighting )
-      return;
+      return FALSE;
 
-   // 50% chance to proc.
-   if( number(1,100) > 50 )
+   // 99% chance to proc.
+   if( number(1,100) > 1 )
    {
        act("You move with a blur of speed!",
           FALSE, ch, obj, 0, TO_CHAR);
@@ -81,6 +82,7 @@ void dagger_of_wind( P_obj obj, P_char ch, int cmd, char *argument )
          i++;
       }
    }
+   return TRUE;
 }
 
 // Alright, so... I made a first attempt at trying to hack some code together and

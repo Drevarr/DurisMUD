@@ -54,6 +54,7 @@ int staff_shadow_summoning(P_obj obj, P_char ch, int cmd, char *arg);
 int rod_of_magic(P_obj obj, P_char ch, int cmd, char *arg);
 int nightcrawler_dagger(P_obj obj, P_char ch, int cmd, char *arg);
 int lyrical_instrument_of_time(P_obj obj, P_char ch, int cmd, char *argument);
+int dagger_of_wind(P_obj, P_char, int, char*);
 
 /* Ailvio procs */
 int burbul_map_obj(P_obj obj, P_char ch, int cmd, char *arg);
