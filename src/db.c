@@ -68,6 +68,7 @@ extern void event_mob_skin_spell(P_char, P_char, P_obj, void*);
 extern struct social_messg *soc_mess_list;
 void recalc_zone_numbers();
 void ne_init_events();
+extern void event_reset_zone(P_char, P_char, P_obj, void*);
 
 /**************************************************************************
 *  declarations of most of the 'global' variables                         *
@@ -2826,7 +2827,7 @@ P_obj read_object(int nr, int type)
   obj->cost = tmp;
   fscanf(obj_f, " %d ", &tmp);
   obj->condition = tmp;
-  fscanf(obj_f, " %d ", &tmp);
+  fscanf(obj_f, " %d \n", &tmp);
   obj->max_condition = tmp;
   if(obj->max_condition < 100)
     obj->max_condition = 100;
@@ -3014,7 +3015,7 @@ P_obj read_object(int nr, int type)
 void no_reset_zone_reset(int zone_number)
 {
   int i;
-  struct zone_data zone = zone_table[zone_number];
+  struct zone_data *zone = &zone_table[zone_number];
 
   if(!qry("SELECT reset_perc FROM zones WHERE number = '%d'", zone_number))
   {
@@ -3035,16 +3036,17 @@ void no_reset_zone_reset(int zone_number)
   if(atoi(row[0]) > number(0, 99))
   {
     zone_purge(zone_number);
-    statuslog(56, "Resetting no_reset zone %d, %s", zone_number, strip_ansi(zone_table[zone_number].name).c_str()); 
+    wizlog(56, "Resetting no_reset zone %d, %s", zone_number, strip_ansi(zone->name).c_str()); 
     reset_zone(zone_number, FALSE); // does not require a forced repop
                                     // due to the zone_purge function
   }
   else
   {
-    db_query("UPDATE zones SET reset_counter = '%d' where number = '%d'", row[RESET_COUNTER] + 1, zone_number);
+    wizlog(56, "incrementing");
+    add_event(event_reset_zone, WAIT_SEC, 0, 0, 0, 0, &zone, sizeof(zone));
+    db_query("UPDATE zones SET reset_perc = '%d' where number = '%d'", row[0] + 1, zone_number);
   }
 }
-#undef RESET_COUNTER
 
 #define ZCMD zone_table[zone].cmd[cmd_no]
 
