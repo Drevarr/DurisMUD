@@ -3016,7 +3016,7 @@ void no_reset_zone_reset(int zone_number)
   int i;
   struct zone_data zone = zone_table[zone_number];
 
-  if(!qry("SELECT * FROM zones WHERE zone_id = '%d'", zone_number))
+  if(!qry("SELECT reset_perc FROM zones WHERE number = '%d'", zone_number))
   {
     logit(LOG_DEBUG, "no_reset_zone_reset: could not find zone information for zone %d", zone_number);
     return;
@@ -3032,7 +3032,7 @@ void no_reset_zone_reset(int zone_number)
   
   MYSQL_ROW row = mysql_fetch_row(res);
     
-  if(atoi(row[RESET_COUNTER]) > number(0, 99))
+  if(atoi(row[0]) > number(0, 99))
   {
     zone_purge(zone_number);
     statuslog(56, "Resetting no_reset zone %d, %s", zone_number, strip_ansi(zone_table[zone_number].name).c_str()); 
@@ -3041,7 +3041,7 @@ void no_reset_zone_reset(int zone_number)
   }
   else
   {
-    db_query("UPDATE zones SET reset_counter = '%d'", row[RESET_COUNTER] + 1);
+    db_query("UPDATE zones SET reset_counter = '%d' where number = '%d'", row[RESET_COUNTER] + 1, zone_number);
   }
 }
 #undef RESET_COUNTER

@@ -1083,7 +1083,7 @@ int epic_stone(P_obj obj, P_char ch, int cmd, char *arg)
       {
         struct zone_data *zone = &zone_table[zone_number];
         add_event(event_reset_zone, WAIT_SEC, 0, 0, 0, 0, &zone, sizeof(zone));
-        db_query("INSERT INTO zones (reset_counter) VALUES (1)");
+        db_query("update zones set reset_perc = 1 where number = '%d'", zone_number);
       }
     }
 
