@@ -2136,7 +2136,8 @@ void epic_zone_erase_touch(int zone_number)
    {
       if((it->number == zone_number))
       {
-       // epic_zone_completions.erase(it);
+         epic_zone_completions.erase(it);
+         break;
       }
    }
 }
