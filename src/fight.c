@@ -6673,8 +6673,15 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
   
   dam = (int) dam * dam_factor[DF_WEAPON_DICE];
   
-  dam = dam * (BOUNDEDF(0.05, (GET_DAMROLL(ch) * 2) / 10, 1.20));
-  
+  // damroll mitigation for wipe2011 - Jexni 12/17/11
+  if(damroll > 19)
+  {
+    if(dam + damroll < dam * 0.8)
+      dam = dam * (BOUNDEDF(0.80, (damroll * 2) / 100, 1.20));
+    else
+      dam += damroll;
+  }
+
   if(hit_type == -1 && GET_CHAR_SKILL(ch, SKILL_DEVASTATING_CRITICAL) > devcrit)
   {
     dam = (int) (dam * 1.75);
