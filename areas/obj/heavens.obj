@@ -5,7 +5,7 @@ book quest guide _id_~
 ~
 13 4 2 0 15 0 598025 16385 60 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 book quest guide~
                   &+WBASIC GUIDELINES FOR QUEST IMMORTALS ON DURIS&N
@@ -60,7 +60,7 @@ Someone has left their 1000 frequent flier miles here!~
 ~
 12 28 0 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #12
 clue huge~
 a huge clue that removes your mental block~
@@ -68,7 +68,7 @@ A huge clue lies here, waiting to remove your stupidity.~
 ~
 12 16 0 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-1 100 100
+1 100 100 100
 #13
 valium~
 a &+W*huge*&n valium tablet measuring a foot in length~
@@ -76,7 +76,7 @@ A *huge* pill lies here.~
 ~
 19 2 2 2 7 0 532480 16385 64 0 0
 99 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #14
 banana peel~
 &+Ya banana peel&N~
@@ -84,7 +84,7 @@ banana peel~
 ~
 12 48 0 0 7 0 8388609 0 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 A
 3 -1
 A
@@ -96,7 +96,7 @@ banana~
 ~
 5 48 2 0 7 0 8192 8193 0 0 0
 10 1 1 7 0 0 0 0
-1 5 100
+1 5 100 100
 A
 19 -10
 #16
@@ -106,7 +106,7 @@ note post-it post~
 ~
 13 29 1 1 7 0 8200 16401 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 note post-it~
 This small yellow note has an important message written on it so
@@ -119,7 +119,7 @@ hammer warhammer mystical kelrarin~
 ~
 5 19 4 8 7 0 285484817 8193 65 1064961 285217074
 4 5 5 6 0 0 0 0
-20 1000000 100
+20 1000000 100 100
 E
 mighty hammer kelrarin~
 The hammer is a remarkably ordinary looking weapon.  It is essentially a
@@ -141,7 +141,7 @@ longsword sword long silverish silver~
 ~
 5 22 3 0 7 0 4228096 8193 65 85458961 8192
 5 9 4 3 0 0 0 0
-10 3021 100 16 0 0 0
+10 3021 100 100 16 0 0 0
 E
 longsword sword long silverish silver~
 &+CRoughly three feet long, this two-handed sword looks fearsome indeed.
@@ -157,7 +157,7 @@ staff silverish silver~
 ~
 5 22 3 0 7 0 4228096 8193 65 4197892 0
 12 9 4 7 0 0 0 0
-10 3021 100 16 0 0 0
+10 3021 100 100 16 0 0 0
 E
 staff silverish silver~
 &+CRoughly three feet long, this staff has a spiked head and manages to
@@ -174,7 +174,7 @@ tree~
 ~
 5 6 5 0 7 0 4194312 8193 0 0 0
 10 4 8 7 0 0 0 0
-40 3021 100
+40 3021 100 100
 A
 18 -4
 #21
@@ -184,7 +184,7 @@ mayhem sword chaotic~
 ~
 5 1 3 0 15 0 306257920 8193 64 0 0
 13 8 5 3 0 0 0 0
-0 0 100 65536 0 0 0
+0 0 100 100 65536 0 0 0
 A
 18 6
 A
@@ -196,7 +196,7 @@ a huge blade softly emanates power.~
 ~
 5 1 3 0 15 0 306257920 8193 64 0 0
 13 8 5 3 0 0 0 0
-0 0 100 8320 0 0 0
+0 0 100 100 8320 0 0 0
 A
 18 6
 A
@@ -208,7 +208,7 @@ gold star~
 ~
 11 15 3 0 7 0 67641345 2113537 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100 2 0 0 0
+0 0 100 100 2 0 0 0
 #24
 silver star~
 &+Wa silver star&N~
@@ -216,7 +216,7 @@ silver star~
 ~
 11 15 3 0 7 0 67641345 270548993 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100 2 0 0 0
+0 0 100 100 2 0 0 0
 #25
 object generic~
 a generic quest biofeedback item~
@@ -224,7 +224,7 @@ A generic object is here.~
 ~
 13 15 3 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #26
 bronze star~
 &+ya bronze star&N~
@@ -232,7 +232,7 @@ bronze star~
 ~
 11 15 3 0 7 0 67641345 270548993 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100 2 0 0 0
+0 0 100 100 2 0 0 0
 #27
 book council~
 &+GThe Book of the Council&N~
@@ -240,7 +240,7 @@ book council~
 ~
 12 29 3 0 15 0 33554433 0 64 0 0
 0 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 E
 book council~
 &+WThis book details the rules and responsibilities of those elected to
@@ -311,7 +311,7 @@ glowing potion~
 ~
 10 40 2 4 7 0 102409 8404993 64 0 0
 51 113 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 E
 glowing potion~
 &+g  Yes! You've found the Glowing Potion!&N
@@ -323,7 +323,7 @@ board code~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 60 60 60 60 0 0 0 0
-0 0 100
+0 0 100 100
 E
 board~
 Use "Look AT code" to see a listing of the messages. Use "Read
@@ -337,7 +337,7 @@ The almighty &+Lstaff of power&N glows darkly here!~
 ~
 4 17 3 10 15 0 305538049 24577 64 4197892 0
 60 100 100 166 0 0 0 0
-1 2647854 100 34 2048 16777216 0
+1 2647854 100 100 34 2048 16777216 0
 E
 staff power~
 &+L   This staff is legendary for its immense powers and the abilities which it
@@ -355,7 +355,7 @@ spellbook pitch black~
 ~
 33 15 3 0 7 0 67117065 8404993 64 0 0
 0 0 800 0 0 0 0 0
-0 0 100 805306368 0 0 0
+0 0 100 100 805306368 0 0 0
 #32
 pizza pepperoni~
 &+Ya &+rPepperoni&+Y pizza&N~
@@ -363,7 +363,7 @@ pizza pepperoni~
 ~
 19 15 3 0 7 0 0 267280383 0 0 0
 24 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #33
 small stream~
 &+ba small stream&N~
@@ -371,7 +371,7 @@ small stream~
 ~
 17 15 4 0 7 0 1 0 0 0 0
 100 -1 17 0 0 0 0 0
-0 0 100
+0 0 100 100
 #34
 collection blood~
 &+ra collection of blood&N~
@@ -379,7 +379,7 @@ collection blood~
 ~
 17 15 3 0 7 0 0 0 0 0 0
 100 -1 13 0 0 0 0 0
-0 0 100
+0 0 100 100
 #35
 boots tips _id_~
 &+yan astonishing pair of boots &+Cwith metal tips&n~
@@ -387,7 +387,7 @@ boots tips _id_~
 ~
 9 13 3 0 11 0 0 65 0 0 0
 8 0 0 5 0 0 0 0
-1 34556 100
+1 34556 100 100
 E
 boots tips _id_~
 &+yThese astonshing pair of leather boots were made by the finest
@@ -405,7 +405,7 @@ dragon gloves scale~
 ~
 9 35 3 1 11 0 0 129 0 0 0
 10 0 0 5 0 0 0 0
-1 3456 100
+1 3456 100 100
 E
 dragon gloves scale~
 &+gThese gloves were carefully created from scales of a dragon,
@@ -424,7 +424,7 @@ sword black pitch throbbing~
 ~
 5 15 3 1 7 2 0 8193 0 0 0
 5 5 5 3 0 0 0 0
-1 3456 100
+1 3456 100 100
 E
 sword black pitch throbbing~
 &+LThis engraved pitch-black longsword &+Mthrobs&n in the hands of the
@@ -439,9 +439,9 @@ badge feather eagle~
 &+Ba magical &+Weagle feather, &+Cdangling from a cord&n~
 &+yA feather lies here.&n~
 ~
-9 15 3 0 11 0 0 2097153 0 0 0
+11 15 3 0 11 0 0 2097153 0 0 0
 2 0 0 1 0 0 0 0
-0 3456 100
+0 3456 100 100
 E
 badge feather eagle~
 &+WThis feather is attached by only a single thread... &n
@@ -455,7 +455,7 @@ a blank badge~
 ~
 11 15 3 0 7 0 0 10485761 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #40
 bookcase~
 &+La bookcase&N~
@@ -463,7 +463,7 @@ bookcase~
 ~
 15 15 5 0 7 0 0 0 0 0 0
 100 8 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 bookcase~
 &+RThis is a bookcase that stands as high as the ceiling. It has been well
@@ -478,7 +478,7 @@ symbol magical_guild_badge~
 ~
 11 15 3 0 7 0 134217728 2097153 0 0 0
 0 0 0 0 0 0 0 0
-0 333333 100
+0 333333 100 100
 #42
 board ideas idea~
 &+YThe board of IDEAS&N~
@@ -486,7 +486,7 @@ board ideas idea~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 57 57 57 57 0 0 0 0
-0 0 100
+0 0 100 100
 E
 board~
 Use "Look AT holy" to see a listing of the messages. Use "Read
@@ -500,7 +500,7 @@ A &+ytoken&+n of the &+YGods&n lies here.&N~
 ~
 12 28 1 0 14 0 100671497 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 1 100
+0 1 100 100
 E
 token coupon~
 &+B  token is good to trade in for bigger prizes.&n
@@ -512,7 +512,7 @@ restring coupon~
 ~
 12 28 1 0 14 0 100671497 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 1 100
+0 1 100 100
 E
 restring coupon~
 &+B   This coupon is good for one (1) free restring of equipment, not to include any
@@ -529,7 +529,7 @@ machine slot~
 ~
 12 6 10 0 15 0 78880776 0 64 0 0
 3 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 machine slot payoff odds rules~
 &+y /--------------------------\
@@ -573,7 +573,7 @@ armor shimmering suit~
 ~
 9 1 10 0 14 0 33562625 9 66 0 0
 -50 0 0 5 0 0 0 0
-0 0 100 134217736 128 0 0
+0 0 100 100 134217736 128 0 0
 A
 13 20
 A
@@ -585,7 +585,7 @@ shimmering suit armor~
 ~
 9 1 10 0 15 0 8201 9 64 0 0
 0 0 0 5 0 0 0 0
-0 0 100
+0 0 100 100
 #48
 backpack leather large bp~
 &+ya large leather backpack&N~
@@ -593,7 +593,7 @@ backpack leather large bp~
 ~
 15 13 3 6 7 0 0 4194305 0 0 0
 120 1 0 100 0 0 0 0
-4 200 100
+4 200 100 100
 #49
 flap~
 &+yFlap&N~
@@ -601,7 +601,7 @@ flap~
 ~
 13 15 3 0 7 0 2 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 flap~
 &+yThe flap is pretty damn big, maybe if you tugged on it a little you could make it budge.&N
@@ -613,7 +613,7 @@ ice shattered bits~
 ~
 12 40 0 0 7 0 107520 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #51
 dung horse pile~
 &+ya steaming pile of horse dung&n~
@@ -621,7 +621,7 @@ dung horse pile~
 ~
 7 42 2 3 7 0 16875520 16385 0 0 0
 0 1 4 5 0 0 0 0
-4 0 100
+4 0 100 100
 #52
 book recipe small~
 &+ya small recipe book&n~
@@ -629,7 +629,7 @@ book recipe small~
 ~
 13 28 3 0 7 0 8 8404993 0 1 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 book recipe small 1~
 &+y|------------------------------------------------------------------------------|
@@ -792,7 +792,7 @@ rope coil hemp~
 ~
 12 43 0 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-9 1255 100
+9 1255 100 100
 E
 rope coil hemp~
 &+yRoughly 50 feet long, this hemp rope looks good enough to smoke.
@@ -804,7 +804,7 @@ ward mechanism trap trap-like~
 ~
 13 15 3 0 7 0 67117056 1 0 0 0
 0 0 0 0 0 0 0 0
-1 32000 100
+1 32000 100 100
 #55
 trustee artifact~
 a trustee artifact~
@@ -812,7 +812,7 @@ A trustee artifact lies here, discarded.~
 ~
 9 16 0 0 7 0 0 2097153 0 0 0
 0 16 0 3 0 0 0 0
-1 1 100
+1 1 100 100
 #56
 object unnamed~
 an unnamed object~
@@ -820,7 +820,7 @@ An unnamed object lies here, looking lonely and forelorn.~
 ~
 13 15 3 0 7 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #57
 tome pirate guide~
 &+ya &+Wsalty &+ytome marked &+L'&+bA Guide to the &+BHigh Seas&+L'&n~
@@ -828,7 +828,7 @@ tome pirate guide~
 ~
 13 15 3 0 7 0 0 8404993 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #58
 relic true holy divine~
 &+CThe Holy Relic of the &+WTrue Gods~
@@ -836,7 +836,7 @@ relic true holy divine~
 ~
 13 15 3 0 7 0 302030848 536772607 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100 0 2048 0 0
+0 0 100 100 0 2048 0 0
 A
 35 50
 #59
@@ -846,7 +846,7 @@ relic undead kings blood~
 ~
 12 15 3 0 7 0 302030856 532578303 66 0 0
 0 0 0 0 0 0 0 0
-0 0 100 0 2048 0 0
+0 0 100 100 0 2048 0 0
 A
 35 50
 #60
@@ -856,7 +856,7 @@ pool liquid glowing~
 ~
 13 40 3 0 7 0 8201 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 pool liquid glowing~
 It's about three feet in diameter, and perhaps a foot deep.  Oh my.
@@ -868,7 +868,7 @@ pool liquid glowing~
 ~
 13 40 3 0 7 0 8201 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 pool liquid glowing~
 It's about three feet in diameter, and perhaps a foot deep.  Oh my.
@@ -880,7 +880,7 @@ pool liquid glowing~
 ~
 13 40 3 0 7 0 8201 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 pool liquid glowing~
 It's about three feet in diameter, and perhaps a foot deep.  Oh my.
@@ -892,7 +892,7 @@ pool liquid glowing~
 ~
 13 40 3 0 7 0 8201 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 pool liquid glowing~
 It's about three feet in diameter, and perhaps a foot deep.  Oh my.
@@ -904,7 +904,7 @@ pool liquid glowing~
 ~
 13 40 3 0 7 0 8201 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 pool liquid glowing~
 It's about three feet in diameter, and perhaps a foot deep.  Oh my.
@@ -916,7 +916,7 @@ pool liquid glowing~
 ~
 13 40 3 0 7 0 8201 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 pool liquid glowing~
 It's about three feet in diameter, and perhaps a foot deep.  Oh my.
@@ -928,7 +928,7 @@ pool liquid glowing~
 ~
 13 40 3 0 7 0 8201 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 pool liquid glowing~
 It's about three feet in diameter, and perhaps a foot deep.  Oh my.
@@ -940,7 +940,7 @@ pool liquid glowing~
 ~
 13 40 3 0 7 0 8201 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 pool liquid glowing~
 It's about three feet in diameter, and perhaps a foot deep.  Oh my.
@@ -952,7 +952,7 @@ relic evil ancient spider lloth~
 ~
 13 19 3 0 7 0 302030849 532578303 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100 0 2048 0 0
+0 0 100 100 0 2048 0 0
 A
 35 50
 #69
@@ -962,7 +962,7 @@ hammer creation unique~
 ~
 5 18 3 0 15 90 275784961 8193 66 524288 0
 4 2 15 7 0 0 0 0
-10 400000 100 536870928 64 0 0
+10 400000 100 100 536870928 64 0 0
 A
 18 8
 A
@@ -974,7 +974,7 @@ spring refreshing _id_~
 ~
 13 8 3 0 7 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 refreshing spring~
 This spring has rose up from the ground almost magically.  The waters seem
@@ -987,7 +987,7 @@ mystical fountain~
 ~
 13 8 3 0 7 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 mystical fountain~
 This fountain seems to have risen up from earth by magical means. The water
@@ -1000,7 +1000,7 @@ magical fountain~
 ~
 13 40 3 0 7 0 8201 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 magical fountain~
 &+WThis fountain's waters appear to have strong magical properties.&n
@@ -1012,7 +1012,7 @@ ward mechanism trap trap-like~
 ~
 13 15 3 0 7 0 67117056 1 0 0 0
 0 0 0 0 0 0 0 0
-1 143000 100
+1 143000 100 100
 #74
 handful steel ball bearings~
 &+wa handful of steel ball bearings&n~
@@ -1020,7 +1020,7 @@ handful steel ball bearings~
 ~
 13 16 0 0 7 0 1 16385 0 0 0
 0 0 0 0 0 0 0 0
-1 195000 100
+1 195000 100 100
 #75
 board zone~
 &+La Zone Planning board&N~
@@ -1028,7 +1028,7 @@ board zone~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 51 51 51 51 0 0 0 0
-0 0 100
+0 0 100 100
 #76
 board planning bulletin~
 a planning bulletin board~
@@ -1036,7 +1036,7 @@ A large bulletin board noting plans for DurisMud is mounted here.~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 51 51 51 57 0 0 0 0
-0 0 100
+0 0 100 100
 E
 board~
 Use "Look AT board" to see a listing of the messages. Use "Read
@@ -1050,7 +1050,7 @@ ward mechanism trap trap-like~
 ~
 13 15 3 0 7 0 67117056 1 0 0 0
 0 0 0 0 0 0 0 0
-1 153000 100
+1 153000 100 100
 #78
 a-f trouble board~
 &+LNames A-F Board~
@@ -1058,7 +1058,7 @@ a-f trouble board~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 2 2 2 51 0 0 0 0
-0 0 100
+0 0 100 100
 #79
 g-l trouble board~
 &+LNames G-L Board~
@@ -1066,7 +1066,7 @@ g-l trouble board~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 2 2 2 51 0 0 0 0
-0 0 100
+0 0 100 100
 #80
 m-r trouble board~
 &+LNames M-R Board~
@@ -1074,7 +1074,7 @@ m-r trouble board~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 2 2 2 51 0 0 0 0
-0 0 100
+0 0 100 100
 #81
 s-z trouble board~
 &+LNames S-Z Board~
@@ -1082,7 +1082,7 @@ s-z trouble board~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 2 2 2 51 0 0 0 0
-0 0 100
+0 0 100 100
 #82
 flea market board~
 &+Ba flea market board~
@@ -1090,7 +1090,7 @@ flea market board~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 2 2 2 51 0 0 0 0
-0 0 100
+0 0 100 100
 #83
 scrolls case books bulletin~
 &+Wa case holding various scrolls~
@@ -1098,7 +1098,7 @@ scrolls case books bulletin~
 ~
 13 16 5 50 7 0 0 0 0 0 0
 2 2 2 250 0 0 0 0
-0 0 100
+0 0 100 100
 E
 board scrolls case books bulletin~
 To view the subject of each scroll in the case, type LOOK CASE.
@@ -1111,7 +1111,7 @@ Jexni's To-Do List hangs in mid-air here, &+Wglowing&n softly.~
 ~
 13 1 4 50 15 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100 0 0 0 524288
+0 0 100 100 0 0 0 524288
 #85
 board trouble players player~
 a trouble players board~
@@ -1119,7 +1119,7 @@ A large bulletin board with the names of trouble players is here.~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 51 51 51 51 0 0 0 0
-0 0 100
+0 0 100 100
 #86
 board bug bugfix~
 a &+Rboard made from bug skeletons&N~
@@ -1127,7 +1127,7 @@ a &+Rboard made from bug skeletons&N~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 51 51 51 51 0 0 0 0
-0 0 100
+0 0 100 100
 #87
 forger board~
 &+rForger's bulletin board~
@@ -1135,7 +1135,7 @@ forger board~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 60 60 60 60 0 0 0 0
-0 0 100
+0 0 100 100
 E
 board~
 Use "Look AT holy" to see a listing of the messages. Use "Read
@@ -1149,7 +1149,7 @@ reimbursemnet board~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 2 2 2 51 0 0 0 0
-0 0 100
+0 0 100 100
 #89
 board~
 &+ca holy bulletin board&n~
@@ -1157,7 +1157,7 @@ board~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 57 57 57 57 0 0 0 0
-0 0 100
+0 0 100 100
 E
 board~
 Use "Look AT holy" to see a listing of the messages. Use "Read
@@ -1171,7 +1171,7 @@ a feedback board~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 2 2 2 56 0 0 0 0
-0 0 100
+0 0 100 100
 E
 board meeting~
 This is the Board that the holds all the information of what goes on in each
@@ -1185,7 +1185,7 @@ a meeting board~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 board meeting~
 This is the Board that the holds all the information of what goes on in each
@@ -1199,7 +1199,7 @@ flames bulletin board~
 ~
 13 16 4 50 7 0 0 0 0 0 0
 2 2 2 57 0 0 0 0
-0 0 100
+0 0 100 100
 #93
 object unnamed~
 an unnamed object~
@@ -1207,7 +1207,7 @@ An unnamed object lies here, looking lonely and forelorn.~
 ~
 13 15 3 0 5 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #94
 map maps duris~
 Duris Maps (&+GANSI&N)~
@@ -1215,7 +1215,7 @@ Heh, what a cool map here!~
 ~
 16 28 1 1 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 map maps~
                         - Duris, Land of Bloodlust -
@@ -1342,7 +1342,7 @@ Someone has left a niffty map here.~
 ~
 16 28 1 1 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 map maps~
                         - Duris, Land of Bloodlust -
@@ -1453,7 +1453,7 @@ ward mechanism trap trap-like~
 ~
 13 15 3 0 7 0 67117056 1 0 0 0
 0 0 0 0 0 0 0 0
-1 142000 100
+1 142000 100 100
 #97
 ward mechanism trap trap-like~
 &+Ya trap-like mechanism~
@@ -1461,7 +1461,7 @@ ward mechanism trap trap-like~
 ~
 13 15 3 0 7 0 67117056 1 0 0 0
 0 0 0 0 0 0 0 0
-1 142000 100
+1 142000 100 100
 #98
 slender sword vapor~
 &+ca slender sword of vapor&n~
@@ -1469,7 +1469,7 @@ slender sword vapor~
 ~
 5 1 3 0 7 0 17302785 8193 64 33685536 0
 5 3 4 3 0 0 0 0
-0 0 100
+0 0 100 100
 A
 18 1
 A
@@ -1481,7 +1481,7 @@ frost beacon ice~
 ~
 13 15 3 0 5 0 8193 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #100
 well welfare~
 a large welfare well~
@@ -1489,7 +1489,7 @@ There is a HUGE well here, intended for welfare donations.~
 ~
 15 11 3 0 7 0 0 0 0 0 0
 30000 1 -1 100 0 0 0 0
-5 50000 100
+5 50000 100 100
 E
 well welfare~
 This is a rather HUGE well and you could easily place unwanted equipment
@@ -1503,7 +1503,7 @@ helm telepathy~
 ~
 9 16 3 10 7 0 1 17 64 0 0
 3 4 1 3 0 0 0 0
-1 104 100
+1 104 100 100
 E
 helm telepathy~
 &+MThis helm is constructed of a soft leather exterior, with several inner
@@ -1518,7 +1518,7 @@ a very small vial has been discarded here~
 ~
 17 7 1 2 7 0 0 16385 0 0 0
 1 1 27 1 0 0 0 0
-0 5200 100
+0 5200 100 100
 #103
 cart wooden~
 a &+ywooden cart&N~
@@ -1526,7 +1526,7 @@ A &+ywooden cart&N is sitting here.~
 ~
 27 6 0 50 7 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-1000 50000 100
+1000 50000 100 100
 E
 wagon wooden~
 This wooden cart has four large wheels and two long handles protruding from
@@ -1540,7 +1540,7 @@ A &+Ytensor disc&N floats in mid-air.~
 ~
 15 19 3 0 7 0 0 0 0 0 0
 1000 0 0 100 0 0 0 0
-0 50000 100
+0 50000 100 100
 E
 tensor disc~
 This magical disc is quite large, made from a metallic looking material that
@@ -1554,7 +1554,7 @@ totem pinewood raven~
 ~
 34 6 2 2 7 0 1024 16385 64 37883812 0
 1 0 0 0 0 0 0 0
-2 392 100
+2 392 100 100
 #106
 totem limestone stone~
 &+ga small limestone totem&n~
@@ -1562,7 +1562,7 @@ totem limestone stone~
 ~
 34 39 2 2 7 0 1024 16385 64 37883812 0
 4 0 0 0 0 0 0 0
-3 493 100
+3 493 100 100
 #107
 totem ivory~
 &+Wa small ivory totem&n~
@@ -1570,7 +1570,7 @@ totem ivory~
 ~
 34 34 2 2 7 0 1024 16385 64 37883812 0
 16 0 0 0 0 0 0 0
-2 594 100
+2 594 100 100
 #108
 totem firwood bear~
 &+ya firwood bear totem&n~
@@ -1578,7 +1578,7 @@ totem firwood bear~
 ~
 34 6 2 2 7 0 1024 16385 64 37883812 0
 3 0 0 0 0 0 0 0
-3 2392 100
+3 2392 100 100
 #109
 totem obsidian squat~
 &+La squat obsidian totem&n~
@@ -1586,7 +1586,7 @@ totem obsidian squat~
 ~
 34 36 2 2 7 0 1024 16385 64 37883812 0
 12 0 0 0 0 0 0 0
-5 3394 100
+5 3394 100 100
 #110
 slick ice~
 &+Ca slick of solid ice&n~
@@ -1594,7 +1594,7 @@ slick ice~
 ~
 13 15 3 0 5 0 8192 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #111
 totem quartz marbled marble~
 &+Wa m&nar&+Lbl&+We&nd&+W quartz totem&n~
@@ -1602,7 +1602,7 @@ totem quartz marbled marble~
 ~
 34 38 2 2 7 0 1024 16385 64 37883812 0
 48 0 0 0 0 0 0 0
-2 4394 100
+2 4394 100 100
 #112
 tinted glass~
 &+msome tinted glass&n~
@@ -1610,7 +1610,7 @@ tinted glass~
 ~
 13 7 0 0 7 0 102400 1 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #113
 protective goggles~
 &+msome protective &+cgoggles&n~
@@ -1618,7 +1618,7 @@ protective goggles~
 ~
 9 16 3 3 7 0 106496 131073 64 0 0
 5 12 2 3 0 0 0 0
-1 33459 100 288 0 0 0
+1 33459 100 100 288 0 0 0
 A
 24 -2
 A
@@ -1630,7 +1630,7 @@ case display trophy~
 ~
 35 7 5 50 7 0 98304 0 64 0 0
 200 5 0 250 0 0 0 0
-0 0 100
+0 0 100 100
 E
 glass case display trophy~
 type l in case to see the trohpys
@@ -1642,7 +1642,7 @@ chest storage huge~
 ~
 35 16 5 50 7 0 98304 0 64 0 0
 500 5 0 500 0 0 0 0
-0 0 100
+0 0 100 100
 E
 chest storage huge~
 &+cTen feet long and three feet wide, this huge iron chest could hold
@@ -1656,7 +1656,7 @@ beads prayer set~
 ~
 11 10 3 2 7 0 0 16389 2 0 0
 0 0 0 9 0 0 0 0
-1 150 100
+1 150 100 100
 #117
 mat prayer woven~
 &+Ra woven prayer mat&N~
@@ -1664,7 +1664,7 @@ mat prayer woven~
 ~
 12 42 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-2 200 100
+2 200 100 100
 #118
 book prayer embroidered~
 &+Ya small holy prayer book&N~
@@ -1672,7 +1672,7 @@ book prayer embroidered~
 ~
 23 28 2 5 7 0 0 1 2 0 0
 0 0 0 0 0 0 0 0
-2 1000 100
+2 1000 100 100
 #119
 book prayer unholy~
 &+La small unholy prayer book&N~
@@ -1680,7 +1680,7 @@ book prayer unholy~
 ~
 23 28 2 5 7 0 0 1 2 0 0
 0 0 0 0 0 0 0 0
-2 1000 100
+2 1000 100 100
 #120
 incense stick~
 &+ya stick of incense&N~
@@ -1688,7 +1688,7 @@ incense stick~
 ~
 13 5 0 0 7 0 8192 16385 0 0 0
 0 0 0 0 0 0 0 0
-1 500 100
+1 500 100 100
 #121
 wood wooden holy symbol symbols~
 &+ya wooden holy symbol&N~
@@ -1696,7 +1696,7 @@ wood wooden holy symbol symbols~
 ~
 11 6 3 2 7 0 0 16389 2 0 0
 0 0 0 3 0 0 0 0
-1 5 100
+1 5 100 100
 #122
 silver holy symbol symbols~
 &+Wa silver holy symbol&N~
@@ -1704,7 +1704,7 @@ silver holy symbol symbols~
 ~
 11 22 3 2 7 0 0 16389 2 0 0
 0 0 0 1 0 0 0 0
-1 20 100
+1 20 100 100
 #123
 iron holy symbol symbols~
 &+Yan iron holy symbol&N~
@@ -1712,7 +1712,7 @@ iron holy symbol symbols~
 ~
 11 15 3 2 7 0 0 16389 2 0 0
 0 0 0 1 0 0 0 0
-1 10 100
+1 10 100 100
 #124
 wooden object symbols symbol unholy~
 &+ya wooden unholy symbol&N~
@@ -1720,7 +1720,7 @@ wooden object symbols symbol unholy~
 ~
 13 6 3 2 7 0 0 16389 2 0 0
 0 0 0 0 0 0 0 0
-1 5 100
+1 5 100 100
 #125
 iron object symbols symbol unholy~
 &+yan iron unholy symbol&N~
@@ -1728,7 +1728,7 @@ iron object symbols symbol unholy~
 ~
 13 15 3 2 7 0 0 16389 2 0 0
 0 0 0 0 0 0 0 0
-1 10 100
+1 10 100 100
 #126
 obsidian object symbols symbol unholy~
 &+Lan obsidian unholy symbol&N~
@@ -1736,7 +1736,7 @@ obsidian object symbols symbol unholy~
 ~
 13 36 3 2 7 0 0 16389 2 0 0
 0 0 0 0 0 0 0 0
-1 20 100
+1 20 100 100
 #127
 mistletoe sprig~
 &+ga sprig of mistletoe&N~
@@ -1744,7 +1744,7 @@ mistletoe sprig~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 15 100
+1 15 100 100
 #128
 vial water holy~
 &+Ba small vial of holy water&N~
@@ -1752,7 +1752,7 @@ vial water holy~
 ~
 17 40 1 2 7 0 0 16385 2 0 0
 1 1 17 0 0 0 0 0
-1 2500 100
+1 2500 100 100
 #129
 vial water unholy~
 &+Ba small vial of unholy water&N~
@@ -1760,7 +1760,7 @@ vial water unholy~
 ~
 17 40 1 2 7 0 0 16385 2 0 0
 1 1 28 0 0 0 0 0
-1 2500 100
+1 2500 100 100
 #130
 chest storage~
 &+ya storage chest&n~
@@ -1768,7 +1768,7 @@ chest storage~
 ~
 35 16 5 50 7 0 98304 0 64 0 0
 2000 5 0 250 0 0 0 0
-0 0 100
+0 0 100 100
 #131
 package paper salt~
 &+Wa small package of salt&N~
@@ -1776,7 +1776,7 @@ package paper salt~
 ~
 12 28 1 2 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 2 100
+1 2 100 100
 #132
 package paper pepper~
 &+La small package of pepper&n~
@@ -1784,7 +1784,7 @@ package paper pepper~
 ~
 12 28 1 2 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 5 100
+1 5 100 100
 #133
 cinnamon sticks stick~
 &+rsome cinnamon sticks&N~
@@ -1792,7 +1792,7 @@ cinnamon sticks stick~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 3 100
+1 3 100 100
 #134
 garlic clump buds stems~
 &+Wa clump of garlic&N~
@@ -1800,7 +1800,7 @@ garlic clump buds stems~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 6 100
+1 6 100 100
 #135
 root ginger pieces~
 &+Ysome ginger root&N~
@@ -1808,7 +1808,7 @@ root ginger pieces~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 8 100
+1 8 100 100
 #136
 packet herbs wolvesbane~
 &+Ga packet of wolvesbane&N~
@@ -1816,7 +1816,7 @@ packet herbs wolvesbane~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 12 100
+1 12 100 100
 #137
 mushrooms shrooms bag~
 &+La bag of wild mushrooms&N~
@@ -1824,7 +1824,7 @@ mushrooms shrooms bag~
 ~
 12 5 3 10 7 0 0 1 0 0 0
 0 0 0 100 0 0 0 0
-1 21 100
+1 21 100 100
 #138
 bundle onions onion wild~
 &+Ga bundle of wild onions&N~
@@ -1832,7 +1832,7 @@ bundle onions onion wild~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 5 100
+1 5 100 100
 #139
 flower aaron aaron's rod~
 &+Yan aaron's rod flower&N~
@@ -1840,7 +1840,7 @@ flower aaron aaron's rod~
 ~
 13 5 2 4 7 0 8192 1 0 0 0
 0 0 0 0 0 0 0 0
-1 3 100
+1 3 100 100
 #140
 leaves adder adder's tongue~
 &+gsome adder's tongue leaves&N~
@@ -1848,7 +1848,7 @@ leaves adder adder's tongue~
 ~
 12 30 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 4 100
+1 4 100 100
 #141
 leaves birthwort wort~
 &+gsome birthwort leaves&N~
@@ -1856,7 +1856,7 @@ leaves birthwort wort~
 ~
 12 30 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 6 100
+1 6 100 100
 #142
 root pouch comfrey~
 &+ysome powdered comfrey root&N~
@@ -1864,7 +1864,7 @@ root pouch comfrey~
 ~
 12 5 3 3 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 3 100
+1 3 100 100
 #143
 bundle herb henbane~
 &+Msome henbane leaves and flowers&N~
@@ -1872,7 +1872,7 @@ bundle herb henbane~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 6 100
+1 6 100 100
 E
 bundle herb henbane leaves~
 This bundle of herbs contains whole stalks of henbane herb. Each plant is
@@ -1887,7 +1887,7 @@ pile herb true-love roots~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 8 100
+1 8 100 100
 #145
 bag cluster clusters berries juniper~
 &+Ma small bag of juniper berries&N~
@@ -1895,7 +1895,7 @@ bag cluster clusters berries juniper~
 ~
 12 5 3 10 7 0 0 1 0 0 0
 0 0 0 100 0 0 0 0
-1 5 100
+1 5 100 100
 #146
 pile roots marsh mallow marsh-mallow~
 &+Wsome marsh-mallow roots&N~
@@ -1903,7 +1903,7 @@ pile roots marsh mallow marsh-mallow~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 8 100
+1 8 100 100
 #147
 clump moss sphagnum~
 &+Ga clump of sphagnum moss&N~
@@ -1911,7 +1911,7 @@ clump moss sphagnum~
 ~
 12 30 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 7 100
+1 7 100 100
 #148
 leaves woundwort wound wort~
 &+gsome woundwort leaves&N~
@@ -1919,7 +1919,7 @@ leaves woundwort wound wort~
 ~
 12 30 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 3 100
+1 3 100 100
 #149
 basil leaves pouch~
 &+ma small pouch of basil leaves&N~
@@ -1927,7 +1927,7 @@ basil leaves pouch~
 ~
 12 30 3 3 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 4 100
+1 4 100 100
 #150
 root ginseng forked strange~
 &+ya ginseng root&N~
@@ -1935,7 +1935,7 @@ root ginseng forked strange~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 7 100
+1 7 100 100
 #151
 broken needle~
 a broken blowgun needle~
@@ -1943,7 +1943,7 @@ A broken blowgun needle lies here.~
 ~
 12 16 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 2 100
+1 2 100 100
 #152
 broken arrow~
 a broken arrow~
@@ -1951,7 +1951,7 @@ A broken arrow lies here, discarded.~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #153
 broken quarrel~
 a broken quarrel~
@@ -1959,7 +1959,7 @@ A broken crossbow quarrel lies here.~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #154
 broken dagger~
 a broken dagger~
@@ -1967,7 +1967,7 @@ A broken dagger lies here.~
 ~
 12 16 2 3 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #155
 broken dart~
 a broken dart~
@@ -1975,7 +1975,7 @@ A broken dart lies here.~
 ~
 12 16 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #156
 broken hammer~
 a broken hammer~
@@ -1983,7 +1983,7 @@ A broken hammer lies here.~
 ~
 12 16 3 8 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 3 100
+1 3 100 100
 #157
 broken throwing axe~
 a broken throwing axe~
@@ -1991,7 +1991,7 @@ A broken throwing axe lies here.~
 ~
 12 16 3 8 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 4 100
+1 4 100 100
 #158
 broken javelin~
 a broken javelin~
@@ -1999,7 +1999,7 @@ A broken javelin lies here.~
 ~
 12 16 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 2 100
+1 2 100 100
 #159
 broken spear~
 a broken spear~
@@ -2007,7 +2007,7 @@ a broken spear lies here.~
 ~
 12 16 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 2 100
+1 2 100 100
 #160
 shattered ballista missile~
 a shattered ballista missile~
@@ -2015,7 +2015,7 @@ A shattered ballista missile lies here.~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 4 100
+1 4 100 100
 #161
 shattered catapult missile~
 a shattered catapult missile~
@@ -2023,7 +2023,7 @@ A shattered catapult missile lies here.~
 ~
 12 5 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 4 100
+1 4 100 100
 #162
 broken sling missile~
 a shattered sling missile~
@@ -2031,7 +2031,7 @@ The remains of a shattered sling missile lie here.~
 ~
 12 5 3 3 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 2 100
+1 2 100 100
 #163
 needle barbed blowgun~
 &+La barbed blowgun needle&N~
@@ -2039,7 +2039,7 @@ needle barbed blowgun~
 ~
 7 16 2 3 7 0 8192 1 0 0 0
 0 0 0 0 0 0 0 0
-0 8 100
+0 8 100 100
 #164
 needle blowgun~
 a blowgun needle~
@@ -2047,7 +2047,7 @@ A thin blowgun needle lies here.~
 ~
 7 16 2 3 7 0 8192 1 0 0 0
 0 0 0 0 0 0 0 0
-1 6 100
+1 6 100 100
 #165
 thorn blowgun~
 &+ga sharp blowgun thorn&N~
@@ -2055,7 +2055,7 @@ thorn blowgun~
 ~
 7 5 2 3 7 0 8192 1 0 0 0
 0 0 0 0 0 0 0 0
-1 4 100
+1 4 100 100
 #166
 flight arrow~
 &+ya well-crafted flight arrow&N~
@@ -2063,7 +2063,7 @@ flight arrow~
 ~
 7 5 2 3 7 0 0 1 0 0 0
 2 1 6 1 0 0 0 0
-1 30 100
+1 30 100 100
 #167
 arrow sheaf~
 &+ya sheaf arrow&N~
@@ -2071,7 +2071,7 @@ arrow sheaf~
 ~
 7 5 2 3 7 0 0 1 0 0 0
 0 1 8 1 0 0 0 0
-1 50 100
+1 50 100 100
 #168
 quarrel bolt crossbow hand~
 &+ya hand crossbow quarrel&N~
@@ -2079,7 +2079,7 @@ quarrel bolt crossbow hand~
 ~
 7 5 2 3 7 0 0 1 0 0 0
 1 1 6 4 0 0 0 0
-1 100 100
+1 100 100 100
 #169
 quarrel bolt crossbow light~
 &+ya light crossbow quarrel&N~
@@ -2087,7 +2087,7 @@ quarrel bolt crossbow light~
 ~
 7 5 2 3 7 0 0 1 0 0 0
 2 2 5 2 0 0 0 0
-1 10 100
+1 10 100 100
 #170
 quarrel bolt crossbow heavy~
 &+ya heavy crossbow quarrel&N~
@@ -2095,7 +2095,7 @@ quarrel bolt crossbow heavy~
 ~
 7 5 2 3 7 0 0 1 0 0 0
 2 2 8 3 0 0 0 0
-1 20 100
+1 20 100 100
 #171
 object unnamed~
 an unnamed object~
@@ -2103,7 +2103,7 @@ An unnamed object lies here, looking lonely and forelorn.~
 ~
 13 15 3 0 5 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #172
 tome ancient dusty~
 &+yan ancient tome filled with forgotten knowledge&n~
@@ -2111,7 +2111,7 @@ tome ancient dusty~
 ~
 23 15 3 0 5 0 8193 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #173
 object unnamed~
 a large &+ywooden chest&n~
@@ -2119,7 +2119,7 @@ A large &+ywooden chest&n, its timbers split, lies here.~
 ~
 15 15 3 0 5 0 0 0 0 0 0
 1000 1 0 500 0 0 0 0
-0 0 100
+0 0 100 100
 #174
 statue man~
 &+La statue of a beautiful man&N~
@@ -2127,7 +2127,7 @@ statue man~
 ~
 8 27 4 0 15 0 0 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 man statue~
 &+B   Here is a preserved yet living version of a man, kept for some personal
@@ -2159,7 +2159,7 @@ collar~
 ~
 9 27 7 0 15 0 33555584 5 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #176
 badge~
 &+La &+cbadge &+Lspun of &+Wt&+Cwi&+cli&+Cgh&+Wt&N~
@@ -2167,7 +2167,7 @@ badge~
 ~
 13 27 7 0 15 0 0 2097153 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #177
 band~
 &+BV&+bareena's &+CE&+cternal &+ML&+move&N~
@@ -2175,7 +2175,7 @@ band~
 ~
 9 15 3 0 5 0 1 3 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 band~
 &+bFor you my love, the man who takes my breath away.
@@ -2194,7 +2194,7 @@ ballista missile~
 ~
 7 5 2 3 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-30 500 100
+30 500 100 100
 #179
 boulder catapult rock~
 &+La heavy catapult boulder&N~
@@ -2202,7 +2202,7 @@ boulder catapult rock~
 ~
 7 11 2 3 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-125 5 100
+125 5 100 100
 #180
 bow~
 &+ya bow&N~
@@ -2210,7 +2210,7 @@ A bow lies here.~
 ~
 6 5 0 0 7 0 0 24577 0 0 0
 60 60 0 1 0 0 0 0
-1 0 100
+1 0 100 100
 #181
 quiver~
 &+ya quiver&N~
@@ -2218,7 +2218,7 @@ A quiver lies here.~
 ~
 30 6 2 12 7 0 0 1048577 0 0 0
 25 0 1 0 0 0 0 0
-0 0 100
+0 0 100 100
 #182
 arrow~
 &+Gan arrow&N~
@@ -2226,7 +2226,7 @@ An arrow lies here.~
 ~
 7 6 2 3 7 0 0 16385 0 0 0
 0 1 6 1 0 0 0 0
-0 0 100
+0 0 100 100
 #183
 io test object~
 an Io test object~
@@ -2234,7 +2234,7 @@ Io seems to have left one of his test objects laying around.~
 ~
 13 15 3 0 5 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #184
 arrow slaying~
 &+Gan arrow of mortal-slaying&N~
@@ -2242,7 +2242,7 @@ An arrow of slaying lies here.~
 ~
 7 6 2 3 7 0 134217728 16385 0 0 0
 5 5 4 1 0 0 0 0
-1 1000000 100
+1 1000000 100 100
 #185
 manual health book~
 &+Ga manual of health&n~
@@ -2250,7 +2250,7 @@ manual health book~
 ~
 13 15 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #186
 manual health book~
 &+Ba manual of mana&n~
@@ -2258,7 +2258,7 @@ manual health book~
 ~
 13 15 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #187
 manual skills book~
 &+Ya manual of skills&n~
@@ -2266,7 +2266,7 @@ manual skills book~
 ~
 13 15 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #188
 cyan potion~
 &+ca cyan potion&n~
@@ -2274,7 +2274,7 @@ a small bottle of &+ccyan&n liquid sits here.~
 ~
 10 7 2 4 7 0 0 16385 0 0 0
 10 43 0 0 0 0 0 0
-5 5000 100
+5 5000 100 100
 #189
 vial anti-venom small~
 a small vial of &+canti-venom&n~
@@ -2282,7 +2282,7 @@ a small bottle of &+ccyan&n liquid sits here.~
 ~
 10 7 2 4 7 0 134217728 16385 0 0 0
 50 130 0 0 0 0 0 0
-5 1000 100
+5 1000 100 100
 #190
 elven long bow~
 &+yan elven long bow&n~
@@ -2290,7 +2290,7 @@ elven long bow~
 ~
 6 6 0 0 7 0 0 24577 0 0 0
 60 60 0 1 0 0 0 0
-5 100 100
+5 100 100 100
 #191
 shovel~
 &+yan iron &+cshovel&n~
@@ -2298,15 +2298,15 @@ shovel~
 ~
 12 15 0 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-9 76 100
+9 76 100 100
 #192
 gloves daffleberry~
 &+yThe fingerless gloves of '&+YDaffleberry Tanglefoot&+y'&n~
 &+yA pair of flawless leather gloves lie here humming softly.&n~
 ~
-11 3 3 0 15 0 33562624 129 0 87158875 0
+9 3 3 0 15 0 33562624 129 0 87158875 0
 0 0 0 0 0 0 0 0
-0 0 100 524288 0 0 0
+0 0 100 100 524288 0 0 0
 A
 26 9
 A
@@ -2318,7 +2318,7 @@ earth glimmers broken mine _mine_~
 ~
 12 9 3 0 5 0 0 0 0 0 0
 10 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #194
 small iron ore piece _ore_~
 &+La small piece of &+ciron &+Lore&n~
@@ -2326,7 +2326,7 @@ small iron ore piece _ore_~
 ~
 8 15 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-6 5000 100
+6 5000 100 100
 #195
 &+wpeppermint schnappes&n bottle glass klar~
 &+ca glass bottle labelled '&+WKlar Eis&+c'&n~
@@ -2334,7 +2334,7 @@ small iron ore piece _ore_~
 ~
 17 7 1 2 7 0 0 16385 0 0 0
 10 10 29 0 0 0 0 0
-2 392 100
+2 392 100 100
 E
 &+wpeppermint schnappes&n bottle glass klar~
 Looks like peppermint schnappes.  Yummy.
@@ -2346,7 +2346,7 @@ medium piece iron ore _ore_~
 ~
 8 15 3 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-10 5000 100
+10 5000 100 100
 #197
 large piece iron ore _ore_~
 &+La large piece of &+ciron &+Lore&n~
@@ -2354,7 +2354,7 @@ large piece iron ore _ore_~
 ~
 8 15 4 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-16 5000 100
+16 5000 100 100
 #198
 small piece steel ore _ore_~
 &+La small piece of &+Csteel &+Lore&n~
@@ -2362,7 +2362,7 @@ small piece steel ore _ore_~
 ~
 8 16 2 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-4 7000 100
+4 7000 100 100
 #199
 piece medium ore steel _ore_~
 &+La medium piece of &+Csteel &+Lore&n~
@@ -2370,7 +2370,7 @@ piece medium ore steel _ore_~
 ~
 8 16 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-8 8000 100
+8 8000 100 100
 #200
 large piece steel ore _ore_~
 &+La large piece of &+Csteel &+Lore&n~
@@ -2378,7 +2378,7 @@ large piece steel ore _ore_~
 ~
 8 16 4 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-13 9000 100
+13 9000 100 100
 #201
 small piece copper ore _ore_~
 &+La small piece of &+ycopper &+Lore&n~
@@ -2386,7 +2386,7 @@ small piece copper ore _ore_~
 ~
 8 21 2 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-3 10000 100
+3 10000 100 100
 #202
 medium piece copper ore _ore_~
 &+La medium piece of &+ycopper &+Lore&n~
@@ -2394,7 +2394,7 @@ medium piece copper ore _ore_~
 ~
 8 21 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-6 15000 100
+6 15000 100 100
 #203
 spellbook book spell~
 &+ya spellbook&n~
@@ -2402,7 +2402,7 @@ A spellbook lies here, discarded.~
 ~
 33 28 2 1 7 0 0 16385 0 0 0
 0 0 80 0 0 0 0 0
-1 20 100
+1 20 100 100
 #204
 quill~
 a quill~
@@ -2410,7 +2410,7 @@ A quill lies here, discarded.~
 ~
 21 5 1 1 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-1 10 100
+1 10 100 100
 #205
 case scroll wooden~
 &+ya wooden scroll case&N~
@@ -2418,7 +2418,7 @@ case scroll wooden~
 ~
 15 29 1 2 7 0 8192 16385 0 0 0
 3 1 0 100 0 0 0 0
-2 24 100
+2 24 100 100
 #206
 case scroll bone carved~
 &+wa bone scroll case&N~
@@ -2426,7 +2426,7 @@ case scroll bone carved~
 ~
 15 29 1 2 7 0 0 16385 0 0 0
 3 1 0 100 0 0 0 0
-3 54 100
+3 54 100 100
 #207
 case scroll leather~
 &+ya leather scroll case&N~
@@ -2434,7 +2434,7 @@ case scroll leather~
 ~
 15 29 1 2 7 0 0 16385 0 0 0
 3 1 0 100 0 0 0 0
-3 54 100
+3 54 100 100
 #208
 case scroll tube metal~
 &+Ca metal scroll case&N~
@@ -2442,7 +2442,7 @@ case scroll tube metal~
 ~
 15 29 1 2 7 0 0 16385 0 0 0
 3 1 0 100 0 0 0 0
-4 554 100
+4 554 100 100
 #209
 helm leather~
 &+La leather helm&N~
@@ -2450,7 +2450,7 @@ helm leather~
 ~
 9 13 3 10 7 0 0 17 0 0 0
 3 4 1 3 0 0 0 0
-3 20 100
+3 20 100 100
 #210
 helm steel helmet~
 &+Wa sturdy steel helm&N~
@@ -2458,7 +2458,7 @@ helm steel helmet~
 ~
 9 16 3 10 7 0 0 17 0 4173708804 0
 6 4 1 3 0 0 0 0
-7 600 100
+7 600 100 100
 #211
 helm bronze helmet~
 &+Ya bronze helmet&N~
@@ -2466,7 +2466,7 @@ helm bronze helmet~
 ~
 9 20 3 10 7 0 0 17 0 4173708804 0
 5 4 1 3 0 0 0 0
-5 300 100
+5 300 100 100
 #212
 helm helmet great steel enormous~
 &+Wa great steel helm&N~
@@ -2474,7 +2474,7 @@ helm helmet great steel enormous~
 ~
 9 16 3 10 7 0 1073741824 17 0 4173708804 0
 8 0 0 3 0 0 0 0
-10 3000 100
+10 3000 100 100
 #213
 basinet helm helmet~
 &+Wa basinet helm&N~
@@ -2482,7 +2482,7 @@ basinet helm helmet~
 ~
 9 16 3 10 7 0 0 17 0 4173708804 0
 6 4 1 3 0 0 0 0
-6 450 100
+6 450 100 100
 #214
 sleeves leather pair~
 &+ya pair of leather sleeves&N~
@@ -2490,7 +2490,7 @@ sleeves leather pair~
 ~
 9 13 3 8 7 0 0 257 0 0 0
 3 8 1 3 0 0 0 0
-4 125 100
+4 125 100 100
 #215
 sleeves leather studded pair~
 &+ya pair of studded leather sleeves&N~
@@ -2498,7 +2498,7 @@ sleeves leather studded pair~
 ~
 9 13 3 8 7 0 0 257 0 4173708804 0
 4 8 1 3 0 0 0 0
-6 500 100
+6 500 100 100
 #216
 sleeves chainmail pair chain~
 &+Wa pair of chainmail sleeves&N~
@@ -2506,7 +2506,7 @@ sleeves chainmail pair chain~
 ~
 9 16 3 8 7 0 0 257 0 4173708804 0
 6 8 1 3 0 0 0 0
-10 1900 100
+10 1900 100 100
 #217
 sleeves scalemail pair~
 &+Wa pair of scalemail sleeves&N~
@@ -2514,7 +2514,7 @@ sleeves scalemail pair~
 ~
 9 16 3 8 7 0 0 257 0 4173708804 0
 5 8 1 3 0 0 0 0
-10 5000 100
+10 5000 100 100
 #218
 plates steel arm pair~
 &+Wa pair of steel arm plates&N~
@@ -2522,7 +2522,7 @@ plates steel arm pair~
 ~
 9 16 3 8 7 0 0 257 0 4173708804 0
 8 8 1 3 0 0 0 0
-12 15000 100
+12 15000 100 100
 #219
 large piece copper ore _ore_~
 &+La large piece of &+ycopper &+Lore&n~
@@ -2530,7 +2530,7 @@ large piece copper ore _ore_~
 ~
 8 21 4 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-11 20000 100
+11 20000 100 100
 #220
 small piece silver ore _ore_~
 &+La small piece of &+wsilver &+Lore&n~
@@ -2538,7 +2538,7 @@ small piece silver ore _ore_~
 ~
 8 22 2 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-2 20000 100
+2 20000 100 100
 #221
 medium piece silver ore _ore_~
 &+La medium piece of &+wsilver &+Lore&n~
@@ -2546,7 +2546,7 @@ medium piece silver ore _ore_~
 ~
 8 22 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-5 30000 100
+5 30000 100 100
 #222
 large piece silver ore _ore_~
 &+La large piece of &+wsilver &+Lore&n~
@@ -2554,7 +2554,7 @@ large piece silver ore _ore_~
 ~
 8 22 4 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-7 40000 100
+7 40000 100 100
 #223
 small piece gold ore _ore_~
 &+La small piece of &+Ygold &+Lore&n~
@@ -2562,7 +2562,7 @@ small piece gold ore _ore_~
 ~
 8 24 2 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-2 50000 100
+2 50000 100 100
 #224
 medium piece gold ore _ore_~
 &+La medium piece of &+Ygold &+Lore&n~
@@ -2570,7 +2570,7 @@ medium piece gold ore _ore_~
 ~
 8 24 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-5 60000 100
+5 60000 100 100
 #225
 large piece gold ore _ore_~
 &+La large piece of &+Ygold &+Lore&n~
@@ -2578,7 +2578,7 @@ large piece gold ore _ore_~
 ~
 8 24 4 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-8 70000 100
+8 70000 100 100
 #226
 small piece platinum ore _ore_~
 &+La small piece of &+Wplatinum &+Lore&n~
@@ -2586,7 +2586,7 @@ small piece platinum ore _ore_~
 ~
 8 25 2 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-6 100000 100
+6 100000 100 100
 #227
 leggings leather pair~
 &+ya pair of leather leggings&N~
@@ -2594,7 +2594,7 @@ leggings leather pair~
 ~
 9 13 3 8 7 0 0 33 0 0 0
 3 5 1 3 0 0 0 0
-3 125 100
+3 125 100 100
 #228
 leggings studded leather pair~
 &+ya pair of studded leather leggings&N~
@@ -2602,7 +2602,7 @@ leggings studded leather pair~
 ~
 9 13 3 8 7 0 0 33 0 4173708804 0
 4 5 1 3 0 0 0 0
-7 500 100
+7 500 100 100
 #229
 medium piece platinum ore _ore_~
 &+La medium piece of &+Wplatinum &+Lore&n~
@@ -2610,7 +2610,7 @@ medium piece platinum ore _ore_~
 ~
 8 25 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-11 150000 100
+11 150000 100 100
 #230
 large piece platinum ore _ore_~
 &+La large piece of &+Wplatinum &+Lore&n~
@@ -2618,7 +2618,7 @@ large piece platinum ore _ore_~
 ~
 8 25 4 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-18 200000 100
+18 200000 100 100
 #231
 small piece mithril ore _ore_~
 &+La small piece of &+mmithril &+Lore&n~
@@ -2626,7 +2626,7 @@ small piece mithril ore _ore_~
 ~
 8 18 2 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-4 500000 100
+4 500000 100 100
 #232
 medium piece mithril ore _ore_~
 &+La medium piece of &+mmithril &+Lore&n~
@@ -2634,7 +2634,7 @@ medium piece mithril ore _ore_~
 ~
 8 18 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-9 600000 100
+9 600000 100 100
 #233
 large piece mithril ore _ore_~
 &+La large piece of &+mmithril &+Lore&n~
@@ -2642,15 +2642,15 @@ large piece mithril ore _ore_~
 ~
 8 18 4 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-14 750000 100
+14 750000 100 100
 #234
-crudely bar iron~
+crudely bar ore iron~
 &+La &ncrudely &+Lmade bar of &+ciron&n~
-&+La bar of ore is waiting to be used.&n~
+&+LA bar of ore is waiting to be used.&n~
 ~
 8 15 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-15 0 100
+15 0 100 100
 #235
 refined bar iron~
 &+La &+Wrefined &+Lbar of &+ciron&n~
@@ -2658,31 +2658,31 @@ refined bar iron~
 ~
 8 15 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-18 0 100
+18 0 100 100
 #236
-crudely bar steel~
+crudely bar ore ore steel~
 &+La &ncrudely &+Lmade bar of &+Csteel&n~
-&+La bar of ore is waiting to be used.&n~
+&+LA bar of ore is waiting to be used.&n~
 ~
 8 16 4 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-11 0 100
+11 0 100 100
 #237
-refined bar steel~
+refined bar ore steel~
 &+La &+Wrefined &+Lbar of &+Csteel&n~
-&+LA piece of &+ciron &+Lore sits here.&n~
+&+LA piece of &+Csteel &+Lore sits here.&n~
 ~
 8 16 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-16 0 100
+16 0 100 100
 #238
-crudely bar copper~
+crudely bar ore copper~
 &+La &ncrudely &+Lmade bar of &+ycopper&n~
-&+La bar of ore is waiting to be used.&n~
+&+LA bar of ore is waiting to be used.&n~
 ~
 8 21 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-8 0 100
+8 0 100 100
 #239
 leather armor suit~
 &+ya suit of leather armor&N~
@@ -2690,47 +2690,47 @@ leather armor suit~
 ~
 9 13 0 0 7 0 0 9 0 0 0
 5 3 1 3 0 0 0 0
-7 250 100
+7 250 100 100
 #240
-refined bar copper~
+refined bar ore copper~
 &+La &+Wrefined &+Lbar of &+ycopper&n~
-&+LA piece of &+ciron &+Lore sits here.&n~
+&+LA piece of &+ycopper &+Lore sits here.&n~
 ~
 8 21 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-12 0 100
+12 0 100 100
 #241
-crudly bar silver~
+crudly bar ore silver~
 &+La &ncrudely &+Lmade bar of &+wsilver&n~
-&+La bar of ore is waiting to be used.&n~
+&+LA bar of ore is waiting to be used.&n~
 ~
 8 22 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-7 0 100
+7 0 100 100
 #242
-refined bar silver~
+refined bar ore silver~
 &+La &+Wrefined &+Lbar of &+wsilver&n~
-&+LA piece of &+ciron &+Lore sits here.&n~
+&+LA piece of &+wsilver &+Lore sits here.&n~
 ~
 8 22 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-13 0 100
+13 0 100 100
 #243
-crudely bar gold~
+crudely bar ore gold~
 &+La &ncrudely &+Lmade bar of &+Ygold&n~
-&+La bar of ore is waiting to be used.&n~
+&+LA bar of ore is waiting to be used.&n~
 ~
 8 24 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-9 0 100
+9 0 100 100
 #244
 refined bar gold~
 &+La &+Wrefined &+Lbar of &+Ygold&n~
-&+LA piece of &+ciron &+Lore sits here.&n~
+&+LA piece of &+Ygold &+Lore sits here.&n~
 ~
 8 24 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-18 0 100
+18 0 100 100
 #245
 armor studded leather suit~
 &+ya suit of studded leather armor&N~
@@ -2738,7 +2738,7 @@ armor studded leather suit~
 ~
 9 13 0 0 7 0 0 9 0 4173708804 0
 6 3 1 3 0 0 0 0
-13 1000 100
+13 1000 100 100
 #246
 boots leather sturdy~
 &+ya pair of sturdy leather boots&N~
@@ -2746,39 +2746,39 @@ boots leather sturdy~
 ~
 9 13 3 8 7 0 0 65 0 0 0
 3 6 1 3 0 0 0 0
-2 300 100
+2 300 100 100
 #247
-crudely bar platinum~
+crudely bar ore platinum~
 &+La &ncrudely &+Lmade bar of &+Wplatinum&n~
-&+La bar of ore is waiting to be used.&n~
+&+LA bar of ore is waiting to be used.&n~
 ~
 8 25 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-10 0 100
+10 0 100 100
 #248
-refined bar platinum~
+refined bar ore platinum~
 &+La &+Wrefined &+Lbar of &+Wplatinum&n~
-&+LA piece of &+ciron &+Lore sits here.&n~
+&+LA piece of &+Wplatinum &+Lore sits here.&n~
 ~
 8 25 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-20 0 100
+20 0 100 100
 #249
-crudely bar mithril~
+crudely bar ore mithril~
 &+La &ncrudely &+Lmade bar of &+mmithril&n~
-&+La bar of ore is waiting to be used.&n~
+&+LA bar of ore is waiting to be used.&n~
 ~
 8 18 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-12 0 100
+12 0 100 100
 #250
-refined bar mithril~
+refined bar ore mithril~
 &+La &+Wrefined &+Lbar of &+mmithril&n~
-&+LA piece of &+ciron &+Lore sits here.&n~
+&+LA piece of &+cmithril &+Lore sits here.&n~
 ~
 8 18 2 0 5 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-25 0 100
+25 0 100 100
 #251
 parchment~
 &+ya rolled up piece of parchment&n~
@@ -2786,7 +2786,7 @@ parchment~
 ~
 8 28 3 0 14 0 1 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #252
 hammer~
 &+ca hammer of forging&n~
@@ -2794,10 +2794,10 @@ hammer~
 ~
 5 15 3 0 7 0 0 8193 0 0 0
 0 2 4 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 hammer~
-   This looks looks an ordinare hammer a blacksmith would use. It has not
+   This looks looks an ordinary hammer a blacksmith would use. It has no
 special markings nor does it seem to be of more than average quality.
 ~
 A
@@ -2805,18 +2805,13 @@ A
 A
 19 1
 #253
-pick~
+pick mining~
 &+ca mining pick&n~
 &+cA large steel mining pick lies here on the ground.&n~
 ~
 5 15 3 0 7 0 0 8193 0 0 0
 0 2 4 0 0 0 0 0
-0 0 100
-E
-hammer~
-   This looks looks an ordinare hammer a blacksmith would use. It has not
-special markings nor does it seem to be of more than average quality.
-~
+0 0 100 100
 A
 18 1
 A
@@ -2828,7 +2823,7 @@ axe battle battleaxe steel gleaming~
 ~
 5 16 3 8 7 0 1024 8193 0 87572571 0
 1 1 8 3 0 0 0 0
-8 800 100
+8 800 100 100
 #255
 club wooden~
 &+ya sturdy wooden club&N~
@@ -2836,7 +2831,7 @@ club wooden~
 ~
 5 6 3 8 7 0 8192 8193 0 0 0
 10 1 6 7 0 0 0 0
-3 0 100
+3 0 100 100
 #256
 dagger steel~
 &+La steel dagger&N~
@@ -2844,7 +2839,7 @@ dagger steel~
 ~
 5 16 2 3 7 0 0 8193 0 0 0
 2 1 4 11 0 0 0 0
-1 200 100
+1 200 100 100
 #257
 flail footman's footmans~
 &+ya footman's flail&N~
@@ -2852,7 +2847,7 @@ flail footman's footmans~
 ~
 5 16 3 8 7 0 0 8193 0 4173708804 0
 3 1 6 6 0 0 0 0
-15 1500 100
+15 1500 100 100
 #258
 mace footman's footmans knobbed knobbed-head~
 &+ya knobbed-head footman's mace&N~
@@ -2860,7 +2855,7 @@ mace footman's footmans knobbed knobbed-head~
 ~
 5 16 3 8 7 0 0 8193 0 4173708804 0
 6 1 6 7 0 0 0 0
-10 800 100
+10 800 100 100
 #259
 pick footman's footmans~
 &+La footman's pick&N~
@@ -2868,7 +2863,7 @@ pick footman's footmans~
 ~
 5 16 3 2 7 0 1024 8193 0 87572571 0
 15 1 6 11 0 0 0 0
-6 800 100
+6 800 100 100
 #260
 axe ax hand~
 &+ya hand axe&N~
@@ -2876,7 +2871,7 @@ axe ax hand~
 ~
 5 16 2 8 7 0 1024 8193 0 87572571 0
 1 1 6 3 0 0 0 0
-5 100 100
+5 100 100 100
 #261
 harpoon bone jagged~
 &+Wa harpoon&N~
@@ -2884,7 +2879,7 @@ harpoon bone jagged~
 ~
 5 10 3 0 7 0 0 8193 0 4173708804 0
 8 1 8 11 0 0 0 0
-6 2000 100
+6 2000 100 100
 #262
 flail horseman's horsemans wooden~
 &+ya horseman's flail&N~
@@ -2892,7 +2887,7 @@ flail horseman's horsemans wooden~
 ~
 5 6 3 8 7 0 0 8193 0 4173708804 0
 3 1 6 6 0 0 0 0
-6 800 100
+6 800 100 100
 #263
 mace horseman's horsemans~
 &+ya horseman's mace&N~
@@ -2900,7 +2895,7 @@ mace horseman's horsemans~
 ~
 5 16 3 8 7 0 0 1 0 4173708804 0
 6 1 6 7 0 0 0 0
-6 500 100
+6 500 100 100
 #264
 pick horseman's horsemans~
 &+La horseman's pick&N~
@@ -2908,7 +2903,7 @@ pick horseman's horsemans~
 ~
 5 16 3 2 7 0 1024 8193 0 87572571 0
 15 1 6 11 0 0 0 0
-4 700 100
+4 700 100 100
 #265
 javelin wooden steel steel-tipped tipped~
 &+ya steel-tipped javelin&N~
@@ -2916,7 +2911,7 @@ javelin wooden steel steel-tipped tipped~
 ~
 5 6 3 0 7 0 0 8193 0 4165209604 0
 8 1 6 11 0 0 0 0
-2 50 100
+2 50 100 100
 #266
 knife steel~
 &+Wa small steel knife&N~
@@ -2924,7 +2919,7 @@ knife steel~
 ~
 5 16 2 3 7 0 0 8193 0 0 0
 2 1 3 11 0 0 0 0
-1 75 100
+1 75 100 100
 #267
 lance heavy~
 &+ya heavy lance&N~
@@ -2932,7 +2927,7 @@ lance heavy~
 ~
 5 16 4 0 7 0 4195328 8193 0 87572571 0
 16 2 9 11 0 0 0 0
-15 1500 100
+15 1500 100 100
 #268
 lance light wooden~
 &+ya light lance&N~
@@ -2940,7 +2935,7 @@ lance light wooden~
 ~
 5 6 4 0 7 0 4195328 8193 0 87572571 0
 16 2 8 11 0 0 0 0
-5 600 100
+5 600 100 100
 #269
 lance wooden jousting blunt~
 &+ya wooden jousting lance&N~
@@ -2948,7 +2943,7 @@ lance wooden jousting blunt~
 ~
 5 6 4 0 7 0 4195328 8193 0 87572571 0
 16 2 4 7 0 0 0 0
-20 2000 100
+20 2000 100 100
 #270
 morningstar steel star~
 &+La steel morningstar&N~
@@ -2956,7 +2951,7 @@ morningstar steel star~
 ~
 5 16 3 8 7 0 0 8193 0 4173708804 0
 3 1 6 6 0 0 0 0
-12 1000 100
+12 1000 100 100
 #271
 bardiche polearm axe~
 &+ya bardiche polearm&N~
@@ -2964,7 +2959,7 @@ bardiche polearm axe~
 ~
 5 16 4 8 7 0 4195328 8193 0 87572571 0
 1 2 8 3 0 0 0 0
-12 700 100
+12 700 100 100
 #272
 glaive polearm cleaver cleaver-like~
 &+ya glaive polearm&N~
@@ -2972,7 +2967,7 @@ glaive polearm cleaver cleaver-like~
 ~
 5 16 4 0 7 0 4195328 8193 0 87572571 0
 8 2 8 3 0 0 0 0
-8 600 100
+8 600 100 100
 #273
 guisearme polearm blade~
 &+ya guisearme polearm&N~
@@ -2980,7 +2975,7 @@ guisearme polearm blade~
 ~
 5 16 4 10 7 0 4195328 8193 0 87572571 0
 8 2 8 3 0 0 0 0
-8 700 100
+8 700 100 100
 #274
 halberd polearm massive~
 &+La halberd polearm&N~
@@ -2988,7 +2983,7 @@ halberd polearm massive~
 ~
 5 16 4 0 7 0 4195328 8193 0 87572571 0
 8 2 8 3 0 0 0 0
-15 1000 100
+15 1000 100 100
 #275
 fork military polearm~
 &+La military fork&N~
@@ -2996,7 +2991,7 @@ fork military polearm~
 ~
 5 16 4 0 7 0 4195328 8193 0 87572571 0
 8 2 8 11 0 0 0 0
-7 500 100
+7 500 100 100
 #276
 quarterstaff staff oaken~
 &+yan oaken quarterstaff&N~
@@ -3004,7 +2999,7 @@ quarterstaff staff oaken~
 ~
 5 5 3 10 7 0 0 8193 0 0 0
 12 1 6 7 0 0 0 0
-4 0 100
+4 0 100 100
 #277
 sickle steel~
 &+La steel sickle&N~
@@ -3012,7 +3007,7 @@ sickle steel~
 ~
 5 16 3 0 7 0 0 8193 0 4173708804 0
 17 1 6 3 0 0 0 0
-2 60 100
+2 60 100 100
 #278
 spear wooden long hardened~
 &+ya long wooden spear&N~
@@ -3020,7 +3015,7 @@ spear wooden long hardened~
 ~
 5 6 4 0 7 0 4194304 8193 0 4173708804 0
 8 2 6 11 0 0 0 0
-5 80 100
+5 80 100 100
 #279
 staff sling wooden leather~
 &+ya staff sling&N~
@@ -3028,7 +3023,7 @@ staff sling wooden leather~
 ~
 5 13 3 10 7 0 0 8193 0 0 0
 12 1 6 7 0 0 0 0
-2 200 100
+2 200 100 100
 #280
 sword bastard steel~
 &+La steel bastard sword&N~
@@ -3036,7 +3031,7 @@ sword bastard steel~
 ~
 5 16 3 10 7 0 1024 8193 0 87572571 0
 5 1 8 3 0 0 0 0
-10 2500 100
+10 2500 100 100
 #281
 sword broad steel~
 &+La steel broad sword&N~
@@ -3044,7 +3039,7 @@ sword broad steel~
 ~
 5 16 3 10 7 0 0 8193 0 4198895524 0
 5 1 8 3 0 0 0 0
-4 1000 100
+4 1000 100 100
 #282
 sword khopesh steel curved~
 &+wa khopesh sword&N~
@@ -3052,7 +3047,7 @@ sword khopesh steel curved~
 ~
 5 16 3 10 7 0 1024 8193 0 87572571 0
 5 1 8 3 0 0 0 0
-7 1000 100
+7 1000 100 100
 #283
 sword long steel~
 &+wa steel long sword&N~
@@ -3060,7 +3055,7 @@ sword long steel~
 ~
 5 16 3 10 7 0 8192 8193 0 4198895524 0
 5 1 8 3 0 0 0 0
-4 1500 100
+4 1500 100 100
 #284
 scimitar steel~
 &+wa steel scimitar&N~
@@ -3068,7 +3063,7 @@ scimitar steel~
 ~
 5 16 3 10 7 0 8192 8193 0 4173708804 0
 9 1 8 3 0 0 0 0
-4 1500 100
+4 1500 100 100
 #285
 sword steel short~
 &+wa steel short sword&N~
@@ -3076,7 +3071,7 @@ sword steel short~
 ~
 5 16 2 10 7 0 0 8193 0 4198895524 0
 9 1 6 11 0 0 0 0
-3 1000 100
+3 1000 100 100
 #286
 sword two-handed steel two handed~
 &+La two-handed sword&N~
@@ -3084,7 +3079,7 @@ sword two-handed steel two handed~
 ~
 5 16 4 15 7 0 4195328 8193 0 87572571 0
 13 2 8 3 0 0 0 0
-15 5000 100
+15 5000 100 100
 #287
 trident spear steel pronged three-pronged~
 &+La steel trident&N~
@@ -3092,7 +3087,7 @@ trident spear steel pronged three-pronged~
 ~
 5 16 4 0 7 0 1024 8193 0 87572571 0
 8 2 8 11 0 0 0 0
-5 1500 100
+5 1500 100 100
 #288
 warhammer hammer steel~
 &+La steel warhammer&n~
@@ -3100,7 +3095,7 @@ warhammer hammer steel~
 ~
 5 16 3 8 7 0 0 8193 0 4173708804 0
 4 1 6 6 0 0 0 0
-6 200 100
+6 200 100 100
 #289
 whip leather black~
 &+La black leather whip&N~
@@ -3108,7 +3103,7 @@ whip leather black~
 ~
 5 13 3 0 7 0 0 8193 0 0 0
 14 1 6 2 0 0 0 0
-2 10 100
+2 10 100 100
 #290
 cudgel oaken stout oak wood~
 &+ya stout oaken cudgel&N~
@@ -3116,7 +3111,7 @@ cudgel oaken stout oak wood~
 ~
 5 6 3 0 7 0 8192 8193 0 0 0
 10 1 6 7 0 0 0 0
-3 0 100
+3 0 100 100
 #291
 gateway~
 &+Ca swirling gateway&n~
@@ -3124,7 +3119,7 @@ gateway~
 ~
 25 15 3 0 5 0 67215360 0 0 0 0
 0 7 -1 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 gateway~
 &+C   The gateway is in the shape of a perfect square and sees as if
@@ -3139,7 +3134,7 @@ fog mist~
 ~
 13 1 3 0 5 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 fog mist~
 &+W   This mist lies thick inhibiting insight from prodding
@@ -3153,7 +3148,7 @@ bass _fishing_~
 ~
 19 2 3 0 5 0 8388608 1 0 0 0
 18 9 9 0 3 3 0 0
-0 0 100
+0 0 100 100
 #294
 piranha _fishing_~
 &+ra piranha&n~
@@ -3161,7 +3156,7 @@ piranha _fishing_~
 ~
 19 2 3 0 5 0 8388608 1 0 0 0
 9 10 9 0 0 0 5 0
-0 0 100
+0 0 100 100
 #295
 cod _fishing_~
 &+Wa medium sized cod&n~
@@ -3169,7 +3164,7 @@ cod _fishing_~
 ~
 19 2 3 0 5 0 8388608 1 0 0 0
 10 7 7 0 0 0 4 0
-0 0 100
+0 0 100 100
 #296
 bag oats~
 &+ya bag of rolled oats&N~
@@ -3177,7 +3172,7 @@ bag oats~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 18 0 0 0 0 0 0 0
-8 14 100
+8 14 100 100
 #297
 hay pile~
 &+Ya large pile of hay&N~
@@ -3185,7 +3180,7 @@ hay pile~
 ~
 19 5 2 2 7 0 0 0 0 0 0
 24 0 0 0 0 0 0 0
-1000 400 100
+1000 400 100 100
 #298
 bucket slop~
 &+ya bucket of slop&N~
@@ -3193,10 +3188,10 @@ bucket slop~
 ~
 19 6 2 2 7 0 0 1 0 0 0
 15 0 0 0 0 0 0 0
-6 6 100
+6 6 100 100
 E
 bucket slop~
-This bucket is filled to the brim with vegetable skins, fruit rines, corn
+This bucket is filled to the brim with vegetable skins, fruit rinds, corn
 cobs, and all sorts of table left overs and food scraps. It looks rather
 appetizing..if you happen to be a hog.
 ~
@@ -3207,7 +3202,7 @@ bucket corn cob corn-on-the-cob~
 ~
 12 6 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-8 60 100
+8 60 100 100
 E
 bucket corn cob corn-on-the-cob~
 This large bucket is filled to the top with ears of dried corn, a rich
@@ -3220,7 +3215,7 @@ A thin wafer covered with beluga caviar sits here deliciously.~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #301
 potato salad~
 a plate of potato salad~
@@ -3228,7 +3223,7 @@ A plate of potato salad is here waiting to be eaten.~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #302
 garden salad~
 a plate of garden salad~
@@ -3236,7 +3231,7 @@ A plate of garden salad is here waiting to be eaten.~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #303
 chef salad~
 a plate of chef's salad~
@@ -3244,7 +3239,7 @@ A plate of chef's salad is here waiting to be eaten.~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #304
 coleslaw salad~
 a plate of fine coleslaw~
@@ -3252,7 +3247,7 @@ A plate of fine coleslaw is here waiting to be eaten.~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #305
 miso soup bowl~
 a bowl of miso soup~
@@ -3260,7 +3255,7 @@ A piping hot bowl of miso soup is sitting here.~
 ~
 17 5 0 0 7 0 0 1 0 0 0
 1 1 18 0 0 0 0 0
-1 1 100
+1 1 100 100
 #306
 minestrone soup bowl~
 a bowl of minestrone soup~
@@ -3268,7 +3263,7 @@ A piping hot bowl of minestrone soup is sitting here.~
 ~
 17 5 0 0 7 0 0 1 0 0 0
 1 1 19 0 0 0 0 0
-1 1 100
+1 1 100 100
 #307
 potato soup bowl~
 a bowl of potato soup~
@@ -3276,7 +3271,7 @@ A piping hot bowl of potato soup is sitting here.~
 ~
 17 5 0 0 7 0 0 1 0 0 0
 1 1 20 0 0 0 0 0
-1 1 100
+1 1 100 100
 #308
 shark fin soup bowl~
 a bowl of shark's fin soup~
@@ -3284,7 +3279,7 @@ A piping hot bowl of shark's fin soup is sitting here.~
 ~
 17 5 0 0 7 0 0 1 0 0 0
 1 1 21 0 0 0 0 0
-1 1 100
+1 1 100 100
 #309
 bird nest soup bowl~
 a bowl of bird's nest soup~
@@ -3292,7 +3287,7 @@ A piping hot bowl of bird's nest soup is sitting here.~
 ~
 17 5 0 0 7 0 0 1 0 0 0
 1 1 22 0 0 0 0 0
-1 1 100
+1 1 100 100
 #310
 lobster plate~
 a plate of lobster in a light cream sauce~
@@ -3300,7 +3295,7 @@ A plate of lobster in a light cream sauce rests here.~
 ~
 19 16 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #311
 sushi plate~
 a plate of assorted sushi~
@@ -3308,7 +3303,7 @@ A plate of assorted sushi rests here.~
 ~
 19 16 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #312
 steak plate~
 a plate with a juicy barbequed steak~
@@ -3316,7 +3311,7 @@ A plate with a juicy barbequed steak rests here.~
 ~
 19 2 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #313
 spaghetti plate~
 a plate of spaghetti carbonara~
@@ -3324,7 +3319,7 @@ A plate of spaghetti carbonara rests here.~
 ~
 19 16 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #314
 egg foo yung plate~
 a plate of egg foo yung~
@@ -3332,7 +3327,7 @@ A plate of egg foo yung rests here.~
 ~
 19 16 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #315
 clams plate~
 a plate of clams in a spicy black bean sauce~
@@ -3340,7 +3335,7 @@ A plate of clams in a spicy black bean sauce rests here.~
 ~
 19 16 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #316
 calamari plate~
 a plate of fried calamari~
@@ -3348,7 +3343,7 @@ A plate of fried calamari rests here.~
 ~
 19 16 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #317
 champagne glass~
 a glass of sparkling white champagne~
@@ -3356,7 +3351,7 @@ A glass of sparkling white champagne is resting here.~
 ~
 17 7 0 0 7 0 0 1 0 0 0
 1 1 23 0 0 0 0 0
-1 1 100
+1 1 100 100
 #318
 pike _fishing_~
 &+ca large pike fish&n~
@@ -3364,7 +3359,7 @@ pike _fishing_~
 ~
 19 2 3 0 5 0 8388608 1 0 0 0
 12 6 8 0 2 0 0 2
-0 100 100
+0 100 100 100
 #319
 impressive lobster _fishing_~
 an &+rimpressive &+Rlobster&n~
@@ -3372,7 +3367,7 @@ an &+rimpressive &+Rlobster&n~
 ~
 19 2 3 0 5 0 8388608 1 0 0 0
 15 8 6 0 0 5 0 0
-0 100 100
+0 100 100 100
 #320
 water glass~
 a glass of water~
@@ -3380,7 +3375,7 @@ A glass of water is resting here.~
 ~
 17 7 0 0 7 0 0 1 0 0 0
 1 1 25 0 0 0 0 0
-1 1 100
+1 1 100 100
 #321
 sake cup~
 a cup of sake~
@@ -3388,7 +3383,7 @@ A cup of sake is resting here.~
 ~
 17 9 0 0 7 0 0 1 0 0 0
 1 1 26 0 0 0 0 0
-1 1 100
+1 1 100 100
 #322
 wedding cake~
 a piece of wedding cake~
@@ -3396,7 +3391,7 @@ A piece of wedding cake is sitting on a plate.~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #323
 lime sherbet~
 a bowl of lime sherbet~
@@ -3404,7 +3399,7 @@ A bowl of lime sherbet is resting here.~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #324
 chocolate mousse~
 a dish of chocolate mousse~
@@ -3412,7 +3407,7 @@ A dish of chocolate mousse is resting here.~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #325
 coffee cake~
 a piece of coffee cake~
@@ -3420,7 +3415,7 @@ A piece of coffee cake is sitting on a plate.~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #326
 strawberry shortcake~
 a piece of strawberry shortcake~
@@ -3428,7 +3423,7 @@ A piece of strawberry shortcake is sitting on a plate.~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #327
 cheesecake~
 &+Wa piece of&+Y cheesecake&n~
@@ -3436,7 +3431,7 @@ A piece of cheesecake is sitting on a plate.~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #328
 cookies~
 a plate of assorted cookies~
@@ -3444,7 +3439,7 @@ A plate of assorted cookies is sitting here.~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #329
 ice cream~
 a bowl of ice cream~
@@ -3452,7 +3447,7 @@ A bowl of ice cream is resting here.~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 1 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #330
 hairy crab _fishing_~
 &+ya large hairy crab&n~
@@ -3460,7 +3455,7 @@ hairy crab _fishing_~
 ~
 19 2 3 0 5 0 8388608 1 0 0 0
 7 6 6 0 2 2 0 0
-0 0 100
+0 0 100 100
 #331
 tun wine~
 &+ya tun of red wine&N~
@@ -3468,7 +3463,7 @@ tun wine~
 ~
 17 5 0 0 7 0 0 1 0 0 0
 50 50 2 0 0 0 0 0
-25 300 100
+25 300 100 100
 E
 tun wine~
 This small wooden container is made of hardwood and sealed at both end.
@@ -3481,7 +3476,7 @@ a &+rlarge shrimp&n~
 ~
 19 15 3 0 5 0 8388608 1 0 0 0
 4 8 6 0 0 0 3 0
-0 0 100
+0 0 100 100
 #333
 oyster _fishing_~
 &+wa large flat oyster&n~
@@ -3489,7 +3484,7 @@ oyster _fishing_~
 ~
 19 15 3 0 5 0 8388608 1 0 0 0
 4 8 6 0 0 3 0 1
-0 0 100
+0 0 100 100
 #334
 clam _fishing_~
 a &+ysmall clam&n~
@@ -3497,7 +3492,7 @@ a &+ysmall clam&n~
 ~
 19 2 3 0 5 0 8388608 1 0 0 0
 4 4 4 0 1 1 1 0
-0 100 100
+0 100 100 100
 #335
 mussel _fishing_~
 &+ba large &+Bmussel&n~
@@ -3505,7 +3500,7 @@ mussel _fishing_~
 ~
 19 15 3 0 5 0 8388608 1 0 0 0
 3 5 5 0 3 0 0 0
-0 0 100
+0 0 100 100
 #336
 fishing pole~
 &+ya slender fishing pole&n~
@@ -3513,7 +3508,7 @@ fishing pole~
 ~
 8 5 3 0 7 0 8200 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 fishing pole~
    There is nothing special about this fishing pole. It is
@@ -3526,10 +3521,10 @@ hammer~
 ~
 5 15 3 0 7 0 0 8193 0 0 0
 0 2 4 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 hammer~
-   This looks looks an ordinare hammer a blacksmith would use. It has not
+   This looks looks an ordinary hammer a blacksmith would use. It has not
 special markings nor does it seem to be of more than average quality.
 ~
 A
@@ -3543,7 +3538,7 @@ pick~
 ~
 5 19 3 0 11 0 0 8193 0 0 0
 4 2 4 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 hammer~
    This looks looks an ordinare hammer a blacksmith would use. It has not
@@ -3554,37 +3549,37 @@ A
 A
 19 1
 #339
-ruby _ore_~
+ruby large _ore_~
 a &+rlarge ruby&n~
 &+rA large ruby lies here glittering.&n~
 ~
 8 15 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 3000000 100
+0 3000000 100 100
 #340
-sapphire _ore_~
+sapphire beautiful _ore_~
 a &+bbeautiful sapphire&n~
 &+bA beautiful sapphire lies here on the ground.&n~
 ~
 8 15 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 4000000 100
+0 4000000 100 100
 #341
-opal _ore_~
+opal black _ore_~
 a &+Lblack opal&n~
 &+lA polished black gem lies here on the ground.&n~
 ~
 8 15 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 1500000 100
+0 1500000 100 100
 #342
-emerald _ore_~
+emerald small _ore_~
 a &+Gsmall emerald&n~
 &+GA small perfectly round emerald&n lies here on the ground.~
 ~
 8 15 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 3500000 100
+0 3500000 100 100
 #343
 lapis lazuli _ore_~
 a &+bchunk of &+b&+Bl&+ba&+Bp&+bi&+Bs &+bl&+Ba&+bz&+Bu&+bl&+Bi&n~
@@ -3592,31 +3587,23 @@ a &+bchunk of &+b&+Bl&+ba&+Bp&+bi&+Bs &+bl&+Ba&+bz&+Bu&+bl&+Bi&n~
 ~
 8 15 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 1200000 100
+0 1200000 100 100
 #344
-topaz _ore_~
+topaz smooth _ore_~
 a &+msmooth topaz&n~
 &+cA small round topas lies here on the ground.&n~
 ~
 8 15 3 0 5 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 1400000 100
+0 1400000 100 100
 #345
-diamond _ore_~
+diamond small _ore_~
 a &+Wsmall diamond&n~
 &+WA small diamind sparkles and shimmers here.&n~
 ~
 8 27 3 0 11 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 4500000 100
-#346
-object unnamed~
-a &+gchunk of &+Gm&+gal&+Gach&+git&+Ge&n~
-An unnamed object lies here, looking lonely and forelorn.~
-~
-8 15 3 0 5 0 0 1 0 0 0
-0 0 0 0 0 0 0 0
-0 1800000 100
+0 4500000 100 100
 #347
 water skin waterskin leather~
 &+ya leather waterskin&N~
@@ -3624,47 +3611,47 @@ water skin waterskin leather~
 ~
 17 12 3 8 7 0 0 16385 0 0 0
 20 20 0 0 0 0 0 0
-3 0 100
+3 0 100 100
 #348
-fire agate _ore_~
+fire agate gem _ore_~
 a &+rfi&+Yr&+re agate&n~
-&+ra small gem lies here blazing like fire.&n~
+&+rA small gem lies here blazing like fire.&n~
 ~
 8 15 3 0 11 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 1100000 100
+0 1100000 100 100
 #349
-moonstone _ore_~
+moonstone pale _ore_~
 a &+Wpale moonstone~
 &+WA smooth white stone lies here radiating light.&n~
 ~
 8 15 3 0 13 0 1 1 0 0 0
 0 0 0 0 0 0 0 0
-0 5000000 100
+0 5000000 100 100
 #350
-kyanite _ore_~
+kyanite yellow _ore_~
 a &+Ysmall piece of kyanite&n~
 &+WA piece of yellow kyanite lies here.&n~
 ~
 8 15 3 0 11 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 2100000 100
+0 2100000 100 100
 #351
-chrystoberyl _ore_~
+chrystoberyl jagged _ore_~
 a &+yjagged piece of &+Ychrysoberyl&n~
 &+yA rough jagged piece of &+Ychrysoberyl&n lies here.~
 ~
 8 15 3 0 11 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 3600000 100
+0 3600000 100 100
 #352
 death sickle~
 &+La death sickle&n~
-An unnamed object lies here, looking lonely and forelorn.~
+&+LA death sickle has been discarded here.&n~
 ~
 5 1 3 0 5 0 8913985 8193 0 1024 0
 17 3 7 0 0 0 0 0
-0 1 100
+0 1 100 100
 A
 18 8
 A
@@ -3676,7 +3663,7 @@ jerky venison pieces strips strip~
 ~
 19 5 2 2 7 0 0 1 0 0 0
 24 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 #354
 monolith~
 &+La large monolith&n~
@@ -3684,7 +3671,7 @@ monolith~
 ~
 13 36 5 0 14 0 32769 0 0 0 0
 1 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 monolith~
 &+L   The pillar of smooth obsidian rises fifteen feet into the air. Not a
@@ -3704,7 +3691,7 @@ rainbow trout _fishing_~
 ~
 19 2 3 0 5 0 0 1 0 0 0
 10 3 5 0 0 0 2 0
-0 0 100
+0 0 100 100
 #356
 perch _fishing_~
 &+ca sp&+yeckl&+ced perch&n~
@@ -3712,7 +3699,7 @@ perch _fishing_~
 ~
 19 2 3 0 5 0 0 1 0 0 0
 10 0 0 2 0 0 0 0
-0 0 100
+0 0 100 100
 #357
 beer bottle~
 &+ya bottle of stout beer&N~
@@ -3720,7 +3707,7 @@ beer bottle~
 ~
 17 7 1 2 7 0 8 1 0 0 0
 8 8 1 0 0 0 0 0
-10 20 100
+10 20 100 100
 E
 beer bottle~
 Made from a dark blown glass, this bottle contain a nice draught of
@@ -3733,13 +3720,13 @@ a &+Lsmall &+grune&+L-covered stone&n~
 ~
 13 15 3 0 5 0 67117056 1 64 0 0
 1 4 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 rune runes~
 The stone surface is covered with ancient &+grunes&n referring to the
 magical flows encompassing the &+LWorld of &+rDuris&n. According to them
 there is a network of nodes focusing the mana powers scattered all
-around the world. Visiting these nodes will grant to the traveller
+around the world. Visiting these nodes will grant to the traveler
 abilities going beyond what is available to other mortals.
 ~
 #359
@@ -3749,13 +3736,13 @@ a &+Llarge &+grune&+L-covered stone&n~
 ~
 13 15 3 0 5 0 67117056 1 64 0 0
 5 10 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 rune runes~
 The stone surface is covered with ancient &+grunes&n referring to the
 magical flows encompassing the &+LWorld of &+rDuris&n. According to them
 there is a network of nodes focusing the mana powers scattered all
-around the world. Visiting these nodes will grant to the traveller
+around the world. Visiting these nodes will grant to the traveler
 abilities going beyond what is available to other mortals.
 ~
 #360
@@ -3765,13 +3752,13 @@ an &+Lenormous &+grune&+L-covered monolith&n~
 ~
 13 15 3 0 5 0 67117056 1 64 0 0
 15 15 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 rune runes~
 The stone surface is covered with ancient &+grunes&n referring to the
 magical flows encompassing the &+LWorld of &+rDuris&n. According to them
 there is a network of nodes focusing the mana powers scattered all
-around the world. Visiting these nodes will grant to the traveller
+around the world. Visiting these nodes will grant to the traveler
 abilities going beyond what is available to other mortals.
 ~
 #361
@@ -3781,7 +3768,7 @@ forging furnace forge~
 ~
 15 15 3 0 5 0 33554432 0 0 0 0
 1000 5 0 1000 0 0 0 0
-40 200000 100
+40 200000 100 100
 E
 forging furnace forge~
 &+LThis is a small forge used for smelting metals, smithing, and crafting.
@@ -3795,7 +3782,7 @@ brittle pile alloy~
 ~
 13 15 2 0 5 0 524288 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 brittle pile alloy~
 &+LA small pile of metal alloy that is unused.&n
@@ -3807,7 +3794,7 @@ gauze bandage~
 ~
 38 3 3 0 11 0 0 16385 0 0 0
 140 0 0 0 0 0 0 0
-0 1000 100
+0 1000 100 100
 E
 gauze bandage~
    &+WThis simple cloth bandage is small.  However, when applied correctly
@@ -3820,7 +3807,7 @@ rations iron ration~
 ~
 19 48 2 2 7 0 32768 1 0 0 0
 2 1 1 0 0 0 0 0
-1 500 100
+1 500 100 100
 #365
 goodberry~
 a goodberry~
@@ -3828,7 +3815,7 @@ a goodberry~
 ~
 13 15 3 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #366
 flaming sabre blade~
 &+ra &+Rflaming&+r sabre&n~
@@ -3836,7 +3823,7 @@ flaming sabre blade~
 ~
 5 1 3 0 7 0 17302785 8193 64 160 0
 5 3 4 3 0 0 0 0
-0 0 100
+0 0 100 100
 A
 18 1
 A
@@ -3848,7 +3835,7 @@ whetstone stone~
 ~
 13 11 3 0 3 0 64 16385 0 0 0
 0 0 0 0 0 0 0 0
-1 1230 100
+1 1230 100 100
 E
 stone living~
 &+LPart of a strange &+rliving&+Lstone.&n
@@ -3860,7 +3847,7 @@ gauze tourniquet bandage~
 ~
 38 3 3 0 11 0 0 16385 0 0 0
 250 0 0 0 0 0 0 0
-0 4000 100
+0 4000 100 100
 E
 gauze tourniquet~
    &+WLarger than the average bandage, this gauze tourniquet is used to
@@ -3874,7 +3861,7 @@ large medicated bandage~
 ~
 38 3 3 0 11 0 0 16385 0 0 0
 650 0 0 0 0 0 0 0
-0 10000 100
+0 10000 100 100
 E
 large medicated bandage~
    &+WThis gauze bandage is much larger than your average bandage, able to be
@@ -3889,7 +3876,7 @@ potion 45 potion45~
 ~
 10 15 3 0 5 0 2 0 0 0 0
 45 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 8 45
 #371
@@ -3899,7 +3886,7 @@ potion 46 potion46~
 ~
 10 15 3 0 5 0 2 0 0 0 0
 46 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 8 46
 #372
@@ -3909,7 +3896,7 @@ potion 47 potion47~
 ~
 10 15 3 0 5 0 2 0 0 0 0
 47 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 8 47
 #373
@@ -3919,7 +3906,7 @@ potion 48 potion48~
 ~
 10 15 3 0 5 0 2 0 0 0 0
 48 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 8 48
 #374
@@ -3929,7 +3916,7 @@ potion 49 potion49~
 ~
 10 15 3 0 5 0 2 0 0 0 0
 49 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 8 49
 #375
@@ -3939,7 +3926,7 @@ potion 50 potion50~
 ~
 10 15 3 0 5 0 2 0 0 0 0
 50 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 8 50
 #376
@@ -3949,7 +3936,7 @@ backpack leather small bp~
 ~
 15 13 3 10 7 0 0 1025 0 0 0
 75 1 0 100 0 0 0 0
-2 125 100
+2 125 100 100
 #377
 backpack leather large bp~
 &+ya large leather backpack&N~
@@ -3957,7 +3944,7 @@ backpack leather large bp~
 ~
 15 13 3 6 7 0 0 4194305 0 0 0
 120 1 0 100 0 0 0 0
-4 200 100
+4 200 100 100
 #378
 box iron small~
 &+Ya small iron box&N~
@@ -3965,7 +3952,7 @@ box iron small~
 ~
 15 15 3 0 7 0 0 16385 0 0 0
 15 5 0 100 0 0 0 0
-7 200 100
+7 200 100 100
 #379
 box iron large~
 &+Ya large iron box&N~
@@ -3973,7 +3960,7 @@ box iron large~
 ~
 15 15 3 0 7 0 0 1 0 0 0
 25 5 0 100 0 0 0 0
-15 600 100
+15 600 100 100
 #380
 chest wooden small~
 &+ya small wooden chest&N~
@@ -3981,7 +3968,7 @@ chest wooden small~
 ~
 15 6 5 50 7 0 0 1 0 0 0
 50 3 0 250 0 0 0 0
-10 100 100
+10 100 100 100
 E
 chest small wooden~
 This small wooden chest is about a foot square and deep. The edges of the
@@ -3996,7 +3983,7 @@ chest wooden large~
 ~
 15 6 5 50 7 0 0 1 0 0 0
 200 5 0 250 0 0 0 0
-25 200 100
+25 200 100 100
 E
 chest wooden large~
 This large wooden chest is about three feet long, two feet deep and just
@@ -4014,7 +4001,7 @@ chest iron small~
 ~
 15 15 5 50 7 0 0 1 0 0 0
 20 5 0 250 0 0 0 0
-45 800 100
+45 800 100 100
 E
 chest iron small~
 This chest is about a foot square and made from solid iron. Little studs
@@ -4029,7 +4016,7 @@ footlocker locker wooden sturdy~
 ~
 15 6 3 0 7 0 0 1 0 0 0
 50 5 0 100 0 0 0 0
-10 100 100
+10 100 100 100
 E
 footlocker locker wooden sturdy~
 This oblong shaped footlocker is about three feet long and a foot wide,
@@ -4044,7 +4031,7 @@ water barrel oak~
 ~
 17 5 3 10 7 0 8 1 0 0 0
 80 0 0 0 0 0 0 0
-20 150 100
+20 150 100 100
 #385
 water barrel oak~
 &+ya small oak water barrel&N~
@@ -4052,7 +4039,7 @@ water barrel oak~
 ~
 17 5 3 10 7 0 8 1 0 0 0
 80 80 0 0 0 0 0 0
-20 150 100
+20 150 100 100
 #386
 water barrel oak~
 &+ya large oak barrel&N~
@@ -4060,7 +4047,7 @@ water barrel oak~
 ~
 17 5 3 10 7 0 8 1 0 0 0
 120 120 0 0 0 0 0 0
-228 150 100
+228 150 100 100
 #387
 basket woven reed grass~
 &+Ya small woven basket&N~
@@ -4068,7 +4055,7 @@ basket woven reed grass~
 ~
 15 42 3 0 7 0 0 16385 0 0 0
 50 0 0 100 0 0 0 0
-2 10 100
+2 10 100 100
 E
 basket woven reed grass~
 Woven from thick strips of grass or reed, this basket is strong and light
@@ -4082,7 +4069,7 @@ sack leather small~
 ~
 15 13 3 10 7 0 0 16385 0 0 0
 30 0 0 100 0 0 0 0
-2 20 100
+2 20 100 100
 #389
 sack leather large~
 &+Ya large leather sack&N~
@@ -4090,7 +4077,7 @@ sack leather large~
 ~
 15 13 3 10 7 0 0 16385 0 0 0
 50 0 0 100 0 0 0 0
-4 20 100
+4 20 100 100
 #390
 bag leather small~
 &+ya small leather bag&N~
@@ -4098,7 +4085,7 @@ bag leather small~
 ~
 15 13 3 4 7 0 0 16385 0 0 0
 30 1 0 80 0 0 0 0
-2 10 100
+2 10 100 100
 #391
 bag leather large~
 &+ya large leather bag&N~
@@ -4106,7 +4093,7 @@ bag leather large~
 ~
 15 13 3 4 7 0 0 16385 0 0 0
 50 1 0 100 0 0 0 0
-4 20 100
+4 20 100 100
 #392
 dragon scale~
 &+La dragon scale&n~
@@ -4114,7 +4101,7 @@ dragon scale~
 ~
 13 35 3 0 11 0 8192 1 0 0 0
 0 0 0 0 0 0 0 0
-0 5000 100
+0 5000 100 100
 #393
 small bandage~
 &+Wa small bandage&N~
@@ -4122,7 +4109,7 @@ small bandage~
 ~
 38 3 3 0 11 0 8 16385 0 0 0
 40 0 0 0 0 0 0 0
-0 1 100
+0 1 100 100
 E
 gauze bandage~
    &+WThis simple cloth bandage is small.  However, when applied correctly
@@ -4135,7 +4122,7 @@ A large &+ln&+Le&+wx&+Lu&+ls&+L-&+ls&+wt&+lo&+Ln&+le&n stands here.~
 ~
 13 15 3 0 5 0 98305 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #395
 mace pwn~
 &+Lnexus guardian hidden mace of pwn&n~
@@ -4143,7 +4130,7 @@ mace pwn~
 ~
 5 1 3 0 15 100 13205642 8193 2 0 0
 6 8 7 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 58 -1
 #396
@@ -4153,7 +4140,7 @@ torch coated wax tallow~
 ~
 1 5 3 8 7 0 0 16385 0 0 0
 0 0 24 0 0 0 0 0
-1 2 100
+1 2 100 100
 #397
 torch wooden tar dipped~
 &+ya large tar dipped torch&N~
@@ -4161,7 +4148,7 @@ torch wooden tar dipped~
 ~
 1 6 3 8 7 0 0 16385 0 0 0
 0 0 36 0 0 0 0 0
-1 3 100
+1 3 100 100
 #398
 torch wooden~
 &+Ya large wooden torch&N~
@@ -4169,7 +4156,7 @@ torch wooden~
 ~
 1 6 3 8 7 0 0 16385 0 0 0
 0 0 12 0 0 0 0 0
-1 1 100
+1 1 100 100
 #399
 lantern~
 &+ya small brass lantern&N~
@@ -4177,7 +4164,7 @@ lantern~
 ~
 1 17 0 0 7 0 0 16385 0 0 0
 0 0 96 0 0 0 0 0
-1 50 100
+1 50 100 100
 #400
 khazid blade cutting~
 &+WKh&+wazi&+Ld'h&+we&+Wa,&n the &+wblade&n of &+RC&+ru&+Rt&+rt&+Ri&+rn&+Rg&n~
@@ -4185,7 +4172,7 @@ khazid blade cutting~
 ~
 5 19 3 0 15 0 33793024 8193 102 2637851 0
 9 5 6 3 0 0 0 0
-10 0 100 0 0 0 83886080
+10 0 100 100 0 0 0 83886080
 E
 khazid blade cutting~
 &+LKhazid'hea is a finely crafted blade that can cut through flesh,&n
@@ -4209,21 +4196,21 @@ white ioun stone~
 &+ya &+Ldark &+ybrown ioun stone&n~
 &+ya &+Ldark&+y brown ioun stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100 0 1048576 0 0
+0 0 100 100 0 1048576 0 0
 A
 57 1
 A
 58 2
 #402
 tablet mystic runed~
-&+LA &+Bmystic&+L runed stone tablet&n~
+&+La &+Bmystic&+L runed stone tablet&n~
 &+LA powerful slab of stone lies here, humming.&n~
 ~
 13 11 3 0 15 0 33554441 8404993 64 0 0
 0 0 0 0 0 0 0 0
-10 0 100
+10 0 100 100
 E
 tablet mystic runed~
 Written on the tablet is the following:
@@ -4239,11 +4226,11 @@ Written on the tablet is the following:
 #403
 scroll strength~
 &+Lthe scroll of &+CStrength&n~
-&+La scroll lies on the ground here, radiating power.&n~
+&+LA scroll lies on the ground here, radiating power.&n~
 ~
 13 43 2 0 15 0 9 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 scroll strength~
 Reading this scroll is purported to give the reader immense strength.
@@ -4251,11 +4238,11 @@ Reading this scroll is purported to give the reader immense strength.
 #404
 scroll dexterity~
 &+Lthe scroll of &+RDexterity&n~
-&+La scroll lies on the ground here, radiating power.&n~
+&+LA scroll lies on the ground here, radiating power.&n~
 ~
 13 43 2 0 15 0 9 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 scroll dexterity~
 Reading this scroll is purported to give the reader immense dexterity.
@@ -4263,11 +4250,11 @@ Reading this scroll is purported to give the reader immense dexterity.
 #405
 scroll charisma~
 &+Lthe scroll of &+GCharisma&n~
-&+La scroll lies on the ground here, radiating power.&n~
+&+LA scroll lies on the ground here, radiating power.&n~
 ~
 13 43 2 0 15 0 9 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 scroll charisma~
 Reading this scroll is purported to give the reader immense charisma.
@@ -4275,11 +4262,11 @@ Reading this scroll is purported to give the reader immense charisma.
 #406
 scroll agility~
 &+Lthe scroll of &+BAgility&n~
-&+La scroll lies on the ground here, radiating power.&n~
+&+LA scroll lies on the ground here, radiating power.&n~
 ~
 13 43 2 0 15 0 9 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 scroll agility~
 Reading this scroll is purported to give the reader immense agility.
@@ -4287,11 +4274,11 @@ Reading this scroll is purported to give the reader immense agility.
 #407
 scroll constitution~
 &+Lthe scroll of &+bConstitution&n~
-&+La scroll lies on the ground here, radiating power.&n~
+&+LA scroll lies on the ground here, radiating power.&n~
 ~
 13 43 2 0 15 0 9 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 scroll constitution~
 Reading this scroll is purported to give the reader immense constitution.
@@ -4299,11 +4286,11 @@ Reading this scroll is purported to give the reader immense constitution.
 #408
 scroll power~
 &+Lthe scroll of &+MPower&n~
-&+La scroll lies on the ground here, radiating power.&n~
+&+LA scroll lies on the ground here, radiating power.&n~
 ~
 13 43 2 0 15 0 9 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 scroll power~
 Reading this scroll is purported to give the reader immense power.
@@ -4311,11 +4298,11 @@ Reading this scroll is purported to give the reader immense power.
 #409
 scroll luck~
 &+Lthe scroll of &+YLuck&n~
-&+La scroll lies on the ground here, radiating power.&n~
+&+LA scroll lies on the ground here, radiating power.&n~
 ~
 13 43 2 0 15 0 9 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 scroll luck~
 Reading this scroll is purported to give the reader immense luck.
@@ -4323,11 +4310,11 @@ Reading this scroll is purported to give the reader immense luck.
 #410
 scroll wisdom~
 &+Lthe scroll of &+cWisdom&n~
-&+La scroll lies on the ground here, radiating power.&n~
+&+LA scroll lies on the ground here, radiating power.&n~
 ~
 13 43 2 0 15 0 9 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 scroll wisdom~
 Reading this scroll is purported to give the reader immense wisdom.
@@ -4335,11 +4322,11 @@ Reading this scroll is purported to give the reader immense wisdom.
 #411
 scroll intelligence~
 &+Lthe scroll of &+mIntelligence&n~
-&+La scroll lies on the ground here, radiating power.&n~
+&+LA scroll lies on the ground here, radiating power.&n~
 ~
 13 43 2 0 15 0 9 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 scroll intelligence~
 Reading this scroll is purported to give the reader immense intelligence.
@@ -4351,15 +4338,15 @@ lockpicks lockpick lock pick picks~
 ~
 31 16 1 2 7 0 0 16385 0 0 0
 0 10 0 0 0 0 0 0
-1 8 100
+1 8 100 100
 #413
 ball disco~
-&+LA disco ball&n~
+&+La disco ball&n~
 &+LAn &+mE&+MN&+mO&+MR&+mM&+MO&+mU&+MS &+Wd&+Yi&+Ws&+Yc&+Wo &+Wb&+Ya&+Wl&+Yl &+Lhangs from the &+Wc&+Ye&+Wi&+Yl&+Wi&+Yn&+Wg &+Lhere!&n~
 ~
 8 15 3 0 7 0 33554433 0 64 0 0
 0 320 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #414
 armor battlerager khildarak~
 &+rKhildarak's &+Lbattlerager armor&n~
@@ -4367,7 +4354,7 @@ armor battlerager khildarak~
 ~
 9 18 3 0 15 0 1 9 64 0 256
 0 0 0 5 1 0 0 0
-0 0 100 268435472 0 0 0
+0 0 100 100 268435472 0 0 0
 E
 armor battlerager khildarak~
 &+LForged long ago by the first &+rduergar&+L kings, this armor was created
@@ -4393,11 +4380,11 @@ Someone has dropped the scale of a &+mpurple &+Lworm&n here.~
 ~
 9 47 3 0 15 0 33554432 4097 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100 0 32768 0 0
+0 0 100 100 0 32768 0 0
 A
-13 35
+13 50
 A
-17 -100
+17 -30
 #416
 beacon thought mist fog~
 &+LA thought beacon&n~
@@ -4405,7 +4392,7 @@ beacon thought mist fog~
 ~
 13 15 3 0 7 0 8388609 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #417
 totem shaman~
 shaman summon totem~
@@ -4413,7 +4400,7 @@ shaman summon totem~
 ~
 34 1 2 0 15 0 8913481 16385 64 0 524288
 63 0 0 0 0 0 0 0
-3 0 100
+3 0 100 100
 E
 totem shaman~
 &+GThis is a powerful totem granted by the deity &+LMaglubiyet&+G.  It
@@ -4427,7 +4414,7 @@ hammer warhammer silverish silver~
 ~
 5 22 3 0 7 0 33792 8193 65 3162115 8192
 4 5 5 3 0 0 0 0
-10 3021 100 16 0 0 0
+10 3021 100 100 16 0 0 0
 E
 longsword sword long silverish silver~
 &+CRoughly three feet long, this two-handed sword looks fearsome indeed.
@@ -4443,7 +4430,7 @@ moonstone stone moon~
 ~
 13 15 3 0 7 0 8388609 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #420
 sign battered _id_~
 &+ya &+Ybattered &+ysign~
@@ -4451,7 +4438,7 @@ sign battered _id_~
 ~
 13 15 3 0 7 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 sign battered _id_~
 &+y/----------------------\
@@ -4469,7 +4456,7 @@ elixir youth bubbling~
 ~
 10 7 3 0 7 0 0 8388609 0 0 0
 40 70 0 0 0 0 0 0
-0 13000 100
+0 13000 100 100
 #422
 spawner dummy~
 a dummy spawner~
@@ -4477,7 +4464,7 @@ A dummy spawner sits here on the ground, spawning new creations.~
 ~
 39 15 3 0 7 0 2 0 0 0 0
 414 10 10 785 0 0 0 0
-0 0 100
+0 0 100 100
 #423
 lom terrain changer object~
 lom terrain changer object~
@@ -4485,7 +4472,7 @@ lom terrain changer obj~
 ~
 13 15 3 0 5 0 106498 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 track~
 ~
@@ -4496,7 +4483,7 @@ ring wispy astral unique~
 ~
 9 1 3 0 15 0 271590408 540675 0 262276 0
 100 0 0 0 0 0 0 0
-1 0 100 402653184 0 128 0
+1 0 100 100 402653184 0 128 0
 E
 ring wispy astral unique~
 &+CThe ring is not of this world. The material used in its creation cannot be
@@ -4519,7 +4506,7 @@ holy sword avenger ambran unique~
 ~
 5 19 4 0 15 0 272901121 8193 64 8 0
 13 6 6 3 0 0 0 0
-15 125352532 100 8208 32772 0 16781312
+15 125352532 100 100 8208 32772 0 16781312
 E
 holy sword~
 The sword is heavy and crafted for a great warrior.  The sword is made from
@@ -4536,19 +4523,19 @@ blade golden short~
 ~
 5 1 3 0 5 0 8913985 8193 0 134217728 0
 17 3 7 0 0 0 0 0
-0 1 100
+0 1 100 100
 A
 18 8
 A
 19 3
 #427
 cannon bronze _id_~
-&+LThe large &+ybronze &+Lcannon of the &+ydw&+Ya&+yrv&+Ye&+yn &+csm&+Ci&+cths&n~
+&+Lthe large &+ybronze &+Lcannon of the &+ydw&+Ya&+yrv&+Ye&+yn &+csm&+Ci&+cths&n~
 &+LThe large &+ybronze &+Lcannon sits here, detailed &+ydw&+Ya&+yrv&+Ye&+yn &+cinscriptions &+Lrunning the length of the barrel.&n~
 ~
 12 20 7 0 11 0 40960 0 0 0 0
 0 0 0 0 0 0 0 0
-1000000 0 100
+1000000 0 100 100
 E
 cannon~
 To prime the cannon for firing use 'order cannon [gunpowder] [direction]'
@@ -4562,7 +4549,7 @@ A zombies game generator is here.~
 ~
 38 15 3 0 7 0 8429570 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #429
 canoe~
 &+ya small one-man canoe&n~
@@ -4570,7 +4557,7 @@ canoe~
 ~
 22 6 4 30 7 0 8200 1 0 0 0
 0 0 0 0 0 0 0 0
-65 4000 100
+65 4000 100 100
 #431
 raft~
 &+ya small wooden raft&n~
@@ -4578,7 +4565,7 @@ raft~
 ~
 22 6 4 30 7 0 8200 1 0 0 0
 0 0 0 0 0 0 0 0
-75 400 100
+75 400 100 100
 E
 raft~
 The raft looks very primitive.
@@ -4590,63 +4577,63 @@ leather quiver back-worn~
 ~
 30 13 2 12 7 0 0 1048577 0 0 0
 25 0 1 0 0 0 0 0
-1 100 100
+1 100 100 100
 #436
 sandals leather pair~
 &+ya pair of leather sandals&N~
 &+yA pair of leather sandals have been tossed aside here.&N~
 ~
-11 13 0 0 7 0 8192 65 0 0 0
+9 13 0 0 7 0 8192 65 0 0 0
 0 0 0 5 0 0 0 0
-1 5 100
+1 5 100 100
 #437
 shoes shoe leather pair~
 &+ya pair of common leather shoes&N~
 &+yA pair of leather shoes have been tossed here.&N~
 ~
-11 13 3 6 7 0 0 65 0 0 0
+9 13 3 6 7 0 0 65 0 0 0
 0 0 0 5 0 0 0 0
-1 20 100
+1 20 100 100
 #438
-boots leather travelling~
-&+ya pair of leather travelling boots&N~
-&+ySome worn leather travelling boots have been left here.&N~
+boots leather traveling~
+&+ya pair of leather traveling boots&N~
+&+ySome worn leather traveling boots have been left here.&N~
 ~
-11 13 3 8 7 0 0 65 0 0 0
+9 13 3 8 7 0 0 65 0 0 0
 0 0 0 5 0 0 0 0
-1 80 100
+1 80 100 100
 #439
-boots leather travelling~
+boots leather hard~
 &+ya pair of hard leather boots&N~
 &+ySome hard leather boots have been left here.&N~
 ~
-11 13 3 8 7 0 0 65 0 0 0
+9 13 3 8 7 0 0 65 0 0 0
 0 0 0 5 0 0 0 0
-2 80 100
+2 80 100 100
 #440
 boots leather soft~
 &+ya pair of soft leather boots&N~
 &+yA pair of soft looking leather boots has been left here.&N~
 ~
-11 13 3 8 7 0 0 65 0 0 0
+9 13 3 8 7 0 0 65 0 0 0
 0 0 0 5 0 0 0 0
-1 100 100
+1 100 100 100
 #441
 boots riding high-knee leather~
 &+La pair of riding boots&N~
 &+LA pair of high-knee, riding boots sits here.&N~
 ~
-11 13 3 8 7 0 0 65 0 0 0
+9 13 3 8 7 0 0 65 0 0 0
 0 0 0 5 0 0 0 0
-2 120 100
+2 120 100 100
 #442
 pants leather tough tough-looking~
 &+ya pair of tough leather pants&N~
 &+ySome pants made from tough-looking leather lie discarded here.&N~
 ~
-11 13 3 8 7 0 0 33 0 0 0
+9 13 3 8 7 0 0 33 0 0 0
 0 0 0 5 0 0 0 0
-5 125 100
+5 125 100 100
 #443
 pantaloons pants silk billowing~
 &+Ma pair of silk pantaloons&N~
@@ -4654,39 +4641,39 @@ pantaloons pants silk billowing~
 ~
 11 3 3 8 7 0 8192 33 0 0 0
 0 0 0 4 0 0 0 0
-2 715 100
+2 715 100 100
 #444
 cloak leather brown~
 &+ya brown leather cloak&N~
 &+yA nice leather cloak has been tossed aside here.&N~
 ~
-11 13 3 8 7 0 0 1025 0 0 0
+9 13 3 8 7 0 0 1025 0 0 0
 0 0 0 5 0 0 0 0
-4 180 100
+4 180 100 100
 #445
 cloak leather soft~
 &+ya soft leather cloak&N~
 &+yA soft leather cloak lies crumpled here.&N~
 ~
-11 13 3 8 7 0 8192 1025 0 0 0
+9 13 3 8 7 0 8192 1025 0 0 0
 0 0 0 5 0 0 0 0
-3 200 100
+3 200 100 100
 #446
 cloak fine fur fur-trimmed trimmed grey~
 &+La fine fur-trimmed cloak&N~
 &+LA cloak trimmed with grey fur lies discarded here.&N~
 ~
-11 3 3 8 7 0 0 1025 0 0 0
+9 3 3 8 7 0 0 1025 0 0 0
 0 0 0 4 0 0 0 0
-3 350 100
+3 350 100 100
 #447
 belt leather black~
 &+La black leather belt&N~
 &+LA black leather belt has been carelessly tossed here.&N~
 ~
-11 13 3 3 7 0 0 2049 0 0 0
+9 13 3 3 7 0 0 2049 0 0 0
 0 0 0 5 0 0 0 0
-2 10 100
+2 10 100 100
 #448
 sash red silky silken silk~
 &+Ra red silken sash&N~
@@ -4694,7 +4681,7 @@ sash red silky silken silk~
 ~
 11 3 3 3 7 0 0 2049 0 0 0
 0 0 0 4 0 0 0 0
-1 100 100
+1 100 100 100
 #449
 sash black silky silken silk silk-like~
 &+La black silken sash&N~
@@ -4702,7 +4689,7 @@ sash black silky silken silk silk-like~
 ~
 11 3 3 3 7 0 0 2049 0 0 0
 0 0 0 4 0 0 0 0
-1 100 100
+1 100 100 100
 #450
 cap rugged rough leather~
 &+ya rugged leather cap&N~
@@ -4710,15 +4697,15 @@ cap rugged rough leather~
 ~
 11 13 3 3 7 0 0 17 0 0 0
 0 0 0 5 0 0 0 0
-2 10 100
+2 10 100 100
 #451
 shirt cloth brown common common-looking~
 &+ya brown cloth shirt&N~
 &+yA common-looking, brown cloth shirt has been left here.&N~
 ~
-11 3 3 8 7 0 0 0 0 0 0
+9 3 3 8 7 0 0 0 0 0 0
 0 0 0 4 0 0 0 0
-2 15 100
+2 15 100 100
 #452
 gloves leather brown pair~
 &+ya pair of brown leather gloves&N~
@@ -4726,47 +4713,47 @@ gloves leather brown pair~
 ~
 9 13 3 6 7 0 0 129 0 0 0
 3 7 6 3 0 0 0 0
-2 50 100
+2 50 100 100
 #454
 robes brown~
 &+ya set of deep brown robes&N~
 &+ySome deep, brown colored robes lie crumpled here.&N~
 ~
-11 3 3 8 7 0 0 9 0 0 0
+9 3 3 8 7 0 0 9 0 0 0
 0 0 0 4 0 0 0 0
-6 200 100
+6 200 100 100
 #455
 robes green forest~
 &+ga set of forest green robes&N~
 &+gSome green colored robes have been tossed in a heap here.&N~
 ~
-11 3 3 8 7 0 0 1025 0 0 0
+9 3 3 8 7 0 0 1025 0 0 0
 0 0 0 4 0 0 0 0
-6 200 100
+6 200 100 100
 #456
 robes black dark~
 &+La set of dark black robes&N~
 &+LSome dark black robes have been tossed in a heap here.&N~
 ~
-11 3 3 8 7 0 0 1025 0 0 0
+9 3 3 8 7 0 0 1025 0 0 0
 0 0 0 4 0 0 0 0
-6 200 100
+6 200 100 100
 #457
 cloak green cloth dark~
 &+ga green cloth cloak&N~
 &+gA dark, green cloak has been carelessly left here.&N~
 ~
-11 3 3 8 7 0 0 1025 0 0 0
+9 3 3 8 7 0 0 1025 0 0 0
 0 0 0 4 0 0 0 0
-3 160 100
+3 160 100 100
 #460
 shirt white cloth~
 &+Wa white cloth shirt&N~
 &+WA white cloth shirt lies here, getting dirty.&N~
 ~
-11 3 3 8 7 0 0 9 0 0 0
+9 3 3 8 7 0 0 9 0 0 0
 0 0 0 4 0 0 0 0
-2 15 100
+2 15 100 100
 #500
 disguise kit _disguise_kit_~
 &+La disguise kit&N~
@@ -4774,7 +4761,7 @@ disguise kit _disguise_kit_~
 ~
 12 13 2 5 7 0 134217728 8404993 0 0 0
 0 0 0 0 0 0 0 0
-5 25000 100
+5 25000 100 100
 #560
 hide deerskin glyph piece~
 &+ya glyph covered deerskin hide&N~
@@ -4782,7 +4769,7 @@ hide deerskin glyph piece~
 ~
 23 12 2 5 7 0 8 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 hide deerskin glyph piece~
 &+RThe following information provides details on the race you have chosen&N
@@ -4842,8 +4829,7 @@ page3 3~
 &+B--------------&N
 For information on these subjects, peruse the following help options:
 
-HELP BARBARIAN, HELP INNATE, HELP BODYSLAM, HELP RACES, HELP LANGUAGES,
-and HELP SPEAK
+HELP BARBARIAN, HELP INNATE, HELP BODYSLAM, HELP RACES, HELP NEWBIE
 ~
 #561
 book black velvet~
@@ -4852,7 +4838,7 @@ book black velvet~
 ~
 23 28 2 5 7 0 8 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 book black velvet~
 &+RThe following information provides details on the race you have chosen&N
@@ -4887,9 +4873,6 @@ extremely devious and chaotic, making them even more feared by other races.
 Millennia ago in a great war which split the elven races, the drow were
 driven into the blackness of the Underdark, where they have developed their
 own cruel society..building it on a hatred of their distant elven cousins.
-
-Currently, the drow elves of Duris are found deep in the Underdark within
-their stronghold city of Arachdrathos.
 ~
 E
 page2 2~
@@ -4915,7 +4898,7 @@ page3 3~
 For information on these subjects, peruse the following help options:
 
 HELP DROW, HELP INNATE, HELP LEVITATE, HELP DARKNESS, HELP FAERIE FIRE,
-HELP ULTRAVISION, HELP RACES, HELP LANGUAGES, and HELP SPEAK
+HELP ULTRAVISION, HELP RACES, HELP NEWBIE
 ~
 #562
 piece rune carved obsidian~
@@ -4924,7 +4907,7 @@ piece rune carved obsidian~
 ~
 23 36 2 5 7 0 8 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 piece rune carved obsidian~
 &+RThe following information provides details on the race you have chosen&N
@@ -4960,9 +4943,6 @@ duergar clan will find wealth in these obscure locales and thrive in their
 production of stone and metal crafts in a manner similar to other dwarves.
 However, duergar workmanship tends to be inferior to that of other dwarven
 races, perhaps a handicap of their evil, deceitful nature.
-
-Currently, duergar dwarves can be found deep in the Underdark in their
-stronghold, Khildarak.
 ~
 E
 page2 2~
@@ -4985,7 +4965,7 @@ page3 3~
 For information on these subjects, peruse the following help options:
 
 HELP DUERGAR, HELP INNATE, HELP INVISIBILITY, HELP STRENGTH, HELP ULTRAVISION,
-HELP RACES. HELP LANGUAGES AND HELP SPEAK
+HELP RACES, HELP NEWBIE
 ~
 #563
 tablet wooden carved~
@@ -4994,7 +4974,7 @@ tablet wooden carved~
 ~
 23 6 2 5 7 0 8 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 tablet wooden carved~
 &+RThe following information provides details on the race you have chosen&N
@@ -5057,8 +5037,7 @@ page3 3~
 &+g--------------&N
 For information on these subjects, peruse the following help options:
 
-HELP GNOME, HELP INNATE, HELP INFRAVISION, HELP RACES, HELP LANGUAGES and
-HELP SPEAK
+HELP GNOME, HELP INNATE, HELP INFRAVISION, HELP RACES, HELP NEWBIE
 ~
 #564
 book wooden covers~
@@ -5067,7 +5046,7 @@ book wooden covers~
 ~
 23 6 2 5 7 0 8 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 book wooden covers~
 &+RThe following information provides details on the race you have chosen&N
@@ -5121,8 +5100,7 @@ page3 3~
 &+G--------------&N
 For information on these subjects, peruse the following help options:
 
-HELP HALF-ELF, HELP INNATE, HELP INFRAVISION, HELP RACES, HELP LANGUAGES,
-and HELP SPEAK
+HELP HALF-ELF, HELP INNATE, HELP INFRAVISION, HELP RACES, HELP NEWBIE
 ~
 #565
 parchment red-woven reed woven~
@@ -5131,7 +5109,7 @@ parchment red-woven reed woven~
 ~
 23 29 2 5 7 0 8 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 parchment reed-woven reed woven~
 &+RThe following information provides details on the race you have chosen&N
@@ -5185,8 +5163,7 @@ page3 3~
 &+Y--------------&N
 For information on these subjects, peruse the following help options:
 
-HELP HALFLING, HELP INNATE, HELP INFRAVISION, HELP STEAL, HELP RACES, HELP
-LANGUAGES, and HELP SPEAK
+HELP HALFLING, HELP INNATE, HELP INFRAVISION, HELP HAMSTRING, HELP RACES, HELP NEWBIE
 ~
 #566
 book leather-bound leather bound~
@@ -5195,7 +5172,7 @@ book leather-bound leather bound~
 ~
 23 13 2 5 7 0 8 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 book leather-bound leather bound~
 &+RThe following information provides details on the race you have chosen&N
@@ -5229,10 +5206,7 @@ have a broad range of talents and interests, making each one who decides
 on a life of adventure a very unique personality. Bandits, nomads,
 farmers, merchants, pirates, adventurers and even cavemen hunters are
 examples of human occupations within their diverse societies.
-
-Currently on Duris, the most concentrated populations of humans can be
-found near the great city of Verzanan. However, humans are a rugged race
-and can be found nearly anywhere on the continent of Elkenshaul.~
+~
 E
 page2 2~
 &+YRACIAL APPEARANCE&N
@@ -5252,7 +5226,7 @@ page3 3~
 &+Y--------------&N
 For information on these subjects, peruse the following help options:
 
-HELP HUMAN, HELP INNATE, HELP RACES, HELP LANGUAGES, and HELP SPEAK
+HELP HUMAN, HELP INNATE, HELP RACES, HELP LANGUAGES, HELP NEWBIE
 ~
 #567
 crystal piece humming~
@@ -5261,7 +5235,7 @@ crystal piece humming~
 ~
 23 8 2 5 7 0 8 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 crystal piece humming~
 &+RThe following information provides details on the race you have chosen&N
@@ -5332,7 +5306,7 @@ scroll treebark bark~
 ~
 23 29 1 2 7 0 524296 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 scroll treebark bark~
 &+RThe following information provides details on the race you have chosen&N
@@ -5382,8 +5356,7 @@ page3 3~
 &+g--------------&N
 For information on these subjects, peruse the following help options:
 
-HELP GREY, HELP INNATE, HELP INFRAVISION, HELP SNEAK, HELP RACES, HELP
-LANGUAGES, and HELP SPEAK
+HELP GREY, HELP INNATE, HELP INFRAVISION, HELP SNEAK, HELP RACES, HELP NEWBIE
 ~
 #569
 granite piece rune~
@@ -5392,7 +5365,7 @@ granite piece rune~
 ~
 23 37 2 5 7 0 8 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 granite piece rune~
  &+RThe following information provides details on the race you have chosen&N
@@ -5446,8 +5419,7 @@ page3 3~
 &+L--------------&N
 For information on these subjects, peruse the following help options:
 
-HELP MOUNTAIN DWARF, HELP INNATE, HELP INFRAVISION, HELP RACES, HELP LANGUAGES,
-and HELP SPEAK
+HELP MOUNTAIN DWARF, HELP INNATE, HELP INFRAVISION, HELP RACES, HELP NEWBIE
 ~
 #570
 hide dwarven tanned piece~
@@ -5456,7 +5428,7 @@ hide dwarven tanned piece~
 ~
 23 12 2 5 7 0 8 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 hide dwarven tanned piece~
  &+RThe following information provides details on the race you have chosen&N
@@ -5492,9 +5464,6 @@ of an ogre, for they tend to argue over treasure, eat everything in sight, and
 be generally disruptive to any group they join. Due to their ravenous natures,
 ogres rarely are proficient in any trades or labors, preferring to steal what
 they cannot make themselves.
-
-Ogres are often found in the cave regions of the Faang Mountains on the island
-of Azursel.
 ~
 E
 page2 2~
@@ -5516,7 +5485,7 @@ page3 3~
 For information on these subjects, peruse the following help options:
 
 HELP OGRE, HELP INNATE, HELP INFRAVISION, HELP DOORBASH, HELP BODYSLAM, HELP
-RACES, HELP LANGUAGES, and HELP SPEAK
+RACES, HELP NEWBIE
 ~
 #571
 skin elf tanned rolled section~
@@ -5525,7 +5494,7 @@ skin elf tanned rolled section~
 ~
 23 12 2 5 7 0 8 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 skin elf tanned rolled section~
  &+RThe following information provides details on the race you have chosen&N
@@ -5581,7 +5550,7 @@ page3 3~
 For information on these subjects, peruse the following help options:
 
 HELP SWAMP TROLL, HELP INNATE, HELP INFRAVISION, HELP BODYSLAM, HELP RACES,
-HELP LANGUAGES, and HELP SPEAK
+HELP NEWBIE
 ~
 #580
 crystal crystalline chatkcha~
@@ -5589,11 +5558,11 @@ crystal crystalline chatkcha~
 &+WSomeone has left a crystalline chatkcha here.&N~
 ~
 5 8 3 0 7 0 1025 8193 0 85458945 0
-9 3 4 0 0 0 0 0
-2 0 100
+9 1 4 0 0 0 0 0
+2 0 100 100
 E
 chatkcha~
-&+Wthis device is made of a crystalline substance that
+&+WThis weapon is made of a crystalline substance that
 &+Wlooks somewhat like it might be made of the body of some
 &+Wodd insect.
 ~
@@ -5603,16 +5572,16 @@ double bladed gythka blade weapon~
 &+yA double-bladed weapon lies here.&N~
 ~
 5 15 3 0 7 0 4194312 8193 0 0 0
-17 4 4 0 0 0 0 0
-5 0 100
+17 3 4 0 0 0 0 0
+5 0 100 100
 #590
 leather saddle~
 &+ya leather saddle~
-&+ya leather saddle lies here.~
+&+yA leather saddle lies here.~
 ~
 9 13 0 0 7 0 1024 16777217 0 95994243 8191
 5 19 2 3 0 0 0 0
-20 100 100
+20 100 100 100
 #591
 deer-skin saddle bags bag~
 &+Wsome soft deer-skin saddle bags~
@@ -5620,7 +5589,7 @@ deer-skin saddle bags bag~
 ~
 15 12 3 10 7 0 0 1025 0 0 0
 500 1 0 100 0 0 0 0
-5 100 100
+5 100 100 100
 E
 deer-skin saddle bags bag~
 &+WThese saddle bags seem both light weight and strong, and look like
@@ -5633,7 +5602,7 @@ longbow bow~
 ~
 6 6 0 0 7 0 4194304 24577 0 0 0
 60 60 0 1 0 0 0 0
-5 500 100
+5 500 100 100
 #593
 quiver centaur~
 &+Ya centaur-made quiver&N~
@@ -5641,7 +5610,7 @@ quiver centaur~
 ~
 30 6 2 12 7 0 0 1048577 0 0 0
 30 0 1 0 0 0 0 0
-10 1000 100
+10 1000 100 100
 #594
 a flight arrow~
 &+ga flight arrow&N~
@@ -5649,7 +5618,7 @@ a flight arrow~
 ~
 7 6 2 3 7 0 0 16385 0 0 0
 3 1 8 1 0 0 0 0
-1 100 100
+1 100 100 100
 #603
 bag rabbit skin~
 &+Wa small bag made from rabbit skin&N~
@@ -5657,7 +5626,7 @@ bag rabbit skin~
 ~
 15 12 3 3 7 0 0 16385 0 0 0
 30 1 0 50 0 0 0 0
-2 0 100
+2 0 100 100
 #604
 bag velvet black~
 &+La small black velvet bag&N~
@@ -5665,7 +5634,7 @@ bag velvet black~
 ~
 15 12 3 4 7 0 0 16385 0 0 0
 30 1 0 60 0 0 0 0
-2 0 100
+2 0 100 100
 #605
 bag sewn rat skins~
 &+La bag made from sewn rat skins&N~
@@ -5673,7 +5642,7 @@ bag sewn rat skins~
 ~
 15 12 3 10 7 0 0 16385 0 0 0
 50 1 0 100 0 0 0 0
-2 0 100
+2 0 100 100
 #606
 sack canvas~
 &+ya large canvas sack&N~
@@ -5681,7 +5650,7 @@ sack canvas~
 ~
 15 12 3 10 7 0 0 16385 0 0 0
 50 1 0 100 0 0 0 0
-2 0 100
+2 0 100 100
 #607
 sack leather green~
 &+Ga small green leather sack&N~
@@ -5689,7 +5658,7 @@ sack leather green~
 ~
 15 13 3 10 7 0 0 16385 0 0 0
 30 1 0 100 0 0 0 0
-2 0 100
+2 0 100 100
 #608
 basket reeds reed woven~
 &+Ya sturdy basket woven of reeds&N~
@@ -5697,7 +5666,7 @@ basket reeds reed woven~
 ~
 15 42 3 0 7 0 0 16385 0 0 0
 50 1 0 100 0 0 0 0
-2 0 100
+2 0 100 100
 #609
 bag purple cloth delicate~
 &+ma bag of delicate purple cloth&N~
@@ -5705,7 +5674,7 @@ bag purple cloth delicate~
 ~
 15 3 3 8 7 0 0 16385 0 0 0
 50 1 0 100 0 0 0 0
-2 0 100
+2 0 100 100
 #610
 sack cloth green~
 &+ga small green cloth sack&N~
@@ -5713,7 +5682,7 @@ sack cloth green~
 ~
 15 3 3 8 7 0 0 16385 0 0 0
 30 1 0 100 0 0 0 0
-2 0 100
+2 0 100 100
 #611
 sack burlap~
 &+ya large burlap sack&N~
@@ -5721,7 +5690,7 @@ sack burlap~
 ~
 15 12 3 10 7 0 0 16385 0 0 0
 50 1 0 100 0 0 0 0
-2 0 100
+2 0 100 100
 #612
 sack leather moth-eaten~
 &+ya large moth-eaten leather sack&N~
@@ -5729,7 +5698,7 @@ sack leather moth-eaten~
 ~
 15 13 3 10 7 0 0 16385 0 0 0
 50 1 0 100 0 0 0 0
-2 1 100
+2 1 100 100
 #613
 bag snakeskin skin snake~
 &+ga large snakeskin bag&N~
@@ -5737,7 +5706,7 @@ bag snakeskin skin snake~
 ~
 15 12 3 8 7 0 0 16385 0 0 0
 50 1 0 120 0 0 0 0
-2 0 100
+2 0 100 100
 #614
 ragged cloth tunic~
 &+Ma ragged cl&+Coth tunic&N~
@@ -5745,7 +5714,7 @@ ragged cloth tunic~
 ~
 9 3 3 8 7 0 524288 9 8 0 0
 8 0 0 3 0 0 0 0
-10 10 100
+10 10 100 100
 E
 ragged cloth tunic~
 &+MThis tunic, worn looking none the less seems durible, if
@@ -5754,123 +5723,122 @@ ragged cloth tunic~
 #615
 worn leather breaches~
 &+Ba pair of&N &+Mworn leather breaches&N~
-&+Ba pair of worn &+Mleather breaches~
+&+BA pair of worn &+Mleather breaches &+Blie here.&n~
 ~
 9 13 0 0 7 0 525824 33 0 131072 520521728
 8 0 0 3 0 0 0 0
-10 50 100
+10 50 100 100
 E
 worn leather breaches~
-&+MThese rather ugly breaches, seem to be made&+Mof some rotting hide&N
+&+MThese rather ugly breaches, seem to be made &+Mof some rotting hide.
 ~
 #616
 ugly leather boots~
 &+Lsome &+Gugly leather&+Y boots&N~
-&+Lsome&+Gugly leather&N &+Yboots are here&N~
+&+LSome &+Gugly leather &+Yboots are here.&N~
 ~
 9 13 3 8 7 0 525824 65 0 131072 520521728
 8 0 0 3 0 0 0 0
-5 45 100
+5 45 100 100
 E
 ugly leather boots~
-&+Lthese are one &+YUGLY set of boots!
+&+Lthese are one &+YUGLY &+Lset of boots!
 ~
 #617
 brown rotted sleeves~
-&+ysome brown&+Y rotted sleeves&N~
-&+ysome brown &+Y rotted sleeves lie here&N~
+&+ysome brown &+Yrotted sleeves&N~
+&+ySome brown &+Yrotted sleeves &+ylie here.&N~
 ~
 9 12 3 8 7 0 525824 257 0 131072 520521728
 8 0 0 3 0 0 0 0
-5 10 100
+5 10 100 100
 E
 brown rotted sleeves~
-&+ythese sleeves seem to be made of some rotting cloth
+&+yThese sleeves seem to be made of some rotting cloth.
 ~
 #618
 rotting cloth bag~
 &+Ga rotting cloth bag&N~
-&+Ga rotting cloth bag&N~
+&+GA rotting cloth bag is crumpled here.&N~
 ~
 15 3 3 8 7 0 0 16385 0 0 0
 20 1 0 100 0 0 0 0
-2 10 100
+2 10 100 100
 E
 rotting cloth bag~
-&+Ythis rather ugly bag seems to be almost falling apart
+&+YThis rather ugly bag seems to be almost falling apart.
 ~
 #619
 skull drinking mug~
 &+Wa skull drinking mug~
-&+Wa skull drinking mug has been left here&N~
+&+WA skull drinking mug has been left here.&N~
 ~
 17 9 0 0 7 0 0 16385 0 0 0
 5 5 28 0 0 0 0 0
-1 100 100
+1 100 100 100
 E
 skull drinking mug~
-&+Wthis seems to be a gumed up illithid skull now used for drinking
+&+WThis seems to be an illithid skull now used for drinking.
 ~
 #620
 silver githyanki longsword sword~
 &+Wa silver githyanki longsword&N~
-&+WA silvergithyanki longsword lies here&N~
+&+WA silverish githyanki longsword lies here.&N~
 ~
 5 22 3 10 7 0 1536 8193 1 131072 520521728
 5 2 10 3 0 0 0 0
-2 500 100
+2 500 100 100
 E
 silver githyanki longsword sword~
-&+Wthis large two-handed sword is used by all githynaki warriors
+&+WThis large two-handed sword is used by all githynaki warriors.
 ~
 #621
 ornate breast plate~
-&+La breast plate~
-&+Lan ornate breast plate lies here&N~
+&+Lan ornate breast plate~
+&+LAn ornate breast plate lies here.&N~
 ~
 9 16 0 0 7 0 1024 9 0 85475345 2048
 10 3 1 3 0 0 0 0
-30 100 100
+30 100 100 100
 E
 ornate breast plate~
-&+Lthis large and heavy breast plate is covered on ornate runes
+&+LThis large and heavy breast plate is covered with ornate runes.
 ~
 #622
 silver dagger~
 &+Wa silver dagger~
-&+Wa silver dagger lies here&N~
+&+WA silver dagger lies here.&N~
 ~
 5 22 2 3 7 0 0 8193 1 0 0
 2 1 4 11 0 0 0 0
-1 100 100
+1 100 100 100
 E
 silver dagger~
-&+Wthis silver dagger is covered constantly in blood, no matter
-&+Whow hard it is cleaned
+&+WThis silver dagger is stained with blood.
 ~
 #623
 brain illithid~
 &+Ma chunk of illithid brain&N~
-&+Msome bits of illithid brain lie here&N~
+&+MSome bits of illithid brain lie here.&N~
 ~
 19 2 2 2 7 0 0 1 0 0 0
 12 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 E
 illithid brain~
-&+Mthis stuff looks like mind flayer brain!
+&+MThis stuff looks like mind flayer brain!
 ~
 #624
 long flowing robes~
 &+Msome long &+Bflowing robes&N~
-&+Msome long &+Bflowing robes are here.~
+&+MSome long &+Bflowing robes &+Mare here.~
 ~
 9 3 3 8 7 0 0 1025 0 0 0
 5 9 1 3 0 0 0 0
-5 100 100
+5 100 100 100
 E
 long flowing robes~
-&+Mthese robes glow with a mystic power
+&+MThese robes glow with a mystic power.
 ~
 #625
 mushrooms mushroom handful~
@@ -5879,7 +5847,7 @@ mushrooms mushroom handful~
 ~
 19 2 2 2 7 0 0 1 0 0 0
 24 0 0 0 0 0 0 0
-2 0 100
+2 0 100 100
 #626
 fungus pouch purple~
 &+ma pouch of purple fungus&N~
@@ -5887,7 +5855,7 @@ fungus pouch purple~
 ~
 19 2 2 2 7 0 0 1 0 0 0
 24 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 #627
 chunks squirrel meat roasted~
 &+ysome chunks of roasted ground squirrel&N~
@@ -5895,7 +5863,7 @@ chunks squirrel meat roasted~
 ~
 19 2 2 2 7 0 0 1 0 0 0
 24 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 #628
 pouch trail mix~
 &+ya pouch of hearty trail mix&N~
@@ -5903,15 +5871,15 @@ pouch trail mix~
 ~
 19 2 2 2 7 0 0 1 0 0 0
 24 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 #629
-connie roasted whole~
-&+ya whole roasted connie&N~
-&+yA whole roasted connie lies discarded here.&N~
+coney roasted whole~
+&+ya whole roasted coney&N~
+&+yA whole roasted coney lies discarded here.&N~
 ~
 19 2 2 2 7 0 0 1 0 0 0
 24 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 #630
 jar clay brains pickled drow~
 &+Ya jar of pickled drow brains&N~
@@ -5919,7 +5887,7 @@ jar clay brains pickled drow~
 ~
 19 9 2 2 7 0 0 1 0 0 0
 24 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 #631
 quail roasted~
 &+ya whole roasted quail&N~
@@ -5927,7 +5895,7 @@ quail roasted~
 ~
 19 2 2 2 7 0 0 1 0 0 0
 24 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 #632
 pork slab salted~
 &+ma slab of salted pork&N~
@@ -5935,7 +5903,7 @@ pork slab salted~
 ~
 19 2 2 2 7 0 0 1 0 0 0
 24 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 #633
 flesh dorf piece charred~
 &+La piece of charred dorf flesh&N~
@@ -5943,7 +5911,7 @@ flesh dorf piece charred~
 ~
 19 2 2 2 7 0 0 1 0 0 0
 24 0 0 0 0 0 0 0
-1 5 100
+1 5 100 100
 #634
 leg elf elven haunch~
 &+gan elven leg haunch&N~
@@ -5951,7 +5919,7 @@ leg elf elven haunch~
 ~
 19 2 2 2 7 0 0 1 0 0 0
 24 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 #646
 water skin goatskin container~
 &+wa small goatskin&N~
@@ -5959,7 +5927,7 @@ water skin goatskin container~
 ~
 17 12 3 8 7 0 0 16385 0 0 0
 20 20 0 0 0 0 0 0
-3 0 100
+3 0 100 100
 #647
 water skin waterskin spider silk~
 &+ma small spider silk waterskin&N~
@@ -5967,7 +5935,7 @@ water skin waterskin spider silk~
 ~
 17 3 3 8 7 0 0 16385 0 0 0
 20 20 0 0 0 0 0 0
-3 0 100
+3 0 100 100
 #648
 water skin bladder lizard lizard's waterskin~
 &+ga lizard's bladder waterskin&N~
@@ -5975,7 +5943,7 @@ water skin bladder lizard lizard's waterskin~
 ~
 17 12 1 4 7 0 0 16385 0 0 0
 20 20 0 0 0 0 0 0
-3 0 100
+3 0 100 100
 #649
 water cask wooden strap~
 &+ya small wooden cask&N~
@@ -5983,7 +5951,7 @@ water cask wooden strap~
 ~
 17 6 0 0 7 0 0 16385 0 0 0
 20 20 0 0 0 0 0 0
-3 0 100
+3 0 100 100
 #650
 reed water tube hollowed~
 &+Ya hollowed reed tube&N~
@@ -5991,7 +5959,7 @@ reed water tube hollowed~
 ~
 17 40 0 0 7 0 8192 16385 0 0 0
 20 20 0 0 0 0 0 0
-3 0 100
+3 0 100 100
 #651
 water skull plugged container~
 &+Wa sealed skull water container&N~
@@ -5999,7 +5967,7 @@ water skull plugged container~
 ~
 17 40 0 0 7 0 0 16385 0 0 0
 20 20 0 0 0 0 0 0
-3 0 100
+3 0 100 100
 #652
 water jug wooden~
 &+ya small wooden jug&N~
@@ -6007,7 +5975,7 @@ water jug wooden~
 ~
 17 6 0 0 7 0 0 16385 0 0 0
 20 20 0 0 0 0 0 0
-3 0 100
+3 0 100 100
 #653
 water horn drinking wooden polished~
 &+ya wooden drinking horn&N~
@@ -6015,7 +5983,7 @@ water horn drinking wooden polished~
 ~
 17 6 0 0 7 0 0 16385 0 0 0
 20 20 0 0 0 0 0 0
-3 0 100
+3 0 100 100
 #654
 water jug clay filthy sooty~
 &+La filthy clay jug&N~
@@ -6023,7 +5991,7 @@ water jug clay filthy sooty~
 ~
 17 9 0 0 7 0 0 16385 0 0 0
 20 20 0 0 0 0 0 0
-3 0 100
+3 0 100 100
 #655
 water stump cyprus piece hollowed~
 &+ya hollowed cyprus stump&N~
@@ -6031,15 +5999,15 @@ water stump cyprus piece hollowed~
 ~
 17 40 0 0 7 0 0 16385 0 0 0
 20 20 0 0 0 0 0 0
-3 0 100
+3 0 100 100
 #666
 cap xmas santa~
 &+wa &+Wwhite&+w and &+Rred &+WSan&+Rta cap&N~
-&+wappartnely not everyone loves santa, or why would they toss this cap on ground.&N~
+&+wAppartnely not everyone loves santa, or why would they toss this cap on ground.&N~
 ~
 11 13 3 3 7 0 0 17 0 0 0
 0 0 0 5 0 0 0 0
-2 10 100
+2 10 100 100
 #667
 axe battle stone battleaxe double-bladed~
 &+Ca large stone battle axe&N~
@@ -6047,7 +6015,7 @@ axe battle stone battleaxe double-bladed~
 ~
 5 11 3 8 7 0 1024 8193 0 87572571 0
 1 1 8 3 0 0 0 0
-10 250 100
+10 250 100 100
 #668
 furs fur pile animal set~
 &+Ca thick set of animal furs&N~
@@ -6055,7 +6023,7 @@ furs fur pile animal set~
 ~
 9 3 0 0 7 0 0 9 0 0 0
 4 3 1 3 0 0 0 0
-7 400 100
+7 400 100 100
 #669
 cowl fur wolf's thick~
 &+Ca wolf's fur cowl&N~
@@ -6063,7 +6031,7 @@ cowl fur wolf's thick~
 ~
 9 3 0 0 7 0 0 17 0 0 0
 3 4 1 4 0 0 0 0
-3 10 100
+3 10 100 100
 #670
 sleeves deerskin thick~
 &+ya set of thick deerskin sleeves&N~
@@ -6071,7 +6039,7 @@ sleeves deerskin thick~
 ~
 9 12 3 8 7 0 0 257 0 4165209604 0
 3 8 1 4 0 0 0 0
-4 125 100
+4 125 100 100
 #671
 leggings deerskin thick~
 &+ya set of thick deerskin leggings&N~
@@ -6079,7 +6047,7 @@ leggings deerskin thick~
 ~
 9 12 3 8 7 0 0 33 0 4165209604 0
 3 5 1 4 0 0 0 0
-5 125 100
+5 125 100 100
 #672
 boots deerskin furred pair~
 &+Ca pair of furred deerskin boots&N~
@@ -6087,7 +6055,7 @@ boots deerskin furred pair~
 ~
 9 3 3 8 7 0 0 65 0 0 0
 3 6 1 3 0 0 0 0
-3 50 100
+3 50 100 100
 #673
 dagger stone jagged~
 &+La jagged stone dagger&N~
@@ -6095,7 +6063,7 @@ dagger stone jagged~
 ~
 5 11 2 3 7 0 0 8193 0 4194697632 0
 2 1 4 11 0 0 0 0
-2 100 100
+2 100 100 100
 #674
 robes robe furred set~
 &+La set of furred robes&N~
@@ -6103,7 +6071,7 @@ robes robe furred set~
 ~
 9 3 3 8 7 0 0 1025 0 0 0
 3 9 1 3 0 0 0 0
-4 90 100
+4 90 100 100
 #675
 moccassins deerskin pair~
 &+ya pair of deerskin moccassins&N~
@@ -6111,7 +6079,7 @@ moccassins deerskin pair~
 ~
 9 12 0 0 7 0 0 65 0 0 0
 3 6 1 3 0 0 0 0
-2 50 100
+2 50 100 100
 #676
 hammer warhammer stone~
 &+La stone warhammer&N~
@@ -6119,7 +6087,7 @@ hammer warhammer stone~
 ~
 5 11 3 8 7 0 0 8193 0 4169510912 0
 4 1 6 6 0 0 0 0
-12 50 100
+12 50 100 100
 #677
 mace wooden gnoby wood~
 &+ya small wooden mace&N~
@@ -6127,7 +6095,7 @@ mace wooden gnoby wood~
 ~
 5 6 3 8 7 0 8192 8193 0 0 0
 6 1 6 7 0 0 0 0
-2 0 100
+2 0 100 100
 #678
 cap brown brownish leather green stitching~
 &+ya brown leather cap with&N &+ggreen stitching&N~
@@ -6135,7 +6103,7 @@ cap brown brownish leather green stitching~
 ~
 9 13 3 3 7 0 0 17 0 0 0
 3 4 16 3 0 0 0 0
-3 20 100
+3 20 100 100
 #679
 sleeves cloth brown sleeve~
 &+ysome deep brown cloth sleeves&N~
@@ -6143,7 +6111,7 @@ sleeves cloth brown sleeve~
 ~
 9 3 3 8 7 0 8192 257 0 0 0
 3 8 1 3 0 0 0 0
-3 100 100
+3 100 100 100
 #680
 pants cloth brown~
 &+ysome deep brown cloth pants&N~
@@ -6151,7 +6119,7 @@ pants cloth brown~
 ~
 9 3 3 8 7 0 8192 33 0 0 0
 3 5 1 3 0 0 0 0
-3 100 100
+3 100 100 100
 #681
 leather armor suit brown green~
 &+ya suit of brown and&N &+ggreen&N &+yleather armor&N~
@@ -6159,7 +6127,7 @@ leather armor suit brown green~
 ~
 9 13 0 0 7 0 0 9 0 4165209604 0
 5 3 1 3 0 0 0 0
-7 250 100
+7 250 100 100
 #682
 leather armor studded suit brown green~
 &+ya suit of brown and&N &+ggreen&N &+ystudded leather armor&N~
@@ -6167,7 +6135,7 @@ leather armor studded suit brown green~
 ~
 9 13 0 0 7 0 0 9 0 4165209604 0
 6 3 1 3 0 0 0 0
-12 1000 100
+12 1000 100 100
 #683
 clothes travelling colored brightly~
 &+Ya set of brightly&N &+Bcolored&N &+Gtravelling&N &+Rclothes&N~
@@ -6175,7 +6143,7 @@ clothes travelling colored brightly~
 ~
 9 3 3 8 7 0 8192 9 0 0 0
 3 3 1 3 0 0 0 0
-2 200 100
+2 200 100 100
 #684
 cap leather green feathers~
 &+Ga green cap adorned with feathers&N~
@@ -6183,7 +6151,7 @@ cap leather green feathers~
 ~
 9 13 3 3 7 0 0 17 0 0 0
 3 4 16 3 0 0 0 0
-3 30 100
+3 30 100 100
 #685
 sleeves leather frilled green~
 &+gsome frilled green leather sleeves&N~
@@ -6191,7 +6159,7 @@ sleeves leather frilled green~
 ~
 9 13 3 8 7 0 0 257 0 0 0
 3 8 1 3 0 0 0 0
-4 135 100
+4 135 100 100
 #686
 leggings frilled leather green~
 &+gsome frilled green leather leggings&N~
@@ -6199,7 +6167,7 @@ leggings frilled leather green~
 ~
 9 13 3 8 7 0 0 33 0 0 0
 3 5 1 3 0 0 0 0
-5 135 100
+5 135 100 100
 #687
 cap leather greenish green~
 &+ga dark green leather cap&N~
@@ -6207,7 +6175,7 @@ cap leather greenish green~
 ~
 9 13 3 3 7 0 0 17 0 0 0
 3 4 16 3 0 0 0 0
-3 20 100
+3 20 100 100
 #688
 sleeves cloth green dark~
 &+gsome dark green cloth sleeves&N~
@@ -6215,7 +6183,7 @@ sleeves cloth green dark~
 ~
 9 3 3 8 7 0 0 257 0 0 0
 3 8 1 3 0 0 0 0
-3 100 100
+3 100 100 100
 #689
 pants cloth green dark~
 &+gsome dark green cloth pants&N~
@@ -6223,7 +6191,7 @@ pants cloth green dark~
 ~
 9 3 3 8 7 0 0 33 0 0 0
 3 5 1 3 0 0 0 0
-3 100 100
+3 100 100 100
 #690
 armor leather supple green~
 &+ga set of supple green leather armor&N~
@@ -6231,7 +6199,7 @@ armor leather supple green~
 ~
 9 13 0 0 7 0 0 9 0 0 0
 5 3 1 3 0 0 0 0
-7 250 100
+7 250 100 100
 #691
 armor woven padded suit set~
 &+Ya set of woven padded armor&N~
@@ -6239,7 +6207,7 @@ armor woven padded suit set~
 ~
 9 13 0 0 7 0 8192 9 0 0 0
 4 3 1 3 0 0 0 0
-5 200 100
+5 200 100 100
 #692
 pants cloth blue~
 &+bsome dark blue cloth pants&N~
@@ -6247,7 +6215,7 @@ pants cloth blue~
 ~
 9 3 3 8 7 0 0 33 0 0 0
 3 5 1 3 0 0 0 0
-3 100 100
+3 100 100 100
 #693
 staff quarterstaff wooden~
 &+ya small wooden staff&N~
@@ -6255,7 +6223,7 @@ staff quarterstaff wooden~
 ~
 5 6 3 10 7 0 8192 8193 0 0 0
 12 1 6 7 0 0 0 0
-3 0 100
+3 0 100 100
 #694
 robes white clerical brilliant~
 &+Wa set of brilliant white clerical robes&N~
@@ -6263,7 +6231,7 @@ robes white clerical brilliant~
 ~
 9 3 3 8 7 0 1024 1025 0 33685920 0
 3 9 1 3 0 0 0 0
-6 400 100
+6 400 100 100
 #695
 robes blue embroidered set mage's mages~
 &+ba set of dark blue mage's robes&N~
@@ -6271,7 +6239,7 @@ robes blue embroidered set mage's mages~
 ~
 9 3 3 8 7 0 1024 1025 0 4197892 0
 3 9 1 3 0 0 0 0
-6 400 100
+6 400 100 100
 #696
 quarterstaff staff ironshod iron~
 &+yan ironshod quarterstaff&N~
@@ -6279,7 +6247,7 @@ quarterstaff staff ironshod iron~
 ~
 5 15 3 10 7 0 0 8193 0 0 0
 12 1 6 7 0 0 0 0
-4 0 100
+4 0 100 100
 #697
 robes black embroidered set mage's mages~
 &+La set of dark black mage's robes&N~
@@ -6287,7 +6255,7 @@ robes black embroidered set mage's mages~
 ~
 9 3 3 8 7 0 1024 1025 0 4197892 0
 3 9 1 3 0 0 0 0
-6 400 100
+6 400 100 100
 #698
 robes brown set loose monk's~
 &+ya set of loose fitting monk's robes&N~
@@ -6295,7 +6263,7 @@ robes brown set loose monk's~
 ~
 9 3 3 8 7 0 0 1025 0 0 0
 3 9 1 3 0 0 0 0
-1 200 100
+1 200 100 100
 #699
 club spiked large huge~
 &+ya large spiked club&N~
@@ -6303,7 +6271,7 @@ club spiked large huge~
 ~
 5 6 3 8 7 0 0 8193 0 0 0
 11 1 8 6 0 0 0 0
-9 3 100
+9 3 100 100
 #700
 shard splinter bone large~
 &+Wa large bone shard&N~
@@ -6311,7 +6279,7 @@ shard splinter bone large~
 ~
 5 10 3 0 7 0 0 8193 0 0 0
 9 1 4 11 0 0 0 0
-1 100 100
+1 100 100 100
 #701
 furs piles heap smelly animal~
 &+ya set of smelly animal furs&N~
@@ -6319,7 +6287,7 @@ furs piles heap smelly animal~
 ~
 9 12 0 0 7 0 0 9 0 0 0
 3 3 1 3 0 0 0 0
-6 2 100
+6 2 100 100
 #702
 cowl fur filthy pieces~
 &+La filthy fur cowl&N~
@@ -6327,7 +6295,7 @@ cowl fur filthy pieces~
 ~
 9 3 0 0 7 0 0 17 0 0 0
 3 4 1 3 0 0 0 0
-3 2 100
+3 2 100 100
 #703
 belt totems skull skulls hide~
 &+ya belt of skull totems&N~
@@ -6335,7 +6303,7 @@ belt totems skull skulls hide~
 ~
 9 12 3 3 7 0 0 2049 0 4169510912 0
 3 10 0 3 0 0 0 0
-3 100 100
+3 100 100 100
 E
 belt totems skull skulls hide~
 This thick belt appears to be made from several pieces of gnawed deerskin
@@ -6351,7 +6319,7 @@ belt lizard lizards totems~
 ~
 9 10 3 3 7 0 0 2049 0 4169510912 0
 3 10 0 3 0 0 0 0
-3 100 100
+3 100 100 100
 #705
 club bone large huge~
 &+Wa large bone club&N~
@@ -6359,7 +6327,7 @@ club bone large huge~
 ~
 5 10 3 8 7 0 0 8193 0 0 0
 10 1 8 6 0 0 0 0
-7 3 100
+7 3 100 100
 #706
 jerkin alligator skin skins shabby~
 &+ga shabby alligator skin jerkin&N~
@@ -6367,15 +6335,15 @@ jerkin alligator skin skins shabby~
 ~
 9 12 3 8 7 0 8192 9 0 0 0
 4 3 1 3 0 0 0 0
-5 100 100
+5 100 100 100
 #707
 scalps ragged elf cap~
 &+Gsome ragged elf scalps&N~
 &+GA cap of sorts, strung from humanoid scalps, has been left here.&N~
 ~
-9 2 3 3 7 0 0 17 0 0 0
+9 12 3 3 7 0 0 17 0 0 0
 3 4 16 3 0 0 0 0
-3 0 100
+3 0 100 100
 #708
 jerkin lizard skin shabby~
 &+ga shabby lizard skin jerkin&N~
@@ -6383,7 +6351,7 @@ jerkin lizard skin shabby~
 ~
 9 12 3 8 7 0 8192 9 0 0 0
 4 3 1 3 0 0 0 0
-5 100 100
+5 100 100 100
 #709
 medallion spider shaped spider-shaped~
 &+La small spider-shaped medallion&N~
@@ -6391,7 +6359,7 @@ medallion spider shaped spider-shaped~
 ~
 11 16 3 2 7 0 1024 5 0 37883812 0
 0 0 0 1 0 0 0 0
-1 500 100
+1 500 100 100
 #710
 dagger steel black~
 &+La black steel dagger&N~
@@ -6399,7 +6367,7 @@ dagger steel black~
 ~
 5 16 2 3 7 0 0 8193 0 4198895524 0
 2 1 4 11 0 0 0 0
-1 200 100
+1 200 100 100
 #711
 whip silk spider black~
 &+La black whip made from spider silk&N~
@@ -6407,7 +6375,7 @@ whip silk spider black~
 ~
 5 3 3 0 7 0 0 8193 0 0 0
 14 1 6 2 0 0 0 0
-2 50 100
+2 50 100 100
 #712
 quarterstaff staff blackened black wood~
 &+La blackened quarterstaff&N~
@@ -6415,7 +6383,7 @@ quarterstaff staff blackened black wood~
 ~
 5 6 3 10 7 0 0 8193 0 0 0
 12 1 6 7 0 0 0 0
-4 50 100
+4 50 100 100
 #713
 sword long blackened black~
 &+La blackened long sword&N~
@@ -6423,23 +6391,23 @@ sword long blackened black~
 ~
 5 16 3 10 7 0 0 8193 0 4198895524 0
 5 1 8 3 0 0 0 0
-4 1500 100
+4 1500 100 100
 #714
 boots leather black soft pair~
 &+La pair of soft black leather boots&N~
 &+yA pair of soft looking leather boots has been left here.&N~
 ~
-11 13 3 8 7 0 0 65 0 0 0
+9 13 3 8 7 0 0 65 0 0 0
 0 0 0 5 0 0 0 0
-1 100 100
+1 100 100 100
 #715
 slippers black soft pair~
 &+La pair of soft black slippers&N~
 &+LA pair of soft black slippers have been left here.&N~
 ~
-11 3 3 6 7 0 0 65 0 0 0
+9 3 3 6 7 0 0 65 0 0 0
 0 0 0 4 0 0 0 0
-1 100 100
+1 100 100 100
 #716
 sleeves silk black~
 &+Lsome dark black silk sleeves&N~
@@ -6447,7 +6415,7 @@ sleeves silk black~
 ~
 9 3 3 8 7 0 8192 257 0 0 0
 3 8 1 3 0 0 0 0
-3 100 100
+3 100 100 100
 #717
 pants silk black~
 &+Lsome dark black silk pants&N~
@@ -6455,15 +6423,15 @@ pants silk black~
 ~
 9 3 3 8 7 0 8192 33 0 0 0
 3 5 1 3 0 0 0 0
-3 100 100
+3 100 100 100
 #718
 cloak silk black spider~
 &+La black cloak of spider silk&N~
 &+LA dark black cloak made from spider silk has been tossed here.&N~
 ~
-11 3 3 8 7 0 8192 1025 0 0 0
+9 3 3 8 7 0 8192 1025 0 0 0
 0 0 0 4 0 0 0 0
-3 200 100
+3 200 100 100
 #719
 leather armor set black~
 &+La set of dark black leather armor&N~
@@ -6471,7 +6439,7 @@ leather armor set black~
 ~
 9 13 0 0 7 0 0 9 0 4165209604 0
 5 3 1 3 0 0 0 0
-7 250 100
+7 250 100 100
 #720
 armor studded leather suit blackened~
 &+La suit of blackened studded leather armor&N~
@@ -6479,7 +6447,7 @@ armor studded leather suit blackened~
 ~
 9 13 0 0 7 0 524288 9 0 4165209604 0
 6 0 0 3 0 0 0 0
-13 1000 100
+13 1000 100 100
 #721
 sleeves leather studded black pair~
 &+La set of black studded leather sleeves&N~
@@ -6487,7 +6455,7 @@ sleeves leather studded black pair~
 ~
 9 13 3 8 7 0 0 257 0 4173708804 0
 4 8 1 3 0 0 0 0
-6 500 100
+6 500 100 100
 #722
 leggings studded leather pair black~
 &+La pair of black studded leather leggings&N~
@@ -6495,7 +6463,7 @@ leggings studded leather pair black~
 ~
 9 13 3 8 7 0 0 33 0 4173708804 0
 4 5 1 3 0 0 0 0
-7 500 100
+7 500 100 100
 #723
 sword short obsidian carved~
 &+La short sword carved from obsidian&N~
@@ -6503,7 +6471,7 @@ sword short obsidian carved~
 ~
 5 36 2 10 7 0 0 8193 0 4198895524 0
 9 1 6 11 0 0 0 0
-3 1000 100
+3 1000 100 100
 #724
 dagger obsidian jagged~
 &+La jagged obsidian dagger&N~
@@ -6511,7 +6479,7 @@ dagger obsidian jagged~
 ~
 5 36 2 3 7 0 0 8193 0 0 0
 2 1 4 11 0 0 0 0
-1 200 100
+1 200 100 100
 #725
 warhammer hammer granite black~
 &+La black granite warhammer&N~
@@ -6519,7 +6487,7 @@ warhammer hammer granite black~
 ~
 5 37 3 8 7 0 0 8193 0 4169510912 0
 4 1 6 6 0 0 0 0
-12 50 100
+12 50 100 100
 #726
 armor lizard hide suit~
 &+ga suit of lizard hide armor&N~
@@ -6527,7 +6495,7 @@ armor lizard hide suit~
 ~
 9 12 0 0 7 0 0 9 0 4165209604 0
 5 3 1 3 0 0 0 0
-7 250 100
+7 250 100 100
 #727
 armor studded lizard hide suit~
 &+ga suit of studded lizard hide armor&N~
@@ -6535,7 +6503,7 @@ armor studded lizard hide suit~
 ~
 9 12 0 0 7 0 0 9 0 4173708804 0
 6 3 1 3 0 0 0 0
-13 1000 100
+13 1000 100 100
 #728
 medallion stone rune runes~
 &+ya rune covered stone medallion&N~
@@ -6543,7 +6511,7 @@ medallion stone rune runes~
 ~
 11 11 3 2 7 0 1024 5 0 37883812 0
 0 0 0 10 0 0 0 0
-1 500 100
+1 500 100 100
 #729
 bracer bronze~
 &+Ya bronze-colored bracer&N~
@@ -6551,7 +6519,7 @@ bracer bronze~
 ~
 9 20 3 3 7 0 0 4097 0 0 0
 2 11 1 3 0 0 0 0
-3 300 100
+3 300 100 100
 #730
 robes flowing magenta~
 &+msome flowing magenta robes&N~
@@ -6559,7 +6527,7 @@ robes flowing magenta~
 ~
 9 3 3 8 7 0 0 1025 0 0 0
 3 9 1 3 0 0 0 0
-6 400 100
+6 400 100 100
 #731
 scarf blue woolen thick~
 &+Ba light blue scarf&N~
@@ -6567,7 +6535,7 @@ scarf blue woolen thick~
 ~
 11 3 3 3 7 0 0 5 0 0 0
 0 0 0 4 0 0 0 0
-1 80 100
+1 80 100 100
 #732
 sash scarlet silk~
 &+Ra scarlet silk sash&N~
@@ -6575,23 +6543,23 @@ sash scarlet silk~
 ~
 11 3 3 3 7 0 0 2049 0 0 0
 0 0 0 4 0 0 0 0
-1 100 100
+1 100 100 100
 #733
 cord woven skulls skull bones bone sinew human decorated~
 &+La cord of human sinew, decorated with skulls&N~
 &+LSkulls and bones dangle from a woven cord which has been left here.&N~
 ~
-11 10 0 0 7 0 0 5 0 0 0
+9 10 0 0 7 0 0 5 0 0 0
 0 0 0 9 0 0 0 0
-2 40 100
+2 40 100 100
 #734
 slippers split-toed purple split toes pair~
 &+ma pair of split-toed purple slippers&N~
 &+mSome purple slippers with split toes have been cast aside here.&N~
 ~
-11 3 3 6 7 0 0 65 0 0 0
+9 3 3 6 7 0 0 65 0 0 0
 0 0 0 4 0 0 0 0
-1 100 100
+1 100 100 100
 #735
 rod amber amber-colored metallic~
 &+yan amber-colored rod&N~
@@ -6599,7 +6567,7 @@ rod amber amber-colored metallic~
 ~
 5 15 3 4 7 0 0 8193 0 0 0
 10 1 6 7 0 0 0 0
-2 300 100
+2 300 100 100
 #750
 spring~
 &+ba tiny bubbling spring&N~
@@ -6607,7 +6575,7 @@ spring~
 ~
 17 40 0 0 7 0 8192 0 0 0 0
 -1 -1 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 E
 spring~
 This tiny spring bubbles gently from a crack in the ground. Its water
@@ -6620,7 +6588,7 @@ a moonwell~
 ~
 13 1 5 50 7 0 67149824 0 64 0 0
 3001 0 0 0 0 0 0 0
-10000 1 100
+10000 1 100 100
 E
 pool moonwell well~
 This pool of silvery liquid sparkles and shines with a magnificent
@@ -6633,7 +6601,7 @@ a rainbow colored portal~
 ~
 13 1 0 0 7 0 67149824 0 64 0 0
 3001 0 0 0 0 0 0 0
-10000 1 100
+10000 1 100 100
 E
 portal shimmering~
 This circular portal hangs within the air, suspended by the magic which
@@ -6647,7 +6615,7 @@ wall curtain ward barrier~
 ~
 13 11 5 50 7 0 67149824 0 64 0 0
 0 0 0 0 0 0 0 0
-10000 0 100
+10000 0 100 100
 E
 wall stone~
 This massive wall is apparently fashioned from a single piece of grey
@@ -6662,7 +6630,7 @@ wormhole black rift~
 ~
 13 1 0 50 7 0 67149824 0 64 0 0
 0 7 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 wormhole black rift~
 &+LA black swirling rift is here slowly disspersing. You hear a hollow sound
@@ -6675,7 +6643,7 @@ etherportal ether portal~
 ~
 13 1 0 50 7 0 67149824 0 64 0 0
 0 7 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 etherportal portal ether~
 &+YA glowing sphere of energy is here slowly growing dimmer. You hear a
@@ -6688,7 +6656,7 @@ dark rift~
 ~
 13 1 3 0 7 0 67150848 0 64 0 0
 3001 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #782
 gate portal~
 &+La pitch-black gate&n~
@@ -6696,7 +6664,7 @@ gate portal~
 ~
 13 1 3 0 7 0 67149824 0 64 0 0
 3001 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #789
 orb crystal~
 &+Wa Cr&Nys&+Wta&Nlli&+Wne&N Or&+Wb &+mon a &+Ygolden chain~
@@ -6704,7 +6672,7 @@ orb crystal~
 ~
 9 8 1 2 7 0 65537 5 0 0 0
 0 2 1 3 0 0 0 0
-0 0 100
+0 0 100 100
 E
 orb crystal~
 &+LThis &+Wcr&Nys&+Wta&Nlli&+Wne&N or&+Wb &+Lhangs on a &+Ydelicate gold
@@ -6717,7 +6685,7 @@ flag standard good~
 ~
 8 3 3 0 15 0 469884936 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #791
 flag standard evil~
 &+Lthe &+Rstandard &+Lof the &+rEvil Races &+Lof &+RDuris&n~
@@ -6725,7 +6693,7 @@ flag standard evil~
 ~
 8 3 3 0 15 0 469884936 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #792
 flag standard neutral~
 &+La standard neutral flag&n~
@@ -6733,7 +6701,7 @@ flag standard neutral~
 ~
 8 16 3 0 7 0 73800 0 0 0 0
 14 2 2 0 0 0 0 0
-1 11530 100
+1 11530 100 100
 #793
 wire woven strand garrote~
 &+La thin &+rwoven&+L-&+rstrand &+Lgarrote wire&n~
@@ -6741,7 +6709,7 @@ wire woven strand garrote~
 ~
 5 16 3 0 7 0 64 8193 0 0 0
 14 2 2 0 0 0 0 0
-1 11530 100
+1 11530 100 100
 #794
 garrote wire steel woven _garrote_~
 &+La woven &+Csteel &+rgarrote wire&n~
@@ -6749,7 +6717,7 @@ garrote wire steel woven _garrote_~
 ~
 5 16 3 0 7 0 4194304 8193 0 0 0
 14 2 2 0 0 0 0 0
-1 12532 100
+1 12532 100 100
 #800
 grub swamp large _frg_~
 &+ya large swamp grub&n~
@@ -6757,7 +6725,7 @@ grub swamp large _frg_~
 ~
 19 2 3 0 7 0 8200 16385 0 0 0
 3 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 grub swamp large~
 Looks delicious.
@@ -6769,7 +6737,7 @@ root mangrove _frg_~
 ~
 19 5 3 0 7 0 8200 16385 0 0 0
 5 0 0 0 0 0 0 0
-3 0 100
+3 0 100 100
 E
 root mangrove~
 Mmm, crunchy.
@@ -6781,7 +6749,7 @@ reeds marsh _frg_~
 ~
 19 42 3 0 7 0 8200 16385 0 0 0
 2 0 0 0 0 0 0 0
-2 0 100
+2 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6793,7 +6761,7 @@ root edible _frg_~
 ~
 19 42 3 0 7 0 8200 16385 0 0 0
 4 0 0 0 0 0 0 0
-2 0 100
+2 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6805,7 +6773,7 @@ sprouts edible _frg_~
 ~
 19 42 3 0 7 0 8200 16385 0 0 0
 1 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6817,7 +6785,7 @@ blueberries berries half ripe _frg_~
 ~
 19 48 3 0 7 0 8200 16385 0 0 0
 1 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6829,7 +6797,7 @@ toadstool forest _frg_~
 ~
 19 48 3 0 7 0 8200 16385 0 0 0
 1 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6841,7 +6809,7 @@ crabapples apples crab _frg_~
 ~
 19 48 3 0 7 0 8200 16385 0 0 0
 3 0 0 0 0 0 0 0
-2 0 100
+2 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6853,7 +6821,7 @@ raspberries berries _frg_~
 ~
 19 48 3 0 7 0 8200 16385 0 0 0
 1 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6865,7 +6833,7 @@ moss treeroot root _frg_~
 ~
 19 48 3 0 7 0 8200 16385 0 0 0
 2 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6877,7 +6845,7 @@ wiregrass grass wire clump _frg_~
 ~
 19 42 3 0 7 0 8200 16385 0 0 0
 2 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6889,7 +6857,7 @@ tuber brown _frg_~
 ~
 19 48 3 0 7 0 8200 16385 0 0 0
 4 0 0 0 0 0 0 0
-2 0 100
+2 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6901,7 +6869,7 @@ lichen _frg_~
 ~
 19 48 3 0 7 0 8200 16385 0 0 0
 1 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6913,7 +6881,7 @@ mushrooms red _frg_~
 ~
 19 48 3 0 7 0 8200 16385 0 0 0
 3 0 0 7 0 0 0 0
-2 0 100
+2 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6925,7 +6893,7 @@ caveworm worm _frg_~
 ~
 19 2 3 0 7 0 8200 16385 0 0 0
 2 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6937,7 +6905,7 @@ mushrooms green clump _frg_~
 ~
 19 42 3 0 7 0 8200 16385 0 0 0
 2 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6949,7 +6917,7 @@ mushrooms blue _frg_~
 ~
 19 42 3 0 7 0 8200 16385 0 0 0
 2 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6961,7 +6929,7 @@ mushrooms purple _frg_~
 ~
 19 48 3 0 7 0 8200 16385 0 0 0
 2 0 0 9 0 0 0 0
-2 0 100
+2 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6973,7 +6941,7 @@ mushrooms pink _frg_~
 ~
 19 48 3 0 7 0 8200 16385 0 0 0
 4 0 0 0 0 0 0 0
-2 0 100
+2 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6985,7 +6953,7 @@ cactus _frg_~
 ~
 19 48 3 0 7 0 8200 16385 0 0 0
 2 0 0 0 0 0 0 0
-2 0 100
+2 0 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -6997,7 +6965,7 @@ grass clump desert _frg_~
 ~
 19 42 3 0 7 0 8200 16385 0 0 0
 1 0 0 0 0 0 0 0
-2 45 100
+2 45 100 100
 E
 reeds marsh~
 &+gRoughly a foot long, this small collection of reeds looks safe to eat.
@@ -7009,7 +6977,7 @@ nightshade plant~
 ~
 19 15 3 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 55 100
+0 55 100 100
 #822
 mandrak root~
 &+ya mandrake root&n~
@@ -7017,7 +6985,7 @@ mandrak root~
 ~
 19 15 3 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 62 100
+0 62 100 100
 #823
 garlic~
 &+Wsome garlic&n~
@@ -7025,7 +6993,7 @@ garlic~
 ~
 19 15 3 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 55 100
+0 55 100 100
 #824
 faerie dust~
 &+msome faerie dust&n~
@@ -7033,7 +7001,7 @@ faerie dust~
 ~
 19 45 3 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 72 100
+0 72 100 100
 #825
 dragon blood~
 &+ra few drops of dragons blood&n~
@@ -7041,7 +7009,7 @@ dragon blood~
 ~
 19 2 3 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 60 100
+0 60 100 100
 #826
 herb buds green _id_~
 &+ga green herb&n~
@@ -7049,7 +7017,7 @@ herb buds green _id_~
 ~
 13 30 3 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 66 100
+0 66 100 100
 E
 herb buds green~
 &+gPart of a strange five leaf plant.&n
@@ -7061,7 +7029,7 @@ stone strange _id_ stones~
 ~
 13 15 3 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 1230 100
+0 1230 100 100
 E
 stone living~
 &+LPart of a strange &+rliving&+Lstone.&n
@@ -7073,7 +7041,7 @@ bones bone _id_~
 ~
 13 15 3 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 56 100
+0 56 100 100
 E
 bone human~
 &+WPart of a human bone&n
@@ -7085,7 +7053,7 @@ pack potion bottles~
 ~
 12 15 3 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 21 100
+0 21 100 100
 E
 potion bottles~
 &+Wa strange looking pack of bottles with smooth edges&n
@@ -7097,7 +7065,7 @@ a potion of &+rgreater&+L living&+r stone&n lies here~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 425 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion greater living stone~
 &+LThis potion swirls with an &+barcane&+L power. Small bits of stone, which appear to
@@ -7110,7 +7078,7 @@ a &+ysmelly&n potion of &+ggaseous&+G cloud&n lies here~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 366 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 smelly potion gaseous cloud~
 &+yA small vial holds a small, smelly, potion mixture&n
@@ -7122,7 +7090,7 @@ a &+Ggreen&n potion of &+Gdisinitegration&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 112 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion green disinitegration~
 &+GThis bright green potion that appears to have very destructive power.
@@ -7140,7 +7108,7 @@ a vial of &+cstrong acid&n lies here~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 376 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion bigby's fist~
 &+YThis powerful potion has a &+rredish&+Y tint in its mixture. The components
@@ -7153,7 +7121,7 @@ a &+Gmossy&n potion of &+gentanglement&n lies here.~
 ~
 10 15 3 0 7 0 16 16385 0 0 0
 0 139 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion mossy entanglement~
 &+gThis potion has little &+yvines&+g trapped inside of the bottle&n.
@@ -7165,7 +7133,7 @@ a very thick, dangerous looking bottle rests here~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 491 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion negative deathly blast~
 &+LThis pitch black potion is full of &nnegative&+L energy&n.
@@ -7177,7 +7145,7 @@ a potion of &+Wflight&n lies here.~
 ~
 10 15 3 0 7 0 8388608 16385 0 0 0
 0 84 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion flight~
 &+WThis potion is almost entirely transparent. Its magical properties are unknown.&n
@@ -7189,7 +7157,7 @@ a fragile flask of sticky substance lies here~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 375 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion fireball~
 &+rThis potion has swirling and searing hot flames. Oddly the glass of the vial is &+bcool&+r to the touch.
@@ -7201,7 +7169,7 @@ a potion of &+Rfeeblemind&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 126 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion feeblemind feeble mind~
 A potion of various ingredients. A strong &+bmagical&n aura emanates from the small glass vial.
@@ -7213,7 +7181,7 @@ a small vial of &+Lgreasy&n looking liquid lies here~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 493 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion molten spray~
 A &+rfir&+Rey&n potion full of what appears to be molten &+rla&+Rva&n.
@@ -7225,7 +7193,7 @@ a potion of &+bchain&+B lightning lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 62 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion chain lightning~
 This magical potion &+Ysparkles with electricty&n. It appears as though a small storm is contained within the vial.
@@ -7237,7 +7205,7 @@ a potion of &+Lliving &+rstone&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 398 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion living stone~
 &+LThis potion has small pieces of rocks and minerals swirling around, almost &+rlife like&+L in their movements.
@@ -7249,7 +7217,7 @@ a potion of &+bcone of&+B cold&n lies here.~
 ~
 10 7 3 0 7 0 0 16385 0 0 0
 0 10 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion cone cold~
 &+bThis cold potion has small &+Wcrystals&+b of ice formed on the outside of the vial.&n
@@ -7261,7 +7229,7 @@ a potion of &+Wsloo&nowness lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 102 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion slowness~
 &+WAnimation of the liquids in this vial have almost ceased, no matter how hard it is shaken&n.
@@ -7273,7 +7241,7 @@ a potion of &+blightning &+Bbolt&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 30 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion lightning bolt~
 &+bSmall sparks of electricity jump from side to side in this small glass vial&n.
@@ -7285,7 +7253,7 @@ a &+Ldark&n potion of &+Lwithering&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 103 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion dark wither withering~
 &+LThis dark and cloudy potion is almost completely black and is opaque. Its magical abilities can only me guessed&n.
@@ -7297,7 +7265,7 @@ a potion of &+Wdispel magic&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 93 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion dispel magic anti-magic anti magic~
 &+WThis potion is milky white and a bit cloudy. Beyond that, it is near impossible to find another distinguishing feature of this potion&n.
@@ -7309,7 +7277,7 @@ a potion of &+Mfaerie fire&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 117 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion faerie fire~
 &+LThis potion has small dark swirls in a mixture of &+mmagenta&n &+Lliquid&n.
@@ -7321,7 +7289,7 @@ a small flask labeled '&+CNitrogen&n' lies here~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 494 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion chill touch~
 &+BThis small potion is rather cold around the edges, all who touch it almost feel drained by its power&n.
@@ -7333,7 +7301,7 @@ a potion of &+rflame&+R burst&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 195 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion flame burst~
 &+RWarm to the touch, the magical powers of this potion can not be doubted&n.
@@ -7345,7 +7313,7 @@ a potion of &+Cice missle&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 191 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion ice missile~
 &+CThis small potion has small bits of ice that float around the entire vial which seem to never melt&n.
@@ -7357,7 +7325,7 @@ a potion of &+Ymagic missile&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 32 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 potion magic missile~
 &+WThis small potion contains a small bit of &+Ymagic&+W that waits to be unleashed&n.
@@ -7367,9 +7335,9 @@ blue ioun stone~
 &+Ma bright purple ioun stone&n~
 &+MA bright purple stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100 0 0 16777216 0
+0 0 100 100 0 0 16777216 0
 A
 12 100
 A
@@ -7379,9 +7347,9 @@ red ioun stone~
 &+Ra bright red ioun stone&n~
 &+RA bright red stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 13 100
 #902
@@ -7389,9 +7357,9 @@ green ioun stone~
 &+Ba bright blue ioun stone&n~
 &+BA bright blue stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 14 100
 A
@@ -7401,9 +7369,9 @@ yellow ioun stone~
 &+ya dark yellow ioun stone&n~
 &+yA dark yellow stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 32 15
 #904
@@ -7411,9 +7379,9 @@ red ioun stone~
 &+ra dark red ioun stone&n~
 &+rA dark red stone floats here.&n~
 ~
-9 11 10 0 15 0 268439552 268435457 0 0 0
+11 11 10 0 15 0 268439552 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 31 15
 #905
@@ -7421,9 +7389,9 @@ green ioun stone~
 &+ga dark green ioun stone&n~
 &+gA dark green stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 36 15
 #906
@@ -7431,9 +7399,9 @@ purple ioun stone~
 &+ma dark purple ioun stone&n~
 &+mA dark purple stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 33 15
 #907
@@ -7441,9 +7409,9 @@ cyan ioun stone~
 &+ca dark cyan ioun stone&n~
 &+cA dark cyan stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 34 15
 #908
@@ -7451,9 +7419,9 @@ blue ioun stone~
 &+ba dark blue ioun stone&n~
 &+BA dark blue stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 35 15
 #909
@@ -7461,9 +7429,9 @@ white ioun stone~
 &+wa soft white ioun stone&n~
 &+wAsoft white stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 38 20
 A
@@ -7473,51 +7441,51 @@ green ioun stone~
 &+Ga bright green ioun stone&n~
 &+GA bright green stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #911
 dark ioun stone~
 &+La dark ioun stone&n~
 &+LA dark stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #912
 rainbow ioun stone~
 &+La &+Rr&+ya&+Yi&+Gn&+Bb&+Mo&+bw &+Lcolored ioun stone&n~
 &+LA multi-colored stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100 536870912 12480 536870912 0
+0 0 100 100 536870912 12480 536870912 0
 #913
 swirling blue ioun stone~
 &+Wa s&+Cw&+Bi&+brling &+Wi&+Co&+Bu&+bn &+Ws&+Ct&+Bo&+bne&N~
 &+WA s&+Cw&+Bi&+brling &+Ws&+Ct&+Bo&+bne &+Wz&+Ci&+Bp&+bs &+Wa&+Cr&+Bo&+bund &+Wh&+Ce&+Br&+be.&N~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100 16 0 0 0
+0 0 100 100 16 0 0 0
 #914
 large blue ioun stone~
 &+Ba LARGE blue ioun stone&N~
 &+BA large blue stone wobbles around here.&N~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 57 -2
 #915
-large blue ioun stone~
-&+ba LARGE blue ioun stone&N~
-An unnamed object lies here, looking lonely and forelorn.~
+oval blue ioun stone~
+&+ba blue oval ioun stone&N~
+&+bA blue oval stone wobbles in mid-air here.~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 A
 58 -2
 #916
@@ -7525,49 +7493,49 @@ glowing white ioun stone~
 &+Wa glowing white ioun stone&N~
 &+WA glowing white stone pulsates here.&N~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100 0 32768 0 4096
+0 0 100 100 0 32768 0 4096
 #917
 flaming ioun stone~
 &+Ra &+Wf&+Yl&+Ra&+rming ioun stone&N~
 &+RA &+Wf&+Yl&+Ra&+rming stone burns here.&N~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100 536870912 4194305 0 0
+0 0 100 100 536870912 4194305 0 0
 #918
 chilly ioun stone~
 &+ban &+Cicy&+b ioun stone&N~
 &+ba cold stone floats around here.&N~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100 0 8388800 2097152 0
+0 0 100 100 0 8388800 2097152 0
 #919
 deep blue ioun stone~
 &+La &+bdeep blue&+L ioun stone&n~
 &+bA deep blue stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #920
 phased ioun stone~
 &+La &+Wp&+Ch&+ca&+bs&+Led ioun stone&n~
 &+LA stone floats here, phasing in and out of existence.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #921
 large green ioun stone~
 &+ga LARGE green ioun stone&n~
 &+gA LARGE green stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100 0 0 0 8192
+0 0 100 100 0 0 0 8192
 A
 54 125
 A
@@ -7577,41 +7545,17 @@ mirrored ioun stone~
 &+La &+Cmirrored&+L ioun stone&n~
 &+CA mirrored stone floats here.&n~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #923
 left testicle orcus~
 &+YOrcus' Left Testicle~
 &+YSomeone has chopped off Orcus' Left Testicle and left it here!~
 ~
-9 11 10 0 15 0 268435456 268435457 0 0 0
+11 11 10 0 15 0 268435456 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
-#924
-left testicle orcus~
-&+YOrcus' Left Testicle~
-&+YSomeone has chopped off Orcus' Left Testicle and left it here!~
-~
-9 11 10 0 15 0 268435456 268435457 0 0 0
-0 0 0 0 0 0 0 0
-0 0 100
-#925
-left testicle orcus~
-&+YOrcus' Left Testicle~
-&+YSomeone has chopped off Orcus' Left Testicle and left it here!~
-~
-9 11 10 0 15 0 268435456 268435457 0 0 0
-0 0 0 0 0 0 0 0
-0 0 100
-#926
-left testicle orcus~
-&+YOrcus' Left Testicle~
-&+YSomeone has chopped off Orcus' Left Testicle and left it here!~
-~
-9 11 10 0 15 0 268435456 268435457 0 0 0
-0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #930
 pool liquid glowing~
 &+Wa glowing pool&n~
@@ -7619,7 +7563,7 @@ pool liquid glowing~
 ~
 13 40 3 0 7 0 8201 0 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 pool liquid glowing~
 It's about three feet in diameter, and perhaps a foot deep.  Oh my.
@@ -7631,7 +7575,7 @@ ball orb~
 ~
 1 1 3 0 12 0 262145 0 0 0 0
 0 0 30 0 0 0 0 0
-0 0 100
+0 0 100 100
 #951
 orb sphere~
 &+La sinister ball of darkness&n~
@@ -7639,7 +7583,7 @@ orb sphere~
 ~
 8 1 3 0 12 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #998
 barrel wine maple~
 &+ya small maple barrel&N~
@@ -7647,7 +7591,7 @@ barrel wine maple~
 ~
 17 6 3 10 7 0 8 1 0 0 0
 80 80 2 -1 0 0 0 0
-114 150 100
+114 150 100 100
 #999
 barrel wine maple~
 &+ya small maple barrel&N~
@@ -7655,7 +7599,7 @@ barrel wine maple~
 ~
 17 6 3 10 7 0 8 1 0 0 0
 80 80 2 0 0 0 0 0
-114 150 100
+114 150 100 100
 E
 barrel wine maple~
 This small maple barrel is filled with an aging red wine. Small handles
@@ -7669,7 +7613,7 @@ barrel beer oak~
 ~
 17 5 3 10 7 0 8 1 0 0 0
 80 80 1 0 0 0 0 0
-114 150 100
+114 150 100 100
 E
 barrel beer oak~
 This oaken barrel is rimmed with iron bands to give it more stability.
@@ -7683,7 +7627,7 @@ studded leather sleeves~
 ~
 9 13 3 2 7 0 524296 16641 0 4203196896 0
 2 0 0 2 0 0 0 0
-2 1 100
+2 1 100 100
 #1102
 studded leather leggings~
 &+ya pair of studded leather leggings&N~
@@ -7691,7 +7635,7 @@ studded leather leggings~
 ~
 9 13 3 2 7 0 524296 16417 0 4203196896 0
 2 0 0 2 0 0 0 0
-2 1 100
+2 1 100 100
 #1103
 studded leather boots~
 &+ya pair of studded leather boots&N~
@@ -7699,7 +7643,7 @@ studded leather boots~
 ~
 9 13 3 2 7 0 525320 16449 0 87572507 0
 2 0 0 2 0 0 0 0
-2 1 100
+2 1 100 100
 #1104
 thick leather gloves~
 &+ysome thick leather gloves&N~
@@ -7707,7 +7651,7 @@ thick leather gloves~
 ~
 9 14 3 2 7 0 525320 16513 0 87572483 0
 2 0 0 4 0 0 0 0
-2 1 100
+2 1 100 100
 #1105
 thick spiked leather bracer~
 &+ya thick spiked leather bracer&N~
@@ -7715,7 +7659,7 @@ thick spiked leather bracer~
 ~
 9 14 3 1 7 0 525320 20481 0 87556099 0
 1 0 0 4 1 0 0 0
-1 1 100
+1 1 100 100
 #1106
 bronze skull cap~
 &+Ya &+ybronze&+Y skull cap&N~
@@ -7723,7 +7667,7 @@ bronze skull cap~
 ~
 9 20 3 1 7 0 525320 16401 0 87572507 0
 1 0 0 2 0 0 0 0
-1 1 100
+1 1 100 100
 #1107
 suit spiked leather armor~
 &+ya suit of spiked leather armor&N~
@@ -7731,7 +7675,7 @@ suit spiked leather armor~
 ~
 9 14 3 3 7 0 525320 16393 0 87572507 0
 3 0 0 3 0 0 0 0
-3 1 100
+3 1 100 100
 #1108
 long steel sword~
 &+wa long steel sword&N~
@@ -7739,7 +7683,7 @@ long steel sword~
 ~
 5 16 3 1 7 0 8200 8193 0 0 0
 5 2 4 0 0 0 0 0
-1 0 100
+1 0 100 100
 #1109
 small round wooden shield~
 &+ya small round wooden shield&N~
@@ -7747,7 +7691,7 @@ small round wooden shield~
 ~
 37 6 3 5 7 0 8 16897 0 0 0
 1 1 2 50 3 0 0 0
-1 1 100
+1 1 100 100
 #1110
 large two handed two-handed twohanded sword~
 &+Wa large two-handed sword&N~
@@ -7755,7 +7699,7 @@ large two handed two-handed twohanded sword~
 ~
 5 16 3 4 7 0 4203528 24577 0 67108872 0
 13 2 9 3 0 0 0 0
-4 1 100
+4 1 100 100
 #1111
 large two handed two-handed twohanded sword~
 &+La large two-handed sword&N~
@@ -7763,7 +7707,7 @@ large two handed two-handed twohanded sword~
 ~
 5 16 3 4 7 0 4202504 24577 0 0 0
 13 2 9 3 0 0 0 0
-4 1 100
+4 1 100 100
 A
 18 1
 A
@@ -7775,7 +7719,7 @@ thin steel dagger~
 ~
 5 16 3 1 7 0 8200 24577 0 4060479992 0
 2 2 3 11 0 0 0 0
-1 1 100
+1 1 100 100
 #1113
 thick short sword~
 &+wa thick short sword&N~
@@ -7783,7 +7727,7 @@ thick short sword~
 ~
 5 16 3 2 7 0 9224 24577 0 87650307 0
 9 1 7 3 0 0 0 0
-1 1 100
+1 1 100 100
 #1114
 quill~
 &+Ya quill&N~
@@ -7791,7 +7735,7 @@ quill~
 ~
 21 50 3 1 7 0 8 8404993 0 0 0
 0 0 0 0 0 0 0 0
-1 1 100
+1 1 100 100
 #1115
 book spell spellbook~
 &+ya spellbook&N~
@@ -7799,7 +7743,7 @@ book spell spellbook~
 ~
 33 28 3 1 7 0 8 16385 0 0 0
 0 0 80 0 0 0 0 0
-1 1 100
+1 1 100 100
 #1116
 quiver small~
 &+ga small quiver&N~
@@ -7807,7 +7751,7 @@ quiver small~
 ~
 30 42 3 1 7 0 525320 1048577 0 2097154 0
 10 1 1 0 0 0 0 0
-1 1 100
+1 1 100 100
 #1117
 thin arrow~
 &+ga thin arrow&N~
@@ -7815,7 +7759,7 @@ thin arrow~
 ~
 7 6 3 1 7 0 1032 16385 0 2097154 0
 0 1 4 1 0 0 0 0
-1 1 100
+1 1 100 100
 #1118
 reed bow longbow~
 &+Ga reed longbow&N~
@@ -7823,7 +7767,7 @@ reed bow longbow~
 ~
 6 42 3 2 7 0 8 24577 0 0 0
 60 60 0 1 0 0 0 0
-2 1 100
+2 1 100 100
 #1119
 thin cloth sleeves~
 &+Wa pair of thin cloth sleeves&N~
@@ -7831,7 +7775,7 @@ thin cloth sleeves~
 ~
 9 3 3 0 7 0 525320 16641 0 33685536 0
 1 0 0 2 0 0 0 0
-0 1 100
+0 1 100 100
 #1120
 thin cloth pants~
 &+Wa pair of thin cloth pants&N~
@@ -7839,7 +7783,7 @@ thin cloth pants~
 ~
 9 3 3 0 7 0 525320 16417 0 33685536 0
 1 0 0 2 0 0 0 0
-0 1 100
+0 1 100 100
 #1121
 wormskin worm boots~
 &+ma pair of wormskin boots&N~
@@ -7847,23 +7791,23 @@ wormskin worm boots~
 ~
 9 12 3 1 7 0 524296 65 0 0 0
 1 0 0 2 0 0 0 0
-1 0 100
+1 0 100 100
 #1122
 holy beads~
 &+Wsome holy beads&N~
 &+WSome holy beads have been dropped here.&N~
 ~
-9 52 3 1 7 0 525320 16389 0 33685536 0
+11 52 3 1 7 0 525320 16389 0 33685536 0
 1 0 0 1 0 0 0 0
-1 1 100
+1 1 100 100
 #1123
 unholy beads~
 &+Lsome unholy beads&N~
 &+LSome unholy beads have been dropped here.&N~
 ~
-9 52 3 1 7 0 525320 16389 0 33685536 0
+11 52 3 1 7 0 525320 16389 0 33685536 0
 1 0 0 1 0 0 0 0
-1 1 100
+1 1 100 100
 #1124
 holy priest cap~
 &+Wa holy priest cap&N~
@@ -7871,7 +7815,7 @@ holy priest cap~
 ~
 9 3 3 1 7 0 525320 16401 0 33685536 0
 1 0 0 1 0 0 0 0
-1 1 100
+1 1 100 100
 #1125
 unholy priest cap~
 &+Lan unholy priest cap&N~
@@ -7879,7 +7823,7 @@ unholy priest cap~
 ~
 9 3 3 1 7 0 525320 16401 0 33685536 0
 1 0 0 1 0 0 0 0
-1 1 100
+1 1 100 100
 #1126
 priest gown thin~
 &+wa thin priest gown&N~
@@ -7887,7 +7831,7 @@ priest gown thin~
 ~
 9 3 3 2 7 0 525320 16393 0 33685536 0
 2 0 0 1 0 0 0 0
-2 1 100
+2 1 100 100
 #1127
 stone warhammer hammer large~
 &+La large stone warhammer&N~
@@ -7895,7 +7839,7 @@ stone warhammer hammer large~
 ~
 5 11 3 3 7 0 1032 24577 0 121258275 0
 4 1 8 6 0 0 0 0
-3 1 100
+3 1 100 100
 #1128
 tight black sleeves~
 &+La pair of tight black sleeves&N~
@@ -7903,7 +7847,7 @@ tight black sleeves~
 ~
 9 3 3 0 7 0 525320 16641 0 8499200 0
 1 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1129
 tight black pants~
 &+La pair of tight black pants&N~
@@ -7911,7 +7855,7 @@ tight black pants~
 ~
 9 3 3 0 7 0 525320 16417 0 8499200 0
 1 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1130
 tight black gloves~
 &+La pair of tight black gloves&N~
@@ -7919,7 +7863,7 @@ tight black gloves~
 ~
 9 3 3 0 7 0 525320 16513 0 8499200 0
 1 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1131
 tight black slippers~
 &+La pair of tight black slippers&N~
@@ -7927,7 +7871,7 @@ tight black slippers~
 ~
 9 3 3 0 7 0 525320 16449 0 146913792 0
 1 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1132
 black leather mask~
 &+La black leather mask&N~
@@ -7935,15 +7879,15 @@ black leather mask~
 ~
 9 13 3 0 7 0 525320 278529 0 126976 0
 1 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1133
 pointy cap~
 &+ba pointy cap&N~
-&+bA point cap has been dropped here.&N~
+&+bA pointy cap has been dropped here.&N~
 ~
 9 3 3 1 7 0 524296 16401 0 0 0
 1 0 0 1 0 0 0 0
-1 1 100
+1 1 100 100
 #1134
 silver flute instrument~
 &+wa plain silver flute&N~
@@ -7951,7 +7895,7 @@ silver flute instrument~
 ~
 32 22 3 1 7 0 8 8404993 0 0 0
 184 1 5 1 0 0 0 0
-1 1 100
+1 1 100 100
 #1135
 bark sleeves~
 &+ya pair of bark sleeves&N~
@@ -7959,7 +7903,7 @@ bark sleeves~
 ~
 9 4 3 2 7 0 525320 16641 0 128 0
 1 0 0 2 0 0 0 0
-2 1 100
+2 1 100 100
 #1136
 bark leggings~
 &+ya pair of bark leggings&N~
@@ -7967,7 +7911,7 @@ bark leggings~
 ~
 9 4 3 2 7 0 525320 16417 0 128 0
 1 0 0 2 0 0 0 0
-2 1 100
+2 1 100 100
 #1137
 bark boots~
 &+ya pair of bark lined boots&N~
@@ -7975,7 +7919,7 @@ bark boots~
 ~
 9 4 3 1 7 0 525320 16449 0 128 0
 1 0 0 2 0 0 0 0
-1 1 100
+1 1 100 100
 #1138
 bark leaf cap~
 &+ya bark and &+gleaf&+y cap&N~
@@ -7983,7 +7927,7 @@ bark leaf cap~
 ~
 9 4 3 2 7 0 525320 16401 0 128 0
 1 0 0 2 0 0 0 0
-2 1 100
+2 1 100 100
 #1139
 bark armor~
 &+ya suit of bark coated armor&N~
@@ -7991,7 +7935,7 @@ bark armor~
 ~
 9 4 3 3 7 0 525320 16393 0 128 0
 2 0 0 2 0 0 0 0
-3 1 100
+3 1 100 100
 #1140
 hardwood wood cudgel~
 &+ya hardwood cudgel&N~
@@ -7999,7 +7943,7 @@ hardwood wood cudgel~
 ~
 5 6 3 4 7 0 1032 24577 0 128 0
 10 1 8 7 0 0 0 0
-4 1 100
+4 1 100 100
 #1141
 evil helm~
 &+Lan evil looking helm&N~
@@ -8007,7 +7951,7 @@ evil helm~
 ~
 9 3 3 1 7 0 1074267144 16401 0 8500224 0
 1 0 0 1 0 0 0 0
-1 1 100
+1 1 100 100
 #1142
 dark black robe~
 &+La dark black robe&N~
@@ -8015,7 +7959,7 @@ dark black robe~
 ~
 9 3 3 1 7 0 525320 16393 0 1024 0
 1 0 0 1 0 0 0 0
-1 1 100
+1 1 100 100
 #1143
 dark black boots~
 &+La pair of dark black boots&N~
@@ -8023,39 +7967,39 @@ dark black boots~
 ~
 9 3 3 1 7 0 525320 16449 0 1024 0
 1 0 0 1 0 0 0 0
-1 1 100
+1 1 100 100
 #1144
 smelly fur hat~
 &+Ra smelly fur hat&N~
 &+RA smelly hat has been dropped here.&N~
 ~
-9 2 3 1 7 0 525320 16401 0 256 0
+9 12 3 1 7 0 525320 16401 0 256 0
 1 0 0 2 0 0 0 0
-1 1 100
+1 1 100 100
 #1145
 suit smelly animal furs~
 &+Ra suit of smelly animal furs&N~
 &+RSome smelly animal furs has been dropped here.&N~
 ~
-9 2 3 1 7 0 525320 16393 0 256 0
+9 12 3 1 7 0 525320 16393 0 256 0
 2 0 0 3 0 0 0 0
-1 1 100
+1 1 100 100
 #1146
 fur boots~
 &+Ra pair of fur boots&N~
 &+RA pair of fur boots has been dropped here.&N~
 ~
-9 2 3 1 7 0 525320 16449 0 256 0
+9 12 3 1 7 0 525320 16449 0 256 0
 2 0 0 3 0 0 0 0
-1 1 100
+1 1 100 100
 #1147
 loose robes~
 &+wa set of loose fitting robes&N~
 &+wA set of loose fitting robes has been dropped here.&N~
 ~
-9 2 3 0 7 0 525320 16393 0 64 0
+9 12 3 0 7 0 525320 16393 0 64 0
 1 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1148
 loose leggings~
 &+wa set of loose fitting leggings&N~
@@ -8063,7 +8007,7 @@ loose leggings~
 ~
 9 3 3 0 7 0 525320 16417 0 64 0
 1 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1149
 loose sleeves~
 &+wa set of loose fitting sleeves&N~
@@ -8071,7 +8015,7 @@ loose sleeves~
 ~
 9 3 3 0 7 0 525320 16641 0 64 0
 1 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1150
 leather sandals~
 &+wsome thin leather sandals&N~
@@ -8079,7 +8023,7 @@ leather sandals~
 ~
 9 3 3 0 7 0 525320 16449 0 64 0
 1 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1151
 helm thin whisper~
 &+wa whisper-thin helm&N~
@@ -8087,7 +8031,7 @@ A whisper-thin helm lies here.~
 ~
 9 3 3 0 7 0 525320 16401 0 64 0
 1 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1152
 thin leather belt~
 &+ya thin leather belt&N~
@@ -8095,7 +8039,7 @@ thin leather belt~
 ~
 9 13 3 0 7 0 524296 18433 0 0 0
 0 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1153
 hard leather cloak~
 &+ya hard leather cloak&N~
@@ -8103,7 +8047,7 @@ hard leather cloak~
 ~
 9 13 3 0 7 0 524296 17409 0 0 0
 1 0 0 0 0 0 0 0
-0 1 100
+0 1 100 100
 #1154
 fur belt~
 &+ya &+wfur &+ybelt&N~
@@ -8111,7 +8055,7 @@ fur belt~
 ~
 9 13 3 0 7 0 524296 18433 0 0 0
 0 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1155
 fur cloak~
 &+ya &+wfur &+ycloak&N~
@@ -8119,7 +8063,7 @@ fur cloak~
 ~
 9 13 3 0 7 0 524296 17409 0 0 0
 1 0 0 0 0 0 0 0
-0 1 100
+0 1 100 100
 #1156
 elfskin skin belt~
 &+can elfskin belt&N~
@@ -8127,7 +8071,7 @@ elfskin skin belt~
 ~
 9 12 3 0 7 0 524296 2049 0 0 0
 0 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1157
 soft skin cloak~
 &+ca soft skin cloak&N~
@@ -8135,7 +8079,7 @@ soft skin cloak~
 ~
 9 12 3 0 7 0 524296 1025 0 0 0
 1 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1158
 elfskin skin belt~
 &+man elfskin belt&N~
@@ -8143,7 +8087,7 @@ elfskin skin belt~
 ~
 9 12 3 0 7 0 524296 2049 0 0 0
 0 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1159
 soft skin cloak~
 &+ma soft skin cloak&N~
@@ -8151,7 +8095,7 @@ soft skin cloak~
 ~
 9 12 3 0 7 0 524296 1025 0 0 0
 1 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1160
 leather belt soft~
 &+ya soft leather belt&N~
@@ -8159,7 +8103,7 @@ leather belt soft~
 ~
 9 13 3 0 7 0 524296 18433 0 0 0
 0 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1161
 raccoon skin cloak~
 &+wa ra&+Lcc&+woo&+Ln &+wskin cloak&N~
@@ -8167,7 +8111,7 @@ raccoon skin cloak~
 ~
 9 12 3 0 7 0 524296 1025 0 0 0
 0 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1162
 belt skin duergar~
 &+ra duergar skin belt&N~
@@ -8175,7 +8119,7 @@ belt skin duergar~
 ~
 9 12 3 0 7 0 524296 2049 0 0 0
 0 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1163
 boar skin cloak~
 &+La boar skin cloak&N~
@@ -8183,7 +8127,7 @@ boar skin cloak~
 ~
 9 12 3 0 7 0 524296 1025 0 0 0
 1 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1164
 dwarf belt skin~
 &+Ya dwarf skin belt&N~
@@ -8191,7 +8135,7 @@ dwarf belt skin~
 ~
 9 12 3 0 7 0 524296 18433 0 0 0
 0 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1165
 roperskin skin cloak~
 &+ga roperskin cloak&N~
@@ -8199,7 +8143,7 @@ roperskin skin cloak~
 ~
 9 12 3 0 7 0 524296 1025 0 0 0
 1 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1166
 belt cured leather thick~
 &+La belt of thick cured leather&N~
@@ -8207,7 +8151,7 @@ belt cured leather thick~
 ~
 9 12 3 0 7 0 524296 2049 0 0 0
 0 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1167
 batwing cloak thin~
 &+La &+rthin &+Lbatwing cloak&N~
@@ -8215,7 +8159,7 @@ batwing cloak thin~
 ~
 9 12 3 0 7 0 524296 1025 0 0 0
 1 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1168
 deerskin belt~
 &+ya deerskin belt&N~
@@ -8223,7 +8167,7 @@ deerskin belt~
 ~
 9 12 3 0 7 0 524296 2049 0 0 0
 0 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1169
 deerskin cloak~
 &+ya deerskin cloak&N~
@@ -8231,7 +8175,7 @@ deerskin cloak~
 ~
 9 12 3 0 7 0 524296 1025 0 0 0
 1 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1170
 belt skins assorted~
 &+ra belt made from &+yassorted &+Yskins&N~
@@ -8239,7 +8183,7 @@ belt skins assorted~
 ~
 9 12 3 0 7 0 524296 2049 0 0 0
 0 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1171
 hardened bracer crystal~
 &+ca hardened bracer of &+Ccrystal&N~
@@ -8247,7 +8191,7 @@ hardened bracer crystal~
 ~
 9 8 3 0 7 0 524296 20481 0 0 0
 1 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1172
 ratskins ratskin belt sewn~
 &+La belt of sewn &+rratskins&N~
@@ -8255,7 +8199,7 @@ ratskins ratskin belt sewn~
 ~
 9 12 3 0 7 0 524296 2049 0 0 0
 0 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1173
 reptile skin cloak~
 &+Ga &+greptile skin &+Gcloak&N~
@@ -8263,7 +8207,7 @@ reptile skin cloak~
 ~
 9 12 3 0 7 0 524296 1025 0 0 0
 1 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1174
 belt cured white leather~
 &+Wa belt of cured white leather&N~
@@ -8271,7 +8215,7 @@ belt cured white leather~
 ~
 9 14 3 0 7 0 524296 2049 0 0 0
 0 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1175
 cloak soft white fur~
 &+Wa cloak of soft white fur&N~
@@ -8279,7 +8223,7 @@ cloak soft white fur~
 ~
 9 12 3 0 7 0 524296 1025 0 0 0
 1 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1176
 belt thick leather~
 &+La thick leather belt&N~
@@ -8287,7 +8231,7 @@ belt thick leather~
 ~
 9 13 3 0 7 0 524296 2049 0 0 0
 0 0 0 1 0 0 0 0
-0 1 100
+0 1 100 100
 #1177
 cloak dark animal hide~
 &+La cloak of dark animal hide&N~
@@ -8295,7 +8239,7 @@ cloak dark animal hide~
 ~
 9 12 3 0 7 0 524296 1025 0 0 0
 1 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1178
 woven hide belt~
 &+ga belt of woven hides&N~
@@ -8303,7 +8247,7 @@ woven hide belt~
 ~
 9 12 3 0 7 0 524296 2049 0 0 0
 0 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1179
 cured leather cloak~
 &+ga cloak of cured leather&N~
@@ -8311,7 +8255,7 @@ cured leather cloak~
 ~
 9 12 3 0 7 0 524296 1025 0 0 0
 1 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1180
 illithidskin belt~
 &+Man illithidskin belt&N~
@@ -8319,7 +8263,7 @@ illithidskin belt~
 ~
 9 12 3 0 7 0 524296 2049 0 0 0
 0 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1181
 illithidskin cloak~
 &+Man illithidskin cloak&N~
@@ -8327,7 +8271,7 @@ illithidskin cloak~
 ~
 9 12 3 0 7 0 524296 1025 0 0 0
 1 0 0 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1182
 brass nose ring~
 &+Ya brass nose ring&N~
@@ -8335,23 +8279,23 @@ brass nose ring~
 ~
 9 17 3 2 7 0 524296 67108865 0 0 0
 1 0 0 3 0 0 0 0
-2 1 100
+2 1 100 100
 #1183
 dwarfskin collar~
 &+ya tattered &+Ydwarfskin &+ycollar&N~
 &+yA collar made from skins has been dropped here.&N~
 ~
-9 2 3 2 7 0 524296 5 0 0 0
+9 12 3 2 7 0 524296 5 0 0 0
 2 0 0 3 0 0 0 0
-2 1 100
+2 1 100 100
 #1184
 mask flesh stitched~
 &+ra stitched mask of flesh&N~
 &+rA mask made from flesh has been left here.&N~
 ~
-9 2 3 1 7 0 524296 278529 0 0 0
+9 12 3 1 7 0 524296 278529 0 0 0
 1 0 0 2 0 0 0 0
-1 1 100
+1 1 100 100
 #1185
 small broken tree~
 &+ya small broken tree&N~
@@ -8359,7 +8303,7 @@ small broken tree~
 ~
 5 4 3 10 7 0 4194312 24577 0 0 0
 13 2 5 7 0 0 0 0
-10 1 100
+10 1 100 100
 #1186
 smelly fur sleeves~
 &+Ra pair of smelly fur sleeves&N~
@@ -8367,7 +8311,7 @@ smelly fur sleeves~
 ~
 9 12 3 0 7 0 525312 257 0 256 0
 8 0 0 3 0 0 0 0
-4 251 100
+4 251 100 100
 #1187
 smelly fur leggings~
 &+Ra pair of smelly fur leggings&N~
@@ -8375,7 +8319,7 @@ smelly fur leggings~
 ~
 9 12 3 0 7 0 525312 33 0 256 0
 8 0 0 3 0 0 0 0
-4 623 100
+4 623 100 100
 #1188
 net illithid tentacles~
 &+Ma net woven of Illithid tentacles&N~
@@ -8383,7 +8327,7 @@ net illithid tentacles~
 ~
 15 2 3 0 7 0 524288 16385 0 0 0
 50 1 0 400 0 0 0 0
-2 1 100
+2 1 100 100
 #1189
 cowl~
 &+Ma ragged cl&+Coth cowl&N~
@@ -8391,7 +8335,7 @@ cowl~
 ~
 9 3 3 0 7 0 525824 17 0 131072 520521728
 8 0 0 3 0 0 0 0
-2 1 100
+2 1 100 100
 #1190
 dagger stiletto knife red~
 &+Y+&+Lxx&+W[&+R==&+r=&+L=-&N~
@@ -8399,7 +8343,7 @@ dagger stiletto knife red~
 ~
 5 1 10 0 14 0 121348377 8396801 67 0 0
 2 10 100 11 0 0 0 0
-0 1 100 3137972604 309470 622330048 1582864
+0 1 100 100 3137972604 309470 622330048 1582864
 A
 18 100
 A
@@ -8411,7 +8355,7 @@ dagger stiletto knife blue~
 ~
 5 1 10 0 14 0 104571161 8396801 66 0 0
 2 1 1 11 0 0 0 0
-0 1 100 436734268 2078 67108864 0
+0 1 100 100 436734268 2078 67108864 0
 A
 18 50
 #1192
@@ -8421,7 +8365,7 @@ rika~
 ~
 15 2 3 0 7 0 8192 4194305 0 0 0
 150 1 0 400 0 0 0 0
-0 23523 100
+0 23523 100 100
 #1193
 cute fuzzy badge~
 &+Ma c&+Wut&+Me a&+Wnd&N &+Mfu&+Wzz&+My b&+Wad&+Mge&N~
@@ -8429,7 +8373,7 @@ cute fuzzy badge~
 ~
 11 3 2 0 7 0 67108865 2097153 64 0 0
 0 0 0 0 0 0 0 0
-0 1 100
+0 1 100 100
 E
 cute fuzzy badge~
 &+M   This cute badge shows a tiny inscription on its back:&N
@@ -8443,7 +8387,7 @@ biara~
 ~
 15 15 3 0 15 0 8193 8404993 0 0 0
 300 1 0 750 0 0 0 0
--10 25351 100
+-10 25351 100 100
 #1200
 onyx potion~
 an &+Lonyx&N potion~
@@ -8451,7 +8395,7 @@ A small bottle of &+Lonyx&N liquid sits here.~
 ~
 10 7 2 4 7 0 0 16385 0 0 0
 50 9 1 41 0 0 0 0
-5 10 100
+5 10 100 100
 #1201
 dildo tripod~
 &+LTripods Dildo of Death&N~
@@ -8459,7 +8403,7 @@ A large dildo has been left here.~
 ~
 5 16 5 0 7 0 557056 67117057 0 0 0
 10 200 200 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1202
 shadow shadows carpet~
 &+Lwisp of shadow~
@@ -8467,7 +8411,7 @@ shadow shadows carpet~
 ~
 29 1 0 50 7 0 0 0 0 0 0
 320 1218 5 1 0 0 0 0
-0 0 100
+0 0 100 100
 #1210
 tendrils shadowy mist~
 &+Lt&+Wen&+Ld&+Wri&+Lls &+Wof &+Lshadowy &+Wm&nis&+Wt&n~
@@ -8475,7 +8419,7 @@ tendrils shadowy mist~
 ~
 9 1 3 0 15 100 268444681 129 65 64 0
 15 0 0 5 1 0 0 0
--10 500000 100 16 264192 0 0
+-10 500000 100 100 16 264192 0 0
 E
 tendrils shadowy mist~
 Wisps of streaming darkness swirl and interwine with the light, creating
@@ -8493,7 +8437,7 @@ book ansi color~
 ~
 8 28 2 5 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-1 1000 100
+1 1000 100 100
 E
 book ansi color~
 
@@ -8518,7 +8462,7 @@ wine case~
 ~
 15 8 10 0 15 0 0 0 0 0 0
 300 1 0 100 0 0 0 0
-300 1000000 100
+300 1000000 100 100
 #1213
 tree palm~
 &+GRand's tree&N~
@@ -8526,7 +8470,7 @@ tree palm~
 ~
 13 5 4 0 7 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-200 0 100
+200 0 100 100
 #1214
 wine tub hot~
 &+MRand's hot tub&N~
@@ -8534,7 +8478,7 @@ wine tub hot~
 ~
 17 18 10 0 15 0 0 0 0 0 0
 -1 -1 2 0 0 0 0 0
-0 0 100
+0 0 100 100
 #1215
 mirror~
 Ceiling Mirror~
@@ -8542,7 +8486,7 @@ Ceiling Mirror~
 ~
 13 7 10 0 15 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-100 100000 100
+100 100000 100 100
 #1216
 cheese~
 &+Ya plate of assorted cheeses&N~
@@ -8550,7 +8494,7 @@ cheese~
 ~
 19 48 1 0 7 0 0 1 0 0 0
 10 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 #1217
 bed~
 &+RRand's bed&N~
@@ -8558,7 +8502,7 @@ bed~
 ~
 13 18 5 0 15 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-200 100000 100
+200 100000 100 100
 #1218
 hook citadel~
 flying citadel hook object~
@@ -8566,7 +8510,7 @@ A flying citadel hook object roams the valley.~
 ~
 13 16 0 0 7 0 2 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #1219
 tv bigscreen~
 &+CTv&N~
@@ -8574,7 +8518,7 @@ tv bigscreen~
 ~
 13 44 6 0 15 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-150 1000000 100
+150 1000000 100 100
 #1220
 lyrical instrument time~
 &+WLyrical &+YInstrument &+Wof Time&n~
@@ -8582,7 +8526,7 @@ A very odd looking musical device sits here.~
 ~
 32 34 3 0 15 100 271721473 8404993 65 8421376 0
 184 56 0 20 0 0 0 0
-1 500000 100 839385148 45248 0 0
+1 500000 100 100 839385148 45248 0 0
 E
 lyrical instrument time~
 This wonderful looking device appears to be an instrument of some sort.
@@ -8600,7 +8544,7 @@ god stone nobody~
 ~
 13 44 3 0 15 100 302096392 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100 134742144 2048 0 0
+0 0 100 100 134742144 2048 0 0
 #1223
 wand~
 &+La small &+ycargo information&+L wand&N~
@@ -8608,7 +8552,7 @@ wand~
 ~
 13 15 3 0 7 0 67215369 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 shiploader wand~
 &+WMake sure you are holding &+LA small wand called 'shiploader'&+W in your
@@ -8698,7 +8642,7 @@ orcus wand black~
 ~
 3 16 2 4 7 0 622593 16385 64 0 0
 56 100 100 138 0 0 0 0
-1 0 100
+1 0 100 100
 E
 wand orcus black~
 &+LOrcus' Skull-Tipped Wand of Death has an ebony handle, and what appears&N
@@ -8717,7 +8661,7 @@ cartoon devil~
 ~
 11 43 3 0 7 0 106505 268435457 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #1229
 ball~
 &+GHappy &+YFun &+BBall&N~
@@ -8725,7 +8669,7 @@ ball~
 ~
 13 15 3 0 7 0 67207169 268451841 64 0 0
 0 0 1 0 0 0 0 0
-0 0 100
+0 0 100 100
 #1230
 totem mastery~
 the &+yT&+go&+yt&+ge&+ym &+Wof &+LM&nas&+Wt&ner&+Wy&n~
@@ -8733,7 +8677,7 @@ A beautiful wooden totem of immense size is here.~
 ~
 34 6 3 0 15 100 268444673 16385 64 256 0
 63 0 0 0 0 0 0 0
-5 500000 100 838860860 12480 128 0
+5 500000 100 100 838860860 12480 128 0
 E
 totem mastery~
 This totem is carved from the trunk of a massive great oak.  Although it
@@ -8752,7 +8696,7 @@ dagger bone~
 ~
 5 15 3 0 7 0 8986625 8193 64 0 0
 2 3 59 11 0 0 0 0
-0 0 100 604577980 276685 67108864 525312
+0 0 100 100 604577980 276685 67108864 525312
 #1232
 shield comic~
 &+La &+bHappy Noodle Boy&+L comic book&N~
@@ -8760,7 +8704,7 @@ shield comic~
 ~
 37 18 5 0 15 0 590848 513 64 0 0
 1 8 4 0 5 1 0 0
-0 0 100
+0 0 100 100
 #1234
 banana peel~
 &+Ya banana peel&N~
@@ -8768,7 +8712,7 @@ banana peel~
 ~
 12 2 0 0 7 0 1 49152 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 A
 3 -1
 A
@@ -8780,7 +8724,7 @@ banana~
 ~
 5 2 2 0 7 0 8192 8193 0 0 0
 10 1 1 7 0 0 0 0
-1 5 100
+1 5 100 100
 A
 19 -10
 #1240
@@ -8790,7 +8734,7 @@ ham haunch~
 ~
 19 2 2 2 7 0 0 16385 0 0 0
 60 0 0 0 0 0 0 0
-1 10000 100
+1 10000 100 100
 E
 ham haunch~
   &+yThis wonderful smelling &+yH&+RA&+yM&+L haunch&+y is of the finest cut of
@@ -8807,7 +8751,7 @@ wooden lyre instrument~
 ~
 32 6 3 0 7 0 1024 16385 0 8421920 0
 185 1 1 1 0 0 0 0
-0 1 100
+0 1 100 100
 E
 wooden lyre instrument~
 &+y   This lyre is small, made of wood and totally plain.
@@ -8819,7 +8763,7 @@ wooden horn instrument~
 ~
 32 6 3 0 7 0 1024 16385 0 8421920 0
 189 1 1 1 0 0 0 0
-1 1 100
+1 1 100 100
 E
 wooden horn instrument~
 &+y   This horn is small and made of wood.
@@ -8831,7 +8775,7 @@ drum drums instrument~
 ~
 32 6 3 0 7 0 1024 16385 0 8421920 0
 188 1 1 1 0 0 0 0
-1 1 100
+1 1 100 100
 E
 drum drums instrument~
 &+y   This drum is small, plainly made and wooden.
@@ -8843,7 +8787,7 @@ small wooden mandolin instrument~
 ~
 32 6 3 0 7 0 1024 16385 0 8421920 0
 186 1 1 1 0 0 0 0
-1 1 100
+1 1 100 100
 E
 small wooden mandolin instrument~
 &+y   This mandolin is small, made of wood and very plain.
@@ -8855,7 +8799,7 @@ small wooden harp instrument~
 ~
 32 6 3 0 7 0 1024 16385 0 8421920 0
 187 1 1 1 0 0 0 0
-1 1 100
+1 1 100 100
 E
 small wooden harp instrument~
 &+y   This harp is small, plainly made and wooden.
@@ -8867,7 +8811,7 @@ small wooden flute instrument~
 ~
 32 6 3 0 7 0 1024 16385 0 8421920 0
 184 1 1 1 0 0 0 0
-1 1 100
+1 1 100 100
 E
 small wooden flute instrument~
 &+y   This little flute is wooden and very simply made.
@@ -8879,7 +8823,7 @@ A random object lies here.~
 ~
 13 15 3 0 7 0 8256 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #1251
 object encrust~
 a random encrust object~
@@ -8887,7 +8831,7 @@ A random encrust object lies here.~
 ~
 13 15 3 0 7 0 8192 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #1252
 object random~
 a new random object~
@@ -8895,7 +8839,7 @@ A new random object lies here.~
 ~
 13 15 3 0 7 0 8256 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #1253
 object enchant~
 a random enchant object~
@@ -8903,7 +8847,7 @@ A random enchant object lies here.~
 ~
 13 15 3 0 7 0 8192 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #1254
 object enchant~
 a random weapon object~
@@ -8911,7 +8855,7 @@ A random weapon object lies here.~
 ~
 13 15 3 0 7 0 8256 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 _char_msg~
 &+BYour $q &+rpu&+Rls&+rat&+Res &+Lwith &+Ben&+Cer&+Wgy &+Lfor a &+rmoment&+L...&N
@@ -8931,7 +8875,7 @@ A new random object lies here.~
 ~
 13 15 3 0 7 0 8256 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #1270
 chest~
 &+ya &+Ytreasure &+ychest&n~
@@ -8939,7 +8883,7 @@ chest~
 ~
 15 15 3 0 5 0 32768 0 0 0 0
 100 5 0 100 0 0 0 0
-0 0 100
+0 0 100 100
 #1276
 track~
 a track~
@@ -8947,7 +8891,7 @@ A track~
 ~
 13 15 3 0 5 0 106498 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 track~
 ~
@@ -8958,7 +8902,7 @@ a &+rred rose&N with &+gthorns&N and a long &+ystem&N~
 ~
 8 5 0 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 #1278
 files book~
 the book of &+Wfiles&n~
@@ -8966,7 +8910,7 @@ The book of &+Wfiles&n lies here~
 ~
 12 28 2 5 7 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
 E
 files book~
 Usage: read <file>
@@ -8986,7 +8930,7 @@ book standard god~
 ~
 23 28 2 5 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-1 0 100
+1 0 100 100
 E
 book standard god~
 This book explains the rules governing standard god eq.
@@ -9051,7 +8995,7 @@ A standard god wear_insignia item lies here.~
 ~
 9 16 0 0 7 0 626696 2097153 0 0 0
 0 16 0 3 0 0 0 0
-1 0 100 0 12 0 0
+1 0 100 100 0 12 0 0
 #1281
 standard god item wear_head~
 a standard god wear_head item - string this~
@@ -9059,7 +9003,7 @@ A standard god wear_head item lies here.~
 ~
 9 16 0 0 7 0 622600 17 0 0 0
 0 4 1 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1282
 standard god item wear_eyes~
 a standard god wear_eyes item - string this~
@@ -9067,7 +9011,7 @@ A standard god wear_eyes item lies here.~
 ~
 9 16 0 0 7 0 622600 131073 0 0 0
 0 12 2 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1283
 standard god item wear_earring~
 a standard god wear_earring item - string this~
@@ -9075,7 +9019,7 @@ A standard god wear_earring item lies here.~
 ~
 9 16 0 0 7 0 622600 524289 0 0 0
 0 14 0 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1284
 standard god item wear_face~
 a standard god wear_face item - string this~
@@ -9083,7 +9027,7 @@ A standard god wear_face item lies here.~
 ~
 9 16 0 0 7 0 622600 262145 0 0 0
 0 13 1 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1285
 standard god item wear_neck~
 a standard god wear_neck item - string this~
@@ -9091,7 +9035,7 @@ A standard god wear_neck item lies here.~
 ~
 9 16 0 0 7 0 622600 5 0 0 0
 0 2 1 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1286
 standard god item wear_body~
 a standard god wear_body item - string this~
@@ -9099,7 +9043,7 @@ A standard god wear_body item lies here.~
 ~
 9 16 0 0 7 0 622600 9 0 0 0
 0 3 1 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1287
 standard god item wear_about~
 a standard god wear_about item - string this~
@@ -9107,7 +9051,7 @@ A standard god wear_about item lies here.~
 ~
 9 16 0 0 7 0 622600 1025 0 0 0
 0 9 1 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1288
 standard god item wear_waist~
 a standard god wear_waist item - string this~
@@ -9115,7 +9059,7 @@ A standard god wear_waist item lies here.~
 ~
 9 16 0 0 7 0 622600 2049 0 0 0
 0 10 0 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1289
 standard god item wear_arms~
 a standard god wear_arms item - string this~
@@ -9123,7 +9067,7 @@ A standard god wear_arms item lies here.~
 ~
 9 16 0 0 7 0 622600 257 0 0 0
 0 8 1 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1290
 standard god item wear_shield~
 a standard god wear_shield item - string this~
@@ -9131,7 +9075,7 @@ A standard god wear_shield item lies here.~
 ~
 37 16 0 0 7 0 622600 513 0 0 0
 2 1 3 0 0 0 0 0
-1 0 100
+1 0 100 100
 #1291
 standard god item wear_wrist~
 a standard god wear_wrist item - string this~
@@ -9139,7 +9083,7 @@ A standard god wear_wrist item lies here.~
 ~
 9 16 0 0 7 0 622600 4097 0 0 0
 0 11 24 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1292
 standard god item wear_hands~
 a standard god wear_hands item - string this~
@@ -9147,7 +9091,7 @@ A standard god wear_hands item lies here.~
 ~
 9 16 0 0 7 0 622600 129 0 0 0
 0 7 1 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1293
 standard god item wear_finger~
 a standard god wear_finger item - string this~
@@ -9155,7 +9099,7 @@ A standard god wear_finger item lies here.~
 ~
 9 16 0 0 7 0 622600 3 0 0 0
 0 1 0 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1294
 standard god item weapon~
 a standard god weapon item - string this~
@@ -9163,7 +9107,7 @@ A standard god weapon item lies here.~
 ~
 5 16 3 0 7 0 622600 8193 0 0 0
 5 1 1 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1295
 standard god item holdable~
 a standard god holdable item - string this~
@@ -9171,7 +9115,7 @@ A standard god holdable item lies here.~
 ~
 9 16 0 0 7 0 622600 8388609 0 0 0
 0 18 0 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1296
 standard god item wear_legs~
 a standard god wear_legs item - string this~
@@ -9179,7 +9123,7 @@ A standard god wear_legs item lies here.~
 ~
 9 16 0 0 7 0 622600 33 0 0 0
 0 5 1 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1297
 standard god item wear_feet~
 a standard god wear_feet item - string this~
@@ -9187,7 +9131,7 @@ A standard god wear_feet item lies here.~
 ~
 9 16 0 0 7 0 622600 65 0 0 0
 0 6 1 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1298
 standard god item throwable~
 a standard god throwable item - string this~
@@ -9195,7 +9139,7 @@ A standard god throwable item lies here.~
 ~
 9 16 0 0 7 0 622600 32769 0 0 0
 0 0 0 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1299
 standard god item wear_quiver~
 a standard god wear_quiver item - string this~
@@ -9203,7 +9147,7 @@ A standard god wear_quiver item lies here.~
 ~
 9 16 0 0 7 0 622600 1048577 0 0 0
 0 15 0 3 0 0 0 0
-1 0 100
+1 0 100 100
 #1300
 shell shimmering~
 a &+Bs&+ch&+Ci&+cm&+Bm&+be&+Br&+ci&+Cn&+cg &+Bs&+bh&+Be&+cl&+Cl~
@@ -9211,4 +9155,4 @@ a &+Bs&+ch&+Ci&+cm&+Bm&+be&+Br&+ci&+Cn&+cg &+Bs&+bh&+Be&+cl&+Cl~
 ~
 13 15 3 0 7 0 67117056 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+0 0 100 100
