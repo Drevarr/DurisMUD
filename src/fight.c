@@ -8273,18 +8273,17 @@ void perform_violence(void)
       {
         // update PVP tag to prevent renting, instead of allowing them to rent regardless
         // of continued action - Jexni 12/31/11
-      /*  if(affected_by_spell(ch, TAG_PVPDELAY))
+        if(affected_by_spell(ch, TAG_PVPDELAY))
         {
-          for(afp = ch->affected; afp; afp = next_af);
+          for(afp = ch->affected; afp; afp = afp->next)
           {
-            next_af = afp->next;
             if(afp->type == TAG_PVPDELAY)
             {
-              afp->duration += WAIT_SEC * 20;
+              afp->duration = WAIT_SEC * 20;
             }
           }
         } 
-        else */
+        else 
         {
           bzero(&aff, sizeof(aff));
           aff.type = TAG_PVPDELAY;
@@ -8293,18 +8292,17 @@ void perform_violence(void)
           affect_to_char(ch, &aff);
         }
 
-      /*  if(affected_by_spell(opponent, TAG_PVPDELAY))
+        if(affected_by_spell(opponent, TAG_PVPDELAY))
         {
-          for(afp = opponent->affected; afp; afp = next_af);
+          for(afp = opponent->affected; afp; afp = afp->next)
           {
-            next_af = afp->next;
             if(afp->type == TAG_PVPDELAY)
             {
-              afp->duration += WAIT_SEC * 20;
+              afp->duration = WAIT_SEC * 20;
             }
           }
         }        
-        else */
+        else
         {
           bzero(&aff, sizeof(aff));
           aff.type = TAG_PVPDELAY;
