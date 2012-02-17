@@ -3137,8 +3137,8 @@ void select_attrib(P_desc d, char *arg)
   char buf1[MAX_INPUT_LENGTH];
   char buf2[MAX_STRING_LENGTH] = "\0";  
   char instr[MAX_STRING_LENGTH];
-  int num = 0, stat = 0, choice = 0, total = 0, allocation = ALLOCATE_AMT;
-  int min = get_property("charcreation.stat.min", 30);
+  int num = 0, stat = 0, choice = 0, total = 0, allocation = (int) ALLOCATE_AMT;
+  int min = (int) get_property("charcreation.stat.min", 30.00);
   half_chop(arg, buf, buf1);
   num = atoi(buf1);
   
@@ -3191,7 +3191,7 @@ void select_attrib(P_desc d, char *arg)
       sprintf(instr, "        Please select an attribute to modify, and an amount to modify it by.\r\n"
                      "         You are allowed a total of %d points, but no stat can be below %d.\r\n"
                      "Stats above 75 come at a higher and higher price, take this into account when choosing.\r\n"
-                     "                                 Choose wisely.", ALLOCATE_AMT, min);
+                     "                                 Choose wisely.", allocation, min);
       SEND_TO_Q(instr, d);
       SEND_TO_Q(attribmod, d);
       sprintf(buf2 + strlen(buf2), "\r\nYou have %d points remaining to allocate.\r\n", GET_CR_PNTS(d));
