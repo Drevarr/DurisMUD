@@ -409,7 +409,7 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj, int which_type
   }
 
   int necro_power = GET_LEVEL(ch) * 2;
-  wizlog(56, "necro power for %s is %d", GET_NAME(ch), necro_power);
+
   if( GET_SPEC(ch, CLASS_NECROMANCER, SPEC_NECROLYTE) ||
      GET_SPEC(ch, CLASS_THEURGIST, SPEC_TEMPLAR) ) 
      necro_power += 10;  
@@ -418,7 +418,6 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj, int which_type
       !IS_TRUSTED(ch) &&
       IS_PC(ch))
   {
-    wizlog(56, "pet required %d", sum + undead_data[which_type].cost);
     act("You do not possess enough power to control another undead of that type.", FALSE, ch, 0, 0, TO_CHAR);
     return;
   }

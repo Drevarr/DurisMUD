@@ -1283,6 +1283,7 @@ void initialize_skills()
   SPELL_ADD(CLASS_SORCERER, 1);
   SPELL_ADD(CLASS_BARD, 4);
   SPELL_ADD(CLASS_ILLUSIONIST, 1);
+  SPELL_ADD(CLASS_NECROMANCER, 1);
 
   SPELL_CREATE_MSG("pulchritude", SPELL_PULCHRITUDE, PULSE_SPELLCAST, TAR_CHAR_ROOM | TAR_NOCOMBAT | TAR_ANIMAL,
                    spell_pulchritude, "&+yYour features harden.&n");
