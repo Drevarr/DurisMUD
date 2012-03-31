@@ -2828,6 +2828,13 @@ void lore_item( P_char ch, P_obj obj )
             else
                strcpy(Gbuf3, "not at all");
          }
+         else if (obj->affected[i].location == APPLY_AC)
+         {
+           if (obj->affected[i].modifier < 0)
+             strcpy(Gbuf3, "for the better");
+           else if (obj->affected[i].modifier > 0)
+             strcpy(Gbuf3, "for the worse");
+         }
          else if (obj->affected[i].location != APPLY_FIRE_PROT)
          {
             if (obj->affected[i].modifier > 0)
