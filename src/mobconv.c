@@ -146,6 +146,7 @@ void convertMob(P_char ch)
   if(IS_SET(ch->specials.act, ACT_IGNORE) ||
       strstr(ch->player.name, "_ignore_"))
   {
+    logit(LOG_MOB, "%d %s set to IGNORE", GET_VNUM(ch), GET_NAME(ch));
     ch->points.hit = ch->points.max_hit = ch->points.base_hit =
       MAX(1, ch->points.base_hit / 4);
     affect_total(ch, FALSE);
@@ -169,7 +170,7 @@ void convertMob(P_char ch)
   /* find multipliers for mob xp/money */
   if(level > 50)
   {
-    xp = 2000;
+    xp = 6000;
     copp = 0;
     silv = 0;
     gold = .9292;
@@ -177,7 +178,7 @@ void convertMob(P_char ch)
   }
   else if(level > 40)
   {
-    xp = 1000;
+    xp = 2400;
     copp = 0;
     silv = 0;
     gold = .6637;
@@ -185,7 +186,7 @@ void convertMob(P_char ch)
   }
   else if(level > 30)
   {
-    xp = 525;
+    xp = 1050;
     copp = 0;
     silv = 0;
     gold = .4857;
@@ -193,7 +194,7 @@ void convertMob(P_char ch)
   }
   else if(level > 20)
   {
-    xp = 275;
+    xp = 550;
     copp = .6667;
     silv = .4546;
     gold = .2223;
@@ -201,7 +202,7 @@ void convertMob(P_char ch)
   }
   else if(level > 10)
   {
-    xp = 100;
+    xp = 200;
     copp = .5000;
     silv = .4000;
     gold = .1667;
@@ -209,7 +210,7 @@ void convertMob(P_char ch)
   }
   else
   {
-    xp = 25;
+    xp = 350;
     copp = .4000;
     silv = .3334;
     gold = 0.0;
@@ -217,8 +218,8 @@ void convertMob(P_char ch)
   }
   /* apply multipliers */
   GET_EXP(ch) = (int) (level * xp);
-  GET_PLATINUM(ch) = (int) (level * plat * number(75, 125) / 100);
-  GET_GOLD(ch) = (int) (level * gold * number(75, 125) / 100);
+  GET_PLATINUM(ch) = (int) (level * plat * number(50, 75) / 100);
+  GET_GOLD(ch) = (int) (level * gold * number(70, 90) / 100);
   GET_SILVER(ch) = (int) (level * silv * number(75, 125) / 100);
   GET_COPPER(ch) = (int) (level * copp * number(75, 125) / 100);
   
@@ -609,7 +610,6 @@ void convertMob(P_char ch)
 
   if(IS_SET(ch->specials.act, ACT_ELITE)) 
   {
-    give_proper_stat(ch);
     ch->points.hit = ch->points.max_hit = ch->points.base_hit =
       (int)(ch->points.hit * get_property("hitpoints.mob.eliteBonus", 1.25));
     ch->points.damnodice = (int)(get_property("damage.eliteBonus", 1.2) * ch->points.damnodice);
@@ -623,6 +623,7 @@ void convertMob(P_char ch)
     GET_EXP(ch) = 0;
   }
 
+  give_proper_stat(ch);
   affect_total(ch, FALSE);
 }
 

@@ -897,7 +897,7 @@ bool CastIllusionistSpell(P_char ch, P_char victim, int helping)
 
   if(!spl && npc_has_spell_slot(ch, SPELL_PHANTOM_ARMOR)
       && (target == ch)
-      && !affected_by_spell(target, SPELL_PHANTOM_ARMOR)
+      && !ARMORED(ch)
       && (!IS_FIGHTING(ch)))
     spl = SPELL_PHANTOM_ARMOR;
 
@@ -2926,7 +2926,7 @@ bool CastShamanSpell(P_char ch, P_char victim, int helping)
     }
 
 
-    if(!spl && !affected_by_spell(target, SPELL_SPIRIT_ARMOR) &&
+    if(!spl && !ARMORED(target) &&
         npc_has_spell_slot(ch, SPELL_SPIRIT_ARMOR))
       spl = SPELL_SPIRIT_ARMOR;
 
@@ -3429,7 +3429,7 @@ bool CastEtherSpell(P_char ch, P_char victim, int helping)
 
     }
 
-    if(!spl && !affected_by_spell(target, SPELL_VAPOR_ARMOR) &&
+    if(!spl && !ARMORED(target) &&
         npc_has_spell_slot(ch, SPELL_VAPOR_ARMOR))
       spl = SPELL_VAPOR_ARMOR;
 
@@ -3760,7 +3760,7 @@ bool CastClericSpell(P_char ch, P_char victim, int helping)
 
   if(!spl && (!IS_FIGHTING(ch) || (number(0, 4) == 2)))
   {
-    if(!affected_by_spell(target, SPELL_ARMOR) &&
+    if(!ARMORED(target) &&
         npc_has_spell_slot(ch, SPELL_ARMOR) &&
         GET_RACE(target) != RACE_ANIMAL)
       spl = SPELL_ARMOR;
@@ -4240,7 +4240,7 @@ bool CastPaladinSpell(P_char ch, P_char victim, int helping)
   if(!IS_FIGHTING(ch) || (number(0, 4) == 2))
   {
     if(!spl &&
-      !affected_by_spell(target, SPELL_ARMOR) &&
+      !ARMORED(target) &&
       npc_has_spell_slot(ch, SPELL_ARMOR) &&
       GET_RACE(target) != RACE_ANIMAL)
     {
@@ -4491,7 +4491,7 @@ bool CastAntiPaladinSpell(P_char ch, P_char victim, int helping)
   if(!IS_FIGHTING(ch) || (number(0, 4) == 2))
   {
     if(!spl &&
-       !affected_by_spell(target, SPELL_ARMOR) &&
+       !ARMORED(target) &&
        npc_has_spell_slot(ch, SPELL_ARMOR) &&
        GET_RACE(target) != RACE_ANIMAL)
     {
@@ -4737,7 +4737,7 @@ bool WillPsionicistSpell(P_char ch, P_char victim)
         spl = pick_best_skin_spell(ch, ch);
   
   if(!spl &&
-     !affected_by_spell(ch, SPELL_ENHANCE_ARMOR) &&
+     !ARMORED(ch) &&
      knows_spell(ch, SPELL_ENHANCE_ARMOR) &&
      (!IS_FIGHTING(ch) || (number(0, 3) == 2)))
         spl = SPELL_ENHANCE_ARMOR;
@@ -4748,7 +4748,7 @@ bool WillPsionicistSpell(P_char ch, P_char victim)
         spl = SPELL_ENERGY_CONTAINMENT;
 
   if(!spl &&
-     !affected_by_spell(ch, SPELL_FLESH_ARMOR) &&
+     !ARMORED(ch) &&
      knows_spell(ch, SPELL_FLESH_ARMOR) &&
      (!IS_FIGHTING(ch) || (number(0, 4) == 2)))
         spl = SPELL_FLESH_ARMOR;
@@ -5544,7 +5544,7 @@ bool MobMonk(P_char ch)
      ((n_atkr > 1) ||
      has_help(ch->specials.fighting)))
   {
-    if(GET_SPEC(ch, CLASS_MONK, SPEC_WAYOFSNAKE) )
+    if(GET_SPEC(ch, CLASS_MONK, SPEC_ELAPHIDIST) )
     {
       if(!number(0,1) &&
         !affected_by_skill(ch, SKILL_FLURRY_OF_BLOWS) )
@@ -5596,7 +5596,7 @@ bool MobMonk(P_char ch)
 
   if(IS_FIGHTING(ch) && (victim = ch->specials.fighting))
   {
-    if(GET_SPEC(ch, CLASS_MONK, SPEC_WAYOFSNAKE) ||
+    if(GET_SPEC(ch, CLASS_MONK, SPEC_ELAPHIDIST) ||
       (IS_ELITE(ch) && GET_CLASS(ch, CLASS_MONK)))
     {
       if(!number(0, 1) &&
@@ -5640,7 +5640,7 @@ bool MobMonk(P_char ch)
       }
 
     case 6:
-      if( GET_SPEC(ch, CLASS_MONK, SPEC_WAYOFDRAGON) && !affected_by_skill(ch, SKILL_FIST_OF_DRAGON) )
+      if( GET_SPEC(ch, CLASS_MONK, SPEC_REDDRAGON) && !affected_by_skill(ch, SKILL_FIST_OF_DRAGON) )
       {
         strcpy(buf, " fist of dragon");
         break;
