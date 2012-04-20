@@ -308,7 +308,7 @@ int calculate_mana(P_char ch)
 int calculate_hitpoints(P_char ch)
 {
   char buf[128];
-  int i, lvl, j, mod, toughness, con;
+  int i, lvl, j, mod, toughness, con, classmod;
   float hps, sfact;
   P_obj obj;
    
@@ -316,7 +316,19 @@ int calculate_hitpoints(P_char ch)
   sfact = stat_factor[GET_RACE(ch)].Con;
   lvl = hps = GET_LEVEL(ch);
 
-  hps *= 10;
+  // class matters when it comes to HP - wipe2011 - Jexni 4/8/12
+  if(GET_CLASS(ch, CLASS_WARRIOR | CLASS_PALADIN | CLASS_ANTIPALADIN | CLASS_MERCENARY))
+    classmod = 10;
+  if(GET_CLASS(ch, CLASS_ROGUE | CLASS_RANGER | CLASS_REAVER | CLASS_AVENGER | CLASS_DREADLORD | CLASS_BERSERKER | CLASS_MONK))
+    classmod = 8;	
+  if(GET_CLASS(ch, CLASS_CLERIC | CLASS_DRUID | CLASS_SHAMAN | CLASS_BARD | CLASS_ALCHEMIST))
+    classmod = 7;
+  if(GET_CLASS(ch, CLASS_SORCERER | CLASS_CONJURER | CLASS_NECROMANCER | CLASS_ILLUSIONIST | CLASS_PSIONICIST | 
+                   CLASS_CABALIST | CLASS_ETHERMANCER | CLASS_THEURGIST))
+    classmod = 5;
+
+
+  hps *= classmod;
   hps = hps * (sfact / 100);
   hps = (hps * con) / 100;
 
@@ -337,7 +349,8 @@ int calculate_hitpoints(P_char ch)
   if(toughness > 0 &&
      !GET_CLASS(ch, CLASS_MONK))
   {
-    hps += (int) (toughness * get_property("epic.skill.toughness", 0.500) * (GET_CLASS(ch, CLASS_WARRIOR | CLASS_PALADIN | CLASS_ANTIPALADIN | CLASS_MERCENARY) ? 2 : 1));
+    hps += (int) (toughness * get_property("epic.skill.toughness", 0.500) * 
+           (GET_CLASS(ch, CLASS_WARRIOR | CLASS_PALADIN | CLASS_ANTIPALADIN | CLASS_MERCENARY) ? 2 : 1));
   }
   else
   {
@@ -855,13 +868,29 @@ void apply_affs(P_char ch, int mode)
 
   if (mode)
   {
-//    if(IS_AFFECTED(ch, AFF_ARMOR))
-//       GET_AC(ch) -= 25;
-    if(IS_AFFECTED(ch, AFF_BARKSKIN))
+    struct affected_type *af1;
+    bool a, b, gsw, sw;
+    a = b = sw = gsw = FALSE;
+
+    for(af1 = ch->affected; af1; af1 = af1->next)
+    {
+      if(af1->type == AFF_ARMOR)
+        a = TRUE; 
+      if(af1->type == AFF_BARKSKIN)
+        b = TRUE;
+      if(af1->type == AFF3_GR_SPIRIT_WARD)
+        gsw = TRUE;
+      if(af1->type == AFF3_SPIRIT_WARD)
+        sw = TRUE;
+   }
+
+    if(IS_AFFECTED(ch, AFF_ARMOR) && !a)
+       GET_AC(ch) -= 25;
+    if(IS_AFFECTED(ch, AFF_BARKSKIN) && !b)
        GET_AC(ch) -= 75;
-    if(IS_AFFECTED3(ch, AFF3_GR_SPIRIT_WARD))
+    if(IS_AFFECTED3(ch, AFF3_GR_SPIRIT_WARD) && !gsw)
        ch->specials.apply_saving_throw[SAVING_SPELL] -= 4;
-    if(IS_AFFECTED3(ch, AFF3_SPIRIT_WARD))
+    if(IS_AFFECTED3(ch, AFF3_SPIRIT_WARD) && !sw)
        ch->specials.apply_saving_throw[SAVING_SPELL] -= 2;
   }
   two_weapon_check(ch);

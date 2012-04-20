@@ -585,12 +585,15 @@ bool check_advancement(P_char ch)
          ch->only.pc->epics >= epics_for_level &&
          ch->only.pc->frags >= frags_for_level)
   {
-     GET_EXP(ch) -= new_exp_table[GET_LEVEL(ch) + 1];
-     wizlog(56, "%s has attained epic level &+W%d&n!", GET_NAME(ch), GET_LEVEL(ch));
      tf = TRUE;
   }
   else
   {
+     send_to_char("Though your experience is great, it alone is insufficient for advancement...", ch);
+     if(frags_for_level > ch->only.pc->frags)
+        send_to_char("You need more frags to advance.", ch);
+     if(epics_for_level > ch->only.pc->epics)
+        send_to_char("You need more epics to advance.", ch);
      tf = FALSE;
   }
 
@@ -607,7 +610,10 @@ void advance_level(P_char ch, bool bypass)
 
   int      add_mana = 0, i;
   int      prestige = 100;
-  
+
+  GET_EXP(ch) -= new_exp_table[GET_LEVEL(ch) + 1];
+  if(ch->player.level > 44)
+    wizlog(56, "%s has attained epic level &+W%d&n!", GET_NAME(ch), GET_LEVEL(ch));
   ch->player.level++;
   sql_update_level(ch);
 
@@ -647,23 +653,25 @@ void advance_level(P_char ch, bool bypass)
   /* level out skills */
   update_skills(ch);
 
-  if (GET_LEVEL(ch) == 21 && !IS_NEWBIE(ch) ) {
+  if(GET_LEVEL(ch) == 21 && !IS_NEWBIE(ch)) 
+  {
     REMOVE_BIT(ch->specials.act2, PLR2_NCHAT);
   }
 
-  if (GET_LEVEL(ch) == 35) {
+  if(GET_LEVEL(ch) == 35) 
+  {
     REMOVE_BIT(ch->specials.act2, PLR2_NEWBIE);
     REMOVE_BIT(ch->specials.act2, PLR2_NCHAT);
   }
 
-  if (IS_PC(ch) && IS_GITHYANKI(ch) && (GET_LEVEL(ch) == 50) &&
+  if(IS_PC(ch) && IS_GITHYANKI(ch) && (GET_LEVEL(ch) == 50) &&
       (ch->only.pc->highest_level < 50))
     githyanki_weapon(ch);
 
-  if (IS_PC(ch) && (ch->only.pc->highest_level < GET_LEVEL(ch)))
+  if(IS_PC(ch) && (ch->only.pc->highest_level < GET_LEVEL(ch)))
     ch->only.pc->highest_level = GET_LEVEL(ch);
 
-  if (GET_LEVEL(ch) == get_property("exp.maxExpLevel", 45)) {
+  if(GET_LEVEL(ch) == get_property("exp.maxExpLevel", 45)) {
     char buf[512];
     sprintf(buf, 
         "You have gained a considerable amount of knowledge and experience, however",
@@ -677,16 +685,16 @@ void advance_level(P_char ch, bool bypass)
    * hitpoint gain
    */
 
-  if (GET_LEVEL(ch) < 26)
+  if(GET_LEVEL(ch) < 26)
   {
     ch->points.base_hit += (IS_ILLITHID(ch) ? 0 :number(3, 3)); // no more hp loss for losing level
     ch->points.base_mana += number(0, 3);                       // - Jexni 1/4/12
   }
 
-  if (GET_HIT(ch) > GET_MAX_HIT(ch))
+  if(GET_HIT(ch) > GET_MAX_HIT(ch))
     GET_HIT(ch) = GET_MAX_HIT(ch);
 
-  if (GET_LEVEL(ch) > 56)
+  if(GET_LEVEL(ch) > 56)
     for (i = 0; i < 3; i++)
       ch->specials.conditions[i] = -1;
 

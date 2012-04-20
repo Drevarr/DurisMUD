@@ -2167,14 +2167,12 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
     send_to_char("You can't see a damn thing, you're blinded!\n", ch);
     return;
   }
-
-  /*
+  
   if(IS_DAYBLIND(ch) && !IS_OCEAN_ROOM(ch->in_room) )
   {
     send_to_char("&+WArgh!!! The sun is too bright.\n", ch);
     return;
   }
-  */
 
   vis_mode = get_vis_mode(ch, room_no);
   if(vis_mode == 0)

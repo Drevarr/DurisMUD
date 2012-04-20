@@ -335,53 +335,39 @@ int room_light(int room_nr, int flag)
   else
     return -1;
 
-  if (rroom == NOWHERE)
+  if(rroom == NOWHERE)
     return -1;
 
-  amt = 1;
+  if(IS_SURFACE_MAP(rroom))
+    amt = 0;  // treat surface as twilight unless sun is up
 
-  if (IS_SURFACE_MAP(rroom))
+  if(IS_SET(world[rroom].room_flags, DARK))
+    amt -= 1;
+  else if(IS_SET(world[rroom].room_flags, MAGIC_DARK))
+    amt -= 1;
+
+  if(IS_SET(world[rroom].room_flags, MAGIC_LIGHT))
+    amt += 1;
+  else if(world[rroom].sector_type == SECT_FIREPLANE)
+    amt += 1;
+  else if(world[rroom].sector_type == SECT_UNDRWLD_LIQMITH)
     amt += 1;
 
-  //if (world[rroom].sector_type == SECT_INSIDE)
-  //{
-  if (IS_SET(world[rroom].room_flags, DARK))
-    amt -= 2;
+  // The way light works is... frankly stupid.  Adding light sources to create a lighter room, when that
+  // room can be lit by a single item, is pointless and stupid.  We only want to know if there is a light
+  // source in the room for normal vision folks, and only want to know if it's not ultra-bright for the
+  // ultravision folks.  Ultra-bright will mean a sunlit room or a continual light(magic light) room.
+  // Beyond this, you get into nuances that detract from the playability of the game.  - Jexni 4/15/12
+  // wipe2011 - Moving check for light to individual character trying to look(ac_can_see/vis_mode)
 
-    if (IS_SET(world[rroom].room_flags, MAGIC_DARK ))
-      amt -= 1;
-    //else
-      //amt++;                    /* give them a little light */
-  //}
-  //else if (IS_SET(world[rroom].room_flags, DARK))
-    //amt--;
-
-  //if (IS_SET(world[rroom].room_flags, MAGIC_DARK))
-  //{
-//    world[rroom].light = -1;
-//    return -1;
-    //amt = -1;
-    //amt--;
-  //}
-  if (IS_SET(world[rroom].room_flags, MAGIC_LIGHT))
-    amt += 4;
-
-  if (world[rroom].sector_type == SECT_FIREPLANE)
-    amt += 4;
-  if (world[rroom].sector_type == SECT_UNDRWLD_LIQMITH)
-    amt += 2;
-  int dirty_loop_fix = 0;
-  
+/*  int dirty_loop_fix = 0;
   for (t_ch = world[rroom].people; t_ch; t_ch = t_ch->next_in_room)
   {
-
-	dirty_loop_fix++;  
-  if (t_ch->light == -1)
+    dirty_loop_fix++;  
+    if (t_ch->light == -1)
       dark = 1;
     else
       amt += t_ch->light;
-
-    /* wild guess that a wacky pointer is causing an infinite loop.. */
 
     if(dirty_loop_fix > 100)
 	    break;
@@ -389,11 +375,7 @@ int room_light(int room_nr, int flag)
       break;
   }
 
-  /*
-   * lit items in room count
-   */
-
-
+  // items lit in room?
   for (t_obj = world[rroom].contents; !dark && t_obj;
        t_obj = t_obj->next_content)
   {
@@ -405,14 +387,11 @@ int room_light(int room_nr, int flag)
         amt += 1;
     }
   }
+*/
 
-  /*
-   * have to do something about ambient (sun) light, not sure what yet
-   */
-  if (dark)
-    amt = BOUNDED(-1, amt, 1);
+  amt = BOUNDED(-1, amt, 2);
 
-  world[rroom].light = BOUNDED(-1, amt, 127);
+  world[rroom].light = amt;
 #if 0
   if (world[rroom].people && !ALONE(world[rroom].people))
   {
@@ -2593,18 +2572,14 @@ void update_char_objects(P_char ch)
 
       if (ch->equipment[i]->value[2] <= 0)
       {
-        act("Your $q just went out.", FALSE, ch, ch->equipment[i], 0,
-            TO_CHAR);
-        act("$n's $q just went out.", FALSE, ch, ch->equipment[i], 0,
-            TO_ROOM);
+        act("Your $q just went out.", FALSE, ch, ch->equipment[i], 0, TO_CHAR);
+        act("$n's $q just went out.", FALSE, ch, ch->equipment[i], 0, TO_ROOM);
         change = 1;
       }
       else if (ch->equipment[i]->value[2] <= 2)
-        act("Your $q glows dimly, barely illuminating the room.", FALSE, ch,
-            ch->equipment[i], 0, TO_CHAR);
+        act("Your $q glows dimly, barely illuminating the room.", FALSE, ch, ch->equipment[i], 0, TO_CHAR);
       else if (ch->equipment[i]->value[2] <= 6)
-        act("Your $q flickers as it slowly burns down.", FALSE, ch,
-            ch->equipment[i], 0, TO_CHAR);
+        act("Your $q flickers as it slowly burns down.", FALSE, ch, ch->equipment[i], 0, TO_CHAR);
     }
   if (change)
   {
