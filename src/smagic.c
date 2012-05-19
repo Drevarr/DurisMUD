@@ -1527,7 +1527,7 @@ void spell_spirit_armor(int level, P_char ch, char *arg, int type, P_char victim
 
 void spell_transfer_wellness(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
-  int      to, from, pos;
+  int      to, from, pos, to_max;
   P_obj    corpse, t_obj, next_obj, money;
   int      room;
   int      char_number;
@@ -1559,9 +1559,11 @@ void spell_transfer_wellness(int level, P_char ch, char *arg, int type, P_char v
     return;
   }
   
-  to = 1; // FIX
-
-  from = (int) (to / 2);
+  to_max = GET_MAX_HIT(victim) - GET_HIT(victim);
+  to = dice(level, 3) + (level / 4);
+  if(to > to_max)
+    to = to_max;
+  from = (int) (to * (2 - (level / 56)));
   
   if((GET_HIT(ch) - from) < 0)
   {
@@ -1575,11 +1577,9 @@ void spell_transfer_wellness(int level, P_char ch, char *arg, int type, P_char v
   if(!explode)
     GET_HIT(ch) -= from;
 
-  act("$N transfers some of $S &+Wlife force&n to you.",
-    FALSE, victim, 0, ch, TO_CHAR);
+  act("$N transfers some of $S &+Wlife force&n to you.", FALSE, victim, 0, ch, TO_CHAR);
   send_to_char("You &+Lsag&n under the strain of transferring your &+Wlife force.\r\n", ch);
-  act("$n &+Lsags&n visibly as $e transfers some of $s &+Wlife force&n to $N.",
-      TRUE, ch, 0, victim, TO_ROOM);
+  act("$n &+Lsags&n visibly as $e transfers some of $s &+Wlife force&n to $N.", FALSE, ch, 0, victim, TO_ROOM);
 
   if(!explode)
     return;
@@ -1594,17 +1594,14 @@ void spell_transfer_wellness(int level, P_char ch, char *arg, int type, P_char v
   {
     if(ch != victim)
       if(StatSave(victim, APPLY_AGI, -5))
-        act("&+LYou barely evade getting hit by $S &+Lflying body parts!",
-            FALSE, victim, 0, ch, TO_CHAR);
+        act("&+LYou barely evade getting hit by $S &+Lflying body parts!", FALSE, victim, 0, ch, TO_CHAR);
       else
       {
-        act("&+LYou get hit by $S &+Lflying body parts!",
-          FALSE, victim, 0, ch, TO_CHAR);
+        act("&+LYou get hit by $S &+Lflying body parts!", FALSE, victim, 0, ch, TO_CHAR);
         if(GET_HIT(victim) < from)
         {
           send_to_char
-            ("&+LOne of the flying bones hits you in your head, and you pass out...\r\n",
-             victim);
+            ("&+LOne of the flying bones hits you in your head, and you pass out...\r\n", victim);
         }
         damage(ch, victim, from, TYPE_UNDEFINED);
       }
@@ -1614,9 +1611,7 @@ void spell_transfer_wellness(int level, P_char ch, char *arg, int type, P_char v
   {
     if((room = real_room(ch->specials.was_in_room)) == NOWHERE)
     {
-      wizlog(57,
-             "Serious screw up in transfer wellness - tried to explode char %s in nowhere!",
-             GET_NAME(ch));
+      wizlog(57, "Serious screw up in transfer wellness - tried to explode char %s in nowhere!", GET_NAME(ch));
       return;
     }
   }
@@ -1640,20 +1635,16 @@ void spell_transfer_wellness(int level, P_char ch, char *arg, int type, P_char v
 
   if(GET_MONEY(ch) > 0)
   {
-    money = create_money(GET_COPPER(ch), GET_SILVER(ch),
-                         GET_GOLD(ch), GET_PLATINUM(ch));
+    money = create_money(GET_COPPER(ch), GET_SILVER(ch), GET_GOLD(ch), GET_PLATINUM(ch));
     obj_to_room(money, room);
   }
 
   char_from_room(ch);
   char_to_room(ch, real_room(1), -2);
-
   die(ch, ch);
-
 }
 
-void spell_sustenance(int level, P_char ch, char *arg, int type,
-                      P_char victim, P_obj obj)
+void spell_sustenance(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
 
   if(!(ch) ||
@@ -1680,8 +1671,7 @@ void spell_sustenance(int level, P_char ch, char *arg, int type,
 }
 
 
-void spell_greater_sustenance(int level, P_char ch, char *arg, int type,
-                              P_char victim, P_obj obj)
+void spell_greater_sustenance(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   if(!(ch) ||
      !IS_ALIVE(ch) ||
@@ -1697,8 +1687,7 @@ void spell_greater_sustenance(int level, P_char ch, char *arg, int type,
   }
 }
 
-void spell_wolfspeed(int level, P_char ch, char *arg, int type, P_char victim,
-                     P_obj obj)
+void spell_wolfspeed(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
 
@@ -1742,22 +1731,19 @@ void spell_wolfspeed(int level, P_char ch, char *arg, int type, P_char victim,
         FALSE, ch, 0, victim, TO_VICT);
   }
 
-  act("A wolfish grin briefly crosses $n's face.",
-    TRUE, victim, 0, 0, TO_ROOM);
+  act("A wolfish grin briefly crosses $n's face.", FALSE, victim, 0, 0, TO_ROOM);
 
   bzero(&af, sizeof(af));
 
   af.type = SPELL_WOLFSPEED;
   af.duration = (level) + 1;
-
-  af.location = APPLY_MOVE;
-  af.modifier = (level / 2) + dice(2, 2);
+  af.location = APPLY_MOVE_REG;
+  af.modifier = (level / 7);
 
   affect_to_char(victim, &af);
 }
 
-void spell_snailspeed(int level, P_char ch, char *arg, int type,
-                      P_char victim, P_obj obj)
+void spell_snailspeed(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
   int percent = 0, affect, maxpoints;
@@ -1809,8 +1795,8 @@ void spell_snailspeed(int level, P_char ch, char *arg, int type,
   }    
   else if(percent > 90)
   {
-   act("&+LSuddenly, you feel extremely sluggish and slow!", FALSE, ch, 0, victim, TO_VICT);
-   act("$n begins to move much more sluggishly.", TRUE, victim, 0, 0, TO_ROOM);
+   act("&+LSuddenly, you feel extremely sluggish and slow!", TRUE, ch, 0, victim, TO_VICT);
+   act("$n begins to move much more sluggishly.", FALSE, victim, 0, 0, TO_ROOM);
 
     bzero(&af, sizeof(af));
 
@@ -1838,8 +1824,7 @@ void spell_snailspeed(int level, P_char ch, char *arg, int type,
 
       affect_to_char(victim, &af);
 
-      act("$n begins to &+yslow down&n as if affected by something unseen...",
-        TRUE, victim, 0, 0, TO_ROOM);
+      act("$n begins to &+yslow down&n as if affected by something unseen...", FALSE, victim, 0, 0, TO_ROOM);
       send_to_char("&+mYou feel yourself slowing down drastically.\r\n", victim);
     }
     
@@ -1847,15 +1832,13 @@ void spell_snailspeed(int level, P_char ch, char *arg, int type,
  }
  else if(percent > 70)
  {
-    act("&+LSuddenly, you feel very sluggish and slow!",
-      FALSE, ch, 0, victim, TO_VICT);
-    act("$n begins to move very sluggishly.", TRUE, victim, 0, 0, TO_ROOM);
+    act("&+LSuddenly, you feel very sluggish and slow!", TRUE, ch, 0, victim, TO_VICT);
+    act("$n begins to move very sluggishly.", FALSE, victim, 0, 0, TO_ROOM);
 
     bzero(&af, sizeof(af));
 
     af.type = SPELL_SNAILSPEED;
     af.duration = 1;
-
     af.location = APPLY_MOVE;
     af.modifier = (-1 * affect + number(0, 5));
 
@@ -1864,14 +1847,13 @@ void spell_snailspeed(int level, P_char ch, char *arg, int type,
  }
  else if(percent > 30)
  {
-    act("&+LSuddenly, you feel sluggish and slow!", FALSE, ch, 0, victim, TO_VICT);
-    act("$n begins to move more sluggishly.", TRUE, victim, 0, 0, TO_ROOM);
+    act("&+LSuddenly, you feel sluggish and slow!", TRUE, ch, 0, victim, TO_VICT);
+    act("$n begins to move more sluggishly.", FALSE, victim, 0, 0, TO_ROOM);
 
     bzero(&af, sizeof(af));
 
     af.type = SPELL_SNAILSPEED;
     af.duration = 1;
-
     af.location = APPLY_MOVE;
     af.modifier = (int)(-1 * affect * 0.66 + number(-5, 5));
 
@@ -1880,14 +1862,13 @@ void spell_snailspeed(int level, P_char ch, char *arg, int type,
   }
   else
   {
-    act("&+LSuddenly, you feel a bit more sluggish and slow!", FALSE, ch, 0, victim, TO_VICT);
-    act("$n begins to move a bit more sluggishly.", TRUE, victim, 0, 0, TO_ROOM);
+    act("&+LSuddenly, you feel a bit more sluggish and slow!", TRUE, ch, 0, victim, TO_VICT);
+    act("$n begins to move a bit more sluggishly.", FALSE, victim, 0, 0, TO_ROOM);
 
     bzero(&af, sizeof(af));
 
     af.type = SPELL_SNAILSPEED;
     af.duration = 1;
-
     af.location = APPLY_MOVE;
     af.modifier = (int)(-1 * affect * 0.33 + number(-5, 5));
 
@@ -1895,8 +1876,7 @@ void spell_snailspeed(int level, P_char ch, char *arg, int type,
   }
 }
 
-void spell_pantherspeed(int level, P_char ch, char *arg, int type,
-                        P_char victim, P_obj obj)
+void spell_pantherspeed(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
 
@@ -1959,13 +1939,12 @@ void spell_pantherspeed(int level, P_char ch, char *arg, int type,
   af.duration = (level) + 1;
 
   af.location = APPLY_MOVE;
-  af.modifier = level + 5 + dice(3, 6);
+  af.modifier = level / 2 + dice(3, 6);
 
   affect_to_char(victim, &af);
 }
 
-void spell_molevision(int level, P_char ch, char *arg, int type,
-                      P_char victim, P_obj obj)
+void spell_molevision(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
   int percent = 0, hitroll = 0;
@@ -2014,15 +1993,14 @@ void spell_molevision(int level, P_char ch, char *arg, int type,
   }
   else if(percent > 110)
   {
-    act("&+ySuddenly, your vision grows extremely blurry and &+Ldarkness &+y clouds your sight!",
-      FALSE, ch, 0, victim, TO_VICT);
-    act("$n blinks trying to clear $s vision.", TRUE, victim, 0, 0, TO_ROOM);
+    act("&+ySuddenly, your vision grows extremely blurry and &+Ldarkness &+yclouds your sight!",
+         FALSE, ch, 0, victim, TO_VICT);
+    act("$n blinks trying to clear $s vision.", FALSE, victim, 0, 0, TO_ROOM);
    
     bzero(&af, sizeof(af));
 
     af.type = SPELL_MOLEVISION;
     af.duration = 1;
-
     af.location = APPLY_HITROLL;
     af.modifier = (int)(-1 * hitroll / 1.3);
 
@@ -2032,13 +2010,12 @@ void spell_molevision(int level, P_char ch, char *arg, int type,
   else if(percent > 90)
   {
     act("&+LSuddenly, your vision grows extremely blurry!", FALSE, ch, 0, victim, TO_VICT);
-    act("$n blinks, and nearly runs into the wall seemingly trying to clear $s vision.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n blinks, and nearly runs into the wall seemingly trying to clear $s vision.", FALSE, victim, 0, 0, TO_ROOM);
 
     bzero(&af, sizeof(af));
 
     af.type = SPELL_MOLEVISION;
     af.duration = 1;
-
     af.location = APPLY_HITROLL;
     af.modifier = (int)(-1 * hitroll / 1.7);
 
@@ -2049,13 +2026,12 @@ void spell_molevision(int level, P_char ch, char *arg, int type,
   else if(percent > 70)
   {
     act("&+LSuddenly, your vision very extremely blurry!", FALSE, ch, 0, victim, TO_VICT);
-    act("$n blinks rapidly, seemingly trying to clear $s vision.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n blinks rapidly, seemingly trying to clear $s vision.", FALSE, victim, 0, 0, TO_ROOM);
 
     bzero(&af, sizeof(af));
 
     af.type = SPELL_MOLEVISION;
     af.duration = 1;
-
     af.location = APPLY_HITROLL;
     af.modifier = (int)(-1 * hitroll / 2.1);
 
@@ -2064,13 +2040,12 @@ void spell_molevision(int level, P_char ch, char *arg, int type,
   else if(percent > 40)
   {
     act("&+LSuddenly, your vision grows blurry!", FALSE, ch, 0, victim, TO_VICT);
-    act("$n blinks, seemingly trying to clear $s vision.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n blinks, seemingly trying to clear $s vision.", FALSE, victim, 0, 0, TO_ROOM);
   
     bzero(&af, sizeof(af));
 
     af.type = SPELL_MOLEVISION;
     af.duration = 1;
-
     af.location = APPLY_HITROLL;
     af.modifier = (int)(-1 * hitroll / 2.5);
 
@@ -2080,13 +2055,12 @@ void spell_molevision(int level, P_char ch, char *arg, int type,
   else
   {
     act("&+LSuddenly, your vision grows slightly blurry!", FALSE, ch, 0, victim, TO_VICT);
-    act("$n blinks slightly, seemingly trying to clear $s vision.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n blinks slightly, seemingly trying to clear $s vision.", FALSE, victim, 0, 0, TO_ROOM);
 
     bzero(&af, sizeof(af));
 
     af.type = SPELL_MOLEVISION;
     af.duration = 1;
-
     af.location = APPLY_HITROLL;
     af.modifier = (int)(-1 * hitroll / 3);
 
@@ -2156,7 +2130,7 @@ void spell_mousestrength(int level, P_char ch, char *arg, int type, P_char victi
   else if(percent > 90)
   {
     act("&+ySuddenly, your muscles diminish, but you feel more dexterous and agile!", FALSE, ch, 0, victim, TO_VICT);
-    act("$n &+yvisibly greatly weakens but appears rather brisk.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n &+yvisibly greatly weakens but appears more adept.", FALSE, victim, 0, 0, TO_ROOM);
 
     bzero(&af, sizeof(af));
     af.type = SPELL_MOUSESTRENGTH;
@@ -2177,7 +2151,7 @@ void spell_mousestrength(int level, P_char ch, char *arg, int type, P_char victi
   else if(percent > 70)
   {
     act("&+LSuddenly, you feel &+wextremely weak &+L, but you are reacting faster.", FALSE, ch, 0, victim, TO_VICT);
-    act("$n &+yweakens visibly, yet seems extremely mobile.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n &+yweakens visibly, yet seems extremely mobile.", FALSE, victim, 0, 0, TO_ROOM);
     
     bzero(&af, sizeof(af));
     af.type = SPELL_MOUSESTRENGTH;
@@ -2198,7 +2172,7 @@ void spell_mousestrength(int level, P_char ch, char *arg, int type, P_char victi
   else if(percent > 40)
   {
     act("&+LSuddenly, you feel weak but more energetic!", FALSE, ch, 0, victim, TO_VICT);
-    act("$n &+yvisibly weakens, but seems energetic.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n &+yvisibly weakens, but seems energetic.", FALSE, victim, 0, 0, TO_ROOM);
     
     bzero(&af, sizeof(af));
     af.type = SPELL_MOUSESTRENGTH;
@@ -2219,7 +2193,7 @@ void spell_mousestrength(int level, P_char ch, char *arg, int type, P_char victi
   else
   {
     act("&+LSuddenly, you feel slightly weaker, but more dexterous!", FALSE, ch, 0, victim, TO_VICT);
-    act("$n &+yweakens visibly, but still seems somewhat spry.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n &+yweakens visibly, but still seems somewhat spry.", FALSE, victim, 0, 0, TO_ROOM);
     
     bzero(&af, sizeof(af));
     af.type = SPELL_MOUSESTRENGTH;
@@ -2338,6 +2312,7 @@ void spell_bearstrength(int level, P_char ch, char *arg, int type, P_char victim
     af.location = APPLY_DEX;
     af.modifier = -(level / 4);
     affect_to_char(victim, &af);
+
     if(level > 55)
     {
       af.location = APPLY_STR_MAX;
@@ -2502,7 +2477,7 @@ void spell_shrewtameness(int level, P_char ch, char *arg, int type, P_char victi
   else if(percent > 90)
   {
     act("&+LSuddenly, you huddle in the corner, weak and frightened.", FALSE, ch, 0, victim, TO_VICT);
-    act("$n &+ysuddenly huddles in the corner and appears &+rweak and frightened.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n &+ysuddenly huddles in the corner and appears &+rweak and frightened.", FALSE, victim, 0, 0, TO_ROOM);
 
     bzero(&af, sizeof(af));
 
@@ -2520,7 +2495,7 @@ void spell_shrewtameness(int level, P_char ch, char *arg, int type, P_char victi
   else if(percent > 70)
   {
     act("&+LSuddenly, you feel very weak and frightened.", FALSE, ch, 0, victim, TO_VICT);
-    act("$n &+wsuddenly appears very weak and frightened.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n &+wsuddenly appears very weak and frightened.", FALSE, victim, 0, 0, TO_ROOM);
 
     bzero(&af, sizeof(af));
 
@@ -2538,7 +2513,7 @@ void spell_shrewtameness(int level, P_char ch, char *arg, int type, P_char victi
   else if(percent > 40)
   {
     act("&+LSuddenly, you feel weak and frightened.", FALSE, ch, 0, victim, TO_VICT);
-    act("$n &+wsuddenly appears weak and frightened.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n &+wsuddenly appears weak and frightened.", FALSE, victim, 0, 0, TO_ROOM);
 
     bzero(&af, sizeof(af));
 
@@ -2553,7 +2528,7 @@ void spell_shrewtameness(int level, P_char ch, char *arg, int type, P_char victi
   else
   {
     act("&+LSuddenly, you feel slightly weaker and frightened.", FALSE, ch, 0, victim, TO_VICT);
-    act("$n &+wsuddenly appears slightly weaker and frightened.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n &+wsuddenly appears slightly weaker and frightened.", FALSE, victim, 0, 0, TO_ROOM);
 
     bzero(&af, sizeof(af));
 
@@ -2785,7 +2760,6 @@ void spell_call_of_the_wild(int level, P_char ch, char *arg, int type, P_char vi
 
   extract_char(mob);
 
-// YOU ARE HERE
   add_event(event_unmorph, WAIT_MIN * ( level / 25 + 1 ), victim, 0, NULL, 0, &level, sizeof(level));
 }
 
@@ -2856,10 +2830,12 @@ void spell_purify_spirit(int level, P_char ch, char *arg, int type, P_char victi
   poison_common_remove(victim);
 
   if(affected_by_spell(victim, SPELL_DISEASE) ||
-      affected_by_spell(victim, SPELL_PLAGUE))
+     affected_by_spell(victim, SPELL_PLAGUE) ||
+     affected_by_spell(victim, SPELL_BMANTLE))
   {
     affect_from_char(victim, SPELL_DISEASE);
     affect_from_char(victim, SPELL_PLAGUE);
+    affect_from_char(victim, SPELL_BMANTLE);
     send_to_char("&+GThe rot afflicting you was removed.\r\n", victim);
   }
 
@@ -3113,14 +3089,14 @@ P_char summon_beast_common(int mobnumb, P_char ch, int max_summon,
      IS_ELITE(ch))
   {
     if(is_greater)
-      sum = dice(level, 16) + (life * 5);
+      sum = dice(level, 12) + (life * 5);
     else
-      sum = dice(level, 12) + (life * 2);
+      sum = dice(level, 7) + (life * 2);
   }
   else if(is_greater)
-    sum = (int)((dice(level, 16) + (life * 5)) * 0.66);
+    sum = (int)((dice(level, 12) + (life * 5)) * 0.66);
   else
-    sum = (int)((dice(level, 12) + (life * 2)) * 0.66);
+    sum = (int)((dice(level, 7) + (life * 2)) * 0.66);
 
   if(!is_greater)
   {
@@ -3152,13 +3128,13 @@ P_char summon_beast_common(int mobnumb, P_char ch, int max_summon,
 
   if(GET_SPEC(ch, CLASS_SHAMAN, SPEC_ANIMALIST) || IS_ELITE(ch))
   {  
-    mob->points.base_hitroll = mob->points.hitroll = (int)(GET_LEVEL(mob) / 1.2);
-    mob->points.base_damroll = mob->points.damroll = (int)(GET_LEVEL(mob) / 1.2);
+    mob->points.base_hitroll = mob->points.hitroll = (int)(GET_LEVEL(mob));
+    mob->points.base_damroll = mob->points.damroll = (int)(GET_LEVEL(mob) - 10);
   }
   else
   {
-    mob->points.base_hitroll = mob->points.hitroll = (int)(GET_LEVEL(mob) / 2.5);
-    mob->points.base_damroll = mob->points.damroll = (int)(GET_LEVEL(mob) / 2.5);
+    mob->points.base_hitroll = mob->points.hitroll = (int)(GET_LEVEL(mob) / 1.2);
+    mob->points.base_damroll = mob->points.damroll = (int)(GET_LEVEL(mob) / 1.2 - 5);
   }
   
   MonkSetSpecialDie(mob); 
@@ -3591,10 +3567,10 @@ void spell_wellness(int level, P_char ch, char *arg, int type, P_char victim, P_
   if(!(ch))
     return;
   
-  gain = (int)(dice(4, 7 + (level / 10)));
+  gain = dice(60, 2) + (level / 4);
   
   if(has_innate(ch, INNATE_IMPROVED_HEAL))
-    gain += GET_LEVEL(ch);
+    gain = ((float) gain * 1.1);
   
   if(IS_SPIRITUALIST(ch) &&
      GET_LEVEL(ch) > 53 && 
@@ -3621,7 +3597,6 @@ void spell_wellness(int level, P_char ch, char *arg, int type, P_char victim, P_
         continue;
   
       heal(tch, ch, gain, GET_MAX_HIT(tch));
-//      healCondition(tch, gain);
       update_pos(tch);
       send_to_char("&+WYou feel slightly better.\n", tch);
     }
@@ -3638,79 +3613,63 @@ void spell_lesser_mending(int level, P_char ch, char *arg, int type, P_char vict
      !IS_ALIVE(victim))
         return;
 
-  gain = (int) (level / 2 + number(0, 5));
+  gain = dice(6, 2) + (level / 4);
 
   if(has_innate(ch, INNATE_IMPROVED_HEAL))
-    gain += (int) (number((int) (level / 2), (int) (level * 1.5)));
+    gain = ((float) gain * 1.1);
 
   do_point(ch, victim);
 
   if(IS_AFFECTED4(victim, AFF4_REV_POLARITY))
   {
-    act("&+L$N&+L wavers under the immense rush of life into $S body!", FALSE,
-        ch, 0, victim, TO_CHAR);
-    act("&+LYou waver under the immense rush of life into your body!", FALSE,
-        ch, 0, victim, TO_VICT);
-    act("&+L$N&+L wavers under the immense rush of life into $S body!", FALSE,
-        ch, 0, victim, TO_NOTVICT);
+    act("$N&+L wavers under the immense rush of life into $S body!", FALSE, ch, 0, victim, TO_CHAR);
+    act("&+LYou waver under the immense rush of life into your body!", FALSE, ch, 0, victim, TO_VICT);
+    act("$N&+L wavers under the immense rush of life into $S body!", FALSE,ch, 0, victim, TO_NOTVICT);
     damage(ch, victim, gain, TYPE_UNDEFINED);
     return;
   }
 
   act("$N &+wis surrounded by a flashing &+ggreen &+waura!", FALSE, ch, 0, victim, TO_CHAR);
-  act("&+wA light &+ggreen &+waura flashes around you and your wounds start to heal!", FALSE,
-      ch, 0, victim, TO_VICT);
+  act("&+wA light &+ggreen &+waura flashes around you and your wounds start to heal!", FALSE, ch, 0, victim, TO_VICT);
   act("$N &+wis surrounded by a flashing &+ggreen &+waura!", FALSE, ch, 0, victim, TO_NOTVICT);
 
   heal(victim, ch, gain, GET_MAX_HIT(victim));
-//  healCondition(victim, gain);
   update_pos(victim);
 
   send_to_char("&+WYou feel a bit better.\n", victim);
 }
 
-void spell_mending(int level, P_char ch, char *arg, int type, P_char victim,
-                   P_obj obj)
+void spell_mending(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int gain;
 
-
-
-  gain = (int) (level * 5 / 2.5 + number(-20, 20));
+  gain = dice(24, 2) + (level / 4);
 
   if(has_innate(ch, INNATE_IMPROVED_HEAL))
-    gain += (int) (number((int) (level / 2), (int) (level * 1.5)));
+    gain = ((float) gain * 1.1);
 
   do_point(ch, victim);
   
   if(IS_AFFECTED4(victim, AFF4_REV_POLARITY))
   {
-    act("&+L$N&+L wavers under the immense rush of life into $S body!", FALSE,
-        ch, 0, victim, TO_CHAR);
-    act("&+LYou waver under the immense rush of life into your body!", FALSE,
-        ch, 0, victim, TO_VICT);
-    act("&+L$N&+L wavers under the immense rush of life into $S body!", FALSE,
-        ch, 0, victim, TO_NOTVICT);
+    act("$N&+L wavers under the immense rush of life into $S body!", FALSE, ch, 0, victim, TO_CHAR);
+    act("&+LYou waver under the immense rush of life into your body!", FALSE, ch, 0, victim, TO_VICT);
+    act("$N&+L wavers under the immense rush of life into $S body!", FALSE, ch, 0, victim, TO_NOTVICT);
     damage(ch, victim, gain, TYPE_UNDEFINED);
     
     return;
   }
 
-  act("$N &+wis surrounded by a glowing &+Ggreen &+waura!",
-    FALSE, ch, 0, victim, TO_CHAR);
-  act("&+wA &+Ggreen &+waura surrounds you for a moment and your wounds start to heal!",
-    FALSE, ch, 0, victim, TO_VICT);
-  act("$N &+wis surrounded by a glowing &+Ggreen &+waura!",
-    FALSE, ch, 0, victim, TO_NOTVICT);
+  act("$N &+wis surrounded by a glowing &+Ggreen &+waura!", FALSE, ch, 0, victim, TO_CHAR);
+  act("&+wA &+Ggreen &+waura surrounds you for a moment and your wounds start to heal!", FALSE, ch, 0, victim, TO_VICT);
+  act("$N &+wis surrounded by a glowing &+Ggreen &+waura!", FALSE, ch, 0, victim, TO_NOTVICT);
 
   heal(victim, ch, gain, GET_MAX_HIT(victim));
-//  healCondition(victim, gain);
 
   update_pos(victim);
 }
 
-void spell_greater_mending(int level, P_char ch, char *arg, int type,
-                           P_char victim, P_obj obj)
+void spell_greater_mending(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int gain;
 
@@ -3722,12 +3681,12 @@ void spell_greater_mending(int level, P_char ch, char *arg, int type,
       
   do_point(ch, victim);
 
-  gain = (int) (level * 5 / 1.75 + number(-40, 40));
+  gain = dice(80, 2) + (level / 2);
 
 // Spiritualists
   if(has_innate(ch, INNATE_IMPROVED_HEAL))
   {
-    gain += (int) (number((int) (level / 2), (int) (level * 1.5)));
+    gain = ((float) gain * 1.1);
     if(level > 46)
     {
       if(affected_by_spell(victim, SPELL_DISEASE) ||
@@ -3761,12 +3720,9 @@ void spell_greater_mending(int level, P_char ch, char *arg, int type,
 
   if(IS_AFFECTED4(victim, AFF4_REV_POLARITY))
   {
-    act("&+L$N&+L wavers under the immense rush of life into $S body!", 
-      FALSE, ch, 0, victim, TO_CHAR);
-    act("&+LYou waver under the immense rush of life into your body!",
-      FALSE, ch, 0, victim, TO_VICT);
-    act("&+L$N&+L wavers under the immense rush of life into $S body!",
-      FALSE, ch, 0, victim, TO_NOTVICT);
+    act("&+L$N&+L wavers under the immense rush of life into $S body!", FALSE, ch, 0, victim, TO_CHAR);
+    act("&+LYou waver under the immense rush of life into your body!", FALSE, ch, 0, victim, TO_VICT);
+    act("&+L$N&+L wavers under the immense rush of life into $S body!", FALSE, ch, 0, victim, TO_NOTVICT);
     damage(ch, victim, gain, TYPE_UNDEFINED);
     return;
   }
@@ -3775,16 +3731,12 @@ void spell_greater_mending(int level, P_char ch, char *arg, int type,
 //  healCondition(victim, gain);
   update_pos(victim);
 
-  act("$N &+wshudders as an immense rush of &+Glife &+wflows into $S body!",
-    FALSE, ch, 0, victim, TO_CHAR);
-  act("&+wYou shudder as an immense rush of &+Glife &+wflows into your body!",
-    FALSE, ch, 0, victim, TO_VICT);
-  act("$N &+wshudders as an immense rush of &+Glife &+wflows into $S body!",
-    FALSE, ch, 0, victim, TO_NOTVICT);
+  act("$N &+wshudders as an immense rush of &+Glife &+wflows into $S body!", FALSE, ch, 0, victim, TO_CHAR);
+  act("&+wYou shudder as an immense rush of &+Glife &+wflows into your body!", FALSE, ch, 0, victim, TO_VICT);
+  act("$N &+wshudders as an immense rush of &+Glife &+wflows into $S body!", FALSE, ch, 0, victim, TO_NOTVICT);
 }
 
-void spell_spirit_ward(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+void spell_spirit_ward(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
   int duration;
@@ -3837,8 +3789,7 @@ void spell_spirit_ward(int level, P_char ch, char *arg, int type,
   affect_to_char(victim, &af);
 }
 
-void spell_greater_spirit_ward(int level, P_char ch, char *arg, int type,
-                               P_char victim, P_obj obj)
+void spell_greater_spirit_ward(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
   int duration;
@@ -3883,8 +3834,7 @@ void spell_greater_spirit_ward(int level, P_char ch, char *arg, int type,
   affect_to_char(victim, &af);
 }
 
-void spell_reveal_true_form(int level, P_char ch, char *arg, int type,
-                            P_char victim, P_obj obj)
+void spell_reveal_true_form(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   P_char   tmp_victim;
 
@@ -3892,12 +3842,9 @@ void spell_reveal_true_form(int level, P_char ch, char *arg, int type,
      !IS_ALIVE(ch))
         return;
   
-  act("$n raises $s arms high into the air, motionless.",
-    TRUE, ch, 0, 0, TO_ROOM);
-  act("A dim white aura fills the area briefly, centered on $n.",
-    TRUE, ch, 0, 0, TO_ROOM);
-  act("Raising your arms, you cause a dim white aura to fill the area briefly.",
-     TRUE, ch, 0, 0, TO_CHAR);
+  act("$n raises $s arms high into the air, motionless.", FALSE, ch, 0, 0, TO_ROOM);
+  act("A dim white aura fills the area briefly, centered on $n.", FALSE, ch, 0, 0, TO_ROOM);
+  act("Raising your arms, you cause a dim white aura to fill the area briefly.", FALSE, ch, 0, 0, TO_CHAR);
 
   LOOP_THRU_PEOPLE(tmp_victim, ch)
   {
@@ -3921,10 +3868,8 @@ void spell_reveal_true_form(int level, P_char ch, char *arg, int type,
         affect_from_char(tmp_victim, SKILL_HIDE);
         REMOVE_BIT(tmp_victim->specials.affected_by, AFF_HIDE);
       }
-      act("$n appears from hiding as the aura strikes $m.", FALSE,
-          tmp_victim, 0, 0, TO_ROOM);
-      act("As the aura passes over you, you appear from hiding!", FALSE,
-          tmp_victim, 0, 0, TO_CHAR);
+      act("$n appears from hiding as the aura strikes $m.", FALSE, tmp_victim, 0, 0, TO_ROOM);
+      act("As the aura passes over you, you appear from hiding!", FALSE, tmp_victim, 0, 0, TO_CHAR);
     }
     else if((ch != tmp_victim) && 
             IS_DISGUISE(tmp_victim))
@@ -3934,9 +3879,7 @@ void spell_reveal_true_form(int level, P_char ch, char *arg, int type,
   }
 }
 
-
-void spell_cold_ward(int level, P_char ch, char *arg, int type, P_char victim,
-                     P_obj obj)
+void spell_cold_ward(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
 
@@ -3972,8 +3915,7 @@ void spell_cold_ward(int level, P_char ch, char *arg, int type, P_char victim,
   }
 }
 
-void spell_fire_ward(int level, P_char ch, char *arg, int type, P_char victim,
-                     P_obj obj)
+void spell_fire_ward(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
 
@@ -4009,8 +3951,7 @@ void spell_fire_ward(int level, P_char ch, char *arg, int type, P_char victim,
   }
 }
 
-void spell_reveal_spirit_essence(int level, P_char ch, char *arg, int type,
-                                 P_char victim, P_obj obj)
+void spell_reveal_spirit_essence(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int      align;
   char     buff[256], buff2[256], buff3[256];
@@ -4027,16 +3968,15 @@ void spell_reveal_spirit_essence(int level, P_char ch, char *arg, int type,
 
   if(align == 1000)
   {
-    act("$n &+Wbriefly glows pure white.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n &+Wbriefly glows pure white.", FALSE, victim, 0, 0, TO_ROOM);
   }
   else if(align >= 750)
   {
-    act("$n &+Wbriefly glows extremely brightly.", TRUE, victim, 0, 0,
-        TO_ROOM);
+    act("$n &+Wbriefly glows extremely brightly.", FALSE, victim, 0, 0, TO_ROOM);
   }
   else if(align >= 350)
   {
-    act("$n &+Wbriefly glows brightly.", TRUE, victim, 0, 0, TO_ROOM);
+    act("$n &+Wbriefly glows brightly.", FALSE, victim, 0, 0, TO_ROOM);
   }
   else if(align > 0)
   {
@@ -4045,28 +3985,23 @@ void spell_reveal_spirit_essence(int level, P_char ch, char *arg, int type,
   }
   else if(align == 0)
   {
-    act("Nothing visible happens.", TRUE, victim, 0, 0, TO_ROOM);
+    // durr
   }
   else if(align >= -350)
   {
-    act("A feeble red glow briefly surrounds $n.", TRUE, victim, 0, 0,
-        TO_ROOM);
+    act("A feeble red glow briefly surrounds $n.", FALSE, victim, 0, 0, TO_ROOM);
   }
   else if(align >= -750)
   {
-    act("&+rA bright red glow briefly surrounds $n&+r.", TRUE, victim, 0, 0,
-        TO_ROOM);
+    act("&+rA bright red glow briefly surrounds $n&+r.", FALSE, victim, 0, 0, TO_ROOM);
   }
   else if(align > -1000)
   {
-    act("&+RAn extremely bright red glow briefly surrounds $n&+R.", TRUE,
-        victim, 0, 0, TO_ROOM);
+    act("&+RAn extremely bright red glow briefly surrounds $n&+R.", FALSE, victim, 0, 0, TO_ROOM);
   }
   else if(align == -1000)
   {
-    act
-      ("$n &+Rbriefly glows pure red, engulfing the area in an unholy light.",
-       TRUE, victim, 0, 0, TO_ROOM);
+    act("$n &+Rbriefly glows pure red, engulfing the area in an unholy light.", FALSE, victim, 0, 0, TO_ROOM);
   }
   else
   {
@@ -4139,9 +4074,7 @@ void spell_reveal_spirit_essence(int level, P_char ch, char *arg, int type,
   }
 }
 
-
-void spell_spirit_jump(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+void spell_spirit_jump(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int      location, in_room, distance;
   char     buf[256] = { 0 };
@@ -4350,10 +4283,9 @@ void spell_indomitability(int level, P_char ch, char *arg, int type,
     af.bitvector4 = AFF4_NOFEAR;
     affect_to_char(victim, &af);
 
-    act("&+WYour spiritual senses extend into realms beyond the grave...beyond your greatest fears.  Timidity and doubt fall away, replaced with tremendous courage.",
-       FALSE, victim, 0, ch, TO_CHAR);
-    act("&+WAn aura of valor and resolution seems to emanate from $n.",
-        TRUE, victim, 0, ch, TO_ROOM);
+    act("&+WYour spiritual senses extend into realms beyond the grave...beyond your greatest fears.\n"
+        "&+WTimidity and doubt fall away, replaced with tremendous courage.", TRUE, victim, 0, ch, TO_CHAR);
+    act("&+WAn aura of valor and resolution seems to emanate from $n.", FALSE, victim, 0, ch, TO_ROOM);
   }
 }
 
@@ -4389,7 +4321,7 @@ void event_firebrand(P_char ch, P_char victim, P_obj obj, void *data)
      number(0, 1))
       return;
   
-  dam = dice(level , 4);
+  dam = dice(level, 4);
 
   if(spell_damage(ch, victim, dam, SPLDAM_FIRE, SPLDAM_NODEFLECT | SPLDAM_NOSHRUG, &messages)
       == DAM_NONEDEAD)
@@ -4404,8 +4336,7 @@ void event_firebrand(P_char ch, P_char victim, P_obj obj, void *data)
   }
 }
 
-void spell_firebrand(int level, P_char ch, char *arg, int type, P_char victim,
-                      P_obj obj)
+void spell_firebrand(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int dam;
   struct affected_type *af;
@@ -4448,8 +4379,7 @@ void spell_firebrand(int level, P_char ch, char *arg, int type, P_char victim,
   }
 }
 
-void spell_etherportal(int level, P_char ch, char *arg, int type,
-              P_char victim, P_obj obj)
+void spell_etherportal(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct portal_settings set = {
       780, /* portal type  */
@@ -4511,8 +4441,7 @@ void spell_etherportal(int level, P_char ch, char *arg, int type,
   spell_general_portal(level, ch, victim, &set, &msg);
 }
 
-void spell_cascading_elemental_beam(int level, P_char ch, char *arg, int type,
-          P_char victim, P_obj object)
+void spell_cascading_elemental_beam(int level, P_char ch, char *arg, int type, P_char victim, P_obj object)
 {
   int dam, damaged, mod = 0;
   bool deflect = FALSE;

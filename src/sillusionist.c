@@ -952,8 +952,8 @@ void spell_nightmare(int level, P_char ch, char *arg, int type, P_char victim, P
   else
   {
     act("$N is only angered by your attempt to bring $S worst fears to bear...", FALSE, ch, 0, victim, TO_CHAR);
-    act("$N looks pissed at $n for some reason.", TRUE, ch, 0, victim, TO_NOTVICT);
-    act("$n's nightmares do not impress you.", TRUE, ch, 0, victim, TO_VICT);
+    act("$N looks pissed at $n for some reason.", FALSE, ch, 0, victim, TO_NOTVICT);
+    act("$n's nightmares do not impress you.", FALSE, ch, 0, victim, TO_VICT);
   }
 
   if(ch->in_room == victim->in_room)
@@ -974,8 +974,8 @@ void spell_shadow_shield(int level, P_char ch, char *arg, int type, P_char victi
 
   if(!has_skin_spell(victim))
   {
-    act("&+LShadows start to swirl around and cover&n $n's &+Lskin.&n", TRUE, victim, 0, 0, TO_ROOM);
-    act("&+LYou feel a strange shadowy mist cover your body.&n", TRUE, victim, 0, 0, TO_CHAR);
+    act("&+LShadows start to swirl around and cover $n's &+Lskin.&n", FALSE, victim, 0, 0, TO_ROOM);
+    act("&+LYou feel a strange shadowy mist cover your body.", TRUE, victim, 0, 0, TO_CHAR);
   }
   else
   {

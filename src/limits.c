@@ -424,7 +424,7 @@ int move_regen(P_char ch)
    */
 
   if (endurance > 0)
-    gain += (endurance / 10);
+    gain += (endurance / 15);
 
   return (int) (gain * gain / 5);
 }

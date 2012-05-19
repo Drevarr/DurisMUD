@@ -4775,8 +4775,8 @@ void spell_aid(int level, P_char ch, char *arg, int type, P_char victim, P_obj o
         af->duration = MAX(1, af->duration - (2 * (1 + temp)));
       }
     }
-   // 1 in 6 chance to instantly cure the poison at level 50
-    if(IS_SET(victim->specials.affected_by2, AFF2_POISONED) && !number(0, 5))
+   // 1 in 5 chance to instantly cure the poison at level 50
+    if(IS_SET(victim->specials.affected_by2, AFF2_POISONED) && !number(0, 4))
     {
       if(poison_common_remove(victim))
       {
@@ -5490,7 +5490,6 @@ void spell_cure_serious(int level, P_char ch, char *arg, int type, P_char victim
 
   healpoints = dice(8, 2) + (level / 4);
   heal(victim, ch, healpoints, GET_MAX_HIT(victim));
-  // healCondition(victim, healpoints);
   send_to_char("&+WYou feel a lot better!\n", victim);
   update_pos(victim);
 }
@@ -5501,7 +5500,6 @@ void spell_cure_critic(int level, P_char ch, char *arg, int type, P_char victim,
 
   healpoints = dice(12, 2) + (level / 4);
   heal(victim, ch, healpoints, GET_MAX_HIT(victim));
-  // healCondition(victim, healpoints);
   send_to_char("&+WYou feel MUCH better!\n", victim);
   update_pos(victim);
 }
@@ -5512,7 +5510,6 @@ void spell_cure_light(int level, P_char ch, char *arg, int type, P_char victim, 
 
   healpoints = dice(4, 2) + (level / 4);
   heal(victim, ch, healpoints, GET_MAX_HIT(victim));
-  // healCondition(victim, healpoints);
   update_pos(victim);
   send_to_char("&+WYou feel a little better!\n", victim);
 }
@@ -5845,10 +5842,10 @@ void spell_full_heal(int level, P_char ch, char *arg, int type, P_char victim, P
 
   if(GET_SPEC(ch, CLASS_CLERIC, SPEC_HEALER))
   {
-    //if(level >= 52)
+    if(level >= 36)
       num_dice += 1;
 
-    if(level >= 53)
+    if(level >= 46)
       num_dice += 1;
 
     if(level >= 56)
@@ -5859,7 +5856,7 @@ void spell_full_heal(int level, P_char ch, char *arg, int type, P_char victim, P
     num_dice = level / 12;
   }
 
-  int healpoints = dice(40, num_dice);
+  int healpoints = dice(40, num_dice) + level;
 
   if(type == SPELL_TYPE_SPELL)
   {
@@ -5867,8 +5864,8 @@ void spell_full_heal(int level, P_char ch, char *arg, int type, P_char victim, P
         ((GET_CHAR_SKILL(ch, SKILL_ANATOMY) + 5) / 10) > number(0, 100))
     {
       act("$n quickly diagnoses your wounds.", FALSE, ch, 0, victim, TO_VICT);
-      act("$n quickly diagnoses $N&n's wounds.", FALSE, ch, 0, victim, TO_NOTVICT);
-      act("You quickly diagnose $N&n's wounds and apply accurate healing.", FALSE, ch, 0, victim, TO_CHAR);
+      act("$n quickly diagnoses $N's wounds.", FALSE, ch, 0, victim, TO_NOTVICT);
+      act("You quickly diagnose $N's wounds and apply accurate healing.", FALSE, ch, 0, victim, TO_CHAR);
       healpoints += number(10, GET_CHAR_SKILL(ch, SKILL_ANATOMY) / 2);
     }
   }
@@ -5961,16 +5958,15 @@ void spell_heal(int level, P_char ch, char *arg, int type, P_char victim, P_obj 
         ((GET_CHAR_SKILL(ch, SKILL_ANATOMY) + 5) / 10) > number(0, 100))
     {
       act("$n quickly diagnoses your wounds.", FALSE, ch, 0, victim, TO_VICT);
-      act("$n quickly diagnoses $N&n's wounds.", FALSE, ch, 0, victim, TO_NOTVICT);
-      act("You quickly diagnose $N&n's wounds and apply accurate healing.", FALSE,
-        ch, 0, victim, TO_CHAR);
+      act("$n quickly diagnoses $N's wounds.", FALSE, ch, 0, victim, TO_NOTVICT);
+      act("You quickly diagnose $N's wounds and apply accurate healing.", FALSE, ch, 0, victim, TO_CHAR);
       healpoints += number(1, (GET_CHAR_SKILL(ch, SKILL_ANATOMY) / 5));
     }
   }
 
   if(ch == victim)
   {
-    act("&+WA warm &+yfeeling&n &+Wfills your body!", FALSE, ch, 0, victim, TO_CHAR);
+    act("&+WA warm &+yfeeling &+Wfills your body!", FALSE, ch, 0, victim, TO_CHAR);
   }
   else
   {
@@ -5998,7 +5994,7 @@ void spell_natures_touch(int level, P_char ch, char *arg, int type, P_char victi
     !IS_ALIVE(ch))
       return;
 
-  healpoints = level * 5 / 2;
+  healpoints = dice(36, 3) + (level / 4);
   
   if(!GET_CLASS(ch, CLASS_DRUID))
     healpoints /= 2;
@@ -6009,19 +6005,19 @@ void spell_natures_touch(int level, P_char ch, char *arg, int type, P_char victi
   
   grapple_heal(victim);
 
-  switch (world[ch->in_room].sector_type)
+  switch(world[ch->in_room].sector_type)
   {
   case SECT_CITY:
     healpoints -= 20;
     break;
   case SECT_FIELD:
-    healpoints += 40;
+    healpoints += 30;
     break;
   case SECT_FOREST:
-    healpoints += 60;
+    healpoints += 40;
     break;
   case SECT_HILLS:
-    healpoints += 30;
+    healpoints += 20;
     break;
   case SECT_UNDERWATER_GR:
   case SECT_MOUNTAIN:
@@ -6039,9 +6035,6 @@ void spell_natures_touch(int level, P_char ch, char *arg, int type, P_char victi
   default:
     break;
   }
-
-  if (!(GET_CLASS(ch, CLASS_DRUID) || GET_CLASS(ch, CLASS_RANGER)))
-    healpoints /= 3;
 
   if(IS_NPC(victim))
   {
@@ -6071,11 +6064,9 @@ void spell_natures_touch(int level, P_char ch, char *arg, int type, P_char victi
   else
   {
      act("&+GThe warmth of nature fills your body.", FALSE, ch, 0, victim, TO_VICT);
-     act("&+GYou gently touch $N&+G's body, and $S wounds begin to heal!",
-       FALSE, ch, 0, victim, TO_CHAR);
+     act("&+GYou gently touch $N&+G's body, and $S wounds begin to heal!", FALSE, ch, 0, victim, TO_CHAR);
   }
-  act("&+G$n &+Ggently touches $N&+G's body, and $S wounds begin to heal!",
-    FALSE, ch, 0, victim, TO_NOTVICT);
+  act("&+G$n &+Ggently touches $N&+G's body, and $S wounds begin to heal!", FALSE, ch, 0, victim, TO_NOTVICT);
 }
 
 void spell_water_to_life(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
@@ -6113,7 +6104,7 @@ void spell_water_to_life(int level, P_char ch, char *arg, int type, P_char victi
     return;
   }
 
-  healpoints = dice(10, (level / 4));
+  healpoints = dice(level, 2) + (level / 4);
 
   heal(victim, ch, healpoints, GET_MAX_HIT(victim));
   update_pos(victim);
@@ -6989,7 +6980,7 @@ void spell_stone_skin(int level, P_char ch, char *arg, int type, P_char victim, 
 void spell_ironwood(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
-  int absorb = (level / 7);
+  int absorb = level;
 
   if(!affected_by_spell(victim, SPELL_BARKSKIN))
   {
@@ -9411,7 +9402,7 @@ void spell_shadow_breath_1(int level, P_char ch, char *arg, int type, P_char vic
   };
   save = calc_dragon_breath_save(ch, victim);
   
-  dam = dice(level, 3) + number(-25, 25);
+  dam = dice(60, 3) + level / 2 + number(-25, 25);
 
   if(!are_we_still_alive(ch, victim))
     return;
@@ -9440,7 +9431,7 @@ void spell_shadow_breath_2(int level, P_char ch, char *arg, int type, P_char vic
 
   save = calc_dragon_breath_save(ch, victim);
   
-  dam = dice(level / 3, 6) + number(-25, 25);
+  dam = dice(level / 3, 5) + level / 2 + number(-25, 25);
 
   if(NewSaves(victim, SAVING_BREATH, save))
     dam >> 1;
@@ -10221,7 +10212,7 @@ void spell_barkskin(int level, P_char ch, char *arg, int type, P_char victim, P_
     }
     if(affected_by_spell(victim, SPELL_STONE_SKIN))
     {
-      send_to_char("Their stone skin is already harder than bark...", ch);
+      send_to_char("Your target has skin already harder than bark...", ch);
       return;
     }
     if(GET_SPEC(ch, CLASS_DRUID, SPEC_FOREST))
@@ -14753,8 +14744,7 @@ void spell_battle_ecstasy(int level, P_char ch, char *arg, int type,
   {
     char     buf1[500], buf2[500];
 
-    strcpy(buf1,
-           "$n &+rbegins to drool, a bloodthirsty look passing over $s face.&n");
+    strcpy(buf1, "$n &+rbegins to drool, a bloodthirsty look passing over $s face.&n");
     strcpy(buf2, "&+rYour blood begins to boil-- where's the fight?&n");
     act(buf1, TRUE, victim, 0, 0, TO_ROOM);
     act(buf2, TRUE, victim, 0, 0, TO_CHAR);
@@ -14767,35 +14757,35 @@ void spell_battle_ecstasy(int level, P_char ch, char *arg, int type,
   }
 }
 
-void spell_mass_heal(int level, P_char ch, char *arg, int type, P_char victim,
-                     P_obj obj)
+void spell_mass_heal(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   P_char tch;
   int healed;
 
-  for (tch = world[ch->in_room].people; tch; tch = tch->next_in_room) {
+  for (tch = world[ch->in_room].people; tch; tch = tch->next_in_room) 
+  {
     spell_cure_blind(level, ch, NULL, SPELL_TYPE_SPELL, tch, obj);
     grapple_heal(tch);
     if(GET_HIT(tch) > GET_MAX_HIT(tch))
       continue;
 
-    int maxhits = IS_HARDCORE(ch) ? 110 : 100;
-
-    healed = vamp(tch, (int) maxhits + number(1, level / 3), GET_MAX_HIT(tch) - number(1, 4));
-    if(tch->specials.fighting) {
+    int maxhits = IS_HARDCORE(ch) ? 150 : 125;
+    maxhits += GET_CHAR_SKILL(ch, SKILL_ANATOMY) / 4;
+    if(!UNDEADRACE(tch))
+      healed = vamp(tch, number(75,  maxhits), GET_MAX_HIT(tch) - number(1, 4));
+    if(tch->specials.fighting) 
+    {
       gain_exp(ch, tch, healed, EXP_HEALING);
     }
     update_pos(tch);
-    if(RACE_PUNDEAD(tch))
-      send_to_char("&+WYou feel the powers of darkness strengthen you!\n",
-          tch);
-    else
+   // if(RACE_PUNDEAD(tch))
+   //   send_to_char("&+WYou feel the powers of darkness strengthen you!\n", tch);
+   // else
       send_to_char("&+WA warm feeling fills your body.\n", tch);
   }
 }
 
-void spell_prayer(int level, P_char ch, char *arg, int type, P_char victim,
-                     P_obj obj)
+void spell_prayer(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   P_char tch;
   P_char tvict;
@@ -14812,13 +14802,9 @@ void spell_prayer(int level, P_char ch, char *arg, int type, P_char victim,
   
   god_name = get_god_name(ch);
   
-  sprintf(Gbuf1,
-    "$n &+wopenly prays out to %s, asking for intervention!",
-    god_name);
+  sprintf(Gbuf1, "$n &+wopenly prays out to %s, asking for intervention!", god_name);
   act(Gbuf1, FALSE, ch, 0, 0, TO_ROOM);
-  sprintf(Gbuf1,
-    "&+wYou pray to&n %s.",
-    god_name);
+  sprintf(Gbuf1, "&+wYou pray to&n %s.", god_name);
   act(Gbuf1, FALSE, ch, 0, 0, TO_CHAR);
 
   for (group = ch->group; group; group = group->next)
@@ -14841,13 +14827,12 @@ void spell_prayer(int level, P_char ch, char *arg, int type, P_char victim,
     
     if(prayer)
     {
-      ("&+WYour past transgressions will no longer haunt you.&n\n", tch);
+      send_to_char("&+WYour past transgressions will no longer haunt you.&n\n", tch);
     }
   }
 }
 
-void spell_mass_barkskin(int level, P_char ch, char *arg, int type,
-                         P_char victim, P_obj obj)
+void spell_mass_barkskin(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   LOOP_THRU_PEOPLE(victim, ch)
   {
@@ -14856,46 +14841,42 @@ void spell_mass_barkskin(int level, P_char ch, char *arg, int type,
   }
 }
 
-void spell_tranquility(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+void spell_tranquility(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
 
   P_char   d = NULL;
   int      skl_lvl;
-  P_char   oponent = NULL;
+  P_char   opponent = NULL;
 
   skl_lvl = (int) (level * 1.15);
 
-  act("&+g$n calls upon nature, &+ca calming wind passes through&n.\n",
-      FALSE, ch, 0, 0, TO_ROOM);
-  act("&+gYou call upon nature, &+ca calming wind passes through&n.\n",
-      FALSE, ch, 0, 0, TO_CHAR);
+  act("&+g$n calls upon nature, and &+ca calming wind passes through.", FALSE, ch, 0, 0, TO_ROOM);
+  act("&+gYou call upon nature, and &+ca calming wind passes through.", FALSE, ch, 0, 0, TO_CHAR);
   for (d = world[ch->in_room].people; d; d = d->next_in_room)
   {
     if(d->specials.fighting)
       if(number(1, 130) < skl_lvl)
       {
-         oponent = d->specials.fighting;
+         opponent = d->specials.fighting;
          // Lom: made them forget each other in pairs. as StopMercifulAttackers dont clear memories 
-         if(IS_PC(oponent))
-            send_to_char("A sense of calm comes upon you.\n", oponent);
+         if(IS_PC(opponent))
+            send_to_char("A sense of calm comes upon you.\n", opponent);
          if(IS_PC(d))
             send_to_char("A sense of calm comes upon you.\n", d);
-         if(IS_NPC(d) && IS_PC(oponent))
-            forget(d,oponent);
-         if(IS_NPC(oponent) && IS_PC(d))
-            forget(oponent,d);
-         stop_fighting(oponent);
+         if(IS_NPC(d) && IS_PC(opponent))
+            forget(d,opponent);
+         if(IS_NPC(opponent) && IS_PC(d))
+            forget(opponent,d);
+         stop_fighting(opponent);
          stop_fighting(d);
-         update_pos(oponent);
+         update_pos(opponent);
          update_pos(d);
 //        StopMercifulAttackers(d);
       }
   }
   CharWait(ch, PULSE_VIOLENCE);
 }
-void spell_true_seeing(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+void spell_true_seeing(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
 

@@ -666,7 +666,7 @@ void spell_biofeedback(int level, P_char ch, char *arg, int type, P_char victim,
     return;
   }
 
-  if(has_skin_spell(victim) && IS_PC(victim))
+  if(has_skin_spell(victim))
   {
     send_to_char("Nothing happens.\n", ch);
     return;
@@ -675,7 +675,7 @@ void spell_biofeedback(int level, P_char ch, char *arg, int type, P_char victim,
   bzero(&af, sizeof(af));
   af.type = SPELL_BIOFEEDBACK;
   af.duration = level / 14;
-  af.modifier = (level / 4);
+  af.modifier = level + (level / 4);
   affect_to_char(victim, &af);
 
   send_to_char("&+GYou are surrounded by a green mist!\r\n", ch);
@@ -1673,7 +1673,7 @@ void spell_inertial_barrier(int level, P_char ch, char *arg, int type, P_char vi
   }
 
 #if wipe2011
-#elseif        
+#else        
   if(affected_by_spell(ch, SPELL_INERTIAL_BARRIER))
   {
     struct affected_type *af1;
@@ -1704,6 +1704,7 @@ void spell_inertial_barrier(int level, P_char ch, char *arg, int type, P_char vi
   af.bitvector3 = AFF3_INERTIAL_BARRIER;
   affect_to_char(victim, &af);
 
+  send_to_char("You focus your will into an invisible dampening force...", ch);
   return;
 }
 
@@ -2549,8 +2550,8 @@ void spell_pyrokinesis(int level, P_char ch, char *arg, int type, P_char victim,
      !IS_ALIVE(victim))
       return;
 
-  int phys_dam = dice(level, 2);
-  int fire_dam = dice(level, 2);
+  int phys_dam = dice(level / 2, 3);
+  int fire_dam = dice(level / 2, 3);
 
   if(GET_SPEC(ch, CLASS_PSIONICIST, SPEC_PYROKINETIC))
      fire_dam = (int)(fire_dam * 1.20);
