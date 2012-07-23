@@ -2738,6 +2738,7 @@ void do_bash(P_char ch, char *argument, int cmd)
      !IS_ALIVE(victim))
   {
     //CharWait(ch, (int)(0.5 * PULSE_VIOLENCE));
+    send_to_char("Bash who?\n", ch);
     return;
   }
 
@@ -4801,13 +4802,6 @@ void bash(P_char ch, P_char victim)
   if(mount)
   {
     send_to_char("You cannot do that while riding! Try trample instead.\n", ch);
-    return;
-  }
-
-  if(!victim ||
-    (ch->in_room != victim->in_room))
-  {
-    send_to_char("Bash who?\n", ch);
     return;
   }
 
