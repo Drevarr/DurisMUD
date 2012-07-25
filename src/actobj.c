@@ -5226,10 +5226,11 @@ void do_salvage(P_char ch, char *argument, int cmd)
 {
   P_obj    temp;
   char     Gbuf4[MAX_STRING_LENGTH];
+  int	rolled;
 
   one_argument(argument, Gbuf4);
 
-  //if (GET_RACE(ch) == RACE_ILLITHID && GET_LEVEL(ch) < AVATAR)
+  
   if (!IS_TRUSTED(ch))
   {
     send_to_char
@@ -5237,128 +5238,847 @@ void do_salvage(P_char ch, char *argument, int cmd)
        ch);
     return;
   }
+  
+  
+  if(GET_CHAR_SKILL(ch, SKILL_CRAFT) < 1)
+  {
+    send_to_char("Only &+ycrafters&n have the necessary &+yskill&n to break down &+Witems&n.\n", ch);
+    return;
+  }
+
   if (!(temp = get_obj_in_list_vis(ch, Gbuf4, ch->carrying)))
   {
     act("What would you like to salvage?", FALSE, ch, 0, 0, TO_CHAR);
     return;
   }
-//codemod remove check for food
-//  if (temp->type = ITEM_FOOD))
- // {
-    /*
-     * if (GET_ITEM_TYPE(temp) == ITEM_CONTAINER && temp->value[3]) {
-     * send_to_char("Mmm, tastes just like very rare steak!\r\n", ch);
-     * act("$n savagely devours the corpse.", FALSE, ch, 0, 0,
-     * TO_ROOM); return; } else {
-     */
- //   act("That's not very edible, I'm afraid.", FALSE, ch, 0, 0, TO_CHAR);
- //   return;
-    /*
-     * }
-     */
- // }
-
-  /*
-     if ((GET_COND(ch, FULL) > 20) && !IS_AFFECTED3(ch, AFF3_FAMINE))
-     {
-     act("No thanks, I'm absolutely stuffed, couldn't eat another bite.",
-     FALSE, ch, 0, 0, TO_CHAR);
-     return;
-     }
-   */
- /* if (affected_by_spell(ch, TAG_EATING) && !IS_TRUSTED(ch))
-  {
-    act("You feel sated already.", FALSE, ch, 0, 0, TO_CHAR);
+//make sure its not food or container
+  if ((temp->type == ITEM_CONTAINER ||
+       temp->type == ITEM_STORAGE) && temp->contains)
+   {
+    act("You may want to empty that container before you try to &+ysalvage &nit.", FALSE, ch, 0, 0, TO_CHAR);
     return;
-  }
-*/
-  if(temp->value[1] < 0 || (temp->timer[0] && (time(NULL) - temp->timer[0] > 1 * 60 * 10)) )
-  {
-    act("That stinks, find some fresh food instead.", FALSE, ch, 0, 0, TO_CHAR);
-    return;
-  }
-
-  act("$n starts to delicate break $p into core components...", TRUE, ch, temp, 0, TO_ROOM);
-  act("You begin breaking down $q into its raw materials...", FALSE, ch, temp, 0, TO_CHAR);
-
+   }
+  if (temp->extra_flags == ITEM_NOSELL)
+    {
+	 act("There is apparently no &+Yworth &nto that item.", FALSE, ch, 0, 0, TO_CHAR); 
+	}
   if (temp->type == ITEM_FOOD)
+   {
+    act("Why would you want to salvage anything from your &+Ydinner&n?", FALSE, ch, 0, 0, TO_CHAR);
+    return;
+   }
+  if (temp->type == ITEM_TREASURE)
+   {
+    act("That's probably more valuable than what you could break it down into... lets not.", FALSE, ch, 0, 0, TO_CHAR);
+    return;
+   }
+  rolled = number(1, 100);
+  if  (GET_CHAR_SKILL(ch, SKILL_CRAFT) < rolled)
+   {
+    act("&+LYou attempt to break down your $q, but end up &+Rbreaking &+Lit in the process.", FALSE, ch, 0, 0, TO_CHAR);
+    act("$n attempts to salvage their $p, but clumsily destroys it.", TRUE, ch, temp, 0, TO_ROOM);
+    extract_obj(temp, !IS_TRUSTED(ch));
+    return;
+   }
+
+  else
   {
-     //New code to grant reg from food 
-   struct affected_type af;
-    if (!affected_by_spell(ch, TAG_EATING)) 
-    {
-      bzero(&af, sizeof(af));
-      af.type = TAG_EATING;
-      af.flags = AFFTYPE_NOSHOW;
-      af.duration = 1 + (1 * temp->value[0]);
-
-      int hit_reg;
-      int mov_reg;
-      if (temp->value[3] > 0) // TODO: apply poison
-      {
-          act("&+GYou feel sick.", FALSE, ch, 0, 0, TO_CHAR);
-          hit_reg = -temp->value[3];
-          mov_reg = 0;
-      }
-      else
-      {
-          hit_reg = 1;
-          if (temp->value[1] != 0)
-            hit_reg = temp->value[1];
-          mov_reg = hit_reg;
-          if (temp->value[2] != 0)
-            mov_reg = temp->value[2];
-      }
-
-      af.location = APPLY_HIT_REG;
-      af.modifier = 15 * hit_reg;
-      affect_to_char(ch, &af);
-      
-      af.location = APPLY_MOVE_REG;
-      af.modifier = mov_reg;
-      affect_to_char(ch, &af);
-
-      af.location = APPLY_STR;
-      af.modifier = temp->value[4];
-      affect_to_char(ch, &af);
-      af.location = APPLY_CON;
-      af.modifier = temp->value[4];
-      affect_to_char(ch, &af);
-
-      af.location = APPLY_AGI;
-      af.modifier = temp->value[5];
-      affect_to_char(ch, &af);
-      af.location = APPLY_DEX;
-      af.modifier = temp->value[5];
-      affect_to_char(ch, &af);
-
-      af.location = APPLY_INT;
-      af.modifier = temp->value[6];
-      affect_to_char(ch, &af);
-      af.location = APPLY_WIS;
-      af.modifier = temp->value[6];
-      affect_to_char(ch, &af);
-
-      af.location = APPLY_DAMROLL;
-      af.modifier = temp->value[7];
-      affect_to_char(ch, &af);
-      af.location = APPLY_HITROLL;
-      af.modifier = temp->value[7];
-      affect_to_char(ch, &af);
-    } 
-    else 
-    {
-      act("You feel sated already.", FALSE, ch, 0, 0, TO_CHAR);
-      return;
-    }
-  }
-  extract_obj(temp, !IS_TRUSTED(ch));
-  /*
-   * added by DTS 5/18/95 to solve light bug
-   */
-  char_light(ch);
-  room_light(ch->in_room, REAL);
+    act("$n begins to tear down their $p into its core components...", TRUE, ch, temp, 0, TO_ROOM);
+    act("You begin breaking down your $p into its &+yraw &+Ymaterials&n...", FALSE, ch, temp, 0, TO_CHAR); 
+	char buf[250];
+	char buf2[250];
+	byte objmat = temp->material;
+	byte objcft = temp->craftsmanship; //0-16 value
+	int matvnum;
+    int rand1 = number(1, 16);
+	int rand2 = number(1, 3);
+	int objchance = (objcft * 7 /2 + GET_CHAR_SKILL(ch, SKILL_CRAFT) / 2 - rand1); //better skill and better quality yields better chance for good material
+	if(objcft < 3)
+	{
+	 objchance = objchance - 10; //penalize for less than average
+	}
+	if (objcft >13)
+	{
+	 objchance = objchance + 5; //bonus for well crafted items
+	}
+	//DEBUG sprintf( buf, "objchance roll: %d \r\n", objchance );
+	//DEBUG sprintf( buf2, "rand2 roll: %d \r\n", rand2 );
+	//DEBUG send_to_char( buf, ch);
+	//DEBUG send_to_char( buf2, ch);
+	 //StartQualityCheck
+	    if (objchance <= 20) // Grant Rewards based on objchance roll
+      	      {
+              act("&+wYou were able to salvage a rather &+rpoor&n material from your item...", FALSE, ch, 0, 0, TO_CHAR);
+			  switch (objmat)
+				{
+					case MAT_NONSUBSTANTIAL:
+					matvnum = 67283;  
+					break;
+					case MAT_FLESH:
+					matvnum = 67283;  
+					break;
+					case MAT_CLOTH:
+					matvnum = 67283;  
+					break;
+					case MAT_BARK:
+					matvnum = 67283;  
+					break;
+					case MAT_SOFTWOOD:
+					matvnum = 67283;  
+					break;
+					case MAT_HARDWOOD:
+					matvnum = 67283;  
+					break;
+					case MAT_SILICON:
+					matvnum = 67283;  
+					break;
+					case MAT_CRYSTAL:
+					matvnum = 67283;  
+					break;
+					case MAT_CERAMIC:
+					matvnum = 67283;  
+					break;
+					case MAT_BONE:
+					matvnum = 67283;  
+					break;
+					case MAT_STONE:
+					matvnum = 67283;  
+					break;
+					case MAT_HIDE:
+					matvnum = 67283;  
+					break;
+					case MAT_LEATHER:
+					matvnum = 67283;  
+					break;
+					case MAT_CURED_LEATHER:
+					matvnum = 67283;  
+					break;
+					case MAT_IRON:
+					matvnum = 67283;  
+					break;
+					case MAT_STEEL:
+					matvnum = 67283;  
+					break;
+					case MAT_BRASS:
+					matvnum = 67283;  
+					break;
+					case MAT_MITHRIL:
+					matvnum = 67283;  
+					break;
+					case MAT_ADAMANTIUM:
+					matvnum = 67283;  
+					break;
+					case MAT_BRONZE:
+					matvnum = 67283;  
+					break;
+					case MAT_COPPER:
+					matvnum = 67283;  
+					break;
+					case MAT_SILVER:
+					matvnum = 67283;  
+					break;
+					case MAT_ELECTRUM:
+					matvnum = 67283;  
+					break;
+					case MAT_GOLD:
+					matvnum = 67283;  
+					break;
+					case MAT_PLATINUM:
+					matvnum = 67283;  
+					break;
+					case MAT_GEM:
+					matvnum = 67283;  
+					break;
+					case MAT_DIAMOND:
+					matvnum = 67283;  
+					break;
+					case MAT_LEAVES:
+					matvnum = 67283;  
+					break;
+					case MAT_RUBY:
+					matvnum = 67283;  
+					break;
+					case MAT_EMERALD:
+					matvnum = 67283;  
+					break;
+					case MAT_SAPPHIRE:
+					matvnum = 67283;  
+					break;
+					case MAT_IVORY:
+					matvnum = 67283;  
+					break;
+					case MAT_DRAGONSCALE:
+					matvnum = 67283;  
+					break;
+					case MAT_OBSIDIAN:
+					matvnum = 67283;  
+					break;
+					case MAT_GRANITE:
+					matvnum = 67283;  
+					break;
+					case MAT_MARBLE:
+					matvnum = 67283;  
+					break;
+					case MAT_LIMESTONE:
+					matvnum = 67283;  
+					break;
+					case MAT_BAMBOO:
+					matvnum = 67283;  
+					break;
+					case MAT_REEDS:
+					matvnum = 67283;  
+					break;
+					case MAT_HEMP:
+					matvnum = 67283;  
+					break;
+					case MAT_GLASSTEEL:
+					matvnum = 67283;  
+					break;
+					case MAT_CHITINOUS:
+					matvnum = 67283;  
+					break;
+					case MAT_REPTILESCALE:
+					matvnum = 67283;  
+					break;
+					case MAT_RUBBER:
+					matvnum = 67283;  
+					break;
+					case MAT_FEATHER:
+					matvnum = 67283;  
+					break;
+					case MAT_PEARL:
+					matvnum = 67283;  
+					break;
+					default:
+					act("&+wYou cant seem to find anything worth &+ysalvaging&+w on that item.&n", FALSE, ch, 0, 0, TO_CHAR);
+					return;
+					break;
+				}
+			  }
+	    else if ((objchance <= 40) && (objchance >= 21)) 
+      	      {
+              act("&+wYour focused efforts allow you to salvage a &+ycommon&n material from your item...", FALSE, ch, 0, 0, TO_CHAR);
+		 	  switch (objmat)
+				{
+					case MAT_NONSUBSTANTIAL:
+					matvnum = 67284;  
+					break;
+					case MAT_FLESH:
+					matvnum = 67284;  
+					break;
+					case MAT_CLOTH:
+					matvnum = 67284;  
+					break;
+					case MAT_BARK:
+					matvnum = 67284;  
+					break;
+					case MAT_SOFTWOOD:
+					matvnum = 67284;  
+					break;
+					case MAT_HARDWOOD:
+					matvnum = 67284;  
+					break;
+					case MAT_SILICON:
+					matvnum = 67284;  
+					break;
+					case MAT_CRYSTAL:
+					matvnum = 67284;  
+					break;
+					case MAT_CERAMIC:
+					matvnum = 67284;  
+					break;
+					case MAT_BONE:
+					matvnum = 67284;  
+					break;
+					case MAT_STONE:
+					matvnum = 67284;  
+					break;
+					case MAT_HIDE:
+					matvnum = 67284;  
+					break;
+					case MAT_LEATHER:
+					matvnum = 67284;  
+					break;
+					case MAT_CURED_LEATHER:
+					matvnum = 67284;  
+					break;
+					case MAT_IRON:
+					matvnum = 67284;  
+					break;
+					case MAT_STEEL:
+					matvnum = 67284;  
+					break;
+					case MAT_BRASS:
+					matvnum = 67284;  
+					break;
+					case MAT_MITHRIL:
+					matvnum = 67284;  
+					break;
+					case MAT_ADAMANTIUM:
+					matvnum = 67284;  
+					break;
+					case MAT_BRONZE:
+					matvnum = 67284;  
+					break;
+					case MAT_COPPER:
+					matvnum = 67284;  
+					break;
+					case MAT_SILVER:
+					matvnum = 67284;  
+					break;
+					case MAT_ELECTRUM:
+					matvnum = 67284;  
+					break;
+					case MAT_GOLD:
+					matvnum = 67284;  
+					break;
+					case MAT_PLATINUM:
+					matvnum = 67284;  
+					break;
+					case MAT_GEM:
+					matvnum = 67284;  
+					break;
+					case MAT_DIAMOND:
+					matvnum = 67284;  
+					break;
+					case MAT_LEAVES:
+					matvnum = 67284;  
+					break;
+					case MAT_RUBY:
+					matvnum = 67284;  
+					break;
+					case MAT_EMERALD:
+					matvnum = 67284;  
+					break;
+					case MAT_SAPPHIRE:
+					matvnum = 67284;  
+					break;
+					case MAT_IVORY:
+					matvnum = 67284;  
+					break;
+					case MAT_DRAGONSCALE:
+					matvnum = 67284;  
+					break;
+					case MAT_OBSIDIAN:
+					matvnum = 67284;  
+					break;
+					case MAT_GRANITE:
+					matvnum = 67284;  
+					break;
+					case MAT_MARBLE:
+					matvnum = 67284;  
+					break;
+					case MAT_LIMESTONE:
+					matvnum = 67284;  
+					break;
+					case MAT_BAMBOO:
+					matvnum = 67284;  
+					break;
+					case MAT_REEDS:
+					matvnum = 67284;  
+					break;
+					case MAT_HEMP:
+					matvnum = 67284;  
+					break;
+					case MAT_GLASSTEEL:
+					matvnum = 67284;  
+					break;
+					case MAT_CHITINOUS:
+					matvnum = 67284;  
+					break;
+					case MAT_REPTILESCALE:
+					matvnum = 67284;  
+					break;
+					case MAT_RUBBER:
+					matvnum = 67284;  
+					break;
+					case MAT_FEATHER:
+					matvnum = 67284;  
+					break;
+					case MAT_PEARL:
+					matvnum = 67284;  
+					break;
+					default:
+					act("&+wYou cant seem to find anything worth &+ysalvaging&+w on that item.&n", FALSE, ch, 0, 0, TO_CHAR);
+					return;
+					break;
+				}
+             }
+	    else if ((objchance <= 60) && (objchance >= 41)) 
+      	      {
+              act("&+wYou study your item as you break it down, and come away with a rather &+Yuncommon &nmaterial.", FALSE, ch, 0, 0, TO_CHAR);
+		 	  switch (objmat)
+				{
+					case MAT_NONSUBSTANTIAL:
+					matvnum = 67285;  
+					break;
+					case MAT_FLESH:
+					matvnum = 67285;  
+					break;
+					case MAT_CLOTH:
+					matvnum = 67285;  
+					break;
+					case MAT_BARK:
+					matvnum = 67285;  
+					break;
+					case MAT_SOFTWOOD:
+					matvnum = 67285;  
+					break;
+					case MAT_HARDWOOD:
+					matvnum = 67285;  
+					break;
+					case MAT_SILICON:
+					matvnum = 67285;  
+					break;
+					case MAT_CRYSTAL:
+					matvnum = 67285;  
+					break;
+					case MAT_CERAMIC:
+					matvnum = 67285;  
+					break;
+					case MAT_BONE:
+					matvnum = 67285;  
+					break;
+					case MAT_STONE:
+					matvnum = 67285;  
+					break;
+					case MAT_HIDE:
+					matvnum = 67285;  
+					break;
+					case MAT_LEATHER:
+					matvnum = 67285;  
+					break;
+					case MAT_CURED_LEATHER:
+					matvnum = 67285;  
+					break;
+					case MAT_IRON:
+					matvnum = 67285;  
+					break;
+					case MAT_STEEL:
+					matvnum = 67285;  
+					break;
+					case MAT_BRASS:
+					matvnum = 67285;  
+					break;
+					case MAT_MITHRIL:
+					matvnum = 67285;  
+					break;
+					case MAT_ADAMANTIUM:
+					matvnum = 67285;  
+					break;
+					case MAT_BRONZE:
+					matvnum = 67285;  
+					break;
+					case MAT_COPPER:
+					matvnum = 67285;  
+					break;
+					case MAT_SILVER:
+					matvnum = 67285;  
+					break;
+					case MAT_ELECTRUM:
+					matvnum = 67285;  
+					break;
+					case MAT_GOLD:
+					matvnum = 67285;  
+					break;
+					case MAT_PLATINUM:
+					matvnum = 67285;  
+					break;
+					case MAT_GEM:
+					matvnum = 67285;  
+					break;
+					case MAT_DIAMOND:
+					matvnum = 67285;  
+					break;
+					case MAT_LEAVES:
+					matvnum = 67285;  
+					break;
+					case MAT_RUBY:
+					matvnum = 67285;  
+					break;
+					case MAT_EMERALD:
+					matvnum = 67285;  
+					break;
+					case MAT_SAPPHIRE:
+					matvnum = 67285;  
+					break;
+					case MAT_IVORY:
+					matvnum = 67285;  
+					break;
+					case MAT_DRAGONSCALE:
+					matvnum = 67285;  
+					break;
+					case MAT_OBSIDIAN:
+					matvnum = 67285;  
+					break;
+					case MAT_GRANITE:
+					matvnum = 67285;  
+					break;
+					case MAT_MARBLE:
+					matvnum = 67285;  
+					break;
+					case MAT_LIMESTONE:
+					matvnum = 67285;  
+					break;
+					case MAT_BAMBOO:
+					matvnum = 67285;  
+					break;
+					case MAT_REEDS:
+					matvnum = 67285;  
+					break;
+					case MAT_HEMP:
+					matvnum = 67285;  
+					break;
+					case MAT_GLASSTEEL:
+					matvnum = 67285;  
+					break;
+					case MAT_CHITINOUS:
+					matvnum = 67285;  
+					break;
+					case MAT_REPTILESCALE:
+					matvnum = 67285;  
+					break;
+					case MAT_RUBBER:
+					matvnum = 67285;  
+					break;
+					case MAT_FEATHER:
+					matvnum = 67285;  
+					break;
+					case MAT_PEARL:
+					matvnum = 67285;  
+					break;
+					default:
+					act("&+wYou cant seem to find anything worth &+ysalvaging&+w on that item.&n", FALSE, ch, 0, 0, TO_CHAR);
+					return;
+					break;
+				}
+			}
+	    else if ((objchance <= 80) && (objchance >= 61)) 
+      	      {
+              act("&+wYou make quick work of your item, salvaging a precious &+crare &nmaterial from it...", FALSE, ch, 0, 0, TO_CHAR);
+		 	  switch (objmat)
+				{
+					case MAT_NONSUBSTANTIAL:
+					matvnum = 67286;  
+					break;
+					case MAT_FLESH:
+					matvnum = 67286;  
+					break;
+					case MAT_CLOTH:
+					matvnum = 67286;  
+					break;
+					case MAT_BARK:
+					matvnum = 67286;  
+					break;
+					case MAT_SOFTWOOD:
+					matvnum = 67286;  
+					break;
+					case MAT_HARDWOOD:
+					matvnum = 67286;  
+					break;
+					case MAT_SILICON:
+					matvnum = 67286;  
+					break;
+					case MAT_CRYSTAL:
+					matvnum = 67286;  
+					break;
+					case MAT_CERAMIC:
+					matvnum = 67286;  
+					break;
+					case MAT_BONE:
+					matvnum = 67286;  
+					break;
+					case MAT_STONE:
+					matvnum = 67286;  
+					break;
+					case MAT_HIDE:
+					matvnum = 67286;  
+					break;
+					case MAT_LEATHER:
+					matvnum = 67286;  
+					break;
+					case MAT_CURED_LEATHER:
+					matvnum = 67286;  
+					break;
+					case MAT_IRON:
+					matvnum = 67286;  
+					break;
+					case MAT_STEEL:
+					matvnum = 67286;  
+					break;
+					case MAT_BRASS:
+					matvnum = 67286;  
+					break;
+					case MAT_MITHRIL:
+					matvnum = 67286;  
+					break;
+					case MAT_ADAMANTIUM:
+					matvnum = 67286;  
+					break;
+					case MAT_BRONZE:
+					matvnum = 67286;  
+					break;
+					case MAT_COPPER:
+					matvnum = 67286;  
+					break;
+					case MAT_SILVER:
+					matvnum = 67286;  
+					break;
+					case MAT_ELECTRUM:
+					matvnum = 67286;  
+					break;
+					case MAT_GOLD:
+					matvnum = 67286;  
+					break;
+					case MAT_PLATINUM:
+					matvnum = 67286;  
+					break;
+					case MAT_GEM:
+					matvnum = 67286;  
+					break;
+					case MAT_DIAMOND:
+					matvnum = 67286;  
+					break;
+					case MAT_LEAVES:
+					matvnum = 67286;  
+					break;
+					case MAT_RUBY:
+					matvnum = 67286;  
+					break;
+					case MAT_EMERALD:
+					matvnum = 67286;  
+					break;
+					case MAT_SAPPHIRE:
+					matvnum = 67286;  
+					break;
+					case MAT_IVORY:
+					matvnum = 67286;  
+					break;
+					case MAT_DRAGONSCALE:
+					matvnum = 67286;  
+					break;
+					case MAT_OBSIDIAN:
+					matvnum = 67286;  
+					break;
+					case MAT_GRANITE:
+					matvnum = 67286;  
+					break;
+					case MAT_MARBLE:
+					matvnum = 67286;  
+					break;
+					case MAT_LIMESTONE:
+					matvnum = 67286;  
+					break;
+					case MAT_BAMBOO:
+					matvnum = 67286;  
+					break;
+					case MAT_REEDS:
+					matvnum = 67286;  
+					break;
+					case MAT_HEMP:
+					matvnum = 67286;  
+					break;
+					case MAT_GLASSTEEL:
+					matvnum = 67286;  
+					break;
+					case MAT_CHITINOUS:
+					matvnum = 67286;  
+					break;
+					case MAT_REPTILESCALE:
+					matvnum = 67286;  
+					break;
+					case MAT_RUBBER:
+					matvnum = 67286;  
+					break;
+					case MAT_FEATHER:
+					matvnum = 67286;  
+					break;
+					case MAT_PEARL:
+					matvnum = 67286;  
+					break;
+					default:
+					act("&+wYou cant seem to find anything worth &+ysalvaging&+w on that item.&n", FALSE, ch, 0, 0, TO_CHAR);
+					return;
+					break;
+				}
+			}
+           else // craftsmanship >= 81
+			 {
+	       act("&+LUsing your ma&+wst&+Wer&+wfu&+Ll &+Wskill&+L, you delicately break apart your item, salvaging a quite &+Munique &+Lmaterial from it...", FALSE, ch, 0, 0, TO_CHAR);
+		   switch (objmat)
+				{
+					case MAT_NONSUBSTANTIAL:
+					matvnum = 67287;  
+					break;
+					case MAT_FLESH:
+					matvnum = 67287;  
+					break;
+					case MAT_CLOTH:
+					matvnum = 67287;  
+					break;
+					case MAT_BARK:
+					matvnum = 67287;  
+					break;
+					case MAT_SOFTWOOD:
+					matvnum = 67287;  
+					break;
+					case MAT_HARDWOOD:
+					matvnum = 67287;  
+					break;
+					case MAT_SILICON:
+					matvnum = 67287;  
+					break;
+					case MAT_CRYSTAL:
+					matvnum = 67287;  
+					break;
+					case MAT_CERAMIC:
+					matvnum = 67287;  
+					break;
+					case MAT_BONE:
+					matvnum = 67287;  
+					break;
+					case MAT_STONE:
+					matvnum = 67287;  
+					break;
+					case MAT_HIDE:
+					matvnum = 67287;  
+					break;
+					case MAT_LEATHER:
+					matvnum = 67287;  
+					break;
+					case MAT_CURED_LEATHER:
+					matvnum = 67287;  
+					break;
+					case MAT_IRON:
+					matvnum = 67287;  
+					break;
+					case MAT_STEEL:
+					matvnum = 67287;  
+					break;
+					case MAT_BRASS:
+					matvnum = 67287;  
+					break;
+					case MAT_MITHRIL:
+					matvnum = 67287;  
+					break;
+					case MAT_ADAMANTIUM:
+					matvnum = 67287;  
+					break;
+					case MAT_BRONZE:
+					matvnum = 67287;  
+					break;
+					case MAT_COPPER:
+					matvnum = 67287;  
+					break;
+					case MAT_SILVER:
+					matvnum = 67287;  
+					break;
+					case MAT_ELECTRUM:
+					matvnum = 67287;  
+					break;
+					case MAT_GOLD:
+					matvnum = 67287;  
+					break;
+					case MAT_PLATINUM:
+					matvnum = 67287;  
+					break;
+					case MAT_GEM:
+					matvnum = 67287;  
+					break;
+					case MAT_DIAMOND:
+					matvnum = 67287;  
+					break;
+					case MAT_LEAVES:
+					matvnum = 67287;  
+					break;
+					case MAT_RUBY:
+					matvnum = 67287;  
+					break;
+					case MAT_EMERALD:
+					matvnum = 67287;  
+					break;
+					case MAT_SAPPHIRE:
+					matvnum = 67287;  
+					break;
+					case MAT_IVORY:
+					matvnum = 67287;  
+					break;
+					case MAT_DRAGONSCALE:
+					matvnum = 67287;  
+					break;
+					case MAT_OBSIDIAN:
+					matvnum = 67287;  
+					break;
+					case MAT_GRANITE:
+					matvnum = 67287;  
+					break;
+					case MAT_MARBLE:
+					matvnum = 67287;  
+					break;
+					case MAT_LIMESTONE:
+					matvnum = 67287;  
+					break;
+					case MAT_BAMBOO:
+					matvnum = 67287;  
+					break;
+					case MAT_REEDS:
+					matvnum = 67287;  
+					break;
+					case MAT_HEMP:
+					matvnum = 67287;  
+					break;
+					case MAT_GLASSTEEL:
+					matvnum = 67287;  
+					break;
+					case MAT_CHITINOUS:
+					matvnum = 67287;  
+					break;
+					case MAT_REPTILESCALE:
+					matvnum = 67287;  
+					break;
+					case MAT_RUBBER:
+					matvnum = 67287;  
+					break;
+					case MAT_FEATHER:
+					matvnum = 67287;  
+					break;
+					case MAT_PEARL:
+					matvnum = 67287;  
+					break;
+					default:
+					act("&+wYou cant seem to find anything worth &+ysalvaging&+w on that item.&n", FALSE, ch, 0, 0, TO_CHAR);
+					return;
+					break;
+				} 
+       }
+	   //ENDQualitycheck
+	   switch (rand2)
+		{
+		case 2:
+		act("&+w...and at least you &+ysalvaged&n a decent amount.", FALSE, ch, 0, 0, TO_CHAR);
+		obj_to_char(read_object(matvnum, VIRTUAL), ch);
+		obj_to_char(read_object(matvnum, VIRTUAL), ch);
+		break;
+		case 3:
+		act("&+w...and it turns out you &+ysalvaged &+wquite a bit of &+Ymaterial&n!", FALSE, ch, 0, 0, TO_CHAR);
+		obj_to_char(read_object(matvnum, VIRTUAL), ch);
+		obj_to_char(read_object(matvnum, VIRTUAL), ch);
+		obj_to_char(read_object(matvnum, VIRTUAL), ch);
+		break;
+		default:
+		act("&+w...and you only came up with a single piece of &+ymaterial&n.", FALSE, ch, 0, 0, TO_CHAR);
+		obj_to_char(read_object(matvnum, VIRTUAL), ch);
+		}
+	extract_obj(temp, !IS_TRUSTED(ch));
+	char_light(ch);
+	room_light(ch->in_room, REAL);
+	//endif	
+  } 
+  //end do_salvage
 }
+
+
+
 
 
 void do_search(P_char ch, char *argument, int cmd)
