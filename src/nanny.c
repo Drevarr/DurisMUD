@@ -3653,6 +3653,9 @@ void select_race(P_desc d, char *arg)
   case 'S':
     strcpy(Gbuf, "MINOTAUR");
     break;
+  case '1':
+    GET_RACE(d->character) = RACE_KOBOLD;
+    break;
 /*
   case 'p':
     GET_RACE(d->character) = RACE_FIRBOLG;

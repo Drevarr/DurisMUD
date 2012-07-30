@@ -1163,7 +1163,7 @@ void spell_death_field(int level, P_char ch, char *arg, int type,
 
   zone_spellmessage(ch->in_room,
                     "&+LYour brain hurts as a black haze fills the sky!\r\n");
-  CharWait(ch, (int) (PULSE_SPELLCAST * 1.5));
+  CharWait(ch, (int) (PULSE_SPELLCAST * 1.1)); //old 1.5
 }
 
 

@@ -463,8 +463,15 @@ int takedown_check(P_char ch, P_char victim, int chance, int skill,
   if((applicable & FOOTING) && 
     !HAS_FOOTING(ch))
   {
+    if(GET_RACE(ch) == RACE_W_ELEMENTAL && IS_PC_PET(ch) && IS_AFFECTED(ch, AFF_WATERBREATH) && GET_MASTER(ch)->player.spec == SPEC_WATER)
+	{
+	send_to_char("&+WYou are a water ele!\n", ch);
+	}
+    else
+	{
     send_to_char("You have no footing here!\n", ch);
     return TAKEDOWN_CANCELLED;
+	}
   }
 
   if((applicable & GHOST) &&
