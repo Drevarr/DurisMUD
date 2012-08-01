@@ -4045,7 +4045,7 @@ void event_lifedrain(P_char ch, P_char victim, P_obj obj, void *data)
     return;
   }
 
-  if (GET_HIT(ch) >= 1.5 * GET_MAX_HIT(ch)) {
+  if (GET_HIT(ch) >= 1.1 * GET_MAX_HIT(ch)) {
     send_to_char("You cannot drain any more life forces!\n", ch);
     act("&+LYou feel better as a dark beam from $n fades.&n",
         FALSE, ch, 0, victim, TO_VICT);
