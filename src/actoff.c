@@ -4999,6 +4999,16 @@ void bash(P_char ch, P_char victim)
     send_to_char("Bash a god?  I think not.", ch);
     return;
   }
+
+   if(GET_POS(victim) != POS_STANDING)
+  {
+    act("$n topples over $mself as $e tries to bash $N.", FALSE, ch, 0, victim, TO_NOTVICT);
+    act("$n topples over $mself as $e tries to bash you.", FALSE, ch, 0, victim, TO_VICT);
+    act("You topple over yourself as you try to bash $N - $E's just too small!\n", FALSE, ch, 0, victim, TO_CHAR);
+    SET_POS(ch, POS_SITTING + GET_STAT(ch));
+    CharWait(ch, (int) (PULSE_VIOLENCE * 0.500));
+    return;
+  }
   
   appear(ch);
   
