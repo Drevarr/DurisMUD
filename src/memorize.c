@@ -1025,7 +1025,8 @@ void handle_memorize(P_char ch)
         if (book_class(ch) &&
           !(SpellInSpellBook(ch, af->modifier, SBOOK_MODE_IN_INV +
                                                SBOOK_MODE_AT_HAND + 
-                                               SBOOK_MODE_ON_BELT)))
+                                               SBOOK_MODE_ON_BELT + 
+                                               SBOOK_MODE_ON_GROUND)))
         {
           send_to_char("You have managed to misplace your spellbook!\n", ch);
           show_stop_memorizing(ch);
@@ -1386,7 +1387,8 @@ void do_memorize(P_char ch, char *argument, int cmd)
                   (circle == 2) ? "nd" : (circle == 3) ? "rd" :
                   "th", skills[af->modifier].name, 
                   book_class(ch) ? (SpellInSpellBook(ch, af->modifier,
-                  (SBOOK_MODE_IN_INV+SBOOK_MODE_AT_HAND+SBOOK_MODE_ON_BELT)) ? "" : "  [not in spell book]") : "");
+                  (SBOOK_MODE_IN_INV+SBOOK_MODE_AT_HAND+SBOOK_MODE_ON_BELT
+                   +SBOOK_MODE_ON_GROUND)) ? "" : "  [not in spell book]") : "");
         }
       }
     }
@@ -1436,7 +1438,7 @@ void do_memorize(P_char ch, char *argument, int cmd)
       {
         sbook = SpellInSpellBook(ch, first_to_mem,
                                  SBOOK_MODE_IN_INV + SBOOK_MODE_AT_HAND +
-                                 SBOOK_MODE_ON_BELT);
+                                 SBOOK_MODE_ON_BELT + SBOOK_MODE_ON_GROUND);
         send_to_char("You continue your study.\n", ch);
         strcpy(Gbuf1, "$n opens $p and begins studying it intently.");
       }
@@ -1475,7 +1477,8 @@ void do_memorize(P_char ch, char *argument, int cmd)
 
   if (book_class(ch))
   {
-    sbook = SpellInSpellBook(ch, spl, SBOOK_MODE_IN_INV + SBOOK_MODE_AT_HAND + SBOOK_MODE_ON_BELT);
+    sbook = SpellInSpellBook(ch, spl, SBOOK_MODE_IN_INV + SBOOK_MODE_AT_HAND
+      + SBOOK_MODE_ON_BELT + SBOOK_MODE_ON_GROUND);
   }
 
   circle = get_spell_circle(ch, spl);
