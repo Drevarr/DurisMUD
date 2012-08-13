@@ -2978,6 +2978,7 @@ int spell_solbeeps_single_missile(int level, P_char ch, char *arg, int type, P_c
 
   if(spell_damage(ch, victim, dam, SPLDAM_GENERIC, SPLDAM_NOSHRUG, saved ? &halfdam_messages : &fulldam_messages) == DAM_NONEDEAD)
   {
+   /*
     if(!saved && GET_SIZE(victim) < SIZE_HUGE &&
       !StatSave(victim, APPLY_AGI, -2 * (SIZE_LARGE - GET_SIZE(victim))) &&
       !IS_AFFECTED4(victim, AFF4_DEFLECT))
@@ -2994,7 +2995,7 @@ int spell_solbeeps_single_missile(int level, P_char ch, char *arg, int type, P_c
       CharWait(victim, PULSE_VIOLENCE * 1);
 
 
-        /*int door = number(0, 9);
+        int door = number(0, 9);
 
         if((CAN_GO(victim, door)) && (!check_wall(victim->in_room, door)))
         {
@@ -3016,8 +3017,9 @@ int spell_solbeeps_single_missile(int level, P_char ch, char *arg, int type, P_c
             CharWait(victim, PULSE_VIOLENCE * 1);
           }
           return FALSE;
-        }*/
+        }
     }
+  */
     return true;
   }
   return false;
@@ -3036,9 +3038,10 @@ void spell_solbeeps_missile_barrage(int level, P_char ch, char *arg, int type, P
   if (level >= 56 || !number(0, 55 - level))
     num_missiles++;
 
-  if (level >= 56 && !number(0, 3))
+ /* 
+    if (level >= 56 && !number(0, 3))
     num_missiles++;
-
+ */
   while( i < num_missiles &&
       IS_ALIVE(victim) &&
       IS_ALIVE(ch) &&
@@ -3201,13 +3204,13 @@ void spell_cyclone(int level, P_char ch, char *arg, int type, P_char victim,
     
     if(affchance <= 50)         /* && (!check_wall(tch->in_room, door)) */
     {
-      act("The gail force of your spell sends $N crashing to the ground!",
+      act("The gail force of your spell sends $N flying through the room!",
           FALSE, ch, 0, victim, TO_CHAR);
-      act("The gail force of $n's spell sends you crashing to the ground!",
+      act("The gail force of $n's spell sends you flying through the room!",
           FALSE, ch, 0, victim, TO_VICT);
-      act("The gail force of $n's spell sends $N crashing to the ground!",
+      act("The gail force of $n's spell sends $N flying through the room!",
           FALSE, ch, 0, victim, TO_NOTVICT);
-      SET_POS(victim, POS_SITTING + GET_STAT(victim));
+      //SET_POS(victim, POS_SITTING + GET_STAT(victim));
 
       if(!IS_STUNNED(victim))
       {
@@ -3216,13 +3219,13 @@ void spell_cyclone(int level, P_char ch, char *arg, int type, P_char victim,
     }
     else if(affchance <= 5)
     {
-      act("Your gail force sends $N crashing into the wall!", FALSE,
+      act("Your gail force sends $N flying through the room", FALSE,
           ch, 0, victim, TO_CHAR);
-      act("The gail force of $n's spell sends you crashing into the wall!",
+      act("The gail force of $n's spell sends you flying through the room",
           FALSE, ch, 0, victim, TO_VICT);
-      act("The gail force of $n's spell sends $N crashing into the wall!",
+      act("The gail force of $n's spell sends $N flying through the room",
           FALSE, ch, 0, victim, TO_NOTVICT);
-      SET_POS(victim, POS_PRONE + GET_STAT(victim));
+      //SET_POS(victim, POS_PRONE + GET_STAT(victim));
 
       if(!IS_STUNNED(victim) && !number(0, 2))
       {                      

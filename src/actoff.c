@@ -4070,6 +4070,15 @@ void event_sneaky_strike(P_char ch, P_char victim, P_obj obj, void *data)
     return;
   }
 
+  if(!(weapon = ch->equipment[WIELD]))
+    if(!weapon && !(weapon = ch->equipment[WIELD2]))
+      if(!weapon && !(weapon = ch->equipment[WIELD3]))
+        if(!weapon && !(weapon = ch->equipment[WIELD4]))
+        {
+          send_to_char("You must be wielding a weapon.\r\n", ch);
+          return;
+        }
+
    if(has_innate(victim, INNATE_DRAGONMIND)&& !number(0,1))
      {
        send_to_char("Your victim notice your attempt and rolls out of the way!\n", ch);
