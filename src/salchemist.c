@@ -598,7 +598,7 @@ void do_spellbind (P_char ch, char *argument, int cmd)
 
   if(!GET_CHAR_SKILL(ch, SKILL_SPELLBIND))
   {
-    act("Leave this to a real artisan.", FALSE, ch, 0, 0, TO_CHAR);
+    act("You do not have the epic skill to spellbind.", FALSE, ch, 0, 0, TO_CHAR);
     return;
   }
 

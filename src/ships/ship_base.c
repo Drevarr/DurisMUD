@@ -71,7 +71,7 @@ void initialize_ships()
 
   initialize_ship_cargo();
   load_cyrics_revenge();
-  load_zone_ship();
+  //load_zone_ship();
   if (!load_moonstone_fragments())
   {
     logit(LOG_FILE, "Error initializing automatons quest!\r\n");
@@ -491,8 +491,8 @@ void delete_ship(P_ship ship, bool npc)
         delete ship->npc_ai;
     if (ship == cyrics_revenge)
         cyrics_revenge = 0;
-    if( ship == zone_ship )
-        zone_ship = 0;
+    //if( ship == zone_ship )
+    //    zone_ship = 0;
         
 
     logit(LOG_STATUS, "Ship \"%s\" (%s) deleted", strip_ansi(ship->name).c_str(), ship->ownername);
@@ -865,6 +865,7 @@ bool set_ship_physical_layout(P_ship ship)
     name_ship_rooms(ship);
 
     // Set entrance to/exit from zone to ship to zone here.
+    /*
     if( ship == zone_ship )
     {
       int to_room = real_room( ZONE_SHIP_ZONE_ENTRANCE );
@@ -879,7 +880,7 @@ bool set_ship_physical_layout(P_ship ship)
         world[to_room].dir_option[SOUTH]->exit_info = 0;
       }
     }
-
+    */
     return TRUE;
 }
 
@@ -1323,8 +1324,8 @@ void ship_activity()
                     stamina_inc = 4;
                 if (ship == cyrics_revenge)
                     stamina_inc = 15;
-                if (ship == zone_ship)
-                    stamina_inc = 15;
+                //if (ship == zone_ship)
+                //    stamina_inc = 15;
                 if (SHIP_DOCKED(ship) || SHIP_ANCHORED(ship))
                     stamina_inc *= 4;
 
@@ -1825,8 +1826,8 @@ void crash_land(P_ship ship)
 void finish_sinking(P_ship ship)
 {
     // The zone ship does not sink completely.
-    if( ship == zone_ship )
-      return;
+    //if( ship == zone_ship )
+    //  return;
 
     if (IS_NPC_SHIP(ship) && pc_is_aboard(ship))
     {

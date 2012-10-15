@@ -1329,6 +1329,7 @@ int get_cyrics_revenge_nexus_rvnum(P_ship ship)
 //  Zone Ship
 /////////////////////////////
 
+/*
 P_ship zone_ship = 0;
 
 bool load_zone_ship()
@@ -1368,3 +1369,4 @@ bool load_zone_ship()
     REMOVE_BIT(zone_ship->flags, DOCKED);
     return true;
 }
+*/
