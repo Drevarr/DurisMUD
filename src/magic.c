@@ -1079,7 +1079,7 @@ void spell_life_leech(int level, P_char ch, char *arg, int type,
   else
   {
     if(!IS_AFFECTED4(victim, AFF4_NEG_SHIELD) &&
-       !IS_UNDEADRACE(victim) && (!GET_CLASS(ch, CLASS_NECROMANCER)))
+       !IS_UNDEADRACE(victim)))
     {
       if(IS_PC(ch) || 
          IS_PC_PET(ch))
@@ -1167,7 +1167,7 @@ void spell_energy_drain(int level, P_char ch, char *arg, int type,
   else
   {
     if(!IS_AFFECTED4(victim, AFF4_NEG_SHIELD) &&
-       !IS_UNDEADRACE(victim) && (!GET_CLASS(ch, CLASS_NECROMANCER)))
+       !IS_UNDEADRACE(victim)))
     {
       if(IS_PC(ch) || 
          IS_PC_PET(ch))
