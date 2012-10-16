@@ -1079,7 +1079,7 @@ void spell_life_leech(int level, P_char ch, char *arg, int type,
   else
   {
     if(!IS_AFFECTED4(victim, AFF4_NEG_SHIELD) &&
-       !IS_UNDEADRACE(victim)))
+       !IS_UNDEADRACE(victim))
     {
       if(IS_PC(ch) || 
          IS_PC_PET(ch))
@@ -1167,7 +1167,7 @@ void spell_energy_drain(int level, P_char ch, char *arg, int type,
   else
   {
     if(!IS_AFFECTED4(victim, AFF4_NEG_SHIELD) &&
-       !IS_UNDEADRACE(victim)))
+       !IS_UNDEADRACE(victim))
     {
       if(IS_PC(ch) || 
          IS_PC_PET(ch))
@@ -7655,12 +7655,14 @@ void spell_sleep(int level, P_char ch, char *arg, int type, P_char victim,
   int      i;
 
   if(GET_STAT(ch) == STAT_DEAD)
+   send_to_char("They dont appear to able to sleep.&n\n", ch);
     return;
 
   if(IS_AFFECTED(ch, AFF_INVISIBLE) || IS_AFFECTED2(ch, AFF2_MINOR_INVIS))
     appear(ch);
 
   if(resists_spell(ch, victim))
+   send_to_char("Your victim resists your attempt to make them sleep.&n\n", ch);
     return;
 
   if(level > 0)
@@ -7677,6 +7679,7 @@ void spell_sleep(int level, P_char ch, char *arg, int type, P_char victim,
           remember(victim, ch);
           if(!IS_FIGHTING(victim))
             MobStartFight(victim, ch);
+	send_to_char("Your victim does not want to sleep right now!&n\n", ch);
         }
         return;
       }
@@ -7716,6 +7719,7 @@ void spell_sleep(int level, P_char ch, char *arg, int type, P_char victim,
     remember(victim, ch);
     if(!IS_FIGHTING(victim))
       MobStartFight(victim, ch);
+   send_to_char("Your victim does not want to sleep right now!&n\n", ch);
   }
 }
 
