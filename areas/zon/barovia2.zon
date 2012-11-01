@@ -53,6 +53,14 @@ D 0 58960 3 1 100 0 0 0
 *     west exit from "A Repulsive Lair of Corpses" to
 *     "A Whirlpool Waterfall Base" - closed
 *
+D 0 58959 4 1 100 0 0 0
+*     up exit from "A Clogged Refuse Drain" to
+*     "A Repulsive Lair of Corpses" - closed
+*
+D 0 58960 5 1 100 0 0 0
+*     down exit from "A Repulsive Lair of Corpses" to
+*     "A Clogged Refuse Drain" - closed
+*
 D 0 58975 1 9 100 0 0 0
 *     east exit from "The Blackrock Gates of Kashtrakis" to
 *     "Entryway to Kashtrakis, the Hall of Chernovog" - closed/blocked
