@@ -863,7 +863,7 @@ void epic_stone_level_char(P_obj obj, P_char ch)
   sprintf(buf, "epic.forLevel.%d", GET_LEVEL(ch)+1);
 
   int epics_for_level = get_property(buf, 1 << (obj->value[3] - 43));
-
+  int nostone_epics_for_level;
   if(IS_MULTICLASS_PC(ch) && GET_LEVEL(ch) >= 51)
   {
     epics_for_level *= (int) get_property("exp.multiEpicMultiplier", 3);
@@ -871,10 +871,11 @@ void epic_stone_level_char(P_obj obj, P_char ch)
 
 #if defined(CTF_MUD) && (CTF_MUD == 1)
   epics_for_level = (int)(epics_for_level/3);
+  int nostone_epics_for_level = epics_for_level * 2;
 #endif
 
-  if(GET_EXP(ch) >= new_exp_table[GET_LEVEL(ch)+1] &&
-      ch->only.pc->epics >= epics_for_level)
+  if((GET_EXP(ch) >= new_exp_table[GET_LEVEL(ch)+1] &&
+      ch->only.pc->epics >= epics_for_level) || (GET_EXP(ch) >= new_exp_table[GET_LEVEL(ch)+1] && ch->only.pc->epics >= (nostone_epics_for_level)))
   {
     GET_EXP(ch) -= new_exp_table[GET_LEVEL(ch) + 1];
     advance_level(ch);//, TRUE); wipe2011
@@ -888,7 +889,7 @@ void epic_stone_one_touch(P_obj obj, P_char ch, int epic_value)
 {
   if(!obj || !ch || !epic_value)
     return;
-
+  int curr_epics = ch->only.pc->epics;
   /*if(get_zone_exp(ch, world[ch->in_room].zone) < calc_min_zone_exp(ch))	
   {
     act("The burst of &+Bblue energy&n from $p flows around $n, leaving them unaffected!",
@@ -923,8 +924,13 @@ void epic_stone_one_touch(P_obj obj, P_char ch, int epic_value)
     /* not on epic errand, just give them the epic points */
     gain_epic(ch, EPIC_ZONE, obj->value[2], epic_value);
   }
-
-  if(GET_LEVEL(ch) == (obj->value[3] - 1))
+  //Characters can now level up to 55 by epics and exp alone - 11/13/12 Drannak
+  if(GET_LEVEL(ch) == (obj->value[3] - 1) ||
+    (curr_epics > 500 && GET_LEVEL(ch) == 50) ||
+    (curr_epics > 1000 && GET_LEVEL(ch) == 51) ||
+    (curr_epics > 2000 && GET_LEVEL(ch) == 52) ||
+    (curr_epics > 4000 && GET_LEVEL(ch) == 53) ||
+    (curr_epics > 8000 && GET_LEVEL(ch) == 54))
   {
     epic_stone_level_char(obj, ch);
   }
