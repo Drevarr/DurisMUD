@@ -26,10 +26,8 @@
   (CLASS_SORCERER | CLASS_CONJURER | CLASS_ILLUSIONIST |\
   CLASS_NECROMANCER | CLASS_CLERIC | CLASS_SHAMAN | CLASS_BARD |\
   CLASS_DRUID | CLASS_ETHERMANCER | CLASS_THEURGIST | CLASS_CABALIST))
-
 #define IS_PARTIAL_CASTER_CLASS(cls) ( (cls) &\
    (CLASS_AVENGER))
-
 #define IS_SEMI_CASTER_CLASS(cls) ( (cls) &\
   (CLASS_ANTIPALADIN | CLASS_PALADIN | CLASS_RANGER |\
    CLASS_REAVER | CLASS_AVENGER))
@@ -38,9 +36,9 @@
 #define IS_BOOK_CLASS(cls) ( (cls) &\
   (CLASS_SORCERER | CLASS_CONJURER | CLASS_NECROMANCER |\
    CLASS_ILLUSIONIST | CLASS_BARD |\
-   CLASS_REAVER | CLASS_THEURGIST))
+   CLASS_REAVER | CLASS_THEURGIST | CLASS_CABALIST))
 #define IS_PRAYING_CLASS(cls) ( (cls) &\
-  (CLASS_CLERIC | CLASS_PALADIN | CLASS_ANTIPALADIN | CLASS_AVENGER | CLASS_ETHERMANCER | CLASS_CABALIST))
+  (CLASS_CLERIC | CLASS_PALADIN | CLASS_ANTIPALADIN | CLASS_AVENGER | CLASS_ETHERMANCER))
 #define IS_MEMING_CLASS(cls) (IS_BOOK_CLASS(cls) || ((cls) & CLASS_SHAMAN))
 
 
@@ -652,15 +650,18 @@ int get_circle_memtime(P_char ch, int circle, bool bStatOnly)
   {
     level = MAX(1, level - 2);
     time_mult = 2.25;
+	send_to_char("semi cast, not multi\r\n", ch);
   }
   else if(IS_MULTICLASS_PC(ch))
   {
     time_mult = get_property("memorize.factor.multiclass", 1.75);
+	send_to_char("multiclass\r\n", ch);
   }
   else
   {
-    //time_mult = 1.25;
-    time_mult = 1.00;
+    //drannak - figuring this out
+    time_mult = 1.25;
+	send_to_char("Normal calc\r\n", ch);
   }
 
   if(book_class(ch))
@@ -713,7 +714,7 @@ int get_circle_memtime(P_char ch, int circle, bool bStatOnly)
   {
     time = time * get_property("memorize.factor.npc", 1.0);
   }
-  else if(ch->player.m_class & CLASS_DRUID || CLASS_RANGER)
+  else if(ch->player.m_class & (CLASS_DRUID || CLASS_RANGER))
   {
     // modify for terrain
     float modifier = druid_memtime_terrain_mod[world[ch->in_room].sector_type];
