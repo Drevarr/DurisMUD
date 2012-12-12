@@ -7539,6 +7539,11 @@ int dodgeSucceed(P_char char_dodger, P_char attacker, P_obj wpn)
 
   //agility check - Drannak
   percent = (int) (percent * (GET_C_AGI(char_dodger) / 95));
+ 
+  if(GET_CLASS(char_dodger, CLASS_MONK))
+   {
+    percent = (int) (percent * 1.20);
+   }
 
 
   if(IS_STUNNED(attacker))
@@ -7550,9 +7555,10 @@ int dodgeSucceed(P_char char_dodger, P_char attacker, P_obj wpn)
   // Harder to dodge when char_dodger's weight is increased.
   // Easier to dodge when attacker's weight is increased.
   // Tweak as needed.
-
+/*
   percent -= (int) (load_modifier(char_dodger) / 100);
   percent += (int) (load_modifier(attacker) / 100);
+*/
 
   // Drows receive special dodge bonus now based on level.
   // Level 56 drow has 10% innate dodge.  Excessive weight will negate this bonus.
@@ -7798,7 +7804,7 @@ int MonkRiposte(P_char victim, P_char attacker, P_obj wpn)
 
   // All this does is set someone up to be repeatedly bashed and lagged,
   // utterly and insanely stupid. -- Jexni 1/21/11
-/*
+
     if(GET_C_AGI(victim) > number(1, 1000) &&
        GET_CHAR_SKILL(victim, SKILL_MARTIAL_ARTS) > number(1, 100))
     {
@@ -7813,7 +7819,7 @@ int MonkRiposte(P_char victim, P_char attacker, P_obj wpn)
       update_pos(victim);
       return false;
     }
-  */  
+    
     percent = 5;
   }
   
@@ -8429,6 +8435,26 @@ int calculate_attacks(P_char ch, int attacks[])
       ADD_ATTACK(THIRD_WEAPON);
     }
   }
+
+  //dex and dex max now grants extra attacks.
+  if(GET_C_DEX(ch) >= 150)
+    {
+     send_to_char("&nYour &+gsuper&+Gbly dext&+gerous movements allow you to throttle your enemy with attacks!&n\n\r", ch);
+     ADD_ATTACK(PRIMARY_WEAPON);
+     ADD_ATTACK(PRIMARY_WEAPON);
+     ADD_ATTACK(PRIMARY_WEAPON);
+    }
+  else if(GET_C_DEX(ch) >=135)
+    {
+     send_to_char("&nYour &+Gimproved &+gdexterity&n allows you to easily attack your enemy!&n\n\r", ch);
+     ADD_ATTACK(PRIMARY_WEAPON);
+     ADD_ATTACK(PRIMARY_WEAPON);
+    }
+  else if(GET_C_DEX(ch) >=120)
+    {
+     send_to_char("&nYour heightened &+gdexterity&n allows you to swiftly brandish your weapon!&n\n\r", ch);
+     ADD_ATTACK(PRIMARY_WEAPON);
+    }
 
   if(GET_CLASS(ch, CLASS_CLERIC) &&
      affected_by_spell(ch, SPELL_DIVINE_FURY))
