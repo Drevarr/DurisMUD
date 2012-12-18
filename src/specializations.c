@@ -222,6 +222,7 @@ struct allowed_race_spec_struct {
 	{RACE_MINOTAUR, CLASS_SHAMAN,    SPEC_ALL},
 	{RACE_MINOTAUR, CLASS_SORCERER, SPEC_ALL},
 	{RACE_MINOTAUR, CLASS_BERSERKER, SPEC_ALL},
+       {RACE_MINOTAUR, CLASS_MERCENARY, SPEC_ALL},
 	/* End Minotaur Options */
 
 	/* Start Goblin Options */
