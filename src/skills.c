@@ -425,7 +425,7 @@ void initialize_skills()
                 TAR_SELF_ONLY | TAR_NOCOMBAT,
                 spell_shadow_projection, "&+LYour material form realigns with this plane.");
 // SPEC_SPELL_ADD(CLASS_SORCERER, 12, SPEC_SHADOW);
-  SPEC_SPELL_ADD(CLASS_ILLUSIONIST, 12, SPEC_DARK_DREAMER);
+//  SPEC_SPELL_ADD(CLASS_ILLUSIONIST, 12, SPEC_DARK_DREAMER);
   
   SPELL_CREATE("obtenebration", SPELL_OBTENEBRATION, PULSE_SPELLCAST * 2.5,
                 TAR_AREA | TAR_OFFAREA | TAR_AGGRO,
@@ -2150,18 +2150,18 @@ SPELL_ADD(CLASS_CONJURER, 11);
   SPELL_ADD(CLASS_WARLOCK, 6);
 
   SPELL_CREATE("conjure elemental", SPELL_CONJURE_ELEMENTAL, PULSE_SPELLCAST * 4,
-                TAR_IGNORE | TAR_NOCOMBAT,
+                TAR_IGNORE,
                 spell_conjour_elemental);
   SPELL_ADD(CLASS_CONJURER, 5);
 
   SPELL_CREATE("mirror image", SPELL_MIRROR_IMAGE, PULSE_SPELLCAST * 2,
-                TAR_IGNORE | TAR_NOCOMBAT, spell_mirror_image);
+                TAR_IGNORE, spell_mirror_image);
   SPELL_ADD(CLASS_CONJURER, 2);
   SPELL_ADD(CLASS_BARD, 2);
   SPELL_ADD(CLASS_ILLUSIONIST, 3);
 
   SPELL_CREATE("conjure greater elemental", SPELL_CONJURE_GREATER_ELEMENTAL, PULSE_SPELLCAST * 4,
-                TAR_IGNORE | TAR_NOCOMBAT,
+                TAR_IGNORE,
                 spell_conjour_greater_elemental);
 SPELL_ADD(CLASS_CONJURER, 11);
 //SPEC_SPELL_ADD(CLASS_CONJURER, 11, SPEC_AIR);

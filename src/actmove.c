@@ -23,6 +23,7 @@
 #include "justice.h"
 #include "map.h"
 #include "graph.h"
+#include "disguise.h"
 
 /*
  * external variables
@@ -1487,6 +1488,12 @@ int do_simple_move_skipping_procs(P_char ch, int exitnumb, unsigned int flags)
   {
     send_to_char("The &+Gvines&n surrounding you crumble and fall to the ground.\n", ch);
     affect_from_char(ch, SPELL_VINES);
+  }
+
+  if (is_illusion_char(ch) && GET_CLASS(ch, CLASS_ILLUSIONIST))
+  {
+   send_to_char("&+LUnable to maintain your &+mspell's &+Lfocus, you f&+wa&+Wde &+Lback into your own image.&n\n", ch);
+   remove_disguise(ch, FALSE);
   }
 
   /* Trap check */

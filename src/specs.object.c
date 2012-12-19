@@ -7394,7 +7394,7 @@ int wall_generic(P_obj obj, P_char ch, int cmd, char *arg)
     break;
 
   case PRISMATIC_WALL:
-/*
+
     if (GET_PID(ch) == obj->value[5])
     {
       act("You walk through your own wall.", TRUE, ch, obj, NULL, TO_CHAR);
@@ -7402,7 +7402,7 @@ int wall_generic(P_obj obj, P_char ch, int cmd, char *arg)
       act("$n steps through the wall.", TRUE, ch, obj, NULL, TO_ROOM);
       return TRUE;
     }
-*/
+
     // let them walk through the wall 25% of the time
 
     if (!number(0, 3) && (IS_PC(ch) || IS_PC_PET(ch)))

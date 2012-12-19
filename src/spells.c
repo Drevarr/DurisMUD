@@ -782,7 +782,7 @@ void cast_plane_shift(int level, P_char ch, char *arg, int type,
 
       if(plane_id == 6 &&
         GET_PRIME_CLASS(ch, CLASS_DRUID) &&
-        char_is_on_plane(ch))
+        char_is_on_plane(ch) && !IS_MULTICLASS_PC(ch))
       {
         act("$n slowly fades away...", 0, ch, 0, 0, TO_ROOM);
         char_from_room(ch);
