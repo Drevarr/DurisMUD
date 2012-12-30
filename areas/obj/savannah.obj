@@ -1,5 +1,5 @@
 #138507
-skin panther pantherskin cloak~
+skin panther pantherskin robes~
 &+Lsome &+Wb&+Llack &+Wp&+Lathe&+Wr&+Lskin &+Wr&+Lob&+Wes&N~
 &+LThe skin of a M'Bele panther lies here in a heap.&N~
 ~
@@ -440,7 +440,7 @@ legendary drums chaos heroism instrument~
 &+Lthe &+Wleg&n&+wend&+Lary &+yd&+Yrums&+L of &+Wc&+mh&+ra&+yo&+Ys&+L and &+Wh&+Cerois&+Wm&n~
 &+Lsome &+yd&+Yrums&+L of &+Wleg&+wen&+Lds has been foolishly left here&n~
 ~
-32 35 10 0 14 0 0 8404993 192 125796351 0
+32 35 10 0 14 0 0 16385 192 125796351 0
 188 41 0 1 0 0 0 0
 0 100000 100
 E
@@ -458,7 +458,7 @@ legendary horn flight dragons dragon instrument~
 &+Lthe &+Wleg&n&+wend&+Lary &+yh&+Yorn&+L of &+wfl&+Wig&+wht&+L and &+gdr&+Gago&+gns&n~
 &+Lthe &+yh&+Yorn&+L of &+Wleg&+wen&+Lds has been foolishly left here&n~
 ~
-32 14 10 0 14 0 0 8404993 64 125796351 0
+32 14 10 0 14 0 0 16385 64 125796351 0
 189 41 0 1 0 0 0 0
 0 100000 100
 E
@@ -476,7 +476,7 @@ legendary lyre healing harming instrument~
 &+Lthe &+Wleg&n&+wend&+Lary &+yl&+Yyre&+L of &+Ch&+cea&+Cling&+L and &+Rha&+rrmi&+Rng&n~
 &+Lthe &+yl&+Yyre&+L of &+Wleg&+wen&+Lds has been foolishly left here&n~
 ~
-32 35 10 0 14 0 0 8404993 192 0 0
+32 35 10 0 14 0 0 16385 192 0 0
 185 41 0 1 0 0 0 0
 0 100000 100
 E
@@ -494,7 +494,7 @@ legendary flute sleeping charming instrument~
 &+Lthe &+Wleg&n&+wend&+Lary &+yf&+Ylute&+L of &+bs&+Bl&+Leepi&+Bn&+bg&+L and &+mc&+Mh&+Warmi&+Mn&+mg&n~
 &+Lthe &+yf&+Ylute&+L of &+Wleg&+wen&+Lds has been foolishly left here&n~
 ~
-32 35 10 0 14 0 0 8404993 192 125796351 0
+32 35 10 0 14 0 0 16385 192 125796351 0
 184 41 0 1 0 0 0 0
 0 100000 100
 E
@@ -512,7 +512,7 @@ legendary mandolin revelations forgetfulness instrument~
 &+Lthe &+Wleg&n&+wend&+Lary &+ym&+Yandolin&+L of &+mr&+Me&+Lvelatio&+Mn&+ms&+L and &+Lfo&+grg&+Cetfu&+gln&+Less&n~
 &+Lthe &+ym&+Yandolin&+L of &+Wleg&+wen&+Lds has been foolishly left here&n~
 ~
-32 35 10 0 14 0 0 8404993 192 125796351 0
+32 35 10 0 14 0 0 16385 192 125796351 0
 186 41 0 1 0 0 0 0
 0 100000 100
 E
@@ -530,7 +530,7 @@ legendary harp peace calming~
 &+Lthe &+Wleg&n&+wend&+Lary &+yh&+Yarp&+L of &+Wp&+Ceac&+We&+L and &+Cc&+Walmin&+Cg&n~
 &+Lthe &+yh&+Yarp&+L of &+Wleg&+wen&+Lds has been foolishly left here&n~
 ~
-32 35 10 0 14 0 0 8404993 192 125796351 0
+32 35 10 0 14 0 0 16385 192 125796351 0
 187 41 0 1 0 0 0 0
 0 100000 100
 E
@@ -548,7 +548,7 @@ epic drums chaos heroism instrument~
 &+Lthe &+Me&+mpi&+Mc &+yd&+Yrums&+L of &+Wc&+mh&+ra&+yo&+Ys&+L and &+Wh&+Cerois&+Wm&n~
 &+Lsome &+yd&+Yrums&+L of &+Wleg&+wen&+Lds has been foolishly left here&n~
 ~
-32 35 10 0 15 0 0 9453569 192 125796351 0
+32 35 10 0 15 0 1088 8404993 192 8421376 0
 188 51 0 1 0 0 0 0
 0 250000 100 0 0 0 33554432
 E
@@ -558,17 +558,17 @@ epic drums chaos heroism instrument~
 &+La pretty penny to learn its secrets!
 ~
 A
-57 -1
+20 -3
 A
-24 -5
+24 -3
 #138540
 epic horn flight dragons instrument~
 &+Lthe &+Me&+mpi&+Mc &+yh&+Yorn&+L of &+wfl&+Wig&+wht&+L and &+gdr&+Gago&+gns&n~
 &+Lthe &+yh&+Yorn&+L of &+Wleg&+wen&+Lds has been foolishly left here&n~
 ~
-32 35 10 0 15 0 0 9453569 192 125796351 0
+32 35 10 0 15 0 1088 8404993 192 8421376 0
 189 51 0 1 0 0 0 0
-0 250000 100 537395200 0 0 0
+0 250000 100 524288 0 0 0
 E
 epic horn flight dragons instrument~
 &+LThis is the instrument of legends! Few in the realm know the
@@ -584,9 +584,9 @@ epic lyre healing harming instrument~
 &+Lthe &+Me&+mpi&+Mc &+yl&+Yyre&+L of &+Ch&+cea&+Cling&+L and &+Rha&+rrmi&+Rng&n~
 &+Lthe &+yl&+Yyre&+L of &+Wleg&+wen&+Lds has been foolishly left here&n~
 ~
-32 35 10 0 15 0 0 9453569 192 125796351 0
+32 35 10 0 15 0 1088 8404993 192 8421376 0
 185 51 0 1 0 0 0 0
-0 250000 100 16777216 32768 64 0
+0 250000 100 16777216 0 0 0
 E
 epic lyre healing harming instrument~
 &+LThis is the instrument of legends! Few in the realm know the
@@ -602,7 +602,7 @@ epic flute sleeping charming instrument~
 &+Lthe &+Me&+mpi&+Mc &+yf&+Ylute&+L of &+bs&+Bl&+Leepi&+Bn&+bg&+L and &+mc&+Mh&+Warmi&+Mn&+mg&n~
 &+Lthe &+yf&+Ylute&+L of &+Wleg&+wen&+Lds has been foolishly left here&n~
 ~
-32 35 10 0 15 0 0 9453569 192 0 0
+32 35 10 0 15 0 3145792 9453569 192 0 0
 184 51 0 1 0 0 0 0
 0 250000 100 2048 0 0 0
 E
@@ -620,7 +620,7 @@ epic mandolin revelations forgetfulness instrument~
 &+Lthe &+Me&+mpi&+Mc &+ym&+Yandolin&+L of &+mr&+Me&+Lvelatio&+Mn&+ms&+L and &+Lfo&+grg&+Cetfu&+gln&+Less&n~
 &+Lthe &+ym&+Yandolin&+L of &+Wleg&+wen&+Lds has been foolishly left here&n~
 ~
-32 35 10 0 15 0 0 9453569 192 125796351 0
+32 35 10 0 15 0 64 8404993 192 125796351 0
 186 51 0 1 0 0 0 0
 0 250000 100 0 0 0 67108864
 E
@@ -638,7 +638,7 @@ epic harp peace calming~
 &+Lthe &+Me&+mpi&+Mc &+yh&+Yarp&+L of &+Wp&+Ceac&+We&+L and &+Cc&+Walmin&+Cg&n~
 &+Lthe &+yh&+Yarp&+L of &+Wleg&+wen&+Lds has been foolishly left here&n~
 ~
-32 35 10 0 15 0 0 9453569 192 125796351 0
+32 35 10 0 15 0 64 8404993 192 125796351 0
 187 51 0 1 0 0 0 0
 0 250000 100
 E
@@ -651,3 +651,11 @@ A
 2 10
 A
 55 8
+#138545
+sleep no eye~
+&+Lno &+Ws&+Lleeping on the job&n~
+A no-show no sleeping on the job item for mobs~
+~
+13 15 3 0 7 0 1048578 131073 0 0 0
+0 0 0 0 0 0 0 0
+0 0 100

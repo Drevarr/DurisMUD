@@ -1,3 +1,11 @@
+#359
+object unnamed~
+an unnamed object~
+An unnamed object lies here, looking lonely and forelorn.~
+~
+13 15 3 0 7 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 100
 #139800
 swirling spike ash air~
 &+cA swirling spike of &+Lash &+cand&+C air~
@@ -15,9 +23,9 @@ A robe of flame and ash lies here, discarded.~
 20 0 0 0 0 0 0 0
 0 0 100 16 1 0 0
 A
-33 5
+33 4
 A
-34 5
+34 4
 #139802
 nether~
 &+LA swir&+rling ne&+Rther of &+Lsmoke~
@@ -31,37 +39,37 @@ staff fluxing energy red~
 &+LA &+rred&+L staff of &+Cfl&+cux&+wi&+cng&+C en&+we&+Crg&+cy~
 A staff of &+Cflu&+cxi&+Wng &+cen&+Cer&+cgy &+wlies here.~
 ~
-4 1 3 0 15 0 33554433 16384 64 0 0
-51 2 2 460 0 0 0 0
+4 1 3 0 15 0 33554433 16385 64 0 0
+51 3 3 460 0 0 0 0
 0 0 100 134217730 0 0 0
 A
 5 8
 A
-35 4
+35 3
 #139804
 ring mind mind-control~
-&+ma ring of &+Mmind&+L-&+Mcontrol~
+&+ma &+Mr&+ming of &+Mm&+mind&+L-&+mc&+Montro&+ml&n~
 &+mA ring lies here, eminating &+Mpower&+m from its core~
 ~
-11 1 0 0 15 0 33558560 0 64 0 0
+11 1 0 0 15 0 33558560 3 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100 0 0 16777216 0
+0 0 100
 A
 20 -4
 A
-37 6
+37 5
 #139805
 mass swirling smoke ash~
 &+BA &+Csw&+ci&+Crl&+ci&+Cng&+B mass of &+Lblack smoke&+b and &+rho&+Rt as&+rh~
 &+CA swirling mass of &+Lblack smoke &+Band &+rhot ash lies here~
 ~
-11 1 1 0 15 0 33554560 1024 64 0 0
+11 1 1 0 15 0 33554560 8389633 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100 10 0 0 262144
+0 0 100 0 0 0 262144
 A
-20 6
+20 -6
 A
-14 60
+14 30
 #139806
 badge~
 &+WEhkahk&+w's &+Lbadge of &+rHonor~
@@ -97,23 +105,23 @@ veil smoke ash _id_~
 ~
 9 1 10 0 15 0 8193 262145 0 0 0
 20 0 0 0 0 0 0 0
-0 0 100 2 0 0 4096
+0 0 100 2 0 0 0
 A
-35 5
+35 4
 A
-23 -2
+23 -3
 #139810
 heart etrita~
 &+Lthe still-beating &+rheart&+L of &+WEtrita~
 &+LA massive beating &+rheart&+L plumes out smoke as it pulsates~
 ~
-11 36 10 0 15 0 33562624 16385 64 0 0
+11 36 10 0 15 0 33562624 8404993 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100 536944640 12508 0 33816576
+0 0 100 536944640 12480 0 33554432
 A
-33 5
+33 3
 A
-34 5
+34 3
 #139811
 box obsidian~
 &+LA massive box of solid obsidian~
@@ -133,13 +141,17 @@ A tiny piece of obsidian lies here.~
 0 100 0 0 0 0 0 0
 0 0 100
 #139813
-spectacles~
-A dusty pair of spectacles~
+spectacles smoke smoked rimmed farseeing~
+&+Wsom&+we &+Wp&+wla&+Wna&+wr sm&+Wok&+wed &+Wrimme&+wd sp&+Wec&+wt&+Wacle&+ws&+W of fa&+wrsee&+Ling&n~
 A pair of spectacles lies here.~
 ~
-11 15 3 0 7 0 12288 0 0 0 0
+11 15 3 0 7 0 12288 131073 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100 4 0 0 0
+0 0 100 12 28 0 83886080
+A
+34 3
+A
+33 3
 #139814
 wretched broadsword hate~
 &+LA wretched broadsword named &+W'&+RHate&+W'~
@@ -164,7 +176,7 @@ potion viscous escape~
 A tiny bubbling potion with some words scribbled on the side lies here~
 ~
 10 28 1 0 7 0 1 16385 64 0 0
-51 264 2 121 50 0 0 0
+51 264 2 0 50 0 0 0
 0 0 100
 #139817
 treads cael drzk mobility~
@@ -177,7 +189,7 @@ treads cael drzk mobility~
 A
 55 10
 A
-14 65
+14 50
 #139818
 ehkahk vault key~
 &+WEhkahk's Vault Key~
@@ -221,7 +233,7 @@ a ring encrusted with many &+Cj&+Ye&+Mw&+Ge&+Yl&+Ws &+wsits here~
 A
 5 8
 A
-38 10
+38 8
 #139823
 earring jewel encrusted~
 &+mA &+Cj&+Ye&+Mw&+Ge&+Yl&+w-&+Re&+Cn&+yc&+Br&+mu&+ys&+Wt&+Ye&+Md &+Wearring~
@@ -265,7 +277,7 @@ a puddle of disgusting looking goo lies here~
 A
 28 -20
 A
-40 30
+40 20
 #139827
 legplates cursed kerzuled destroyer~
 &+LThe c&+wur&+Lse&+wd l&+Weg&+wpl&+Lates of &+RKerzuled &+Lthe &+rDestroyer~
@@ -275,7 +287,7 @@ a pair of legplates lie here in a pile~
 60 0 0 0 0 0 0 0
 0 0 100 0 0 32768 0
 A
-31 2
+31 3
 A
 36 8
 #139828
@@ -285,7 +297,7 @@ a seemingly unimportant quiver lies here~
 ~
 11 15 3 0 7 0 33554432 1048577 0 0 0
 0 0 0 0 0 0 0 0
-0 0 100 16777232 0 0 0
+0 0 100 16777216 0 0 0
 A
 55 9
 A
@@ -323,7 +335,9 @@ E
 _room_msg~
 ~
 A
-31 9
+31 5
+A
+32 6
 #139832
 staff smoke fire~
 &+LAn &+Ce&+Gn&+Yc&+Mr&+Yu&+Cs&+Mt&+Ge&+Yd &+Lst&+waf&+Wf of s&+wmok&+Le a&+wnd &+rfire~
@@ -342,13 +356,32 @@ potion viscous escape~
 A tiny bubbling potion with some words scribbled on the side lies here~
 ~
 10 28 1 0 7 0 1 16385 64 0 0
-51 264 2 121 50 0 0 0
+51 264 2 0 50 0 0 0
 0 0 100
 #139834
 swirling spike ash fire~
 &+cA swirling spike of &+Lash &+cand&+r fire~
 A sharp spike made of ash and fire swirls around on the floor.~
 ~
-5 1 3 0 11 0 100671761 8192 64 0 0
+5 1 3 0 11 0 100671761 8193 64 0 0
 2 3 4 0 0 0 0 0
 0 0 100
+#139835
+ehkahk elemental attack~
+&+WEhkahk Elemental Attack~
+&+WEhkahk Elemental Attack has been left here.&n~
+~
+5 15 3 0 7 0 4194306 8193 0 0 0
+13 4 5 0 0 110351 50 35
+0 0 100 152 2048 67109056 1060864
+E
+ehkahk elemental attack~
+~
+E
+_room_msg~
+&+WEhkahk&+L, the &+RPrince &+Lof the &+CPara&+L-&+rElemental&+L Plane of Smoke engulfs the room in &+re&+Rl&+Ye&+ym&+Ge&+gn&+Ct&+Ba&+bl &+wsm&+Wok&+we&+L and a&+ws&+Wh&+L.&n
+~
+A
+18 5
+A
+19 5

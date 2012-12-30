@@ -23,7 +23,7 @@ Q
 &+CHe&+crl&n takes the &+Ldrop&n and puts it into his &+Wbag of holding&n and in the same
 motion pulls coins out and hands them to you. &+CHe&+crl&n says, "&+WAs we agreed.&n"
 ~
-R C 2000000
+R C 1000000
 G I 139128
 S
 #139110
@@ -160,6 +160,7 @@ Q
 &+GYodono says to you, '&+WPlease take this as a token of my appreciation. You have
 &+Wearned this.
 ~
+R I 139018
 R I 139018
 G I 139011
 G I 139016

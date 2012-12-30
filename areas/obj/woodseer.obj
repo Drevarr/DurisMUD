@@ -1663,7 +1663,7 @@ necklace beads wood~
 &+ya necklace of wooden beads&N~
 &+yA necklace of polished osage wood beads lies here.&N~
 ~
-11 6 2 0 7 0 134225920 5 64 0 0
+11 6 2 0 7 0 134230016 5 64 0 0
 0 0 0 0 0 0 0 0
 0 3000 100
 E
@@ -1674,9 +1674,9 @@ of the small beads in the necklace.  The combination of craftsmanship and
 magic that has gone into this piece make if valuable indeed.
 ~
 A
-13 10
+13 15
 A
-17 -4
+17 -5
 #16602
 staff jodani twisted _id_~
 &+ra staff of twisted jodani wood&N~

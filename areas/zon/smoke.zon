@@ -1,6 +1,6 @@
 #1
 &+LThe &+CPara&+L-&+rElemental&+L Plane of Smoke~
-139952 2 0 40 50 1
+139952 2 0 40 50 2
 *
 * Zone edited with durisEdit v2.99de
 *
@@ -71,13 +71,15 @@ F 1 139803 9 139850 100 0 0 0      * A smoke mephit (following)
 F 1 139804 8 139850 100 0 0 0      * A smoke mephit (following)
 M 0 139809 1 139863 100 0 0 0      * Ehkahk, the Prince of the Para-Elemental Plane of Smoke
 E 1 139805 1 12 100 0 0 0          *   A swirling mass of black smoke and hot ash
+E 1 139835 1 16 100 0 0 0          *   Ehkahk Elemental Attack
 G 1 139808 1 0 100 0 0 0           *    The charred remains of the heart of Ehkahk
+G 1 359 1 0 100 0 0 0              *    an unnamed object
 M 0 139822 1 139863 40 0 0 0       * Charzzlk, the ash elemental
 G 1 139829 1 0 100 0 0 0           *    A wretched broadsword named 'Discontent'
 M 0 139804 8 139875 100 0 0 0      * A smoke mephit
 F 1 139804 8 139875 100 0 0 0      * A smoke mephit (following)
-F 1 139804 8 139875 100 0 0 0      * A smoke mephit (following)
-G 1 139813 1 0 100 0 0 0           *    A dusty pair of spectacles
+F 1 139804 8 139875 25 0 0 0       * A smoke mephit (following)
+G 1 139813 1 0 100 0 0 0           *    some planar smoked rimmed spectacles of farseeing
 F 1 139804 8 139875 100 0 0 0      * A smoke mephit (following)
 M 0 139802 6 139901 100 0 0 0      * A Swirling Mass of Smoke and Fire
 G 1 139801 1 0 100 0 0 0           *    A mystical robe of flame and ash
@@ -113,7 +115,7 @@ M 0 139805 32 139921 100 0 0 0     * A smoke elemental
 M 0 139805 32 139921 100 0 0 0     * A smoke elemental
 M 0 139805 32 139921 100 0 0 0     * A smoke elemental
 M 0 139808 7 139925 100 0 0 0      * An eyeless smoke beast
-G 1 139804 1 0 100 0 0 0           *    a ring of mind-control
+G 1 139804 1 0 50 0 0 0            *    a ring of mind-control
 M 0 139808 7 139925 100 0 0 0      * An eyeless smoke beast
 M 0 139808 7 139925 100 0 0 0      * An eyeless smoke beast
 M 0 139808 7 139925 100 0 0 0      * An eyeless smoke beast

@@ -127,8 +127,10 @@ M 0 138534 12 138539 100 0 0 0     * A giraffe
 M 0 138534 12 138539 100 0 0 0     * A giraffe
 M 0 138525 9 138542 100 0 0 0      * a Tukluk guard
 E 1 138509 12 16 100 0 0 0         *   a tribesman's spear
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138525 9 138542 100 0 0 0      * a Tukluk guard
 E 1 138509 12 16 100 0 0 0         *   a tribesman's spear
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138556 1 138548 100 0 0 0      * a brave Tukluk scout
 E 1 138525 1 14 100 0 0 0          *   the neck-charm of Savannah of Broken Trusts
 M 0 138544 2 138556 100 0 0 0      * a goshawk
@@ -165,6 +167,7 @@ M 0 138541 4 138588 100 0 0 0      * a motley golem
 M 0 138541 4 138588 100 0 0 0      * a motley golem
 M 0 138505 8 138589 100 0 0 0      * a giant termite
 M 0 138531 5 138590 100 0 0 0      * a Tukluk villager
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138506 8 138592 100 0 0 0      * a giant worker termite
 M 0 138504 13 138594 100 0 0 0     * a giant termite
 M 0 138504 13 138594 100 0 0 0     * a giant termite
@@ -213,79 +216,129 @@ M 0 138546 5 138629 100 0 0 0      * the ghostly remnants of the Kahir tribe
 M 0 138546 5 138629 100 0 0 0      * the ghostly remnants of the Kahir tribe
 M 0 138530 3 138630 100 0 0 0      * an apprentice to the Tukluk shaman
 E 1 138511 1 14 100 0 0 0          *   a black and white zebra-hide wristband
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138531 5 138631 100 0 0 0      * a Tukluk villager
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138525 9 138631 100 0 0 0      * a Tukluk guard
 E 1 138509 12 16 100 0 0 0         *   a tribesman's spear
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138525 9 138631 100 0 0 0      * a Tukluk guard
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138531 5 138633 100 0 0 0      * a Tukluk villager
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138525 9 138633 100 0 0 0      * a Tukluk guard
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138525 9 138634 100 0 0 0      * a Tukluk guard
 E 1 138509 12 16 100 0 0 0         *   a tribesman's spear
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138525 9 138634 100 0 0 0      * a Tukluk guard
 E 1 138509 12 16 100 0 0 0         *   a tribesman's spear
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138531 5 138634 100 0 0 0      * a Tukluk villager
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138530 3 138635 100 0 0 0      * an apprentice to the Tukluk shaman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 E 1 138513 1 20 100 0 0 0          *   a Tukluk spirit mask
 M 0 138530 3 138636 100 0 0 0      * an apprentice to the Tukluk shaman
 E 1 138512 1 9 100 0 0 0           *   some ancient Tukluk spellshield gloves
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138528 9 138638 100 0 0 0      * a Tukluk woman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138531 5 138638 100 0 0 0      * a Tukluk villager
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138526 5 138639 100 0 0 0      * a Tukluk man
 M 0 138528 9 138639 100 0 0 0      * a Tukluk woman
 M 0 138529 1 138640 100 0 0 0      * a Tukluk shaman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138526 5 138641 100 0 0 0      * a Tukluk man
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138528 9 138641 100 0 0 0      * a Tukluk woman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138528 9 138641 100 0 0 0      * a Tukluk woman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138528 9 138641 100 0 0 0      * a Tukluk woman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138528 9 138641 100 0 0 0      * a Tukluk woman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138526 5 138645 100 0 0 0      * a Tukluk man
 M 0 138528 9 138646 100 0 0 0      * a Tukluk woman
+G 1 138545 53 0 100 0 0 0          *    no sleeping on the job
 M 0 138526 5 138647 100 0 0 0      * a Tukluk man
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138528 9 138647 100 0 0 0      * a Tukluk woman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138526 5 138648 100 0 0 0      * a Tukluk man
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138528 9 138648 100 0 0 0      * a Tukluk woman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138525 9 138651 100 0 0 0      * a Tukluk guard
 E 1 138509 12 16 100 0 0 0         *   a tribesman's spear
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138525 9 138651 100 0 0 0      * a Tukluk guard
 E 1 138509 12 16 100 0 0 0         *   a tribesman's spear
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138527 1 138651 100 0 0 0      * The Tukluk Chief
 E 1 138510 1 16 100 0 0 0          *   the great spear of the Tukluks
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138550 4 138652 100 0 0 0      * a Butsu guardsman
 E 1 138509 12 16 100 0 0 0         *   a tribesman's spear
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138550 4 138652 100 0 0 0      * a Butsu guardsman
 E 1 138509 12 16 100 0 0 0         *   a tribesman's spear
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138555 3 138654 100 0 0 0      * a powerful Butsu warrior
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138555 3 138655 100 0 0 0      * a powerful Butsu warrior
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138555 3 138656 100 0 0 0      * a powerful Butsu warrior
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138553 5 138657 100 0 0 0      * a haughty Butsu woman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138554 4 138657 100 0 0 0      * a sniveling Butsu child
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138549 5 138658 100 0 0 0      * a proud Butsu tribesman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138553 5 138658 100 0 0 0      * a haughty Butsu woman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138549 5 138659 100 0 0 0      * a proud Butsu tribesman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138554 4 138659 100 0 0 0      * a sniveling Butsu child
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138553 5 138660 100 0 0 0      * a haughty Butsu woman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138554 4 138660 100 0 0 0      * a sniveling Butsu child
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138549 5 138661 100 0 0 0      * a proud Butsu tribesman
 M 0 138553 5 138661 100 0 0 0      * a haughty Butsu woman
 M 0 138549 5 138662 100 0 0 0      * a proud Butsu tribesman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138554 4 138662 100 0 0 0      * a sniveling Butsu child
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138549 5 138663 100 0 0 0      * a proud Butsu tribesman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138553 5 138663 100 0 0 0      * a haughty Butsu woman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138547 1 138664 100 0 0 0      * the Butsu shaman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138548 1 138664 100 0 0 0      * the Butsu apprentice shaman
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 G 1 138520 1 0 100 0 0 0           *    a bubbling green potion
 M 0 138500 1 138665 100 0 0 0      * Lynstar
 M 0 138550 4 138666 100 0 0 0      * a Butsu guardsman
 E 1 138509 12 16 100 0 0 0         *   a tribesman's spear
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138550 4 138666 100 0 0 0      * a Butsu guardsman
 E 1 138509 12 16 100 0 0 0         *   a tribesman's spear
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 M 0 138551 1 138666 100 0 0 0      * Drozilanan
 E 1 138522 1 3 100 0 0 0           *   a necklace of dangling drider fangs
 E 1 138521 2 16 100 0 0 0          *   one of the Twin Swords of Drozilanan
 E 1 138521 2 17 100 0 0 0          *   one of the Twin Swords of Drozilanan
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 G 1 138524 1 0 100 0 0 0           *    a vermilion potion
 M 0 138552 1 138666 100 0 0 0      * the Butsu chief
 E 1 138523 1 11 100 0 0 0          *   the shield of M'Bele
 E 1 138509 12 16 100 0 0 0         *   a tribesman's spear
+E 1 138545 53 19 100 0 0 0         *   no sleeping on the job
 *
 S

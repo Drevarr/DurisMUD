@@ -1072,7 +1072,7 @@ away the position of the wielder.
 A
 19 3
 #138266
-robes shadowwalker~
+robes shadowwalker robe~
 &+Lrobes of the sh&n&+wad&n&+Low&n&+wwa&n&+Llk&n&+wer&n~
 &+LSome pitch black robes have been discarded.&n~
 ~
@@ -1167,7 +1167,7 @@ katana sword lotus blossom~
 &+ca katana called '&n&+mThe Lotus Bl&n&+Moss&n&+mom&+c'&n~
 &+cThe magical katana '&n&+mThe Lotus Bl&n&+Moss&n&+mom&n&+c' has been mistakenly dropped.&n~
 ~
-5 16 3 0 15 0 83008 8193 0 2195459 0
+5 16 3 0 15 0 87104 8193 0 2195459 0
 5 3 4 3 0 0 0 0
 8 18888 100
 E
@@ -1215,7 +1215,7 @@ katana sword torrential rain~
 &+ca katana called '&n&+bTorrential Rain&n&+c'&n~
 &+cThe magical katana '&n&+bTorrential Rain&n&+c' has been mistakenly dropped.&n~
 ~
-5 16 3 0 15 0 83008 8193 0 2195459 0
+5 16 3 0 15 0 87104 8193 0 2195459 0
 5 3 4 3 0 0 0 0
 8 19000 100
 E

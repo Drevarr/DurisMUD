@@ -286,7 +286,7 @@ M 0 138231 1 138365 100 0 0 0      * a Clan Crane complex guard
 E 1 138261 1 5 100 0 0 0           *   some blue robes of the Crane Clan
 E 1 138262 1 16 100 0 0 0          *   an iron-shod staff
 M 0 138241 1 138374 100 0 0 0      * Lord Ajikira
-E 1 138270 1 16 100 0 0 0          *   a katana called 'The Lotus Blossom'
+G 1 138270 1 0 100 0 0 0           *    a katana called 'The Lotus Blossom'
 M 0 138232 2 138375 100 0 0 0      * a Clan Tiger complex guard
 E 1 138264 2 7 100 0 0 0           *   some light, black pants
 E 1 138263 2 16 100 0 0 0          *   a set of nunchaku
@@ -307,7 +307,7 @@ E 1 138256 7 5 100 0 0 0           *   a full-body set of leather armor
 M 0 138247 1 138389 100 0 0 0      * a bushi warrior
 E 1 138208 5 16 100 0 0 0          *   a black, steel tanto
 M 0 138243 1 138394 100 0 0 0      * Lady Kitsuro
-E 1 138272 1 16 100 0 0 0          *   a katana called 'Torrential Rain'
+G 1 138272 1 0 100 0 0 0           *    a katana called 'Torrential Rain'
 M 0 138248 2 138395 100 0 0 0      * a Royal dock guard
 E 1 138275 2 16 100 0 0 0          *   a steel warhammer
 M 0 138248 2 138395 100 0 0 0      * a Royal dock guard

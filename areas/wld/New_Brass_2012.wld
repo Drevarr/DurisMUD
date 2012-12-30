@@ -316,7 +316,7 @@ Imix Ave runs to the east that way.
 0 0 139015
 D2
 ~
-~
+door~
 1 0 139216
 D3
 Imix Ave runs to the west in that direction.
@@ -1167,7 +1167,7 @@ visible from this distance at the top of the tower.
 D2
 A door is in that direction
 ~
-door~
+tower door~
 1 0 139185
 S
 #139060
@@ -2683,7 +2683,7 @@ their life is forfeit.
 D0
 The palace gates are that way.
 ~
-gates brass~
+brass gates palace~
 3 139070 139249
 D2
 The bridge is in that direction.
@@ -3399,7 +3399,7 @@ D0
 0 0 139179
 D1
 ~
-~
+door~
 1 0 139175
 D2
 ~
@@ -3426,7 +3426,7 @@ D2
 0 0 139177
 D3
 ~
-~
+door~
 1 0 139174
 S
 #139176
@@ -3606,7 +3606,7 @@ from here and the city wall blocks any further movement west.
 252 167809088 11 0
 D0
 ~
-~
+tower door~
 1 0 139059
 D1
 ~
@@ -3757,7 +3757,7 @@ D0
 0 0 139191
 D1
 ~
-~
+door~
 1 0 139199
 D2
 ~
@@ -3765,7 +3765,7 @@ D2
 0 0 139193
 D3
 ~
-~
+door~
 1 0 139200
 S
 #139193
@@ -3904,7 +3904,7 @@ been gone for quite sometime.
 252 167809096 11 0
 D3
 ~
-~
+door~
 1 0 139192
 S
 #139200
@@ -3918,7 +3918,7 @@ and visually checked along the eastern wall and outside the building.
 252 167809096 11 0
 D1
 ~
-~
+door~
 1 0 139192
 S
 #139201
@@ -4271,7 +4271,7 @@ the room leading from one to the next made of redish orange cobblestone.
 252 167809096 11 0
 D0
 ~
-~
+door~
 1 0 139016
 D2
 ~
@@ -4884,7 +4884,7 @@ D0
 0 0 139250
 D2
 ~
-~
+palace gates~
 1 0 139140
 S
 #139250
@@ -5708,7 +5708,7 @@ the center of the room. It seems to glow with a life of its own.
 252 167809096 11 0
 D0
 ~
-~
+door~
 1 0 139294
 D3
 ~
@@ -5728,7 +5728,7 @@ D1
 0 0 139304
 D2
 ~
-~
+door~
 1 0 139293
 D4
 ~
@@ -5785,7 +5785,7 @@ D1
 0 0 139296
 D2
 ~
-~
+door~
 1 0 139298
 S
 #139298
@@ -5797,7 +5797,7 @@ small flight of stairs can be seen to the left leading upward.
 252 167809096 11 0
 D0
 ~
-~
+door~
 1 0 139297
 D4
 ~
@@ -5870,7 +5870,7 @@ hundreds feet to the east and west.
 252 167809096 11 0
 D0
 ~
-~
+door~
 1 0 139307
 D1
 ~
@@ -5896,7 +5896,7 @@ hundreds feet to the east and west.
 252 167809096 11 0
 D0
 ~
-~
+door~
 1 0 139308
 D1
 ~
@@ -5988,7 +5988,7 @@ indentations in the west wall.
 252 167809096 11 0
 D2
 ~
-~
+door~
 1 0 139302
 S
 #139308
@@ -6002,11 +6002,11 @@ The smell in this room would make anyone hungry.
 252 167809096 11 0
 D0
 ~
-~
+door~
 1 0 139309
 D2
 ~
-~
+door~
 1 0 139303
 S
 #139309
@@ -6020,7 +6020,7 @@ as well as ovens, stoves, and other cooking implementations.
 252 167809096 11 0
 D2
 ~
-~
+door~
 1 0 139308
 D3
 ~
@@ -6048,7 +6048,7 @@ secured with huge glowing bands of power around them.
 252 167809096 11 0
 D0
 ~
-~
+door~
 3 139021 139357
 D1
 ~
@@ -6081,11 +6081,11 @@ area not of this plane. To the north is a poorly concealed vault door.
 252 167809096 11 0
 D0
 ~
-~
+treasury door~
 3 139023 139313
 D2
 ~
-~
+door~
 1 0 139357
 S
 #139313
@@ -6097,7 +6097,7 @@ colors are here as well as various artworks.
 252 167809096 11 0
 D2
 ~
-~
+treasury door~
 3 0 139312
 S
 #139314
@@ -6109,7 +6109,7 @@ extends far off to the west and south.
 252 167809096 11 0
 D0
 ~
-~
+door~
 1 0 139315
 D1
 ~
@@ -6135,7 +6135,7 @@ indentations in the west wall.
 252 167809096 11 0
 D2
 ~
-~
+door~
 1 0 139314
 S
 #139316
@@ -6167,11 +6167,11 @@ D0
 0 0 139316
 D1
 ~
-~
+door~
 1 0 139326
 D2
 ~
-~
+door~
 1 0 139318
 D3
 ~
@@ -6188,7 +6188,7 @@ There is a door here in the northern wall made of some redish-marble.
 252 167809096 11 0
 D0
 ~
-~
+door~
 1 0 139317
 D1
 ~
@@ -6338,7 +6338,7 @@ of the room is a red marble-like door leading into the Grand Library.
 252 167809096 11 0
 D3
 ~
-~
+door~
 1 0 139317
 D4
 ~
@@ -6394,7 +6394,7 @@ burning incense.
 252 167809096 11 0
 D1
 ~
-~
+door~
 1 0 139330
 D5
 ~
@@ -6415,7 +6415,7 @@ around the room, giving off a rainbow of light.
 252 167809096 11 0
 D3
 ~
-~
+door~
 1 0 139329
 D4
 ~
@@ -6512,7 +6512,7 @@ completing the decore of the room.
 252 167809096 11 0
 D0
 ~
-~
+armory door~
 1 0 139334
 S
 #139336
@@ -6911,10 +6911,10 @@ and to the south leads into a great hallway.
 252 167809096 11 0
 D0
 ~
-~
+door~
 3 139022 139312
 D2
 ~
-~
+door~
 1 0 139311
 S

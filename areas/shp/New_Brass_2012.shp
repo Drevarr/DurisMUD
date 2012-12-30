@@ -109,7 +109,7 @@ X
 N
 0
 1.00
-1.00
+1.50
 0
 I'm not selling that, %s!~
 You don't seem to have that item, %s.~
@@ -216,8 +216,8 @@ X
 #139082~
 N
 0
-0.50
 1.00
+5.00
 0
 I'm not selling that, %s!~
 You don't seem to have that item, %s.~
@@ -315,7 +315,7 @@ X
 #139085~
 N
 0
-0.25
+0.75
 1.00
 1
 2

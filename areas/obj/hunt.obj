@@ -85,8 +85,8 @@ statue~
 &+Wa magnificent statue~
 &+WA statue of a magnificent cavalier has been built here.~
 ~
-13 15 3 0 7 0 1 0 0 0 0
-0 0 0 0 0 0 0 0
+15 15 3 0 7 0 1 0 0 0 0
+50 29 13311 50 0 0 0 0
 0 0 100
 E
 statue~
@@ -109,15 +109,15 @@ ring liquid fire circlet~
 ~
 9 40 3 0 7 0 262144 16387 0 0 0
 3 0 0 1 0 0 0 0
-1 1 100
+1 1 100 536870912 64 0 0
 E
 ring liquid fire circlet~
 &+rThis ring seems to flow with magma, yet it is cool to the touch.&n
 ~
 A
-13 22
+13 25
 A
-24 -3
+24 -4
 #13309
 eyepatch blue immortality~
 &+bthe eyep&+Batch of &+bimmorta&+Blity&n~
@@ -125,7 +125,7 @@ eyepatch blue immortality~
 ~
 9 1 3 0 7 0 1 131073 64 0 0
 10 0 0 3 0 0 0 0
-1 1 100 0 2 0 0
+1 1 100 0 18 0 0
 E
 eyepatch blue immortality~
 &+bThis eyepatch is the symbol of &+LMav&+beri&+Lcks&+b true power and existence,
@@ -133,16 +133,16 @@ eyepatch blue immortality~
 &+bto be discovered, however it still glows with a strange blue light.
 ~
 A
-35 3
+35 4
 A
-18 2
+18 3
 #13310
 arm plates armplates armageddon~
 &+Lthe armplates of &+rarmageddon&n~
 &+LArmplates of &+ranchary&+L and &+rarmageddon&+L are left here.&n~
 ~
 9 16 3 0 7 0 0 257 0 0 0
-10 0 0 5 1 0 0 0
+15 0 0 5 1 0 0 0
 1 1 100
 E
 arm plates armplates armageddon~
@@ -150,7 +150,7 @@ arm plates armplates armageddon~
 &+Lthey seem to fold around, fastening themselves tightly to the wearer.
 ~
 A
-18 1
+18 3
 A
 19 3
 #13311
@@ -221,9 +221,9 @@ leather combat boots~
 &+rarmageddon&+L. Chaos seems to encircle them, aggitation seems to follow.
 ~
 A
-19 2
+19 3
 A
-1 8
+32 3
 #13316
 cosmic collar silver~
 &+ca &+Yco&+Wsm&+Yic &+csilver &+ccollar&n~
@@ -242,7 +242,7 @@ cosmic collar silver~
 A
 24 -3
 A
-33 2
+33 3
 #13317
 bone crested tower shield~
 &+ca &+Wbone&+Y c&+cr&+Ye&+cs&+Yt&+ce&+Yd&+c &+Wtower&+c shield&n~
@@ -275,7 +275,7 @@ hazy blue amulet~
 &+bThis amulet appears non-corpeal. It seems to fade in and out of existence.
 ~
 A
-12 15
+12 25
 A
 13 15
 #13319
@@ -284,7 +284,7 @@ black stone war club~
 &+wA &+Lblack&+w sto&+Wne &+Lwar&+wclub has been left here.&n~
 ~
 5 11 3 0 11 0 4195328 1 0 85475329 0
-11 2 4 6 0 0 0 0
+11 3 4 6 0 0 0 0
 1 1 100
 E
 black stone war club~
@@ -303,7 +303,7 @@ masters longbow long bow~
 &+WA long&+Rbow o&+Wf gran&+Rd desig&+Wn has &+Rbee&+Wn dro&+Rpped &+Where.&n~
 ~
 6 6 3 8 14 0 4195328 24577 0 87650331 0
-105 90 0 1 0 0 0 0
+105 100 0 1 0 0 0 0
 1 61241 100 0 16 0 0
 E
 masters longbow long bow~
@@ -320,7 +320,7 @@ masters arrow~
 &+WAn ar&+Rrow has be&+Wen left here.&n~
 ~
 7 16 3 4 7 0 0 1 0 0 0
-4 3 3 1 0 0 0 0
+5 4 3 1 0 0 0 0
 1 1 100
 E
 masters arrow~
@@ -343,7 +343,7 @@ tail ribbon pride~
 A
 13 15
 A
-24 -2
+24 -3
 #13323
 dying mercenary wild card~
 &+ya dying &+WW&+Li&+Wl&+Ld &+WC&+La&+Wr&+Ld &+ymercenary~
@@ -364,7 +364,7 @@ finely stitched combat vest~
 &+mA &+Lfi&+Mne&+mly-&+mstitched &+Lcombat &+Mve&+mst&+L lies here.&n~
 ~
 9 3 3 0 11 0 0 9 0 0 0
-11 0 0 2 0 0 0 0
+20 0 0 2 0 0 0 0
 1 1 100
 E
 combat vest~
@@ -372,9 +372,9 @@ combat vest~
 &+Lthe armies of &+rarmageddon.&n
 ~
 A
-13 10
+13 20
 A
-26 10
+3 10
 #13325
 basin blood~
 &+La basin of &+rblood&n~
@@ -394,7 +394,7 @@ morning star starlight~
 &+LA &+Ym&+Lo&+Yr&+Ln&+Yi&+Ln&+Yg star&+L with a &+Ygold&+L chain links lies here.&n~
 ~
 5 24 3 4 11 0 262144 24577 64 0 0
-14 1 5 0 0 4 50 20
+14 1 5 0 0 21004 50 20
 1 46671 100
 E
 gold morning starlight~
@@ -419,7 +419,7 @@ You try to shield your eyes!
 A
 18 4
 A
-19 3
+19 4
 #13327
 royal crested bracelet~
 &+La &+rro&+Wy&+ral&+L c&+rre&+rst&+Led bra&+wcel&+Wet&n~
@@ -435,9 +435,9 @@ chain link bracelet~
 &+cplain steel.&n
 ~
 A
-19 2
+19 3
 A
-18 2
+18 3
 #13328
 helm armageddon war~
 &+Lthe helm of &+rarmageddon&n~
@@ -454,7 +454,7 @@ helm armageddon~
 A
 31 3
 A
-18 3
+18 4
 #13329
 fur lined cloak balance~
 &+ya fur&+L-&+Wlined&+y cloak marked with &+Lbal&+Wance&n~
@@ -470,9 +470,9 @@ fur lined cloak balance~
 &+yof &+Wbal&+Lance.&n
 ~
 A
-13 10
+13 20
 A
-18 2
+18 3
 #13330
 tags wild card~
 &+cthe tags of a &+WWild &+LCard&n~
@@ -517,9 +517,9 @@ cloak crimson nosferatu~
 &+Lwearer with extended life.&n
 ~
 A
-33 2
+33 3
 A
-13 15
+13 20
 #13333
 blackened earring spiked~
 &+Wa &+Lspiked &+wbla&+Lck&+wen&+Led &+wear&+Wrin&+Lg&n~
@@ -534,9 +534,9 @@ blackened ear earpiece piece~
 &+Lsomething.&n
 ~
 A
-19 2
+19 3
 A
-13 5
+13 10
 #13334
 taut band wyvern skin~
 &+ya &+Ytau&+yt ba&+Ynd of &+ywyvern &+Yskin&n~
@@ -553,7 +553,7 @@ strip thick wyvern skin~
 A
 24 -3
 A
-2 4
+2 10
 #13335
 wings arch angel~
 &+Wa pair &+Larch&+Wangel&+W wings&n~
@@ -599,7 +599,7 @@ robes cosmocy cosmic~
 A
 24 -3
 A
-13 15
+13 18
 #13338
 dying mercenary soldier fortune~
 &+ya dying &+LSoldier of &+YFortune&n~
@@ -687,7 +687,7 @@ shard electrum shimmering~
 &+CA shard of &+celectrum shi&+Cmm&+cers on the ground here.&n~
 ~
 5 23 3 0 11 0 16778512 24577 0 8515584 0
-2 1 6 11 0 0 0 0
+2 3 4 11 0 0 0 0
 3 1234 100
 E
 shard electrum shimmering~
@@ -696,7 +696,7 @@ shard electrum shimmering~
 &+cpiercing weapon.&n
 ~
 A
-18 3
+18 4
 A
 19 4
 #13345
@@ -780,7 +780,7 @@ totem windmasters windmaster wind master~
 &+La &+Cto&+ct&+Cem&+L of the &+cwindmasters&n~
 &+LA &+Cto&+ct&+Cem&+L infused with the &+cwind&+L lays here.&n~
 ~
-34 6 3 0 9 0 0 16385 0 0 0
+34 6 3 0 9 0 1024 8404993 0 33554688 0
 60 0 0 0 0 0 0 0
 1 1 100
 E
@@ -792,6 +792,8 @@ totem windmasters windmaster wind master~
 ~
 A
 13 20
+A
+34 3
 #13352
 severed head maverick~
 &+rthe severed head of Maverick&n~
@@ -916,7 +918,7 @@ amulet cosmos~
 &+cplanes.&n
 ~
 A
-13 15
+13 20
 A
 33 3
 #13362
@@ -946,7 +948,7 @@ chest treasure~
 ~
 8 26 3 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
-0 23881 100
+0 323881 100
 E
 chest treasure~
 &+yThis chest has been filled with treasures that were looted and
@@ -981,7 +983,7 @@ blackened crown sixth legion~
 ~
 9 16 3 0 12 0 1 17 0 67137563 0
 6 0 0 0 0 0 0 0
-0 6677 100 8256 0 0 0
+0 6677 100 73728 0 0 570425344
 A
 20 -4
 A
@@ -995,6 +997,6 @@ medallion cresent moon~
 8 0 0 3 0 0 0 0
 0 34671 100 4 0 0 0
 A
-20 -2
+20 -4
 A
 13 20

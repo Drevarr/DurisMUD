@@ -71,7 +71,7 @@ flail~
 A giant, two-handed &+Lflail&n lies in a pool of &+rblood&n.~
 ~
 5 19 4 10 7 5488704 37749760 8193 64 84951065 0
-6 3 5 6 0 0 0 0
+3 3 5 6 0 0 0 0
 20 30525 100 536870928 0 0 0
 E
 flail~
@@ -240,7 +240,7 @@ mace godsfury unique~
 &+Wthe&n &+wstone mace&n &+L'Godsfury'&n~
 &+wA finely crafted mace of stone&n &+Wglows&n &+wwith a religious fire.&n~
 ~
-5 15 3 0 15 33595720 268444672 8193 64 32 0
+5 15 3 0 15 33595720 268444672 8193 64 33554592 0
 6 3 8 7 0 0 0 0
 10 205905 100 73744 32768 0 0
 E
@@ -273,7 +273,7 @@ crown aramus unique~
 &+Ythe &+Wcrown &+Yof &+RA&+Yr&+Ga&+Bm&+Cu&+Ws&n~
 &+WThe crown of &+RA&+Yr&+Ga&+Bm&+Cu&+Ms&n &+Wlies here, foolishly forgotten.&n~
 ~
-9 15 3 0 7 34783336 301990913 17 64 3584 0
+9 15 3 0 7 34783336 301990913 17 64 4230656 0
 10 0 0 3 0 0 0 0
 2 118440 100
 A

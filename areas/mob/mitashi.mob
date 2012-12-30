@@ -650,9 +650,9 @@ employed by Clan Raven.
 Because of his ambition and intelligence, Kawasawa is feared by many of
 the other Clan leaders.
 ~
-67119178 4 0 0 301990040 2076 67108864 8192 0 S
-ag 0 18 0 -1
-57 0 0 1d1+1 1d1+1
+1175484490 1 0 0 838926488 14556 84934880 38802432 0 S
+dk 0 16777216 1 -1
+59 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #138239
@@ -676,9 +676,9 @@ has served the Empire without fault for hundreds of years, one small
 comment by some worthless functionary has put this Lord's clan in a difficult
 situation.
 ~
-67119178 4 0 0 301990040 2076 67108864 270336 0 S
-ag 0 16777224 0 -1
-57 0 0 1d1+1 1d1+1
+1174501962 1 0 0 855703704 268450012 84934848 38020096 0 S
+dk 0 16777232 0 -1
+59 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #138240
@@ -699,9 +699,9 @@ Clans and with good reason.  Snow Dragon warriors are famed for their
 skills and abilities, and the battle-clerics of the Clan have won many
 a battle.
 ~
-67119178 0 0 0 301990040 2076 67108864 270336 0 S
-ag 0 1 0 -1
-57 0 0 1d1+1 1d1+1
+1176598602 1 0 0 855736472 268450012 84934848 270336 0 S
+dk 0 17825792 0 -1
+59 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #138241
@@ -720,9 +720,9 @@ Clan Crane.  Fear of the wu-jen spellmasters of the Clan keep many
 would-be upstart Clans in their place.  Even the dangerous Lord Kawasawa
 of the Raven Clan stays out of Crane business.
 ~
-10314 4 0 0 301990040 2076 67108864 0 0 S
-ag 0 17825793 0 -1
-57 0 0 1d1+1 1d1+1
+1175025738 1 0 0 3003195544 268450012 85459136 38810624 0 S
+dk 0 64 1 -1
+59 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #138242
@@ -742,9 +742,9 @@ be a thinker and not a fighter, although combat training is an integral
 part to the Order of Purity's teachings, which strives for both mental and
 physical harmony.
 ~
-67119178 4 0 0 301990040 28 67108864 270336 0 S
-ag 0 67108872 0 -1
-57 0 0 1d1+1 1d1+1
+1174501706 1 0 0 301990040 28 67109056 38020096 0 S
+dk 0 68157440 0 -1
+59 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
 #138243
@@ -766,9 +766,9 @@ Known to be calculating and devious, Lady Kitsuro keeps her foes off balance
 with a mixture of feigned innocence, because she's a woman, and backstabbing
 ruthlessness.
 ~
-10314 4 0 0 301990040 262172 67108864 270336 0 S
-ag 0 2097152 1 -1
-57 0 0 1d1+1 1d1+1
+1174501962 1 0 0 301990040 262172 84934848 38020096 0 S
+dk 0 64 1 -1
+59 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 2
 #138244

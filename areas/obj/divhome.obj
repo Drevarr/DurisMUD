@@ -79,8 +79,8 @@ angelic suit full plate armor~
 &+cAn &+Wangelic&+c suit of full plate armor has been left here.&n~
 ~
 9 15 3 0 13 0 263168 9 2 85458969 0
-24 0 0 4 0 0 0 0
-0 10000 100 67108864 0 0 0
+36 0 0 4 0 0 0 0
+0 200000 100 67108864 0 0 0
 E
 angelic suit full plate armor~
 &+cThis suit of armor was designed to cover the arms, legs, as well
@@ -96,8 +96,8 @@ blade kings~
 &+cA sharp &+Cblade&+c bearing the mark of ancient &+Ckings&+c has been left here.&n~
 ~
 5 19 3 0 13 0 1024 8193 0 87572483 0
-5 2 3 3 0 0 0 0
-0 30000 100
+5 3 3 3 0 0 0 0
+0 200000 100
 E
 blade kings~
 &+cThis &+Clongsword&+c was forged by &+CEm&+citi&+Con&+c within the &+WHome&+C of the &+WDivine.&n
@@ -114,8 +114,8 @@ heavens shield~
 &+cA &+Whea&+Cve&+cnly shield has been left here.&n~
 ~
 37 23 3 0 13 0 1024 8389121 0 119144481 0
-1 3 4 85 0 0 0 0
-16 10000 100
+1 3 4 100 0 0 0 0
+16 150000 100
 E
 heavens shield~
 &+cThis shield was crafted by &+CEm&+citi&+Con&+c within the &+WDivine Home&+c. It
@@ -123,6 +123,8 @@ heavens shield~
 ~
 A
 1 5
+A
+26 5
 #40708
 boots ages~
 &+ca pair of &+Cboots&+c of the &+Cages&n~
@@ -130,14 +132,16 @@ boots ages~
 ~
 9 15 3 0 13 0 1024 65 0 14715394 0
 7 0 0 3 0 0 0 0
-0 10000 100
+0 100000 100
 E
 boots ages~
 &+cThese boots have been forged by &+CEm&+citi&+Con&+c. They are sturdy yet
 &+clight and provide the wearer with increased swiftness.&n
 ~
 A
-14 10
+14 15
+A
+5 5
 #40709
 earring angels~
 &+can earring of &+Wangels&n~
@@ -145,12 +149,16 @@ earring angels~
 ~
 9 34 3 0 13 0 0 524289 0 0 0
 2 0 0 1 0 0 0 0
-0 10000 100 8192 4 0 0
+0 100000 100 8192 4 0 0
 E
 earring angels~
 &+cThis tiny earring was crafted from a small piece of &+Wivory&+c and
 &+ccarved into a shape of a &+Wdove.&n
 ~
+A
+4 3
+A
+3 3
 #40710
 mask heavens~
 &+ca mask of &+Whea&+Cve&+cns&n~
@@ -166,9 +174,9 @@ mask heavens~
 &+cface.&n
 ~
 A
-18 1
+18 2
 A
-20 2
+20 -2
 #40711
 celestial leg plates~
 &+ca pair of &+Wce&+Clest&+Wial&+c leg plates&n~
@@ -176,20 +184,22 @@ celestial leg plates~
 ~
 9 1 3 0 13 0 0 33 0 0 0
 9 0 0 2 0 0 0 0
-0 10000 100
+0 100000 100
 E
 celestial leg plates~
 &+cThese leg plates, forged by &+CEm&+citi&+Con&+c, offer sturdy protection on
 &+cthe thighs and shins.&n
 ~
 A
-19 1
+19 2
+A
+18 1
 #40712
 celestial ribbon~
 &+ca &+Cce&+Wle&+Csti&+Wal&+c ribbon&n~
 &+cA &+Cce&+Wle&+Csti&+Wal&+c ribbon has been left here.&n~
 ~
-9 3 3 0 7 0 267264 176160769 64 95994243 40960
+9 3 3 0 7 0 267264 178257921 64 95994243 40960
 8 0 0 3 0 0 0 0
 0 20000 100 0 4224 0 0
 E
@@ -200,7 +210,7 @@ celestial ribbon~
 A
 24 -3
 A
-18 1
+18 2
 #40713
 heavenly saddle~
 &+ca &+Chea&+Wven&+Cly &+csaddle&n~
@@ -348,7 +358,7 @@ shield titan prince~
 ~
 37 19 3 0 14 0 1024 513 66 119160865 0
 1 3 4 182 0 0 0 0
-10 10000 100
+10 100000 100
 E
 shield titan prince~
 &+cThis &+Wshield&+c bears the crest of the &+Ctitan&+c royalty.  It has been
@@ -356,9 +366,9 @@ shield titan prince~
 &+ctransfer that &+Ctitan&+c strength to the wearer through magical means.
 ~
 A
-1 9
+31 2
 A
-19 1
+19 2
 #40723
 ethereal loom~
 &+can &+Lethereal&+c loom&n~
@@ -400,7 +410,9 @@ blood red eyepiece~
 &+Lnear one's face is a digusting thought.&n
 ~
 A
-13 11
+13 15
+A
+5 6
 #40726
 heart raith~
 &+rthe dark heart of Raith&n~
@@ -437,8 +449,8 @@ rising frost icy mace~
 &+cAn &+bicy&+c mace has been left here.&n~
 ~
 5 23 3 0 11 0 1024 8193 64 95993859 0
-6 3 4 3 0 8 25 30
-0 2000 100
+6 3 4 3 0 472325 25 30
+0 200000 100 0 64 0 0
 E
 rising frost icy mace~
 &+cThis mace, infused with the powers of &+Bice&+c by &+BShiva&+c, seems to have
@@ -458,16 +470,16 @@ _room_msg~
 &n$n's $q &+ccalls upon the &+Bchill&+c of&+L night&+c.
 ~
 A
-18 3
+18 4
 A
-19 3
+19 4
 #40729
 blazing mace rising sun~
 &+ca &+rbla&+Yzi&+rng&+c mace dubbed '&+YRis&+ring &+YSun&+c'&n~
 &+cA &+rbla&+Yzi&+rng&+c mace has been left here.&n~
 ~
 5 15 3 0 7 0 0 8193 64 0 0
-6 3 4 3 0 5 25 20
+6 3 4 3 0 233021 50 30
 0 0 100
 E
 blazing mace rising sun~
@@ -535,7 +547,7 @@ shade tiger claw~
 &+bA &+Lshade&+b tiger claw has been left here.&n~
 ~
 4 15 3 0 7 0 4096 8388609 0 0 0
-30 1 1 41 0 0 0 0
+30 5 5 41 0 0 0 0
 0 0 100
 E
 shade tiger claw~
@@ -590,7 +602,7 @@ smoke dragon scalemail suit armor~
 &+LA &+wsuit&+L of dragon &+wscale&+L &+warmor&+L has been left here.&n~
 ~
 9 35 3 0 14 0 1 9 0 4165287428 0
-38 0 0 5 0 0 0 0
+45 0 0 5 0 0 0 0
 0 50000 100 0 16 0 0
 E
 smoke dragon scalemail suit~
@@ -599,16 +611,16 @@ smoke dragon scalemail suit~
 &+wprotection as well as invigorizing the wearer.&n
 ~
 A
-18 3
+18 4
 A
-5 6
+35 3
 #40738
 suit celestial dragon scale dragonscale armor~
 &+ca suit of &+ccel&+Wes&+ctial &+Wdra&+cgons&+Wcale&n~
 &+cA suit of cel&+Wes&+ctial &+Wdra&+cgons&+Wcale&+c has been left here.&n~
 ~
 9 35 3 0 14 0 1 9 0 4165287428 0
-40 0 0 5 0 0 0 0
+45 0 0 5 0 0 0 0
 0 50000 100 32 0 0 0
 E
 suit celestial dragon scale dragonscale armor~
@@ -617,9 +629,9 @@ suit celestial dragon scale dragonscale armor~
 &+ca full body suit its protection seems uncanny.&n
 ~
 A
-18 2
+18 3
 A
-19 1
+19 2
 #40739
 piece nexus cloud~
 &+Wa piece of &+Cnex&+cus&+W cloud&n~
@@ -702,7 +714,7 @@ badge cloud giants~
 &+cA badge of the &+Wcloud&+L giants&+c has been left here.&n~
 ~
 9 3 3 0 7 0 0 2097153 0 0 0
-1 0 0 1 0 0 0 0
+-5 0 0 1 0 0 0 0
 0 0 100
 E
 badge cloud giants~
@@ -743,7 +755,7 @@ griffon feather cloak~
 ~
 9 50 3 0 12 0 266240 1025 0 0 0
 11 0 0 3 0 0 0 0
-0 0 100 67108864 0 0 0
+0 0 100 134217728 0 0 0
 E
 griffon feather cloak~
 &+yThe feathers of a &+Wgrif&+Yfon&+y are rumored to possess magical qualities.
@@ -814,7 +826,7 @@ blue moon charm~
 &+ba &+Bblue&+b &+Wmoon&+b charm&n~
 &+bA &+Bblue&+W moon&+b charm has been left here.&n~
 ~
-9 16 3 0 7 0 131073 5 0 0 0
+9 16 3 0 7 0 131073 8388613 0 0 0
 7 0 0 3 0 0 0 0
 0 0 100 67108864 0 0 0
 E
@@ -823,7 +835,7 @@ blue moon charm~
 &+cThe symbol is supposed to bring much luck to the wearer.&n
 ~
 A
-30 9
+30 10
 A
 40 3
 #40753
@@ -954,8 +966,8 @@ token earth~
 &+ya token of earth&n~
 &+yA token of earth has been left here.&n~
 ~
-9 15 3 0 7 0 0 5 0 0 0
--3 0 0 2 0 0 0 0
+9 15 3 0 7 0 0 8388613 0 0 0
+-5 0 0 2 0 0 0 0
 0 0 100
 E
 token earth~
@@ -963,7 +975,7 @@ token earth~
 &+ythe neck like a collar.&n
 ~
 A
-1 3
+1 5
 A
 19 2
 #40763
@@ -971,7 +983,7 @@ token water~
 &+ba token of water&n~
 &+bA token of water has been left here.&n~
 ~
-9 15 3 0 7 0 8192 5 0 0 0
+9 15 3 0 7 0 8192 8388613 0 0 0
 -3 0 0 2 0 0 0 0
 0 0 100
 E
@@ -980,7 +992,7 @@ token water~
 &+bthe neck like a collar.&n
 ~
 A
-2 3
+2 5
 A
 14 15
 #40764
@@ -988,7 +1000,7 @@ token air~
 &+ca token of air&n~
 &+cA token of air has been left here.&n~
 ~
-9 15 3 0 7 0 0 5 0 0 0
+9 15 3 0 7 0 0 8388613 0 0 0
 -3 0 0 2 0 0 0 0
 0 0 100
 E
@@ -997,15 +1009,15 @@ token water~
 &+cthe neck like a collar.&n
 ~
 A
-3 3
+3 5
 A
-13 10
+13 15
 #40765
 token fire~
 &+ra token of fire&n~
 &+rA token of fire has been left here.&n~
 ~
-9 15 3 0 7 0 0 5 0 0 0
+9 15 3 0 7 0 0 8388613 0 0 0
 -3 0 0 2 0 0 0 0
 0 0 100
 E
@@ -1014,9 +1026,9 @@ token fire~
 &+rthe neck like a collar.&n
 ~
 A
-4 3
+4 5
 A
-12 15
+13 15
 #40766
 silky dress black sirens~
 &+La silky black dress of the &+Ysirens&n~
@@ -1032,15 +1044,15 @@ silky dress black sirens~
 &+Lwith some invigorizing magics.&n
 ~
 A
-13 20
+13 25
 A
-3 7
+33 2
 #40767
 harp sirens instrument~
 &+La harp of the &+Ysirens&n~
 &+LA harp of the &+Ysirens&+L has been left here.&n~
 ~
-32 6 3 0 10 0 1 16385 64 0 0
+32 6 3 0 10 0 1 8404993 64 0 0
 187 15 0 25 0 0 0 0
 0 0 100 0 28 0 0
 E
@@ -1050,12 +1062,14 @@ harp sirens~
 ~
 A
 24 -3
+A
+22 -3
 #40768
 ring celestial wonders~
 &+cthe &+Cring&+c of cel&+Wes&+ctial &+Cwonders&n~
 &+cA &+Cwonderful&+c, cel&+Wes&+ctial &+Cring&+c has been left here.&n~
 ~
-9 1 3 0 11 0 1025 3 0 2048 0
+9 1 3 0 11 0 1025 3 0 172396036 0
 4 0 0 3 0 0 0 0
 0 0 100 0 12416 0 0
 E
@@ -1066,6 +1080,8 @@ ring celestial wonders~
 ~
 A
 13 25
+A
+33 2
 #40769
 headdress celestial outlaws~
 &+cthe &+Chea&+cdd&+Cress&+c of the cel&+Wes&+ctial &+Wou&+Ctla&+cws&n~
@@ -1115,7 +1131,7 @@ polished pewter greeves~
 &+Lphysical attacks.&n
 ~
 A
-2 5
+2 10
 A
 19 3
 #40772
@@ -1136,7 +1152,7 @@ hammer battle forgers~
 &+cthe hamm&+Cer of th&+ce batt&+Cle-forg&+cers&n~
 &+cthe hamm&+Cer of th&+ce batt&+Cle-forg&+cers&n~
 ~
-5 15 3 0 11 0 16 8193 0 38276612 0
+5 15 3 0 11 0 16 8193 0 39357956 0
 4 3 4 0 0 0 0 0
 0 8221 100
 A
@@ -1161,9 +1177,9 @@ warhammer hammer purelight~
 &+wthe &+Ctitan&+w war&+Whammer&+w, &+W'Pureli&+wght'&n~
 &+WA hammer glowing with holiness lies here.&n~
 ~
-5 15 3 0 11 0 1025 8193 64 37306787 0
-4 3 4 0 0 243 50 40
-0 10000 100 8192 0 0 0
+5 15 3 0 11 0 1025 8193 64 37339555 0
+4 3 4 0 0 243619058 50 30
+0 250000 100 8192 0 0 0
 E
 warhammer hammer purelight~
 ~
@@ -1209,7 +1225,7 @@ angelic electrum flute~
 &+can &+Wangelic&+C electrum&+c flute&n~
 &+cA small &+Celectrum&+c flute has been dropped here.&n~
 ~
-32 23 3 0 5 0 0 16385 0 0 0
+32 23 3 0 5 0 0 8404993 0 0 0
 184 0 0 0 0 0 0 0
 0 1 100
 E
@@ -1217,12 +1233,16 @@ angelic electrum flute~
 &+cThis flute has been crafted from electrum, a very rare type of metal. It has the forge
 &+cmarkings of the titans.
 ~
+A
+28 6
+A
+38 2
 #40779
 angelic electrum flute~
 &+can &+Wangelic&+C electrum&+c flute&n~
 &+cA small &+Celectrum&+c flute has been dropped here.&n~
 ~
-32 23 3 0 5 0 0 16385 0 0 0
+32 23 3 0 5 0 0 8404993 0 0 0
 184 35 0 0 0 0 0 0
 0 1 100
 E
@@ -1231,16 +1251,16 @@ angelic electrum flute~
 &+cmarkings of the titans.
 ~
 A
-30 8
+30 10
 A
-13 5
+13 15
 #40780
 blazing sword longsword rising sun~
 &+ca &+rbla&+Yzi&+rng&+c longsword dubbed '&+YRis&+ring &+YSun&+c'&n~
 &+cA &+rbla&+Yzi&+rng&+c longsword has been left here.&n~
 ~
 5 15 3 0 7 0 0 8193 64 0 0
-5 3 4 3 0 5 25 20
+5 3 4 3 0 233021 25 30
 0 0 100
 E
 blazing sword longsword rising sun~
@@ -1271,7 +1291,7 @@ longsword sword massive dusk dawn~
 &+LA massive &n&+clongsword&+L, its blade covered with &+rred&+L and &+bblue&+L veins, has been left here.~
 ~
 5 23 3 25 11 0 0 8193 64 0 0
-5 5 5 3 0 8005 25 30
+5 5 5 3 0 21117325 25 30
 25 40000 100
 E
 longsword massive sword dusk dawn~
@@ -1302,7 +1322,7 @@ rising frost icy sword longsword~
 &+cAn &+bicy&+c longsword has been left here.&n~
 ~
 5 23 3 0 11 0 1024 8193 64 95993859 0
-5 3 4 3 0 8 25 30
+5 3 4 3 0 325472 25 30
 0 2000 100
 E
 rising frost icy sword longsword~

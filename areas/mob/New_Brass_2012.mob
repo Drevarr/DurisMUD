@@ -159,8 +159,8 @@ The Sultan of all the efreeti Shadam Quilen is here sitting on his great
 throne of brass.  Shadam is well over fifty feet tall emulated in flames
 and does not seem to happy to see you here.
 ~
-1124206635 1 0 0 671613112 47296 0 512 -1000 S
-e 0 320 0 -1
+1392736299 1 0 0 3087532216 4241600 68157632 38802944 -1000 S
+tt 0 448 0 -1
 60 -10 -152 25000d1+500 7d7+45
 0.0.0.500 1000000
 8 8 1
@@ -820,7 +820,7 @@ A visitor to the City of Brass this titan is head and shoulders above
 a greater majority of the population here. She is dressed in a form
 of bandedmail armor and has a huge hammer at the ready.
 ~
-1140852808 8421376 0 0 536870936 32768 0 0 -500 S
+1073743944 8421376 0 0 536870936 32768 0 0 -500 S
 tt 0 32 1 6
 55 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -932,7 +932,7 @@ With red-skin and boldging muscles this being looks much like a dog walking
 on two feet. It wears a kilt around his waist and large bracers covering his
 forearms while his main features is its pointy ears and chin.
 ~
-1140852744 10496 1006632974 0 939532312 0 0 0 1000 S
+1073743880 10496 1006632974 0 939532312 0 0 0 1000 S
 ar 0 8 1 4
 55 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -947,7 +947,7 @@ the noticeable attributes of this creature. His robes are solid grey with two
 red stripes that run over his shoulders. He is just over five feet tall, has
 no hair, and is average build.
 ~
-1140852744 268435456 0 32 671154176 0 0 0 -500 S
+1073743880 268435456 0 32 671154176 0 0 0 -500 S
 ph 0 768 0 3
 46 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -961,7 +961,7 @@ Grey skinned humanoid with runes covering his body has an average build and
 his right wrist is covered with an efreeti's slave marker. He has no clothing
 or any genitalia visible.
 ~
-1140852872 524288 0 8 536871040 0 0 0 -500 S
+1073744008 524288 0 8 536871040 0 0 0 -500 S
 PH 0 2048 4 -1
 46 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -991,7 +991,7 @@ A common looking githzerai with the markings of enslavement on her wrist wears
 only a loin cloth bikini, a cloak, and a pair of sandals. She holds herself as
 if she has no care in the world.
 ~
-1140852744 33554432 0 256 536870936 0 0 0 0 S
+1073743880 33554432 0 256 536870936 0 0 0 0 S
 gz 0 64 1 -1
 46 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1006,7 +1006,7 @@ is towering at twenty feet in height and wears a kilt on his waist covering
 his knees. The upper part of the kilt covers over his left torso and is made
 of some fine quality threads.
 ~
-1140852744 1077936128 0 0 536870936 0 0 0 -500 S
+1073743880 1077936128 0 0 536870936 0 0 0 -500 S
 tt 0 1048576 2 -1
 46 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1048,7 +1048,7 @@ apparent from far away. She has long flowing black hair and redish pink skin.
 Her breasts are uncovered and surrounded by a weapon harness. The yellowish
 orange kilt shows off her toned legs and sandaled feet.
 ~
-1140852744 67125248 0 0 671088664 0 262144 0 -500 S
+1073743880 67125248 0 0 671088664 0 262144 0 -500 S
 su 0 2 1 -1
 46 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -1248,7 +1248,7 @@ h 0 32768 3 3
 0.0.0.0 0
 8 8 1
 #139085
-repair flesh golem~
+flesh golem~
 &+Lthe &+Bre&+bpair &+Lm&+Ba&+bn&n~
 &+BA flesh golem leans in the corner arms crossed and one foot pressed against the wall.&n
 ~
@@ -1563,7 +1563,7 @@ black hair and orange colored eyes. His redish skin is highlighted by the
 red flames surrounding him and seems a bit snobby towards the shorter
 beings in the room.
 ~
-33568780 2148532224 0 0 939524144 2113 0 0 -500 S
+100677644 0 0 0 939524144 2113 0 0 -500 S
 e 0 1 0 5
 45 0 0 1d1+1 1d1+1
 0.0.8.6 0
@@ -1796,7 +1796,7 @@ e 0 34816 0 6
 0.0.0.0 222750
 8 8 1
 #139122
-efreeti weapon-smith weapon smith~
+efreeti weapon-smith~
 &+Yan &+ref&+Rre&+ret&+Ri &+Yweapon-smith&N~
 &+YBanging away, the &+ref&+Rre&+ret&+Ri &+Yweapon-smith stands here.
 ~
@@ -2123,4 +2123,19 @@ hydra elder~
 d 0 16777218 0 -1
 61 0 0 1d1+1 1d1+1
 0.0.0.0 0
+8 8 1
+#139146
+efreeti commoner~
+&+Yan &+ref&+Rre&+ret&+Ri &+Ycommoner&N~
+&+YAn &+ref&+Rre&+ret&+Ri &+Ycommoner travels the city on an unknown errand.&N
+~
+This efreeti is of average build and stands 10 feet tall. He has spiked
+black hair and orange colored eyes. His redish skin is highlighted by the
+red flames surrounding him and seems a bit snobby towards the shorter
+beings in the room.
+~
+100677644 0 0 0 939524144 2113 0 0 -500 S
+e 0 1 0 5
+45 0 0 1d1+1 1d1+1
+0.0.8.6 0
 8 8 1

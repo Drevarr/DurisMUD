@@ -179,7 +179,7 @@ dagger bloodfeast granite unique~
 &+Lthe granite dagger '&+RBl&+roo&+RdFe&+ra&+Rst&+L'&n~
 &+LA granite dagger sits here.... waiting~
 ~
-5 37 2 0 15 75 285222160 8193 64 10616767 0
+5 37 2 0 15 75 285222160 8193 64 10612736 0
 2 4 4 11 0 0 0 0
 10 100000 100 268435472 0 0 0
 E
@@ -400,7 +400,7 @@ plate platemail dragonlord~
 &+gthe &+Wplatemail&n &+gof the &+YDragonLord&n~
 &+gAn armored plate of dragonscale is here.~
 ~
-9 35 3 0 15 75 268443648 9 64 0 0
+9 35 3 0 15 75 268443648 9 64 13614660 0
 50 3 1 5 0 0 0 0
 10 1000000 100 671088656 14528 0 4096
 E
@@ -409,10 +409,6 @@ This is the platemail you've heard legends
 about all your life.  Made from the scales
 of the oldest of the gold dragons of lore.
 ~
-A
-35 10
-A
-23 -8
 #25724
 key glowing~
 &+Wa glowing white key&n~
@@ -735,13 +731,13 @@ A
 A
 19 3
 #25745
-sunblade sword~
-&+YSunblade&+W, the longsword of &+YJustice&n~
-&+YSome idiot has left Sunblade here on the floor!&n~
+sunlash whip injustice pain barbed unique~
+&+YSunlash&+W, &+Lthe barbed whip of &+rInjustice &+Land &+rPain&n~
+&+yA glowing cat-o-nine-tails whip lies here &+Ypulsating.&n~
 ~
-5 35 4 0 15 100 271720457 8193 64 0 0
-5 6 6 3 0 0 0 0
-20 1000000 100 536879120 4 0 0
+5 43 4 0 15 100 271720456 8193 64 0 0
+14 6 4 3 0 0 0 0
+20 1000000 100 536870912 0 0 0
 E
 sunlash whip injustice pain barbed~
    One of the most fabled and powerful weapons found in the lands of Duris, the
@@ -755,9 +751,9 @@ ensued in the realm of Ravenloft, and in the midst of the horrific struggle
 between the forces of good and evil, a Vistani agent stole the whip...
 ~
 A
-18 7
+18 9
 A
-19 7
+19 3
 #25746
 key mist~
 &+ca small key of mist&n~
@@ -995,3 +991,11 @@ seal personal~
 Bahamut's very own seal, perhaps this will somehow gain you
 access to his fabled treasure.
 ~
+#67200
+object unnamed~
+an unnamed object~
+An unnamed object lies here, looking lonely and forelorn.~
+~
+13 15 3 0 7 0 0 262145 0 0 0
+0 0 0 0 0 0 0 0
+0 0 100
