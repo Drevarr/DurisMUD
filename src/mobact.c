@@ -5144,7 +5144,8 @@ void BreathWeapon(P_char ch, int dir)
     if(IS_FIGHTING(ch))
         victim = ch->specials.fighting;
         
-    cast_as_damage_area(ch, funct, GET_LEVEL(ch), victim,
+   /* cast_as_damage_area(ch, funct, GET_LEVEL(ch), victim,*/
+	cast_as_damage_area(ch, funct, BOUNDED(1, GET_LEVEL(ch), 20), victim,
         get_property("dragon.Breath.area.minChance", 60),
         get_property("dragon.Breath.area.chanceStep", 20));
     

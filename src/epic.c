@@ -2753,12 +2753,16 @@ void do_epic_skills(P_char ch, char *arg, int cmd)
       {
         sprintf(buff, "&+W%-25s &n(&+W%-5d&n) %s\n", skills[skill].name, epic_teachers[t].vnum, teacher->player.short_descr);
         extract_char(teacher);
-      } else {
+      } else 
+	{
         logit(LOG_DEBUG, "do_epic_skills(): epic_teachers[%d].vnum does not exist for epic skill %s", t, skills[skill].name);
         sprintf(buff, "&+W%-25s &n(&+W%-5d&n) Teacher does not exist.\n", skills[skill].name, epic_teachers[t].vnum);
       }
-    } else {
-      sprintf(buff, "&+W%s\n", skills[skill].name);
+    } else 
+	if(teacher = read_mobile(epic_teachers[t].vnum, VIRTUAL))
+	{
+      sprintf(buff, "&+W%-25s &n&+yTeacher&+Y: &n %s\n", skills[skill].name,teacher->player.short_descr, teacher->player.short_descr);
+	extract_char(teacher);
     }
     send_to_char(buff, ch);
   }

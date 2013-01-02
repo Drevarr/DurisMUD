@@ -10291,6 +10291,8 @@ void spell_shadow_breath_1(int level, P_char ch, char *arg, int type,
   if(NewSaves(victim, SAVING_BREATH, save))
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
 
+  dam = BOUNDED(1, dam, 80);
+
   if(spell_damage(ch, victim, dam, SPLDAM_NEGATIVE, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages)!=
     DAM_NONEDEAD);
       return;
@@ -10317,6 +10319,8 @@ void spell_shadow_breath_2(int level, P_char ch, char *arg, int type,
 
   if(NewSaves(victim, SAVING_BREATH, save))
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+
+  dam = BOUNDED(1, dam, 80);
 
   if(!NewSaves(victim, SAVING_SPELL, save))
   {
@@ -10353,6 +10357,7 @@ void spell_fire_breath(int level, P_char ch, char *arg, int type,
 
   if(NewSaves(victim, SAVING_BREATH, save))
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+  dam = BOUNDED(1, dam, 80);
 
   if(spell_damage(ch, victim, dam, SPLDAM_FIRE, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) !=
     DAM_NONEDEAD)
@@ -10409,6 +10414,7 @@ void spell_frost_breath(int level, P_char ch, char *arg, int type,
     dam /= 2;
   if(NewSaves(victim, SAVING_BREATH, save))
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+  dam = BOUNDED(1, dam, 80);
 
   if(spell_damage(ch, victim, dam, SPLDAM_COLD, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) !=
     DAM_NONEDEAD);
@@ -10463,6 +10469,8 @@ void spell_acid_breath(int level, P_char ch, char *arg, int type,
     dam /= 2;
   if(NewSaves(victim, SAVING_BREATH, save))
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+
+  dam = BOUNDED(1, dam, 80);
 
   if(IS_AFFECTED2(victim, AFF2_PROT_ACID) &&
     number(0, 4))
@@ -10523,6 +10531,7 @@ void spell_gas_breath(int level, P_char ch, char *arg, int type,
     dam /= 2;
   if(NewSaves(victim, SAVING_BREATH, save))
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+  dam = BOUNDED(1, dam, 80);
 
   if(spell_damage(ch, victim, dam, SPLDAM_GAS, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) ==
       DAM_NONEDEAD)
@@ -10559,6 +10568,8 @@ void spell_lightning_breath(int level, P_char ch, char *arg, int type,
     number(0, 4))
       return;
 
+  dam = BOUNDED(1, dam, 80);
+
   spell_damage(ch, victim, dam, SPLDAM_LIGHTNING, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages);
 }
 
@@ -10584,6 +10595,8 @@ void spell_blinding_breath(int level, P_char ch, char *arg, int type,
     dam /= 2;
   if(NewSaves(victim, SAVING_BREATH, save))
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));;
+
+  dam = BOUNDED(1, dam, 80);
 
   if(spell_damage(ch, victim, dam, SPLDAM_GAS, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) !=
       DAM_NONEDEAD)
@@ -10632,6 +10645,8 @@ void spell_basalt_light(int level, P_char ch, char *arg, int type,
   if(NewSaves(victim, SAVING_BREATH, save))
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
 
+  dam = BOUNDED(1, dam, 80);
+
   if(IS_AFFECTED2(victim, AFF2_PROT_ACID) &&
     number(0, 4))
       return;
@@ -10673,6 +10688,8 @@ void spell_jasper_light(int level, P_char ch, char *arg, int type,
   if(NewSaves(victim, SAVING_BREATH, save))
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
 
+  dam = BOUNDED(1, dam, 80);
+
   if(spell_damage(ch, victim, dam, SPLDAM_GAS, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) ==
       DAM_NONEDEAD)
   {
@@ -10713,6 +10730,8 @@ void spell_azure_light(int level, P_char ch, char *arg, int type,
     dam /= 2;
   if(NewSaves(victim, SAVING_BREATH, save))
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+
+  dam = BOUNDED(1, dam, 80);
 
   if(IS_AFFECTED2(victim, AFF2_PROT_LIGHTNING) &&
     number(0, 4))
@@ -10756,6 +10775,8 @@ void spell_crimson_light(int level, P_char ch, char *arg, int type,
 
   if(NewSaves(victim, SAVING_BREATH, save))
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+
+  dam = BOUNDED(1, dam, 80);
 
   if(spell_damage(ch, victim, dam, SPLDAM_FIRE, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) !=
     DAM_NONEDEAD)

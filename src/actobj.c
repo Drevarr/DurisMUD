@@ -4865,7 +4865,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
 
   one_argument(argument, Gbuf4);
 
-  
+  /* Going Prod 1/2/13 - drannak
   if (!IS_TRUSTED(ch))
   {
     send_to_char
@@ -4873,8 +4873,10 @@ void do_salvage(P_char ch, char *argument, int cmd)
        ch);
     return;
   }
-  
-  
+  */
+ 
+
+
   if(GET_CHAR_SKILL(ch, SKILL_CRAFT) < 1)
   {
     send_to_char("Only &+ycrafters&n have the necessary &+yskill&n to break down &+Witems&n.\n", ch);
@@ -4907,7 +4909,15 @@ void do_salvage(P_char ch, char *argument, int cmd)
     act("That's probably more valuable than what you could break it down into... lets not.", FALSE, ch, 0, 0, TO_CHAR);
     return;
    }
-  rolled = number(1, 100);
+  if (IS_SET(temp->extra_flags, ITEM_ARTIFACT))
+  {
+    send_to_char
+      ("&+LYou decide against destroying an &+RARTIFACT&+L!\r\n",
+       ch);
+    return;
+  }
+  
+  rolled = number(1, 105);
   if  (GET_CHAR_SKILL(ch, SKILL_CRAFT) < rolled)
    {
     act("&+LYou attempt to break down your $q, but end up &+Rbreaking &+Lit in the process.", FALSE, ch, 0, 0, TO_CHAR);
@@ -4928,7 +4938,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
     int rand1 = number(1, 16);
 	int rand2 = number(1, 3);
 	int objchance = (objcft * 7 /2 + GET_CHAR_SKILL(ch, SKILL_CRAFT) / 2 - rand1); //better skill and better quality yields better chance for good material
-	if(objcft < 3)
+	if(objcft < 7)
 	{
 	 objchance = objchance - 10; //penalize for less than average
 	}
@@ -4947,142 +4957,142 @@ void do_salvage(P_char ch, char *argument, int cmd)
 			  switch (objmat)
 				{       // If they all == 67283, why bother with the Switch?
 					case MAT_NONSUBSTANTIAL:
-					matvnum = 67283;  
+					matvnum = 400205;  
 					break;
 					case MAT_FLESH:
-					matvnum = 67283;  
+					matvnum = 400005;  
 					break;
 					case MAT_CLOTH:
-					matvnum = 67283;  
+					matvnum = 400015;  
 					break;
 					case MAT_BARK:
-					matvnum = 67283;  
+					matvnum = 400035;  
 					break;
 					case MAT_SOFTWOOD:
-					matvnum = 67283;  
+					matvnum = 400040;  
 					break;
 					case MAT_HARDWOOD:
-					matvnum = 67283;  
+					matvnum = 400050;  
 					break;
-					case MAT_SILICON:
-					matvnum = 67283;  
-					break;
+					//case MAT_SILICON:
+					//matvnum = 67283;  
+					//break;
 					case MAT_CRYSTAL:
-					matvnum = 67283;  
+					matvnum = 400090;  
 					break;
-					case MAT_CERAMIC:
-					matvnum = 67283;  
-					break;
+					//case MAT_CERAMIC:
+					//matvnum = 67283;  
+					//break;
 					case MAT_BONE:
-					matvnum = 67283;  
+					matvnum = 400065;  
 					break;
 					case MAT_STONE:
-					matvnum = 67283;  
+					matvnum = 400095;  
 					break;
 					case MAT_HIDE:
-					matvnum = 67283;  
+					matvnum = 400030;  
 					break;
 					case MAT_LEATHER:
-					matvnum = 67283;  
+					matvnum = 400045;  
 					break;
 					case MAT_CURED_LEATHER:
-					matvnum = 67283;  
+					matvnum = 400060;  
 					break;
 					case MAT_IRON:
-					matvnum = 67283;  
+					matvnum = 400110;  
 					break;
 					case MAT_STEEL:
-					matvnum = 67283;  
+					matvnum = 400120;  
 					break;
 					case MAT_BRASS:
-					matvnum = 67283;  
+					matvnum = 400125;  
 					break;
 					case MAT_MITHRIL:
-					matvnum = 67283;  
+					matvnum = 400185;  
 					break;
 					case MAT_ADAMANTIUM:
-					matvnum = 67283;  
+					matvnum = 400195;  
 					break;
 					case MAT_BRONZE:
-					matvnum = 67283;  
+					matvnum = 400130;  
 					break;
 					case MAT_COPPER:
-					matvnum = 67283;  
+					matvnum = 400135;  
 					break;
 					case MAT_SILVER:
-					matvnum = 67283;  
+					matvnum = 400140;  
 					break;
 					case MAT_ELECTRUM:
-					matvnum = 67283;  
+					matvnum = 400145;  
 					break;
 					case MAT_GOLD:
-					matvnum = 67283;  
+					matvnum = 400150;  
 					break;
 					case MAT_PLATINUM:
-					matvnum = 67283;  
+					matvnum = 400180;  
 					break;
 					case MAT_GEM:
-					matvnum = 67283;  
+					matvnum = 400155;  
 					break;
 					case MAT_DIAMOND:
-					matvnum = 67283;  
+					matvnum = 400190;  
 					break;
-					case MAT_LEAVES:
-					matvnum = 67283;  
-					break;
+					//case MAT_LEAVES:
+					//matvnum = 67283;  
+					//break;
 					case MAT_RUBY:
-					matvnum = 67283;  
+					matvnum = 400165;  
 					break;
 					case MAT_EMERALD:
-					matvnum = 67283;  
+					matvnum = 400160;  
 					break;
 					case MAT_SAPPHIRE:
-					matvnum = 67283;  
+					matvnum = 400170;  
 					break;
 					case MAT_IVORY:
-					matvnum = 67283;  
+					matvnum = 400070;  
 					break;
 					case MAT_DRAGONSCALE:
-					matvnum = 67283;  
+					matvnum = 400200;  
 					break;
 					case MAT_OBSIDIAN:
-					matvnum = 67283;  
+					matvnum = 400175;  
 					break;
 					case MAT_GRANITE:
-					matvnum = 67283;  
+					matvnum = 400100;  
 					break;
 					case MAT_MARBLE:
-					matvnum = 67283;  
+					matvnum = 400105;  
 					break;
-					case MAT_LIMESTONE:
-					matvnum = 67283;  
-					break;
+					//case MAT_LIMESTONE:
+					//matvnum = 67283;  
+					//break;
 					case MAT_BAMBOO:
-					matvnum = 67283;  
+					matvnum = 400055;  
 					break;
 					case MAT_REEDS:
-					matvnum = 67283;  
+					matvnum = 400010;  
 					break;
 					case MAT_HEMP:
-					matvnum = 67283;  
+					matvnum = 400020;  
 					break;
 					case MAT_GLASSTEEL:
-					matvnum = 67283;  
+					matvnum = 400115;  
 					break;
 					case MAT_CHITINOUS:
-					matvnum = 67283;  
+					matvnum = 400080;  
 					break;
 					case MAT_REPTILESCALE:
-					matvnum = 67283;  
+					matvnum = 400085;  
 					break;
 					case MAT_RUBBER:
-					matvnum = 67283;  
+					matvnum = 400025;  
 					break;
 					case MAT_FEATHER:
-					matvnum = 67283;  
+					matvnum = 400000;  
 					break;
 					case MAT_PEARL:
-					matvnum = 67283;  
+					matvnum = 400075;  
 					break;
 					default:
 					act("&+wYou cant seem to find anything worth &+ysalvaging&+w on that item.&n", FALSE, ch, 0, 0, TO_CHAR);
@@ -5096,142 +5106,142 @@ void do_salvage(P_char ch, char *argument, int cmd)
 		 	  switch (objmat)
 				{       // If they all == 67284, why bother with the Switch?
 					case MAT_NONSUBSTANTIAL:
-					matvnum = 67284;  
+					matvnum = 400206;  
 					break;
 					case MAT_FLESH:
-					matvnum = 67284;  
+					matvnum = 400006;  
 					break;
 					case MAT_CLOTH:
-					matvnum = 67284;  
+					matvnum = 400016;  
 					break;
 					case MAT_BARK:
-					matvnum = 67284;  
+					matvnum = 400036;  
 					break;
 					case MAT_SOFTWOOD:
-					matvnum = 67284;  
+					matvnum = 400041;  
 					break;
 					case MAT_HARDWOOD:
-					matvnum = 67284;  
+					matvnum = 400051;  
 					break;
-					case MAT_SILICON:
-					matvnum = 67284;  
-					break;
+					//case MAT_SILICON:
+					//matvnum = 67284;  
+					//break;
 					case MAT_CRYSTAL:
-					matvnum = 67284;  
+					matvnum = 400091;  
 					break;
-					case MAT_CERAMIC:
-					matvnum = 67284;  
-					break;
+					//case MAT_CERAMIC:
+					//matvnum = 67284;  
+					//break;
 					case MAT_BONE:
-					matvnum = 67284;  
+					matvnum = 400066;  
 					break;
 					case MAT_STONE:
-					matvnum = 67284;  
+					matvnum = 400096;  
 					break;
 					case MAT_HIDE:
-					matvnum = 67284;  
+					matvnum = 400031;  
 					break;
 					case MAT_LEATHER:
-					matvnum = 67284;  
+					matvnum = 400046;  
 					break;
 					case MAT_CURED_LEATHER:
-					matvnum = 67284;  
+					matvnum = 400061;  
 					break;
 					case MAT_IRON:
-					matvnum = 67284;  
+					matvnum = 400111;  
 					break;
 					case MAT_STEEL:
-					matvnum = 67284;  
+					matvnum = 400121;  
 					break;
 					case MAT_BRASS:
-					matvnum = 67284;  
+					matvnum = 400126;  
 					break;
 					case MAT_MITHRIL:
-					matvnum = 67284;  
+					matvnum = 400186;  
 					break;
 					case MAT_ADAMANTIUM:
-					matvnum = 67284;  
+					matvnum = 400196;  
 					break;
 					case MAT_BRONZE:
-					matvnum = 67284;  
+					matvnum = 400131;  
 					break;
 					case MAT_COPPER:
-					matvnum = 67284;  
+					matvnum = 400136;  
 					break;
 					case MAT_SILVER:
-					matvnum = 67284;  
+					matvnum = 400141;  
 					break;
 					case MAT_ELECTRUM:
-					matvnum = 67284;  
+					matvnum = 400146;  
 					break;
 					case MAT_GOLD:
-					matvnum = 67284;  
+					matvnum = 400151;  
 					break;
 					case MAT_PLATINUM:
-					matvnum = 67284;  
+					matvnum = 400181;  
 					break;
 					case MAT_GEM:
-					matvnum = 67284;  
+					matvnum = 400156;  
 					break;
 					case MAT_DIAMOND:
-					matvnum = 67284;  
+					matvnum = 400191;  
 					break;
-					case MAT_LEAVES:
-					matvnum = 67284;  
-					break;
+					//case MAT_LEAVES:
+					//matvnum = 67284;  
+					//break;
 					case MAT_RUBY:
-					matvnum = 67284;  
+					matvnum = 400166;  
 					break;
 					case MAT_EMERALD:
-					matvnum = 67284;  
+					matvnum = 400161;  
 					break;
 					case MAT_SAPPHIRE:
-					matvnum = 67284;  
+					matvnum = 400171;  
 					break;
 					case MAT_IVORY:
-					matvnum = 67284;  
+					matvnum = 400071;  
 					break;
 					case MAT_DRAGONSCALE:
-					matvnum = 67284;  
+					matvnum = 400201;  
 					break;
 					case MAT_OBSIDIAN:
-					matvnum = 67284;  
+					matvnum = 400176;  
 					break;
 					case MAT_GRANITE:
-					matvnum = 67284;  
+					matvnum = 400101;  
 					break;
 					case MAT_MARBLE:
-					matvnum = 67284;  
+					matvnum = 400106;  
 					break;
-					case MAT_LIMESTONE:
-					matvnum = 67284;  
-					break;
+					//case MAT_LIMESTONE:
+					//matvnum = 67284;  
+					//break;
 					case MAT_BAMBOO:
-					matvnum = 67284;  
+					matvnum = 400056;  
 					break;
 					case MAT_REEDS:
-					matvnum = 67284;  
+					matvnum = 400011;  
 					break;
 					case MAT_HEMP:
-					matvnum = 67284;  
+					matvnum = 400021;  
 					break;
 					case MAT_GLASSTEEL:
-					matvnum = 67284;  
+					matvnum = 400116;  
 					break;
 					case MAT_CHITINOUS:
-					matvnum = 67284;  
+					matvnum = 400081;  
 					break;
 					case MAT_REPTILESCALE:
-					matvnum = 67284;  
+					matvnum = 400086;  
 					break;
 					case MAT_RUBBER:
-					matvnum = 67284;  
+					matvnum = 400026;  
 					break;
 					case MAT_FEATHER:
-					matvnum = 67284;  
+					matvnum = 400001;  
 					break;
 					case MAT_PEARL:
-					matvnum = 67284;  
+					matvnum = 400076;  
 					break;
 					default:
 					act("&+wYou cant seem to find anything worth &+ysalvaging&+w on that item.&n", FALSE, ch, 0, 0, TO_CHAR);
@@ -5245,142 +5255,142 @@ void do_salvage(P_char ch, char *argument, int cmd)
 		 	  switch (objmat)
 				{       // If they all == 67285, why bother with the Switch?
 					case MAT_NONSUBSTANTIAL:
-					matvnum = 67285;  
+					matvnum = 400207;  
 					break;
 					case MAT_FLESH:
-					matvnum = 67285;  
+					matvnum = 400007;  
 					break;
 					case MAT_CLOTH:
-					matvnum = 67285;  
+					matvnum = 400017;  
 					break;
 					case MAT_BARK:
-					matvnum = 67285;  
+					matvnum = 400037;  
 					break;
 					case MAT_SOFTWOOD:
-					matvnum = 67285;  
+					matvnum = 400042;  
 					break;
 					case MAT_HARDWOOD:
-					matvnum = 67285;  
+					matvnum = 400052;  
 					break;
-					case MAT_SILICON:
-					matvnum = 67285;  
-					break;
+					//case MAT_SILICON:
+					//matvnum = 67285;  
+					//break;
 					case MAT_CRYSTAL:
-					matvnum = 67285;  
+					matvnum = 400092;  
 					break;
-					case MAT_CERAMIC:
-					matvnum = 67285;  
-					break;
+					//case MAT_CERAMIC:
+					//matvnum = 67285;  
+					//break;
 					case MAT_BONE:
-					matvnum = 67285;  
+					matvnum = 400067;  
 					break;
 					case MAT_STONE:
-					matvnum = 67285;  
+					matvnum = 400097;  
 					break;
 					case MAT_HIDE:
-					matvnum = 67285;  
+					matvnum = 400032;  
 					break;
 					case MAT_LEATHER:
-					matvnum = 67285;  
+					matvnum = 400047;  
 					break;
 					case MAT_CURED_LEATHER:
-					matvnum = 67285;  
+					matvnum = 400062;  
 					break;
 					case MAT_IRON:
-					matvnum = 67285;  
+					matvnum = 400112;  
 					break;
 					case MAT_STEEL:
-					matvnum = 67285;  
+					matvnum = 400122;  
 					break;
 					case MAT_BRASS:
-					matvnum = 67285;  
+					matvnum = 400127;  
 					break;
 					case MAT_MITHRIL:
-					matvnum = 67285;  
+					matvnum = 400187;  
 					break;
 					case MAT_ADAMANTIUM:
-					matvnum = 67285;  
+					matvnum = 400197;  
 					break;
 					case MAT_BRONZE:
-					matvnum = 67285;  
+					matvnum = 400132;  
 					break;
 					case MAT_COPPER:
-					matvnum = 67285;  
+					matvnum = 400137;  
 					break;
 					case MAT_SILVER:
-					matvnum = 67285;  
+					matvnum = 400142;  
 					break;
 					case MAT_ELECTRUM:
-					matvnum = 67285;  
+					matvnum = 400147;  
 					break;
 					case MAT_GOLD:
-					matvnum = 67285;  
+					matvnum = 400152;  
 					break;
 					case MAT_PLATINUM:
-					matvnum = 67285;  
+					matvnum = 400182;  
 					break;
 					case MAT_GEM:
-					matvnum = 67285;  
+					matvnum = 400157;  
 					break;
 					case MAT_DIAMOND:
-					matvnum = 67285;  
+					matvnum = 400192;  
 					break;
-					case MAT_LEAVES:
-					matvnum = 67285;  
-					break;
+					//case MAT_LEAVES:
+					//matvnum = 67285;  
+					//break;
 					case MAT_RUBY:
-					matvnum = 67285;  
+					matvnum = 400167;  
 					break;
 					case MAT_EMERALD:
-					matvnum = 67285;  
+					matvnum = 400162;  
 					break;
 					case MAT_SAPPHIRE:
-					matvnum = 67285;  
+					matvnum = 400172;  
 					break;
 					case MAT_IVORY:
-					matvnum = 67285;  
+					matvnum = 400072;  
 					break;
 					case MAT_DRAGONSCALE:
-					matvnum = 67285;  
+					matvnum = 400202;  
 					break;
 					case MAT_OBSIDIAN:
-					matvnum = 67285;  
+					matvnum = 400177;  
 					break;
 					case MAT_GRANITE:
-					matvnum = 67285;  
+					matvnum = 400102;  
 					break;
 					case MAT_MARBLE:
-					matvnum = 67285;  
+					matvnum = 400107;  
 					break;
-					case MAT_LIMESTONE:
-					matvnum = 67285;  
-					break;
+					//case MAT_LIMESTONE:
+					//matvnum = 67285;  
+					//break;
 					case MAT_BAMBOO:
-					matvnum = 67285;  
+					matvnum = 400057;  
 					break;
 					case MAT_REEDS:
-					matvnum = 67285;  
+					matvnum = 400012;  
 					break;
 					case MAT_HEMP:
-					matvnum = 67285;  
+					matvnum = 400022;  
 					break;
 					case MAT_GLASSTEEL:
-					matvnum = 67285;  
+					matvnum = 400117;  
 					break;
 					case MAT_CHITINOUS:
-					matvnum = 67285;  
+					matvnum = 400082;  
 					break;
 					case MAT_REPTILESCALE:
-					matvnum = 67285;  
+					matvnum = 400087;  
 					break;
 					case MAT_RUBBER:
-					matvnum = 67285;  
+					matvnum = 400027;  
 					break;
 					case MAT_FEATHER:
-					matvnum = 67285;  
+					matvnum = 400002;  
 					break;
 					case MAT_PEARL:
-					matvnum = 67285;  
+					matvnum = 400077;  
 					break;
 					default:
 					act("&+wYou cant seem to find anything worth &+ysalvaging&+w on that item.&n", FALSE, ch, 0, 0, TO_CHAR);
@@ -5394,142 +5404,142 @@ void do_salvage(P_char ch, char *argument, int cmd)
 		 	  switch (objmat)
 				{
 					case MAT_NONSUBSTANTIAL:
-					matvnum = 67286;  
+					matvnum = 400208;  
 					break;
 					case MAT_FLESH:
-					matvnum = 67286;  
+					matvnum = 400008;  
 					break;
 					case MAT_CLOTH:
-					matvnum = 67286;  
+					matvnum = 400018;  
 					break;
 					case MAT_BARK:
-					matvnum = 67286;  
+					matvnum = 400038;  
 					break;
 					case MAT_SOFTWOOD:
-					matvnum = 67286;  
+					matvnum = 400043;  
 					break;
 					case MAT_HARDWOOD:
-					matvnum = 67286;  
+					matvnum = 400050;  
 					break;
-					case MAT_SILICON:
-					matvnum = 67286;  
-					break;
+					//case MAT_SILICON:
+					//matvnum = 67286;  
+					//break;
 					case MAT_CRYSTAL:
-					matvnum = 67286;  
+					matvnum = 400093;  
 					break;
-					case MAT_CERAMIC:
-					matvnum = 67286;  
-					break;
+					//case MAT_CERAMIC:
+					//matvnum = 67286;  
+					//break;
 					case MAT_BONE:
-					matvnum = 67286;  
+					matvnum = 400068;  
 					break;
 					case MAT_STONE:
-					matvnum = 67286;  
+					matvnum = 400098;  
 					break;
 					case MAT_HIDE:
-					matvnum = 67286;  
+					matvnum = 400033;  
 					break;
 					case MAT_LEATHER:
-					matvnum = 67286;  
+					matvnum = 400048;  
 					break;
 					case MAT_CURED_LEATHER:
-					matvnum = 67286;  
+					matvnum = 400063;  
 					break;
 					case MAT_IRON:
-					matvnum = 67286;  
+					matvnum = 400113;  
 					break;
 					case MAT_STEEL:
-					matvnum = 67286;  
+					matvnum = 400123;  
 					break;
 					case MAT_BRASS:
-					matvnum = 67286;  
+					matvnum = 400128;  
 					break;
 					case MAT_MITHRIL:
-					matvnum = 67286;  
+					matvnum = 400188;  
 					break;
 					case MAT_ADAMANTIUM:
-					matvnum = 67286;  
+					matvnum = 400198;  
 					break;
 					case MAT_BRONZE:
-					matvnum = 67286;  
+					matvnum = 400133;  
 					break;
 					case MAT_COPPER:
-					matvnum = 67286;  
+					matvnum = 400138;  
 					break;
 					case MAT_SILVER:
-					matvnum = 67286;  
+					matvnum = 400143;  
 					break;
 					case MAT_ELECTRUM:
-					matvnum = 67286;  
+					matvnum = 400148;  
 					break;
 					case MAT_GOLD:
-					matvnum = 67286;  
+					matvnum = 400153;  
 					break;
 					case MAT_PLATINUM:
-					matvnum = 67286;  
+					matvnum = 400183;  
 					break;
 					case MAT_GEM:
-					matvnum = 67286;  
+					matvnum = 400158;  
 					break;
 					case MAT_DIAMOND:
-					matvnum = 67286;  
+					matvnum = 400193;  
 					break;
-					case MAT_LEAVES:
-					matvnum = 67286;  
-					break;
+					//case MAT_LEAVES:
+					//matvnum = 67286;  
+					//break;
 					case MAT_RUBY:
-					matvnum = 67286;  
+					matvnum = 400168;  
 					break;
 					case MAT_EMERALD:
-					matvnum = 67286;  
+					matvnum = 400163;  
 					break;
 					case MAT_SAPPHIRE:
-					matvnum = 67286;  
+					matvnum = 400173;  
 					break;
 					case MAT_IVORY:
-					matvnum = 67286;  
+					matvnum = 400073;  
 					break;
 					case MAT_DRAGONSCALE:
-					matvnum = 67286;  
+					matvnum = 400203;  
 					break;
 					case MAT_OBSIDIAN:
-					matvnum = 67286;  
+					matvnum = 400178;  
 					break;
 					case MAT_GRANITE:
-					matvnum = 67286;  
+					matvnum = 400103;  
 					break;
 					case MAT_MARBLE:
-					matvnum = 67286;  
+					matvnum = 400108;  
 					break;
-					case MAT_LIMESTONE:
-					matvnum = 67286;  
-					break;
+					//case MAT_LIMESTONE:
+					//matvnum = 67286;  
+					//break;
 					case MAT_BAMBOO:
-					matvnum = 67286;  
+					matvnum = 400058;  
 					break;
 					case MAT_REEDS:
-					matvnum = 67286;  
+					matvnum = 400013;  
 					break;
 					case MAT_HEMP:
-					matvnum = 67286;  
+					matvnum = 400023;  
 					break;
 					case MAT_GLASSTEEL:
-					matvnum = 67286;  
+					matvnum = 400118;  
 					break;
 					case MAT_CHITINOUS:
-					matvnum = 67286;  
+					matvnum = 400083;  
 					break;
 					case MAT_REPTILESCALE:
-					matvnum = 67286;  
+					matvnum = 400088;  
 					break;
 					case MAT_RUBBER:
-					matvnum = 67286;  
+					matvnum = 400028;  
 					break;
 					case MAT_FEATHER:
-					matvnum = 67286;  
+					matvnum = 400003;  
 					break;
 					case MAT_PEARL:
-					matvnum = 67286;  
+					matvnum = 400078;  
 					break;
 					default:
 					act("&+wYou cant seem to find anything worth &+ysalvaging&+w on that item.&n", FALSE, ch, 0, 0, TO_CHAR);
@@ -5543,142 +5553,142 @@ void do_salvage(P_char ch, char *argument, int cmd)
 		   switch (objmat)
 				{
 					case MAT_NONSUBSTANTIAL:
-					matvnum = 67287;  
+					matvnum = 400209;  
 					break;
 					case MAT_FLESH:
-					matvnum = 67287;  
+					matvnum = 400009;  
 					break;
 					case MAT_CLOTH:
-					matvnum = 67287;  
+					matvnum = 400019;  
 					break;
 					case MAT_BARK:
-					matvnum = 67287;  
+					matvnum = 400039;  
 					break;
 					case MAT_SOFTWOOD:
-					matvnum = 67287;  
+					matvnum = 400044;  
 					break;
 					case MAT_HARDWOOD:
-					matvnum = 67287;  
+					matvnum = 400054;  
 					break;
-					case MAT_SILICON:
-					matvnum = 67287;  
-					break;
+					//case MAT_SILICON:
+					//matvnum = 67287;  
+					//break;
 					case MAT_CRYSTAL:
-					matvnum = 67287;  
+					matvnum = 400094;  
 					break;
-					case MAT_CERAMIC:
-					matvnum = 67287;  
-					break;
+					//case MAT_CERAMIC:
+					//matvnum = 67287;  
+					//break;
 					case MAT_BONE:
-					matvnum = 67287;  
+					matvnum = 400069;  
 					break;
 					case MAT_STONE:
-					matvnum = 67287;  
+					matvnum = 400099;  
 					break;
 					case MAT_HIDE:
-					matvnum = 67287;  
+					matvnum = 400034;  
 					break;
 					case MAT_LEATHER:
-					matvnum = 67287;  
+					matvnum = 400049;  
 					break;
 					case MAT_CURED_LEATHER:
-					matvnum = 67287;  
+					matvnum = 400064;  
 					break;
 					case MAT_IRON:
-					matvnum = 67287;  
+					matvnum = 400114;  
 					break;
 					case MAT_STEEL:
-					matvnum = 67287;  
+					matvnum = 400124;  
 					break;
 					case MAT_BRASS:
-					matvnum = 67287;  
+					matvnum = 400129;  
 					break;
 					case MAT_MITHRIL:
-					matvnum = 67287;  
+					matvnum = 400189;  
 					break;
 					case MAT_ADAMANTIUM:
-					matvnum = 67287;  
+					matvnum = 400199;  
 					break;
 					case MAT_BRONZE:
-					matvnum = 67287;  
+					matvnum = 400134;  
 					break;
 					case MAT_COPPER:
-					matvnum = 67287;  
+					matvnum = 400139;  
 					break;
 					case MAT_SILVER:
-					matvnum = 67287;  
+					matvnum = 400144;  
 					break;
 					case MAT_ELECTRUM:
-					matvnum = 67287;  
+					matvnum = 400149;  
 					break;
 					case MAT_GOLD:
-					matvnum = 67287;  
+					matvnum = 400154;  
 					break;
 					case MAT_PLATINUM:
-					matvnum = 67287;  
+					matvnum = 400184;  
 					break;
 					case MAT_GEM:
-					matvnum = 67287;  
+					matvnum = 400159;  
 					break;
 					case MAT_DIAMOND:
-					matvnum = 67287;  
+					matvnum = 400194;  
 					break;
-					case MAT_LEAVES:
-					matvnum = 67287;  
-					break;
+					//case MAT_LEAVES:
+					//matvnum = 67287;  
+					//break;
 					case MAT_RUBY:
-					matvnum = 67287;  
+					matvnum = 400169;  
 					break;
 					case MAT_EMERALD:
-					matvnum = 67287;  
+					matvnum = 400164;  
 					break;
 					case MAT_SAPPHIRE:
-					matvnum = 67287;  
+					matvnum = 400174;  
 					break;
 					case MAT_IVORY:
-					matvnum = 67287;  
+					matvnum = 400074;  
 					break;
 					case MAT_DRAGONSCALE:
-					matvnum = 67287;  
+					matvnum = 400204;  
 					break;
 					case MAT_OBSIDIAN:
-					matvnum = 67287;  
+					matvnum = 400179;  
 					break;
 					case MAT_GRANITE:
-					matvnum = 67287;  
+					matvnum = 400104;  
 					break;
 					case MAT_MARBLE:
-					matvnum = 67287;  
+					matvnum = 400109;  
 					break;
-					case MAT_LIMESTONE:
-					matvnum = 67287;  
-					break;
+					//case MAT_LIMESTONE:
+					//matvnum = 67287;  
+					//break;
 					case MAT_BAMBOO:
-					matvnum = 67287;  
+					matvnum = 400059;  
 					break;
 					case MAT_REEDS:
-					matvnum = 67287;  
+					matvnum = 400014;  
 					break;
 					case MAT_HEMP:
-					matvnum = 67287;  
+					matvnum = 400024;  
 					break;
 					case MAT_GLASSTEEL:
-					matvnum = 67287;  
+					matvnum = 400119;  
 					break;
 					case MAT_CHITINOUS:
-					matvnum = 67287;  
+					matvnum = 400084;  
 					break;
 					case MAT_REPTILESCALE:
-					matvnum = 67287;  
+					matvnum = 400089;  
 					break;
 					case MAT_RUBBER:
-					matvnum = 67287;  
+					matvnum = 400029;  
 					break;
 					case MAT_FEATHER:
-					matvnum = 67287;  
+					matvnum = 400004;  
 					break;
 					case MAT_PEARL:
-					matvnum = 67287;  
+					matvnum = 400079;  
 					break;
 					default:
 					act("&+wYou cant seem to find anything worth &+ysalvaging&+w on that item.&n", FALSE, ch, 0, 0, TO_CHAR);
@@ -5689,16 +5699,23 @@ void do_salvage(P_char ch, char *argument, int cmd)
 	   //ENDQualitycheck
 	   switch (rand2)
 		{
+		/*
 		case 2:
 		act("&+w...and at least you &+ysalvaged&n a decent amount.", FALSE, ch, 0, 0, TO_CHAR);
 		obj_to_char(read_object(matvnum, VIRTUAL), ch);
 		obj_to_char(read_object(matvnum, VIRTUAL), ch);
+		*/
 		break;
 		case 3:
+		act("&+w...and at least you &+ysalvaged&n a decent amount.", FALSE, ch, 0, 0, TO_CHAR);
+		obj_to_char(read_object(matvnum, VIRTUAL), ch);
+		obj_to_char(read_object(matvnum, VIRTUAL), ch);
+		/*
 		act("&+w...and it turns out you &+ysalvaged &+wquite a bit of &+Ymaterial&n!", FALSE, ch, 0, 0, TO_CHAR);
 		obj_to_char(read_object(matvnum, VIRTUAL), ch);
 		obj_to_char(read_object(matvnum, VIRTUAL), ch);
 		obj_to_char(read_object(matvnum, VIRTUAL), ch);
+		*/
 		break;
 		default:
 		act("&+w...and you only came up with a single piece of &+ymaterial&n.", FALSE, ch, 0, 0, TO_CHAR);
