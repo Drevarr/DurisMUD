@@ -7017,6 +7017,9 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
   if (affected_by_spell(ch, SPELL_DREAD_BLADE) && dread_blade_proc(ch, victim))
     return true;
 
+  if (GET_CLASS(ch, CLASS_PALADIN) && holy_weapon_proc(ch, victim))
+    return true;
+
   blade_skill = GET_CLASS(ch, CLASS_AVENGER) ? SKILL_HOLY_BLADE : SKILL_TAINTED_BLADE;
   if (notch_skill(ch, blade_skill, get_property("skill.notch.offensive.auto", 100)) ||
       (GET_CHAR_SKILL(ch, blade_skill) > number(1, 100) &&

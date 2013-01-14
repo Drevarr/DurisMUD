@@ -380,6 +380,7 @@ const struct innate_data
   {"natural movement", 0},
   {"magic vulnerability", 0},
   {"two-handed sword mastery", 0},
+  {"holy combat", 0},
 };
 
 string list_innates(int race, int cls, int spec)
@@ -907,6 +908,8 @@ void assign_innates()
 
   ADD_CLASS_INNATE(INNATE_WILDMAGIC, CLASS_SORCERER, 41, SPEC_WILDMAGE);
   ADD_CLASS_INNATE(INNATE_SUMMON_BOOK, CLASS_SORCERER, 30, SPEC_WIZARD);
+
+  ADD_CLASS_INNATE(HOLY_COMBAT, CLASS_PALADIN, 21, 0);
 
   ADD_CLASS_INNATE(INNATE_SUMMON_MOUNT, CLASS_PALADIN, 8, 0);
   ADD_CLASS_INNATE(INNATE_ANTI_EVIL, CLASS_PALADIN, 1, 0);
@@ -4284,9 +4287,9 @@ bool rapier_dirk_check(P_char ch)
 {
   P_obj weapon;
 
-  if(has_innate(ch, INNATE_RAPIER_DIRK) &&
+  if((has_innate(ch, INNATE_RAPIER_DIRK) &&
     (weapon = ch->equipment[PRIMARY_WEAPON]) && IS_SWORD(weapon) &&
-    (weapon = ch->equipment[SECONDARY_WEAPON]) && IS_DIRK(weapon))
+    (weapon = ch->equipment[SECONDARY_WEAPON]) && IS_DIRK(weapon) ) || (GET_CLASS(ch, CLASS_BARD)))
   {
     return true;
   }
