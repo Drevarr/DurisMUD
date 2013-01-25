@@ -3479,10 +3479,9 @@ int stop_or_wear(const char denied[], P_char ch, P_obj obj_object, int position,
 int remove_and_wear(P_char ch, P_obj obj_object, int position, int keyword, int comnd)
 {
   // Remove Item Already in Place
+   //send_to_char(sprintf("%1", ch->equipment[position]), ch);
   if (ch->equipment[position]) {
-    char argument[MAX_INPUT_LENGTH];
-    one_argument(obj_object->name, argument);
-    do_remove(ch, argument, comnd);
+   remove_item(ch, ch->equipment[position], position);
   }
   // Check if Item Removed
   if (ch->equipment[position]) {
@@ -4592,19 +4591,17 @@ void do_wear(P_char ch, char *argument, int cmd)
           {
             if (CAN_WEAR(obj_object, equipment_pos_table[loop][0]))
             {
-              // Currently Shouldn't show each item as it is warn.  If this isn't the case
-	      // change the FALSE to TRUE in the following statement, and comment out the
-	      // 2 act() statements below to return to original state. -Sniktiorg (Nov.12.12)
-	      wear(ch, obj_object, equipment_pos_table[loop][1], FALSE);
+	      wear(ch, obj_object, equipment_pos_table[loop][1], TRUE);
               break;
             }
           }
         } // End Inner Loop
-        // Give a Message that the ch has Equiped itself Fully.
-
     } // End Outer Loop
-           act("$n fully equips $mself.", TRUE, ch, 0, 0, TO_ROOM);
-        act("You fully equip yourself.", FALSE, ch, 0, 0, TO_CHAR);
+    // Give a Message that the ch has Equiped itself Fully.  However, doesn't
+    // actually check if something was equiped.  Removed for now.
+    /* act("$n fully equips $mself.", TRUE, ch, 0, 0, TO_ROOM);
+     act("You fully equip yourself.", FALSE, ch, 0, 0, TO_CHAR);
+    */
   }
   /*
    * added by DTS 5/18/95 to solve light bug
@@ -4704,28 +4701,95 @@ int wearing_invis(P_char ch)
   return found;
 }
 
-/* 
- * Actual function call that removes an item from a character.
+/* New Remove code which handles only the removing of the item.  This
+ * allows for use in loops as well as in stand-alone capacities.  It 
+ * also facilitates removing an item by position which is used in the
+ * auto-replace wear code.  The procedure returns an int representing
+ * the following:
+ *     0 - Successful Remove
+ *     1 - Cursed
+ *     2 - Break Enchantment
+ *     3 - Can't Carry
+ *     4 - Not Using
+ * The receiving code should handle displaying of messages to the user.
+ * - Sniktiorg 25.1.13
+ */
+int remove_item(P_char ch, P_obj obj_object, int position)
+{
+  struct   obj_affect *o_af;
+  int      ret_call;
+
+  // Set Default Return Call
+  ret_call = 0; // Defaults to Success (Optimistic, ain't we?)
+  
+  // Tests if Object Exists	
+  if (obj_object) 
+  {
+    if (IS_SET(obj_object->extra_flags, ITEM_NODROP) && !IS_TRUSTED(ch))
+    {
+      return 1; // Cursed!
+    }
+    else if (CAN_CARRY_N(ch) > IS_CARRYING_N(ch))
+    {
+      if (ch->equipment[WEAR_WAIST] && ch->equipment[WEAR_WAIST] == obj_object)
+      {
+        if (ch->equipment[WEAR_ATTACH_BELT_1])
+          obj_to_char(unequip_char(ch, WEAR_ATTACH_BELT_1), ch);
+        if (ch->equipment[WEAR_ATTACH_BELT_2])
+          obj_to_char(unequip_char(ch, WEAR_ATTACH_BELT_2), ch);
+	if (ch->equipment[WEAR_ATTACH_BELT_3])
+          obj_to_char(unequip_char(ch, WEAR_ATTACH_BELT_3), ch);
+      }
+      obj_to_char(unequip_char(ch, position), ch);
+      
+      // Remove Affects
+      if (IS_SET(obj_object->bitvector, AFF_INVISIBLE) && affected_by_spell(ch, SKILL_PERMINVIS) && !wearing_invis(ch))
+        affect_from_char(ch, SKILL_PERMINVIS);
+
+      if (obj_object && (o_af = get_obj_affect(obj_object, SKILL_ENCHANT)))
+      {
+        affect_from_char(ch, o_af->data);
+        ret_call = 2; // Break Enchantment
+        obj_affect_remove(obj_object, o_af);
+      }
+    }
+    else
+    {
+      ret_call = 3; // Can't Carry Anymore
+    }
+  }  
+  else // Object Doesn't Exist
+  {
+    ret_call = 4; // Not Using Item    
+  }
+
+  // Return
+  return ret_call;  
+}
+
+/* Modified Do_Remove which cuts down on repetition and allows for Do_Wear to 
+ * properly replace worn equipment.
+ * - Sniktiorg 25.1.13
  */
 void do_remove(P_char ch, char *argument, int cmd)
 {
   P_obj    obj_object, temp_obj;
-  struct   obj_affect *o_af;
-  int      j, k;
-  bool     was_invis;
+  int      j, k, ret_type;
+  bool     was_invis, naked;
   char     Gbuf1[MAX_STRING_LENGTH];
 
+  // Determine Argument
   one_argument(argument, Gbuf1);
 
+  // Determine Current Visibility
   was_invis = IS_SET(ch->specials.affected_by, AFF_INVISIBLE) ||
     IS_SET(ch->specials.affected_by2, AFF2_MINOR_INVIS);
 
-  if (*Gbuf1)
+  if (*Gbuf1) // If Argument Exists
   {
-    if (!str_cmp(Gbuf1, "all"))
+    if (!str_cmp(Gbuf1, "all")) // Remove All
     {
-      if(IS_PC(ch) &&
-        affected_by_spell(ch, TAG_PVPDELAY))
+      if(IS_PC(ch) && affected_by_spell(ch, TAG_PVPDELAY))
       {
         act("$n frantically attempts to remove all of $s clothes and equipment!", FALSE, ch, 0, 0, TO_ROOM);
         act("&+rYou are too high on &+Radrenaline&+R to perform a remove all.&n", FALSE, ch, 0, 0, TO_CHAR);
@@ -4733,112 +4797,91 @@ void do_remove(P_char ch, char *argument, int cmd)
         return;
       } 
       
-      /* Remove All Section */
+      // Remove All Section
+      naked = TRUE; // Assume Player is Nude
       for (k = 0; k < MAX_WEAR; k++)
       {
-        if (ch->equipment[k])
-          if (IS_SET(ch->equipment[k]->extra_flags, ITEM_NODROP) &&
-              !IS_TRUSTED(ch))
-          {
-            act("$p won't budge!  Perhaps it's cursed?!?", TRUE, ch,
-                ch->equipment[k], 0, TO_CHAR);
-            continue;
-          }
-          else if (CAN_CARRY_N(ch) > IS_CARRYING_N(ch))
-          {
-            act("You stop using $p.", FALSE, ch, ch->equipment[k], 0,
-                TO_CHAR);
-            if (!k)
-              act("$n&n removes all of $s equipment.", TRUE, ch, 0, 0, TO_ROOM);
-            temp_obj = ch->equipment[k];
-            obj_to_char(unequip_char(ch, k), ch);
-            if (IS_SET(temp_obj->bitvector, AFF_INVISIBLE) &&
-                affected_by_spell(ch, SKILL_PERMINVIS) && !wearing_invis(ch))
-              affect_from_char(ch, SKILL_PERMINVIS);
-
-            if (temp_obj && (o_af = get_obj_affect(temp_obj, SKILL_ENCHANT)))
-            {
-              affect_from_char(ch, o_af->data);
-              act("&+cSome of your magic dissipates...&n", FALSE, ch, temp_obj,
-                  0, TO_CHAR);
-            }
-
-          }
-          else
-          {
+        temp_obj = ch->equipment[k];
+	ret_type = remove_item(ch, ch->equipment[k], k);
+	// Acknowledge Removal
+	if (ret_type == 0 || ret_type == 2)
+        {
+          act("You stop using $p.", FALSE, ch, temp_obj, 0, TO_CHAR);
+	  if (naked == TRUE)
+            naked = FALSE;		  
+        }	
+	// Parse Remaining Messages
+	switch(ret_type)
+	{
+	  case 1 : 
+            act("$p won't budge!  Perhaps it's cursed?!?", TRUE, ch, ch->equipment[k], 0, TO_CHAR);
+	    naked = FALSE;
+            //continue;
+	    break;
+	  case 2 :
+	    act("&+cSome of your &+Cmagic&+c dissipates...&n", FALSE, ch, 0, 0, TO_CHAR);
+	    break;
+	  case 3 : 
             send_to_char("You can't carry that many items.\r\n", ch);
             break;
-          }
-      }
-    }
-    else
-    {
-     /* Single Object Remove */
-      obj_object = get_object_in_equip(ch, Gbuf1, &j);
-      
-      if (obj_object)
+        } // End Switch
+	// Break Out of Loop on Full Inventory
+	if (ret_type == 3)
+	  break;
+      } // End Loop
+      // Give Appropriate Attire Change Messages
+      if (naked == TRUE && ret_type != 3)
       {
-        if (IS_SET(obj_object->extra_flags, ITEM_NODROP) && !IS_TRUSTED(ch))
-        {
-          act("$p won't budge!  Perhaps it's cursed?!?", TRUE, ch, obj_object,
-              0, TO_CHAR);
-          return;
-        }
-        else if (CAN_CARRY_N(ch) > IS_CARRYING_N(ch))
-        {
-          act("You stop using $p.", FALSE, ch, obj_object, 0, TO_CHAR);
-          act("$n stops using $p.", TRUE, ch, obj_object, 0, TO_ROOM);
-          if (ch->equipment[WEAR_WAIST] &&
-              ch->equipment[WEAR_WAIST] == obj_object)
-          {
-            if (ch->equipment[WEAR_ATTACH_BELT_1])
-              obj_to_char(unequip_char(ch, WEAR_ATTACH_BELT_1), ch);
-            if (ch->equipment[WEAR_ATTACH_BELT_2])
-              obj_to_char(unequip_char(ch, WEAR_ATTACH_BELT_2), ch);
-            if (ch->equipment[WEAR_ATTACH_BELT_3])
-              obj_to_char(unequip_char(ch, WEAR_ATTACH_BELT_3), ch);
-          }
-          obj_to_char(unequip_char(ch, j), ch);
-          if (IS_SET(obj_object->bitvector, AFF_INVISIBLE) &&
-              affected_by_spell(ch, SKILL_PERMINVIS) && !wearing_invis(ch))
-            affect_from_char(ch, SKILL_PERMINVIS);
-
-          if (obj_object &&
-              (o_af = get_obj_affect(obj_object, SKILL_ENCHANT)))
-          {
-            affect_from_char(ch, o_af->data);
-            act("&+cAs you remove the item, the &+Cenchantment &+cis broken...&n", FALSE, ch, obj_object,
-                0, TO_CHAR);
-            obj_affect_remove(obj_object, o_af);
-          }
-        }
-        else
-        {
-          send_to_char("You can't carry that many items.\r\n", ch);
-        }
+        send_to_char("You are quite naked at the moment.\r\n", ch);
       }
       else
       {
-        send_to_char("You are not using it.\r\n", ch);
+        act("$n&n removes all of $s equipment.", TRUE, ch, 0, 0, TO_ROOM);
       }
-    }
+    } // End Remove All
+    else
+    {
+     // Single Object Remove
+      obj_object = get_object_in_equip(ch, Gbuf1, &j);
+      ret_type = remove_item(ch, obj_object, j);
+      // Acknowledge Removal
+      if (ret_type == 0 || ret_type == 2)
+      {
+        act("You stop using $p.", FALSE, ch, obj_object, 0, TO_CHAR);
+        act("$n stops using $p.", TRUE, ch, obj_object, 0, TO_ROOM);
+      }	
+      // Parse Remaining Messages
+      switch(ret_type)
+      {
+        case 1 : 
+          act("$p won't budge!  Perhaps it's cursed?!?", TRUE, ch, obj_object, 0, TO_CHAR);
+	  break;
+	case 2 :
+	  act("&+cAs you remove the item, the &+Cenchantment &+cis broken...&n", FALSE, ch, obj_object, 0, TO_CHAR);
+	  break;
+	case 3 : 
+          send_to_char("You can't carry that many items.\r\n", ch);
+          break;
+	case 4 : 
+          send_to_char("You are not using it.\r\n", ch);
+          break;
+      } // End Switch
+    } // End Single Object REmove
   }
-  else
+  else // No Argument
   {
     send_to_char("Remove what?\r\n", ch);
   }
 
+  // Make Proper Adjustments for Changed Affects
   balance_affects(ch);
-  if (was_invis && !IS_SET(ch->specials.affected_by, AFF_INVISIBLE)
-      && !IS_SET(ch->specials.affected_by2, AFF2_MINOR_INVIS))
+  if (was_invis && !IS_SET(ch->specials.affected_by, AFF_INVISIBLE) && !IS_SET(ch->specials.affected_by2, AFF2_MINOR_INVIS))
   {
     act("$n snaps into visibility.", FALSE, ch, 0, 0, TO_ROOM);
     act("You snap into visibility.", FALSE, ch, 0, 0, TO_CHAR);
   }
 
-  /*
-   * added by DTS 5/18/95 to solve light bug
-   */
+  // Calibrate Lighting
   char_light(ch);
   room_light(ch->in_room, REAL);
 }
@@ -4905,16 +4948,6 @@ void do_salvage(P_char ch, char *argument, int cmd)
 	 act("There is apparently no &+Yworth &nto that item.", FALSE, ch, 0, 0, TO_CHAR); 
         return;
 	}
-  if(temp->type == ITEM_MONEY || 
-      temp->type == ITEM_KEY ||
-      temp->type == ITEM_BOOK ||
-      temp->type == ITEM_SCROLL ||
-      temp->type == ITEM_SPELLBOOK ||
-      temp->type == ITEM_WAND)
-    {
-	 act("There is apparently no &+Yworth &nto that item.", FALSE, ch, 0, 0, TO_CHAR); 
-        return;
-    }
 
   if (temp->type == ITEM_FOOD)
    {
