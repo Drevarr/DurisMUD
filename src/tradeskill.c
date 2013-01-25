@@ -442,6 +442,7 @@ void do_forge(P_char ch, char *argument, int cmd)
     tobj = read_object(selected, VIRTUAL);
     send_to_char("&+yYou open your &+Ltome &+yof &+Ycra&+yftsm&+Lanship &+yand examine the &+Litem&n.\n", ch);
     spell_identify(GET_LEVEL(ch), ch, 0, 0, 0, tobj);
+     extract_obj(tobj, FALSE);
     return;
   }
   else if(is_abbrev(first, "info"))
@@ -461,6 +462,7 @@ void do_forge(P_char ch, char *argument, int cmd)
 
   //Second - See what material it is. make a method called: find_material(obj)
    send_to_char("RECIPE CRAP IN THIS\r\n", ch);
+    extract_obj(tobj, FALSE);
    return;
   }
 
