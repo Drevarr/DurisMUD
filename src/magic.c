@@ -20241,7 +20241,8 @@ void spell_moonwell(int level, P_char ch, char *arg, int type, P_char victim,
     set.decay_timer = (set.decay_timer / 2) * 3;
   }
   //--------------------------------
-  set.throughput = MAX(0, (int)( (ch->player.level-46)/2 )) + number( 2, maxToPass + specBonus);
+  //set.throughput = MAX(0, (int)( (ch->player.level-46)/2 )) + number( 2, maxToPass + specBonus);
+  set.throughput = 20;
 
   if(    !can_do_general_portal(level, ch, victim, &set, &msg)
       //                || (!IS_TRUSTED(ch)     && (GET_MASTER(ch) && IS_PC(victim)) )
