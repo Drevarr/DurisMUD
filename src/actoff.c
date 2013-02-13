@@ -6766,7 +6766,7 @@ void maul(P_char ch, P_char victim)
 
   if((has_innate(victim, INNATE_HORSE_BODY) ||
       has_innate(victim, INNATE_SPIDER_BODY)) &&
-    get_takedown_size(ch) <= get_takedown_size(victim) + 1)
+    get_takedown_size(ch) <= get_takedown_size(victim))
         too_big = true;
   else if(vict_size > ch_size + 1)
         too_big = true;
