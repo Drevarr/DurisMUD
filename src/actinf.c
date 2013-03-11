@@ -5152,7 +5152,7 @@ void do_score(P_char ch, char *argument, int cmd)
           {
 	    char buf1[MAX_STRING_LENGTH];
             //strcat(buf, "\n");
-	     sprintf(buf1, " (&+W%d &+Yminutes &+yremaining&n)\n", aff->duration);
+	     sprintf(buf1, " (&+W%d &+Yminutes&n)\n", aff->duration);
             strcat(buf, buf1);
           }
           else if (aff->duration <= 1)
