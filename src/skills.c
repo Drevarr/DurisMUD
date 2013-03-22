@@ -572,6 +572,9 @@ void initialize_skills()
   SPELL_CREATE("pleasantry", SPELL_PLEASANTRY, PULSE_SPELLCAST,
                 TAR_CHAR_ROOM | TAR_AGGRO, spell_pleasantry);
 
+  SPELL_CREATE("Auctions Disabled", SPELL_NOAUCTION, PULSE_SPELLCAST,
+		  TAR_CHAR_ROOM | TAR_AGGRO, do_nothing_spell);
+
   SPELL_CREATE("corpseform", SPELL_CORPSEFORM, PULSE_SPELLCAST * 7,
                 TAR_OBJ_ROOM | TAR_NOCOMBAT,spell_corpseform);
   SPELL_ADD(CLASS_NECROMANCER, 11);
@@ -670,7 +673,6 @@ void initialize_skills()
 
   SPELL_CREATE("awaken forest", SPELL_AWAKEN_FOREST, PULSE_SPELLCAST * 4,
                 TAR_AREA | TAR_AGGRO, cast_awaken_forest);
-
   SPEC_SPELL_ADD(CLASS_DRUID, 11, SPEC_WOODLAND);
 
 
@@ -680,7 +682,6 @@ void initialize_skills()
 
   SPELL_CREATE("hurricane", SPELL_HURRICANE, PULSE_SPELLCAST * 5,
                 TAR_AREA | TAR_AGGRO, cast_hurricane);
-
   SPEC_SPELL_ADD(CLASS_DRUID, 10, SPEC_STORM);
   SPEC_SPELL_ADD(CLASS_ETHERMANCER, 11, SPEC_WINDTALKER);
 

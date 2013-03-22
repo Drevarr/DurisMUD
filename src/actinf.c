@@ -5668,8 +5668,9 @@ void do_who(P_char ch, char *argument, int cmd)
   for (d = descriptor_list; d; d = d->next)
   {
     tch = d->character;
-
-    if (d->connected || racewar(ch, tch) || !CAN_SEE(ch, tch) || IS_NPC(tch))
+    //Anyone can now see invis on who list - Drannak
+	if (d->connected || racewar(ch, tch) || IS_NPC(tch))
+    //if (d->connected || racewar(ch, tch) || !CAN_SEE(ch, tch) || IS_NPC(tch))
       continue;
 
     if (!IS_TRUSTED(ch))

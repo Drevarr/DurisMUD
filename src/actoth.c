@@ -4516,7 +4516,7 @@ void do_toggle(P_char ch, char *arg, int cmd)
     result = TOGGLE_BIT(ch->specials.act, PLR_AFK) & (PLR_AFK);
     break;
   case 41:
-     if((GET_LEVEL(ch) > 31) &&
+    /* if((GET_LEVEL(ch) > 31) &&
         (GET_LEVEL(ch) < 57) &&
         !IS_SET(PLR2_FLAGS(ch), PLR2_NCHAT) &&
         !IS_SET(PLR2_FLAGS(ch), PLR2_NEWBIE_GUIDE))
@@ -4525,7 +4525,7 @@ void do_toggle(P_char ch, char *arg, int cmd)
          ("Your level no longer qualifies you for newbie-chat, sorry.\r\n",
           ch);
        return;
-     }
+     }*/
     result = PLR2_TOG_CHK(ch, PLR2_NCHAT);
     break; 
   case 42:

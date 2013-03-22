@@ -111,6 +111,12 @@ int      cast_as_damage_area(P_char,
                                            P_obj), int, P_char, float, float,
                              bool (*s_func) (P_char, P_char));
  
+void do_nothing_spell(int level, P_char ch, char *arg, int type,
+                      P_char victim, P_obj obj)
+  {
+	return;
+  }
+
 // Universal call to determine if victim can be relocated/warped/dreamed. 
 bool can_relocate_to(P_char ch, P_char victim)
 {
@@ -13436,7 +13442,7 @@ void spell_blackmantle(int level, P_char ch, char *arg, int type, P_char victim,
 
     bzero(&af, sizeof(af));
     af.type = SPELL_BMANTLE;
-    af.duration = level / 12;
+    af.duration = PULSE_VIOLENCE / 4;
     af.modifier = 4000;
     affect_to_char(victim, &af);
   }

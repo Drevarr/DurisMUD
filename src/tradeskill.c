@@ -1740,6 +1740,11 @@ int learn_recipe(P_obj obj, P_char ch, int cmd, char *arg)
 int learn_tradeskill(P_char ch, P_char pl, int cmd, char *arg)
 {
   char buffer[MAX_STRING_LENGTH];
+  char     buf[256], *buff;
+  char     Gbuf1[MAX_STRING_LENGTH], *c;
+  FILE    *f;
+  FILE    *recipelist;
+
 
   if(cmd == CMD_PRACTICE)
   {
@@ -1755,18 +1760,68 @@ int learn_tradeskill(P_char ch, P_char pl, int cmd, char *arg)
 		"'&+LM&+wi&+Wn&+wi&+Lng&n&n will allow you to gather raw &+mvaluable&n &+Lore&n from &+ymines&n scattered throughout the realm.'\n"
 		"'&+LForging&n allows one to create amazing &+Larmor&n and &+Wweapons&n from &+yrecipes&n found through the &+ysalvage&n skill.'\n"
 		"'&+rCrafting&n is the meticulous skill allowing one to craft &+Mjewelry&n, &+maccessories&n, and &+ccloak&n items from &+ysalvaged&n recipes.'\n"
-              "'Please think long and hard about your decision, and then &+RPractice &neither &+Lforge&n, &+Lmine&n, or &+Lcraft&n.\n\n");
+              "'Please think long and hard about your decision, and then &+RPractice &neither &+Lforge&n, &+ymine&n, or &+Rcraft&n.\n"
+		"'\n"
+		"'If you are unhappy with your current &+ytradeskill&n, you can &+Rpractice reset&n and I will unlearn any &+ytradeskill&n you'\n"
+		"'might know for the low price of &+c200 &+Cepic points&n. &+rBEWARE&n: this will wipe any learned &+Yrecipes&n!\n");
       send_to_char(buffer, pl);
 
 
          if(GET_CHAR_SKILL(pl, SKILL_FORGE) >= 1 || GET_CHAR_SKILL(pl, SKILL_MINE) >= 1 || GET_CHAR_SKILL(pl, SKILL_CRAFT) >= 1 )
       {
-        send_to_char("'Unfortunately, I cannot teach you anything more, as you have already learned a tradeskill!'\n", pl);
+        send_to_char("\n"
+		 "'Unfortunately, I cannot teach you anything more, as you have already learned a tradeskill!'\n", pl);
         return TRUE;
       }
       
       return TRUE;
     }
+    //Drannak - ability to reset their tradeskill 3/22/13
+    else if(strstr(arg, "reset"))
+    {
+	//reset called
+
+       //check for 200 epics required to reset
+	int availepics = pl->only.pc->epics;
+	if (availepics < 200)
+	{
+	  if(pl->in_room == real_room(133071))
+	  send_to_char("&nJodnan says '&+GI'm sorry, but you do not seem to have the &+Wepics&+G available for me to reset your &+gtradeskill&+G.\r\n&n", pl);
+	  else
+	  send_to_char("&nGixnif says '&+GI'm sorry, but you do not seem to have the &+Wepics&+G available for me to reset your &+gtradeskill&+G.\r\n&n", pl);
+	  return TRUE;
+        }
+	//subtract 200 epics
+	pl->only.pc->epics -= 200;
+
+       //wipe their learned recipes
+        strcpy(buf, GET_NAME(pl));
+     	 buff = buf;
+ 	 for (; *buff; buff++)
+  	 *buff = LOWER(*buff);
+  	 sprintf(Gbuf1, "Players/Tradeskills/%c/%s.crafting", buf[0], buf);
+        recipelist = fopen(Gbuf1, "w");
+        fclose(recipelist);
+
+      sprintf(buffer, "Your teacher takes you aside, and performs a cleansing geasture about your body&n. Your mind feels &+Wrenewed&n!\n");
+      act(buffer, FALSE, ch, 0, pl, TO_VICT);
+      pl->only.pc->skills[SKILL_FORGE].taught = 0;
+        pl->only.pc->skills[SKILL_FORGE].learned = 0;
+      pl->only.pc->skills[SKILL_MINE].taught = 0;
+        pl->only.pc->skills[SKILL_MINE].learned = 0;
+      pl->only.pc->skills[SKILL_CRAFT].taught = 0;
+        pl->only.pc->skills[SKILL_CRAFT].learned = 0;
+
+      do_save_silent(pl, 1); // tradeskills require a save.
+      CharWait(pl, PULSE_VIOLENCE);
+
+       
+      return TRUE;
+
+
+    }
+
+
     else if(strstr(arg, "forge"))
     {
       // called with skill name

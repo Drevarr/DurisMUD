@@ -667,7 +667,8 @@
 #define SPELL_LIFE_LEECH             618
 #define SPELL_BMANTLE                619
 #define SPELL_DECAYING_FLESH	  620
-#define LAST_SPELL  SPELL_DECAYING_FLESH
+#define SPELL_NOAUCTION		  621
+#define LAST_SPELL  SPELL_NOAUCTION
 
 #define FIRST_SKILL                  1000  /* should be a decent split point */
 #define SKILL_SNEAK                  1000

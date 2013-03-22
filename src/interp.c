@@ -50,6 +50,7 @@
 #include "boon.h"
 #include "ctf.h"
 #include "tether.h"
+#include "auction_houses.h"
 
 /*
  * external variables
@@ -2586,6 +2587,7 @@ void assign_command_pointers(void)
   CMD_Y(CMD_BOON, STAT_SLEEPING + POS_PRONE, do_boon, 0);
   CMD_Y(CMD_CTF, STAT_NORMAL + POS_STANDING, do_ctf, 0);
   CMD_Y(CMD_TETHER, STAT_NORMAL + POS_STANDING, do_tether, 0);
+  CMD_Y(CMD_AUCTION, STAT_NORMAL + POS_STANDING, new_ah_call, 0);
 
   /*
    * 'commands' which exist only to trigger specials
@@ -2612,7 +2614,7 @@ void assign_command_pointers(void)
   CMD_TRIG(CMD_TURN_IN, 0);     /* TASFALEN3 */
   CMD_TRIG(CMD_CLAIM, 0);
   CMD_TRIG(CMD_HIRE, 0);
-  CMD_TRIG(CMD_AUCTION, 0);
+  //CMD_TRIG(CMD_AUCTION, 0);
   CMD_TRIG(CMD_TRAIN, 0);
   //CMD_TRIG(CMD_SPECIALIZE, 0);
   CMD_TRIG(CMD_HARVEST, 0);

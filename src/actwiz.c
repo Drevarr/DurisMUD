@@ -3627,7 +3627,7 @@ void do_nchat(P_char ch, char *argument, int cmd)
   {
     return;
   }
-
+/*
   if((GET_LEVEL(ch) > 31) &&
      (GET_LEVEL(ch) < 57) &&
      !IS_SET(PLR2_FLAGS(ch), PLR2_NEWBIE_GUIDE))
@@ -3635,7 +3635,7 @@ void do_nchat(P_char ch, char *argument, int cmd)
    send_to_char("Your level no longer qualifies you for newbie-chat, sorry.\r\n", ch);
    return;
   }
-
+*/
   if(IS_DISGUISE_PC(ch) ||
       IS_DISGUISE_ILLUSION(ch) ||
       IS_DISGUISE_SHAPE(ch))
@@ -3697,13 +3697,13 @@ void do_nchat(P_char ch, char *argument, int cmd)
         sprintf(Gbuf2, "undefined ");
 
 
-      sprintf(Gbuf1, "&+gYou newbie chat to %s'&+g%s&n&+g'\n", Gbuf2,
+      sprintf(Gbuf1, "&+wYou racewar chat to %s'&+w%s&n&+w'\n", Gbuf2,
               argument);
       send_to_char(Gbuf1, ch, LOG_PRIVATE);
     }
     else if(IS_SET(ch->specials.act, PLR_ECHO) || IS_NPC(ch))
     {
-      sprintf(Gbuf1, "&+gYou newbie-chat '&+G%s&n&+g'\n", argument);
+      sprintf(Gbuf1, "&+wYou tell your racewar '&+W%s&n&+w'\n", argument);
       send_to_char(Gbuf1, ch);
     }
     else
@@ -3743,7 +3743,7 @@ void do_nchat(P_char ch, char *argument, int cmd)
       
     if(IS_TRUSTED(i->character))
     {
-      sprintf(Gbuf1, "&+G%s&n&+g newbie-chats (%s&+g): '&+Y%s&n&+g'\n",
+      sprintf(Gbuf1, "&+W%s&n&+w newbie-chats (%s&+w): '&+Y%s&n&+w'\n",
               PERS(ch, i->character, FALSE), Gbuf2, language_CRYPT(ch,
                                                                    i->
                                                                    character,
@@ -3751,7 +3751,7 @@ void do_nchat(P_char ch, char *argument, int cmd)
     }
     else
     {
-      sprintf(Gbuf1, "&+G%s&n&+g newbie-chats: '&+g%s&n&+g'\n",
+      sprintf(Gbuf1, "&+W%s&n&+w tells your racewar: '&+w%s&n&+w'\n",
               PERS(ch, i->character, FALSE), language_CRYPT(ch, i->character,
                                                             argument));
     }

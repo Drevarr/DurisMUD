@@ -4777,6 +4777,7 @@ void do_remove(P_char ch, char *argument, int cmd)
   int      j, k, ret_type;
   bool     was_invis, naked;
   char     Gbuf1[MAX_STRING_LENGTH];
+  struct affected_type af;
 
   // Determine Argument
   one_argument(argument, Gbuf1);
@@ -4807,6 +4808,12 @@ void do_remove(P_char ch, char *argument, int cmd)
 	if (ret_type == 0 || ret_type == 2)
         {
           act("You stop using $p.", FALSE, ch, temp_obj, 0, TO_CHAR);
+	//Drannak - set affect noauction to prevent selling off equip prior to being fragged
+    bzero(&af, sizeof(af));
+    af.type = SPELL_NOAUCTION;
+    af.duration = PULSE_VIOLENCE / 2;
+    af.modifier = 4000;
+    affect_to_char(ch, &af);
 	  if (naked == TRUE)
             naked = FALSE;		  
         }	
@@ -4849,6 +4856,12 @@ void do_remove(P_char ch, char *argument, int cmd)
       {
         act("You stop using $p.", FALSE, ch, obj_object, 0, TO_CHAR);
         act("$n stops using $p.", TRUE, ch, obj_object, 0, TO_ROOM);
+      bzero(&af, sizeof(af));
+    af.type = SPELL_NOAUCTION;
+    af.duration = PULSE_VIOLENCE / 2;
+    af.modifier = 4000;
+    affect_to_char(ch, &af);
+
       }	
       // Parse Remaining Messages
       switch(ret_type)
