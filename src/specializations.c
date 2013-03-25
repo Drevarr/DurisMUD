@@ -237,6 +237,7 @@ struct allowed_race_spec_struct {
 	{RACE_GOBLIN, CLASS_CONJURER,    SPEC_ALL},
        {RACE_GOBLIN, CLASS_ROGUE,       SPEC_ALL},
 	{RACE_GOBLIN, CLASS_MERCENARY,   SPEC_ALL},
+       {RACE_GOBLIN, CLASS_BARD, 	     SPEC_ALL},
 	/* End Goblin Options */
 
 	/* Start Lich Options */
