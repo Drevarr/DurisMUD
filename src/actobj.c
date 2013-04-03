@@ -2685,9 +2685,11 @@ void do_eat(P_char ch, char *argument, int cmd)
 	  return;
 	}
       send_to_char("&+gAs you eat the &+GMushroom&+g, a &+Mmagical&+g essence surrounds you and you suddenly feel more &+Gexperienced!&n\r\n", ch);
-      //GET_EXP(ch) = exp_table[(GET_LEVEL(ch) - 1)];
-	//gain_exp(ch, 0, new_exp_table[GET_LEVEL(ch)], EXP_QUEST);
      // GET_EXP(ch) = new_exp_table[GET_LEVEL(ch)];
+     statuslog(ch->player.level,
+        "&+CLevel:&n (%s&n) just ate level mushroom at [%d]!",
+          GET_NAME(ch),
+          (ch->in_room == NOWHERE) ? -1 : world[ch->in_room].number);
       advance_level(ch);
       do_save_silent(ch, 1);
       extract_obj(temp, TRUE);
@@ -4994,7 +4996,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
     act("Why would you want to salvage anything from your &+Ydinner&n?", FALSE, ch, 0, 0, TO_CHAR);
     return;
    }
-  if (temp->type == ITEM_TREASURE || temp->type == ITEM_POTION)
+  if (temp->type == ITEM_TREASURE || temp->type == ITEM_POTION || temp->type == ITEM_KEY)
    {
     act("That's probably more valuable than what you could break it down into... lets not.", FALSE, ch, 0, 0, TO_CHAR);
     return;

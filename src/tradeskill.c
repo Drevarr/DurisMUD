@@ -1777,6 +1777,7 @@ int epic_store(P_char ch, P_char pl, int cmd, char *arg)
 		"&+y|		&+cItem Name					           Epic Cost            &+y|\n"																
               "&+y|&+W 1) &+ga M&+Ga&+Wg&+Gi&+gc&+Ga&+Wl &+GGreen &+gMu&+Gshro&+gom from the &+GSylvan &+yWoods&n&+C%30d&n		&+y|\n"
               "&+y|&+W 2) &+ya tightly wrapped vellum scroll named '&+LFix&+y'&n   &+C%30d&n		&+y|\n"
+              "&+y|&+W 3) &+Wa &+mm&+My&+Ys&+Bt&+Gc&+Ra&+Gl &+MFaerie &+Wbag of &+Lstolen loot&n&+C%30d&n		&+y|\n"
               "&+y=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n"
 		"\n", 125, 85);
       send_to_char(buffer, pl);
@@ -1837,6 +1838,29 @@ int epic_store(P_char ch, P_char pl, int cmd, char *arg)
 	obj_to_char(read_object(14126, VIRTUAL), pl);
        return TRUE;
     }//endbuy2
+
+    //400217 - fix scroll
+	else if(strstr(arg, "3"))
+    {//buy3
+	//check for 5 epics required to reset
+	int availepics = pl->only.pc->epics;
+	if (availepics < 5)
+	{
+	  send_to_char("&+WKannard&+L &+wsays '&nI'm sorry, but you do not seem to have the &+Wepics&n available for that item.\r\n&n", pl);
+	  return TRUE;
+        }
+	//subtract 5 epics
+       P_obj obj;
+	obj = read_object(400217, VIRTUAL);
+	pl->only.pc->epics -= 5;
+       send_to_char("&+WKannard&+L &+wsays '&nAh, good choice! Quite a rare item!'\n", pl);
+	send_to_char("&+WKannard &+Lthe &+ctra&+Cvell&+cer &nmakes a strange gesture about your body, and hands you your item.\r\n&n", pl);
+       act("You now have $p!\r\n", FALSE, pl, obj, 0, TO_CHAR);
+       extract_obj(obj, FALSE);
+	obj_to_char(read_object(400217, VIRTUAL), pl);
+       return TRUE;
+    }//endbuy3
+
   }
   return FALSE;
 }

@@ -2258,6 +2258,47 @@ void do_open(P_char ch, char *argument, int cmd)
       REMOVE_BIT(obj->value[1], CONT_CLOSED);
       send_to_char("Ok.\n", ch);
       act("$n opens $p.", FALSE, ch, obj, 0, TO_ROOM);
+
+      //special proc for bag of random goodness - drannak 4/3/2013
+	if (obj_index[obj->R_num].virtual_number == 400217)
+	{
+	 send_to_char("&+mAs you open the &+Mbag&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m from the bag!\r\n", ch);
+	 char buf[MAX_STRING_LENGTH];
+	 P_obj robj;
+	 long robjint;
+	 int validobj;
+	 validobj = 0;
+	/*debug sprintf(buf, "validobj value: %d\n\r", validobj);
+	send_to_char(buf, ch);*/
+	 while(validobj == 0)
+	  {
+	 	robjint = number(1300, 134000);
+	 	robj = read_object(robjint, VIRTUAL);
+		validobj = 1;
+		if(!robj)
+		 {
+		  validobj = 0;
+		 }
+		else if(!IS_SET(robj->wear_flags, ITEM_TAKE) || robj->type == ITEM_KEY)
+		 {
+		  validobj = 0;
+                extract_obj(robj, FALSE);
+		 }
+
+	  }
+       act("&+mWhen at last it clears, the &+Mbag&+m is gone, and all that remains is &n$p&+m!\r\n", FALSE, ch, robj, 0, TO_CHAR);
+	 
+	obj_to_char(read_object(robjint, VIRTUAL), ch);       
+	obj_from_char(obj, TRUE);
+	 statuslog(ch->player.level,
+        "&+MFaerie Bag:&n (%s&n) just got [%d] (%s&n) at [%d]!",
+          GET_NAME(ch),
+          obj_index[robj->R_num].virtual_number,
+          robj->short_description,
+          (ch->in_room == NOWHERE) ? -1 : world[ch->in_room].number);
+       extract_obj(robj, FALSE);
+	return;
+	}
  
       if (obj_index[obj->R_num].virtual_number == 1270) {
          treasure_chest(obj, ch, CMD_OPEN, argument);

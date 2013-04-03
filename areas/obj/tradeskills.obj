@@ -1746,12 +1746,20 @@ This sign contains information about the items for sale in this store:
 
 &+W 2) &+ya tightly wrapped vellum scroll named '&+LFix&+y'&n
 &+C-This item will repair any single item which it is recited on, even if it is otherwise unrepairable.&n
+
+&+W 3) &+Wa &+mm&+My&+Ys&+Bt&+Gc&+Ra&+Gl &+MFaerie &+Wbag of &+Lstolen loot&n
+&+C-This item contains a random item from the entire world of &+rDuris&+C. When opened, the bag will disappear
+&+C and the item will magically appear in your inventory.&n
 ~
 #400217
 bag faerie mystical loot stolen~
 &+Wa &+mm&+My&+Ys&+Bt&+Cc&+Ra&+Gl &+MFaerie &+Wbag of &+Lstolen loot&n~
 &+WA bag with mystical properties sits here.&n~
 ~
-15 15 3 0 7 0 8193 16385 0 0 0
-0 4 0 0 0 0 0 0
+15 1 3 0 7 0 8201 16385 64 0 0
+100 5 0 100 0 0 0 0
 0 0 100
+E
+bag faerie mystical loot stolen~
+&+WHeld together by &+mmagical mists&+W, you wonder just exactly what item might be inside! Only one way to find out!
+~
