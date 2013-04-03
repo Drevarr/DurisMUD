@@ -2279,7 +2279,7 @@ void do_open(P_char ch, char *argument, int cmd)
 		 {
 		  validobj = 0;
 		 }
-		else if(!IS_SET(robj->wear_flags, ITEM_TAKE) || robj->type == ITEM_KEY)
+		else if(!IS_SET(robj->wear_flags, ITEM_TAKE) || robj->type == ITEM_KEY || IS_SET(robj->extra_flags, ITEM_ARTIFACT))
 		 {
 		  validobj = 0;
                 extract_obj(robj, FALSE);
