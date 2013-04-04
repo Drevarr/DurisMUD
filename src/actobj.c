@@ -3340,6 +3340,18 @@ void perform_wear(P_char ch, P_obj obj_object, int keyword)
     act("&+WIt glows brightly.&n", TRUE, ch, 0, 0, TO_CHAR);
   }
 
+  //Battlemage Coat
+    if (obj_index[obj_object->R_num].virtual_number == 400218 && !IS_MULTICLASS_PC(ch))
+    {
+	send_to_char("&+rAs you cover yourself with your &+Ymaje&+rst&+Yic &+Yrobe&+r,\r\n&+ryou suddenly feel an enhanced &+mpower&+r rise up within your &+Ybody&+r!&n\r\n", ch);
+	act("&+L$n's &+Yeyes&+r suddenly glow &+yg&+Yo&+yl&+Yd&+ye&+Yn&+r with po&+Rwe&+rr!&n", TRUE, ch, 0, 0, TO_ROOM);
+       bzero(&af, sizeof(af));
+    	af.type = SPELL_BATTLEMAGE;
+    	af.duration = -1;
+    	affect_to_char(ch, &af);
+    }
+	
+
   if (IS_SET(obj_object->bitvector, AFF_INVISIBLE) &&
       !affected_by_spell(ch, SKILL_PERMINVIS))
   {
@@ -4837,11 +4849,19 @@ void do_remove(P_char ch, char *argument, int cmd)
         {
           act("You stop using $p.", FALSE, ch, temp_obj, 0, TO_CHAR);
 	//Drannak - set affect noauction to prevent selling off equip prior to being fragged
-    bzero(&af, sizeof(af));
-    af.type = SPELL_NOAUCTION;
-    af.duration = PULSE_VIOLENCE / 2;
-    af.modifier = 4000;
-    affect_to_char(ch, &af);
+   	 bzero(&af, sizeof(af));
+    	af.type = SPELL_NOAUCTION;
+    	af.duration = PULSE_VIOLENCE / 2;
+    	af.modifier = 4000;
+    	affect_to_char(ch, &af);
+	
+	//Battlemage robe
+	if (obj_index[obj_object->R_num].virtual_number == 400218 && !IS_MULTICLASS_PC(ch))
+	{
+	  affect_from_char(ch, SPELL_BATTLEMAGE);
+	  send_to_char("&+rAs you remove the &+Ymaje&+rst&+Yic &+Yrobe&+r, you feel your enhanced &+mpower&+r fade.&n\r\n", ch);
+	}
+
 	  if (naked == TRUE)
             naked = FALSE;		  
         }	
@@ -4889,6 +4909,12 @@ void do_remove(P_char ch, char *argument, int cmd)
     af.duration = PULSE_VIOLENCE / 2;
     af.modifier = 4000;
     affect_to_char(ch, &af);
+       //Battlemage robe
+	if (obj_index[obj_object->R_num].virtual_number == 400218 && !IS_MULTICLASS_PC(ch))
+	{
+	  affect_from_char(ch, SPELL_BATTLEMAGE);
+	  send_to_char("&+rAs you remove the &+Ymaje&+rst&+Yic &+Yrobe&+r, you feel your enhanced &+mpower&+r fade.&n\r\n", ch);
+	}
 
       }	
       // Parse Remaining Messages

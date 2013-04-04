@@ -668,7 +668,8 @@
 #define SPELL_BMANTLE                619
 #define SPELL_DECAYING_FLESH	  620
 #define SPELL_NOAUCTION		  621
-#define LAST_SPELL  SPELL_NOAUCTION
+#define SPELL_BATTLEMAGE		  622
+#define LAST_SPELL  SPELL_BATTLEMAGE
 
 #define FIRST_SKILL                  1000  /* should be a decent split point */
 #define SKILL_SNEAK                  1000

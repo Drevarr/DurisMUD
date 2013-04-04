@@ -575,6 +575,9 @@ void initialize_skills()
   SPELL_CREATE("Auctions Disabled", SPELL_NOAUCTION, PULSE_SPELLCAST,
 		  TAR_CHAR_ROOM | TAR_AGGRO, do_nothing_spell);
 
+  SPELL_CREATE("Battle Mage's Aura", SPELL_BATTLEMAGE, PULSE_SPELLCAST,
+		  TAR_CHAR_ROOM | TAR_AGGRO, do_nothing_spell);
+
   SPELL_CREATE("corpseform", SPELL_CORPSEFORM, PULSE_SPELLCAST * 7,
                 TAR_OBJ_ROOM | TAR_NOCOMBAT,spell_corpseform);
   SPELL_ADD(CLASS_NECROMANCER, 11);

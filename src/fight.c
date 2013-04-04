@@ -8318,7 +8318,7 @@ int calculate_attacks(P_char ch, int attacks[])
         }
       }
     }
-    
+  /*  
     if(ch->player.race == RACE_KOBOLD || ch->player.race == RACE_GNOME)
 	{
 	if (number(1, 160) < GET_C_AGI(ch))
@@ -8336,7 +8336,7 @@ int calculate_attacks(P_char ch, int attacks[])
 	    send_to_char("&nYou move swiftly and execute an extra attack against your foe!&n\n\r", ch);
 	  }
 	}
-    
+    */
         if(GET_CLASS(ch, CLASS_MONK))
 	{
 	  ADD_ATTACK(PRIMARY_WEAPON);
@@ -8696,7 +8696,7 @@ void perform_violence(void)
       continue;
     }
     
-    if(IS_AFFECTED2(ch, AFF2_CASTING))
+    if(IS_AFFECTED2(ch, AFF2_CASTING) && !affected_by_spell(ch, SPELL_BATTLEMAGE))
     {
       continue;
     }
