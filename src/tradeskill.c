@@ -466,12 +466,51 @@ void do_forge(P_char ch, char *argument, int cmd)
       return;
      }
    tobj = read_object(selected, VIRTUAL);
-   //First - See if there's a magical affect that we need a component for.
 
-  //Second - See what material it is. make a method called: find_material(obj)
-   send_to_char("RECIPE CRAP IN THIS\r\n", ch);
-   itemvalue(ch, tobj);
+   float tobjvalue = itemvalue(ch, tobj);
+
+   int startmat = get_matstart(tobj);
+
+   tobjvalue = (float)tobjvalue / (float)5;
+
+   int fullcount = tobjvalue;
+
+    float difference = tobjvalue - fullcount;
+    difference = (int)(((float)difference * (float)10.0) / 2);
+
+    P_obj material;
+    P_obj material2;
+    material = read_object(startmat + 4, VIRTUAL);
+    material2 = read_object(startmat + ((int)difference - 1), VIRTUAL);
+    char matbuf[MAX_STRING_LENGTH];
+   //display startmat + difference;
+   if(fullcount != 0)
+   {
+    if(difference == 0)
+    {
+    send_to_char("&+yYou open your &+Ltome &+yof &+Ycra&+yftsm&+Lanship &+yand examine the &+Litem&n.\n", ch);
+     sprintf(matbuf, "To forge this item, you will need %d of %s.\r\n&n", fullcount, material->short_description);
+	page_string(ch->desc, matbuf, 1);
+    }
+    else
+    {
+    send_to_char("&+yYou open your &+Ltome &+yof &+Ycra&+yftsm&+Lanship &+yand examine the &+Litem&n.\n", ch);
+    sprintf(matbuf, "To forge this item, you will need %d of %s and 1 of %s.\r\n&n", fullcount, material->short_description, material2->short_description);
+    page_string(ch->desc, matbuf, 1);
+    }
+
+   }
+   else
+    {
+    send_to_char("&+yYou open your &+Ltome &+yof &+Ycra&+yftsm&+Lanship &+yand examine the &+Litem&n.\n", ch);
+    sprintf(matbuf, "To forge this item, you will need 1 of %s.\r\n&n", material2->short_description);
+    page_string(ch->desc, matbuf, 1);
+     }
+    if(has_affect(tobj))
+    send_to_char("...as well as &+W1 &nof &+ma &+Mm&+Ya&+Mg&+Yi&+Mc&+Ya&+Ml &+messence&n due to the &+mmagical &nproperties this item possesses.\r\n", ch);
     extract_obj(tobj, FALSE);
+    extract_obj(material2, FALSE);
+    extract_obj(material, FALSE);
    return;
   }
 
@@ -882,7 +921,6 @@ void event_mine_check(P_char ch, P_char victim, P_obj, void *data)
   struct mining_data *mdata = (struct mining_data*)data;
   P_obj ore, pick;
   char  buf[MAX_STRING_LENGTH], dbug[MAX_STRING_LENGTH];
-  int newcost;
   
   pick = get_pick(ch);
 
@@ -914,7 +952,8 @@ void event_mine_check(P_char ch, P_char victim, P_obj, void *data)
     return;
   }
   
-  if (mdata->counter == 0 )
+ // if (mdata->counter == 0 )
+   if(ch)//debugging
   {
     ore = get_ore_from_mine(ch, mdata->mine_quality);
     
@@ -923,28 +962,29 @@ void event_mine_check(P_char ch, P_char victim, P_obj, void *data)
       wizlog(56, "Problem with ore item");
       return;
     }
- 
+
    //Dynamic pricing - Drannak 3/21/2013
-   newcost = 120000; //120 p starting point
-   /*sprintf(dbug, "1 Current newcost value: %d\r\n", newcost);
-   send_to_char(dbug, ch);*/
-   newcost = (newcost * GET_LEVEL(ch)) / 56;
-    
-  newcost = (newcost * GET_CHAR_SKILL(ch, SKILL_MINE) / 100);
+   float newcost = 120000; //120 p starting point
+   float charskil = (GET_CHAR_SKILL(ch, SKILL_MINE));
+   newcost = (newcost * ((float)GET_LEVEL(ch) / (float)56));
+    newcost = (newcost * ((charskil / (float)100)));
+
+
    if(GET_OBJ_VNUM(ore) < 223)
     {
-     newcost = (newcost * 80) / 100; //anything less than gold gets a little bit of a reduction in price
+     newcost = (newcost * .6); //anything less than gold gets a little bit of a reduction in price
         
     }
-   newcost = (newcost * GET_OBJ_VNUM(ore)) / 233; //since the vnum's are sequential, the greatest rarity gets a 1.0 modifier, lowest gets 83% of value.
-      
+
+   newcost = (newcost * ((float)GET_OBJ_VNUM(ore) / (float)230)); //since the vnum's are sequential, the greatest rarity gets a 1.3 modifier, lowest gets 83% of value.
+ 
   if(number(80, 140) < GET_C_LUCK(ch))
    {
      newcost *= 1.3;
      send_to_char("&+yYou &+Ygently&+y break the &+Lore &+yfree from the &+Lrock&+y, preserving its natural form.&n\r\n", ch);
           
    }
-         
+     
     act("Your mining efforts turn up $p&n!", FALSE, ch, ore, 0, TO_CHAR);
     act("$n finds $p&n!", FALSE, ch, ore, 0, TO_ROOM);
     
@@ -1832,7 +1872,7 @@ int epic_store(P_char ch, P_char pl, int cmd, char *arg)
 	//subtract 85 epics
        P_obj obj;
 	obj = read_object(14126, VIRTUAL);
-	pl->only.pc->epics -= 125;
+	pl->only.pc->epics -= 85;
        send_to_char("&+WKannard&+L &+wsays '&nAh, good choice! Quite a rare item!'\n", pl);
 	send_to_char("&+WKannard &+Lthe &+ctra&+Cvell&+cer &nmakes a strange gesture about your body, and hands you your item.\r\n&n", pl);
        act("You now have $p!\r\n", FALSE, pl, obj, 0, TO_CHAR);
@@ -2063,166 +2103,300 @@ int learn_tradeskill(P_char ch, P_char pl, int cmd, char *arg)
 }
 
 
-
 int itemvalue(P_char ch, P_obj obj)
 {
  long workingvalue = 0;
-/*
-  //------- AFF ---------------
-    if (IS_SET(obj->bitvector, AFF_STONE_SKIN)) 
-	{
-	 send_to_char("Item has stone skin.", ch);
-	}
 
-#define AFF_BLIND             BIT_1
-#define AFF_INVISIBLE         BIT_2
-#define AFF_FARSEE            BIT_3
-#define AFF_DETECT_INVISIBLE  BIT_4
-#define AFF_HASTE             BIT_5
-#define AFF_SENSE_LIFE        BIT_6
-#define AFF_MINOR_GLOBE       BIT_7
-#define AFF_STONE_SKIN        BIT_8
-#define AFF_UD_VISION         BIT_9
-#define AFF_ARMOR             BIT_10
-#define AFF_WRAITHFORM        BIT_11
-#define AFF_WATERBREATH       BIT_12
-#define AFF_KNOCKED_OUT       BIT_13
-#define AFF_PROTECT_EVIL      BIT_14
-#define AFF_BOUND             BIT_15
-#define AFF_SLOW_POISON       BIT_16
-#define AFF_PROTECT_GOOD      BIT_17
-#define AFF_SLEEP             BIT_18
-#define AFF_SKILL_AWARE       BIT_19   
-#define AFF_SNEAK             BIT_20
-#define AFF_HIDE              BIT_21
-#define AFF_FEAR              BIT_22
-#define AFF_CHARM             BIT_23
-#define AFF_MEDITATE          BIT_24
-#define AFF_BARKSKIN          BIT_25
-#define AFF_INFRAVISION       BIT_26
-#define AFF_LEVITATE          BIT_27
-#define AFF_FLY               BIT_28
-#define AFF_AWARE             BIT_29
-#define AFF_PROT_FIRE         BIT_30
-#define AFF_CAMPING           BIT_31
-#define AFF_BIOFEEDBACK       BIT_32
+ if (IS_SET(obj->bitvector, AFF_STONE_SKIN))
+	 workingvalue += 20;
 
-// affected_by2 
+ if (IS_SET(obj->bitvector, AFF_BIOFEEDBACK))
+	 workingvalue += 20;
 
-#define AFF2_FIRESHIELD       BIT_1
-#define AFF2_ULTRAVISION      BIT_2
-#define AFF2_DETECT_EVIL      BIT_3
-#define AFF2_DETECT_GOOD      BIT_4
-#define AFF2_DETECT_MAGIC     BIT_5
-#define AFF2_MAJOR_PHYSICAL   BIT_6
-#define AFF2_PROT_COLD        BIT_7
-#define AFF2_PROT_LIGHTNING   BIT_8
-#define AFF2_MINOR_PARALYSIS  BIT_9
-#define AFF2_MAJOR_PARALYSIS  BIT_10
-#define AFF2_SLOW             BIT_11
-#define AFF2_GLOBE            BIT_12
-#define AFF2_PROT_GAS         BIT_13
-#define AFF2_PROT_ACID        BIT_14
-#define AFF2_POISONED         BIT_15
-#define AFF2_SOULSHIELD       BIT_16
-#define AFF2_SILENCED         BIT_17
-#define AFF2_MINOR_INVIS      BIT_18
-#define AFF2_VAMPIRIC_TOUCH   BIT_19
-#define AFF2_STUNNED          BIT_20
-#define AFF2_EARTH_AURA       BIT_21
-#define AFF2_WATER_AURA       BIT_22
-#define AFF2_FIRE_AURA        BIT_23
-#define AFF2_AIR_AURA         BIT_24
-#define AFF2_HOLDING_BREATH   BIT_25    
-#define AFF2_MEMORIZING       BIT_26
-#define AFF2_IS_DROWNING      BIT_27    
-#define AFF2_PASSDOOR         BIT_28
-#define AFF2_FLURRY           BIT_29
-#define AFF2_CASTING          BIT_30
-#define AFF2_SCRIBING         BIT_31
-#define AFF2_HUNTER           BIT_32
+ if (IS_SET(obj->bitvector, AFF_FARSEE))
+	 workingvalue += 4;
 
-// affected_by 3 
+ if (IS_SET(obj->bitvector, AFF_DETECT_INVISIBLE))
+	 workingvalue += 6;
 
-#define AFF3_TENSORS_DISC       BIT_1
-#define AFF3_TRACKING           BIT_2
-#define AFF3_SINGING            BIT_3
-#define AFF3_ECTOPLASMIC_FORM   BIT_4
-#define AFF3_ABSORBING          BIT_5
-#define AFF3_PROT_ANIMAL        BIT_6
-#define AFF3_SPIRIT_WARD        BIT_7
-#define AFF3_GR_SPIRIT_WARD     BIT_8
-#define AFF3_NON_DETECTION      BIT_9
-#define AFF3_SILVER             BIT_10   
-#define AFF3_PLUSONE            BIT_11   
-#define AFF3_PLUSTWO            BIT_12   
-#define AFF3_PLUSTHREE          BIT_13   
-#define AFF3_PLUSFOUR           BIT_14  
-#define AFF3_PLUSFIVE           BIT_15   
-#define AFF3_ENLARGE            BIT_16
-#define AFF3_REDUCE             BIT_17
-#define AFF3_COVER              BIT_18
-#define AFF3_FOUR_ARMS          BIT_19
-#define AFF3_INERTIAL_BARRIER   BIT_20
-#define AFF3_LIGHTNINGSHIELD    BIT_21
-#define AFF3_COLDSHIELD         BIT_22
-#define AFF3_CANNIBALIZE        BIT_23
-#define AFF3_SWIMMING           BIT_24
-#define AFF3_TOWER_IRON_WILL    BIT_25
-#define AFF3_UNDERWATER         BIT_26
-#define AFF3_BLUR               BIT_27
-#define AFF3_ENHANCE_HEALING    BIT_28
-#define AFF3_ELEMENTAL_FORM     BIT_29
-#define AFF3_PASS_WITHOUT_TRACE BIT_30
-#define AFF3_PALADIN_AURA       BIT_31
-#define AFF3_FAMINE             BIT_32
+ if (IS_SET(obj->bitvector, AFF_HASTE))
+	 workingvalue += 8;
 
+ if (IS_SET(obj->bitvector, AFF_SENSE_LIFE))
+	 workingvalue += 3;
 
-//aff4
-#define AFF4_LOOTER                   BIT_1 
-#define AFF4_CARRY_PLAGUE             BIT_2
-#define AFF4_SACKING                  BIT_3 
-#define AFF4_SENSE_FOLLOWER           BIT_4
-#define AFF4_STORNOGS_SPHERES         BIT_5
-#define AFF4_STORNOGS_GREATER_SPHERES BIT_6
-#define AFF4_VAMPIRE_FORM             BIT_7
-#define AFF4_NO_UNMORPH               BIT_8 
-#define AFF4_HOLY_SACRIFICE           BIT_9
-#define AFF4_BATTLE_ECSTASY     BIT_10
-#define AFF4_DAZZLER            BIT_11
-#define AFF4_PHANTASMAL_FORM    BIT_12
-#define AFF4_NOFEAR             BIT_13
-#define AFF4_REGENERATION       BIT_14
-#define AFF4_DEAF               BIT_15
-#define AFF4_BATTLETIDE         BIT_16
-#define AFF4_EPIC_INCREASE      BIT_17
-#define AFF4_MAGE_FLAME         BIT_18 
-#define AFF4_GLOBE_OF_DARKNESS  BIT_19 
-#define AFF4_DEFLECT            BIT_20
-#define AFF4_HAWKVISION         BIT_21
-#define AFF4_MULTI_CLASS        BIT_22
-#define AFF4_SANCTUARY          BIT_23
-#define AFF4_HELLFIRE           BIT_24
-#define AFF4_SENSE_HOLINESS     BIT_25
-#define AFF4_PROT_LIVING        BIT_26
-#define AFF4_DETECT_ILLUSION    BIT_27
-#define AFF4_ICE_AURA           BIT_28
-#define AFF4_REV_POLARITY       BIT_29
-#define AFF4_NEG_SHIELD         BIT_30
-#define AFF4_TUPOR              BIT_31
-#define AFF4_WILDMAGIC          BIT_32
+ if (IS_SET(obj->bitvector, AFF_MINOR_GLOBE))
+	 workingvalue += 3;
 
+ if (IS_SET(obj->bitvector, AFF_UD_VISION))
+	 workingvalue += 5;
 
- */
-  //------- A0/A1 -------------   
+ if (IS_SET(obj->bitvector, AFF_WATERBREATH))
+	 workingvalue += 1;
 
- if (obj->affected[1].location == APPLY_DAMROLL)
-  {
-   send_to_char("Item has damroll.", ch);
+ if (IS_SET(obj->bitvector, AFF_PROTECT_EVIL))
+	 workingvalue += 1;
+
+ if (IS_SET(obj->bitvector, AFF_SLOW_POISON))
+	 workingvalue += 2;
+
+ if (IS_SET(obj->bitvector, AFF_SNEAK))
+	 workingvalue += 18;
+
+ if (IS_SET(obj->bitvector, AFF_BARKSKIN))
+	 workingvalue += 4;
+
+ if (IS_SET(obj->bitvector, AFF_INFRAVISION))
+	 workingvalue += 2;
+
+ if (IS_SET(obj->bitvector, AFF_LEVITATE))
+	 workingvalue += 3;
+
+ if (IS_SET(obj->bitvector, AFF_HIDE))
+	 workingvalue += 18;
+
+ if (IS_SET(obj->bitvector, AFF_FLY))
+	 workingvalue += 7;
+
+ if (IS_SET(obj->bitvector, AFF_AWARE))
+	 workingvalue += 7;
+
+ if (IS_SET(obj->bitvector, AFF_PROT_FIRE))
+	 workingvalue += 2;
+
+ if (IS_SET(obj->bitvector2, AFF2_FIRESHIELD))
+	 workingvalue += 4;
+
+ if (IS_SET(obj->bitvector2, AFF2_ULTRAVISION))
+	 workingvalue += 5;
+
+ if (IS_SET(obj->bitvector2, AFF2_DETECT_EVIL))
+	 workingvalue += 2;
+
+ if (IS_SET(obj->bitvector2, AFF2_DETECT_GOOD))
+	 workingvalue += 2;
+
+ if (IS_SET(obj->bitvector2, AFF2_DETECT_MAGIC))
+	 workingvalue += 2;
+
+ if (IS_SET(obj->bitvector2, AFF2_PROT_COLD))
+	 workingvalue += 2;
+
+ if (IS_SET(obj->bitvector2, AFF2_PROT_LIGHTNING))
+	 workingvalue += 2;
+
+ if (IS_SET(obj->bitvector2, AFF2_GLOBE))
+	 workingvalue += 9;
+
+ if (IS_SET(obj->bitvector2, AFF2_PROT_GAS))
+	 workingvalue += 2;
+
+ if (IS_SET(obj->bitvector2, AFF2_PROT_ACID))
+	 workingvalue += 2;
+
+ if (IS_SET(obj->bitvector2, AFF2_SOULSHIELD))
+	 workingvalue += 5;
+
+ if (IS_SET(obj->bitvector2, AFF2_MINOR_INVIS))
+	 workingvalue += 5;
+
+ if (IS_SET(obj->bitvector2, AFF2_VAMPIRIC_TOUCH))
+	 workingvalue += 7;
+
+ if (IS_SET(obj->bitvector2, AFF2_EARTH_AURA))
+	 workingvalue += 20;
+
+ if (IS_SET(obj->bitvector2, AFF2_WATER_AURA))
+	 workingvalue += 20;
+
+ if (IS_SET(obj->bitvector2, AFF2_FIRE_AURA))
+	 workingvalue += 20;
+
+ if (IS_SET(obj->bitvector2, AFF2_AIR_AURA))
+	 workingvalue += 20;
+
+ if (IS_SET(obj->bitvector2, AFF2_PASSDOOR))
+	 workingvalue += 8;
+
+ if (IS_SET(obj->bitvector2, AFF2_FLURRY))
+	 workingvalue += 15;
+
+ if (IS_SET(obj->bitvector3, AFF3_PROT_ANIMAL))
+	 workingvalue += 4;
+
+ if (IS_SET(obj->bitvector3, AFF3_SPIRIT_WARD))
+	 workingvalue += 4;
+
+ if (IS_SET(obj->bitvector3, AFF3_GR_SPIRIT_WARD))
+	 workingvalue += 9;
+
+ if (IS_SET(obj->bitvector3, AFF3_ENLARGE))
+	 workingvalue += 15;
+
+ if (IS_SET(obj->bitvector3, AFF3_REDUCE))
+	 workingvalue += 15;
+
+ if (IS_SET(obj->bitvector3, AFF3_INERTIAL_BARRIER))
+	 workingvalue += 15;
+
+ if (IS_SET(obj->bitvector3, AFF3_COLDSHIELD))
+	 workingvalue += 4;
+
+ if (IS_SET(obj->bitvector3, AFF3_TOWER_IRON_WILL))
+	 workingvalue += 8;
+
+ if (IS_SET(obj->bitvector3, AFF3_BLUR))
+	 workingvalue += 10;
+
+ if (IS_SET(obj->bitvector3, AFF3_PASS_WITHOUT_TRACE))
+	 workingvalue += 9;
+
+ if (IS_SET(obj->bitvector4, AFF4_VAMPIRE_FORM))
+	 workingvalue += 20;
+
+ if (IS_SET(obj->bitvector4, AFF4_HOLY_SACRIFICE))
+	 workingvalue += 20;
+
+ if (IS_SET(obj->bitvector4, AFF4_BATTLE_ECSTASY))
+	 workingvalue += 20;
+
+ if (IS_SET(obj->bitvector4, AFF4_DAZZLER))
+	 workingvalue += 10;
+
+ if (IS_SET(obj->bitvector4, AFF4_PHANTASMAL_FORM))
+	 workingvalue += 9;
+
+ if (IS_SET(obj->bitvector4, AFF4_NOFEAR))
+	 workingvalue += 10;
+
+ if (IS_SET(obj->bitvector4, AFF4_REGENERATION))
+	 workingvalue += 10;
+
+ if (IS_SET(obj->bitvector4, AFF4_GLOBE_OF_DARKNESS))
+	 workingvalue += 6;
+
+ if (IS_SET(obj->bitvector4, AFF4_HAWKVISION))
+	 workingvalue += 6;
+
+ if (IS_SET(obj->bitvector4, AFF4_SANCTUARY))
+	 workingvalue += 20;
+
+ if (IS_SET(obj->bitvector4, AFF4_HELLFIRE))
+	 workingvalue += 20;
+
+ if (IS_SET(obj->bitvector4, AFF4_SENSE_HOLINESS))
+	 workingvalue += 5;
+
+ if (IS_SET(obj->bitvector4, AFF4_PROT_LIVING))
+	 workingvalue += 4;
+
+ if (IS_SET(obj->bitvector4, AFF4_DETECT_ILLUSION))
+	 workingvalue += 7;
+
+ if (IS_SET(obj->bitvector4, AFF4_ICE_AURA))
+	 workingvalue += 20;
+
+ if (IS_SET(obj->bitvector4, AFF4_NEG_SHIELD))
+	 workingvalue += 8;
+
+ if (IS_SET(obj->bitvector4, AFF4_WILDMAGIC))
+	 workingvalue += 10;
+
+  //------- A0/A1 -------------  
+ int i; 
+ while(i < 2)
+ {
+  //dam/hitroll are normal values
+   if (
+	(obj->affected[i].location == APPLY_DAMROLL) ||
+	 (obj->affected[i].location == APPLY_HITROLL) 
+	)
+   {
+    workingvalue += obj->affected[i].modifier;
    }
-   
-   return workingvalue;
 
+  //regular stats can be high numbers - half them
+   if (
+	(obj->affected[i].location == APPLY_STR) ||
+	(obj->affected[i].location == APPLY_DEX) ||
+	(obj->affected[i].location == APPLY_INT) ||
+	(obj->affected[i].location == APPLY_WIS) ||
+	(obj->affected[i].location == APPLY_CON) ||
+	(obj->affected[i].location == APPLY_AGI) ||
+	(obj->affected[i].location == APPLY_POW) ||
+	(obj->affected[i].location == APPLY_LUCK)
+	)
+   {
+    workingvalue += (int)(obj->affected[i].modifier *.5);
+   }
+
+  //hit, move, mana, are generally large #'s - 1/10
+   if (
+	(obj->affected[i].location == APPLY_HIT) ||
+	(obj->affected[i].location == APPLY_MOVE) ||
+	(obj->affected[i].location == APPLY_MANA) 
+	) 
+   {
+    workingvalue += (int)(obj->affected[i].modifier*.1);
+   }
+
+  //AC negative is good
+   if (
+	(obj->affected[i].location == APPLY_AC)
+	) 
+   {
+    workingvalue -= (int)(obj->affected[i].modifier*.1);
+   }
+
+  //saving throw values (good) are negative
+   if (
+	(obj->affected[i].location == APPLY_SAVING_PARA) ||
+	(obj->affected[i].location == APPLY_SAVING_ROD) ||
+	(obj->affected[i].location == APPLY_SAVING_FEAR) ||
+	(obj->affected[i].location == APPLY_SAVING_BREATH) ||
+	(obj->affected[i].location == APPLY_SAVING_SPELL)
+	)
+   {
+    workingvalue -= obj->affected[i].modifier;
+   }
+
+  //pulse is quite valuable and negative is good
+   if (
+	(obj->affected[i].location == APPLY_COMBAT_PULSE) ||
+	(obj->affected[i].location == APPLY_SPELL_PULSE)
+
+	)
+   {
+    workingvalue += (int)(obj->affected[i].modifier * -25);
+   }
+
+
+   //max_stats double points
+   if (
+	(obj->affected[i].location == APPLY_STR_MAX) ||
+	(obj->affected[i].location == APPLY_DEX_MAX) ||
+	(obj->affected[i].location == APPLY_INT_MAX) ||
+	(obj->affected[i].location == APPLY_WIS_MAX) ||
+	(obj->affected[i].location == APPLY_CON_MAX) ||
+	(obj->affected[i].location == APPLY_AGI_MAX) ||
+	(obj->affected[i].location == APPLY_POW_MAX) ||
+	(obj->affected[i].location == APPLY_LUCK_MAX)
+	)
+   {
+    workingvalue += (obj->affected[i].modifier * 2);
+   }
+    i++;
+  }
+   if(obj->type == ITEM_WEAPON)
+    {
+     workingvalue += (obj->value[1] *2);
+    }
+
+   if(workingvalue < 1)
+   workingvalue = 1;
+
+   //debug("&+YItem value is: &n%d", workingvalue); 
+   return workingvalue;
 }
 
 int get_frags(P_char ch)
@@ -2447,4 +2621,242 @@ void do_salvation(P_char ch, char *arg, int cmd)
     act("&+Y$n raises their eyes &+Cskyward&+Y in a plea for assistance...\n"
         "&+Y..after a brief moment, $n's body &+Ctingles&+Y with warmth, and they feel &+Crenewed&+Y.", FALSE, ch, 0, 0, TO_ROOM);
         vamp(ch, number(100, 200), GET_MAX_HIT(ch));
+}
+
+void do_drandebug(P_char ch, char *arg, int cmd)
+{
+ /* float newcost;
+  float charskil = GET_CHAR_SKILL(ch, SKILL_MINE);
+  float bullshit = ((float)50 / (float)100);
+  debug("GET_CHAR_SKILL(ch, SKILL_MINE) = %f\r\n", charskil);
+  debug("charskil * bullshit = %f\r\n", (charskil * bullshit));
+  debug(" this  = %f\r\n", bullshit);
+  debug("casting charskil to int %d\r\n", ((int)(charskil)));*/
+ 
+   float newcost = 120000; //120 p starting point
+   float charskil = (GET_CHAR_SKILL(ch, SKILL_MINE));
+   debug("newcost value %f\r\n", newcost);
+   newcost = (newcost * ((float)GET_LEVEL(ch) / (float)56));
+   debug("newcost value %f\r\n", newcost);
+    newcost = (newcost * ((charskil / (float)100)));
+    debug("mine skill level %f\r\n", charskil);
+    debug("newcost value %f\r\n", newcost);
+    debug("newcost to int %d\r\n", ((int)newcost));
+
+}
+
+int get_matstart(P_obj obj)
+{
+  //starting values for each salvaged type
+  if(!obj)
+  return FALSE;
+
+  byte objmat = obj->material;
+  int matstart;
+                              switch (objmat)
+					{
+					case MAT_NONSUBSTANTIAL:
+					matstart = 400205;  
+					break;
+					case MAT_FLESH:
+					matstart = 400005;  
+					break;
+					case MAT_CLOTH:
+					matstart = 400015;  
+					break;
+					case MAT_BARK:
+					matstart = 400035;  
+					break;
+					case MAT_SOFTWOOD:
+					matstart = 400040;  
+					break;
+					case MAT_HARDWOOD:
+					matstart = 400050;  
+					break;
+					//case MAT_SILICON:
+					//matstart = 67283;  
+					//break;
+					case MAT_CRYSTAL:
+					matstart = 400090;  
+					break;
+					//case MAT_CERAMIC:
+					//matstart = 67283;  
+					//break;
+					case MAT_BONE:
+					matstart = 400065;  
+					break;
+					case MAT_STONE:
+					matstart = 400095;  
+					break;
+					case MAT_HIDE:
+					matstart = 400030;  
+					break;
+					case MAT_LEATHER:
+					matstart = 400045;  
+					break;
+					case MAT_CURED_LEATHER:
+					matstart = 400060;  
+					break;
+					case MAT_IRON:
+					matstart = 400110;  
+					break;
+					case MAT_STEEL:
+					matstart = 400120;  
+					break;
+					case MAT_BRASS:
+					matstart = 400125;  
+					break;
+					case MAT_MITHRIL:
+					matstart = 400185;  
+					break;
+					case MAT_ADAMANTIUM:
+					matstart = 400195;  
+					break;
+					case MAT_BRONZE:
+					matstart = 400130;  
+					break;
+					case MAT_COPPER:
+					matstart = 400135;  
+					break;
+					case MAT_SILVER:
+					matstart = 400140;  
+					break;
+					case MAT_ELECTRUM:
+					matstart = 400145;  
+					break;
+					case MAT_GOLD:
+					matstart = 400150;  
+					break;
+					case MAT_PLATINUM:
+					matstart = 400180;  
+					break;
+					case MAT_GEM:
+					matstart = 400155;  
+					break;
+					case MAT_DIAMOND:
+					matstart = 400190;  
+					break;
+					//case MAT_LEAVES:
+					//matstart = 67283;  
+					//break;
+					case MAT_RUBY:
+					matstart = 400165;  
+					break;
+					case MAT_EMERALD:
+					matstart = 400160;  
+					break;
+					case MAT_SAPPHIRE:
+					matstart = 400170;  
+					break;
+					case MAT_IVORY:
+					matstart = 400070;  
+					break;
+					case MAT_DRAGONSCALE:
+					matstart = 400200;  
+					break;
+					case MAT_OBSIDIAN:
+					matstart = 400175;  
+					break;
+					case MAT_GRANITE:
+					matstart = 400100;  
+					break;
+					case MAT_MARBLE:
+					matstart = 400105;  
+					break;
+					//case MAT_LIMESTONE:
+					//matstart = 67283;  
+					//break;
+					case MAT_BAMBOO:
+					matstart = 400055;  
+					break;
+					case MAT_REEDS:
+					matstart = 400010;  
+					break;
+					case MAT_HEMP:
+					matstart = 400020;  
+					break;
+					case MAT_GLASSTEEL:
+					matstart = 400115;  
+					break;
+					case MAT_CHITINOUS:
+					matstart = 400080;  
+					break;
+					case MAT_REPTILESCALE:
+					matstart = 400085;  
+					break;
+					case MAT_RUBBER:
+					matstart = 400025;  
+					break;
+					case MAT_FEATHER:
+					matstart = 400000;  
+					break;
+					case MAT_PEARL:
+					matstart = 400075;  
+					break;
+					default:
+					matstart = 400205;
+					break;
+					}
+return matstart;
+}
+
+bool has_affect(P_obj obj)
+{
+
+         if (IS_SET(obj->bitvector, AFF_STONE_SKIN) ||
+            IS_SET(obj->bitvector, AFF_HIDE) ||
+            IS_SET(obj->bitvector, AFF_SNEAK) ||
+            IS_SET(obj->bitvector, AFF_FLY) ||
+            IS_SET(obj->bitvector, AFF4_NOFEAR) ||
+            IS_SET(obj->bitvector2, AFF2_AIR_AURA) ||
+            IS_SET(obj->bitvector2, AFF2_EARTH_AURA) ||
+            IS_SET(obj->bitvector3, AFF3_INERTIAL_BARRIER) ||
+            IS_SET(obj->bitvector3, AFF3_REDUCE) ||
+            IS_SET(obj->bitvector2, AFF2_GLOBE) ||
+            IS_SET(obj->bitvector, AFF_HASTE) ||
+            IS_SET(obj->bitvector, AFF_DETECT_INVISIBLE) ||            
+            IS_SET(obj->bitvector4, AFF4_DETECT_ILLUSION))
+	    {
+		return TRUE;
+	    }
+    return FALSE;
+}
+
+void do_refine(P_char ch, char *arg, int cmd)
+{
+  P_obj obj;
+    char     gbuf1[MAX_STRING_LENGTH], gbuf2[MAX_STRING_LENGTH], buffer[MAX_STRING_LENGTH], gbuf3[MAX_STRING_LENGTH];
+    argument_interpreter(arg, gbuf1, gbuf3);
+    if(*gbuf1)
+     {
+      obj = get_obj_in_list(gbuf1, ch->carrying);
+       if(!obj)
+      {
+       send_to_char("&+rYou must have the item you wish to &+yre&+Yfi&+yne &nin your inventory.&n\r\n", ch);
+       return;
+      }
+      
+
+    //must be salvaged material, and cannot be the highest salvage type.
+      if ((GET_OBJ_VNUM(obj) > 400208) || 
+	    (GET_OBJ_VNUM(obj) < 400000) ||
+	    (GET_OBJ_VNUM(obj) == (get_matstart(obj) + 4))
+	    )
+      {
+       send_to_char("That item is either not a &+ysalvaged &nitem, or it is already the &+Bhighest&n quality of &+bmaterial&n for that type!\r\n", ch);
+       return;
+      }
+   
+  act
+    ("&+W$n &+rbegins to chant loudly, calling forth the &+Bblood &+rof their enemies. &+W$n's &+rhands begin to &+Rg&+rl&+Ro&+rw &+Rbrightly &+ras drops of blood begin to form.\r\n"
+     "&+W$n &+rgently takes the &+Rblood&+r and begins to spread it about their $p&+r, which starts to glow with an &+Lun&+rho&+Lly &+Rlight.&N",
+     TRUE, ch, obj, 0, TO_ROOM);
+  act
+    ("&+rYou begin to chant loudly, calling forth the &+Bblood &+rof your enemies. Your &+rhands begin to &+Rg&+rl&+Ro&+rw &+Rbrightly &+ras drops of blood begin to form.\r\n"
+      "&+rYou &+rgently take the &+Rblood&+r and begin to spread it about your $p&+r, which starts to glow with an &+Lun&+rho&+Lly &+Rlight.&N",
+     FALSE, ch, obj, 0, TO_CHAR);
+    }
+
+    if(!arg || !*arg)
+  send_to_char("What &+ysalvaged &+Ymaterial &nwould you like to &+yre&+Yfi&+yne?\r\n", ch);
 }

@@ -4893,11 +4893,14 @@ void do_remove(P_char ch, char *argument, int cmd)
         {
           act("You stop using $p.", FALSE, ch, temp_obj, 0, TO_CHAR);
 	//Drannak - set affect noauction to prevent selling off equip prior to being fragged
+        if(!affected_by_spell(ch, SPELL_NOAUCTION))
+        {
    	 bzero(&af, sizeof(af));
     	af.type = SPELL_NOAUCTION;
     	af.duration = PULSE_VIOLENCE / 2;
     	af.modifier = 4000;
     	affect_to_char(ch, &af);
+        }
 	
 	//Battlemage robe
 	if (obj_index[temp_obj->R_num].virtual_number == 400218 && !IS_MULTICLASS_PC(ch))
