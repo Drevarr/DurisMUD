@@ -1532,17 +1532,4 @@ HO 0 1 0 -1
 51 -1 -300 45d107+2025 6d6+12
 5.9.8.4 109350
 8 8 1
-#97606
-gixnif goblin miner~
-&+GGixnif&n~
-&+GGixnif&n, the &+Ggoblin&n miner stands here sneering at you.
-~
-This rather fat goblin is a filthy one. He is covered from head to toe in dirt, likely
-a result of practicing his craft &+Lmining&n. He stares at you with a toothy grin, wondering
-if you might be here to &+Rpractice&n a tradeskill.
-~
-33978442 64 0 0 940116156 0 0 0 0 S
-HG 0 529 0 1
-60 0 0 1d1+1 1d1+1
-0.0.0.0 0
-8 8 1
+

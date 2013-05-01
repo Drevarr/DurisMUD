@@ -3808,6 +3808,134 @@ void do_craft(P_char ch, char *argument, int cmd)
     extract_obj(material, FALSE);
    return;
   }
+  else if (is_abbrev(first, "make"))
+  {
+    if(choice2 == 0)
+     {
+      send_to_char("What &+Witem &nare you attempting to craft?\n", ch);
+      return;
+     }
+    if(selected == 0)
+     {
+      send_to_char("You dont appear to have that &+Wrecipe&n in your list.&n\n", ch);
+      return;
+     }
+
+
+   tobj = read_object(selected, VIRTUAL);
+
+   float tobjvalue = itemvalue(ch, tobj);
+
+   int startmat = get_matstart(tobj);
+
+   tobjvalue = (float)tobjvalue / (float)5;
+
+   int fullcount = tobjvalue;
+
+    float difference = tobjvalue - fullcount;
+    difference = (int)(((float)difference * (float)10.0) / 2);
+
+    P_obj material;
+    P_obj material2;
+    material = read_object(startmat + 4, VIRTUAL);
+    material2 = read_object(startmat + ((int)difference - 1), VIRTUAL);
+    char matbuf[MAX_STRING_LENGTH];
+
+
+  P_obj t_obj, nextobj;
+  int i = 0;
+  int o = 0;
+  int x = 0;
+  int y = 0;
+  for (t_obj = ch->carrying; t_obj; t_obj = nextobj)
+  {
+    nextobj = t_obj->next_content;
+
+    if(GET_OBJ_VNUM(t_obj) == GET_OBJ_VNUM(material))
+      i++;
+
+    if(GET_OBJ_VNUM(t_obj) == GET_OBJ_VNUM(material2))
+     o++;
+
+    if(GET_OBJ_VNUM(t_obj) == 400224)
+    y++;
+
+    if(GET_OBJ_VNUM(t_obj) == 400211)
+    x++;
+  }
+   int z = 0;
+   if(has_affect(tobj))
+    z = 1;
+
+  if((i < fullcount) || (o < (int)difference) || ((z == 1) && (x < 1)))
+  {
+    send_to_char("You do not have the required &+ysalvaged &+Ymaterials &nin your inventory.\r\n", ch);
+    extract_obj(tobj, FALSE);
+    extract_obj(material2, FALSE);
+    extract_obj(material, FALSE);
+    return;
+  }
+  if(y < 1)
+  {
+    send_to_char("You must have &+ma &+ybox &+mof &+Rgnomish &+rcrafting &+mtools&n to create your item.\r\n", ch);
+    extract_obj(tobj, FALSE);
+    extract_obj(material2, FALSE);
+    extract_obj(material, FALSE);
+    return;
+  }
+
+ //drannak - make the item
+   int obj1 = startmat + 4;
+   int obj2 = (startmat + ((int)difference -1));
+   y = 1;
+
+   for (t_obj = ch->carrying; t_obj; t_obj = nextobj)
+     {
+    nextobj = t_obj->next_content;
+
+	if((GET_OBJ_VNUM(t_obj) == obj1) && (i > 0) )
+         {
+	   obj_from_char(t_obj, TRUE);
+          i--;
+         }
+       if((GET_OBJ_VNUM(t_obj) == obj2) && (o > 0))
+         {
+	   obj_from_char(t_obj, TRUE);
+          o--;
+         }
+       if((GET_OBJ_VNUM(t_obj) == 400211) && (z > 0))
+         {
+	   obj_from_char(t_obj, TRUE);
+          x--;
+         }
+       if((GET_OBJ_VNUM(t_obj) == 400224) && (y > 0))
+         {
+	   obj_from_char(t_obj, TRUE);
+          x--;
+         }
+      }
+
+ //reward here
+      wizlog(56, "%s crafted %s" , GET_NAME(ch), tobj->short_description);
+      notch_skill(ch, SKILL_CRAFT, 1);
+     obj_to_char(read_object(selected, VIRTUAL), ch);
+  act
+    ("&+W$n &+Ldelicately opens their &+ybox &+mof &+Rgnomish &+rcrafting &+mtools&+L and starts their work...\r\n"
+     "&+W$n &+Lremoves the &+Wim&+wpur&+Lities &+Lfrom their &+ymaterials &+Land gently assembles a masterpiece...\r\n"
+     "&+L...hands shaking, &+W$n &+Lraises their head and &+Ysmiles&+L, admiring their new $p.&N",
+     TRUE, ch, tobj, 0, TO_ROOM);
+  act
+    ("You &+Ldelicately open your &+ybox &+mof &+Rgnomish &+rcrafting &+mtools&+L and get to work...\r\n"
+     "you &+Lremove the &+Wim&+wpur&+Lities &+Lfrom your &+ymaterials &+Land gently assemble a masterpiece...\r\n"
+     "&+L...hands shaking, &+Wyou &+Lraise your head and &+Ysmile&+L, admiring your new $p.&N",
+     FALSE, ch, tobj, 0, TO_CHAR);
+
+    extract_obj(tobj, FALSE);
+    extract_obj(material2, FALSE);
+    extract_obj(material, FALSE);
+
+  }
+
 
 
 

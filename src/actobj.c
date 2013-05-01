@@ -5022,20 +5022,9 @@ void do_salvage(P_char ch, char *argument, int cmd)
   
   int reciperoll = (number(1, 10000));
   int playerroll = (GET_C_LUCK(ch) + (GET_LEVEL(ch)*2) + GET_CHAR_SKILL(ch, SKILL_SALVAGE));
+  int rand2 = number(1, 3);
 
   one_argument(argument, Gbuf4);
-
-  /* Going Prod 1/2/13 - drannak
-  if (!IS_TRUSTED(ch))
-  {
-    send_to_char
-      ("You arent privileged enough to break down items... yet.\r\n",
-       ch);
-    return;
-  }
-  */
-
-
 
 
   if(GET_CHAR_SKILL(ch, SKILL_SALVAGE) < 1)
@@ -5050,6 +5039,24 @@ void do_salvage(P_char ch, char *argument, int cmd)
     act("What would you like to salvage?", FALSE, ch, 0, 0, TO_CHAR);
     return;
   }
+
+  //handle salvage materials
+  if((GET_OBJ_VNUM(temp) > 399999) && (GET_OBJ_VNUM(temp) < 400210))
+   {
+    int lowest = get_matstart(temp);
+    if(GET_OBJ_VNUM(temp) == lowest)
+      {
+       send_to_char("Not possible! That &+ymaterial&n is already of the &+Llowest&n quality.\r\n", ch);
+       return;
+      }
+    int reward = (GET_OBJ_VNUM(temp) - 1);
+    obj_to_char(read_object(reward, VIRTUAL), ch);
+    obj_to_char(read_object(reward, VIRTUAL), ch);
+    act("$n breaks down their $p into its &+ylesser&n material...", TRUE, ch, temp, 0, TO_ROOM);
+    act("You break down your $p into its &+ylesser &+Ymaterial&n...", FALSE, ch, temp, 0, TO_CHAR); 
+    return;
+   }
+
 //make sure its not food or container
   if ((temp->type == ITEM_CONTAINER ||
        temp->type == ITEM_STORAGE) && temp->contains)
@@ -5104,34 +5111,12 @@ void do_salvage(P_char ch, char *argument, int cmd)
 	char buf[250];
 	char buf2[250];
 	byte objmat = temp->material;
-	byte objcft = temp->craftsmanship; //0-16 value
-	int matvnum;
+	int matvnum, objchance;
        
-    int rand1 = number(1, 16);
-	int rand2 = number(1, 3);
-	int objchance = (objcft * 7 / 2 + GET_CHAR_SKILL(ch, SKILL_SALVAGE) / 2 - rand1); //better skill and better quality yields better chance for good material
-	if(objcft < 9)
-	{
-	 objchance = objchance - 10; //penalize for less than average
-	}
-	if (objcft >13)
-	{
-	 objchance = objchance + 5; //bonus for well crafted items
-	}
-	//DEBUG sprintf( buf, "objchance roll: %d \r\n", objchance );
-	//DEBUG sprintf( buf2, "rand2 roll: %d \r\n", rand2 );
-	//DEBUG send_to_char( buf, ch);
-	//DEBUG send_to_char( buf2, ch);
-	 //StartQualityCheck
-       if(objchance >= 60) 
-        {
-         objchance = 60;
          if(number(60, 400) < GET_C_LUCK(ch)) //get lucky, get tier 4
            {
-	    objchance += 10;
 	    if(number(70, 400) < GET_C_LUCK(ch))
             {
-	      objchance += 15;
              if(number(80, 500) < GET_C_LUCK(ch))
              {
               obj_to_char(read_object(400211, VIRTUAL), ch);
@@ -5139,7 +5124,8 @@ void do_salvage(P_char ch, char *argument, int cmd)
              }
 	     }
            }
-        }
+
+    
          if (IS_SET(temp->bitvector, AFF_STONE_SKIN) ||
             IS_SET(temp->bitvector, AFF_HIDE) ||
             IS_SET(temp->bitvector, AFF_SNEAK) ||
@@ -5157,7 +5143,9 @@ void do_salvage(P_char ch, char *argument, int cmd)
           obj_to_char(read_object(400211, VIRTUAL), ch);
           send_to_char("...as you work, a small &+Mm&+Ya&+Mg&+Yi&+Mc&+Ya&+Ml&n object gently separates from your item!\r\n", ch);
         }
-	    if (objchance <= 20) // Grant Rewards based on objchance roll
+
+	objchance = itemvalue(ch, temp);
+	    if (objchance <= 5) // Grant Rewards based on objchance roll
       	      {
               act("&+wYou were able to salvage a rather &+rpoor&n material from your item...", FALSE, ch, 0, 0, TO_CHAR);
 			  switch (objmat)
@@ -5306,7 +5294,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
 					break;
 				}
 			  }
-	    else if ((objchance <= 40) && (objchance >= 21)) 
+	    else if (objchance <= 10) 
       	      {
               act("&+wYour focused efforts allow you to salvage a &+ycommon&n material from your item...", FALSE, ch, 0, 0, TO_CHAR);
 		 	  switch (objmat)
@@ -5455,7 +5443,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
 					break;
 				}
              }
-	    else if ((objchance <= 60) && (objchance >= 41)) 
+	    else if (objchance <= 15) 
       	      {
               act("&+wYou study your item as you break it down, and come away with a rather &+Yuncommon &nmaterial.", FALSE, ch, 0, 0, TO_CHAR);
 		 	  switch (objmat)
@@ -5604,7 +5592,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
 					break;
 				}
 			}
-	    else if ((objchance <= 80) && (objchance >= 61)) 
+	    else if (objchance <= 20) 
       	      {
               act("&+wYou make quick work of your item, salvaging a precious &+crare &nmaterial from it...", FALSE, ch, 0, 0, TO_CHAR);
 		 	  switch (objmat)
@@ -5753,7 +5741,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
 					break;
 				}
 			}
-           else // craftsmanship >= 81
+           else // craftsmanship >= 25
 			 {
 	       act("&+LUsing your ma&+wst&+Wer&+wfu&+Ll &+Wskill&+L, you delicately break apart your item, salvaging a quite &+Munique &+Lmaterial from it...", FALSE, ch, 0, 0, TO_CHAR);
 		   switch (objmat)
@@ -5923,7 +5911,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
      		 newcost = (newcost * GET_CHAR_SKILL(ch, SKILL_SALVAGE) / 100);
  		  if(GET_OBJ_VNUM(salvaged) < 400140)
  		   {
-  		   newcost = (newcost * 8) / 10; //anything less than gold gets a little bit of a reduction in price
+  		   newcost = (newcost * 8) / 10; 
         	  }
       		if(number(80, 140) < GET_C_LUCK(ch))
   		 {
@@ -5947,9 +5935,6 @@ void do_salvage(P_char ch, char *argument, int cmd)
   		   newcost = (newcost * 8) / 10; //anything less than gold gets a little bit of a reduction in price
         	  }
 
-
-
-		
       		if(number(80, 140) < GET_C_LUCK(ch))
   		 {
   		   newcost *= 1.3;
@@ -5957,7 +5942,6 @@ void do_salvage(P_char ch, char *argument, int cmd)
           	 }
       		  salvaged->cost = newcost;
 		obj_to_char(salvaged, ch);
-
 		
 		/*obj_to_char(read_object(matvnum, VIRTUAL), ch);
 		obj_to_char(read_object(matvnum, VIRTUAL), ch); Old Way*/
@@ -5977,8 +5961,6 @@ void do_salvage(P_char ch, char *argument, int cmd)
  		   {
   		   newcost = (newcost * 8) / 10; //anything less than gold gets a little bit of a reduction in price
         	  }
-
-
 
       		if(number(80, 140) < GET_C_LUCK(ch))
   		 {

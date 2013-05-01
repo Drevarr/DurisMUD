@@ -495,7 +495,7 @@ void do_forge(P_char ch, char *argument, int cmd)
     else
     {
     send_to_char("&+yYou open your &+Ltome &+yof &+Ycra&+yftsm&+Lanship &+yand examine the &+Litem&n.\n", ch);
-    sprintf(matbuf, "To forge this item, you will need %d of %s and 1 of %s.\r\n&n", fullcount, material->short_description, material2->short_description);
+    sprintf(matbuf, "To forge this item, you will need %d of %s and %d of %s.\r\n&n", fullcount, material->short_description, (int)difference, material2->short_description);
     page_string(ch->desc, matbuf, 1);
     }
 
@@ -503,7 +503,7 @@ void do_forge(P_char ch, char *argument, int cmd)
    else
     {
     send_to_char("&+yYou open your &+Ltome &+yof &+Ycra&+yftsm&+Lanship &+yand examine the &+Litem&n.\n", ch);
-    sprintf(matbuf, "To forge this item, you will need 1 of %s.\r\n&n", material2->short_description);
+    sprintf(matbuf, "To forge this item, you will need %d of %s.\r\n&n", (int)difference, material2->short_description);
     page_string(ch->desc, matbuf, 1);
      }
     if(has_affect(tobj))
@@ -513,7 +513,141 @@ void do_forge(P_char ch, char *argument, int cmd)
     extract_obj(material, FALSE);
    return;
   }
+  else if (is_abbrev(first, "make"))
+  {
+    if(choice2 == 0)
+     {
+      send_to_char("What &+Witem &nare you attempting to forge?\n", ch);
+      return;
+     }
+    if(selected == 0)
+     {
+      send_to_char("You dont appear to have that &+Wrecipe&n in your list.&n\n", ch);
+      return;
+     }
 
+    foundry = check_foundry(ch);
+
+    if (!foundry) 
+     { // No furnace/foundry/forge in room
+	act("&+LYou need to be by your foundry to forge...&n", FALSE, ch, 0, 0, TO_CHAR);
+	return;
+     }
+
+   tobj = read_object(selected, VIRTUAL);
+
+   float tobjvalue = itemvalue(ch, tobj);
+
+   int startmat = get_matstart(tobj);
+
+   tobjvalue = (float)tobjvalue / (float)5;
+
+   int fullcount = tobjvalue;
+
+    float difference = tobjvalue - fullcount;
+    difference = (int)(((float)difference * (float)10.0) / 2);
+
+    P_obj material;
+    P_obj material2;
+    material = read_object(startmat + 4, VIRTUAL);
+    material2 = read_object(startmat + ((int)difference - 1), VIRTUAL);
+    char matbuf[MAX_STRING_LENGTH];
+
+
+  P_obj t_obj, nextobj;
+  int i = 0;
+  int o = 0;
+  int x = 0;
+  int y = 0;
+  for (t_obj = ch->carrying; t_obj; t_obj = nextobj)
+  {
+    nextobj = t_obj->next_content;
+
+    if(GET_OBJ_VNUM(t_obj) == GET_OBJ_VNUM(material))
+      i++;
+
+    if(GET_OBJ_VNUM(t_obj) == GET_OBJ_VNUM(material2))
+     o++;
+
+    if(GET_OBJ_VNUM(t_obj) == 400223)
+    y++;
+
+    if(GET_OBJ_VNUM(t_obj) == 400211)
+    x++;
+  }
+   int z = 0;
+   if(has_affect(tobj))
+    z = 1;
+
+  if((i < fullcount) || (o < (int)difference) || ((z == 1) && (x < 1)))
+  {
+    send_to_char("You do not have the required &+ysalvaged &+Ymaterials &nin your inventory.\r\n", ch);
+    extract_obj(tobj, FALSE);
+    extract_obj(material2, FALSE);
+    extract_obj(material, FALSE);
+    return;
+  }
+  if(y < 1)
+  {
+    send_to_char("You must have a &+Lblacksmithing &nflux to complete the smithing process!\r\n", ch);
+    extract_obj(tobj, FALSE);
+    extract_obj(material2, FALSE);
+    extract_obj(material, FALSE);
+    return;
+  }
+
+ //drannak - make the item
+   int obj1 = startmat + 4;
+   int obj2 = (startmat + ((int)difference -1));
+   y = 1;
+
+   for (t_obj = ch->carrying; t_obj; t_obj = nextobj)
+     {
+    nextobj = t_obj->next_content;
+
+	if((GET_OBJ_VNUM(t_obj) == obj1) && (i > 0) )
+         {
+	   obj_from_char(t_obj, TRUE);
+          i--;
+         }
+       if((GET_OBJ_VNUM(t_obj) == obj2) && (o > 0))
+         {
+	   obj_from_char(t_obj, TRUE);
+          o--;
+         }
+       if((GET_OBJ_VNUM(t_obj) == 400211) && (z > 0))
+         {
+	   obj_from_char(t_obj, TRUE);
+          x--;
+         }
+       if((GET_OBJ_VNUM(t_obj) == 400223) && (y > 0))
+         {
+	   obj_from_char(t_obj, TRUE);
+          x--;
+         }
+      }
+
+ //reward here
+      wizlog(56, "%s crafted %s" , GET_NAME(ch), tobj->short_description);
+      notch_skill(ch, SKILL_FORGE, 1);
+
+  obj_to_char(read_object(selected, VIRTUAL), ch);
+  act
+    ("&+W$n &+Lgently takes their &+ymaterials&+L, their &nflux&+L, and places them into the &+rf&+Ro&+Yr&+Rg&+re&+L.\r\n"
+     "&+W$n &+Lremoves the &+yitems &+Lfrom the &+rheat &+Land starts to &nhammer &+Laway at the mixture..\r\n"
+     "&+L...after shedding plenty of &+Wsweat&+L, &+W$n &+Lsteps back, admiring their new $p.&N",
+     TRUE, ch, tobj, 0, TO_ROOM);
+  act
+    ("You &+Lgently take your &+ymaterials&+L, the &nflux&+L, and place them into the &+rf&+Ro&+Yr&+Rg&+re&+L.\r\n"
+     "You &+Lremove the &+yitems &+Lfrom the &+rheat &+Land start to &nhammer &+Laway at the mixture..\r\n"
+     "&+L...after shedding plenty of &+Wsweat&+L, you &+Lstep back, admiring your new $p.&N",
+     FALSE, ch, tobj, 0, TO_CHAR);
+
+    extract_obj(tobj, FALSE);
+    extract_obj(material2, FALSE);
+    extract_obj(material, FALSE);
+
+  }
 
 
 /*
@@ -964,7 +1098,7 @@ void event_mine_check(P_char ch, P_char victim, P_obj, void *data)
     }
 
    //Dynamic pricing - Drannak 3/21/2013
-   float newcost = 120000; //120 p starting point
+   float newcost = 80000; //80 p starting point
    float charskil = (GET_CHAR_SKILL(ch, SKILL_MINE));
    newcost = (newcost * ((float)GET_LEVEL(ch) / (float)56));
     newcost = (newcost * ((charskil / (float)100)));
@@ -2303,7 +2437,7 @@ int itemvalue(P_char ch, P_obj obj)
 	 workingvalue += 10;
 
   //------- A0/A1 -------------  
- int i; 
+ int i = 0; 
  while(i < 2)
  {
   //dam/hitroll are normal values

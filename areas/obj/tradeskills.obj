@@ -1832,3 +1832,27 @@ rugged adventurers satchel~
 ~
 A
 13 5
+#400223
+flux blacksmithing~
+&na &+Lblacksmithing &nflux~
+&nA blacksmithing flux sits here.~
+~
+12 15 3 0 7 0 0 1 0 0 0
+0 0 0 0 0 0 0 0
+0 1000 100
+E
+flux blacksmithing~
+This object is used to purify materials as part of the blacksmithing process.
+~
+#400224
+box gnomish crafting tools~
+&+ma &+ybox &+mof &+Rgnomish &+rcrafting &+mtools&n~
+&+rA box of tools used for crafting sit here.&n~
+~
+12 6 2 0 7 0 0 1 0 0 0
+0 0 0 0 0 0 0 0
+0 1000 100
+E
+box gnomish crafting tools~
+&+rThis box contains small tools used in the process of crafting items.&n
+~
