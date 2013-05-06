@@ -4179,6 +4179,10 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
 
       if(affected_by_spell(ch, ACH_DRAGONSLAYER) && (GET_RACE(victim) == RACE_DRAGON))
         dam *=1.10;  
+
+
+       
+ 
  
     if((af = get_spell_from_char(victim, SPELL_ELEM_AFFINITY)) &&
        ELEMENTAL_DAM(type))
@@ -4894,6 +4898,16 @@ int melee_damage(P_char ch, P_char victim, double dam, int flags,
     decrease_skin_counter(victim, skin);
   }
 
+
+        if(affected_by_spell(ch, ACH_DRAGONSLAYER) && (GET_RACE(victim) == RACE_DRAGON))
+        dam *= 1.10; 
+
+      if(affected_by_spell(ch, SKILL_DREADNAUGHT))
+        dam *= .2;
+
+      if(affected_by_spell(victim, SKILL_DREADNAUGHT))
+        dam *= .4;
+
   dam = MAX(1, dam);
 
   messages->type |= 1 << 24;
@@ -4911,8 +4925,7 @@ int melee_damage(P_char ch, P_char victim, double dam, int flags,
     if(!(flags & PHSDAM_NOENGAGE))
       attack_back(ch, victim, TRUE);
 
-        if(affected_by_spell(ch, ACH_DRAGONSLAYER) && (GET_RACE(victim) == RACE_DRAGON))
-        dam *= 1.10; 
+
 
     return result;
   }

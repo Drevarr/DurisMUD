@@ -338,6 +338,7 @@ int get_matstart(P_obj obj);
 bool has_affect(P_obj obj);
 void do_refine(P_char ch, char *arg, int cmd);
 int itemvalue(P_char ch, P_obj obj);
+void do_dice(P_char ch, char *arg, int cmd);
 
 /* actoff.c */
 bool CheckMultiProcTiming(P_char);
@@ -359,6 +360,7 @@ int backstab(P_char, P_char);
 void bash(P_char, P_char);
 void bodyslam(P_char, P_char);
 void buck(P_char);
+void do_dreadnaught(P_char, char *, int);
 void parlay(P_char, P_char);
 void do_assist(P_char, char *, int);
 void do_backstab(P_char, char *, int);
@@ -3004,6 +3006,7 @@ int withdraw_asc (P_char, int, int, int, int);
 void str_to_money(char *, int *, int *, int *, int *);
 char *title_member(P_char, char *);
 void do_gmotd(P_char, char *, int);
+int assoc_founder(P_char ch, P_char victim, int cmd, char *arg);
 
 /* range.c */
 void event_arrow_bleeding(P_char, P_char, P_obj, void*);

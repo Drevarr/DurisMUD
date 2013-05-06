@@ -405,11 +405,12 @@ int found_asc(P_char god, P_char leader, char *bits, char *asc_name)
   struct stat statbuf;
 
   /* this is a god command only! */
-  if (!IS_TRUSTED(god))
+  //5/6/13 - Drannak - modifying to allow mob proc to call this for automated guild creation.
+ /* if (!IS_TRUSTED(god))
   {
     send_to_char("Arrrgghh! Out, out,...\r\n", god);
     return (0);
-  }
+  }*/
   /* is this guy involved somewhere else? */
   if ((bits[0] != 'k') &&
       (GET_A_NUM(leader) || !IS_NO_THANKS(GET_A_BITS(leader))))
@@ -4633,3 +4634,4 @@ void display_guild_frags(P_char god)
 
   return;
 }// display_guild_frags
+

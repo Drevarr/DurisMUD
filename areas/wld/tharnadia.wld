@@ -14110,6 +14110,10 @@ D2
 ~
 ~
 0 0 132573
+D3
+~
+~
+0 0 133073
 D4
 ~
 ~
@@ -14124,6 +14128,15 @@ slowly &+cphase&n into view, providing a &+Cglimpse&n into &+Lother-worldy &nrea
 ~
 1325 142639308 0 0
 D5
+~
+~
+0 0 133071
+S
+#133073
+&+LThe &+yHall &+Lof &+gGuilds&n~
+~
+1325 142639176 0 0
+D1
 ~
 ~
 0 0 133071

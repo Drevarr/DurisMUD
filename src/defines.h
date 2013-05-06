@@ -787,6 +787,7 @@ struct attr_names_struct {
 #define AFF5_OBSCURING_MIST     BIT_24
 #define AFF5_NOT_OFFENSIVE      BIT_25
 #define AFF5_DECAYING_FLESH     BIT_26
+#define AFF5_DREADNAUGHT	    BIT_27
 
 /* modifiers to char's abilities */
 

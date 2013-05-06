@@ -1093,6 +1093,9 @@ void show_visual_status(P_char ch, P_char tar_char)
       IS_AFFECTED5(tar_char, AFF5_WET))
     SVS("&+b$E is all wet!");
 
+  if (affected_by_spell(tar_char, SKILL_DREADNAUGHT))
+    SVS("&+y$E is in a &+Ldefensive&+y position!");
+
   if(IS_AFFECTED4(tar_char, AFF4_CARRY_PLAGUE) ||
     affected_by_spell(tar_char, SPELL_PLAGUE))
     SVS("&+y$E is covered by &+Rin&+rfec&+Rti&+rou&+Rs &+yopen s&+ror&+yes!&n");

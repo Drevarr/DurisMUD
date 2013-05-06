@@ -1249,6 +1249,12 @@ int do_simple_move_skipping_procs(P_char ch, int exitnumb, unsigned int flags)
     return FALSE;
   }
 
+  if(affected_by_spell(ch, SKILL_DREADNAUGHT))
+   {
+    send_to_char("&+RYou are too busy concentrating on defensive manouvers to move!\r\n", ch);
+    return FALSE;
+   }
+
   if(!IS_TRUSTED(ch) &&
     (IS_SET(EXIT(ch, exitnumb)->exit_info, EX_SECRET) ||
     IS_SET(EXIT(ch, exitnumb)->exit_info, EX_BLOCKED)))

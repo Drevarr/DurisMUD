@@ -943,9 +943,10 @@
 #define SKILL_RIFF                   1295
 #define SKILL_CONCENTRATION          1296
 #define SKILL_SALVAGE		  1297
+#define SKILL_DREADNAUGHT		  1298
 
 #ifndef SKILLPOINTS
-  #define LAST_SKILL                   SKILL_SALVAGE
+  #define LAST_SKILL                   SKILL_DREADNAUGHT
 #endif
 
 // New skills for skill points.
@@ -1130,6 +1131,7 @@
 #define AIP_YOUSTRAHDME		  2085
 #define AIP_TROLLIN			  2086
 #define TAG_SALVATION		  2087
+#define TAG_DREADNAUGHT		  2088
 #define DAMAGE_FALLING               2100       /* From falling to the ground */
 
 #define SAVING_PARA   0

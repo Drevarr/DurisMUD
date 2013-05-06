@@ -3078,3 +3078,139 @@ void do_refine(P_char ch, char *arg, int cmd)
     if(!arg || !*arg)
   send_to_char("What &+ysalvaged &+Ymaterial &nwould you like to &+yre&+Yfi&+yne?\r\n", ch);
 }
+
+void do_dice(P_char ch, char *arg, int cmd)
+{
+   char     first_arg[MAX_INPUT_LENGTH], second_arg[MAX_INPUT_LENGTH], gbuf[MAX_STRING_LENGTH];
+  char     Gbuf1[MAX_STRING_LENGTH];
+  int      numdice, dice;
+
+  arg = one_argument(arg, first_arg);
+
+  if (is_number(first_arg))
+  {
+    numdice = atoi(first_arg);
+    if (numdice > 5)
+    {
+      send_to_char("Sorry, dice rolls are limited to 5 at a time.\r\n", ch);
+      return;
+    }
+
+ 
+    arg = one_argument(arg, second_arg);
+    if (!*second_arg)
+    {
+      send_to_char("How many sides should the dice have?\r\n", ch);
+      return;
+    }
+    if (!is_number(second_arg))
+    {
+      send_to_char("That is not a valid number.\r\n", ch);
+      return;
+    }
+    dice = atoi(second_arg);
+     if (dice > 100)
+    {
+      send_to_char("Dice can only have a maximum of &+W100&n sides.", ch);
+      return;
+    }
+
+    int result;
+    int i = 0;
+    while (i < numdice)
+    {
+	result = number(1, dice);
+       i++;
+      sprintf(gbuf, "&+yResult for &+W%s's&+y roll &+L#&+W%d&+y of a &+r%d&+y sided die: &+W%d&+y.", GET_NAME(ch), i, dice, result);
+     act(gbuf, FALSE, ch, 0, 0, TO_CHAR);
+     act(gbuf, FALSE, ch, 0, 0, TO_ROOM);
+
+     // send_to_char(gbuf, ch);
+    }
+   return; 
+  }
+ send_to_char("Roll some dice! Syntax: dice <number> <sides>\r\n", ch);
+}
+
+int assoc_founder(P_char ch, P_char victim, int cmd, char *arg)
+{
+  char buffer[MAX_STRING_LENGTH];
+  int qend;
+
+  if(cmd == CMD_LIST)
+  {//iflist
+      if(!arg || !*arg)
+   {//ifnoarg
+      // practice called with no arguments
+      if(GET_RACEWAR(victim) == RACEWAR_GOOD)
+      {
+      sprintf(buffer,
+              "&+WKotil&+L looks you over briefly and then chuckles.'\n"
+	       "&+WKotil&+L &+wsays 'Welcome adventurer. If it is a guild ye are wishing to found, then ye have come to the right place&n.'\n"
+	       "&+WKotil&+L &+wsays 'Ye will find the command to create a guild listed here, as well as the cost.'\n"
+              "&+y=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n"
+		"&+y|&+WFounding a guild will cost &+R5,000 &+Wplatinum coins.\n"																
+              "&+y|&+WTo found the guild, type the following command and have the coins on your character:&+y\n"
+              "&+y|&+Wbuy '<name of guild>'&+y\n"
+              "&+y|&+y|\n"
+              "&+y|&+Wexample: buy '&+Lthe &+MNetheril &+mMages&n'&+y\n"
+              "&+y|&nSee help &+cansi &nand help &+ctestcolor&n for help in creatnig your guild colors.&+y\n"
+              "&+y|&+WBe warned! Once you create the guild, there is no way to rename it, for now.&+y\n"
+              "&+y=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n"
+		"\n");
+      send_to_char(buffer, victim);
+      }
+      else
+      {
+      sprintf(buffer,
+              "&+WZurg&+L looks you over briefly and then chuckles.'\n"
+	       "&+WZurg&+L &+wsays 'Welcome adventurer. If it is a guild ye are wishing to found, then ye have come to the right place&n.'\n"
+	       "&+WZurg&+L &+wsays 'Ye will find the command to create a guild listed here, as well as the cost.'\n"
+              "&+y=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n"
+		"&+y|&+WFounding a guild will cost &+R5,000 &+Wplatinum coins.\n"																
+              "&+y|&+WTo found the guild, type the following command and have the coins on your character:&+y\n"
+              "&+y|&+Wbuy <name of guild>&+y\n"
+              "&+y|&+y\n"
+              "&+y|&+Wexample: buy &+Lthe &+MNetheril &+mMages&n&+y\n"
+              "&+y|&nSee help &+cansi &nand help &+ctestcolor&n for help in creatnig your guild colors.&+y\n"
+              "&+y|&+WBe warned! Once you create the guild, there is no way to rename it, for now.&+y\n"
+              "&+y=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n"
+		"\n");
+      send_to_char(buffer, victim);
+      }
+      return TRUE;
+    }//endifnoarg
+  }//endiflist
+
+  if(cmd == CMD_BUY)
+   {
+    arg = skip_spaces(arg);
+    if (*arg != '\'')
+     {
+      send_to_char
+        ("The guild name must be enclosed in 'apostrophes'.\n",
+         victim);
+       return TRUE;
+     }
+     sprintf(buffer, "You selected %s\r\n", arg);
+     send_to_char(buffer, victim);
+     return TRUE;
+     /*
+        Locate the last quote && lowercase the magic words (if any)
+      */
+  /*
+     for (qend = 1; *(arg + qend) && (*(arg + qend) != '\''); qend++)
+       *(arg + qend) = LOWER(*(arg + qend));
+  
+
+     if (*(arg + qend) != '\'')
+     {
+       send_to_char
+        ("The guild name must be enclosed in 'apostrophes'.\n",
+         victim);
+       return TRUE;
+     }
+    */
+   }
+  return FALSE;
+}

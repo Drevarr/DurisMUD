@@ -1066,6 +1066,8 @@ const char *command[] = {
   "salvation",
   "drandebug",
   "refine",
+  "dreadnaught",
+  "dice",
   "\n"                          /* MAX_CMD_LIST is now 1000 */
 };
 
@@ -2280,6 +2282,7 @@ void assign_command_pointers(void)
    
   CMD_N(CMD_DISAPPEAR, STAT_RESTING + POS_KNEELING, do_disappear, 0);
   CMD_N(CMD_ASSIST, STAT_NORMAL + POS_STANDING, do_assist, 0);
+  CMD_N(CMD_DICE, STAT_NORMAL + POS_STANDING, do_dice, 0);
   CMD_N(CMD_AWARENESS, STAT_NORMAL + POS_STANDING, do_awareness, 0);
   CMD_N(CMD_BACKSTAB, STAT_NORMAL + POS_STANDING, do_backstab, 0);
   CMD_N(CMD_BALANCE, STAT_NORMAL + POS_STANDING, do_balance, 0);
@@ -2450,6 +2453,7 @@ void assign_command_pointers(void)
   CMD_Y(CMD_ASK, STAT_RESTING + POS_SITTING, do_ask, 0);
   CMD_Y(CMD_ATTRIBUTES, STAT_SLEEPING + POS_PRONE, do_attributes, 0);
   CMD_Y(CMD_BASH, STAT_NORMAL + POS_STANDING, do_bash, 0);
+  CMD_Y(CMD_DREADNAUGHT, STAT_NORMAL + POS_STANDING, do_dreadnaught, 0);
   CMD_Y(CMD_PARLAY, STAT_NORMAL + POS_STANDING, do_parlay, 0);
   CMD_Y(CMD_THROWPOTION, STAT_NORMAL + POS_STANDING, do_throw_potion, 0);
   CMD_Y(CMD_GUARD, STAT_NORMAL + POS_STANDING, do_guard, 0);

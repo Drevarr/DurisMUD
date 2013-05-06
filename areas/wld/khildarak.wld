@@ -15744,6 +15744,10 @@ D0
 ~
 ~
 0 0 17027
+D3
+~
+~
+0 0 17749
 D4
 ~
 ~
@@ -15758,6 +15762,15 @@ slowly &+cphase&n into view, providing a &+Cglimpse&n into &+Lother-worldy &nrea
 ~
 170 0 0
 D5
+~
+~
+0 0 17747
+S
+#17749
+&+LThe &+yHall &+Lof &+gGuilds&n~
+~
+170 142639176 0
+D1
 ~
 ~
 0 0 17747

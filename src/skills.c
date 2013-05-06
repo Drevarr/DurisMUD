@@ -329,8 +329,13 @@ void initialize_skills()
   SPEC_SKILL_ADD(CLASS_WARRIOR, 51, 80, SPEC_SWASHBUCKLER);
   SPEC_SKILL_ADD(CLASS_RANGER, 55, 95, SPEC_BLADEMASTER);
 
+
+
   SKILL_CREATE("shield punch", SKILL_SHIELDPUNCH, TAR_PHYS);
   SPEC_SKILL_ADD(CLASS_WARRIOR, 46, 100, SPEC_GUARDIAN);
+
+  SKILL_CREATE("dreadnaught", SKILL_DREADNAUGHT, TAR_PHYS);
+  SPEC_SKILL_ADD(CLASS_WARRIOR, 30, 100, SPEC_GUARDIAN);
 
   SKILL_CREATE("shieldless bash", SKILL_SHIELDLESS_BASH, TAR_PHYS);
   //SPEC_SKILL_ADD(CLASS_WARRIOR, 36, 100, SPEC_SWORDSMAN);
@@ -4995,6 +5000,8 @@ SPELL_ADD(CLASS_NONE, 1);
   TAG_CREATE("flag carrier", TAG_CTF);
   TAG_CREATE("ctf flag bonus", TAG_CTF_BONUS);
   TAG_CREATE("salvation cooldown", TAG_SALVATION);
+  TAG_CREATE_WITH_MESSAGES("dreadnaught", TAG_DREADNAUGHT,
+				"&+yYou feel ready to &+Ycharge &+yinto battle once again.", "");
 
   TAG_CREATE_WITH_MESSAGES("recently fragged", TAG_PLR_RECENT_FRAG, 
                            "&+rThe thrill of the &+Lrecent &+Rkill &+rleaves your veins.", "");
