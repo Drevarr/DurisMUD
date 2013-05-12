@@ -2828,6 +2828,16 @@ void kill_gain(P_char ch, P_char victim)
       
       send_to_char("You receive your share of experience.\r\n", gl->ch);
       gain_exp(gl->ch, victim, (XP + (XP*(group_size*.25))), EXP_KILL);
+    update_achievements(ch, victim, 0, 2);//this is for all kinds of kill-type quests
+    if(GET_LEVEL(victim) > 30)
+	{
+	  if(number(1, 5000) < GET_C_LUCK(ch))
+	   {
+		send_to_char("&+cAs your body absorbs the &+Cexperience&+c, you seem to feel a bit more epic!\r\n", ch);
+		ch->only.pc->epics += 1;
+	   } 
+	}
+
       change_alignment(gl->ch, victim);
     }
   }
