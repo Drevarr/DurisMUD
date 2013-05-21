@@ -6579,7 +6579,7 @@ void spell_full_heal(int level, P_char ch, char *arg, int type, P_char victim,
   int healpoints = 250 + dice(num_dice, 20);
 
 
-  if(GET_SPEC(ch, CLASS_CLERIC, SPEC_HOLYMAN) && ((GET_RACEWAR(ch) != GET_RACEWAR(victim) && !IS_PC_PET(victim)) || (IS_NPC(victim) && !IS_PC_PET(victim))))
+  if(GET_SPEC(ch, CLASS_CLERIC, SPEC_HOLYMAN) && (ch != victim) && ((GET_RACEWAR(ch) != GET_RACEWAR(victim) && !IS_PC_PET(victim)) || (IS_NPC(victim) && !IS_PC_PET(victim))))
  {
     struct damage_messages messages = {
     "&+cYou call upon the &+Cmight&+c of your &+Wgod &+cto &+rde&+Rst&+Wroy &+cthe &+rbody &+cof $N&+c, who stumbles from the &+Cimpact&+c!",
@@ -14455,7 +14455,7 @@ void spell_pword_blind(int level, P_char ch, char *arg, int type,
   if(NewSaves(victim, SAVING_SPELL, number(0, mindpower)))
    {
     send_to_char("Your victim has saved against your spell!\r\n", ch);
-    send_to_char("You have saved against your attacker's spell!\r\n", ch);
+    send_to_char("You have saved against your attacker's spell!\r\n", victim);
     return;
    }
 
@@ -14507,7 +14507,7 @@ void spell_pword_blind(int level, P_char ch, char *arg, int type,
     act("$N won't be seeing much in the near future...",
       TRUE, ch, 0, victim, TO_CHAR);
    percent = BOUNDED(2, ((mindpower * 2) / 10), 10);
-   blind(ch, victim, (percent * 2 * WAIT_SEC));
+   blind(ch, victim, number(1, mindpower * 1.5));
 
 }
 

@@ -2529,6 +2529,7 @@ void spell_enrage(int level, P_char ch, char *arg, int type, P_char victim,
   appear(ch);
 
   int attdiff = ((GET_C_POW(ch) - GET_C_POW(victim)) / 2);
+  attdiff = BOUNDED(1, attdiff, 100);
 
   if ((ch != victim) &&
       NewSaves(victim, SAVING_SPELL, number(0, attdiff)))
@@ -2537,7 +2538,7 @@ void spell_enrage(int level, P_char ch, char *arg, int type, P_char victim,
     return;
   }
 
-  berserk(victim, (attdiff * 2 * WAIT_SEC));  /* flag to start regardless of skill */
+  berserk(victim, number(1, attdiff));  /* flag to start regardless of skill */
   return;
 }
 
