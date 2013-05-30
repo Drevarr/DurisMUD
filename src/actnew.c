@@ -3273,7 +3273,7 @@ void do_hamstring(P_char ch, char *arg, int cmd)
   appear(ch);
 
   if (IS_AFFECTED(vict, AFF_AWARE) && AWAKE(vict))
-    skl_lvl -= 40;
+    skl_lvl -= 10;
   else if (AWAKE(vict) && IS_AFFECTED(vict, AFF_SKILL_AWARE))
   {
     for (af = vict->affected; af; af = af->next)
@@ -3333,7 +3333,7 @@ void do_hamstring(P_char ch, char *arg, int cmd)
     return;
   }
 
-  if (IS_DEMON(vict) || IS_DRAGON(vict) || IS_GIANT(vict) ||
+  if (IS_DEMON(vict) || IS_DRAGON(vict) || 
       (GET_RACE(vict) == RACE_PLANT))
   {
     act("Such a maneuver appears to be useless against $N!", FALSE, ch, 0,
@@ -3353,6 +3353,8 @@ void do_hamstring(P_char ch, char *arg, int cmd)
     send_to_char("Does that thing even HAVE a hamstring?!\r\n", ch);
     return;
   }
+
+/*
   if (GET_ALT_SIZE(vict) > GET_ALT_SIZE(ch) + 2)
   {
     act
@@ -3370,6 +3372,7 @@ void do_hamstring(P_char ch, char *arg, int cmd)
     send_to_char("How can you hamstring something so small?\r\n", ch);
     return;
   }
+*/
   justice_witness(ch, vict, CRIME_ATT_MURDER);
 
   i = (skl_lvl) - (GET_C_AGI(vict) / 10);
@@ -3394,7 +3397,7 @@ void do_hamstring(P_char ch, char *arg, int cmd)
     af->location = APPLY_MOVE;
 */
 
-    i = number(50, 80);
+    i = number(20, 40);
     if ((GET_VITALITY(vict) - i) < 20)
       i = GET_VITALITY(vict) - 20;
 

@@ -3881,7 +3881,7 @@ void spell_mending(int level, P_char ch, char *arg, int type, P_char victim,
   gain = (int) (level * 5 / 2.5 + number(-20, 20));
 
   if(has_innate(ch, INNATE_IMPROVED_HEAL))
-    gain += (int) (number((int) (level / 2), (int) (level * 1.5)));
+    gain += (int) (number((int) (level / 2), (int) (level)));
 
   do_point(ch, victim);
   
@@ -3929,7 +3929,7 @@ void spell_greater_mending(int level, P_char ch, char *arg, int type,
 // Spiritualists
   if(has_innate(ch, INNATE_IMPROVED_HEAL))
   {
-    gain += (int) (number((int) (level / 2), (int) (level * 1.5)));
+    gain += (int) (number((int) (level / 2), (int) (level)));
     if(level > 46)
     {
       if(affected_by_spell(victim, SPELL_DISEASE) ||

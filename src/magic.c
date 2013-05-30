@@ -6578,6 +6578,9 @@ void spell_full_heal(int level, P_char ch, char *arg, int type, P_char victim,
 
   int healpoints = 250 + dice(num_dice, 20);
 
+  if(GET_CLASS(victim, CLASS_ANTIPALADIN) && affected_by_spell(victim, SPELL_HELLFIRE) && (GET_RACEWAR(ch) == GET_RACEWAR(victim)))
+  healpoints *= .5;
+
 
   if(GET_SPEC(ch, CLASS_CLERIC, SPEC_HOLYMAN) && (ch != victim) && ((GET_RACEWAR(ch) != GET_RACEWAR(victim) && !IS_PC_PET(victim)) || (IS_NPC(victim) && !IS_PC_PET(victim))))
  {
@@ -6686,12 +6689,15 @@ void spell_heal(int level, P_char ch, char *arg, int type, P_char victim, P_obj 
   
   healpoints = 100 + dice(num_dice, 5);
 
+  if(GET_CLASS(victim, CLASS_ANTIPALADIN) && affected_by_spell(victim, SPELL_HELLFIRE) && (GET_RACEWAR(ch) == GET_RACEWAR(victim)))
+  healpoints *= .5;
+
   if(GET_SPEC(ch, CLASS_CLERIC, SPEC_HOLYMAN) && ((GET_RACEWAR(ch) != GET_RACEWAR(victim) && !IS_PC_PET(victim)) || (IS_NPC(victim) && !IS_PC_PET(victim))))
  {
     struct damage_messages messages = {
     "&+cYou call upon the &+Cmight&+c of your &+Wgod &+cto &+rde&+Rst&+Wroy &+cthe &+rbody &+cof $N&+c, who stumbles from the &+Cimpact&+c!",
-    "&+cThe &+Cmight&+c of &n$n's&+W god &+cis thrust upon your &+rbody&+c, causing massive &+Cdamage&+c!",
-    "&+cThe &+Cmight&+c of &n$n's&+W god &+cis thrust upon &n$N&+c, causing massive &+Cdamage&+c!",
+    "&+cThe &+Cmight&+c of &n$n's&+W god &+cis thrust upon your &+rbody&+c, causing &+Wsignificant &+Cdamage&+c!",
+    "&+cThe &+Cmight&+c of &n$n's&+W god &+cis thrust upon &n$N&+c, causing &+Wsignificant &+Cdamage&+c!",
     "&+cYou &+Cdestroy &+cwhat little there is left of &n$N's &+cbody, leaving only a pool of &+rblood &+cand &+ysinew&+c!",
     "&+cThe &+Cpower &+cof &n$n's&+W god&+c is the last thing your &+rbody &+cfeels before &+Cexploding &+cinto chunky bits.",
     "&+cThe &+Cpower &+cof &n$n's&+W god&+c destroys &n$N's &+rbody&+c which explodes, leaving only a pool of &+rblood &+cand &+ysinew&+c!", 0  };

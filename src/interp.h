@@ -845,6 +845,7 @@ extern unsigned int game_locked;
 #define CMD_REFINE	   818
 #define CMD_DREADNAUGHT 819
 #define CMD_DICE	   820
+#define CMD_SHADOWSTEP  821
 
 /* cmds below are not real commands, they are
                 used in item special procedures to identify

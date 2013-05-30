@@ -1808,6 +1808,7 @@ void assign_objects(void)
   obj_index[real_object0(54)].func.obj = huntsman_ward;
   obj_index[real_object0(73)].func.obj = huntsman_ward;
   obj_index[real_object0(77)].func.obj = huntsman_ward;
+  obj_index[real_object0(400229)].func.obj = huntsman_ward;
 
   /* Kobold Settlement */
   obj_index[real_object0(1421)].func.obj = item_switch;

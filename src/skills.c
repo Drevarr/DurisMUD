@@ -4281,6 +4281,11 @@ SPELL_ADD(CLASS_NONE, 1);
   SKILL_ADD(CLASS_ASSASSIN, 51, 100);
   SPEC_SKILL_ADD(CLASS_ROGUE, 51, 100, SPEC_ASSASSIN);
 
+  SKILL_CREATE("shadowstep", SKILL_SHADOWSTEP, TAR_PHYS);
+  SPEC_SKILL_ADD(CLASS_ROGUE, 41, 100, SPEC_THIEF);
+
+  
+
   SKILL_CREATE("pick lock", SKILL_PICK_LOCK, TAR_PHYS);
   SKILL_ADD(CLASS_ROGUE, 1, 60);
   SPEC_SKILL_ADD(CLASS_ROGUE, 1, 100, SPEC_THIEF);
@@ -4936,6 +4941,11 @@ SPELL_ADD(CLASS_NONE, 1);
   TAG_CREATE("ach - mayihealsyou", ACH_MAYIHEALSYOU);
   TAG_CREATE("aip - strahd me at hello", AIP_YOUSTRAHDME);
   TAG_CREATE("ach - strahd me at hello", ACH_YOUSTRAHDME);
+
+  //TRAPS
+  TAG_CREATE_WITH_MESSAGES("crippled", TAG_CRIPPLED,
+                           "&+yYou feel &+Ystrength &+yreturn to your legs.&n",
+                           "&+W$n's &+ylooks &+Ystronger &+yas the wounds covering their legs dissipate.&n");
 
   
 

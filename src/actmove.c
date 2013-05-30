@@ -1427,8 +1427,11 @@ int do_simple_move_skipping_procs(P_char ch, int exitnumb, unsigned int flags)
     return 0;
 
   if (affected_by_spell(moving, SPELL_BLOODSTONE)) {
-    need_movement += 2;
+    need_movement += 4;
   }
+
+  if (affected_by_spell(moving, TAG_CRIPPLED))
+  need_movement += 5;
   
   if(IS_PC(ch) &&
      GET_CHAR_SKILL(ch, SKILL_SNEAK) > 0 &&

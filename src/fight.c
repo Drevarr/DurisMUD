@@ -4191,6 +4191,9 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
       if(affected_by_spell(ch, ACH_DRAGONSLAYER) && (GET_RACE(victim) == RACE_DRAGON))
         dam *=1.10;  
 
+    if(affected_by_spell(victim, SPELL_SOULSHIELD) && GET_CLASS(victim, CLASS_PALADIN))
+        dam *= .75;
+
 
        
  
@@ -4773,6 +4776,15 @@ int melee_damage(P_char ch, P_char victim, double dam, int flags,
       
     if(rapier_dirk_check(ch))
       dam *= dam_factor[DF_SWASHBUCKLER_OFFENSE];
+
+   if(GET_SPEC(ch, CLASS_ROGUE, SPEC_THIEF))
+       dam *= 1.3;
+
+    if(IS_RIDING(ch) && GET_SPEC(ch, CLASS_ANTIPALADIN, SPEC_DEMONIC))
+      dam *= 1.20;
+
+    if(IS_RIDING(ch) && GET_SPEC(ch, CLASS_PALADIN, SPEC_CAVALIER))
+      dam *= 1.20;
 
     if(IS_AFFECTED2(victim, AFF2_SOULSHIELD))
       if((IS_EVIL(ch) && IS_GOOD(victim)) ||

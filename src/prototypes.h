@@ -362,6 +362,7 @@ void bash(P_char, P_char);
 void bodyslam(P_char, P_char);
 void buck(P_char);
 void do_dreadnaught(P_char, char *, int);
+void do_shadowstep(P_char, char *, int);
 void parlay(P_char, P_char);
 void do_assist(P_char, char *, int);
 void do_backstab(P_char, char *, int);
@@ -778,6 +779,9 @@ void do_mreport(P_char, char *, int);
 void hour_debug(void);
 void init_cmdlog(void);
 void loop_debug(void);
+
+/* drannak.c */
+int vnum_in_inv(P_char ch, int cmd);
 
 /* editor.c */
 void edit_free(struct edit_data *);

@@ -1067,6 +1067,7 @@ const char *command[] = {
   "refine",
   "dreadnaught",
   "dice",
+  "shadowstep",
   "\n"                          /* MAX_CMD_LIST is now 1000 */
 };
 
@@ -2481,6 +2482,7 @@ void assign_command_pointers(void)
   CMD_Y(CMD_ATTRIBUTES, STAT_SLEEPING + POS_PRONE, do_attributes, 0);
   CMD_Y(CMD_BASH, STAT_NORMAL + POS_STANDING, do_bash, 0);
   CMD_Y(CMD_DREADNAUGHT, STAT_NORMAL + POS_STANDING, do_dreadnaught, 0);
+  CMD_Y(CMD_SHADOWSTEP, STAT_NORMAL + POS_STANDING, do_shadowstep, 0);
   CMD_Y(CMD_PARLAY, STAT_NORMAL + POS_STANDING, do_parlay, 0);
   CMD_Y(CMD_THROWPOTION, STAT_NORMAL + POS_STANDING, do_throw_potion, 0);
   CMD_Y(CMD_GUARD, STAT_NORMAL + POS_STANDING, do_guard, 0);

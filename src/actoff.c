@@ -8050,12 +8050,13 @@ void bodyslam(P_char ch, P_char victim)
   percent_chance =
     (int) (percent_chance *
            ((double)
-            BOUNDED(80, 100 + (GET_C_AGI(ch) - GET_C_AGI(victim)) / 4,
-                    125)) / 100);
+           // BOUNDED(80, 100 + (GET_C_AGI(ch) - GET_C_AGI(victim)) / 4,
+              BOUNDED(80, 100 + (GET_WEIGHT(ch) - GET_C_AGI(victim)) / 4,
+                    155)) / 100);
 
   if(IS_AFFECTED(victim, AFF_AWARE))
   {
-    percent_chance /= 4;
+    percent_chance /= 2;
   }
 
   percent_chance =
@@ -8108,9 +8109,9 @@ void bodyslam(P_char ch, P_char victim)
     act("You mindlessly slam $M with your mass!\n", TRUE, ch, 0, victim,
         TO_CHAR);
     fall = FALSE;
-    CharWait(victim, PULSE_VIOLENCE * 2);
+    CharWait(victim, PULSE_VIOLENCE * 3);
     SET_POS(victim, POS_PRONE + GET_STAT(victim));
-    CharWait(ch, 2 * PULSE_VIOLENCE);
+    CharWait(ch, 3 * PULSE_VIOLENCE);
     if(!damage
         (ch, victim, str_app[STAT_INDEX(GET_C_STR(ch))].todam + 5,
          SKILL_BODYSLAM))
@@ -9955,3 +9956,71 @@ void do_dreadnaught(P_char ch, char *, int)
     notch_skill(ch, SKILL_DREADNAUGHT, 15);
 }
 
+void do_shadowstep(P_char ch, char *, int)
+{
+
+  struct affected_type af;
+
+  if(GET_CHAR_SKILL(ch, SKILL_SHADOWSTEP) < 1)
+   {
+    send_to_char("&+LYou are not sneaky enough to attempt shadow stepping.\r\n", ch);
+	return;
+   }
+  
+  if(affected_by_spell(ch, SKILL_SHADOWSTEP))
+  {
+    send_to_char("&+LYou must wait for the &+wshadows&+L to coalesce before attempting to shadow step once again.\r\n", ch);
+	return;
+  }  
+    int dur = 140 - GET_CHAR_SKILL(ch, SKILL_SHADOWSTEP);
+ if(number(1, 102) < GET_CHAR_SKILL(ch, SKILL_SHADOWSTEP))
+    {
+
+    act("&+LPooF! You perform an evasive maneouver, quickling darting into the sha&+wdo&+Wws&+L!&n", FALSE, ch, 0, 0, TO_CHAR);
+    act("&+LPooF! &n$n &+ysuddenly performs an evasive maneouver, quickling darting into the sha&+wdo&+Wws&+L!&n", FALSE, ch, 0, 0, TO_ROOM);
+  
+    memset(&af, 0, sizeof(af));
+	
+    af.type = SKILL_SHADOWSTEP;
+    af.flags = AFFTYPE_SHORT | AFFTYPE_NODISPEL ;
+    af.duration = dur;
+    affect_to_char_with_messages(ch, &af,
+                                 "&+LYou grin as the sha&+wdo&+Wws &+Lslowly coalesce around you.&n",
+                                 "$n &+Lflashes a &+rwicked&+L grin as the sha&+wdo&+Wws &+Lslowly coalesce around them.&n");
+
+    memset(&af, 0, sizeof(af));
+    af.type = SKILL_SHADOWSTEP;
+    af.bitvector = AFF_HIDE;
+    af.duration = 20;
+    af.flags = AFFTYPE_SHORT | AFFTYPE_NODISPEL | AFFTYPE_NOSHOW ;
+	affect_to_char(ch, &af);
+    
+								 
+    notch_skill(ch, SKILL_SHADOWSTEP, 15);
+  if( IS_FIGHTING(ch) )
+   {
+    P_char victim, victim2;
+    for (victim = world[ch->in_room].people; victim; victim = victim2)
+    {
+      victim2 = victim->next_in_room;
+
+      // immortals are not effected
+      if(IS_TRUSTED(victim))
+      {
+        continue;
+      }
+     if(GET_OPPONENT(victim) == ch);
+     stop_fighting(victim);
+    }
+   }
+    stop_fighting(ch);
+
+
+    return;
+    }
+    act("&nYou attempt to step into the &+Lsha&+wdo&+Wws&n, but fail horribly!&n", FALSE, ch, 0, 0, TO_CHAR);
+    act("$n makes an attempt to step into the &+Lsha&+wdo&+Wws&n, but fails horribly!&n", FALSE, ch, 0, 0, TO_ROOM);
+    set_short_affected_by(ch, SKILL_SHADOWSTEP, dur);
+    notch_skill(ch, SKILL_SHADOWSTEP, 15);
+
+}

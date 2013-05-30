@@ -60,6 +60,7 @@ extern struct time_info_data time_info;
 extern struct zone_data *zone;
 extern struct zone_data *zone_table;
 extern const int exp_table[];
+extern void event_bleedproc(P_char ch, P_char victim, P_obj obj, void *data);
 extern const struct racial_data_type racial_data[];
 int      do_simple_move_skipping_procs(P_char, int, unsigned int);
 extern Skill skills[];
@@ -12973,6 +12974,36 @@ int huntsman_ward(P_obj obj, P_char ch, int cmd, char *argument)
       }
 
       return FALSE;
+    }
+
+    if (item == 400229)
+    {
+      struct affected_type af;
+      if (tch != NULL && ch->in_room != tch->in_room && !grouped(ch, tch))
+      {
+        sprintf(buf, "$N &+yhas sprung your &+rcrippling &+ytrap at&n %s!", world[ch->in_room].name);
+        act(buf, FALSE, tch, 0, ch, TO_CHAR);
+        REMOVE_BIT(obj->extra_flags, ITEM_SECRET);
+        obj->value[0] = 0;
+        ClearObjEvents(obj);
+
+        if (number(0, 120) < GET_C_INT(ch))
+          act("You notice you just broke a &+Wthin string&n attached to $p!",
+              FALSE, ch, obj, 0, TO_CHAR);
+			  
+    memset(&af, 0, sizeof(af));
+	
+    af.type = TAG_CRIPPLED;
+    af.flags = AFFTYPE_SHORT | AFFTYPE_NODISPEL ;
+    af.duration = 40;
+	affect_to_char(ch, &af);
+	    act("&+ROUCH!!&+y Without warning, a &+rrusty &+yclamp suddenly tears at your legs!&n", FALSE, ch, 0, 0, TO_CHAR);
+    act("$n &+ywinces in &+ragony &+yas a &+rrusty &+yclamp suddenly tears at their legs!&n", FALSE, ch, 0, 0, TO_ROOM);
+			int	numb = number(6, 10);
+			add_event(event_bleedproc, PULSE_VIOLENCE, ch, 0, 0, 0, &numb, sizeof(numb));
+        extract_obj(obj, TRUE);
+      }
+     return FALSE;
     }
 
     if (item == 73)

@@ -5052,6 +5052,9 @@ void do_salvage(P_char ch, char *argument, int cmd)
     return;
   }
 
+  int howmany = vnum_in_inv(ch, 400217);
+  debug("You have: %d faerie bags", howmany);
+
 
   if (!(temp = get_obj_in_list_vis(ch, Gbuf4, ch->carrying)))
   {
