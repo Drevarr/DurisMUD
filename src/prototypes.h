@@ -782,6 +782,7 @@ void loop_debug(void);
 
 /* drannak.c */
 int vnum_in_inv(P_char ch, int cmd);
+void vnum_from_inv(P_char ch, int item, int count);
 
 /* editor.c */
 void edit_free(struct edit_data *);

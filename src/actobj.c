@@ -6001,13 +6001,16 @@ void do_salvage(P_char ch, char *argument, int cmd)
       reciperoll *= .6;
       if ((objchance > 10) && (objchance <= 15))
       reciperoll *= .8;
-      debug("reciperoll: %d playerroll: %d", reciperoll, playerroll);
+
       int scitools = vnum_in_inv(ch, 400227);
       if(scitools > 0)
       {
 	send_to_char("&+LYou make sure to utilize your &+cset of &+rLantan &+CScientific &+LTools &+yduring the extraction process...\r\n", ch);
        reciperoll *= .5;
+       playerroll *= 2;
+       vnum_from_inv(ch, 400227, 1);
       }
+      debug("reciperoll: %d playerroll: %d", reciperoll, playerroll);
       if((reciperoll < playerroll))
       {
        /***RECIPE CREATE***/

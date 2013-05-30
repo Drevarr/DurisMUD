@@ -1759,6 +1759,12 @@ This sign contains information about the items for sale in this store:
 
 &+W 5) &+La &+Gbottle &+Lof &+GT&+go&+GR&+gM&+Ge&+gN&+GT&+ge&+GD &+gS&+Goul&+gs&n
 &+C-This item allows the person who quaffs it to call upon the spirit realm for help in retrieving their corpse. Upon drinking this bottle of spirits, the character will attempt to open up a portal allowing them a 1 time access back to the location of their &+Rmost recent&+C corpse. &+R(Note: this item will not work if the result of your death was a PVP situation)&n
+
+&+W 6) &+ca &+Cbr&+Will&+Bia&+Wnt &+cset of &+rLantan &+CScientific&+L Tools&n
+&+C-This item, direct from the far reaches of the brilliant Lantan Gnomes, is an analysis device which greatly assists one when breaking down an item as part of the salvage process. Having this item in your inventory will greatly increase one's chances at creating a &+yrecipe &+Cduring deconstruction of the item.&n
+
+&+W 7) &+Lthe &+ge&+Gy&+ge&+Gs &+Lof the &+gGre&+Gat For&+gest&n
+&+C-This item grants its wearer forest sight (the ability to see long distances) while in forest map rooms.&n
 ~
 #400217
 bag faerie mystical loot stolen~
@@ -1889,13 +1895,17 @@ brilliant lantan tools scientific analysis~
 0 0 0 0 0 0 0 0
 0 0 100
 #400228
-eyes hunter~
-&+Lthe &+ge&+Gy&+ge&+Gs &+Lof the &+gHu&+Gnt&+ger&n~
+eyes high forest~
+&+Lthe &+ge&+Gy&+ge&+Gs &+Lof the &+gHi&+Ggh For&+gest&n~
 &+La set of forest green eyes lie here&n~
 ~
-9 30 2 0 15 0 8201 0 0 0 0
+9 30 2 0 15 0 8201 131073 0 0 0
 0 0 0 0 0 0 0 0
 0 0 100
+E
+eyes high forest~
+The High Forest is a remnant of the days of old, when all of Faerun was covered in green and elves, giants and dragons ruled the world. The forest is a vast region of old forest growth bounded by the Nether Mountains in the north and the High Moor to the south.
+~
 #400229
 crippling trap~
 &+ya &+rc&+Rr&+ri&+Rp&+rp&+Rl&+ri&+Rn&+rg &+ytrap&n~

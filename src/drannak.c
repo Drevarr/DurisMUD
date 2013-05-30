@@ -65,6 +65,23 @@ extern struct time_info_data time_info;
 extern struct zone_data *zone_table;
 extern int find_map_place();
 
+void vnum_from_inv(P_char ch, int item, int count)
+{
+  int i = count;
+  P_obj t_obj, nextobj;
+  for (t_obj = ch->carrying; t_obj; t_obj = nextobj)
+     {
+      nextobj = t_obj->next_content;
+
+	if((GET_OBJ_VNUM(t_obj) == item) && (i > 0) )
+         {
+	   obj_from_char(t_obj, TRUE);
+          i--;
+         }
+      
+      }
+}
+
 int vnum_in_inv(P_char ch, int cmd)
 {
  P_obj t_obj, nextobj;
