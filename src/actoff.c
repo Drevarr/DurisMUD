@@ -10114,7 +10114,7 @@ void do_garrote(P_char ch, char *argument, int cmd)
   }
 
   int success = GET_CHAR_SKILL(ch, SKILL_GARROTE);
-  notch_skill(ch, SKILL_SHADOWSTEP, 15);
+  notch_skill(ch, SKILL_GARROTE, 15);
   if(number(1, 105) > success)
   {
     act("&+LYou try to slip behind &n$N&+L, but they notice the attempt and block your advance!",
@@ -10137,6 +10137,9 @@ void do_garrote(P_char ch, char *argument, int cmd)
     set_short_affected_by(ch, SKILL_GARROTE, (int) (2.8 * PULSE_VIOLENCE));
 	int	numb = number(5, 8);
     CharWait(ch, (int)(0.5 * PULSE_VIOLENCE));
+  if (!IS_FIGHTING(ch))
+    set_fighting(ch, victim);
+
 	add_event(event_garroteproc, PULSE_VIOLENCE, victim, 0, 0, 0, &numb, sizeof(numb));
 
 }
