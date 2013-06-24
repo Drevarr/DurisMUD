@@ -3854,6 +3854,7 @@ struct TimedShutdownData
     OK,
     REBOOT,
     COPYOVER,
+    AUTOREBOOT,
   }
   eShutdownType;
   char IssuedBy[50];
@@ -3902,6 +3903,14 @@ void timedShutdown(P_char ch, P_char, P_obj, void *data)
         shutdownflag = copyover = 1;
         break;
 
+      case TimedShutdownData::AUTOREBOOT:
+        sprintf(buf, "\r\nDuris fades into nothing, as the world begins its reconstruction...\r\n", shutdownData.IssuedBy);
+        send_to_all(buf);
+        logit(LOG_STATUS, buf);
+        sql_log(ch, WIZLOG, buf);
+        shutdownflag = _reboot = 1;
+        break;
+
       default:
         wizlog(60, "WARNING:  Unknown shutdown type ABORTED!!");
         return;
@@ -3921,7 +3930,7 @@ void timedShutdown(P_char ch, P_char, P_obj, void *data)
         break;
       }
     }
-    if(!ch)
+ /*   if(!ch)
     {
       // CANCEL the reboot.
       shutdownData.eShutdownType = TimedShutdownData::NONE;
@@ -3930,11 +3939,11 @@ void timedShutdown(P_char ch, P_char, P_obj, void *data)
       wizlog(60, buf);
       return;
     }
-
+*/
     // how much longer until a reboot?
     time_t secs = shutdownData.reboot_time - time(0);
     // special case:  going to reboot in less then ~1 second - force a restore all.
-    if(secs <= 1)
+    if((secs <= 1) && (ch != NULL))
     {
       // do restoreall here...
       int old_level = GET_LEVEL(ch);
@@ -3942,6 +3951,16 @@ void timedShutdown(P_char ch, P_char, P_obj, void *data)
       do_restore(ch, " all", CMD_RESTORE);
       ch->player.level = old_level;
 
+      // setting the reboot_time to 0 forces the reboot to occur next event
+      shutdownData.reboot_time = 0;
+      secs *= WAIT_SEC;
+      if(!secs) secs = 1;
+      add_event(timedShutdown, secs, NULL, NULL, NULL, 0, NULL, 0);
+      return;
+    }
+    else if(secs <= 1)
+    {
+      // no restore since no ch.
       // setting the reboot_time to 0 forces the reboot to occur next event
       shutdownData.reboot_time = 0;
       secs *= WAIT_SEC;
@@ -3961,9 +3980,10 @@ void timedShutdown(P_char ch, P_char, P_obj, void *data)
         type = "SHUTDOWN";
 
       if(secs > 60)
-        sprintf(buf, "&+R*** Scheduled %s in %d minutes by %s ***&n\n", type, secs/60, shutdownData.IssuedBy);
+//        sprintf(buf, "&+R*** Scheduled %s in %d minutes ***&n\n", type, secs/60, shutdownData.IssuedBy);
+        sprintf(buf, "&+R*** Scheduled %s in %d minutes ***&n\n", type, secs/60);
       else
-        sprintf(buf, "&+R*** Scheduled &-L%s&n&+R in %d seconds by %s ***&n\n", type, secs, shutdownData.IssuedBy);
+        sprintf(buf, "&+R*** Scheduled &-L%s&n&+R in %d seconds ***&n\n", type, secs);
       send_to_all(buf);
       // and set when the next warning should occur..
 
@@ -4005,9 +4025,9 @@ void displayShutdownMsg(P_char ch)
     type = "SHUTDOWN";
 
   if(secs > 60)
-    sprintf(buf, "&+R*** Scheduled %s in %d minute%sby %s ***&n\n", type, secs/60, (secs >= 120) ? "s " : " ", shutdownData.IssuedBy);
+    sprintf(buf, "&+R*** Scheduled %s in %d minute%s***&n\n", type, secs/60, (secs >= 120) ? "s " : " ");
   else
-    sprintf(buf, "&+R*** Scheduled &-L%s&n&+R in %d seconds by %s ***&n\n", type, secs, shutdownData.IssuedBy);
+    sprintf(buf, "&+R*** Scheduled &-L%s&n&+R in %d seconds ***&n\n", type, secs);
   send_to_char(buf, ch);
 }
 
@@ -4031,9 +4051,12 @@ void do_shutdown(P_char ch, char *argument, int cmd)
     }
   }
 
+  if((shutdownData.eShutdownType == TimedShutdownData::AUTOREBOOT))
+  return; //AutoREboots cannot be cycled.
+
   // if there is a pending shutdown, cancel it now...
 
-  if(shutdownData.eShutdownType != TimedShutdownData::NONE)
+  if((shutdownData.eShutdownType != TimedShutdownData::NONE))
   {
     shutdownData.eShutdownType = TimedShutdownData::NONE;
     send_to_all("&+R*** Scheduled Reboot Cancelled ***&n\n");
@@ -4049,6 +4072,9 @@ void do_shutdown(P_char ch, char *argument, int cmd)
     return;
   }
 
+  if((shutdownData.eShutdownType == TimedShutdownData::AUTOREBOOT))
+  return; //AutoREboots cannot be cycled.
+
   if(!str_cmp(arg, "ok"))
   {
     shutdownData.eShutdownType = TimedShutdownData::OK;
@@ -4056,6 +4082,10 @@ void do_shutdown(P_char ch, char *argument, int cmd)
   else if(!str_cmp(arg, "reboot"))
   {
     shutdownData.eShutdownType = TimedShutdownData::REBOOT;
+  }
+  else if(!str_cmp(arg, "autoreboot"))
+  {
+    shutdownData.eShutdownType = TimedShutdownData::AUTOREBOOT;
   }
   else if(!str_cmp(arg, "copyover"))
   {

@@ -2936,6 +2936,9 @@ void dam_message(double fdam, P_char ch, P_char victim,
   if (!number(0, 3))
     w_loop = 0;
 
+  char showdam[MAX_STRING_LENGTH];
+  sprintf(showdam, " [&+wDamage: %d&n] ", dam);
+
   if (msg_flags & DAMMSG_HIT_EFFECT)
   {
     sprintf(buf_char, messages->attacker, weapon_damage[w_loop],
@@ -2966,6 +2969,8 @@ void dam_message(double fdam, P_char ch, P_char victim,
     sprintf(buf_vict, messages->victim, weapon_damage[w_loop]);
     sprintf(buf_notvict, messages->room, weapon_damage[w_loop]);
   }
+  if (IS_PC(ch) && IS_SET(ch->specials.act2, PLR2_DAMAGE) )
+  strcat(buf_char, showdam);
 
 #if ENABLE_TERSE
   act(buf_notvict, FALSE, ch, messages->obj, victim,
@@ -7118,12 +7123,6 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
   if (GET_CLASS(ch, CLASS_PALADIN) && holy_weapon_proc(ch, victim))
     return true;
 
-  if(affected_by_spell(ch, ACH_YOUSTRAHDME))
-  debug("youstrahdme\r\n");
-  if(GET_RACE(victim) == RACE_PVAMPIRE)
-  debug("is vampire\r\n");
-  if(!IS_PC(victim))
-  debug("isnt pc\r\n");
 
   if (affected_by_spell(ch, ACH_YOUSTRAHDME) && ((GET_RACE(victim) == RACE_UNDEAD) || 
 	(GET_RACE(victim) == RACE_PVAMPIRE) ||

@@ -2173,7 +2173,7 @@ void do_summon_mount(P_char ch, char *arg, int cmd)
       
   if (!IS_EVIL(ch) && IS_PC(ch) && GET_CLASS(ch, CLASS_ANTIPALADIN))
   {
-    send_to_char("Your innate skill seems to falter...\r\n", ch);
+    send_to_char("Your innate skill seems to falter. You must be evil.\r\n", ch);
     return;
   }
   if (!OUTSIDE(ch) && !IS_UNDERWORLD(ch->in_room))

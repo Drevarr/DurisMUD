@@ -44,6 +44,7 @@ using namespace std;
 #include "ctf.h"
 #include "epic_bonus.h"
 
+
 /* * external variables */
 
 extern char *target_locs[];
@@ -121,6 +122,7 @@ extern void show_world_events(P_char ch, const char* arg);
 extern struct quest_data quest_index[];
 extern struct epic_bonus_data ebd[];
 void display_map(P_char ch, int n, int show_map_regardless);
+
 
 extern HelpFilesCPPClass help_index;
 
@@ -5270,6 +5272,17 @@ void do_time(P_char ch, char *argument, int cmd)
 
   ct = time(0);
   uptime = real_time_passed(ct, boot_time);
+
+
+ 
+
+  //Auto Reboot - Drannak
+  if((uptime.day * 24 + uptime.hour) < 60)
+  {
+   do_shutdown(ch, "autoreboot 60", 1); 
+  }
+
+
   sprintf(Gbuf2, "Time elapsed since boot-up: %d:%s%d:%s%d\n",
           uptime.day * 24 + uptime.hour,
           (uptime.minute > 9) ? "" : "0", uptime.minute,
