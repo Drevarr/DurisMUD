@@ -426,19 +426,23 @@ int order_speed(P_char ch, P_ship ship, char* arg)
         if (is_number(arg)) 
         {
             speed = atoi(arg);
-	     
-           // if ((speed <= ship->get_maxspeed()) && speed >=0) 
+            if (!SHIP_IMMOBILE(ship)) 
+            {	     
+             // if ((speed <= ship->get_maxspeed()) && speed >=0) 
              if ((speed <= realspeed) && speed >=0)
-            {
+             {
                 ship->setspeed = speed;
                 act_to_all_in_ship_f(ship, "Speed set to &+W%d&N.", ship->setspeed);
-            } 
+             } 
             else 
-            {
+             {
                 //send_to_char_f(ch, "This ship can only go from &+W%d&N to &+W%d&N.\r\n", 0, ship->get_maxspeed());
 	         send_to_char_f(ch, "This ship can only go from &+W%d&N to &+W%d&N.\r\n", 0, realspeed);
+             }
             }
-        } 
+            else 
+                send_to_char("&+RThe ship is immobile, it cannot move!\r\n", ch); 
+       } 
         else if (isname(arg, "max maximum")) 
         {
             if (!SHIP_IMMOBILE(ship)) 

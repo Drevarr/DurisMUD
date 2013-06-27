@@ -1006,7 +1006,7 @@ void handle_memorize(P_char ch)
 
   if (GET_STAT(ch) != STAT_RESTING ||
      (GET_POS(ch) != POS_SITTING &&
-      GET_POS(ch) != POS_KNEELING) && !GET_CLASS(ch, CLASS_ETHERMANCER))
+      GET_POS(ch) != POS_KNEELING))
   {
     show_stop_memorizing(ch);
     return;
