@@ -5054,8 +5054,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
     return;
   }
 
-  int howmany = vnum_in_inv(ch, 400217);
-  debug("You have: %d faerie bags", howmany);
+  int scitools = vnum_in_inv(ch, 400227);
 
 
   if (!(temp = get_obj_in_list_vis(ch, Gbuf4, ch->carrying)))
@@ -5126,7 +5125,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
   }
   
   rolled = number(1, 105);
-  if  (GET_CHAR_SKILL(ch, SKILL_SALVAGE) < rolled)
+  if  ((GET_CHAR_SKILL(ch, SKILL_SALVAGE) < rolled) && (scitools < 1))
    {
     act("&+LYou attempt to break down your $q, but end up &+Rbreaking &+Lit in the process.", FALSE, ch, 0, 0, TO_CHAR);
     act("$n attempts to salvage their $p, but clumsily destroys it.", TRUE, ch, temp, 0, TO_ROOM);
@@ -6010,7 +6009,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
       if ((objchance > 10) && (objchance <= 15))
       reciperoll *= .8;
 
-      int scitools = vnum_in_inv(ch, 400227);
+
       if(scitools > 0)
       {
 	send_to_char("&+LYour &+cset of &+rLantan &+CScientific &+LTools &+yallows you to delicately extract material without harming your item...\r\n", ch);
