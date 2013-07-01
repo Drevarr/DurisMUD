@@ -794,6 +794,8 @@ void AddFrags(P_char ch, P_char victim)
         sql_modify_frags(tch, real_gain);
       
         send_to_char(buffer, tch);
+
+        
       
 
 
@@ -857,6 +859,16 @@ void AddFrags(P_char ch, P_char victim)
   sql_modify_frags(victim, -loss);
   victim->only.pc->frags -= loss;
   sprintf(buffer, "You just lost %.02f frags!\r\n", ((float) loss) / 100);
+
+   if(!affected_by_spell(victim, TAG_RECENTLY_FRAGGED))
+        {
+          memset(&af, 0, sizeof(af));
+          af.type = TAG_RECENTLY_FRAGGED;
+          af.flags = AFFTYPE_SHORT | AFFTYPE_NODISPEL | AFFTYPE_NOAPPLY;
+          af.duration = 60 * WAIT_SEC;
+          affect_to_char(victim, &af);
+        }
+
  
  // When a player with a blood tasks dies, they now satisfy the pvp spill blood task.
   if(afp = get_epic_task(victim))
@@ -2272,12 +2284,12 @@ void die(P_char ch, P_char killer)
       ;
     }
     else if(IS_PC(killer) &&
-            fragWorthy(killer, ch))
+            fragWorthy(killer, ch) && !affected_by_spell(ch, TAG_RECENTLY_FRAGGED))
     {
       AddFrags(killer, ch);
     }
     else if(IS_PC_PET(killer) &&
-            fragWorthy(GET_MASTER(killer), ch))
+            fragWorthy(GET_MASTER(killer), ch) && !affected_by_spell(ch, TAG_RECENTLY_FRAGGED))
     {
       AddFrags(killer, ch);
     }

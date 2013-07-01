@@ -4934,6 +4934,16 @@ void do_score(P_char ch, char *argument, int cmd)
 	sprintf(buf, "&+yBartender Quests Remaining:&n %d\n", RemainingBartenderQuests);
 	send_to_char(buf, ch);
   }
+
+  if(IS_PC(ch))
+  {
+        sprintf(buf, "&+YCombat Pulse: &N%4d&+Y  ",
+            ch->specials.base_combat_round);
+
+
+    strcat(buf, "\n");
+    send_to_char(buf, ch);
+  }
   
   buf[0] = 0;
 

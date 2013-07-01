@@ -65,6 +65,7 @@ extern struct time_info_data time_info;
 extern struct zone_data *zone_table;
 extern P_obj quest_item_reward(P_char ch);
 extern int find_map_place();
+extern int getItemFromZone(int zone);
 
 void set_surname(P_char ch, int num)
 {
@@ -771,7 +772,7 @@ void random_recipe(P_char ch, P_char victim)
 
  if(result < chance)
  {
-  P_obj reward = quest_item_reward(ch);
+  P_obj reward = random_zone_item(ch);
          if(obj_index[reward->R_num].virtual_number == 1252 ||
           obj_index[reward->R_num].virtual_number == 1253 ||
           obj_index[reward->R_num].virtual_number == 1254 )
@@ -785,4 +786,23 @@ void random_recipe(P_char ch, P_char victim)
 
  return; 
 
+}
+
+P_obj random_zone_item(P_char ch)
+{
+  P_obj reward = read_object(real_object(getItemFromZone(GET_ZONE(ch))), REAL);
+  
+  if(!reward)
+    reward = create_random_eq_new(ch, ch, -1, -1);
+  
+  if(reward)
+  {
+    wizlog(56, "%s reward was: %s", GET_NAME(ch), reward->short_description);
+    
+    REMOVE_BIT(reward->extra_flags, ITEM_SECRET);
+    REMOVE_BIT(reward->extra_flags, ITEM_INVISIBLE);
+    SET_BIT(reward->extra_flags, ITEM_NOREPAIR);
+    REMOVE_BIT(reward->extra_flags, ITEM_NODROP);
+  }
+  return reward;
 }

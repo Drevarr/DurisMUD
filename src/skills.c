@@ -4950,6 +4950,8 @@ SPELL_ADD(CLASS_NONE, 1);
   TAG_CREATE("aip - decepticon", AIP_DECEPTICON);
   TAG_CREATE("ach - decepticon", ACH_DECEPTICON);
 
+  TAG_CREATE("fragged victim", TAG_RECENTLY_FRAGGED);
+
   //TRAPS
   TAG_CREATE_WITH_MESSAGES("crippled", TAG_CRIPPLED,
                            "&+yYou feel &+Ystrength &+yreturn to your legs.&n",
