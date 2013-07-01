@@ -860,7 +860,7 @@ void AddFrags(P_char ch, P_char victim)
   victim->only.pc->frags -= loss;
   sprintf(buffer, "You just lost %.02f frags!\r\n", ((float) loss) / 100);
 
-   if(!affected_by_spell(victim, TAG_RECENTLY_FRAGGED))
+   if(IS_PC(victim))
         {
           memset(&af, 0, sizeof(af));
           af.type = TAG_RECENTLY_FRAGGED;
