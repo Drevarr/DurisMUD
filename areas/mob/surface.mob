@@ -2005,6 +2005,28 @@ PH 0 33 2 -1
 58 0 0 1d1+1 1d1+1
 0.0.0.0 50
 8 8 0
+#500139
+marianne human reaver~
+&+LMarianne&n~
+&+LMarianne&+W, the &+Chuman &+Lre&+Wav&+Ler&+W stalks the land for prey.&n
+~
+~
+3255237128 128 0 0 402653240 0 0 0 -1000 S
+PH 0 2097152 3 3
+60 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#500140
+regnar ranger drow elf~
+&+mRegnar&n~
+&+mRegnar&+L, the &+mdrow elf &+Granger&+L sneaks among the bushes here&n.
+~
+~
+3221682184 64 0 0 403177532 0 0 0 -1000 S
+pl 0 2 2 3
+60 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
 #500150
 reaver snudk goblin shock_reaver teacher _spec3_~
 &+gSnudk&+L, the &+Ggoblin &+Yshock &+Lreaver&N~

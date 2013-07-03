@@ -698,6 +698,7 @@ F 1 500049 15 572897 100 0 0 0     * a member of the Woodseer Brigade (following
 F 1 500049 15 572897 100 0 0 0     * a member of the Woodseer Brigade (following)
 F 1 500049 15 572897 100 0 0 0     * a member of the Woodseer Brigade (following)
 M 0 500192 1 572900 100 0 0 0      * the halfling animalist, Chimel
+M 0 500139 1 573292 100 0 0 0      * Marianne
 M 0 500039 10 574519 100 0 0 0     * a sand spider
 M 0 500039 10 574519 100 0 0 0     * a sand spider
 M 0 500039 10 574519 100 0 0 0     * a sand spider
@@ -983,6 +984,7 @@ M 0 500026 1 596289 100 0 0 0      * Krekish ViceFang
 G 1 500006 1 0 100 0 0 0           *    the bloody head of Krekish ViceFang
 F 1 500011 21 596289 100 0 0 0     * a black wolf (following)
 M 0 500154 1 596676 100 0 0 0      * the great ogre swordsman Urghegg
+M 0 500140 1 596710 100 0 0 0      * Regnar
 M 0 500168 1 596712 100 0 0 0      * Be'tre, the unseen
 M 0 500184 1 596721 100 0 0 0      * Thoemaa, the orc magician
 M 0 500018 1 597045 100 0 0 0      * a one-eyed pirate
