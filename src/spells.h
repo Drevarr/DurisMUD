@@ -670,7 +670,8 @@
 #define SPELL_NOAUCTION		  621
 #define SPELL_BATTLEMAGE		  622
 #define SPELL_CORPSE_PORTAL		  623
-#define LAST_SPELL  SPELL_CORPSE_PORTAL
+#define SPELL_CONTAIN_BEING		  624
+#define LAST_SPELL  SPELL_CONTAIN_BEING
 
 #define FIRST_SKILL                  1000  /* should be a decent split point */
 #define SKILL_SNEAK                  1000

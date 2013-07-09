@@ -21553,3 +21553,46 @@ void load_soulbind(P_char ch)
     REMOVE_BIT(obj->extra_flags, ITEM_NODROP);
 
 }
+
+void spell_contain_being(int level, P_char ch, char *arg, int type,
+                       P_char victim, P_obj obj)
+{
+  struct affected_type af;
+ 
+ if(!victim)
+ {
+  send_to_char("You must specify a target for this spell!\r\n", ch);
+  return;
+ }
+ 
+ if(victim == ch)
+ {
+  send_to_char("Haha, very funny.\r\n", ch);
+  return;
+ }
+
+ if(IS_PC(victim))
+ {
+  send_to_char("You cannot learn to contain players.\r\n", ch);
+  return;
+ }
+ 
+ if(IS_PC_PET(victim))
+ {
+  send_to_char("You cannot contain other's pets.\r\n", ch);
+  return;
+ }
+
+   act("&n$n &npoints at &+L$N &nwhose form begins to &+Lp&+Mh&+Wa&+ms&+Be &nin and out from this plane of existence...", FALSE, ch, 0, victim, TO_NOTVICT);
+   act("&nYou &npoint at &+L$N &nwhose form begins to &+Lp&+Mh&+Wa&+ms&+Be &nin and out from this plane of existence...", FALSE, ch, 0, victim, TO_CHAR);
+   act("&n$n &npoints at &+L$N &nwhose form begins to &+Lp&+Mh&+Wa&+ms&+Be &nin and out from this plane of existence...", FALSE, ch, 0, victim, TO_VICT);
+
+ 
+   memset(&af, 0, sizeof(af));
+  af.type = SPELL_CONTAIN_BEING;
+  af.duration = 100;
+  af.flags = AFFTYPE_SHORT;
+  affect_to_char_with_messages(victim, &af, "You your physical composure returns to normal.", "$n's &+Yphysical composure slowly returns to &+Lnormal&n.");
+
+ 
+}

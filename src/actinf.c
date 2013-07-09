@@ -1180,6 +1180,9 @@ void create_in_room_status(P_char ch, P_char i, char buffer[])
   if (IS_AFFECTED5(i, AFF5_IMPRISON))
     strcat(buffer, " (&+cim&+Cpr&+cis&+Con&+ced&n) ");
 
+  if(IS_PC_PET(i))
+   strcat(buffer, " &+w(&+Yminion&+w) ");
+
   if (IS_CASTING(i))
     strcat(buffer, " (&+mcasting&n) ");
 
@@ -1575,6 +1578,8 @@ void show_char_to_char(P_char i, P_char ch, int mode)
 
              		if(IS_SET(i->specials.act2, PLR2_NEWBIE))
 			strcat(buffer, " (&+GNewbie&N)");
+
+
 			
 	  //drannak2
           break;

@@ -9915,8 +9915,8 @@ int rentacleric(P_char ch, P_char vict, int cmd, char *argument)
     SPELL_CURE_BLIND, "&+WCure of &+Lblindness&n        ", "cure of blindness", 500},
     {
     SPELL_ACCEL_HEALING, "&+YAccelerated &+Whealing&n      ", "accelerated healing", 2500},
-    {
-    SPELL_RESURRECT, "&+WResurrection&n             ", "resurrection", 3000},
+   /* {
+    SPELL_RESURRECT, "&+WResurrection&n             ", "resurrection", 3000},*/
     {
      -1, "\r\n", -1},
   };

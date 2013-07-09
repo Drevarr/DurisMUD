@@ -273,21 +273,21 @@ void initialize_skills()
   SPELL_CREATE("solar flare", SPELL_SOLAR_FLARE, PULSE_SPELLCAST * 2,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO, spell_solar_flare);
   //SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_FIRE);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 9, SPEC_FIRE);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 9, SPEC_FIRE);
 
   SPELL_CREATE("water to life", SPELL_WATER_TO_LIFE, PULSE_SPELLCAST * 2,
                 TAR_CHAR_ROOM, spell_water_to_life);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 7, SPEC_WATER);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 7, SPEC_WATER);
 
   SPELL_CREATE_MSG("air form", SPELL_AIR_FORM, PULSE_SPELLCAST * 4,
                 TAR_SELF_ONLY,
                 spell_air_form, "Your molecules return to normal.");
-  SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_AIR);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_AIR);
 
   SPELL_CREATE("ethereal grounds", SPELL_ETHEREAL_GROUNDS, PULSE_SPELLCAST * 4,
                 TAR_IGNORE,
                 spell_ethereal_grounds);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 11, SPEC_AIR);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 11, SPEC_AIR);
  
   SPELL_CREATE("electrical execution", SPELL_ELECTRICAL_EXECUTION, (int)(PULSE_SPELLCAST * 1.5),
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO, spell_electrical_execution);
@@ -296,7 +296,7 @@ void initialize_skills()
   SPELL_CREATE2("earthen tomb", SPELL_EARTHEN_TOMB, PULSE_SPELLCAST * 4,
                 TAR_IGNORE | TAR_NOCOMBAT,
                 cast_earthen_tomb, "&+yThe ground stops to &+Lrumble &+yand ceases to quake.&n", "&+yThe ground stops to &+Lrumble &+yand ceases to quake.&n");
-  SPEC_SPELL_ADD(CLASS_CONJURER, 12, SPEC_EARTH);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 12, SPEC_EARTH);
 
   SPELL_CREATE("dread wave", SPELL_DREAD_WAVE, PULSE_SPELLCAST * 1,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO, spell_dread_wave);
@@ -586,6 +586,10 @@ void initialize_skills()
   SPELL_CREATE("Battle Mages Aura", SPELL_BATTLEMAGE, PULSE_SPELLCAST,
 		  TAR_CHAR_ROOM | TAR_AGGRO, do_nothing_spell);
 
+  SPELL_CREATE("contain being", SPELL_CONTAIN_BEING, PULSE_SPELLCAST * 3,
+		  TAR_CHAR_ROOM, spell_contain_being);
+  SPELL_ADD(CLASS_CONJURER, 5);
+
   SPELL_CREATE("corpse portal", SPELL_CORPSE_PORTAL, PULSE_SPELLCAST,
                 TAR_CHAR_ROOM | TAR_NOCOMBAT, spell_corpse_portal);
 
@@ -643,42 +647,42 @@ void initialize_skills()
   SPELL_CREATE("transmute rock to mud", SPELL_TRANS_ROCK_MUD, PULSE_SPELLCAST * 4,
                 TAR_IGNORE | TAR_NOCOMBAT,
                 cast_transmute_rock_mud);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_EARTH);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_EARTH);
 
   SPELL_CREATE("transmute mud to rock", SPELL_TRANS_MUD_ROCK, PULSE_SPELLCAST * 4,
                 TAR_IGNORE | TAR_NOCOMBAT,
                 cast_transmute_mud_rock);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_EARTH);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_EARTH);
 
   SPELL_CREATE("transmute mud to water", SPELL_TRANS_MUD_WATER, PULSE_SPELLCAST * 4,
                 TAR_IGNORE | TAR_NOCOMBAT,
                 cast_transmute_mud_water);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_WATER);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_WATER);
 
   SPELL_CREATE("transmute water to mud", SPELL_TRANS_WATER_MUD, PULSE_SPELLCAST * 4,
                 TAR_IGNORE | TAR_NOCOMBAT,
                 cast_transmute_water_mud);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_WATER);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_WATER);
 
   SPELL_CREATE("transmute water to air", SPELL_TRANS_WATER_AIR, PULSE_SPELLCAST * 4,
                 TAR_IGNORE | TAR_NOCOMBAT,
                 cast_transmute_water_air);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_AIR);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_AIR);
 
   SPELL_CREATE("transmute air to water", SPELL_TRANS_AIR_WATER, PULSE_SPELLCAST * 4,
                 TAR_IGNORE | TAR_NOCOMBAT,
                 cast_transmute_air_water);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_AIR);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_AIR);
 
   SPELL_CREATE("transmute rock to lava", SPELL_TRANS_ROCK_LAVA, PULSE_SPELLCAST * 4,
                 TAR_IGNORE | TAR_NOCOMBAT,
                 cast_transmute_rock_lava);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_FIRE);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_FIRE);
 
   SPELL_CREATE("transmute lava to rock", SPELL_TRANS_LAVA_ROCK, PULSE_SPELLCAST * 4,
                 TAR_IGNORE | TAR_NOCOMBAT,
                 cast_transmute_lava_rock);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_FIRE);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_FIRE);
 
   SPELL_CREATE("vines", SPELL_VINES, PULSE_SPELLCAST * 3,
                 TAR_SELF_ONLY, cast_vines);
@@ -1259,7 +1263,7 @@ void initialize_skills()
   SPELL_CREATE("earthen maul", SPELL_EARTHEN_MAUL, PULSE_SPELLCAST * 2,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO, spell_earthen_maul);
   SPELL_ADD(CLASS_DRUID, 6);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 7, SPEC_EARTH);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 7, SPEC_EARTH);
 
   SPELL_CREATE("earth spike", SPELL_GROW_SPIKES, PULSE_SPELLCAST * 2,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO, spell_grow_spike);
@@ -1916,7 +1920,7 @@ SPELL_CREATE("vigorize light", SPELL_VIGORIZE_LIGHT, PULSE_SPELLCAST * 2,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO, spell_cyclone);
   SPELL_ADD(CLASS_DRUID, 7);
   //SPEC_SPELL_ADD(CLASS_DRUID, 7, SPEC_STORM);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 7, SPEC_AIR);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 7, SPEC_AIR);
 
  SPEC_SPELL_ADD(CLASS_ETHERMANCER, 7, SPEC_FROST_MAGUS);
  SPEC_SPELL_ADD(CLASS_ETHERMANCER, 6, SPEC_WINDTALKER);
@@ -2125,7 +2129,7 @@ SPELL_ADD(CLASS_CONJURER, 11);
   SPELL_CREATE_MSG("group haste", SPELL_GROUP_HASTE, PULSE_SPELLCAST * 4,
                TAR_IGNORE, spell_group_haste,
                "The world speeds up around you.");
-  SPEC_SPELL_ADD(CLASS_CONJURER, 9, SPEC_AIR);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 9, SPEC_AIR);
 
 
   SPELL_CREATE("word of recall", SPELL_WORD_OF_RECALL, 0,
@@ -2169,6 +2173,10 @@ SPELL_ADD(CLASS_CONJURER, 11);
                 TAR_IGNORE,
                 spell_conjour_elemental);
   SPELL_ADD(CLASS_CONJURER, 5);
+  SPEC_SPELL_ADD(CLASS_CONJURER, 13, SPEC_AIR);
+  SPEC_SPELL_ADD(CLASS_CONJURER, 13, SPEC_FIRE);
+  SPEC_SPELL_ADD(CLASS_CONJURER, 13, SPEC_WATER);
+  SPEC_SPELL_ADD(CLASS_CONJURER, 13, SPEC_EARTH);
 
   SPELL_CREATE("mirror image", SPELL_MIRROR_IMAGE, PULSE_SPELLCAST * 2,
                 TAR_IGNORE, spell_mirror_image);
@@ -2179,7 +2187,11 @@ SPELL_ADD(CLASS_CONJURER, 11);
   SPELL_CREATE("conjure greater elemental", SPELL_CONJURE_GREATER_ELEMENTAL, PULSE_SPELLCAST * 4,
                 TAR_IGNORE,
                 spell_conjour_greater_elemental);
-SPELL_ADD(CLASS_CONJURER, 11);
+  SPELL_ADD(CLASS_CONJURER, 11);
+  SPEC_SPELL_ADD(CLASS_CONJURER, 13, SPEC_AIR);
+  SPEC_SPELL_ADD(CLASS_CONJURER, 13, SPEC_FIRE);
+  SPEC_SPELL_ADD(CLASS_CONJURER, 13, SPEC_WATER);
+  SPEC_SPELL_ADD(CLASS_CONJURER, 13, SPEC_EARTH);
 //SPEC_SPELL_ADD(CLASS_CONJURER, 11, SPEC_AIR);
 //SPEC_SPELL_ADD(CLASS_CONJURER, 11, SPEC_FIRE);
 //SPEC_SPELL_ADD(CLASS_CONJURER, 11, SPEC_WATER);
@@ -3264,7 +3276,7 @@ SPELL_ADD(CLASS_NONE, 1);
                 TAR_CHAR_ROOM,
                 spell_ethereal_recharge);
   SPELL_ADD(CLASS_ETHERMANCER, 8);
-  SPEC_SPELL_ADD(CLASS_CONJURER, 8, SPEC_AIR);
+  //SPEC_SPELL_ADD(CLASS_CONJURER, 8, SPEC_AIR);
 
   SPELL_CREATE("arcane whirlwind", SPELL_ARCANE_WHIRLWIND, PULSE_SPELLCAST * 3,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_SELF_NONO | TAR_AGGRO,

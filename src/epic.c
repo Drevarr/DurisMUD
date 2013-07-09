@@ -359,28 +359,28 @@ void epic_choose_new_epic_task(P_char ch)
   af.flags = AFFTYPE_STORE | AFFTYPE_PERM;
   af.duration = -1;
 
- /* if(number(0, 5))
+  if(number(0, 10))
   {
     zone_number = epic_random_task_zone(ch);
-  }*/
+  }
 
-//Getting rid of nexus and spill blood tasks for now. 7/13 Drannak
+//Getting rid of nexus . 7/13 Drannak
 
-  zone_number = epic_random_task_zone(ch);
+  //zone_number = epic_random_task_zone(ch);
 
   if(zone_number < 0)
   {
-    nexus = get_random_enemy_nexus(ch);
+   /* nexus = get_random_enemy_nexus(ch);
     if((number(0, 100) < 50) && (GET_LEVEL(ch) >= 51) && nexus)
     {
       act("The Gods of &+rDuris&n demand that you seek out $p and convert it!", FALSE, ch, nexus, 0, TO_CHAR);
       af.modifier = -STONE_ID(nexus);
     }
     else
-    {
+    {*/
       send_to_char("The Gods of &+rDuris&n demand that you &+rspill the &+Rblood&n of the &+Lenemies&n of your race!\n", ch);
       af.modifier = SPILL_BLOOD;
-    }
+    //}
   }
   else
   {

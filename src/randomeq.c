@@ -652,7 +652,7 @@ int check_random_drop(P_char ch, P_char mob, int piece)
   if ((char_lvl - mob_lvl) > 10)
     return 0;
 
-  while (i < 15)
+/*  while (i < 15)
   {
     if (highdrop_mobs[i] == GET_VNUM(mob))
     {
@@ -662,7 +662,7 @@ int check_random_drop(P_char ch, P_char mob, int piece)
       }
     }
     i++;
-  }
+  }*/
 
 //  if (!IS_TRUSTED(ch) && !IS_NPC(ch))
 //    for (tr = ch->only.pc->trophy; tr; tr = tr->next)

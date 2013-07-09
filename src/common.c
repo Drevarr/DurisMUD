@@ -29,7 +29,7 @@ const char *specdata[][MAX_SPEC] = {
   {"&+rEl&+Rem&+Lenta&+Rli&n&+rst", "&+WSpir&+Citua&+Wlist", "&+yAni&+Ymal&n&+yist", ""},         /* CLASS_SHAMAN */
   {"&+MWild&+mmage", "&+LWizard", "&+LShadow&+wmage", ""},                                        /* CLASS_SORCERER */
   {"&+mDia&+rbolis", "&+mNe&+Lcro&+mlyte", "&+LReap&+wer", ""},                                   /* CLASS_NECROMANCER */
-  {"&+CAir Magus", "&+BWater Magus", "&+rFire Magus", "&+yEarth Magus"},                          /* CLASS_CONJURER */
+  {"&+cCon&+Ctrol&+Wler&n", "&+rEle&+Rmenta&+Ylist", "&+rFire Magus", "&+gNat&+Gural&+yist&n"},                          /* CLASS_CONJURER */
   {"&+rAssassin&n", "&+LThief&n","Not Used" , "&+LSh&+wa&+Ldow &+BArc&+bher&n"},                  /* CLASS_ROGUE */
   {"", "", "", ""},                                                                               /* CLASS_ASSASSIN was replaced by CLASS_ROGUE, SPEC_ASSASSIN */
   {"&+yBr&+Lig&+yand", "&+yBounty &+LHunter", "", ""},  //Mercenary

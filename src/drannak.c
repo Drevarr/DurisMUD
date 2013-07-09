@@ -806,3 +806,349 @@ P_obj random_zone_item(P_char ch)
   }
   return reward;
 }
+
+void do_conjure(P_char ch, char *argument, int cmd)
+{
+  char     buf1[MAX_STRING_LENGTH];
+  char     first[MAX_INPUT_LENGTH];
+  char     second[MAX_INPUT_LENGTH];
+  char     rest[MAX_INPUT_LENGTH];
+  int i = 0, room = ch->in_room; 
+  int choice = 0;  
+
+
+ if (!GET_SPEC(ch, CLASS_CONJURER, SPEC_WATER) && !GET_SPEC(ch, CLASS_CONJURER, SPEC_AIR) && !GET_SPEC(ch, CLASS_CONJURER, SPEC_EARTH))
+  {
+    act("&+YConjuring advanced beings &nis a &+Mmagic &nbeyond your abilities&n.",
+        FALSE, ch, 0, 0, TO_CHAR);
+    return;
+  }
+  
+ /* if(!IS_TRUSTED(ch))
+  {
+    send_to_char("Coming soon...\r\n", ch);
+	return;
+  }*/
+
+  if(GET_LEVEL(ch) < 30)
+  {
+   send_to_char("You are not high enough level to conjure beings...\r\n", ch);
+   return;
+  }
+
+
+/***DISPLAYSPELLBOOK STUFF***/
+ 
+  char     buf[256], *buff, buf2[256], rbuf[MAX_STRING_LENGTH], cinfo[MAX_STRING_LENGTH], cinfo2[MAX_STRING_LENGTH];
+  char     Gbuf1[MAX_STRING_LENGTH], selectedrecipe[MAX_STRING_LENGTH];
+  char buffer[256];
+  FILE    *f;
+  FILE    *recipelist;
+  int line, recfind; 
+  unsigned long	linenum = 0;
+  long recnum, choice2;
+  long selected = 0;
+  P_char tobj;
+ 
+	
+  //Create buffers for name
+  strcpy(buf, GET_NAME(ch));
+  buff = buf;
+  for (; *buff; buff++)
+  *buff = LOWER(*buff);
+  //buf[0] snags first character of name
+  sprintf(Gbuf1, "Players/%c/%s.spellbook", buf[0], buf);
+  recipelist = fopen(Gbuf1, "r");
+    if (!recipelist)
+  {
+  create_spellbook_file(ch);
+  recipelist = fopen(Gbuf1, "r");
+
+    if(!recipelist)
+    {
+     send_to_char("Fatal error opening spellbook, notify a god.\r\n", ch);
+     return;
+    }
+  }
+       half_chop(argument, first, rest);
+       half_chop(rest, second, rest);
+       choice2 = atoi(second);
+
+ 
+ if (!*argument)
+  {
+  send_to_char("&+WThese are the &+mmys&+Mtic&+Wal commands for &+Yconjuring&+W:\n&n", ch);
+  send_to_char("&+W(&+Mconjure stat <number> - &+mreveal statistical properties about this &+Mminion&n.)\n&n", ch);
+  send_to_char("&+W(&+Mconjure summon <number> - &+mcall the &+Mminion&+m into existence&n.)\n&n", ch);
+  send_to_char("&+MYou have learned the following &+mMobs&+M:\n&n", ch);
+  send_to_char("----------------------------------------------------------------------------\n", ch);
+  send_to_char("&+MMob Number		              &+mMob Name&n\n\r", ch);
+      while((fscanf(recipelist, "%i", &recnum)) != EOF )
+	{  
+       if(recnum == choice2)
+       selected = choice2;
+      
+    tobj = read_mobile(recnum, VIRTUAL);
+ 	sprintf(rbuf, "%d\n", recnum);
+    sprintf(buffer, "   &+W%-22d&n%s&n\n", recnum, tobj->player.short_descr);
+	//stores the actual vnum written in file into rbuf 
+	page_string(ch->desc, buffer, 1);
+    send_to_char("----------------------------------------------------------------------------\n", ch);
+	  extract_char(tobj);
+   	}
+     fclose(recipelist);
+  /***ENDDISPLAYRECIPES***/
+
+  return;
+  }
+
+  while((fscanf(recipelist, "%i", &recnum)) != EOF )
+	{  
+       if(recnum == choice2)
+       selected = choice2;
+     
+ 	sprintf(rbuf, "%d\n", recnum);
+	}
+  fclose(recipelist);
+ 
+
+  if (is_abbrev(first, "stat"))
+  {
+    if(choice2 == 0)
+     {
+      send_to_char("&+mWhich &+Mminion&n would you like &+Wstatistics&+m about?\n", ch);
+      return;
+     }
+    if(selected == 0)
+     {
+      send_to_char("&+mIt appears you have not yet &+Mlearned&+m how to conjure that &+Mminion&+m.&n\n", ch);
+      return;
+     }
+    tobj = read_mobile(selected, VIRTUAL);
+    send_to_char("&+rYou open your &+Yconjurers &+Lt&+mo&+Mm&+We &+rwhich &+Rreveals&+r the following information...&n.\n", ch);
+    get_class_string(tobj, cinfo2);
+    sprintf(cinfo, "You glean they are: \r\n&+YLevel &+W%d \r\n&+YClass:&n %s \r\n&+YBase Hitpoints:&n %d\r\n", GET_LEVEL(tobj), get_class_string(tobj, buf2), GET_MAX_HIT(tobj));
+    send_to_char(cinfo, ch);
+    extract_char(tobj);
+    return;
+  }
+ 
+  else if (is_abbrev(first, "summon"))
+  {
+
+    if(selected == 0)
+     {
+      send_to_char("&+mIt appears you have not yet &+Mlearned&+m how to conjure that &+Mminion&+m.&n\n", ch);
+      return;
+     }
+
+
+
+    int duration;
+    tobj = read_mobile(selected, VIRTUAL);
+
+    if(selected != 400003)
+    {
+    if(GET_SPEC(ch, CLASS_CONJURER, SPEC_AIR) && !IS_HUMANOID(tobj))
+    {
+     send_to_char("You cannot summon a being outside of your area of expertise.\r\n", ch);
+    extract_char(tobj);
+     return;
+    }
+
+    if(GET_SPEC(ch, CLASS_CONJURER, SPEC_WATER) && !IS_ELEMENTAL(tobj))
+    {
+     send_to_char("You cannot summon a being outside of your area of expertise.\r\n", ch);
+    extract_char(tobj);
+     return;
+    }
+
+    if(GET_SPEC(ch, CLASS_CONJURER, SPEC_EARTH) && !IS_ANIMAL(tobj))
+    {
+     send_to_char("You cannot summon a being outside of your area of expertise.\r\n", ch);
+    extract_char(tobj);
+     return;
+    }
+    }
+
+    if(!new_summon_check(ch, tobj))
+    {
+     send_to_char("You have too many, or too powerful followers to summon this minion.\r\n", ch);
+    extract_char(tobj);
+     return;
+    }
+
+    
+	if(GET_MAX_HIT(tobj) > 8000)
+	GET_MAX_HIT(tobj) = 8000;
+	 
+     REMOVE_BIT(tobj->specials.affected_by, AFF_SLEEP);
+     //REMOVE_BIT(tobj->specials.act, ACT_SENTINEL); Needed for mob to follow.
+     REMOVE_BIT(tobj->specials.act, ACT_ELITE);
+     REMOVE_BIT(tobj->specials.act, ACT_HUNTER);
+     GET_EXP(tobj) = 0;
+
+     tobj->only.npc->aggro_flags = 0;     
+    act("$N sulkily says 'Your wish is my command, $n!'", TRUE, ch, 0,
+        tobj, TO_ROOM);
+    act("$N sulkily says 'Your wish is my command, master!'", TRUE, ch, 0,
+        tobj, TO_CHAR);
+
+    duration = setup_pet(tobj, ch, 400 / STAT_INDEX(GET_C_INT(tobj)), PET_NOCASH);
+       char_to_room(tobj, room, 0);
+	add_follower(tobj, ch);
+    if(duration >= 0)
+    {
+      duration += number(1,10);
+      add_event(event_pet_death, (duration+1) * 60 * 4, tobj, NULL, NULL, 0, NULL, 0);
+    }
+	
+  }
+}
+
+void create_spellbook_file(P_char ch)
+{
+ char buf[256], *buff, Gbuf1[MAX_STRING_LENGTH];
+ FILE *f;
+ int defrec;
+   defrec = 400003;
+
+  strcpy(buf, GET_NAME(ch));
+  buff = buf;
+  for (; *buff; buff++)
+    *buff = LOWER(*buff);
+  sprintf(Gbuf1, "Players/%c/%s.spellbook", buf[0], buf);
+  f = fopen(Gbuf1, "w");
+  fclose(f);
+  f = fopen(Gbuf1, "a");
+  fprintf(f, "%d\n", defrec);
+  fclose(f);
+}
+
+bool new_summon_check(P_char ch, P_char selected)
+{
+  struct follow_type *k;
+  P_char   victim;
+  int i, j, desired = 0;
+  
+  desired = GET_LEVEL(selected);
+
+  for (k = ch->followers, i = 0, j = 0; k; k = k->next)
+  {
+    victim = k->follower;
+
+    i += GET_LEVEL(victim);
+  }
+  i += desired;
+
+  if(GET_LEVEL(ch) <= 35 && i > 45)
+  return FALSE;
+  
+  if(GET_LEVEL(ch) <= 45 && i > 75)
+  return FALSE;
+  
+  if(GET_LEVEL(ch) <= 55 && i > 90)
+  return FALSE;
+
+  if(i > 100)
+  return FALSE;
+
+
+  return TRUE;
+
+}
+
+void learn_conjure_recipe(P_char ch, P_char victim)
+{
+
+  char     buf[256], *buff;
+  char     Gbuf1[MAX_STRING_LENGTH], *c;
+  FILE    *f;
+  FILE    *recipelist;
+ 
+  int recnum;
+
+  if(!ch)
+    return;
+
+  if(!victim)
+    return;
+
+  if(IS_PC_PET(victim))
+  return;
+	
+ int recipenumber = GET_VNUM(victim);
+ 	
+  if(GET_SPEC(ch, CLASS_CONJURER, SPEC_AIR) && !IS_HUMANOID(victim))
+    {
+     send_to_char("You cannot learn to summon a being outside of your area of expertise.\r\n", ch);
+    extract_char(victim);
+     return;
+    }
+
+    if(GET_SPEC(ch, CLASS_CONJURER, SPEC_WATER) && !IS_ELEMENTAL(victim))
+    {
+     send_to_char("You cannot learn to summon a being outside of your area of expertise.\r\n", ch);
+    extract_char(victim);
+     return;
+    }
+
+    if(GET_SPEC(ch, CLASS_CONJURER, SPEC_EARTH) && !IS_ANIMAL(victim))
+    {
+     send_to_char("You cannot learn to summon a being outside of your area of expertise.\r\n", ch);
+    extract_char(victim);
+     return;
+    }
+
+
+
+  //Create buffers for name
+  strcpy(buf, GET_NAME(ch));
+  buff = buf;
+  for (; *buff; buff++)
+    *buff = LOWER(*buff);
+  //buf[0] snags first character of name
+  sprintf(Gbuf1, "Players/%c/%s.spellbook", buf[0], buf);
+
+  /*just a debug test
+  send_to_char(Gbuf1, ch);*/
+
+  //check if tradeskill file exists for player
+  recipelist = fopen(Gbuf1, "rt");
+
+  if (!recipelist)
+  {
+  create_spellbook_file(ch);
+  recipelist = fopen(Gbuf1, "r");
+
+    if(!recipelist)
+    {
+     send_to_char("Fatal error opening spellbook, notify a god.\r\n", ch);
+     return;
+    }
+
+  }
+   /* Check to see if recipe exists */
+  while((fscanf(recipelist, "%i", &recnum)) != EOF )
+	{  
+       if(recnum == recipenumber)
+         {
+          send_to_char("You already know how to summon that creature!&n\r\n", ch);
+          fclose(recipelist);
+          return;
+         }
+       
+	}
+  fclose(recipelist);
+  recipelist = fopen(Gbuf1, "a");
+  fprintf(recipelist, "%d\n", recipenumber);
+  act("$n &+gsuddenly &+Greaches &+gout and makes a &+Mmagical &+mgesture &+gabout &n$N&+g...\n"
+  "&+gsh&+Gar&+Wds&+g of &+mcry&+Mstallized &+Wmagic&+g begin to form a square dome around &n$N&+g.\n"
+  "&+gWith a &+Gfinal&+g &+mgesture&+g, &n$n &+gpoints at &n$N &+gwho is &+Gconsumed&+g by the &+mmagical &+Mdome&+g, and disappears from sight.\r\n", FALSE, ch, 0, victim, TO_ROOM);
+  act("&+gYou &+gsuddenly &+Greache &+gout and makes a &+Mmagical &+mgesture &+gabout &n$N&+g...\n"
+  "&+gsh&+Gar&+Wds&+g of &+mcry&+Mstallized &+Wmagic&+g begin to form a square dome around &n$N&+g.\n"
+  "&+gWith a &+Gfinal&+g &+mgesture&+g, you &+gpoint at &n$N &+gwho is &+Gconsumed&+g by the &+mmagical &+Mdome&+g, and disappears from sight.\r\n", FALSE, ch, 0, victim, TO_CHAR);   
+  fclose(recipelist);
+  send_to_char("&+gYou have learned a new minion to &+Gconjure&+g!\r\n", ch);
+  return;
+}

@@ -795,6 +795,10 @@ int equipped_value(P_char ch);
 void newbie_reincarnate(P_char ch);
 void random_recipe(P_char ch, P_char victim);
 P_obj random_zone_item(P_char ch);
+void do_conjure(P_char ch, char *argument, int cmd);
+void create_spellbook_file(P_char ch);
+bool new_summon_check(P_char ch, P_char selected);
+void learn_conjure_recipe(P_char ch, P_char victim);
 
 
 /* editor.c */
@@ -1455,6 +1459,7 @@ void spell_enervation(int, P_char, char *, int, P_char, P_obj);
 void spell_restore_spirit(int, P_char, char *, int, P_char, P_obj);
 void spell_repair_one_item(int, P_char, char *, int, P_char, P_obj);
 void spell_corpse_portal(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj);
+void spell_contain_being(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj);
 int get_spell_component(P_char, int, int);
 
 

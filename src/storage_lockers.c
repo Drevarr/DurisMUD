@@ -968,6 +968,8 @@ int storage_locker_room_hook(int room, P_char ch, int cmd, char *arg)
     ("A member of the &+YStorage Locker Safety Commission&n escorts $n to a private room.",
      FALSE, ch, 0, ch, TO_ROOM);
 
+    send_to_char("&+RWARNING: &+WStorage Lockers are not meant to have multiple containers in them. There is a possibility you may &+RLOSE &+Wyour container and all items in it. Store them at your own risk! NO REIMBURSEMENTS!\r\n", ch);
+
   // PFileToLocker
 
   GetChestList(locker_room)->PFileToLocker();
@@ -2059,8 +2061,7 @@ static void check_for_artisInRoom(P_char ch, int rroom)
   for (tmp_object = world[rroom].contents; tmp_object; tmp_object = next_obj)
   {
     next_obj = tmp_object->next_content;
-    if ((tmp_object->type == ITEM_CONTAINER) && (GET_OBJ_VNUM(tmp_object) != 173))
-    send_to_char("&+RWARNING: &+WStorage Lockers are not meant to have multiple containers in them. There is a possibility you may &+RLOSE &+Wyour container and all items in it. Store it at your own risk! NO REIMBURSEMENTS!\r\n", ch);
+    
     if (IS_SET(tmp_object->extra_flags, ITEM_ARTIFACT))
     {
       /* okay, they can't store that here... tell them so, and stick it back

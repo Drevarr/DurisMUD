@@ -1069,6 +1069,7 @@ const char *command[] = {
   "dice",
   "shadowstep",
   "garrote",
+  "conjure",
   "\n"                          /* MAX_CMD_LIST is now 1000 */
 };
 
@@ -2321,6 +2322,7 @@ void assign_command_pointers(void)
   CMD_N(CMD_APPLY, STAT_RESTING + POS_PRONE, do_apply_poison, 0);
   CMD_N(CMD_ARTIFACTS, STAT_SLEEPING + POS_PRONE, do_artifact, 0);
   CMD_N(CMD_RAID, STAT_SLEEPING + POS_PRONE, do_raid, 0);
+  CMD_N(CMD_CONJURE, STAT_NORMAL + POS_STANDING, do_conjure, 0);
    
   CMD_N(CMD_DISAPPEAR, STAT_RESTING + POS_KNEELING, do_disappear, 0);
   CMD_N(CMD_ASSIST, STAT_NORMAL + POS_STANDING, do_assist, 0);
