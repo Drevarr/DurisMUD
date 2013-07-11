@@ -1241,8 +1241,15 @@ void learn_conjure_recipe(P_char ch, P_char victim)
 void do_dismiss(P_char ch, char *argument, int cmd)
 {
   struct follow_type *k;
+  struct follow_type *x;
   P_char   victim;
   int i, j, count = 0, desired = 0;
+
+  if(GET_CLASS(ch, CLASS_BARD))
+  {
+   send_to_char("Just stop singing.\r\n", ch);
+   return;
+  }
   
   for (k = ch->followers, i = 0, j = 0; k; k = k->next)
   {
@@ -1262,9 +1269,9 @@ void do_dismiss(P_char ch, char *argument, int cmd)
     }
 	
 	
-  for (k = ch->followers, i = 0, j = 0; k; k = k->next)
+  for (x = ch->followers, i = 0, j = 0; x; x = x->next)
   {
-    victim = k->follower;
+    victim = x->follower;
 
     if(!IS_PC(victim))
     {
