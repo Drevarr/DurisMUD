@@ -990,13 +990,15 @@ void do_conjure(P_char ch, char *argument, int cmd)
    REMOVE_BIT(tobj->specials.act, ACT_SPEC); 
    REMOVE_BIT(tobj->specials.act, ACT_BREAK_CHARM);
 
+   //mob_index[tobj->only.npc->idnum].func.mob = 0;
+
 
    if(GET_LEVEL(tobj) > 56 && !IS_TRUSTED(ch))
    {
    vnum_from_inv(ch, 400231, 1);
-   act("$n &+Ltosses their &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+YConjuring&n &+Linto the &+Cair&+L, which quickly forms an &+Rextra-dimensional &+lpocket&n!", TRUE, ch, 0,
+   act("$n &+Ltosses their &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+YConjuring&n &+Linto the &+Cair&+L, which quickly forms an &+Rextra-dimensional &+Lpocket&n!", TRUE, ch, 0,
         tobj, TO_ROOM);
-    act("You &+Ltoss your &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+YConjuring&n &+Linto the &+Cair&+L, which quickly forms an &+Rextra-dimensional &+lpocket&n!", TRUE, ch, 0,
+    act("You &+Ltoss your &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+YConjuring&n &+Linto the &+Cair&+L, which quickly forms an &+Rextra-dimensional &+Lpocket&n!", TRUE, ch, 0,
         tobj, TO_CHAR);
    }
 
