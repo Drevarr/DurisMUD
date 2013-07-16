@@ -2650,7 +2650,21 @@ int itemvalue(P_char ch, P_obj obj)
 	(obj->affected[i].location == APPLY_MANA) 
 	) 
    {
-    workingvalue += (int)(obj->affected[i].modifier*.1);
+    workingvalue += (int)(obj->affected[i].modifier *.1);
+   }
+
+  //racial attributes #'s - 1/10
+   if (
+	(obj->affected[i].location == APPLY_AGI_RACE) ||
+	(obj->affected[i].location == APPLY_STR_RACE) ||
+	(obj->affected[i].location == APPLY_CON_RACE) ||
+	(obj->affected[i].location == APPLY_INT_RACE) ||
+	(obj->affected[i].location == APPLY_WIS_RACE) ||
+	(obj->affected[i].location == APPLY_CHA_RACE) ||
+	(obj->affected[i].location == APPLY_DEX_RACE)
+	)
+   {
+    workingvalue += 30;
    }
 
   //AC negative is good
@@ -2824,6 +2838,20 @@ void display_achievements(P_char ch, char *arg, int cmd)
           "&+LMa&+rst&+Rer of De&+rcep&+Ltion&n", "&+wSuccessfully use 500 disguise kits", "&+wDisguise without disguise kits&n");
   strcat(buf, buf3);
   //-----Master of Deception
+
+  if(GET_CLASS(ch, CLASS_NECROMANCER))
+  {
+  //-----Achievement: Descendent
+  if(GET_RACE(ch) == RACE_PLICH)
+  sprintf(buf3, "  &+L%-50s&+L%-45s&+L%s\r\n",
+          "&+LDe&+msc&+Len&+mde&+Lnt&n", "&+BSuccessfully &+cdescend&+L into darkness", "&+BBecome a Lich&n");
+  else
+  sprintf(buf3, "  &+L%-40s&+L%-51s&+L%s\r\n",
+          "&+LDe&+msc&+Len&+mde&+Lnt&n", "&+wSuccessfully &+cdescend&+w into darkness", "&+wSee &+chelp descend&n");
+  strcat(buf, buf3);
+  //-----Descendent
+  }
+
 
   sprintf(buf3, "\r\n&+L=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-&n\r\n\r\n", GET_NAME(ch));
   strcat(buf, buf3);

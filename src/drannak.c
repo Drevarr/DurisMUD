@@ -334,7 +334,7 @@ int pvp_store(P_char ch, P_char pl, int cmd, char *arg)
 	       "&+LThe Harvester&+L &+wsays 'Simply have them in your &+Winventory&n and buy the item from the list below&n.&+L.&n'\n"
               "&+y=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n"
 		"&+y|		&+cItem Name					           Frags Required       &+y|\n"																
-              "&+y|&+W 1) &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+YConjuring&n&+C%30d&n		                        &+y|\n"
+              "&+y|&+W 1) &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+mM&+Ma&+Wg&+Mi&+mc&n&+C%30d&n		                        &+y|\n"
               "&+y=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n"
 		"\n", 0);
       send_to_char(buffer, pl);
@@ -982,9 +982,9 @@ void do_conjure(P_char ch, char *argument, int cmd)
    if(GET_LEVEL(tobj) > 56 && !IS_TRUSTED(ch))
    {
    vnum_from_inv(ch, 400231, 1);
-   act("$n &+Ltosses their &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+YConjuring&n &+Linto the &+Cair&+L, which quickly forms an &+Rextra-dimensional &+Lpocket&n!", TRUE, ch, 0,
+   act("$n &+Ltosses their &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+mM&+Ma&+Wg&+Mi&+mc&n &+Linto the &+Cair&+L, which quickly forms an &+Rextra-dimensional &+Lpocket&n!", TRUE, ch, 0,
         tobj, TO_ROOM);
-    act("You &+Ltoss your &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+YConjuring&n &+Linto the &+Cair&+L, which quickly forms an &+Rextra-dimensional &+Lpocket&n!", TRUE, ch, 0,
+    act("You &+Ltoss your &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+mM&+Ma&+Wg&+Mi&+mc&n &+Linto the &+Cair&+L, which quickly forms an &+Rextra-dimensional &+Lpocket&n!", TRUE, ch, 0,
         tobj, TO_CHAR);
    }
 
@@ -1266,7 +1266,7 @@ int calculate_shipfrags(P_char ch)
     }
 
     //debug("ownername: %s frags: %d getname: %s\r\n", shipfrags[i].ship->ownername, shipfrags[i].ship->frags, GET_NAME(ch));
-   if(strstr(shipfrags[i].ship->ownername, GET_NAME(ch)))
+   if(!strcmp(shipfrags[i].ship->ownername, GET_NAME(ch)))
 	{
 	 int shipfr = shipfrags[i].ship->frags;
        // debug("shipfr: %d\r\n", shipfr);

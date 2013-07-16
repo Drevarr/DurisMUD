@@ -3435,6 +3435,10 @@ if(d->character->base_stats.Wis < 80)
    //Drannak - set racial skills
     assign_racial_skills(ch);
 
+  //goodie AP fix
+  if(GET_CLASS(ch, CLASS_ANTIPALADIN) && GET_ALIGNMENT(ch) > -10)
+  GET_ALIGNMENT(ch) = -1000;
+
 /*
 if(d->character->player.time.played <  10000000  && !IS_TRUSTED(d->character))
   {

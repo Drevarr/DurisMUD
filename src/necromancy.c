@@ -531,6 +531,7 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
 
   GET_RACE(undead) = undead_data[typ].race;
 
+
   GET_SEX(undead) = SEX_NEUTRAL;
   
   if ((typ >= NECROPET_START) && (typ <= NECROPET_END))
@@ -547,6 +548,8 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
     cap = undead_data[typ].max_level;
 
   undead->player.level = BOUNDED(1, num, cap);
+
+
 
   for (j = 1; j <= MAX_CIRCLE; j++)
     undead->specials.undead_spell_slots[j] =
@@ -588,6 +591,8 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
   StartRegen(undead, EVENT_MANA_REGEN);
   balance_affects(undead);
   undead->only.npc->str_mask = (STRUNG_KEYS | STRUNG_DESC1 | STRUNG_DESC2);
+
+
 
 
   if ((typ >= THEURPET_START) && (typ <= THEURPET_END))
@@ -686,6 +691,13 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
     duration += number(1,10);
     add_event(event_pet_death, (duration+1) * 60 * 4, undead, NULL, NULL, 0, NULL, 0);
   }
+  if(GET_RACE(undead) == RACE_PLICH)
+  {
+  undead->player.m_class = CLASS_CONJURER;
+  undead->player.m_class += CLASS_SORCERER;
+  send_to_char("is lich\r\n", ch);
+  }
+
 }
 
 #undef UNDEAD_TYPES

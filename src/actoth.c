@@ -6046,6 +6046,103 @@ void do_descend(P_char ch, char *arg, int cmd)
 {
   P_char teacher;
   int SELECTION, i = 0;
+  int cost = 0;
+  char second_arg[MAX_INPUT_LENGTH], third_arg[MAX_INPUT_LENGTH];
+  char buff[64];
+
+    if(!GET_CLASS(ch, CLASS_NECROMANCER))
+    {
+      send_to_char("Your convictions aren't appropriate for this endeavour.\n", ch);
+      return;
+    }
+
+  /*  if(GET_RACE(ch) == RACE_PLICH)
+    {
+      send_to_char("You could not get any &+Ldarker&n if you tried.\n", ch);
+      return;
+    }*/
+
+  //Check Items
+  int heart = vnum_in_inv(ch, 57513);
+  int tome = vnum_in_inv(ch, 58424);
+  int book = vnum_in_inv(ch, 500032);
+  int orbs = vnum_in_inv(ch, 400231);
+
+  if  (
+	!heart ||
+	!tome ||
+	!book ||
+	!(orbs > 4))
+   {
+    send_to_char("You are missing a vital &+Lcomponent&n needed to &+cdescend&n farther into &+Ldarkness&n.\r\n", ch);
+    return;
+   }
+
+  //Do descend
+ if(GET_CLASS(ch, CLASS_NECROMANCER))
+    {
+      act
+      ("&+L&+LDeath&n &+Lturns to you, $S stare piercing your very &+Wsoul&+L.\n"
+       "&+LSoftly $E whispers '&+YI see your lust for the darkness is not quenched.  For your dedication\n"
+       "&+YI shall grant you the unspeakable &+rpower &+Lof the &+Rdread&+Y.&+L'\n\n"
+       "&+L&+LDeath&n &+Lapproaches and stands before you, softly chanting\n"
+       "&+Lwhile waving a small, curved &+Csacrificial &+Wkris &+Lbefore your chest. The chanting of\n"
+       "&+Lyour dark master rises to a crescendo as $E raises the &+wdagger &+Lhigh and brings it down\n" 
+       "&+Lfiercely upon your breast.\n\n"
+       "&+LIts sharp blade glides easily through your &+Rflesh&+L, freeing your &+rblood &+Lfrom the shell\n"
+       "&+Lof your body. Your vision fades as your eyes fill with stygian clouds of smoke and vapor.\n"       
+       "&+L&+RS&+re&+Ra&+rr&+Ri&+rn&+Rg pain &+Lrages through your body, awakening nerves and alerting the senses.\n\n"
+       "&+L&+LDeath&n &+Lspeaks once more, '&+YLet &+Ldarkness &+Ybe your &+Wsight&+Y.\n"
+       "&+YRely no longer on &+rmortal &+wsenses&+Y.&+L'\n\n"
+       "&+LVisions of d&+we&+Wa&+wt&+Lh and de&+rst&+Rru&+rct&+Lion &+Lfill your mind and temper your resolve.\n"
+       "&+LA wave of nausea overcomes your body, followed by a &+Rtingling &+Lin your head.\n"
+       "&+LYou fight off the ailments and realize that your new &+wvision &+Lhas returned,\n"
+       "&+Lalong with a sense of &+mpower &+Land &+rduty&+L.\n", FALSE, ch, 0, 0, TO_CHAR);
+      act
+      ("&+L&+LDeath&n &+Lturns to $n &+Land stares, piercing $s very &+Wsoul&+L.\n"
+       "&+LSoftly $E whispers '&+YI see your lust for the darkness is not quenched.  For your dedication\n"
+       "&+YI shall grant you the unspeakable &+rpower &+Lof the &+Rdread&+Y.&+L'\n\n"
+       "&+L&+LDeath&n &+Lapproaches $n &+Land stands before $m&+L, softly\n"
+       "&+Lchanting while waving a small, curved &+Csacrificial &+Wkris &+Lbefore $s chest. The\n"
+       "&+Lchanting of $s dark master rises to a crescendo as $E raises the &+wdagger &+Lhigh and\n"
+       "&+Lbrings it down fiercely upon $s breast.\n\n"
+       "&+LIts sharp blade glides easily through $s &+Rflesh&+L, freeing $s &+rblood &+Lfrom the shell\n"
+       "&+Lof $s body. $n's eyes cloud over with a stygian influx of smoke and vapor.\n"       
+       "&+L$n &+Lwrithes in enormous pain as the transformation begins to take hold of $s body.\n\n"
+       "&+LDeath&n &+Lspeaks once more, '&+YLet &+Ldarkness &+Ybe your &+Wsight&+Y... rely\n"
+       "&+Yno longer on &+rmortal &+wsenses&+Y.&+L'\n\n"
+       "&+LWith the rigors and torment of the &+rtransformation &+Lcomplete, $n &+Lraises $s head\n"
+       "&+Land grins with newfound &+Rmalevolence&+L.", FALSE, ch, 0, 0, TO_ROOM);
+    }
+
+  vnum_from_inv(ch, 57513, 1);
+  vnum_from_inv(ch, 58424, 1);
+  vnum_from_inv(ch, 500032, 1);
+  vnum_from_inv(ch, 400231, 5);
+    
+    GET_HOME(ch) = GET_BIRTHPLACE(ch) = GET_ORIG_BIRTHPLACE(ch) = 98735;
+    char_from_room(ch);
+    char_to_room(ch, real_room(98735), 0);
+    GET_RACEWAR(ch) = 3;
+    GET_SIZE(ch) = SIZE_MEDIUM;
+    GET_RACE(ch) = RACE_PLICH;
+    ch->player.m_class = CLASS_NECROMANCER;
+
+  for (i = 0; i < MAX_SKILLS; i++)
+  {
+    ch->only.pc->skills[i].learned = 0;
+  }
+  ch->points.max_mana = 0;
+  ch->points.max_vitality = 0;
+  NewbySkillSet(ch);
+  do_start(ch, 0);
+  do_save_silent(ch, 1);
+}
+
+void do_old_descend(P_char ch, char *arg, int cmd)
+{
+  P_char teacher;
+  int SELECTION, i = 0;
   const int INVALID = 0;
   const int WARRIOR = 1;
   const int MERC = 2;

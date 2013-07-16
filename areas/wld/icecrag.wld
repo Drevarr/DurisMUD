@@ -343,10 +343,6 @@ S
 &+yof the cliffs start to peek through.&N
 ~
 970 0 4
-D0
-~
-~
-4 0 142400
 D4
 ~
 ~
@@ -991,8 +987,8 @@ S
 970 8 0
 D0
 ~
-door backdoor~
-0 97018 142400
+door backdoor gate~
+3 97018 97132
 D1
 You see the guards walk continue.
 ~
@@ -3406,13 +3402,20 @@ D4
 0 0 97245
 S
 #97132
-Unnamed~
+&+LThe Rear Exit of the Castle&n~
+&+LThe door against the southern wall bears a symbol of skull and snowflakes. A
+&+Llanding of stairs leads below down to a valley stuck between the hills and
+&+Lmountains of the crag.
 ~
-970 0 0
+970 134250504 0
+D0
+~
+~
+0 0 142400
 D2
 ~
 ~
-0 0 97042
+3 97018 97042
 S
 #97133
 Rareload traproom~
