@@ -358,7 +358,7 @@ const struct innate_data
   {"call of the grave", do_call_grave},
   {"sacrilegious power", 0}, // Vampire innate
   {"blur"}, // I have no idea.
-  {"rapier and dirk", 0}, // Swashbuckler
+  {"swashbuckling", 0}, // Swashbuckler
   {"elemental body", 0},
   {"amorphous body", 0},
   {"engulf", do_engulf},
@@ -884,6 +884,9 @@ void assign_innates()
   ADD_CLASS_INNATE(INNATE_NATURAL_MOVEMENT, CLASS_RANGER, 46, SPEC_WOODSMAN);
   
   ADD_CLASS_INNATE(INNATE_RAPIER_DIRK, CLASS_WARRIOR, 1, SPEC_SWASHBUCKLER);
+  ADD_CLASS_INNATE(INNATE_RAPIER_DIRK, CLASS_MERCENARY, 1, 0);
+  ADD_CLASS_INNATE(INNATE_RAPIER_DIRK, CLASS_ROGUE, 1, SPEC_THIEF);
+  ADD_CLASS_INNATE(INNATE_RAPIER_DIRK, CLASS_BARD, 1, 0);
   ADD_CLASS_INNATE(INNATE_MELEE_MASTER, CLASS_WARRIOR, 1, SPEC_SWORDSMAN);
 
   ADD_CLASS_INNATE(INNATE_GUARDIANS_BULWARK, CLASS_WARRIOR, 41, SPEC_GUARDIAN);
@@ -4289,13 +4292,15 @@ void event_hatred_check(P_char ch, P_char victim, P_obj obj, void *data)
       ch, 0, 0, 0, 0, 0);
 }
 
-bool rapier_dirk_check(P_char ch)
+bool rapier_dirk_check(P_char ch) //now known as swashbuckling, single weapon.
 {
   P_obj weapon;
 
-  if((has_innate(ch, INNATE_RAPIER_DIRK) &&
+/*oldcheck: (has_innate(ch, INNATE_RAPIER_DIRK) &&
     (weapon = ch->equipment[PRIMARY_WEAPON]) && IS_SWORD(weapon) &&
-    (weapon = ch->equipment[SECONDARY_WEAPON]) && IS_DIRK(weapon) ) || (GET_CLASS(ch, CLASS_BARD) || (GET_SPEC(ch, CLASS_ROGUE, SPEC_THIEF))))
+    (weapon = ch->equipment[SECONDARY_WEAPON]) && IS_DIRK(weapon) ) || */
+
+  if(GET_CLASS(ch, CLASS_BARD) || GET_CLASS(ch, CLASS_MERCENARY) || GET_SPEC(ch, CLASS_ROGUE, SPEC_THIEF))
   {
     return true;
   }

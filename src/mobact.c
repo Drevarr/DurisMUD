@@ -10304,6 +10304,10 @@ void forget(P_char ch, P_char victim)
   if(!IS_NPC(ch))
     return;
 
+  if(IS_NPC(victim))
+   return; //cannot call get_pid on npc
+
+
   if(!(curr = ch->only.npc->memory))
     return;
 
