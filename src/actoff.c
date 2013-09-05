@@ -1345,6 +1345,13 @@ void do_charge(P_char ch, char *argument, int cmd)
     return;
   
   CharWait(ch, 2 * PULSE_VIOLENCE);
+
+    if (GET_VITALITY(ch) < 30)
+  {
+   send_to_char("You need to gather your energy before attempting to charge.\r\n", ch);
+   return;
+  }
+  GET_VITALITY(ch) -= 30;
   
   if(dir != -1)                /* try and move em */
   {
@@ -8127,6 +8134,13 @@ void bodyslam(P_char ch, P_char victim)
 
   percent_chance =
     takedown_check(ch, victim, percent_chance, SKILL_BODYSLAM, ~AGI_CHECK);
+
+  if (GET_VITALITY(ch) < 30)
+  {
+   send_to_char("You need to gather your energy before attempting to slam someone.\r\n", ch);
+   return;
+  }
+  GET_VITALITY(ch) -= 30;
 
   if(percent_chance == TAKEDOWN_CANCELLED)
   {

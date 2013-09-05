@@ -3397,7 +3397,7 @@ void do_hamstring(P_char ch, char *arg, int cmd)
     af->location = APPLY_MOVE;
 */
 
-    i = number(20, 40);
+    i = number(40, 70);
     if ((GET_VITALITY(vict) - i) < 20)
       i = GET_VITALITY(vict) - 20;
 
