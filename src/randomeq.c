@@ -549,7 +549,7 @@ void create_randoms()
 
 P_obj create_material(int index)
 {
-  char     buf1[MAX_STRING_LENGTH];
+ /* char     buf1[MAX_STRING_LENGTH];
   char     buf2[MAX_STRING_LENGTH];
   char     buf3[MAX_STRING_LENGTH];
 
@@ -567,7 +567,11 @@ P_obj create_material(int index)
   SET_BIT(obj->wear_flags, BIT_15);
   SET_BIT(obj->wear_flags, BIT_1);
 
-  convertObj(obj);
+  convertObj(obj);*/
+
+  int matnum = number(400000, 400209);
+
+  P_obj obj = read_object(matnum, VIRTUAL);
 
   return obj;
 }
