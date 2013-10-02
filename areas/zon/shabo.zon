@@ -433,6 +433,7 @@ G 1 32804 4 0 80 0 0 0             *    an aboleth potion
 G 1 32804 4 0 80 0 0 0             *    an aboleth potion
 M 0 32855 1 32895 100 0 0 0        * an aboleth
 G 1 32866 1 0 100 0 0 0            *    a sapphire encrusted eye
+G 1 32841 1 0 100 0 0 0            *    a net of endless currents
 F 1 32860 2 32895 100 0 0 0        * an iron golem (following)
 F 1 32860 2 32895 100 0 0 0        * an iron golem (following)
 M 0 32882 5 32897 100 0 0 0        * an ixichitl
@@ -485,7 +486,6 @@ M 0 32875 8 32914 100 0 0 0        * a ju-ju zombie
 M 0 32875 8 32914 100 0 0 0        * a ju-ju zombie
 M 0 32878 1 32914 100 0 0 0        * a lost spirit
 M 0 32879 1 32915 100 0 0 0        * Darkaland, the derro savant
-G 1 32841 1 0 100 0 0 0            *    a net of endless currents
 F 1 32880 1 32915 100 0 0 0        * Shaharazar, the efreeti (following)
 M 0 32881 1 32916 100 0 0 0        * the Grand Savant
 E 1 32861 1 2 100 0 0 0            *   a ring of invisibility

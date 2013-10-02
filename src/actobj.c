@@ -5207,6 +5207,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
         if((objchance <= 5) && (number(1, 1000) > GET_C_LUCK(ch)))
           {
            send_to_char("The &+ypoor &nquality and &+Lcraftsmanship&n of the item yield to your force, &+Rbreaking&n the item into unusable bits.\r\n", ch);
+           extract_obj(temp, !IS_TRUSTED(ch));
            return;
           } 
 
