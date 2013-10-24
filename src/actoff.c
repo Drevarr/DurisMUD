@@ -4738,15 +4738,23 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
   damroll_mult = get_property("backstab.DamrollMultiplier", 0.500); 
   strdex_mod = get_property("backstab.StrDexMultiplier", 0.500); 
 
-  dam = (int) GET_DAMROLL(ch) * damroll_mult;
+  dam = (int)((float)GET_DAMROLL(ch) * damroll_mult);
+
   dam += (GET_C_DEX(ch) + GET_C_STR(ch)) * strdex_mod; 
-  dam = (int) dam * (skill / 100);
+
+  dam += (number (2, GET_C_LUCK(ch)) / 2);
+  
+  dam =  (int)((float)dam * ((float)skill / (float)100)); //(goes to 0)
+
   dice_mult = (int) (weapon->value[1] + (weapon->value[2] / 2)) / 2;
   dice_mult += weapon->value[1] + (weapon->value[1] / 2);
   level_mult = (float) GET_LEVEL(ch) / 56;
   dam = (int) dam * (dice_mult * dice_mod);
+
   dam = (int) dam * level_mult;
+
   dam = (int) dam * final_mult;
+
 
  if(IS_AFFECTED(victim, AFF_AWARE) && IS_PC(victim) && ((GET_RACE(ch) != RACE_MOUNTAIN) && (GET_RACE(ch) != RACE_DUERGAR)))
   {
@@ -4762,7 +4770,7 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
   if(IS_IMMOBILE(victim) ||
      GET_STAT(victim) <= STAT_SLEEPING)
       dam = MAX(80, dam);
-  
+
   spinal_tap = get_property("backstab.SpinalTap", 0.150);
   critical_stab = get_property("backstab.CriticalStab", 0.200);
   critical_stab_mult = get_property("backstab.CriticalStab.Multiplier", 1.000);
@@ -4819,6 +4827,7 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
         act("$n attempts to stab $N in the back, but $N's &+Gvines&n quickly absorbs the impact before fading away!",
       FALSE, ch, 0, victim, TO_NOTVICTROOM);
     }
+
    if(affected_by_spell(victim, SPELL_IRONWOOD))
     {
       affect_from_char(victim, SPELL_IRONWOOD);
@@ -4830,7 +4839,7 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
         act("$n attempts to stab $N in the back, but $N's &+yironwood&n quickly absorbs the impact before fading away!",
       FALSE, ch, 0, victim, TO_NOTVICTROOM);
     }
- 
+
   if(GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP) &&
     (notch_skill(ch, SKILL_SPINAL_TAP, get_property("skill.notch.offensive", 15)) ||
     (spinal_tap * GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP)) > number(1, 100)))
@@ -4839,16 +4848,17 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
       (ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages) ||
       !is_char_in_room(ch, room))
           return TRUE;
-    
+
     spinal = TRUE;
   }
+
   //no longer else if - can spinal as well as critical stab.
   if(GET_CHAR_SKILL(ch, SKILL_CRITICAL_STAB) &&
          (notch_skill(ch, SKILL_CRITICAL_STAB, get_property("skill.notch.offensive", 25)) ||
          (critical_stab * GET_CHAR_SKILL(ch, SKILL_CRITICAL_STAB)) > number(1, 100)))
   {
     dam = dam + (dam * critical_stab_mult);
-    
+
     if(melee_damage
       (ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages) ||
       !is_char_in_room(ch, room))
@@ -4880,11 +4890,13 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
         || !char_in_list(ch))
       return TRUE;
     
+
+
+  }
+
    if(obj_index[weapon->R_num].func.obj)
    (*obj_index[weapon->R_num].func.obj) (weapon, ch, CMD_MELEE_HIT,
-   (char *) victim);
-   //  Yes weapon procs on backstabs - Drannak
-  }
+   (char *) victim);   //  Yes weapon procs on backstabs - Drannak
 
   if(weapon->value[4])
   {

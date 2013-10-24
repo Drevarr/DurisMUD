@@ -5610,7 +5610,9 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
     loss = MIN(dam, (10 + GET_HIT(victim)) * 4);
     damage_dealt = (int) dam;
 
+
     dam = ((int) dam) >> 1;
+
 
     if(IS_NPC(ch) &&
       !IS_PC_PET(ch) &&
@@ -5627,8 +5629,9 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
     {
       dam = ((int) dam) >> 1;
     }
-    
+
     dam = BOUNDED(1, (int) dam, 32766);
+
     check_blood_alliance(victim, (int)dam);
 
     if(IS_AFFECTED5(victim, AFF5_IMPRISON) &&
