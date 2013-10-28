@@ -2887,6 +2887,7 @@ int living_necroplasm(P_obj obj, P_char ch, int cmd, char *arg)
         act("$p &+Rburns &+ran angry red &+Las it retreats from your body&n", FALSE, ch, obj, 0, TO_CHAR);
         obj_to_char(unequip_char(ch, plasm_slot), ch);
         // dispel any SPELL_VAMPIRE to prevent cheesing of removing arti, wearing plasm, wearing other arti
+        affect_from_char(ch, SPELL_VAMPIRE);
         if (affected_by_spell(ch, SPELL_VAMPIRE))
         {
           affect_from_char(ch, SPELL_VAMPIRE);
