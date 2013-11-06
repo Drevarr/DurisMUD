@@ -1349,6 +1349,9 @@ void assign_objects(void)
   /* bahamut */
   obj_index[real_object0(25711)].func.obj = mrinlor_whip;
 
+  /* new Tiamat */
+  obj_index[real_object0(135218)].func.obj = sphinx_prefect_crown;
+
 
 //  obj_index[real_object0(22032)].func.obj = warmace_puredark;
 
