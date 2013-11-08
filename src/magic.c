@@ -20463,6 +20463,9 @@ void spell_moonstone(int level, P_char ch, char *arg, int type,
   struct affected_type af, *afp;
   int duration = level * 4 * WAIT_MIN;
 
+  if(IS_NPC(ch))
+  return;
+
   if(IS_SET(world[ch->in_room].room_flags, NO_TELEPORT) ||
       world[ch->in_room].sector_type == SECT_OCEAN) {
     send_to_char("The powers of nature ignore your call for serenity.\n", ch);
