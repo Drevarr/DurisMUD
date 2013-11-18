@@ -2282,7 +2282,7 @@ void do_open(P_char ch, char *argument, int cmd)
 		  send_to_char("You must have the &+Witem&n in your &+Yinventory&n to open it!\r\n", ch);
 		  return;
 		}
-        if(!(obj_index[obj->R_num].virtual_number == 400232))
+        if(!(obj_index[obj->R_num].virtual_number == 400233))
 	 send_to_char("&+mAs you open the &+Mbag&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!\r\n", ch);
         else
 	 send_to_char("&+mAs you open the &+Ychest&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!\r\n", ch);

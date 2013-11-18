@@ -1772,7 +1772,7 @@ bag faerie mystical loot stolen~
 ~
 15 1 3 0 7 0 8201 16385 64 0 0
 100 5 0 100 0 0 0 0
-0 2000000 100
+0 1000000 100
 E
 bag faerie mystical loot stolen~
 &+WHeld together by &+mmagical mists&+W, you wonder just exactly what item might be inside! Only one way to find out!
@@ -1936,7 +1936,7 @@ elven bag rare duris equipment~
 ~
 15 15 3 0 7 0 65545 1 64 0 0
 2 5 0 4 0 0 0 0
-0 10000000 100
+0 0 100
 E
 mystical energies hand-sewn bag~
 &+BSeemingly crafted from magical energies, this bag contains a random item of great power!&n
@@ -1948,7 +1948,7 @@ smoldering chest exceptional duris equipment~
 ~
 15 15 3 0 7 0 65545 1 64 0 0
 2 5 0 4 0 0 0 0
-0 25000000 100
+0 0 100
 E
 mystical energies hand-sewn bag~
 &+BSeemingly crafted from magical energies, this bag contains a random item of great power!&n

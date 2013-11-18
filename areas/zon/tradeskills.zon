@@ -7,5 +7,9 @@
 *
 *
 *
+M 0 400004 1 400000 100 0 0 0      * Lout
+G 1 400217 999 0 100 0 0 0         *    a Mystcal Faerie Bag of stolen loot
+G 1 400232 999 0 100 0 0 0         *    an elven bag of Rare Duris equipment
+G 1 400233 999 0 100 0 0 0         *    a smoldering chest of Exceptional Duris equipment
 *
 S

@@ -1071,6 +1071,7 @@ const char *command[] = {
   "garrote",
   "conjure",
   "dismiss",
+  "enhance",
   "\n"                          /* MAX_CMD_LIST is now 1000 */
 };
 
@@ -2317,6 +2318,7 @@ void assign_command_pointers(void)
    * normal commands (not allowed while fighting)
    */
   CMD_N(CMD_DESCEND, STAT_NORMAL + POS_PRONE, do_descend, 0);
+  CMD_N(CMD_ENHANCE, STAT_NORMAL + POS_PRONE, do_enhance, 0);
   CMD_N(CMD_REMORT, STAT_NORMAL + POS_PRONE, do_remort, 0);
   CMD_N(CMD_SPECIALIZE, STAT_SLEEPING + POS_PRONE, do_specialize, 0);
 //  CMD_N(CMD_SPECIALIZE, STAT_NORMAL + POS_PRONE, do_spec, 0);

@@ -1866,3 +1866,190 @@ int calculate_shipfrags(P_char ch)
   
       return FALSE;
 	  }
+
+void enhance(P_char ch, P_obj source, P_obj material)
+{
+   int mod = 0;
+
+    if(!ch || !source || !material)
+	return;
+	
+   char buf[MAX_STRING_LENGTH];
+	 P_obj robj;
+	 long robjint;
+	 int validobj, searchcount = 0;
+        int sval = itemvalue(ch, source);
+	 validobj = 0;
+	 int val = itemvalue(ch, material);
+
+	if(sval >= 60 && val < 30)
+       {
+      	act("&+RYour &n$p&+R requires an item with at least a &+Wvalue &+Rof &+W30&+R to enhance any further!\r\n", FALSE, ch, source, 0, TO_CHAR);
+       return;
+       }
+	else if(sval >= 50 && val < 20)
+       {
+      	act("&+RYour &n$p&+R requires an item with at least a &+Wvalue &+Rof &+W20&+R to enhance any further!\r\n", FALSE, ch, source, 0, TO_CHAR);
+       return;
+       }
+	else if(sval >= 45 && val < 10)
+       {
+      	act("&+RYour &n$p&+R requires an item with at least a &+Wvalue &+Rof &+W10&+R to enhance any further!\r\n", FALSE, ch, source, 0, TO_CHAR);
+       return;
+       }
+
+	 mod = 1;
+	 
+	 int chluck = (GET_C_LUCK(ch));
+	 if(number(1, 1200) < chluck)
+	 {
+	  mod += 3;
+	  send_to_char("&+YYou feel &+MEXTREMELY Lucky&+Y!\r\n", ch);
+	 }
+	 else if(number(1, 800) < chluck)
+	 {
+	  mod += 2;
+	  send_to_char("&+YYou feel &+MVery Lucky&+Y!\r\n", ch);
+	 }
+	 else if(number(1, 400) < chluck)
+	 {
+	  mod ++;
+	  send_to_char("&+YYou feel &+MLucky&+Y!\r\n", ch);
+	 }
+	 
+	 mod += (itemvalue(ch, source));
+	/*debug sprintf(buf, "validobj value: %d\n\r", validobj);
+	send_to_char(buf, ch);*/
+	 while(validobj == 0)
+	  {
+	 	robjint = number(1300, 134000);
+	 	robj = read_object(robjint, VIRTUAL);
+		validobj = 1;
+		if(!robj)
+		 {
+		  validobj = 0;
+		 }
+		else if(!IS_SET(robj->wear_flags, ITEM_TAKE) || robj->type == ITEM_KEY || IS_SET(robj->extra_flags, ITEM_ARTIFACT) || IS_SET(robj->extra_flags, ITEM_NORENT) || IS_SET(robj->extra_flags, ITEM_NOSHOW) || IS_SET(robj->extra_flags, ITEM_TRANSIENT))
+		 {
+		  validobj = 0;
+                extract_obj(robj, FALSE);
+		 }
+              else if(itemvalue(ch, robj) != mod)
+               {  
+		        validobj = 0;
+                extract_obj(robj, FALSE);
+               }
+              else if(GET_OBJ_VNUM(robj) == GET_OBJ_VNUM(source))
+               {  
+		  validobj = 0;
+                extract_obj(robj, FALSE);
+               }
+              else if(IS_SET(source->wear_flags, ITEM_WIELD) && !IS_SET(robj->wear_flags, ITEM_WIELD))
+               {  
+		  validobj = 0;
+                extract_obj(robj, FALSE);
+               }
+              else if( (IS_SET(source->wear_flags, ITEM_WIELD) && !IS_SET(robj->wear_flags, ITEM_WIELD)) ||
+		(IS_SET(source->wear_flags, ITEM_WEAR_BODY) && !IS_SET(robj->wear_flags, ITEM_WEAR_BODY)) ||
+		(IS_SET(source->wear_flags, ITEM_WEAR_LEGS) && !IS_SET(robj->wear_flags, ITEM_WEAR_LEGS)) ||
+		(IS_SET(source->wear_flags, ITEM_WEAR_ARMS) && !IS_SET(robj->wear_flags, ITEM_WEAR_ARMS)) ||
+		(IS_SET(source->wear_flags, ITEM_WEAR_HEAD) && !IS_SET(robj->wear_flags, ITEM_WEAR_HEAD)) ||
+		(IS_SET(source->wear_flags, ITEM_WEAR_ABOUT) && !IS_SET(robj->wear_flags, ITEM_WEAR_ABOUT)) ||
+		(IS_SET(source->wear_flags, ITEM_WEAR_FEET) && !IS_SET(robj->wear_flags, ITEM_WEAR_FEET)) ||
+		(IS_SET(source->wear_flags, ITEM_WEAR_SHIELD) && !IS_SET(robj->wear_flags, ITEM_WEAR_SHIELD)) ||
+		(IS_SET(source->wear_flags, ITEM_WEAR_HANDS) && !IS_SET(robj->wear_flags, ITEM_WEAR_HANDS)) ||
+		(IS_SET(source->wear_flags, ITEM_WEAR_BACK) && !IS_SET(robj->wear_flags, ITEM_WEAR_BACK))
+		)
+               {  
+		  validobj = 0;
+                extract_obj(robj, FALSE);
+               }
+	   searchcount ++;
+          if(searchcount >  5000)
+          {
+      	act("&+GThe &+ritem gods&+G could not find a better type of &+yitem &+Gthan your &n$p&+G this time. &+WTry again&+G. If your item's value is above &+W55&+G you may have the &+Wbest&+G item of that type!\r\n", FALSE, ch, source, 0, TO_CHAR);
+	return;
+          }
+	  }
+	//Remove Curse, Secret, add Invis
+	if(IS_SET(robj->extra_flags, ITEM_SECRET))
+	 {
+	  REMOVE_BIT(robj->extra_flags, ITEM_SECRET);
+	 }
+	if(IS_SET(robj->extra_flags, ITEM_NODROP))
+	 {
+	  REMOVE_BIT(robj->extra_flags, ITEM_NODROP);
+	 }
+
+ 	if(IS_SET(robj->extra_flags, ITEM_INVISIBLE))
+	{
+         REMOVE_BIT(robj->extra_flags, ITEM_INVISIBLE);
+	}
+	
+
+
+      	act("&+BYour enhancement is a success! You now have &n$p&+B!\r\n", FALSE, ch, robj, 0, TO_CHAR);
+       //debug("search count: %d\r\n", searchcount);
+	obj_to_char(robj, ch);     
+	obj_from_char(source, TRUE);
+       extract_obj(source, FALSE);
+	obj_from_char(material, TRUE);
+       extract_obj(material, FALSE);
+	 statuslog(ch->player.level,
+        "&+MFaerie Bag:&n (%s&n) just got [%d] (%s&n) at [%d]!",
+          GET_NAME(ch),
+          obj_index[robj->R_num].virtual_number,
+          robj->short_description,
+          (ch->in_room == NOWHERE) ? -1 : world[ch->in_room].number);
+       
+	return;
+}
+
+void do_enhance(P_char ch, char *argument, int cmd)
+{
+  P_obj source, material;
+  char     first[MAX_INPUT_LENGTH];
+  char     second[MAX_INPUT_LENGTH];
+  char     rest[MAX_INPUT_LENGTH];
+
+       half_chop(argument, first, rest);
+       half_chop(rest, second, rest);
+       //material = atoi(second);
+
+  if(!argument || !*argument)
+  {
+   send_to_char("&+yWhich &+Witem &+ywould you like to &+men&+Mhan&+mce&+y? &n\r\nSyntax: enhance <source item you want to upgrade> <upgrade material item>\r\n", ch);
+   return;
+  }
+
+  if (!(source = get_obj_in_list_vis(ch, first, ch->carrying)))
+  {
+    act("&+yWhich &+Witem &+ywould you like to &+men&+Mhan&+mce&+y?", FALSE, ch, 0, 0, TO_CHAR);
+    return;
+  }
+
+  if (!(material = get_obj_in_list_vis(ch, second, ch->carrying)))
+  {
+    act("And which object is the enhancement object?", FALSE, ch, 0, 0, TO_CHAR);
+    return;
+  }
+  if(!strcmp(first, second))
+  {
+   send_to_char("&+yYou cannot enhance an item with itself!\r\n", ch);
+   return;
+  }
+  if (!is_salvageable(source))
+  {
+   // act("&+yThe item which you wish to &+Menhance&+y cannot be altered this way... try somethign else&n.", FALSE, ch, 0, 0, TO_CHAR);
+    	act("&+yYour $p&+y cannot be used in this way... try somethign else&n.", FALSE, ch, source, 0, TO_CHAR);
+  return;
+  }
+  if (!is_salvageable(material))
+  {
+    //act("&+yYour &+Menhancement&+y item cannot be used in this way... try somethign else&n.", FALSE, ch, 0, 0, TO_CHAR);
+    	act("&+yYour $p&+y cannot be used in this way... try somethign else&n.", FALSE, ch, material, 0, TO_CHAR);
+  return;
+  }
+
+ enhance(ch, source, material);
+}

@@ -2478,7 +2478,7 @@ int itemvalue(P_char ch, P_obj obj)
 	 workingvalue += 2;
 
  if (IS_SET(obj->bitvector, AFF_SNEAK))
-	 workingvalue += 18;
+	 workingvalue += 35;
 
  if (IS_SET(obj->bitvector, AFF_BARKSKIN))
 	 workingvalue += 4;
@@ -2770,7 +2770,7 @@ int itemvalue(P_char ch, P_obj obj)
    if(workingvalue < 1)
    workingvalue = 1;
 
-   debug("&+YItem value is: &n%d", workingvalue); 
+   //debug("&+YItem value is: &n%d", workingvalue); 
    return workingvalue;
 }
 
