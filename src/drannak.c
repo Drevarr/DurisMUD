@@ -2066,6 +2066,11 @@ void do_enhance(P_char ch, char *argument, int cmd)
     	act("&+yYour $p&+y cannot be used in this way... try somethign else&n.", FALSE, ch, material, 0, TO_CHAR);
   return;
   }
+              else if(GET_OBJ_VNUM(material) == GET_OBJ_VNUM(source))
+               {  
+   send_to_char("&+yYou cannot enhance an item with itself!\r\n", ch);
+   return;
+               }
 
  enhance(ch, source, material);
 }
