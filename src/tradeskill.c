@@ -2459,6 +2459,9 @@ int itemvalue(P_char ch, P_obj obj)
  if (IS_SET(obj->bitvector, AFF_HASTE))
 	 workingvalue += 25;
 
+ if (IS_SET(obj->bitvector, AFF_INVISIBLE))
+	 workingvalue += 30;
+
  if (IS_SET(obj->bitvector, AFF_SENSE_LIFE))
 	 workingvalue += 10;
 
@@ -2667,7 +2670,7 @@ int itemvalue(P_char ch, P_obj obj)
 	(obj->affected[i].location == APPLY_LUCK)
 	)
    {
-    workingvalue += (int)(obj->affected[i].modifier *.5);
+    workingvalue += (int)(obj->affected[i].modifier *.8);
    }
 
   //hit, move, mana, are generally large #'s - 1/10
@@ -2677,7 +2680,7 @@ int itemvalue(P_char ch, P_obj obj)
 	(obj->affected[i].location == APPLY_MANA) 
 	) 
    {
-    workingvalue += (int)(obj->affected[i].modifier *.1);
+    workingvalue += (int)(obj->affected[i].modifier *.5);
    }
 
   //hit, move, mana, regen are generally large #'s - 1/10

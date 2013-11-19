@@ -1877,30 +1877,38 @@ void enhance(P_char ch, P_obj source, P_obj material)
    char buf[MAX_STRING_LENGTH];
 	 P_obj robj;
 	 long robjint;
-	 int validobj, searchcount = 0;
+	 int validobj, cost, searchcount = 0;
         int sval = itemvalue(ch, source);
 	 validobj = 0;
 	 int val = itemvalue(ch, material);
+        int minval = itemvalue(ch, source) - 5;
 
-	if(sval >= 60 && val < 55)
+
+       if(val < minval)
        {
-      	act("&+RYour &n$p&+R requires an item with at least a &+Wvalue &+Rof at least &+W55&+R to enhance any further!\r\n", FALSE, ch, source, 0, TO_CHAR);
-       return;
+        char buf[MAX_STRING_LENGTH];
+        sprintf(buf, "&+RYour %s &+Rrequires an item with at least an &+Witem value of: %d&n\r\n", source, minval);
+        send_to_char(buf, ch);
+        return;
        }
-	else if(sval >= 50 && val < 45)
+
+       if(val <= 20)
        {
-      	act("&+RYour &n$p&+R requires an item with at least a &+Wvalue &+Rof at least &+W45&+R to enhance any further!\r\n", FALSE, ch, source, 0, TO_CHAR);
-       return;
+        cost = 1000;
+	 if (GET_MONEY(ch) < 1000)
+        {
+	  send_to_char("It will require &+W1 platinum&n to &+Benhance&n this item.\r\n", ch);
+         return;
+        }
        }
-	else if(sval >= 45 && val < 40)
+       if(val > 20)
        {
-      	act("&+RYour &n$p&+R requires an item with at least a &+Wvalue &+Rof at least &+W40&+R to enhance any further!\r\n", FALSE, ch, source, 0, TO_CHAR);
-       return;
-       }
-	else if(sval >= 35 && val < 30)
-       {
-      	act("&+RYour &n$p&+R requires an item with at least a &+Wvalue &+Rof at least &+W30&+R to enhance any further!\r\n", FALSE, ch, source, 0, TO_CHAR);
-       return;
+        cost = 10000;
+	 if (GET_MONEY(ch) < 10000)
+        {
+	  send_to_char("It will require &+W10 platinum&n to &+Benhance&n this item.\r\n", ch);
+         return;
+        }
        }
 
 	 mod = 1;
@@ -2001,8 +2009,9 @@ void enhance(P_char ch, P_obj source, P_obj material)
 	{
          REMOVE_BIT(robj->extra_flags, ITEM_INVISIBLE);
 	}
-	
-
+	SET_BIT(robj->extra_flags, ITEM_NOREPAIR);
+	SUB_MONEY(ch, cost, 0);
+       send_to_char("Your pockets feel &+Wlighter&n.\r\n", ch);
 
       	act("&+BYour enhancement is a success! You now have &n$p&+B!\r\n", FALSE, ch, robj, 0, TO_CHAR);
        //debug("search count: %d\r\n", searchcount);
