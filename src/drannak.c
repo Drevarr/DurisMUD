@@ -1877,12 +1877,14 @@ void enhance(P_char ch, P_obj source, P_obj material)
    char buf[MAX_STRING_LENGTH];
 	 P_obj robj;
 	 long robjint;
-	 int validobj, cost, searchcount = 0;
+	 int validobj, cost, searchcount = 0, tries;
         int sval = itemvalue(ch, source);
 	 validobj = 0;
 	 int val = itemvalue(ch, material);
         int minval = itemvalue(ch, source) - 5;
 
+       if(IS_SET(source->wear_flags, ITEM_GUILD_INSIGNIA))
+       minval +=10;
 
        if(val < minval)
        {
@@ -1939,6 +1941,7 @@ void enhance(P_char ch, P_obj source, P_obj material)
 	 	robjint = number(1300, 134000);
 	 	robj = read_object(robjint, VIRTUAL);
 		validobj = 1;
+
 		if(!robj)
 		 {
 		  validobj = 0;
@@ -1990,11 +1993,12 @@ void enhance(P_char ch, P_obj source, P_obj material)
                 extract_obj(robj, FALSE);
                }
 	   searchcount ++;
-          if(searchcount >  5000)
+          if(searchcount >  20000)
           {
       	act("&+GThe &+ritem gods&+G could not find a better type of &+yitem &+Gthan your &n$p&+G this time. &+WTry again&+G. If your item's value is above &+W55&+G you may have the &+Wbest&+G item of that type!\r\n", FALSE, ch, source, 0, TO_CHAR);
 	return;
           }
+
 	  }
 	//Remove Curse, Secret, add Invis
 	if(IS_SET(robj->extra_flags, ITEM_SECRET))

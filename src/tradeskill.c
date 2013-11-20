@@ -2666,8 +2666,11 @@ int itemvalue(P_char ch, P_obj obj)
  if (IS_SET(obj->bitvector4, AFF4_WILDMAGIC))
 	 workingvalue += 50;
 
- if(IS_SET(obj->wear_flags, ITEM_WIELD) && (obj->value[5] != 0)) //has a proc
-   workingvalue +=40;
+ if(IS_SET(obj->wear_flags, ITEM_WIELD) && (obj->value[5] > 1000)) //has a ghetto proc
+  {
+   workingvalue +=50;
+   //send_to_char("ghetto proc\r\n", ch);
+  }
 
   //------- A0/A1 -------------  
  int i = 0; 
@@ -2714,7 +2717,7 @@ int itemvalue(P_char ch, P_obj obj)
 	(obj->affected[i].location == APPLY_MANA_REG) 
 	) 
    {
-    workingvalue += (int)(obj->affected[i].modifier *.2);
+    workingvalue += (int)(obj->affected[i].modifier *.3);
    }
 
   //racial attributes #'s - 1/10
@@ -2728,18 +2731,15 @@ int itemvalue(P_char ch, P_obj obj)
 	(obj->affected[i].location == APPLY_DEX_RACE)
 	)
    {
-    workingvalue += 30;
+    workingvalue += 60;
    }
 
   //obj procs
-   if(obj_index[obj->R_num].func.obj)
+   if(obj_index[obj->R_num].func.obj && i < 1)
    {
-    workingvalue += 20;
+    workingvalue += 50;
    }
 
-   //ghetto procs
-   if((obj->value[4] > 0) && (obj->type == ITEM_WEAPON))
-   workingvalue += 20;
   
 
   //AC negative is good
@@ -2759,7 +2759,7 @@ int itemvalue(P_char ch, P_obj obj)
 	(obj->affected[i].location == APPLY_SAVING_SPELL)
 	)
    {
-    workingvalue -= obj->affected[i].modifier;
+    workingvalue -= obj->affected[i].modifier * 2;
    }
 
   //pulse is quite valuable and negative is good

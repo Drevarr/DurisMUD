@@ -992,7 +992,7 @@ fang inhabitation~
 ~
 4 10 0 0 7 0 0 16389 64 0 0
 6 16 16 159 0 0 0 0
-0 15343 100 8192 0 0 0
+0 15343 100 8194 0 0 0
 E
 fang inhabitation~
    &+LThis four-inch &+rdevil's &+Wfang&+L is attached to a bit of string.
@@ -1045,14 +1045,14 @@ stitched sleeves knights raven~
 ~
 9 3 3 0 14 0 0 257 64 0 0
 10 0 0 0 0 0 0 0
-0 45332 100
+0 45332 100 8192 4 0 0
 E
 stitched sleeves knights raven~
    &+LThese sleeves are stitched very finely of silk in the pattern of the Knights of
 &+Lthe Raven.  They are comfortable and emit a deep, evil magical power.
 ~
 A
-5 13
+35 8
 A
 17 -50
 #58365
@@ -1062,7 +1062,7 @@ stitched leggings knights raven~
 ~
 9 3 3 0 14 0 0 33 64 0 0
 10 0 0 0 0 0 0 0
-0 45332 100
+0 45332 100 0 0 0 4096
 E
 stitched leggings knights raven~
    &+LThese leggings have been stitched of the finest silks with magical threads.
@@ -1070,7 +1070,7 @@ stitched leggings knights raven~
 &+Larmament of the ancient Barovian protectorate.
 ~
 A
-5 13
+35 8
 A
 17 -50
 #58366
@@ -1096,9 +1096,9 @@ embroidered tunic knights raven~
 ~
 9 3 3 0 14 0 0 9 64 0 0
 40 0 0 4 0 0 0 0
-0 238343 100
+0 238343 100 268443648 0 0 0
 A
-35 5
+35 10
 A
 17 -125
 #58368
@@ -1377,7 +1377,7 @@ barbed sleeves oozing slime~
 ~
 9 10 4 0 4 0 4096 257 64 0 0
 15 0 0 5 1 0 0 0
-1 16534 100 8 0 0 0
+1 16534 100 8 12480 0 0
 E
 barbed sleeves oozing slime~
    &+LThese &+rbarbed &+Lsleeves are hollowed out demon arms, remaining as dangling
@@ -1394,7 +1394,7 @@ shokurung'otaghe'rakag'onk'rakag axe ill repute~
 ~
 5 19 4 0 7 0 0 8193 64 0 0
 1 5 3 0 0 1406255004 56 31
-11 200343 100
+11 200343 100 16 0 0 0
 E
 shokurung'otaghe'rakag'onk'rakag axe ill repute~
 &+YShokurung'otaghe'rakag'onk'rakag&+W is a legendary axe of ill repute.  Originally
@@ -1751,9 +1751,9 @@ _room_msg~
 &N$N cries out in pain as an &+Lacidic &+Gs&+Lp&+Gi&+Lk&+Ge &Nbreaks off in the &+rwound&N, &+Rb&N&+ru&+Rr&N&+rn&+Ri&N&+rn&+Rg &Nand &+Ys&Ni&+Yz&nz&+Yl&Ni&+Yn&Ng.
 ~
 A
-18 5
+58 -1
 A
-1 11
+31 10
 #58406
 bone throne slime~
 &+Lthe &+Wbone throne &+Lof &+gs&+Gl&+gi&+Gm&+ge&N~

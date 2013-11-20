@@ -1,4 +1,4 @@
 set MainZoneName ravenloft
-set LASTCOMMAND edit zone
+set LASTCOMMAND list o
 set STARTROOM 58564
 set ObjAffect true
