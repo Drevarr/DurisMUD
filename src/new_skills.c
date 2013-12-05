@@ -1987,13 +1987,8 @@ void mount_summoning_thing(P_char ch, P_char victim, P_obj obj, void *data)
       return;
     }
   }
-  
-  if(GET_RACE(ch) == RACE_GOBLIN)
-  {
-    mount = read_mobile( 39 , VIRTUAL);
-  }
-  
-  else if(IS_EVIL(ch) &&
+    
+  if(IS_EVIL(ch) &&
           GET_CLASS(ch, CLASS_ANTIPALADIN))
   {
     mount = read_mobile(GET_SPEC(ch, CLASS_ANTIPALADIN, SPEC_DEMONIC) ? 1234 : 1231, VIRTUAL);
@@ -2002,6 +1997,10 @@ void mount_summoning_thing(P_char ch, P_char victim, P_obj obj, void *data)
           GET_CLASS(ch, CLASS_PALADIN))
   {
     mount = read_mobile(GET_SPEC(ch, CLASS_PALADIN, SPEC_CAVALIER) ? 1235 : 1232, VIRTUAL);
+  }
+  else if(GET_RACE(ch) == RACE_GOBLIN)
+  {
+    mount = read_mobile( 39 , VIRTUAL);
   }
   else
   {

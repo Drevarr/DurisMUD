@@ -46,7 +46,16 @@ rm -f command_attributes.txt
 FUNCTIONNAME="void do_apply_poison"
 parsefile
 
+FUNCTIONNAME="void armlock_check"
+parsefile
+
+FUNCTIONNAME="void do_awareness"
+parsefile
+
 FUNCTIONNAME="bool backstab"
+parsefile
+
+FUNCTIONNAME="int bard_calc_chance"
 parsefile
 
 FUNCTIONNAME="void event_barrage"
@@ -58,10 +67,19 @@ parsefile
 FUNCTIONNAME="void battle_orders"
 parsefile
 
+FUNCTIONNAME="void event_bearhug"
+parsefile
+
 FUNCTIONNAME="void do_berserk"
 parsefile
 
+FUNCTIONNAME="void do_blood_scent"
+parsefile
+
 FUNCTIONNAME="void do_bodyslam"
+parsefile
+
+FUNCTIONNAME="void branch"
 parsefile
 
 FUNCTIONNAME="void buck"
@@ -70,10 +88,16 @@ parsefile
 FUNCTIONNAME="void event_combination"
 parsefile
 
+FUNCTIONNAME="void do_chant"
+parsefile
+
 FUNCTIONNAME="void do_charge"
 parsefile
 
 FUNCTIONNAME="bool circle"
+parsefile
+
+FUNCTIONNAME="void do_conjure"
 parsefile
 
 FUNCTIONNAME="void do_craft"
@@ -85,7 +109,19 @@ parsefile
 FUNCTIONNAME="void do_disarm"
 parsefile
 
+FUNCTIONNAME="void do_disguise"
+parsefile
+
 FUNCTIONNAME="void do_drag"
+parsefile
+
+FUNCTIONNAME="void do_dragon_punch"
+parsefile
+
+FUNCTIONNAME="void do_enhance"
+parsefile
+
+FUNCTIONNAME="void do_feign_death"
 parsefile
 
 FUNCTIONNAME="bool flank"
@@ -106,10 +142,19 @@ parsefile
 FUNCTIONNAME="void gaze"
 parsefile
 
+FUNCTIONNAME="void do_groundslam"
+parsefile
+
 FUNCTIONNAME="void do_hamstring"
 parsefile
 
 FUNCTIONNAME="void do_headbutt"
+parsefile
+
+FUNCTIONNAME="void event_headlock"
+parsefile
+
+FUNCTIONNAME="P_char guard_check"
 parsefile
 
 FUNCTIONNAME="void do_hide"
@@ -121,10 +166,19 @@ parsefile
 FUNCTIONNAME="void do_hitall"
 parsefile
 
+FUNCTIONNAME="void do_holy_smite"
+parsefile
+
 FUNCTIONNAME="void do_infuriate"
 parsefile
 
 FUNCTIONNAME="void kick"
+parsefile
+
+FUNCTIONNAME="void do_layhand"
+parsefile
+
+FUNCTIONNAME="void event_leglock"
 parsefile
 
 FUNCTIONNAME="void do_listen"
@@ -142,10 +196,16 @@ parsefile
 FUNCTIONNAME="void parlay"
 parsefile
 
+FUNCTIONNAME="void do_quaff"
+parsefile
+
 FUNCTIONNAME="void do_rage"
 parsefile
 
 FUNCTIONNAME="void do_rampage"
+parsefile
+
+FUNCTIONNAME="void do_recite"
 parsefile
 
 FUNCTIONNAME="void rescue"
@@ -158,6 +218,9 @@ FUNCTIONNAME="void do_rearkick"
 parsefile
 
 FUNCTIONNAME="void do_retreat"
+parsefile
+
+FUNCTIONNAME="void do_riff"
 parsefile
 
 FUNCTIONNAME="int chance_roundkick"
@@ -229,7 +292,13 @@ parsefile
 FUNCTIONNAME="void do_trip"
 parsefile
 
+FUNCTIONNAME="void do_use"
+parsefile
+
 FUNCTIONNAME="void do_war_cry"
+parsefile
+
+FUNCTIONNAME="void webwrap"
 parsefile
 
 FUNCTIONNAME="void do_whirlwind"
@@ -237,209 +306,6 @@ parsefile
 
 exit
 
-actoth.c:void do_quaff(P_char ch, char *argument, int cmd)
-actoth.c:void do_recite(P_char ch, char *argument, int cmd)
-actoth.c:void do_use(P_char ch, char *argument, int cmd)
-actoth.c:void do_more(P_char ch, char *arg, int cmd)
-actoth.c:void do_toggle(P_char ch, char *arg, int cmd)
-actoth.c:void do_rub(P_char ch, char *argument, int cmd)
-actoth.c:void do_split(P_char ch, char *argument, int cmd)
-actoth.c:void do_reboot(P_char ch, char *argument, int cmd)
-actoth.c:void do_bury(P_char ch, char *argument, int cmd)
-actoth.c:void do_dig(P_char ch, char *argument, int cmd)
-actoth.c:void do_donate(P_char ch, char *argument, int cmd)
-actoth.c:void do_fly(P_char ch, char *argument, int cmd)
-actoth.c:void do_swim(P_char ch, char *argument, int cmd)
-actoth.c:void do_suicide(P_char ch, char *argument, int cmd)
-actoth.c:void do_climb(P_char ch, char *argument, int cmd)
-actoth.c:void do_lick(P_char ch, char *argument, int cmd)
-actoth.c:void do_nothing(P_char ch, char *argument, int cmd)
-actoth.c:void do_blood_scent(P_char ch, char *argument, int cmd)
-actoth.c:void do_ascend(P_char ch, char *arg, int cmd)
-actoth.c:void do_descend(P_char ch, char *arg, int cmd)
-actoth.c:void do_old_descend(P_char ch, char *arg, int cmd)
-actset.c:void do_setbit(P_char ch, char *arg, int cmd)
-alliances.c:void do_alliance(P_char ch, char *arg, int cmd)
-alliances.c:void do_acc(P_char ch, char *argument, int cmd)
-artifact.c:void do_artifact(P_char ch, char *arg, int cmd)
-assocs.c:void do_supervise(P_char god, char *argument, int cmd)
-assocs.c:void do_asclist(P_char god, char *argument, int cmd)
-assocs.c:void do_society(P_char member, char *argument, int cmd)
-assocs.c:void do_gmotd(P_char ch, char *argument, int cmd)
-assocs.c:void do_prestige(P_char ch, char *argument, int cmd)
-assocs.c:void do_prestige(P_char ch, char *argument, int cmd)
-auction.c:void do_auction(P_char ch, char *argument, int dummy)
-automatic_rules.c:void do_raid(P_char ch, char *argument, int cmd)
-avengers.c:void do_holy_smite(P_char ch, char *argument, int cmd)
-bard.c:void do_bardsing(P_char ch, char *arg)
-bard.c:void do_bardcheck_action(P_char ch, char *arg, int cmd)
-bard.c:void do_play(P_char ch, char *arg, int cmd)
-bard.c:void do_riff(P_char ch, char *arg, int cmd)
-boon.c:void do_boon(P_char ch, char *argument, int cmd)
-buildings.c:void do_build(P_char ch, char *argument, int cmd)
-ctf.c:void do_ctf(P_char ch, char *arg, int cmd) 
-ctf.c:void do_ctf(P_char ch, char *arg, int cmd)
-debug.c:void do_debug(P_char ch, char *argument, int cmd)
-debug.c:void do_mreport(P_char ch, char *argument, int cmd)
-disguise.c:void do_disguise(P_char ch, char *arg, int cmd)
-drannak.c:void do_conjure(P_char ch, char *argument, int cmd)
-drannak.c:void do_dismiss(P_char ch, char *argument, int cmd)
-drannak.c:void do_enhance(P_char ch, char *argument, int cmd)
-dreadlord.c:void do_dread_wrath(P_char ch, P_char victim)
-epic_bonus.c:void do_epic_bonus(P_char ch, char *arg, int cmd)
-epic.c:void do_summon_blizzard(P_char ch, char *argument, int cmd)
-epic.c:void do_summon_familiar(P_char ch, char *argument, int cmd)
-epic.c:void do_epic(P_char ch, char *arg, int cmd)
-epic.c://void do_epic_zones(P_char ch, char *arg, int cmd)
-epic.c:/*void do_epic_reset(P_char ch, char *arg, int cmd)
-epic.c:void do_epic_zones(P_char ch, char *arg, int cmd)
-epic.c:void do_epic_share(P_char ch, char *arg, int cmd)
-epic.c:void do_epic_trophy(P_char ch, char *arg, int cmd)
-epic.c:void do_epic_skills(P_char ch, char *arg, int cmd)
-epic.c:void do_infuse(P_char ch, char *arg, int cmd)
-epic.c:void do_epic_reset_norefund(P_char ch, char *arg, int cmd)
-epic.c:void do_epic_reset(P_char ch, char *arg, int cmd)
-fight.c:void do_trophy_mob(P_char ch, char *arg, int cmd)
-grapple.c:void do_bearhug(P_char ch, char *argument, int cmd)
-grapple.c:void do_headlock(P_char ch, char *argument, int cmd)
-grapple.c:void do_leglock(P_char ch, char *argument, int cmd)
-grapple.c:void do_groundslam(P_char ch, char *argument, int cmd)
-group.c:void do_group(P_char ch, char *argument, int cmd)
-group.c:void do_disband(P_char ch, char *arg, int cmd)
-guard.c:void do_guard(P_char ch, char *argument, int cmd)
-guild.c:void do_practice_new(P_char ch, char *arg, int cmd);
-guild.c:void do_spells(P_char ch, char *argument, int cmd)
-guild.c:void do_skills(P_char ch, char *argument, int cmd)
-guild.c:void do_practice(P_char ch, char *arg, int cmd)
-guild.c:void do_practice_new( P_char ch, char *arg, int cmd )
-guildhall_cmds.c:void do_construct_overmax(P_char ch, char *arg);
-guildhall_cmds.c:void do_construct_guildhall(P_char ch, char *arg);
-guildhall_cmds.c:void do_construct_destroy(P_char ch, char *arg);
-guildhall_cmds.c:void do_construct_reset(P_char ch, char *arg);
-guildhall_cmds.c:void do_construct_room(P_char ch, char *arg);
-guildhall_cmds.c:void do_construct_golem(P_char ch, char *arg);
-guildhall_cmds.c:void do_construct_upgrade(P_char ch, char *arg);
-guildhall_cmds.c:void do_construct_rename(P_char ch, char *arg);
-guildhall_cmds.c:void do_guildhall_list(P_char ch, char *arg);
-guildhall_cmds.c:void do_guildhall_destroy(P_char ch, char *arg);
-guildhall_cmds.c:void do_guildhall_reload(P_char ch, char *arg);
-guildhall_cmds.c:void do_guildhall_status(P_char ch, char *arg);
-guildhall_cmds.c:void do_guildhall_info(P_char ch, char *arg);
-guildhall_cmds.c:void do_guildhall_move(P_char ch, char *arg);
-guildhall_cmds.c:void do_construct(P_char ch, char *arg, int cmd)
-guildhall_cmds.c:void do_construct_overmax(P_char ch, char *arg)
-guildhall_cmds.c:void do_construct_guildhall(P_char ch, char *arg)
-guildhall_cmds.c:void do_construct_room(P_char ch, char *arg)
-guildhall_cmds.c:void do_construct_golem(P_char ch, char *arg)
-guildhall_cmds.c:void do_construct_upgrade(P_char ch, char *arg)
-guildhall_cmds.c:void do_construct_rename(P_char ch, char *arg)
-guildhall_cmds.c:void do_guildhall(P_char ch, char *arg, int cmd)
-guildhall_cmds.c:void do_guildhall_list(P_char ch, char *arg)
-guildhall_cmds.c:void do_guildhall_destroy(P_char ch, char *arg)
-guildhall_cmds.c:void do_guildhall_reload(P_char ch, char *arg)
-guildhall_cmds.c:void do_guildhall_status(P_char ch, char *arg)
-guildhall_cmds.c:void do_guildhall_info(P_char ch, char *arg)
-guildhall_cmds.c:void do_guildhall_move(P_char ch, char *arg)
-innates.c:void do_disappear(P_char ch, char *arg, int cmd)
-innates.c:void do_innate_embrace_death(P_char ch)
-innates.c:void do_innate_anti_evil(P_char ch, P_char vict)
-innates.c:void do_innate_decrepify(P_char ch, P_char victim)
-innates.c:void do_throw_lightning(P_char ch, char *argument, int cmd)
-innates.c:void do_levitate(P_char ch, char *arg, int cmd)
-innates.c:void do_bite(P_char ch, char *arg, int cmd)
-innates.c:void do_innate_gaze(P_char ch, char *arg, int cmd)
-innates.c:void do_darkness(P_char ch, char *arg, int cmd)
-innates.c:void do_shift_astral(P_char ch, char *arg, int cmd)
-innates.c:void do_shift_ethereal(P_char ch, char *arg, int cmd)
-innates.c:void do_shift_prime(P_char ch, char *arg, int cmd)
-innates.c:void do_blast(P_char ch, char *arg, int cmd)
-innates.c:void do_faerie_fire(P_char ch, char *arg, int cmd)
-innates.c:void do_ud_invisibility(P_char ch, char *arg, int cmd)
-innates.c:void do_strength(P_char ch, char *arg, int cmd)
-innates.c:void do_reduce(P_char ch, char *arg, int cmd)
-innates.c:void do_enlarge(P_char ch, char *arg, int cmd)
-innates.c:void do_wall_climbing(P_char ch, char *arg, int cmd)
-innates.c:void do_flurry(P_char ch, char *arg, int cmd)
-innates.c:void do_plane_shift(P_char ch, char *arg, int cmd)
-innates.c:void do_charm_animal(P_char ch, char *arg, int cmd)
-innates.c:void do_dispel_magic(P_char ch, char *arg, int cmd)
-innates.c:void do_mass_dispel(P_char ch, char *arg, int cmd)
-innates.c:void do_globe_of_darkness(P_char ch, char *arg, int cmd)
-innates.c:void do_innate_hide(P_char ch, char *arg, int cmd)
-innates.c:void do_project_image(P_char ch, char *arg, int cmd)
-innates.c:void do_fireball(P_char ch, char *arg, int cmd)
-innates.c:void do_fireshield(P_char ch, char *arg, int cmd)
-innates.c:void do_firestorm(P_char ch, char *arg, int cmd)
-innates.c:void do_dimension_door(P_char ch, char *arg, int cmd)
-innates.c:void do_battle_rage(P_char ch, char *arg, int cmd)
-innates.c:void do_phantasmal_form(P_char ch, char *arg, int cmd)
-innates.c:void do_stone_skin(P_char ch, char *arg, int cmd)
-innates.c:void do_shade_movement(P_char ch, char *arg, int cmd)
-innates.c:void do_god_call(P_char ch, char *args, int cmd)
-innates.c:void do_doorbash(P_char ch, char *arg, int cmd)
-innates.c:void do_doorkick(P_char ch, char *arg, int cmd)
-innates.c:void do_tupor(P_char ch, char *arg, int cmd)
-innates.c:void do_breath(P_char ch, char *arg, int cmd)
-innates.c:void do_stomp(P_char ch, char *arg, int cmd)
-innates.c:void do_sweep(P_char ch, char *arg, int cmd)
-innates.c:void do_innate(P_char ch, char *arg, int cmd)
-innates.c:void do_conjure_water(P_char ch, char *arg, int cmd)
-innates.c:void do_foundry(P_char ch, char *arg, int cmd)
-innates.c:void do_engulf(P_char ch, char *argument, int cmd)
-innates.c:void do_slime(P_char ch, char *argument, int cmd)
-innates.c:void do_branch(P_char ch, char *argument, int cmd)
-innates.c:void do_webwrap(P_char ch, char *argument, int cmd)
-innates.c:void do_summon_imp(P_char ch, char *argument, int cmd)
-innates.c:void do_lifedrain(P_char ch, char *argument, int cmd)
-innates.c:void do_immolate(P_char ch, char *argument, int cmd)
-innates.c:void do_fade(P_char ch, char *argument, int cmd)
-innates.c:void do_layhand(P_char ch, char *argument, int cmd)
-innates.c:void do_aura_protection(P_char ch, char *arg, int cmd) {
-innates.c:void do_aura_precision(P_char ch, char *arg, int cmd) {
-innates.c:void do_aura_battlelust(P_char ch, char *arg, int cmd) {
-innates.c:void do_aura_healing(P_char ch, char *arg, int cmd) {
-innates.c:void do_aura_endurance(P_char ch, char *arg, int cmd) {
-innates.c:void do_aura_vigor(P_char ch, char *arg, int cmd) {
-innates.c:void do_divine_force(P_char ch, char *arg, int cmd)
-interp.c:void do_prestige(P_char ch, char *argument, int cmd);
-interp.c:void do_confirm(P_char ch, int yes)
-justice.c:void do_justice(P_char ch, char *arg, int cmd)
-justice.c:void do_report_crime(P_char ch, char *arg, int cmd)
-justice.c:void do_sorta_yell(P_char ch, char *str)
-language.c:void do_speak(P_char ch, char *argument, int cmd)
-magic.c:void do_nothing_spell(int level, P_char ch, char *arg, int type,
-magic.c:void do_pleasantry(P_char ch, char *argument, int cmd)
-magic.c:void do_soulbind(P_char ch, char *argument, int cmd)
-mail.c:void do_mail(P_char ch, char *arg, int cmd)
-makeexit.c:void do_makeexit(P_char ch, char *arg, int cmd)
-memorize.c:void do_assimilate(P_char ch, char *argument, int cmd)
-memorize.c:void do_npc_commune(P_char ch)
-memorize.c:void do_memorize(P_char ch, char *argument, int cmd)
-memorize.c:void do_forget(P_char ch, char *argument, int cmd)
-memorize.c:void do_teach(P_char ch, char *arg, int cmd)
-memorize.c:void do_scribe(P_char ch, char *arg, int cmd)
-mobact.c:void do_npc_commune(P_char ch);
-modify.c:void do_string(P_char ch, char *arg, int cmd)
-modify.c:void do_rename(P_char ch, char *arg, int cmd)
-mount.c:void do_mount(P_char ch, char *argument, int cmd)
-mount.c:void do_dismount(P_char ch, char *argument, int cmd)
-mount.c:void do_hitch_vehicle(P_char ch, char *arg, int cmd)
-mount.c:void do_unhitch_vehicle(P_char ch, char *arg, int cmd)
-multiplay_whitelist.c:void do_whitelist_help(P_char ch)
-multiplay_whitelist.c:void do_whitelist(P_char ch, char *argument, int cmd)
-necromancy.c:void do_exhume(P_char ch, char *argument, int cmd)
-necromancy.c:void do_spawn(P_char ch, char *argument, int cmd)
-necromancy.c:void do_summon_host(P_char ch, char *argument, int cmd)
-necromancy.c:void do_remort(P_char ch, char *arg, int cmd) 
-new_combat_user.c:void do_condition(P_char ch, char *argument, int cmd)
-new_skills.c:void do_awareness(P_char ch, char *argument, int cmd)
-new_skills.c:void do_feign_death(P_char ch, char *arg, int cmd)
-new_skills.c:void do_first_aid(P_char ch, char *arg, int cmd)
-new_skills.c:void do_chant(P_char ch, char *argument, int cmd)
-new_skills.c:void do_dragon_punch(P_char ch, char *argument, int cmd)
-new_skills.c:void do_OLD_bandage(P_char ch, char *arg, int cmd)
-new_skills.c:void do_summon_book(P_char ch, char *arg, int cmd)
-new_skills.c:void do_summon_totem(P_char ch, char *arg, int cmd)
 new_skills.c:void do_summon_mount(P_char ch, char *arg, int cmd)
 new_skills.c:void do_summon_warg(P_char ch, char *arg, int cmd)
 new_skills.c:void do_summon_orc(P_char ch, char *arg, int cmd)
@@ -452,10 +318,6 @@ new_skills.c:void do_appraise(P_char ch, char *argument, int cmd)
 new_skills.c:void do_chi(P_char ch, char *argument, int cmd)
 new_skills.c:void do_lotus(P_char ch, char *argument, int cmd)
 new_skills.c:void do_true_strike(P_char ch, char *argument, int cmd)
-nexus_stones.c:void do_nexus(P_char ch, char *arg, int cmd) 
-nexus_stones.c:void do_nexus(P_char ch, char *arg, int cmd)
-nq.c:void do_quest2(P_char ch, char *args, int cmd)
-olc.c:void do_olc(P_char ch, char *arg, int cmd)
 old_guildhalls.c:void do_build_secret(P_house house, P_char ch);
 old_guildhalls.c:void do_construct_guild(P_char, int);
 old_guildhalls.c:void do_delete_room(P_house house, P_char ch, char *arg);
