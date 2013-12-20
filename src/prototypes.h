@@ -1022,11 +1022,8 @@ void checkHallOfFame(P_char ch, char thekiller[1024]);
 void writeHallOfFame(P_char ch, char thekiller[1024]);
 
 /* leaderboard.c */
-long getLeaderBoardPts(P_char);
-void deleteLeaderEntry(char names[15][MAX_STRING_LENGTH], int frags[15], int pos, char killer[15][MAX_STRING_LENGTH]);
-void insertLeaderEntry(char names[15][MAX_STRING_LENGTH], int frags[15], char *name, int newFrags, int pos, char killer[15][MAX_STRING_LENGTH], char *killername);
 void checkLeaderBoard(P_char ch);
-void writeLeaderBoard(P_char ch);
+long getLeaderBoardPts(P_char ch);
 
 /* period.list.c */
 void place_period_books();

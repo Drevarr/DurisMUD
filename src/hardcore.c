@@ -61,9 +61,6 @@ extern struct str_app_type str_app[];
 extern struct time_info_data time_info;
 extern struct zone_data *zone_table;
 
-#define MAX_HALLOFFAME_SIZE    20       /* max size of high/low lists */
-#define MAX_LEADERBOARD_SIZE   20       /* max size of high/low lists */
-
 int getHardCorePts(P_char ch)
 { 
   int hardcorepts = (GET_LEVEL(ch) * 1000) + (ch->points.curr_exp / 10000) +
@@ -476,15 +473,6 @@ void displayLeader(P_char ch, char *arg, int cmd)
   page_string(ch->desc, buf, 1);
 }
 
-void checkLeaderBoard( P_char ch )
-{
-
-  if( !ch )
-    return;
-
-  writeLeaderBoard( ch );
-}
-
 void writeLeaderBoard( P_char ch )
 {
   FILE    *halloffamelist;
@@ -580,3 +568,13 @@ void writeLeaderBoard( P_char ch )
     fclose(halloffamelist);
   }
 }
+
+void checkLeaderBoard( P_char ch )
+{
+
+  if( !ch )
+    return;
+
+  writeLeaderBoard( ch );
+}
+
