@@ -4810,15 +4810,23 @@ disguise kit _disguise_kit_~
 ~
 12 13 2 5 7 0 134217728 8404993 0 0 0
 0 0 0 0 0 0 0 0
-5 25000 100
+5 25000 100 1 2 3 4
 #501
 lohrr pain equipment~
 &+gLohrr's item of pain&N~
 &+gLohrr's item of pain lies here.&N~
 ~
-12 13 2 5 7 0 134217728 2147483647 0 0 0
-0 0 0 0 0 0 0 0
-5 25000 100
+5 13 2 5 7 1 1 276708862 0 0 0
+14 6 6 2 0 0 0 0
+0 0 100 957983678 142915807 18628840 131086080
+A
+31 5
+A
+18 3
+A
+19 5
+A
+33 5
 #560
 hide deerskin glyph piece~
 &+ya glyph covered deerskin hide&N~

@@ -13,6 +13,7 @@
 
 extern P_room world;
 extern int top_of_objt;
+extern bool has_skin_spell(P_char);
 
 int adjacent_room_nesw(P_char ch, int num_rooms );
 P_ship leviathan_find_ship( P_char leviathan, int room, int num_rooms );
@@ -69,12 +70,16 @@ int proc_lohrr( P_obj obj, P_char ch, int cmd, char *argument )
     case WIELD2:
     case WIELD3:
     case WIELD4:
-      // RAWR!  On a 5 or 6 proc bigbys hand!
-      if( ch->specials.fighting && (dice(1, 6) > 4) )
+      // RAWR!  On a 4, 5 or 6 proc bigbys hand!
+      if( (cmd == CMD_MELEE_HIT) && ch->specials.fighting && (dice(1, 6) > 3) )
       {
         spell_bigbys_crushing_hand(60, ch, NULL, SPELL_TYPE_SPELL, ch->specials.fighting, 0);
         return TRUE;
       }
+    break;
+    case WEAR_WAIST:
+      if( (cmd == CMD_PERIODIC) && !has_skin_spell(ch) && (dice(1, 6) > 4) )
+        spell_biofeedback(60, ch, 0, 0, ch, 0);
     break;
   }
 
