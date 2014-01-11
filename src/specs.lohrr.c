@@ -23,36 +23,62 @@ void damage_siege( P_obj siege, P_obj ammo );
 P_obj get_siege_room( P_char ch, char *arg );
 
 // This is an old proc for Lohrr's eq..
-void proc_lohrr( P_obj obj, P_char ch, int cmd, char *argument )
+int proc_lohrr( P_obj obj, P_char ch, int cmd, char *argument )
 {
-   int locwearing;
+  int  locwearing;
+  char buf[MAX_STRING_LENGTH];
 
-   // First, verify that it was called properly
-   if( !obj || !ch )
-      return;
+  if( cmd == CMD_SET_PERIODIC )
+    return TRUE;
 
-   // Verify object is worn by cy
-   if( !OBJ_WORN( obj ) || obj->loc.wearing != ch)
-      return;
+  // First, verify that it was called properly
+  if( !obj )
+    return FALSE;
 
-   for(locwearing = 0;locwearing < MAX_WEAR; locwearing++ )
-   {
-      if( ch->equipment[locwearing] == obj )
-         break;
-   }
-   // obj is not worn !  This must be a bug if true.
-   if( locwearing == MAX_WEAR )
-      return;
+  // Verify object is worn by cy
+  if( !OBJ_WORN( obj ) || !obj->loc.wearing )
+    return FALSE;
 
-   switch( locwearing )
-   {
-      // For his quiver first
-      case WEAR_QUIVER:
-	// Heal if down more than 10 hps
-	if( GET_HIT(ch) < GET_MAX_HIT(ch) - 10 )
-	   spell_full_heal( 60, ch, 0, 0, ch, 0);
+  if( !ch )
+    ch = obj->loc.wearing;
+
+  if( ch != obj->loc.wearing )
+    return FALSE;
+
+  for( locwearing = 0;locwearing < MAX_WEAR; locwearing++ )
+  {
+    if( ch->equipment[locwearing] == obj )
       break;
-   }
+  }
+  // obj is not worn !  This must be a bug if true.
+  if( locwearing == MAX_WEAR )
+    return FALSE;
+
+  switch( locwearing )
+  {
+    // For his quiver first
+    case WEAR_QUIVER:
+      // Heal if down more than 10 hps
+      if( (GET_HIT(ch) < GET_MAX_HIT(ch) - 10) && (cmd == CMD_PERIODIC) )
+      {
+        spell_full_heal( 60, ch, 0, 0, ch, 0);
+        return TRUE;
+      }
+    break;
+    case WIELD:
+    case WIELD2:
+    case WIELD3:
+    case WIELD4:
+      // RAWR!  On a 5 or 6 proc bigbys hand!
+      if( ch->specials.fighting && (dice(1, 6) > 4) )
+      {
+        spell_bigbys_crushing_hand(60, ch, NULL, SPELL_TYPE_SPELL, ch->specials.fighting, 0);
+        return TRUE;
+      }
+    break;
+  }
+
+  return FALSE;
 }
 
 /*

@@ -1672,7 +1672,6 @@ void assign_objects(void)
     obj_index[real_object0(11065)].func.obj = magic_mouth;
 
   /* heavens */
-
   obj_index[real_object0(750)].func.obj = druid_spring;
 //  obj_index[real_object0(366)].func.obj = druid_sabre;
   obj_index[real_object0(1218)].func.obj = flying_citadel;
@@ -1684,6 +1683,8 @@ void assign_objects(void)
   obj_index[real_object0(67282)].func.obj = orb_of_deception;
   obj_index[real_object0(427)].func.obj = super_cannon;
   obj_index[real_object0(428)].func.obj = zombies_game; 
+
+  obj_index[real_object0(501)].func.obj = proc_lohrr;
   
 /* Hall of the Ancients */
   obj_index[real_object0(77706)].func.obj = trap_razor_hooks;
