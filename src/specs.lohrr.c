@@ -14,6 +14,8 @@
 extern P_room world;
 extern int top_of_objt;
 extern bool has_skin_spell(P_char);
+extern P_town towns;
+extern void save_towns();
 
 int adjacent_room_nesw(P_char ch, int num_rooms );
 P_ship leviathan_find_ship( P_char leviathan, int room, int num_rooms );
@@ -1049,5 +1051,110 @@ bool is_loading( P_obj siege )
   for( P_nevent e = siege->nevents; e; e = e->next )
     if( e->func == event_load_engine )
       return TRUE;
+  return FALSE;
+}
+
+// Returns the corresponding town to the zone (or null if none).
+P_town gettown( P_char ch )
+{
+  P_town town = towns;
+  while( town && town->zone != &(zone_table[world[ch->in_room].zone]) )
+    town = town->next_town;
+  return town;
+}
+
+// This is a proc for the warmaster mobs in towns that build
+//   walls etc.
+int warmaster( P_char ch, P_char pl, int cmd, char *arg )
+{
+  P_town town;
+  char buf[MAX_STRING_LENGTH];
+  P_obj donation;
+
+  if( cmd == CMD_SET_PERIODIC )
+    return FALSE;
+
+  if( cmd == CMD_PERIODIC )
+    return FALSE;
+
+  if( !ch )
+  {
+    logit(LOG_DEBUG, "warmaster: called with no warmaster.");
+    return FALSE;
+  }
+
+  if( !pl )
+  {
+    logit(LOG_DEBUG, "warmaster: called with no player.");
+    return FALSE;
+  }
+  // In case someone tries to have a pet do warmaster stuff.
+  if( IS_NPC( pl ) )
+    return FALSE;
+
+  if(cmd == CMD_LIST)
+  {
+    town = gettown( ch );
+    if( !town )
+    {
+      logit(LOG_DEBUG, "warmaster: called outside of town.");
+      return FALSE;
+    }
+
+    // List town's name, offense, defense, and resrources..
+    sprintf( buf, "'%s'\nOffense:   %4d\nDefense:   %4d\nResources: %4d\n\n",
+                  town->zone->name, town->offense, town->defense, town->resources );
+    send_to_char( buf, pl );
+
+    if( IS_SET( ch->specials.act3, PLR3_NOSUR ) )
+    {
+      do_say(ch, "Get out of here whelp! Earn a title before you come to me", CMD_SAY);
+      return TRUE;
+    }
+    if( IS_SET( ch->specials.act3, PLR3_SURSERF ) )
+      return TRUE;
+    send_to_char( "Sorry, no actions for commoners or above atm.\n", pl );
+    if( IS_SET( ch->specials.act3, PLR3_SURCOMMONER ) )
+      return TRUE;
+    send_to_char( "Sorry, no actions for knights or above atm.\n", pl );
+    if( IS_SET( ch->specials.act3, PLR3_SURKNIGHT ) )
+      return TRUE;
+    send_to_char( "Sorry, no actions for nobles or above atm.\n", pl );
+    if( IS_SET( ch->specials.act3, PLR3_SURNOBLE ) )
+      return TRUE;
+    send_to_char( "Sorry, no actions for lords or above atm.\n", pl );
+    if( IS_SET( ch->specials.act3, PLR3_SURLORD ) )
+      return TRUE;
+    send_to_char( "Sorry, no actions for kings or above atm.\n", pl );
+    if( IS_SET( ch->specials.act3, PLR3_SURKING ) )
+      return TRUE;
+
+    return TRUE;
+  }
+  if( cmd == CMD_DONATE )
+  {
+    town = gettown( ch );
+    if( !town )
+    {
+      logit(LOG_DEBUG, "warmaster: called outside of town.");
+      return FALSE;
+    }
+
+    donation = get_obj_in_list_vis(pl, arg, pl->carrying);
+    if( !donation )
+    {
+      send_to_char( "Donate what?!?\n", pl );
+      return TRUE;
+    }
+    sprintf( buf, "You donate %s to %s.\n", donation->short_description, 
+      town->zone->name );
+    send_to_char( buf, pl );
+    obj_from_char( donation, TRUE );
+    town->resources += itemvalue( ch, donation );
+    extract_obj( donation, TRUE );
+    save_towns();
+    return TRUE;
+  }
+
   return FALSE;
 }

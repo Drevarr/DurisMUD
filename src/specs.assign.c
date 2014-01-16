@@ -719,7 +719,7 @@ void assign_mobiles(void)
   mob_index[real_mobile0(150138)].func.mob = outpost_captain;
   mob_index[real_mobile0(150139)].func.mob = outpost_captain;
   mob_index[real_mobile0(150140)].func.mob = outpost_captain;
-
+  mob_index[real_mobile0(132676)].func.mob = warmaster;
 
   mob_index[real_mobile0(132593)].func.mob = janitor;
   mob_index[real_mobile0(132519)].func.mob = money_changer;
