@@ -1,14 +1,15 @@
-#include "damage.h"
-#include "objmisc.h"
-#include "structs.h"
-#include "graph.h"
-#include "db.h"
-#include "utils.h"
-#include "interp.h"
 #include "comm.h"
+#include "damage.h"
+#include "db.h"
+#include "graph.h"
+#include "interp.h"
+#include "justice.h"
+#include "objmisc.h"
 #include "prototypes.h"
 #include "ships.h"
 #include "spells.h"
+#include "structs.h"
+#include "utils.h"
 #include <string.h>
 
 extern P_room world;
@@ -25,6 +26,7 @@ void damage_siege( P_obj siege, P_obj ammo );
 P_obj get_siege_room( P_char ch, char *arg );
 void save_towns();
 void apply_zone_modifier(P_char ch);
+int castlewall( P_obj obj, P_char ch, int cmd, char *arg );
 
 // This is an old proc for Lohrr's eq..
 int proc_lohrr( P_obj obj, P_char ch, int cmd, char *argument )
@@ -875,9 +877,69 @@ void explode_ammo( P_char ch, P_obj ammo )
   }
 }
 
+// Returns TRUE iff ch is blocked by gates.
+bool check_gates( P_char ch, int room )
+{
+  P_obj wall;
+  int dir;
+
+  for( dir = 0; dir < NUM_EXITS; dir++ )
+  {
+    if( world[ch->in_room].dir_option[dir]
+     && world[ch->in_room].dir_option[dir] == room )
+      break;
+  }
+  // If no exit to room, no gate can block it.
+  if( dir == NUM_EXITS )
+    return FALSE;
+
+  wall = world[ch->in_room].contents;
+  while( wall )
+  {
+    if( obj_index[wall->R_num].func.obj == castlewall )
+      break;
+    wall = wall->next_content;
+  }
+  if( !wall )
+    return FALSE;
+
+  // The direction the wall blocks is the dir ch wants to go.
+  if( wall->value[0] == dir )
+    return TRUE;
+  return FALSE;
+}
+
 // This is the proc for castle walls.  Just a placeholder atm.
 int castlewall( P_obj obj, P_char ch, int cmd, char *arg )
 {
+  if( cmd == CMD_SET_PERIODIC )
+    return FALSE;
+
+  if( !ch || !ch->in_room )
+    return FALSE;
+  if( !obj )
+  {
+    logit(LOG_DEBUG, "castlewall: proc called with no wall!");
+    return FALSE;
+  }
+
+  // Is ch an invader of the town?
+  if( !IS_INVADER( ch ) )
+    return FALSE;
+
+  // Value0 of a castlewall is the direction it blocks.
+  if( (obj->value[0] == EAST  && cmd == CMD_EAST) 
+   || (obj->value[0] == WEST  && cmd == CMD_WEST) 
+   || (obj->value[0] == NORTH && cmd == CMD_NORTH) 
+   || (obj->value[0] == SOUTH && cmd == CMD_SOUTH) )
+  {
+    if( isname( "gates", obj->name ) )
+      act( "$p block your path.", FALSE, ch, obj, NULL, TO_CHAR );
+    else
+      act( "$p blocks your path.", FALSE, ch, obj, NULL, TO_CHAR );
+    return TRUE;
+  }
+
   return FALSE;
 }
 
