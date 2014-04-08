@@ -1780,7 +1780,7 @@ int buy_hull(P_char ch, P_ship ship, int owned, char* arg1, char* arg2)
         cost = SHIPTYPE_COST(i) - (int) (SHIPTYPE_COST(oldclass) * .90);
         if (cost >= 0)
         {
-            if (GET_MONEY(ch) < cost || epic_skillpoints(ch) < SHIPTYPE_EPIC_COST(i)) 
+            if (GET_MONEY(ch) < cost || epic_points(ch) < SHIPTYPE_EPIC_COST(i)) 
             {
                 if (SHIPTYPE_EPIC_COST(i) > 0)
                     send_to_char_f(ch, "That upgrade costs %s and %d epic points!\r\n", coin_stringv(cost), SHIPTYPE_EPIC_COST(i));
@@ -1790,11 +1790,11 @@ int buy_hull(P_char ch, P_ship ship, int owned, char* arg1, char* arg2)
             }
             SUB_MONEY(ch, cost, 0);/* OKay, they have the plat, deduct it and build the ship */
             if (SHIPTYPE_EPIC_COST(i) > 0)
-                epic_gain_skillpoints(ch, -SHIPTYPE_EPIC_COST(i));
+               ch->only.pc->epics -= SHIPTYPE_EPIC_COST(i);
         }
         else
         {
-            if (epic_skillpoints(ch) < SHIPTYPE_EPIC_COST(i))
+            if (epic_points(ch) < SHIPTYPE_EPIC_COST(i))
             {
                 send_to_char_f(ch, "That upgrade costs %d epic points!\r\n", SHIPTYPE_EPIC_COST(i));
                 return TRUE;
@@ -1803,7 +1803,7 @@ int buy_hull(P_char ch, P_ship ship, int owned, char* arg1, char* arg2)
             send_to_char_f(ch, "You receive %s&n for remaining materials.\r\n", coin_stringv(cost));
             ADD_MONEY(ch, cost);
             if (SHIPTYPE_EPIC_COST(i) > 0)
-                epic_gain_skillpoints(ch, -SHIPTYPE_EPIC_COST(i));
+                ch->only.pc->epics -= SHIPTYPE_EPIC_COST(i);
         }
 
         ship->m_class = i;
@@ -1840,7 +1840,7 @@ int buy_hull(P_char ch, P_ship ship, int owned, char* arg1, char* arg2)
         if (!check_ship_name(0, ch, arg2))
             return TRUE;
 
-        if (GET_MONEY(ch) < SHIPTYPE_COST(i) || epic_skillpoints(ch) < SHIPTYPE_EPIC_COST(i)) 
+        if (GET_MONEY(ch) < SHIPTYPE_COST(i) || epic_points(ch) < SHIPTYPE_EPIC_COST(i)) 
         {
             if (SHIPTYPE_EPIC_COST(i) > 0)
                 send_to_char_f(ch, "That ship costs %s and %d epic points!\r\n", coin_stringv(SHIPTYPE_COST(i)), SHIPTYPE_EPIC_COST(i));
@@ -1872,7 +1872,7 @@ int buy_hull(P_char ch, P_ship ship, int owned, char* arg1, char* arg2)
         // everything went successfully, substracting the cost        
         SUB_MONEY(ch, SHIPTYPE_COST(i), 0);
         if (SHIPTYPE_EPIC_COST(i) > 0)
-            epic_gain_skillpoints(ch, -SHIPTYPE_EPIC_COST(i));
+            ch->only.pc->epics -= SHIPTYPE_EPIC_COST(i);
         send_to_char_f(ch, "Thanks for your business, this hull will take %d hours to build.\r\n", SHIPTYPE_ID(i) / 4);
     }
 

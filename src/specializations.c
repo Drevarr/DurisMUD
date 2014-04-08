@@ -864,7 +864,7 @@ void unspecialize(P_char ch, P_obj obj)
   if (!IS_SPECIALIZED(ch)) {
     send_to_char("You pray to the &+bWater Goddess&n but you get no response.",
                  ch);
-  } if (epic_skillpoints(ch) < 1) {
+  } if (epic_points(ch) < 10) {
     send_to_char("You need 10 epic points to pay for this.\n", ch);
   } else {
     act("You kneel in front of $p and pray to the \n"

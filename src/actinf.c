@@ -8547,7 +8547,7 @@ void unmulti(P_char ch, P_obj obj)
   if( !IS_MULTICLASS_PC(ch) )
     return;
 
-  if( epic_skillpoints(ch) < 1 )
+  if( epic_points(ch) < 100 )
   {
     send_to_char("&+WYou must have at least 100 epic points to unmulti!\n", ch);
     return;

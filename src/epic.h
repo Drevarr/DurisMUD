@@ -67,6 +67,7 @@ void gain_epic(P_char, int type, int data, int amount);
 void group_gain_epic(P_char, int type, int data, int amount);
 void epic_frag(P_char, int victim_pid, int amount);
 void epic_initialization();
+int epic_points(P_char);
 int epic_skillpoints(P_char);
 void epic_gain_skillpoints(P_char, int);
 const char *epic_prestige(P_char);
