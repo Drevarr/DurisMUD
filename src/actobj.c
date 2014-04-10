@@ -4929,8 +4929,8 @@ void do_remove(P_char ch, char *argument, int cmd)
           affect_from_char(ch, SPELL_NOAUCTION);
           bzero(&af, sizeof(af));
           af.type = SPELL_NOAUCTION;
-          af.duration = PULSE_VIOLENCE / 2;
-          af.modifier = 2000;
+          af.duration = 2;
+          af.modifier = 4000;
           affect_to_char(ch, &af);
 
           //Battlemage robe
@@ -4987,8 +4987,8 @@ void do_remove(P_char ch, char *argument, int cmd)
      	  affect_from_char(ch, SPELL_NOAUCTION);
         bzero(&af, sizeof(af));
         af.type = SPELL_NOAUCTION;
-        af.duration = PULSE_VIOLENCE / 2;
-        af.modifier = 2000;
+        af.duration = 2;
+        af.modifier = 4000;
         affect_to_char(ch, &af);
 
         //Battlemage robe
