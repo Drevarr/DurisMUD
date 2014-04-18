@@ -16,6 +16,7 @@
 extern P_room world;
 extern int top_of_objt;
 extern P_town towns;
+extern P_siege siege_objects;
 extern P_char destroying_list;
 extern int top_of_zone_table;
 
@@ -779,6 +780,7 @@ void damage_siege( P_obj siege, P_obj ammo )
     scraps = read_object(9, VIRTUAL);
     if( !scraps )
     {
+      remove_siege( siege );
       extract_obj( siege, TRUE );
       return;
     }
@@ -793,6 +795,7 @@ void damage_siege( P_obj siege, P_obj ammo )
     set_obj_affected(scraps, 400, TAG_OBJ_DECAY, 0);
     obj_to_room(scraps, siege->loc.room);
 
+    remove_siege( siege );
     extract_obj( siege, TRUE );
   }
 }
@@ -1077,6 +1080,7 @@ int warmaster( P_char ch, P_char pl, int cmd, char *arg )
         }
         SUB_MONEY( pl, 5000 * 1000, 0 );
         obj_to_room( siege, pl->in_room );
+        add_siege( siege );
         act( "You buy $p.", FALSE, pl, siege, NULL, TO_CHAR );
         act( "$n buys $p.", FALSE, pl, siege, NULL, TO_ROOM );
         return TRUE;
@@ -1101,6 +1105,7 @@ int warmaster( P_char ch, P_char pl, int cmd, char *arg )
         }
         SUB_MONEY( pl, 5000 * 1000, 0 );
         obj_to_room( siege, pl->in_room );
+        add_siege( siege );
         act( "You buy $p.", FALSE, pl, siege, NULL, TO_CHAR );
         act( "$n buys $p.", FALSE, pl, siege, NULL, TO_ROOM );
         return TRUE;
@@ -1124,6 +1129,7 @@ int warmaster( P_char ch, P_char pl, int cmd, char *arg )
         }
         SUB_MONEY( pl, 5000 * 1000, 0 );
         obj_to_room( siege, pl->in_room );
+        add_siege( siege );
         act( "You buy $p.", FALSE, pl, siege, NULL, TO_CHAR );
         act( "$n buys $p.", FALSE, pl, siege, NULL, TO_ROOM );
         return TRUE;
@@ -1135,7 +1141,7 @@ int warmaster( P_char ch, P_char pl, int cmd, char *arg )
     {
       // For 'buy <#>' instead of 'buy gates <#>'
       if( atoi(arg1) > 0 )
-        sprintf( arg2, arg1 );
+        sprintf( arg2, "%s", arg1 );
 
       if( town->resources < 150000 )
       {
@@ -1211,6 +1217,7 @@ int warmaster( P_char ch, P_char pl, int cmd, char *arg )
                 // Block the correct direction.
                 siege->value[0] = rev_dir[j];
                 obj_to_room( siege, i );//world[i].dir_option[j]->to_room );
+                add_siege( siege );
                 act( "You buy $p.", FALSE, pl, siege, NULL, TO_CHAR );
                 act( "$n buys $p.", FALSE, pl, siege, NULL, TO_ROOM );
                 SUB_MONEY( pl, 5000 * 1000, 0 );
@@ -1403,6 +1410,7 @@ void multihit_siege( P_char ch )
     scraps = read_object(9, VIRTUAL);
     if( !scraps )
     {
+      remove_siege( siege );
       extract_obj( siege, TRUE );
       return;
     }
@@ -1417,6 +1425,7 @@ void multihit_siege( P_char ch )
     set_obj_affected(scraps, 400, TAG_OBJ_DECAY, 0);
     obj_to_room(scraps, siege->loc.room);
 
+    remove_siege( siege );
     extract_obj( siege, TRUE );
   }
 }
@@ -1646,6 +1655,8 @@ void do_add(P_char ch, char *arg, int cmd)
   if( is_abbrev(arg1, "list") )
   {
     list_towns( ch );
+    send_to_char( "\n", ch );
+    list_siege( ch );
   }
   else if( is_abbrev(arg1, "resources") )
   {
@@ -1709,6 +1720,147 @@ void do_add(P_char ch, char *arg, int cmd)
     send_to_char("Syntax: add [resources|defense|offense] <town> <amount>.\n", ch);
     send_to_char("     or add list.\n", ch);
     return;
+  }
+}
+
+// Adds a new siege object to the list (for saves)
+void add_siege( P_obj siege )
+{
+  P_siege newsiege = new struct siege;
+
+  newsiege->obj = siege;
+  newsiege->next_siege = siege_objects;  
+  siege_objects = newsiege;
+
+  save_siege_list();
+}
+
+// Removes a siege object from the list that's been destroyed.
+void remove_siege( P_obj siege )
+{
+  P_siege sieges = siege_objects;
+  P_siege siege2;
+
+  if( sieges->obj == siege )
+  {
+    siege_objects = siege_objects->next_siege;
+    sieges->next_siege = NULL;
+    free( sieges );
+    return;
+  }
+  while( sieges->next_siege )
+  {
+    if( sieges->next_siege->obj == siege )
+    {
+      siege2 = sieges->next_siege;
+      sieges->next_siege = siege2->next_siege;
+      siege2->next_siege = NULL;
+      siege2->obj = NULL;
+      free( siege2 );
+      return;
+    }
+    sieges = sieges->next_siege;
+  }
+  logit(LOG_DEBUG, "remove_siege: siege not in list!" );
+}
+
+// Saves the siege objects.
+void save_siege_list( )
+{
+  FILE   *siege_file;
+  char    line[ MAX_STRING_LENGTH ];
+  char    buff[ SAV_MAXSIZE ];
+  char   *buf;
+  P_siege siege;
+  int     length;
+
+  siege_file = fopen( SAVE_DIR "/siege", "w" );
+
+  if(!siege_file)
+  {
+    logit(LOG_DEBUG, "Could not open " SAVE_DIR "/siege" );
+    return;
+  }
+
+  // For each siege object..
+  for( siege = siege_objects; siege != NULL; siege = siege->next_siege )
+  {
+    // Write the room number.
+    fprintf(siege_file, "#%d\n", siege->obj->loc.room);
+    // Write the object to file
+    buf = buff;
+    length = write_one_object( siege->obj, buf );
+    fwrite( buff, length, 1, siege_file );
+    fprintf( siege_file, "\n" );
+  }
+
+  fclose( siege_file );
+}
+
+// Lists all siege objects with room
+void list_siege( P_char ch )
+{
+  P_siege siege;
+  char    buf[MAX_STRING_LENGTH];
+
+  if( !siege_objects )
+  {
+    send_to_char( "There are no siege objects!!\n", ch );
+    return;
+  }
+
+  // For each siege object
+  for( siege = siege_objects; siege; siege = siege->next_siege )
+  {
+    sprintf( buf, "%d) %s\n", siege->obj->loc.room, siege->obj->short_description );
+    send_to_char( buf, ch );
+  }
+}
+
+// Loads the siege objects.
+void init_siege_list( )
+{
+
+  FILE   *siege_file;
+  char    line[ MAX_STRING_LENGTH ];
+  char   *cp;
+  P_siege siege;
+  P_obj   obj;
+  int     room;
+
+  siege_objects = NULL;
+  siege_file = fopen( SAVE_DIR "/siege", "r" );
+
+  if(!siege_file)
+  {
+    logit( LOG_DEBUG, "Could not open " SAVE_DIR "/siege" );
+    return;
+  }
+
+  while( fgets( line, sizeof line, siege_file ) != NULL )
+  {
+    if( line[0] != '#' )
+    {
+      logit( LOG_DEBUG, line );
+      logit( LOG_DEBUG, "Siege file corrupted.." );
+      fclose( siege_file );
+      return;
+    }
+    cp = line+1;
+    room = atoi( cp );
+    if( !room )
+    {
+      logit( LOG_DEBUG, cp );
+      logit( LOG_DEBUG, "Siege file room corrupted.." );
+      fclose( siege_file );
+    }
+    fgets( line, sizeof line, siege_file );
+    obj = read_one_object(line);
+    obj_to_room( obj, room );
+    siege = new struct siege;
+    siege->obj = obj;
+    siege->next_siege = siege_objects;
+    siege_objects = siege;
   }
 }
 

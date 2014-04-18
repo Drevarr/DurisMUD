@@ -397,6 +397,9 @@ void run_the_game(int port)
   fprintf(stderr, "-- Loading town data\r\n");
   init_towns();
 
+  fprintf(stderr, "-- Loading siege data\r\n");
+  init_siege_list();
+
   // This guarentees that files exist for reading.
   fprintf(stderr, "-- Touching leaderboard\r\n");
   sprintf( buf, "touch %s", leaderboard_file );

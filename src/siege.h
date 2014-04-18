@@ -1,3 +1,6 @@
+#include "prototypes.h"
+#include "files.h"
+
 void init_towns();
 
 void explode_ammo( P_char ch, P_obj ammo );
@@ -11,3 +14,8 @@ int castlewall( P_obj obj, P_char ch, int cmd, char *arg );
 bool has_gates( int room );
 int calculate_attacks(P_char ch, int attacks[]);
 
+void add_siege( P_obj siege );
+void remove_siege( P_obj siege );
+void save_siege_list( );
+void init_siege_list( );
+void list_siege( P_char ch );
