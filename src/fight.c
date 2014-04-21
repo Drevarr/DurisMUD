@@ -2952,7 +2952,11 @@ void kill_gain(P_char ch, P_char victim)
       gain_exp(gl->ch, victim, (XP + (XP*(group_size*.25))), EXP_KILL);
       if(IS_PC(gl->ch))
         add_bloodlust(gl->ch, victim);
-      update_achievements(gl->ch, victim, 0, 2);//this is for all kinds of kill-type quests
+      //this is for all kinds of kill-type quests
+      update_achievements(gl->ch, victim, 0, 2);
+
+      // Addicted to blood stuff:
+      update_addicted_to_blood(gl->ch, victim);
 
       if((GET_LEVEL(victim) > 30) && !IS_PC(victim) && !affected_by_spell(victim, TAG_CONJURED_PET))
       {
