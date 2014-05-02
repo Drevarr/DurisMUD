@@ -2187,15 +2187,14 @@ void do_give(P_char ch, char *argument, int cmd)
       quest = 1;
 
 
-    if (racewar(ch, vict) && !IS_TRUSTED(ch) && !IS_TRUSTED(vict))
+    if( racewar(ch, vict) )
     {
       send_to_char("Hey now, why would you want to do that?\r\n", ch);
       return;
     }
 
     if ((IS_NPC(vict) && ((GET_RNUM(vict) == real_mobile(250)) ||
-	(GET_RNUM(vict) == real_mobile(650)))) ||
-        IS_AFFECTED(vict, AFF_WRAITHFORM))
+      (GET_RNUM(vict) == real_mobile(650)))) || IS_AFFECTED(vict, AFF_WRAITHFORM))
     {
       send_to_char("They couldn't carry that if they tried.\r\n", ch);
       return;
@@ -2317,9 +2316,10 @@ void do_give(P_char ch, char *argument, int cmd)
         TO_CHAR);
     return;
   }
-  if (IS_ARTIFACT(obj) && racewar(ch, vict) && !IS_TRUSTED(ch) && !IS_TRUSTED(vict))
+  if (IS_ARTIFACT(obj) && racewar(ch, vict) )
   {
     send_to_char("That would just be unethical now wouldn't it?\r\n", ch);
+    wizlog( 56, "%s tried to give %s to %s.", ch->player.name, obj->short_description, vict->player.name );
     return;
   }
   obj_from_char(obj, TRUE);

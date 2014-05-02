@@ -2885,7 +2885,7 @@ int race_portal_check(P_char, P_char);
 void ereglog(int level, const char *format,...);
 const int char_in_list(const P_char);
 const int is_char_in_room(const P_char, int);
-char racewar(P_char, P_char);
+bool racewar(P_char, P_char);
 P_char char_in_room(int);
 bool spell_can_affect_char(P_char, int);
 bool FightingCheck(P_char, P_char, const char *);

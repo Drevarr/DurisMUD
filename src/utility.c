@@ -3019,7 +3019,7 @@ bool spell_can_affect_char(P_char ch, int spl)
 
 /* is viewee at war with viewer? */
 
-char racewar(P_char viewer, P_char viewee)
+bool racewar(P_char viewer, P_char viewee)
 {
   if (!viewer || !viewee)
     return FALSE;
@@ -3930,7 +3930,7 @@ int flag2idx(int flag)
 int GET_LEVEL(P_char ch)
 {
   if(!ch)
-  return NULL;
+  return -1;
 
   return ch->player.level;
 }
