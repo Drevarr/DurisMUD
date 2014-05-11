@@ -17,6 +17,7 @@
 #include "db.h"
 #include "events.h"
 #include "graph.h"
+#include "guildhall.h"
 #include "interp.h"
 #include "new_combat_def.h"
 #include "structs.h"
@@ -11272,15 +11273,16 @@ int get_room_in_zone(int zone_room, P_char ch)
 
 bool check_item_teleport(P_char ch, char *arg, int cmd)
 {
-  P_obj    obj = NULL, obj_next;
-  P_char   dummy;
-  int      timeleft;
-  int      bits;
-  int      room, to_room;
-  int      pos;
-  int      vnum;
-  int      virt;
-  char     Gbuf1[100];
+  P_obj      obj = NULL, obj_next;
+  P_char     dummy;
+  int        timeleft;
+  int        bits;
+  int        room, to_room;
+  int        pos;
+  int        vnum;
+  int        virt;
+  int        guild_id;
+  char       Gbuf1[100];
 
   room = ch->in_room;
   /* Some types are keywordless */
@@ -11362,6 +11364,52 @@ bool check_item_teleport(P_char ch, char *arg, int cmd)
 //    return TRUE;
 //  }
 
+// New Guildhalls
+  // If this is a portal to/from a guildhall/outpost.
+  if( obj_index[obj->R_num].virtual_number == BUILDING_PORTAL )
+  {
+    // Get the proper guild id number.
+    // If in a guildhall, call find_gh...
+    if( IN_GH_ZONE( ch->in_room ) )
+    {
+      Guildhall *gh = find_gh_from_vnum( world[ch->in_room].number );
+      if( gh )
+        guild_id = gh->assoc_id;
+      else
+      {
+        send_to_char( "Buggy guild portal.  Tell a God.\n", ch );
+        return TRUE;
+      }
+    }
+    else
+    {
+      Building *op = get_building_from_room( ch->in_room );
+      if( op )
+        guild_id = get_outpost_owner( op );
+      else
+      {
+        send_to_char( "Buggy outpost portal.  Tell a God.\n", ch );
+        return TRUE;
+      }
+    }
+    // Now find a group member or ch that is in the assoc. or fail.
+    struct group_list *tgroup = ch->group;
+    // If ch is not in the proper guild,
+    if( GET_A_NUM(ch) != guild_id )
+    {
+      // Check all group members
+      while( tgroup && (GET_A_NUM(tgroup->ch) != guild_id
+        || IS_APPLICANT(GET_A_BITS(tgroup->ch))) )
+        tgroup = tgroup->next;
+      // If no guildie-group member found..
+      if( !tgroup )
+      {
+        send_to_char( "The vortex repels your cheesy butt.\n", ch );
+        return TRUE;
+      }
+    }
+  }
+
   // old guildhalls (deprecated)
 //  if(obj_index[obj->R_num].virtual_number == 11001)
 //  {
@@ -11383,6 +11431,7 @@ bool check_item_teleport(P_char ch, char *arg, int cmd)
 //      }
 //    }
 //  }
+
   if(!obj->value[2] ||
       (IS_SET(world[ch->in_room].room_flags, ARENA) !=
        IS_SET(world[to_room].room_flags, ARENA)))
