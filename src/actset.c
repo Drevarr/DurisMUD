@@ -180,7 +180,7 @@ void do_setbit(P_char ch, char *arg, int cmd)
     return;
   }
 
-  if ( GET_LEVEL(ch) < IMMORTAL || cmd != CMD_SETHOME)
+  if ( cmd != CMD_SETHOME || GET_LEVEL(ch) >= MINLVLIMMORTAL )
   {
     wizlog(GET_LEVEL(ch), "%s: setbit %s", GET_NAME(ch), arg);
     logit(LOG_WIZ, "%s: setbit %s", GET_NAME(ch), arg);
