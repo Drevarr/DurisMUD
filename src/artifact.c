@@ -25,7 +25,7 @@
 #define ARTIFACT_DIR "Players/Artifacts/"
 #define ARTIFACT_MORT_DIR "Players/Artifacts/Mortal/"
 #define ARTI_BIND_DIR "Players/Artifacts/Bind/"
-#define ARTIFACT_BLOOD_DAYS 3
+#define ARTIFACT_BLOOD_DAYS 5
 #define ARTIFACT_MAIN   0
 #define ARTIFACT_UNIQUE 1
 #define ARTIFACT_IOUN   2
@@ -110,20 +110,23 @@ void UpdateArtiBlood(P_char ch, P_obj obj, int mod)
   FILE    *f;
   char     fname[256], name[256];
   char     Gbuf1[MAX_STRING_LENGTH];
-  int      vnum, id, last_time, uo, blood, oldtime, diff, newtime;
+  int      vnum, id, uo, oldtime, diff, newtime;
+  long unsigned last_time, blood;
 
 //  a = obj;
   if (mod != -1)
-
+  {
+    // If arti is relic of gods (transforms).
     if (obj_index[obj->R_num].virtual_number == 58 ||
         obj_index[obj->R_num].virtual_number == 59 ||
         obj_index[obj->R_num].virtual_number == 68)
     {
+      // 85 hrs ? WTH
       if (obj->timer[3] > time(NULL) - (85 * 60 * 60))
         obj->timer[3] = time(NULL) - (85 * 60 * 60);
       return;
     }
-
+  }
 
 //Spam the gods if more then 5 days passed since feed.
   if (mod == -1 && obj)
@@ -173,19 +176,18 @@ void UpdateArtiBlood(P_char ch, P_obj obj, int mod)
     return;
   }*/
 
-
   if (obj)
   {
     oldtime = obj->timer[3];
-    diff = time(NULL) - oldtime;        //0-10
+    diff = time(NULL) - oldtime;
 
-    bool bIsIoun = CAN_WEAR(obj, ITEM_WEAR_IOUN) ? true : false;
+    bool bIsIoun = CAN_WEAR(obj, ITEM_WEAR_IOUN);
     bool bIsUnique = (isname("unique", obj->name) && !isname("powerunique", obj->name));
     bool bIsTrueArti = (!bIsIoun && !bIsUnique);
 
-    if (diff > (86400 * 5))
+    if (diff > (86400 * ARTIFACT_BLOOD_DAYS))
     {
-      diff = (86400 * 5);
+      diff = (86400 * ARTIFACT_BLOOD_DAYS);
       oldtime = time(NULL) - diff;
     }
 
@@ -194,12 +196,12 @@ void UpdateArtiBlood(P_char ch, P_obj obj, int mod)
       struct obj_affect *af;
       int afMod = 0;
       int afLength = get_property("artifact.feeding.accum.timer", (int)60);
-      
+
       af = get_obj_affect(obj, TAG_OBJ_RECENT_FRAG);
       if (af)
         afMod = af->data;
       affect_from_obj(obj, TAG_OBJ_RECENT_FRAG);
-      
+
       // conditions for feed:
       //  prevMod is -1, or
       //  mod > 20, or
@@ -213,10 +215,8 @@ void UpdateArtiBlood(P_char ch, P_obj obj, int mod)
     		               ch);
     		  // set a new affect with the total frags
     		  mod += afMod;
-    		  
           statuslog(56, "ArtiBlood: artifact #%d DEFERRED %.02f frags", 
                     obj_index[obj->R_num].virtual_number, mod/100.0f);
-    		  
           set_obj_affected(obj, WAIT_SEC * afLength, TAG_OBJ_RECENT_FRAG, mod);
           return;
         }
@@ -230,13 +230,13 @@ void UpdateArtiBlood(P_char ch, P_obj obj, int mod)
       afMod = -1;
       set_obj_affected(obj, WAIT_SEC * afLength, TAG_OBJ_RECENT_FRAG, afMod);
     }  // bIsTrueArti
-    
+
     if (mod > 1)
     {
       statuslog(56, "ArtiBlood: %s #%d fed %.02f frags", 
                 bIsIoun ? "ioun" : bIsUnique ? "unique" : "artifact",
                 obj_index[obj->R_num].virtual_number, mod/100.0f);
-      diff = (86400 * 5 * mod) / 100;
+      diff = (86400 * ARTIFACT_BLOOD_DAYS * mod) / 100;
       obj->timer[3] = oldtime + diff;
       if ((oldtime + diff) > time(NULL))
         obj->timer[3] = time(NULL);
@@ -246,7 +246,7 @@ void UpdateArtiBlood(P_char ch, P_obj obj, int mod)
       diff = 0 - mod;
       obj->timer[3] = oldtime + diff;
       if ((oldtime + diff) > time(NULL))
-        obj->timer[3] = time(NULL);      
+        obj->timer[3] = time(NULL);
     }
 
     if (mod >= 100)
@@ -273,7 +273,7 @@ void UpdateArtiBlood(P_char ch, P_obj obj, int mod)
 
     if (f)
     {
-      fscanf(f, "%s %d %d %d %d", name, &id, &last_time, &uo, &blood);
+      fscanf(f, "%s %d %lu %d %lu", name, &id, &last_time, &uo, &blood);
 
       if ((id != GET_PID(ch)) && !uo)
       {
@@ -292,7 +292,7 @@ void UpdateArtiBlood(P_char ch, P_obj obj, int mod)
         statuslog(56, "could not open arti file %s for writing", fname);
         return;
       }
-      fprintf(f, "%s %d %ld 0 %ld", GET_NAME(ch), GET_PID(ch), time(NULL), obj->timer[3]);
+      fprintf(f, "%s %d %lu 0 %lu", GET_NAME(ch), GET_PID(ch), time(NULL), obj->timer[3]);
       fclose(f);
 //                wizlog(56, "Artifact timer reset: %s now owns %s (#%d).", GET_NAME(ch), name, vnum);
     }
@@ -307,8 +307,11 @@ void feed_artifact(P_char ch, P_obj obj, int feed_seconds, int bypass)
     return;
   }
 
+  // Stop artis from feeding at all.  Still want to save arti data though.
+  feed_seconds = 0;
+
   int owner_pid, timer, vnum;
-  
+
   vnum = GET_OBJ_VNUM(obj);
   sql_get_bind_data(vnum, &owner_pid, &timer);
 
@@ -321,55 +324,59 @@ void feed_artifact(P_char ch, P_obj obj, int feed_seconds, int bypass)
 
   int time_now = time(NULL);
 
-  //time_now += (5 * 86400); //old 205 hours - drannak
-  
-  if( obj->timer[3] < ( time_now - (5 * 86400) ) )
-    obj->timer[3] = ( time_now - (5 * 86400) );
-  
+// This code jumps the timer to maximum always?!?
+//  if( obj->timer[3] < ( time_now - (ARTIFACT_BLOOD_DAYS * 86400) ) )
+//    obj->timer[3] = ( time_now - (ARTIFACT_BLOOD_DAYS * 86400) );
+
   obj->timer[3] += feed_seconds;
-  if( obj->timer[3] > (time_now + (5 * 86400)))
-    obj->timer[3] = (time_now + 432000); //allowing people to feed over current limit (drannak)
-    
+  // Not allowing people to feed over limit
+  if( obj->timer[3] > (time_now + (ARTIFACT_BLOOD_DAYS * 86400)) )
+  {
+    // Keep track of how much arti actually fed.
+    feed_seconds -= obj->timer[3] - (time_now + ARTIFACT_BLOOD_DAYS * 86400);
+    obj->timer[3] = ( time_now + (ARTIFACT_BLOOD_DAYS * 86400) );
+  }
   statuslog(56, "Artifact: %s [%d] on %s fed [&+G%ld&+Lh &+G%ld&+Lm &+G%ld&+Ls&n]", 
             obj->short_description, GET_OBJ_VNUM(obj), GET_NAME(ch),
             feed_seconds / 3600, (feed_seconds / 60) % 60, feed_seconds % 60 );
-  
+
   if( feed_seconds > ( 12 * 3600 ) )
-  {  
+  {
     send_to_char("&+RYou feel a deep sense of satisfaction from somewhere...\r\n", ch);
   }
   else
   {
     send_to_char("&+RYou feel a light sense of satisfaction from somewhere...\r\n", ch);
   }
-  
+
   /*
    save to artifact files:
    try to load the artifact file; if it already exists, then it's already being tracked on another player.
    otherwise, update the time remaining timer
    */
-  
+
   FILE     *f;
   char     fname[256], name[256];
   char     Gbuf1[MAX_STRING_LENGTH];
-  int      id, last_time, uo, blood, oldtime, diff, newtime;
-  
+  int      id, uo, oldtime, diff, newtime;
+  long unsigned last_time, blood;
+
   vnum = GET_OBJ_VNUM(obj);
   sprintf(fname, ARTIFACT_DIR "%d", vnum);
   f = fopen(fname, "rt");
   blood = obj->timer[3];
-  
+
   if (f)
   {
-    fscanf(f, "%s %d %d %d %d", name, &id, &last_time, &uo, &blood);
-    
+    fscanf(f, "%s %d %lu %d %lu", name, &id, &last_time, &uo, &blood);
+
     if ((id != GET_PID(ch)) && !uo)
     {
       statuslog(56,
                 "tried to track arti vnum #%d on %s when already tracked on %s.",
                 vnum, GET_NAME(ch), name);
     }
-    
+
     fclose(f);
   }
   else
@@ -380,10 +387,10 @@ void feed_artifact(P_char ch, P_obj obj, int feed_seconds, int bypass)
       statuslog(56, "could not open arti file %s for writing", fname);
       return;
     }
-    fprintf(f, "%s %d %ld 0 %ld", GET_NAME(ch), GET_PID(ch), time(NULL), obj->timer[3]);
+    fprintf(f, "%s %d %lu 0 %lu", GET_NAME(ch), GET_PID(ch), time(NULL), obj->timer[3]);
     fclose(f);
   }
-    
+
 }
 
 
@@ -394,12 +401,12 @@ void feed_artifact(P_char ch, P_obj obj, int feed_seconds, int bypass)
 //  arti : arti obj
 //    ch : char who now 'owns' arti
 //
-
-int add_owned_artifact(P_obj arti, P_char ch, int blood)
+int add_owned_artifact(P_obj arti, P_char ch, long unsigned blood)
 {
   FILE    *f;
   char     fname[256], name[256];
-  int      exist = 0, vnum, id, last_time, uo, t_blood;
+  int      exist = 0, vnum, id, uo;
+  long unsigned last_time, t_blood;
 
 
   if (!IS_ARTIFACT(arti) || !ch || IS_TRUSTED(ch) || IS_NPC(ch))
@@ -417,7 +424,7 @@ int add_owned_artifact(P_obj arti, P_char ch, int blood)
   if (f)
   {
     exist = 1;
-    fscanf(f, "%s %d %d %d %d", name, &id, &last_time, &uo, &t_blood);
+    fscanf(f, "%s %d %lu %d %lu", name, &id, &last_time, &uo, &t_blood);
 
     if ((id != GET_PID(ch)) && !uo)
     {
@@ -441,7 +448,7 @@ int add_owned_artifact(P_obj arti, P_char ch, int blood)
   // if(exist)
   if (f)
   {
-    fprintf(f, "%s %d %ld 0 %d", GET_NAME(ch), GET_PID(ch), time(NULL), blood);
+    fprintf(f, "%s %d %lu 0 %d", GET_NAME(ch), GET_PID(ch), time(NULL), blood);
     /*
        else
        fprintf(f, "%s %d %d 0 %d", GET_NAME(ch), GET_PID(ch), time(NULL), time(NULL));
@@ -461,11 +468,11 @@ int add_owned_artifact(P_obj arti, P_char ch, int blood)
 //  arti : arti obj
 //    ch : char who currently 'owns' arti
 //
-
 int remove_owned_artifact(P_obj arti, P_char ch, int full_remove)
 {
   char     fname[256], name[256];
-  int      vnum, id, last_time, true_u, t_blood;
+  int      vnum, id, true_u;
+  long unsigned last_time, t_blood;
   FILE    *f;
 
 
@@ -486,7 +493,7 @@ int remove_owned_artifact(P_obj arti, P_char ch, int full_remove)
     if (!f)
       return FALSE;
 
-    fscanf(f, "%s %d %d %d %d", name, &id, &last_time, &true_u, &t_blood);
+    fscanf(f, "%s %d %lu %d %lu", name, &id, &last_time, &true_u, &t_blood);
 
     if (true_u)
     {
@@ -500,7 +507,7 @@ int remove_owned_artifact(P_obj arti, P_char ch, int full_remove)
 
     f = fopen(fname, "wt");
 
-    fprintf(f, "%s %d %d 1 %d", name, id, last_time, t_blood);
+    fprintf(f, "%s %d %lu 1 %lu", name, id, last_time, t_blood);
 
     fclose(f);
   }
@@ -521,7 +528,8 @@ int get_current_artifact_info(int rnum, int vnum, char *pname, int *id,
                               int get_mort, time_t * blood)
 {
   char     name[256];
-  int      t_id, t_last_time, t_tu, t_blood;
+  int      t_id, t_tu;
+  long unsigned t_last_time, t_blood;
   FILE    *f;
   P_char   owner;
   int      owner_race = 4;
@@ -540,7 +548,7 @@ int get_current_artifact_info(int rnum, int vnum, char *pname, int *id,
   if (!f)
     return FALSE;
 
-  fscanf(f, "%s %d %d %d %d", name, &t_id, &t_last_time, &t_tu, &t_blood);
+  fscanf(f, "%s %d %lu %d %lu", name, &t_id, &t_last_time, &t_tu, &t_blood);
 
   fclose(f);
 
@@ -643,9 +651,7 @@ void list_artifacts(P_char ch, char *arg, int type)
   }
 
   if (IS_TRUSTED(ch))
-    send_to_char
-      ("&+YOwner               Time       Last Update                   Artifact\r\n\r\n",
-       ch);
+    send_to_char("&+YOwner               Time       Last Update                   Artifact\r\n\r\n", ch);
   else
     send_to_char("&+YOwner               Artifact\r\n\r\n", ch);
 
@@ -702,8 +708,8 @@ void list_artifacts(P_char ch, char *arg, int type)
     {
       strcpy(strn2, ctime(&last_time));
       strn2[strlen(strn2) - 1] = '\0';
-      //    blood_time = (float) (ARTIFACT_BLOOD_DAYS - ((time(NULL) - blood) / 86400));
-      blood_time = (time(NULL) - blood);
+//      blood_time = (float) (ARTIFACT_BLOOD_DAYS - ((time(NULL) - blood) / 86400));
+      blood_time = ARTIFACT_BLOOD_DAYS * 86400 -(time(NULL) - blood);
       days = 0;
       minutes = 0;
       hours = 0;
@@ -943,8 +949,8 @@ void poof_arti( P_char ch, char *arg )
   FILE *f;
   struct dirent *dire;
   int vnum = 0;
-  int t_id, t_last_time, t_tu, t_blood, i;
-
+  int t_id, t_tu, i;
+  long unsigned t_last_time, t_blood;
   one_argument( arg, buf );
 
   send_to_char( "\n\r | ", ch );
@@ -972,7 +978,7 @@ void poof_arti( P_char ch, char *arg )
     if( OBJ_WORN(obj) || OBJ_CARRIED(obj) )
     {
       // Set timer to poof and update.
-      obj->timer[3] = time(NULL) - 6 * 86400;
+      obj->timer[3] = time(NULL) - ARTIFACT_BLOOD_DAYS * 86400;
       // Yes, artifact_poof only cares about obj.
       event_artifact_poof(NULL, NULL, obj, NULL);
     }
@@ -1021,7 +1027,7 @@ void poof_arti( P_char ch, char *arg )
       send_to_char(buf2, ch);
       return;
     }
-    fscanf(f, "%s %d %d %d %d", buf2, &t_id, &t_last_time, &t_tu, &t_blood);
+    fscanf(f, "%s %d %lu %d %lu", buf2, &t_id, &t_last_time, &t_tu, &t_blood);
     fclose(f);
 
     // Load pfile
@@ -1067,7 +1073,7 @@ void poof_arti( P_char ch, char *arg )
     }
     else
     {
-      obj->timer[3] = time(NULL) - 6 * 86400;
+      obj->timer[3] = time(NULL) - ARTIFACT_BLOOD_DAYS * 86400;
       event_artifact_poof(NULL, NULL, obj, NULL);
       writeCharacter( owner, RENT_POOFARTI, owner->in_room );
     }
@@ -1097,7 +1103,8 @@ void swap_arti( P_char ch, char *arg )
   struct dirent *dire;
   int vnum = 0;
   int wearloc, i;
-  int t_id, t_last_time, t_tu, t_blood;
+  int t_id, t_tu;
+  long unsigned t_last_time, t_blood;
 
   arg = one_argument( arg, arti1name );
   arg = one_argument( arg, arti2name );
@@ -1226,7 +1233,7 @@ void swap_arti( P_char ch, char *arg )
       send_to_char(buf2, ch);
       return;
     }
-    fscanf(f, "%s %d %d %d %d", buf2, &t_id, &t_last_time, &t_tu, &t_blood);
+    fscanf(f, "%s %d %lu %d %lu", buf2, &t_id, &t_last_time, &t_tu, &t_blood);
     fclose(f);
 
     // Load pfile
@@ -1407,7 +1414,8 @@ void set_timer_arti( P_char ch, char *arg )
   DIR *dir;
   FILE *f;
   struct dirent *dire;
-  int timer, t_id, t_last_time, t_tu, t_blood, i;
+  int timer, t_id, t_tu, i;
+  long unsigned t_last_time, t_blood;
   int vnum = 0;
 
   arg = one_argument( arg, artiname );
@@ -1445,7 +1453,7 @@ void set_timer_arti( P_char ch, char *arg )
   if( obj )
   {
     // Set timer to last timer minutes: current - 5 days + minutes,
-    obj->timer[3] = time(NULL) - 5 * 86400 + 60 * timer;
+    obj->timer[3] = time(NULL) - ARTIFACT_BLOOD_DAYS * 86400 + 60 * timer;
     return;
   }
 
@@ -1483,7 +1491,7 @@ void set_timer_arti( P_char ch, char *arg )
       send_to_char(buf2, ch);
       return;
     }
-    fscanf(f, "%s %d %d %d %d", buf2, &t_id, &t_last_time, &t_tu, &t_blood);
+    fscanf(f, "%s %d %lu %d %lu", buf2, &t_id, &t_last_time, &t_tu, &t_blood);
     fclose(f);
 
     // Load pfile
@@ -1529,7 +1537,7 @@ void set_timer_arti( P_char ch, char *arg )
     }
     else
     {
-      obj->timer[3] = time(NULL) - 5 * 86400 + 60 * timer;
+      obj->timer[3] = time(NULL) - ARTIFACT_BLOOD_DAYS * 86400 + 60 * timer;
       writeCharacter( owner, RENT_INN, owner->in_room );
     }
 
