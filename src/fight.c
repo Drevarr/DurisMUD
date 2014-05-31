@@ -6875,19 +6875,25 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
 
 
 
+/* Making this linear.  might should be less than linear. - Lohrr
   int rollmod = 6; //statupdate2013 - drannak
   if (GET_C_INT(ch) < 90)
     rollmod = 7;
   else if (GET_C_INT(ch) > 140)
     rollmod = 4;
   //an increased change to critical hit if affected by rage
-  /* if (affected_by_spell(ch, SKILL_RAGE))
-     diceroll -= (GET_CHAR_SKILL(ch, SKILL_RAGE) / 10);*/
+  // if (affected_by_spell(ch, SKILL_RAGE))
+  //   diceroll -= (GET_CHAR_SKILL(ch, SKILL_RAGE) / 10);
 
   if (affected_by_spell(ch, SKILL_RAGE))
     rollmod -= 1;
 
   int critroll = (int) (GET_C_INT(ch) / rollmod);
+*/
+  // At 100 int : 5% crit, at 200 int : 25% crit
+  int critroll = (GET_C_INT(ch) - 100)/5 + 5;
+  // Min crit % is 3%.
+  if( critroll < 3 ) critroll = 3;
   if(critroll > number(1, 100)) 
     sic = -1;
   else if (diceroll < 96) //fumble

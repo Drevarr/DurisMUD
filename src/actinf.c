@@ -4037,7 +4037,7 @@ void do_attributes(P_char ch, char *argument, int cmd)
             (int) (i / 8), (int) (i2 / 8), (i - i2), load_modifier(k));
     strcat(o_buf, buf);*/
 //    send_to_char(o_buf, ch);
-	sprintf(buf, o_buf);
+	sprintf(buf, "%s", o_buf);
 
 
     }
@@ -4128,27 +4128,32 @@ void do_attributes(P_char ch, char *argument, int cmd)
 	{
 
 	// Crit Chance:
-  	int rollmod = 5;
-  	if (GET_C_INT(ch) < 80)
- 	rollmod = 7;
- 	else if (GET_C_INT(ch) > 130)
-  	rollmod = 4;
-  	int critroll = (int) (GET_C_INT(ch) / rollmod);
+/* Making this linear.. might should be less than linear. - Lohrr
+  int rollmod = 6;
+  if (GET_C_INT(ch) < 90)
+   	rollmod = 7;
+ 	else if (GET_C_INT(ch) > 140)
+    rollmod = 4;
+*/
+  // At 100 int : 5% crit, at 200 int : 25% crit
+  int critroll = (GET_C_INT(ch) - 100)/5 + 5;
+  // Min crit % is 3%.
+  if( critroll < 3 ) critroll = 3;
 
 	// Calm Chance:
-  	int rolmod = 7;
-  	if (GET_C_INT(ch) < 80)
- 	rolmod = 9;
+  int rolmod = 7;
+  if (GET_C_INT(ch) < 80)
+ 	  rolmod = 9;
  	else if (GET_C_INT(ch) > 160)
-  	rolmod = 4;
-  	int calmroll = (int) (GET_C_INT(ch) / rollmod);
-	
+    rolmod = 4;
+  int calmroll = (int) (GET_C_INT(ch) / rolmod);
+
 	// Magic Res:
-      double modifier = (GET_C_WIS(ch) - 110)/2;
-      if (modifier > 75)
-      modifier = 75;
-      if (modifier < 0)
-      modifier = 0;
+  double modifier = (GET_C_WIS(ch) - 110)/2;
+  if (modifier > 75)
+    modifier = 75;
+  if (modifier < 0)
+    modifier = 0;
 
 	//vamp percentage:
        double vamppct = BOUNDED(110, ((GET_C_POW(ch) * 10) / 9), 220);
@@ -8431,7 +8436,7 @@ void web_info(void)
     return;
   }
 
-  fprintf(opf, Gbuf3);
+  fprintf(opf, "%s", Gbuf3);
   fclose(opf);
 }
 
