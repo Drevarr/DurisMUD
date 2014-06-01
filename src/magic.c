@@ -1892,7 +1892,7 @@ void spell_elemental_swarm(int level, P_char ch, char *arg, int type,
     return;
   }
 
-  mob = read_mobile(real_mobile(number(69, 72)), REAL);
+  mob = read_mobile( number(69, 72), VIRTUAL );
   if(!mob)
   {
     logit(LOG_DEBUG, "spell_conjure_elemental(): mob(s) not loadable");
@@ -21590,7 +21590,7 @@ void do_soulbind(P_char ch, char *argument, int cmd)
    		   findaf->type == TAG_SOULBIND)
    		   {
    		     affect_remove(victim, findaf);
-                   sprintf(buffer, GET_NAME(victim));
+                   sprintf(buffer, "%s", GET_NAME(victim));
 		     sprintf (gbuf3, "Cleared soulbind status on %s\r\n", buffer);
                    send_to_char(gbuf3, ch);
 		    return;
