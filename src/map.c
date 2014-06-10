@@ -379,13 +379,13 @@ int whats_in_maproom(P_char ch, int room, int distance, int show_regardless)
       } 
       // Using track scan ?
       else if ((obj_index[obj->R_num].virtual_number == 1276) &&
-        ((distance <= (GET_CHAR_SKILL(ch, SKILL_TRACK)/20)) ||
+        ((distance <= (GET_CHAR_SKILL(ch, SKILL_IMPROVED_TRACK)/20)) ||
          IS_TRUSTED(ch)) ) 
       {
         val = MIN(val, CONTAINS_TRACK);
       }
       else if ((obj_index[obj->R_num].virtual_number == 4) &&
-              ((distance <= (GET_CHAR_SKILL(ch, SKILL_TRACK)/20)) ||
+              ((distance <= (GET_CHAR_SKILL(ch, SKILL_IMPROVED_TRACK)/20)) ||
                IS_TRUSTED(ch)) )
       {
         if ((obj->value[1] == BLOOD_FRESH) &&
