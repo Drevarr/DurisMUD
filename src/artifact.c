@@ -1079,6 +1079,7 @@ void poof_arti( P_char ch, char *arg )
     }
 
     // Free memory
+    char_from_room( owner );
     extract_char( owner );
   }
   else
@@ -1287,7 +1288,10 @@ void swap_arti( P_char ch, char *arg )
         {
           send_to_char( "Could not load arti2.\n\r", ch );
           if( vnum )
+          {
+            char_from_room( owner );
             extract_char( owner );
+          }
           return;
         }
         if( IS_ARTIFACT(arti2) )
@@ -1305,7 +1309,10 @@ void swap_arti( P_char ch, char *arg )
       sprintf( buf, "Could not find artifact '%s'.\n\r", arti2name );
       send_to_char( buf, ch );
       if( vnum )
+      {
+        char_from_room( owner );
         extract_char( owner );
+      }
       return;
     }
 
@@ -1340,7 +1347,10 @@ void swap_arti( P_char ch, char *arg )
           sprintf( buf, "Artifact '%s' not on owner, but is worn!?\r\n", arti1name );
           send_to_char( buf, ch );
           if( vnum )
+          {
+            char_from_room( owner );
             extract_char( owner );
+          }
           return;
         }
         act( "$p suddenly tranforms in a bright flash of light!", FALSE,
@@ -1391,13 +1401,17 @@ void swap_arti( P_char ch, char *arg )
     sprintf( buf, "Could not find artifact '%s'.\r\n", arti1name );
     send_to_char( buf, ch );
     if( vnum )
+    {
+      char_from_room( owner );
       extract_char( owner );
+    }
     return;
   }
   // write pfile if applicable
   if( vnum )
   {
     writeCharacter( owner, RENT_SWAPARTI, owner->in_room );
+    char_from_room( owner );
     extract_char( owner );
   }
 }
@@ -1542,6 +1556,7 @@ void set_timer_arti( P_char ch, char *arg )
     }
 
     // Free memory
+    char_from_room( owner );
     extract_char( owner );
   }
   else
@@ -1647,6 +1662,7 @@ void event_check_arti_poof( P_char ch, P_char vict, P_obj obj, void * arg )
         writeCharacter( owner, RENT_POOFARTI, owner->in_room );
       }
       // Free memory
+      char_from_room( owner );
       extract_char( owner );
     }
   }
