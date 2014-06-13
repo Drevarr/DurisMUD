@@ -438,6 +438,9 @@ void ne_init_events(void)
   for (j = 0; j < top_of_world; j++)
     room_light(j, REAL);
 
+  // Checks for artis rented with negative timers..
+  add_event( event_check_arti_poof, 30 * WAIT_SEC, NULL, NULL, NULL, 0, NULL, 0 );
+
   logit(LOG_STATUS, "Done scheduling events.\n");
 }
 

@@ -634,6 +634,7 @@ int get_current_artifact_info(int, int, char *, int *, time_t *, int *, int, tim
 void do_artifact(P_char, char *, int);
 void feed_artifact(P_char ch, P_obj obj, int feed_seconds, int bypass);
 void artifact_switch_check(P_char ch, P_obj obj);
+void event_check_arti_poof( P_char ch, P_char vict, P_obj obj, void * arg );
 
 // automatic_rules.c
 int is_Raidable(P_char, char *, int);

@@ -1551,3 +1551,106 @@ void set_timer_arti( P_char ch, char *arg )
     send_to_char( "'.\n\r", ch );
   }
 }
+
+void event_check_arti_poof( P_char ch, P_char vict, P_obj obj, void * arg )
+{
+  DIR           *dir;
+  FILE          *f;
+  struct dirent *dire;
+  int            vnum;
+  char           name[256];
+  int            t_id, t_tu;
+  long unsigned  t_last_time, t_blood;
+  P_char         owner;
+
+  // Open the arti directory!
+  dir = opendir(ARTIFACT_DIR);
+  if (!dir)
+  {
+    statuslog( 56, "event_check_arti_poof: could not open arti dir (%s)\r\n", ARTIFACT_DIR );
+    wizlog( 56, "event_check_arti_poof: could not open arti dir (%s)\r\n", ARTIFACT_DIR );
+    return;
+  }
+  // Loop through arti files..
+  while (dire = readdir(dir))
+  {
+
+    vnum = atoi(dire->d_name);
+    if (!vnum)
+      continue;
+
+    sprintf(name, ARTIFACT_DIR "%d", vnum);
+    f = fopen(name, "rt");
+
+    if (!f)
+    {
+      statuslog( 56, "event_check_arti_poof: could not open arti file (%s %d)\r\n", ARTIFACT_DIR, vnum);
+      wizlog( 56, "event_check_arti_poof: could not open arti file (%s %d)\r\n", ARTIFACT_DIR, vnum);
+      return;
+    }
+
+    // Read arti file.
+    fscanf(f, "%s %d %lu %d %lu", name, &t_id, &t_last_time, &t_tu, &t_blood);
+    fclose(f);
+
+    // If arti is overdue to poof..
+    if( (ARTIFACT_BLOOD_DAYS * 86400 + t_blood) < time(NULL) )
+    {
+      statuslog( 56, "Poofing arti vnum %d", vnum );
+      wizlog( 56, "Poofing arti vnum %d", vnum );
+      // Load pfile
+      owner = (P_char) mm_get(dead_mob_pool);
+      clear_char(owner);
+      owner->only.pc = (struct pc_only_data *) mm_get(dead_pconly_pool);
+      owner->desc = NULL;
+      if( restoreCharOnly( owner, name ) < 0 )
+      {
+        statuslog( 56, "event_check_arti_poof: could not restoreCharOnly '%s'", name );
+        wizlog( 56, "event_check_arti_poof: could not restoreCharOnly '%s'", name );
+        extract_char( owner );
+        continue;
+      }
+      restoreItemsOnly( owner, 100 );
+      owner->next = character_list;
+      character_list = owner;
+      setCharPhysTypeInfo( owner );
+      // Find/Poof arti
+      for( int i = 0; i < MAX_WEAR; i++ )
+      {
+        if( !owner->equipment[i] )
+          continue;
+        if( obj_index[owner->equipment[i]->R_num].virtual_number == vnum )
+          break;
+      }
+      // If not wearing it..
+      if( i == MAX_WEAR )
+      {
+        obj = owner->carrying;
+        while( obj )
+        {
+          if( obj_index[obj->R_num].virtual_number == vnum )
+            break;
+          obj = obj->next_content;
+        }
+      }
+      else
+        obj = owner->equipment[i];
+      // obj == artifact at this point or person doesn't have it?!
+      if( !obj )
+      {
+        statuslog( 56, "Arti %d is not on %s's pfile.", vnum, name );
+        wizlog( 56, "Arti %d is not on %s's pfile.", vnum, name );
+      }
+      else
+      {
+        event_artifact_poof(NULL, NULL, obj, NULL);
+        writeCharacter( owner, RENT_POOFARTI, owner->in_room );
+      }
+      // Free memory
+      extract_char( owner );
+    }
+  }
+
+  // 3600 = 60sec * 60min => Repeat every one hour (not too important to have it sooner).
+  add_event( event_check_arti_poof, 3600 * WAIT_SEC, ch, vict, obj, 0, arg, 0 );
+}
