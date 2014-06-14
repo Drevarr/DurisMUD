@@ -1589,9 +1589,9 @@ void event_check_arti_poof( P_char ch, P_char vict, P_obj obj, void * arg )
 
     if (!f)
     {
-      statuslog( 56, "event_check_arti_poof: could not open arti file (%s %d)\r\n", ARTIFACT_DIR, vnum);
-      wizlog( 56, "event_check_arti_poof: could not open arti file (%s %d)\r\n", ARTIFACT_DIR, vnum);
-      return;
+      statuslog( 56, "event_check_arti_poof: could not open arti file (%s)\r\n", name );
+      wizlog( 56, "event_check_arti_poof: could not open arti file (%s)\r\n", name );
+      continue;
     }
 
     // Read arti file.
