@@ -4135,10 +4135,10 @@ void do_attributes(P_char ch, char *argument, int cmd)
  	  else if (GET_C_INT(ch) > 140)
       rollmod = 4;
 */
-    // At 100 int : 5% crit, at 200 int : 25% crit
-    int critroll = (GET_C_INT(ch) - 100)/5 + 5;
-    // Min crit % is 3%.
-    if( critroll < 3 ) critroll = 3;
+    // At 100 int : 5% crit, at 200 int : 28% crit
+    int critroll = (GET_C_INT(ch) - 100)/5 + 8;
+    // Min crit % is 8%.
+    if( critroll < 8 ) critroll = 8;
 
 	  // Calm Chance:
     int rolmod = 7;

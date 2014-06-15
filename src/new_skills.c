@@ -329,15 +329,15 @@ int MonkAcBonus(P_char ch)
     /*
        base bonus level * 2
      */
-    b = -(2 * GET_LEVEL(ch));
+    b = -(4 * GET_LEVEL(ch));
     // Bonus based on martial arts skill
-    b -= GET_CHAR_SKILL(ch, SKILL_MARTIAL_ARTS) / 2;
+    b -= GET_CHAR_SKILL(ch, SKILL_MARTIAL_ARTS);
     /*
        4x penalty for encumbering worn items with a small allowance for low levels
      */
     b += MAX(0, (3 * (wornweight(ch) - ((60 - GET_LEVEL(ch)) / 6))));
 
-    return BOUNDED(-100, b, 50);
+    return BOUNDED(-400, b, 50);
   }
   else
     return 0;
@@ -464,15 +464,24 @@ int MonkDamage(P_char ch)
   int      dam;
   int      skl_lvl = 0;
 
+
   if (IS_PC(ch))
     skl_lvl = GET_CHAR_SKILL(ch, SKILL_MARTIAL_ARTS);
 
-  MonkSetSpecialDie(ch);
+  if (GET_CLASS(ch, CLASS_MONK))
+  {
+    MonkSetSpecialDie(ch);
+  }
   dam = dice(ch->points.damnodice, ch->points.damsizedice);
   dam += skl_lvl / 11;
 
   if (GET_CLASS(ch, CLASS_MONK))
-    dam = BOUNDED(1, dam - (wornweight(ch) + 56 - GET_LEVEL(ch)), dam); 
+  {
+    // Weight factor affected by lvl and str.
+    int weight = wornweight(ch) - (GET_LEVEL(ch) * GET_C_STR(ch))/100;
+    // Does at least 1 damage, and at most dam damage.
+    dam = BOUNDED(1, dam - weight, dam);
+  }
   return dam;
 }
 
