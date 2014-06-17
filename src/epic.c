@@ -2093,8 +2093,7 @@ void do_epic(P_char ch, char *arg, int cmd)
   argument_interpreter(arg, buff2, buff3);
   if(!str_cmp("reset", buff2))
   {
-    send_to_char("&+CEpic resetting is unavailable - choose your epic skills wisely\r\n.", ch);
-    //do_epic_reset(ch, arg, cmd);
+    do_epic_reset(ch, arg, cmd);
     return;
   }
   
@@ -2269,8 +2268,8 @@ int epic_zone_data::displayed_alignment() const
 //	send_to_char("\n* = already completed this boot.\n", ch);
 //
 //}
-
-/*void do_epic_reset(P_char ch, char *arg, int cmd)
+/*
+void do_epic_reset(P_char ch, char *arg, int cmd)
 {
   char buff2[MAX_STRING_LENGTH];
   char buff3[MAX_STRING_LENGTH];
@@ -2279,7 +2278,7 @@ int epic_zone_data::displayed_alignment() const
   
   if(!ch || !IS_PC(ch))
     return;
-  
+
   P_char t_ch = ch;
 
 // Disabling for equipment wipe - re-enable at a later time - Drannak 8/9/2012
@@ -3039,7 +3038,13 @@ void do_epic_reset(P_char ch, char *arg, int cmd)
   
   if(!ch || !IS_PC(ch))
     return;
-  
+
+  if( !IS_TRUSTED(ch) )
+  {
+    send_to_char("&+CEpic resetting is unavailable - choose your epic skills wisely\r\n.", ch);
+    return;
+  }
+
   P_char t_ch = ch;
 
 // Disabling for equipment wipe - re-enable at a later time - Drannak 8/9/2012
