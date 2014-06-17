@@ -6457,7 +6457,10 @@ bool monk_critic(P_char ch, P_char victim)
         return true;
       }
     }
-
+    if(af->modifier == 6)
+    {
+      affect_from_char( ch, TAG_PRESSURE_POINTS );
+    }
   }
   return false;
 }
