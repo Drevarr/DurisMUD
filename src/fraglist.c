@@ -198,10 +198,10 @@ void displayFragList(P_char ch, char *arg, int cmd)
     {
       sprintf(filename, "Fraglists/fraglist.evil");
     }
-    // else if (strstr("undead", arg))
-    // {
-      // sprintf(filename, "Fraglists/fraglist.undead");
-    // }
+    else if (strstr("undead", arg))
+    {
+      sprintf(filename, "Fraglists/fraglist.undead");
+    }
     // else if (strstr("death knight", arg))
     // {
       // sprintf(filename, "Fraglists/fraglist.death_knight");
