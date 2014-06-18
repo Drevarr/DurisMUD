@@ -4782,21 +4782,23 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
     "$n places $p in the back of $N, resulting in some strange noises, a lot of blood and a corpse.",
     0, weapon
   };
-  
+
   if((skill = GET_CHAR_SKILL(ch, SKILL_BACKSTAB)) < 1)
-    return 0;
+  {
+    return FALSE;
+  }
 
   dice_mod = get_property("backstab.diceMultiplier", 1.000);
   final_mult = get_property("backstab.finalMultiplier", 1.000);
-  damroll_mult = get_property("backstab.DamrollMultiplier", 0.500); 
-  strdex_mod = get_property("backstab.StrDexMultiplier", 0.500); 
+  damroll_mult = get_property("backstab.DamrollMultiplier", 0.500);
+  strdex_mod = get_property("backstab.StrDexMultiplier", 0.500);
 
   dam = (int)((float)GET_DAMROLL(ch) * damroll_mult);
 
-  dam += (GET_C_DEX(ch) + GET_C_STR(ch)) * strdex_mod; 
+  dam += (GET_C_DEX(ch) + GET_C_STR(ch)) * strdex_mod;
 
   dam += (number (10, GET_C_LUK(ch)) / 10);
-  
+
   dam =  (int)((float)dam * ((float)skill / (float)100)); //(goes to 0)
 
   dice_mult = (int) (weapon->value[1] + (weapon->value[2] / 2)) / 2;
@@ -4809,114 +4811,112 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
   dam = (int) dam * final_mult;
 
 
- if(IS_AFFECTED(victim, AFF_AWARE) && IS_PC(victim) && ((GET_RACE(ch) != RACE_MOUNTAIN) && (GET_RACE(ch) != RACE_DUERGAR)))
+  if(IS_AFFECTED(victim, AFF_AWARE) && IS_PC(victim) && ((GET_RACE(ch) != RACE_MOUNTAIN) && (GET_RACE(ch) != RACE_DUERGAR)))
   {
-   int chance = GET_C_INT(victim);
-   int opportunity = number(1, (GET_C_AGI(ch) + GET_CHAR_SKILL(ch, SKILL_BACKSTAB)));
-   if(chance < opportunity)
-   {
-     send_to_char("&+LSince your victim is &+raware&+L of your presence, you are unable to take full advantage of them...\r\n", ch);
-     dam *= .6;
-   }
+    int chance = GET_C_INT(victim);
+    int opportunity = number(1, (GET_C_AGI(ch) + GET_CHAR_SKILL(ch, SKILL_BACKSTAB)));
+    if(chance < opportunity)
+    {
+      send_to_char("&+LSince your victim is &+raware&+L of your presence, you are unable to take full advantage of them...\r\n", ch);
+      dam *= .6;
+    }
   }
 
-  if(IS_IMMOBILE(victim) ||
-     GET_STAT(victim) <= STAT_SLEEPING)
-      dam = MAX(80, dam);
+  if(IS_IMMOBILE(victim) || GET_STAT(victim) <= STAT_SLEEPING)
+    dam = MAX(80, dam);
 
   spinal_tap = get_property("backstab.SpinalTap", 0.150);
   critical_stab = get_property("backstab.CriticalStab", 0.200);
   critical_stab_mult = get_property("backstab.CriticalStab.Multiplier", 1.000);
- 
-  if(GET_STAT(victim) <= STAT_INCAP ||
-     GET_STAT(victim) >= STAT_DYING)
-     dam = MAX(200, dam);
+
+  if(GET_STAT(victim) <= STAT_INCAP || GET_STAT(victim) >= STAT_DYING)
+    dam = MAX(200, dam);
 
   if(affected_by_spell(victim, SPELL_STONE_SKIN))
-    {
-      affect_from_char(victim, SPELL_STONE_SKIN);
-      dam = 1;
+  {
+    affect_from_char(victim, SPELL_STONE_SKIN);
+    dam = 1;
     act("$n attempts to stab you in the back, but your &+Lstone skin&n quickly absorbs the impact before fading away!",
-       FALSE, ch, 0, victim, TO_VICT);
+      FALSE, ch, 0, victim, TO_VICT);
     act("You attempt to stab $N in the back, but their &+Lstone skin&n quickly absorbs the impact before fading away!",
-       FALSE, ch, 0, victim, TO_CHAR);
-        act("$n attempts to stab $N in the back, but $N's &+Lstone skin&n quickly absorbs the impact before fading away!",
+      FALSE, ch, 0, victim, TO_CHAR);
+    act("$n attempts to stab $N in the back, but $N's &+Lstone skin&n quickly absorbs the impact before fading away!",
       FALSE, ch, 0, victim, TO_NOTVICTROOM);
-    }
+  }
 
   if(affected_by_spell(victim, SPELL_SHADOW_SHIELD))
-    {
-      affect_from_char(victim, SPELL_SHADOW_SHIELD);
-      dam = 1;
+  {
+    affect_from_char(victim, SPELL_SHADOW_SHIELD);
+    dam = 1;
     act("$n attempts to stab you in the back, but your &+Lshadow shield&n quickly absorbs the impact before fading away!",
-       FALSE, ch, 0, victim, TO_VICT);
+      FALSE, ch, 0, victim, TO_VICT);
     act("You attempt to stab $N in the back, but their &+Lshadow shield&n quickly absorbs the impact before fading away!",
-       FALSE, ch, 0, victim, TO_CHAR);
-        act("$n attempts to stab $N in the back, but $N's &+Lshadow shield&n quickly absorbs the impact before fading away!",
+      FALSE, ch, 0, victim, TO_CHAR);
+    act("$n attempts to stab $N in the back, but $N's &+Lshadow shield&n quickly absorbs the impact before fading away!",
       FALSE, ch, 0, victim, TO_NOTVICTROOM);
-    }
+  }
 
 
   if(affected_by_spell(victim, SPELL_BIOFEEDBACK))
-    {
-      affect_from_char(victim, SPELL_BIOFEEDBACK);
-      dam = 1;
-    act("$n attempts to stab you in the back, but your &+Gbiofeedback&n quickly absorbs the impact before fading away!",
-       FALSE, ch, 0, victim, TO_VICT);
-    act("You attempt to stab $N in the back, but their &+Gbiofeedback&n quickly absorbs the impact before fading away!",
-       FALSE, ch, 0, victim, TO_CHAR);
-        act("$n attempts to stab $N in the back, but $N's &+Gbiofeedback&n quickly absorbs the impact before fading away!",
-      FALSE, ch, 0, victim, TO_NOTVICTROOM);
-    }
-
-  if(affected_by_spell(victim, SPELL_VINES))
-    {
-      affect_from_char(victim, SPELL_VINES);
-      dam = 1;
-    act("$n attempts to stab you in the back, but your &+Gvines&n quickly absorbs the impact before fading away!",
-       FALSE, ch, 0, victim, TO_VICT);
-    act("You attempt to stab $N in the back, but their &+Gvines&n quickly absorbs the impact before fading away!",
-       FALSE, ch, 0, victim, TO_CHAR);
-        act("$n attempts to stab $N in the back, but $N's &+Gvines&n quickly absorbs the impact before fading away!",
-      FALSE, ch, 0, victim, TO_NOTVICTROOM);
-    }
-
-   if(affected_by_spell(victim, SPELL_IRONWOOD))
-    {
-      affect_from_char(victim, SPELL_IRONWOOD);
-      dam = 1;
-    act("$n attempts to stab you in the back, but your &+yironwood&n quickly absorbs the impact before fading away!",
-       FALSE, ch, 0, victim, TO_VICT);
-    act("You attempt to stab $N in the back, but their &+yironwood&n quickly absorbs the impact before fading away!",
-       FALSE, ch, 0, victim, TO_CHAR);
-        act("$n attempts to stab $N in the back, but $N's &+yironwood&n quickly absorbs the impact before fading away!",
-      FALSE, ch, 0, victim, TO_NOTVICTROOM);
-    }
-
-  if(GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP) &&
-    (notch_skill(ch, SKILL_SPINAL_TAP, get_property("skill.notch.offensive", 15)) ||
-    (spinal_tap * GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP)) > number(1, 100)))
   {
-    if(melee_damage
-      (ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages) ||
-      !is_char_in_room(ch, room))
-          return TRUE;
-
-    spinal = TRUE;
+    affect_from_char(victim, SPELL_BIOFEEDBACK);
+    dam = 1;
+    act("$n attempts to stab you in the back, but your &+Gbiofeedback&n quickly absorbs the impact before fading away!",
+      FALSE, ch, 0, victim, TO_VICT);
+    act("You attempt to stab $N in the back, but their &+Gbiofeedback&n quickly absorbs the impact before fading away!",
+      FALSE, ch, 0, victim, TO_CHAR);
+    act("$n attempts to stab $N in the back, but $N's &+Gbiofeedback&n quickly absorbs the impact before fading away!",
+      FALSE, ch, 0, victim, TO_NOTVICTROOM);
   }
 
+  if(affected_by_spell(victim, SPELL_VINES))
+  {
+    affect_from_char(victim, SPELL_VINES);
+    dam = 1;
+    act("$n attempts to stab you in the back, but your &+Gvines&n quickly absorbs the impact before fading away!",
+      FALSE, ch, 0, victim, TO_VICT);
+    act("You attempt to stab $N in the back, but their &+Gvines&n quickly absorbs the impact before fading away!",
+      FALSE, ch, 0, victim, TO_CHAR);
+    act("$n attempts to stab $N in the back, but $N's &+Gvines&n quickly absorbs the impact before fading away!",
+      FALSE, ch, 0, victim, TO_NOTVICTROOM);
+  }
+
+  if(affected_by_spell(victim, SPELL_IRONWOOD))
+  {
+    affect_from_char(victim, SPELL_IRONWOOD);
+    dam = 1;
+    act("$n attempts to stab you in the back, but your &+yironwood&n quickly absorbs the impact before fading away!",
+      FALSE, ch, 0, victim, TO_VICT);
+    act("You attempt to stab $N in the back, but their &+yironwood&n quickly absorbs the impact before fading away!",
+      FALSE, ch, 0, victim, TO_CHAR);
+    act("$n attempts to stab $N in the back, but $N's &+yironwood&n quickly absorbs the impact before fading away!",
+      FALSE, ch, 0, victim, TO_NOTVICTROOM);
+  }
+
+  if(GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP)
+    && (notch_skill(ch, SKILL_SPINAL_TAP, get_property("skill.notch.offensive", 15))
+    || (spinal_tap * GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP)) > number(1, 100)))
+  {
+    if( melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages)
+      || !is_char_in_room(ch, room) )
+    {
+      return TRUE;
+    }
+    spinal = TRUE;
+  }
   //else if - can not spinal as well as critical stab. (drannak 1/7/14)
-  else if(GET_CHAR_SKILL(ch, SKILL_CRITICAL_STAB) &&
-         (notch_skill(ch, SKILL_CRITICAL_STAB, get_property("skill.notch.offensive", 25)) ||
-         (critical_stab * GET_CHAR_SKILL(ch, SKILL_CRITICAL_STAB)) > number(1, 100)))
+  else if(GET_CHAR_SKILL(ch, SKILL_CRITICAL_STAB)
+    && (notch_skill(ch, SKILL_CRITICAL_STAB, get_property("skill.notch.offensive", 25))
+    || (critical_stab * GET_CHAR_SKILL(ch, SKILL_CRITICAL_STAB)) > number(1, 100)))
   {
     dam = dam + (dam * critical_stab_mult);
 
-    if(melee_damage
-      (ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages) ||
-      !is_char_in_room(ch, room))
-          return TRUE;
-    
+    if(melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages)
+      || !is_char_in_room(ch, room))
+    {
+      return TRUE;
+    }
+
     act("You twist the blade and watch as a $N writhes in agony.",
       FALSE, ch, 0, victim, TO_CHAR);
     act("$n twists the blade lodged in your back causing you to writhe in agony.",
@@ -4924,10 +4924,11 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
     act("$n twists the blade causing $N to writhe in agony,",
       FALSE, ch, 0, victim, TO_NOTVICTROOM);
   }
-  else if(melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages) || 
-	   (room < 1) ||
-          !is_char_in_room(ch, room))
+  else if(melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages)
+    || (room < 1) || !is_char_in_room(ch, room))
+  {
     return TRUE;
+  }
 
   if(spinal)
   {
@@ -4937,27 +4938,29 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
        FALSE, ch, 0, victim, TO_VICT);
     act("With a swift tug $n wrenches the weapon free, ramming it into $N's spine!",
        FALSE, ch, 0, victim, TO_NOTVICTROOM);
-    
-    if(melee_damage
-        (ch, victim, number(-12, 12) + GET_LEVEL(ch), PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages)
-        || !char_in_list(ch))
+    if(melee_damage(ch, victim, number(-12, 12) + GET_LEVEL(ch), PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages)
+      || !char_in_list(ch))
+    {
       return TRUE;
-    
-
-
+    }
   }
 
-   if(obj_index[weapon->R_num].func.obj)
-   (*obj_index[weapon->R_num].func.obj) (weapon, ch, CMD_MELEE_HIT,
-   (char *) victim);   //  Yes weapon procs on backstabs - Drannak
+  //  Yes weapon procs on backstabs - Drannak
+  if(obj_index[weapon->R_num].func.obj)
+  {
+    (*obj_index[weapon->R_num].func.obj) (weapon, ch, CMD_MELEE_HIT, (char *) victim);
+  }
 
   if(weapon->value[4])
   {
     if(IS_POISON(weapon->value[4]))
+    {
       (skills[weapon->value[4]].spell_pointer) (10, ch, 0, 0, victim, 0);
+    }
     else
+    {
       poison_lifeleak(10, ch, 0, 0, victim, 0);
-    
+    }
     weapon->value[4] = 0;       /* remove on success */
   }
 
@@ -4988,7 +4991,7 @@ bool backstab(P_char ch, P_char victim)
 
   if(!SanityCheck(ch, "do_backstab"))
     return FALSE;
-    
+
   if(IS_IMMOBILE(ch))
   {
     send_to_char("In your present condition, just relax and take in the sights.\r\n", ch);
@@ -5003,11 +5006,9 @@ bool backstab(P_char ch, P_char victim)
 
   if(!IS_FIGHTING(ch))
   {
-    if(!(victim) ||
-       !IS_ALIVE(victim))
+    if(!(victim) || !IS_ALIVE(victim))
     {
       send_to_char("Backstab who?\n", ch);
-      CharWait(ch, (int)(0.5 * PULSE_VIOLENCE));
       return FALSE;
     }
   }
@@ -5020,9 +5021,7 @@ bool backstab(P_char ch, P_char victim)
 
   if(ch->specials.fighting)
   {
-    send_to_char
-      ("Sorry, you cannot concentrate enough with that fellow pounding on you.\n",
-       ch);
+    send_to_char("Sorry, you cannot concentrate enough with that fellow pounding on you.\n", ch);
     return FALSE;
   }
 
@@ -5034,20 +5033,17 @@ bool backstab(P_char ch, P_char victim)
 
   victim = guard_check(ch, victim);
 
-  if((get_takedown_size(ch) > get_takedown_size(victim) + 1) &&
-     AWAKE(victim) &&
-     GET_POS(victim) > POS_KNEELING)
+  if((get_takedown_size(ch) > get_takedown_size(victim) + 1)
+    && AWAKE(victim) && GET_POS(victim) > POS_KNEELING)
   {
-    send_to_char
-      ("Smirk. I don't believe you could sneak behind to stab it.\n", ch);
+    send_to_char("Smirk. I don't believe you could sneak behind to stab it.\n", ch);
     return FALSE;
   }
 
   if(get_takedown_size(ch) + 1 < get_takedown_size(victim) &&
     GET_POS(victim) > POS_KNEELING)
   {
-    send_to_char("Smirk. Backstabbing in a calf is not very effective.\n",
-                 ch);
+    send_to_char("Smirk. Backstabbing in a calf is not very effective.\n", ch);
     return FALSE;
   }
 
@@ -5060,15 +5056,14 @@ bool backstab(P_char ch, P_char victim)
   first_w = ch->equipment[WIELD];
   second_w = ch->equipment[SECONDARY_WEAPON];
 
-  if(!first_w &&
-     !second_w)
+  if(!first_w && !second_w)
   {
     send_to_char("You need to wield a weapon to even try.\n", ch);
     return FALSE;
   }
 
-  if((!first_w || !IS_BACKSTABBER(first_w)) &&
-     (!second_w || !IS_BACKSTABBER(second_w)))
+  if((!first_w || !IS_BACKSTABBER(first_w))
+    && (!second_w || !IS_BACKSTABBER(second_w)))
   {
     send_to_char("Only piercing weapons can be used to backstab.\n", ch);
     return FALSE;
@@ -5094,14 +5089,12 @@ bool backstab(P_char ch, P_char victim)
      percent_chance = (int) (percent_chance * 1.1);
   }
 
-  if(IS_AFFECTED(victim, AFF_AWARE) &&
-     AWAKE(victim))
+  if(IS_AFFECTED(victim, AFF_AWARE) && AWAKE(victim))
   {
     percent_chance = (int) (percent_chance * get_property("backstab.AwareModifier", 0.850));
   }
-  
-  if(!IS_IMMOBILE(victim) &&
-    IS_AFFECTED(victim, AFF_SKILL_AWARE))
+
+  if(!IS_IMMOBILE(victim) && IS_AFFECTED(victim, AFF_SKILL_AWARE))
   {
     for(af_ptr = victim->affected; af_ptr; af_ptr = af_ptr->next)
     {
@@ -5112,14 +5105,12 @@ bool backstab(P_char ch, P_char victim)
     }
     /* calculated in do_awareness() */
     if(af_ptr)
-      percent_chance =
-        (int) (percent_chance * 0.01 * (100 - af_ptr->modifier));
+      percent_chance = (int) (percent_chance * 0.01 * (100 - af_ptr->modifier));
     else
       logit(LOG_DEBUG, "aware, but no affected structure");
   }
 
-  if(IS_FIGHTING(victim) &&
-     !IS_IMMOBILE(victim))
+  if(IS_FIGHTING(victim) && !IS_IMMOBILE(victim))
   {
     percent_chance = (int) (percent_chance / 1.5);
   }
@@ -5127,9 +5118,8 @@ bool backstab(P_char ch, P_char victim)
   if(!CAN_SEE(victim, ch))
     percent_chance = (int) (percent_chance * 1.5);
 
-
-
-  if(has_innate(victim, INNATE_DRAGONMIND) && number(0,1) ){
+  if(has_innate(victim, INNATE_DRAGONMIND) && number(0,1) )
+  {
     act("$N notices your lethal attempt!", FALSE, ch,
         0, victim, TO_CHAR);
     act("$n tries to backstab $N but is too slow!", FALSE, ch,
@@ -5141,20 +5131,16 @@ bool backstab(P_char ch, P_char victim)
     return FALSE;
   }
 
-  percent_chance =
-    (int) (percent_chance *
-           ((double)
-            BOUNDED(8, 10 + (GET_LEVEL(ch) - GET_LEVEL(victim)) / 10,
-                    11)) / 10);
+  percent_chance = (int) (percent_chance * (double)
+    BOUNDED(8, 10 + (GET_LEVEL(ch) - GET_LEVEL(victim)) / 10, 11) / 10);
   percent_chance = BOUNDED(0, percent_chance, 95);
 
-  if(IS_IMMOBILE(victim) ||
-    GET_STAT(victim) <= STAT_SLEEPING)
+  if(IS_IMMOBILE(victim) || GET_STAT(victim) <= STAT_SLEEPING)
   {
     percent_chance = 101;
   }
-  
-  CharWait(ch, (int) (PULSE_VIOLENCE * 1.3));
+
+  CharWait(ch, WAIT_SEC);
 
   if(IS_PC(ch) && (!on_front_line(ch) || !on_front_line(victim)))
   {
@@ -5176,7 +5162,7 @@ bool backstab(P_char ch, P_char victim)
       return FALSE;
     }
   }
-  
+
   if(affected_by_spell(victim, SPELL_GUARDIAN_SPIRITS))
   {
     guardian_spirits_messages(ch, victim);
@@ -5186,13 +5172,13 @@ bool backstab(P_char ch, P_char victim)
   if(first_w && IS_BACKSTABBER(first_w))
   {
     stabbed = TRUE;
-    if(notch_skill(ch, SKILL_BACKSTAB,
-                    get_property("skill.notch.offensive", 15)) ||
-        percent_chance > number(0, 100))
+    if(notch_skill(ch, SKILL_BACKSTAB, get_property("skill.notch.offensive", 15))
+      || percent_chance > number(0, 100))
     {
-  
       if(single_stab(ch, victim, first_w))
+      {
         return TRUE;
+      }
     }
     else
     {
@@ -5200,15 +5186,14 @@ bool backstab(P_char ch, P_char victim)
     }
   }
 
-  if(!char_in_list(victim) || (!IS_ALIVE(victim)) ||
-      (ch->in_room != victim->in_room))
+  if(!char_in_list(victim) || (!IS_ALIVE(victim))
+    || (ch->in_room != victim->in_room))
+  {
     return TRUE;
+  }
 
-  if((!stabbed ||
-      GET_CLASS(ch, CLASS_ASSASSIN) ||
-      GET_SPEC(ch, CLASS_ROGUE, SPEC_ASSASSIN)) &&
-      second_w &&
-      IS_BACKSTABBER(second_w))
+  if((!stabbed || GET_CLASS(ch, CLASS_ASSASSIN) || GET_SPEC(ch, CLASS_ROGUE, SPEC_ASSASSIN))
+    && second_w && IS_BACKSTABBER(second_w))
   {
     if(percent_chance > number(0, 100) ||
        GET_STAT(victim) <= STAT_SLEEPING)
@@ -5216,14 +5201,19 @@ bool backstab(P_char ch, P_char victim)
       if(stabbed)
       {
         if(IS_FIGHTING(victim))
+        {
           stop_fighting(victim);
+        }
         if(IS_DESTROYING(victim))
+        {
           stop_destroying(victim);
+        }
         ch->specials.combat_tics = ch->specials.base_combat_round;
       }
       else
-        notch_skill(ch, SKILL_BACKSTAB,
-                    get_property("skill.notch.offensive", 15));
+      {
+        notch_skill(ch, SKILL_BACKSTAB, get_property("skill.notch.offensive", 15));
+      }
       single_stab(ch, victim, second_w);
     }
     else
