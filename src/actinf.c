@@ -1029,6 +1029,8 @@ void show_visual_status(P_char ch, P_char tar_char)
 
   if (IS_AFFECTED(tar_char, AFF_BARKSKIN))
     SVS("&+y$S skin has a barklike texture..");
+  if (IS_AFFECTED5(tar_char, AFF5_THORNSKIN))
+    SVS("&+y$S skin has the texture of bark with thorns.");
 
 #ifdef STANCES_ALLOWED
   if(IS_AFFECTED5(tar_char, AFF5_STANCE_DEFENSIVE))

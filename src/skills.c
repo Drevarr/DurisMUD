@@ -37,6 +37,7 @@ extern int SortedSkills[];
 #endif
 
 #include "spells.h"
+#include "blispells.h"
 #include "necromancy.h"
 
 Skill    skills[MAX_AFFECT_TYPES+1];
@@ -1128,6 +1129,7 @@ void initialize_skills()
   SPELL_CREATE("life leech", SPELL_LIFE_LEECH, PULSE_SPELLCAST * 4/ 3,
 		  TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO, spell_life_leech);
   SPELL_ADD(CLASS_NECROMANCER, 4);
+  SPELL_ADD(CLASS_BLIGHTER, 5);
 
   SPELL_CREATE_MSG("wither", SPELL_WITHER, PULSE_SPELLCAST,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO,
@@ -1136,6 +1138,7 @@ void initialize_skills()
   SPELL_ADD(CLASS_NECROMANCER, 4);
   SPEC_SPELL_ADD(CLASS_CLERIC, 6, SPEC_ZEALOT);
   SPELL_ADD(CLASS_THEURGIST, 4);
+  SPELL_ADD(CLASS_BLIGHTER, 4);
 
   SPELL_CREATE("living stone", SPELL_LIVING_STONE, PULSE_SPELLCAST * 4 / 3,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_CHAR_RANGE | TAR_RANGE2 | TAR_AGGRO, spell_living_stone);
@@ -1989,6 +1992,7 @@ SPELL_CREATE("vigorize light", SPELL_VIGORIZE_LIGHT, PULSE_SPELLCAST * 2,
   SPELL_ADD(CLASS_CLERIC, 8);
   SPELL_ADD(CLASS_BARD, 6);
   SPELL_ADD(CLASS_DRUID, 7);
+  SPELL_ADD(CLASS_BLIGHTER, 7);
   SPELL_ADD(CLASS_REAVER, 8);
   SPELL_ADD(CLASS_ILLUSIONIST, 2);
   SPELL_ADD(CLASS_WARLOCK, 8);
@@ -4222,6 +4226,11 @@ SPELL_ADD(CLASS_NONE, 1);
                 spell_barkskin, "Your skin loses its &+ybarklike &ntexture.");
   SPELL_ADD(CLASS_DRUID, 1);
   SPELL_ADD(CLASS_RANGER, 5);
+
+  SPELL_CREATE_MSG("thornskin", SPELL_THORNSKIN, PULSE_SPELLCAST,
+                TAR_CHAR_ROOM,
+                spell_thornskin, "Your skin loses its &+ythorny&n texture.");
+  SPELL_ADD(CLASS_BLIGHTER, 1);
 
   SPELL_CREATE_MSG("mass barkskin", SPELL_MASS_BARKSKIN, PULSE_SPELLCAST * 3,
                 TAR_IGNORE,

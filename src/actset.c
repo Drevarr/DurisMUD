@@ -66,7 +66,7 @@ extern int top_of_world;
 extern const int rev_dir[];
 extern int top_of_zone_table;
 extern struct zone_data *zone_table;
-extern reset_racial_skills(P_char ch);
+extern void reset_racial_skills(P_char ch);
 
 /* Macros */
 #define SETBIT_ROOM             0

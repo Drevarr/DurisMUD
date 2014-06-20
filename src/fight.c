@@ -4734,17 +4734,23 @@ int check_shields(P_char ch, P_char victim, int dam, int flags)
     "&+LA pain beyond imagination overwhelms you as the black blood eats its way into your heart.",
     "&+LWhat was once&n $N, &+Lbut now only a mass of burnt flesh, crumbles in a heap on the ground."
   };
+  struct damage_messages thornskin = {
+    "As $N strikes you, you smile as $E tears $S &+Rfl&+res&+Rh&n!",
+    "As you strike $n, you are &+rscratched&n by $s &+ythorny skin&n!",
+    "As $N strikes $n, $e smiles as $N tears $S &+Rfl&+res&+Rh&n!",
+    "$N is &+rscratched&n to death by your hide.",
+    "You are &+rscratched&n to death by $n's hide.",
+    "$N is &+rscratched&n to death by $n's hide.",
+  };
 
-  if(!(ch) ||
-      !(victim) ||
-      !IS_ALIVE(ch) ||
-      !IS_ALIVE(victim))
+  if(!(ch) || !(victim) || !IS_ALIVE(ch) || !IS_ALIVE(victim))
+  {
     return 0;
+  }
 
   // if you ever change soulshield or neg shield damage make sure to check the
   // better one first here
-  if(IS_AFFECTED4(victim, AFF4_NEG_SHIELD) &&
-      !IS_UNDEADRACE(ch))
+  if(IS_AFFECTED4(victim, AFF4_NEG_SHIELD) && !IS_UNDEADRACE(ch))
   {
     result =
       spell_damage(victim, ch, (int) (dam * negshielddam),
@@ -4937,6 +4943,11 @@ int check_shields(P_char ch, P_char victim, int dam, int flags)
     result =
       spell_damage(victim, ch, (int) (dam * lshield),
           SPLDAM_LIGHTNING, sflags, &lightningshield);
+  }
+  else if(result == DAM_NONEDEAD &&
+      IS_AFFECTED5(victim, AFF5_THORNSKIN))
+  {
+    result = raw_damage(victim, ch, 2, RAWDAM_DEFAULT | flags, &thornskin);
   }
 
   if(result == DAM_NONEDEAD &&

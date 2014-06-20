@@ -666,12 +666,14 @@
 #define SPELL_LODESTONE              617
 #define SPELL_LIFE_LEECH             618
 #define SPELL_BMANTLE                619
-#define SPELL_DECAYING_FLESH	  620
-#define SPELL_NOAUCTION		  621
-#define SPELL_BATTLEMAGE		  622
-#define SPELL_CORPSE_PORTAL		  623
-#define SPELL_CONTAIN_BEING		  624
-#define LAST_SPELL  SPELL_CONTAIN_BEING
+#define SPELL_DECAYING_FLESH         620
+#define SPELL_NOAUCTION	             621
+#define SPELL_BATTLEMAGE	           622
+#define SPELL_CORPSE_PORTAL	         623
+#define SPELL_CONTAIN_BEING		       624
+/* Blighter spells */
+#define SPELL_THORNSKIN              624
+#define LAST_SPELL  SPELL_THORNSKIN
 
 #define FIRST_SKILL                  1000  /* should be a decent split point */
 #define SKILL_SNEAK                  1000
