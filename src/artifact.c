@@ -589,6 +589,7 @@ void list_artifacts(P_char ch, char *arg, int type)
   int      others = 0;
   int      owning_side;
   P_obj    obj;
+  bool     mortal;
 
   sprintf(strn1, "");
 
@@ -602,8 +603,15 @@ void list_artifacts(P_char ch, char *arg, int type)
   {
     arg++;
   }
-
-  if( (!IS_TRUSTED(ch) || is_abbrev(arg, "mortal")) && type == ARTIFACT_MAIN )
+  if( *arg && is_abbrev( arg, "mortal" ) )
+  {
+    mortal = TRUE;
+  }
+  else
+  {
+    mortal = FALSE;
+  }
+  if( (!IS_TRUSTED(ch) || mortal) && type == ARTIFACT_MAIN )
   {
     if( artilist_mortal_main )
     {
@@ -612,7 +620,7 @@ void list_artifacts(P_char ch, char *arg, int type)
       return;
     }
   }
-  if( !IS_TRUSTED(ch) && type == ARTIFACT_UNIQUE )
+  if( (!IS_TRUSTED(ch) || mortal) && type == ARTIFACT_UNIQUE )
   {
     if( artilist_mortal_unique )
     {
@@ -621,7 +629,7 @@ void list_artifacts(P_char ch, char *arg, int type)
       return;
     }
   }
-  if( !IS_TRUSTED(ch) && type == ARTIFACT_IOUN )
+  if( (!IS_TRUSTED(ch) || mortal) && type == ARTIFACT_IOUN )
   {
     if( artilist_mortal_ioun )
     {
@@ -641,7 +649,7 @@ void list_artifacts(P_char ch, char *arg, int type)
     return;
   }
 
-  if( IS_TRUSTED(ch) && !is_abbrev(arg, "mortal") )
+  if( IS_TRUSTED(ch) && !mortal )
     send_to_char("&+YOwner               Time       Last Update                   Artifact\r\n\r\n", ch);
   else
     send_to_char("&+YOwner               Artifact\r\n\r\n", ch);
@@ -695,7 +703,7 @@ void list_artifacts(P_char ch, char *arg, int type)
       others++;
     }
 
-    if (IS_TRUSTED(ch) && !is_abbrev(arg, "mortal") )
+    if (IS_TRUSTED(ch) && !mortal )
     {
       strcpy(strn2, ctime(&last_time));
       strn2[strlen(strn2) - 1] = '\0';
