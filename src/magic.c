@@ -14636,10 +14636,7 @@ void spell_pword_blind(int level, P_char ch, char *arg, int type,
 {
   int percent = 0, save;
 
-  if(!(ch) ||
-     !(victim) ||
-     !IS_ALIVE(ch) ||
-     !IS_ALIVE(victim))
+  if(!(ch) || !(victim) || !IS_ALIVE(ch) || !IS_ALIVE(victim))
   {
     return;
   }
@@ -14649,23 +14646,22 @@ void spell_pword_blind(int level, P_char ch, char *arg, int type,
     send_to_char("Your target is already blind!\r\n", ch);
     return;
   }
-  
-  if(has_innate(victim, INNATE_EYELESS) ||
-     IS_TRUSTED(victim))
-        return;
- int mindpower;
- mindpower = ((GET_C_POW(ch) - GET_C_POW(victim)) / 2);
+
+  if( has_innate(victim, INNATE_EYELESS) || IS_TRUSTED(victim) )
+    return;
+
+  int mindpower = ((GET_C_POW(ch) - GET_C_POW(victim)) / 2);
   //save = victim->specials.apply_saving_throw[SAVING_SPELL];
   save = NewSaves(victim, SAVING_SPELL, mindpower);
 
   debug("PWB: (%s) saving throw is (%d).", J_NAME(victim), save);
 
   if(NewSaves(victim, SAVING_SPELL, number(0, mindpower)))
-   {
+  {
     send_to_char("Your victim has saved against your spell!\r\n", ch);
     send_to_char("You have saved against your attacker's spell!\r\n", victim);
     return;
-   }
+  }
 
 /*
   if(save < 0)
@@ -14679,8 +14675,8 @@ void spell_pword_blind(int level, P_char ch, char *arg, int type,
   if(IS_PC_PET(ch))
     percent = (int)(percent * 0.5);
 
-  debug("PWB: (%s) casted pwb at (%s) percent (%d).",
-    GET_NAME(ch), GET_NAME(victim), percent);
+  debug("PWB: (%s) casted pwb at (%s) percent (%d) mindpower (%d).",
+    GET_NAME(ch), GET_NAME(victim), percent, mindpower);
 /*
   if(percent < 10)
   {
@@ -14709,13 +14705,14 @@ void spell_pword_blind(int level, P_char ch, char *arg, int type,
     blind(ch, victim, number(5, 10) * WAIT_SEC);
 */
   act("$N gropes around, blinded after hearing $n's powerful word!",
-      FALSE, ch, 0, victim, TO_NOTVICT);
-    act("&+rSuddenly, the world goes &+Lblack!",
-      FALSE, ch, 0, victim, TO_VICT);
-    act("$N won't be seeing much in the near future...",
-      TRUE, ch, 0, victim, TO_CHAR);
-   percent = BOUNDED(2, ((mindpower * 2) / 10), 10);
-   blind(ch, victim, number(1, mindpower * 1.5));
+    FALSE, ch, 0, victim, TO_NOTVICT);
+  act("&+rSuddenly, the world goes &+Lblack!",
+    FALSE, ch, 0, victim, TO_VICT);
+  act("$N won't be seeing much in the near future...",
+    TRUE, ch, 0, victim, TO_CHAR);
+  // At least 2 sec, at most mindpower/2 secs.
+  mindpower = MAX( WAIT_SEC, mindpower );
+  blind( ch, victim, dice(2*WAIT_SEC, mindpower/WAIT_SEC) );
 
 }
 
@@ -14726,54 +14723,46 @@ void spell_pword_stun(int level, P_char ch, char *arg, int type,
 {
   //int percent = 50;
   int percent;
-  percent = (int) (GET_C_POW(ch) - GET_C_POW(victim)); //we now initate percent by checking difference between minds - Drannak 4/21/13
 
-  if(!(ch) ||
-    !(victim) ||
-    !IS_ALIVE(victim) ||
-    GET_HIT(victim) < 1 ||
-    !IS_ALIVE(ch) ||
-    IS_TRUSTED(victim) ||
-    IS_ZOMBIE(victim) ||
-    GET_RACE(victim) == RACE_GOLEM ||
-    GET_RACE(victim) == RACE_PLANT ||
-    GET_RACE(victim) == RACE_CONSTRUCT ||
-    IS_GREATER_RACE(victim))
+  if(!(ch) || !(victim) || !IS_ALIVE(victim) || GET_HIT(victim) < 1
+    || !IS_ALIVE(ch) || IS_TRUSTED(victim) || IS_ZOMBIE(victim)
+    || GET_RACE(victim) == RACE_GOLEM || GET_RACE(victim) == RACE_PLANT
+    || GET_RACE(victim) == RACE_CONSTRUCT || IS_GREATER_RACE(victim))
   {
     send_to_char("&+rYour target is immune!\r\n", ch);
     return;
   }
-  
+
   if(resists_spell(ch, victim))
     return;
-  
+
   if(IS_STUNNED(victim))
   {
     send_to_char("Your target is already stunned!\r\n", ch);
     return;
   }
- 
-  percent += (int) (GET_LEVEL(ch) - GET_LEVEL(victim));
-  
-  //percent += (int) (GET_C_POW(ch) - GET_C_POW(victim)) * .75;
-  
+
+  percent = (int) (GET_LEVEL(ch) - GET_LEVEL(victim));
+
+  percent += (int) (GET_C_POW(ch) - GET_C_POW(victim)) * .75;
+
   if(IS_PC_PET(victim))
     percent *= 2;
-  
+
   if(affected_by_spell(ch, SPELL_FEEBLEMIND))
     percent /= 3;
-  
+
   if(affected_by_spell(victim, SPELL_FEEBLEMIND))
     percent *= 1.5;
 
   if(NewSaves(ch, SAVING_SPELL, number(-3, 3)))
-    {
+  {
     percent = (int) percent * .75;
-    }
+  }
   else
-    {
-      percent = (int) percent * 1.15;
-    }
+  {
+    percent = (int) percent * 1.15;
+  }
 
   if(percent < 30)
   {
@@ -14783,38 +14772,30 @@ void spell_pword_stun(int level, P_char ch, char *arg, int type,
 
   if(percent > 90)
   {
-    act("$N&n &+yis &+rstunned &+yinto complete submission by the power of&n $n's &+yword!&n", FALSE, ch, 0, victim,
-      TO_NOTVICT);
+    act("$N&n &+yis &+rstunned &+yinto complete submission by the power of&n $n's &+yword!&n", FALSE, ch, 0, victim, TO_NOTVICT);
     act("$n's&n &+yword of power sends you reeling in utter confusion and pain!&n", FALSE, ch, 0, victim, TO_VICT);
-    act("$N&n &+yis &+rstunned &+yinto complete submission by your powerful word!&n", TRUE, ch, 0, victim,
-      TO_CHAR);
+    act("$N&n &+yis &+rstunned &+yinto complete submission by your powerful word!&n", TRUE, ch, 0, victim, TO_CHAR);
     Stun(victim, ch, (number(3, 4) * PULSE_VIOLENCE), FALSE);
   }
   else if(percent > 70)
   {
-    act("$N&n &+yis heavily &+rstunned &+yby the power of&n $n's &+yyword!&n", TRUE, ch, 0, victim,
-      TO_NOTVICT);
+    act("$N&n &+yis heavily &+rstunned &+yby the power of&n $n's &+yyword!&n", TRUE, ch, 0, victim, TO_NOTVICT);
     act("$n's&n &+yword of power sends you reeling!&n", FALSE, ch, 0, victim, TO_VICT);
-    act("$N&n &+yis sent reeling by your very powerful word!&n", TRUE, ch, 0, victim,
-      TO_CHAR);
+    act("$N&n &+yis sent reeling by your very powerful word!&n", TRUE, ch, 0, victim, TO_CHAR);
     Stun(victim, ch, (number(2, 3) * PULSE_VIOLENCE), FALSE);
   }
   else if(percent > 50)
   {
-    act("$N&n &+yis &+rstunned &+yby the power of&n $n's &+yword!&n", TRUE, ch, 0, victim,
-      TO_NOTVICT);
+    act("$N&n &+yis &+rstunned &+yby the power of&n $n's &+yword!&n", TRUE, ch, 0, victim, TO_NOTVICT);
     act("$n's&n &+yword of power confuses and disorients you!&n", FALSE, ch, 0, victim, TO_VICT);
-    act("$N&n &+yis sent reeling by your powerful word!&n", TRUE, ch, 0, victim,
-      TO_CHAR);
+    act("$N&n &+yis sent reeling by your powerful word!&n", TRUE, ch, 0, victim, TO_CHAR);
     Stun(victim, ch, (number(1, 2) * PULSE_VIOLENCE), FALSE);
   }
   else
   {
-    act("$N&n &+yis &+wdazed &+yby the power of&n $n's &+yword!&n", TRUE, ch, 0, victim,
-      TO_NOTVICT);
+    act("$N&n &+yis &+wdazed &+yby the power of&n $n's &+yword!&n", TRUE, ch, 0, victim, TO_NOTVICT);
     act("$n's&n &+yword of power &+wdazes &+yyou!&n", FALSE, ch, 0, victim, TO_VICT);
-    act("$N&n &+yis &+wdazed &+yby your powerful word!&n", TRUE, ch, 0, victim,
-      TO_CHAR);
+    act("$N&n &+yis &+wdazed &+yby your powerful word!&n", TRUE, ch, 0, victim, TO_CHAR);
     Stun(victim, ch, PULSE_VIOLENCE, FALSE);
   }
 }
