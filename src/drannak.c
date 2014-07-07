@@ -2515,7 +2515,7 @@ void enhancematload(P_char ch)
   if(number(1, 5000) < moblvl)
   {
     debug("enhancematload: moblvl %d\r\n", moblvl);
-    if(number(1, 7000) < moblvl)
+    if(number(1, 5000) < moblvl)
     {
       reward = number(1, 8);
       switch (reward)
@@ -2593,7 +2593,11 @@ void enhancematload(P_char ch)
       }
     }
     P_obj gift = read_object(reward, VIRTUAL);
-    obj_to_char(gift, ch);
+    if( gift )
+    {
+      debug("enhancematload: reward '%s' (%d).\r\n", gift->short_description, GET_OBJ_VNUM(gift));
+      obj_to_char(gift, ch);
+    }
   }
 }
 
