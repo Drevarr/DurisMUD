@@ -2087,7 +2087,7 @@ S
 &+LThe &+wBottom&+L of the &+wStaircase&+L at the &+wLibrary &+WBasement&N~
 &+L   This spiral staircase descends steeply down into a dark depth of no light. There is no embellishment to this area, and the stone is rougher-cut than other places within the Library. This area appears to be a large cavern, with exits lit by the faint glow of faerie fire in the halls.&N
 ~
-402 1073872909 0 0
+402 1073872909 15 0
 D0
 ~
 ~
@@ -2105,7 +2105,7 @@ S
 &+LA &+wHallway&+L in the &+wBasement &+Lof &+wL&+W's&+wri&+Ll&+wli&+Wz&+wzin&n~
 &+L   This corridor within the basement is rougher-cut into the rock of the Underdark than the rest of the structures. The floors have very plain patterns carved into the stones. The walls remain unadorned. The ceilings have ribbed vaulting to support the floors above it - and all of the structural weight of the books.&N
 ~
-402 9 29 0
+402 9 15 0
 D0
 ~
 ~
@@ -2130,7 +2130,7 @@ S
 &+LA &+wHallway&+L in the &+wBasement &+Lof &+wL&+W's&+wri&+Ll&+wli&+Wz&+wzin&n~
 &+L   This corridor within the basement is rougher-cut into the rock of the Underdark than the rest of the structures. The floors have very plain patterns carved into the stones. The walls remain unadorned. The ceilings have ribbed vaulting to support the floors above it - and all of the structural weight of the books.&N
 ~
-402 9 29 0
+402 9 15 0
 D0
 ~
 ~
@@ -2155,7 +2155,7 @@ S
 &+LThe End of a &+wHallway&+L in the &+wBasement &+Lof &+wL&+W's&+wri&+Ll&+wli&+Wz&+wzin&n~
 &+L   This corridor within the basement is rougher-cut into the rock of the Underdark than the rest of the structures. The floors have very plain patterns carved into the stones. The walls remain unadorned. The ceilings have ribbed vaulting to support the floors above it - and all of the structural weight of the books.&N
 ~
-402 9 29 0
+402 9 15 0
 D1
 ~
 ~
@@ -2176,7 +2176,7 @@ S
 &+LA &+wHallway&+L in the &+wBasement &+Lof &+wL&+W's&+wri&+Ll&+wli&+Wz&+wzin&n~
 &+L   This corridor within the basement is rougher-cut into the rock of the Underdark than the rest of the structures. The floors have very plain patterns carved into the stones. The walls remain unadorned. The ceilings have ribbed vaulting to support the floors above it - and all of the structural weight of the books.&N
 ~
-402 9 29 0
+402 9 15 0
 D0
 ~
 ~
@@ -2201,7 +2201,7 @@ S
 &+LA &+wHallway&+L in the &+wBasement &+Lof &+wL&+W's&+wri&+Ll&+wli&+Wz&+wzin&n~
 &+L   This corridor within the basement is rougher-cut into the rock of the Underdark than the rest of the structures. The floors have very plain patterns carved into the stones. The walls remain unadorned. The ceilings have ribbed vaulting to support the floors above it - and all of the structural weight of the books.&N
 ~
-402 9 29 0
+402 9 15 0
 D0
 ~
 ~
@@ -2226,7 +2226,7 @@ S
 &+LThe End of a &+wHallway&+L in the &+wBasement &+Lof &+wL&+W's&+wri&+Ll&+wli&+Wz&+wzin&n~
 &+L   This corridor within the basement is rougher-cut into the rock of the Underdark than the rest of the structures. The floors have very plain patterns carved into the stones. The walls remain unadorned. The ceilings have ribbed vaulting to support the floors above it - and all of the structural weight of the books.&N
 ~
-402 9 29 0
+402 9 15 0
 D0
 ~
 ~
@@ -2247,7 +2247,7 @@ S
 &+LA &+wDark Room &+Lwithin the &+wBasement &+Lof the &+wLibrary&N~
 &+L   This room appears to be a dormitory of some variety, where perhaps servants or lesser creatures are given a room in which to rest. It is not elaborately decorated, but it does have a rather series of platforms that may resemble a bed for a variety of creatures. There are also dressers for personal belongings, and tables and chairs.&N
 ~
-402 9 29 0
+402 9 15 0
 D3
 ~
 ~
@@ -2257,7 +2257,7 @@ S
 &+LA Storage Room within the Basement&N~
 &+L   This storage room within the basement of the Library has a variety of shelves and chests and other manner of places to contain items. Life in the Underdark is harsh, and the simple comforts such as food, wine, and other supplies are desperately needed. The merchants that come by bring such items, which are bought in bulk and stored down here.&N
 ~
-402 9 0 0
+402 9 15 0
 D3
 ~
 ~
@@ -2267,7 +2267,7 @@ S
 &+LA &+wDark Room &+Lwithin the &+wBasement &+Lof the &+wLibrary&N~
 &+L   This room appears to be a dormitory of some variety, where perhaps servants or lesser creatures are given a room in which to rest. It is not elaborately decorated, but it does have a rather series of platforms that may resemble a bed for a variety of creatures. There are also dressers for personal belongings, and tables and chairs.&N
 ~
-402 9 29 0
+402 9 15 0
 D3
 ~
 ~
@@ -2277,7 +2277,7 @@ S
 &+LA &+wDark Room &+Lwithin the &+wBasement &+Lof the &+wLibrary&N~
 &+L   This room appears to be a dormitory of some variety, where perhaps servants or lesser creatures are given a room in which to rest. It is not elaborately decorated, but it does have a rather series of platforms that may resemble a bed for a variety of creatures. There are also dressers for personal belongings, and tables and chairs.&N
 ~
-402 9 29 0
+402 9 15 0
 D3
 ~
 ~
@@ -2287,7 +2287,7 @@ S
 &+LA Storage Room within the Basement&N~
 &+L   This storage room within the basement of the Library has a variety of shelves and chests and other manner of places to contain items. Life in the Underdark is harsh, and the simple comforts such as food, wine, and other supplies are desperately needed. The merchants that come by bring such items, which are bought in bulk and stored down here.&N
 ~
-402 9 0 0
+402 9 15 0
 D3
 ~
 ~
@@ -2297,7 +2297,7 @@ S
 &+LA &+wDark Room &+Lwithin the &+wBasement &+Lof the &+wLibrary&N~
 &+L   This room appears to be a dormitory of some variety, where perhaps servants or lesser creatures are given a room in which to rest. It is not elaborately decorated, but it does have a rather series of platforms that may resemble a bed for a variety of creatures. There are also dressers for personal belongings, and tables and chairs.&N
 ~
-402 9 29 0
+402 9 15 0
 D3
 ~
 ~
@@ -2307,7 +2307,7 @@ S
 &+LA &+wDark Room &+Lwithin the &+wBasement &+Lof the &+wLibrary&N~
 &+L   This room appears to be a dormitory of some variety, where perhaps servants or lesser creatures are given a room in which to rest. It is not elaborately decorated, but it does have a rather series of platforms that may resemble a bed for a variety of creatures. There are also dressers for personal belongings, and tables and chairs.&N
 ~
-402 9 29 0
+402 9 15 0
 D1
 ~
 ~
@@ -2317,7 +2317,7 @@ S
 &+LA Storage Room within the Basement&N~
 &+L   This storage room within the basement of the Library has a variety of shelves and chests and other manner of places to contain items. Life in the Underdark is harsh, and the simple comforts such as food, wine, and other supplies are desperately needed. The merchants that come by bring such items, which are bought in bulk and stored down here.&N
 ~
-402 9 0 0
+402 9 15 0
 D1
 ~
 ~
@@ -2327,7 +2327,7 @@ S
 &+LA &+wDark Room &+Lwithin the &+wBasement &+Lof the &+wLibrary&N~
 &+L   This room appears to be a dormitory of some variety, where perhaps servants or lesser creatures are given a room in which to rest. It is not elaborately decorated, but it does have a rather series of platforms that may resemble a bed for a variety of creatures. There are also dressers for personal belongings, and tables and chairs.&N
 ~
-402 9 29 0
+402 9 15 0
 D1
 ~
 ~
@@ -2337,7 +2337,7 @@ S
 &+LA &+wDark Room &+Lwithin the &+wBasement &+Lof the &+wLibrary&N~
 &+L   This room appears to be a dormitory of some variety, where perhaps servants or lesser creatures are given a room in which to rest. It is not elaborately decorated, but it does have a rather series of platforms that may resemble a bed for a variety of creatures. There are also dressers for personal belongings, and tables and chairs.&N
 ~
-402 9 29 0
+402 9 15 0
 D1
 ~
 ~
@@ -2347,7 +2347,7 @@ S
 &+LA Storage Room within the Basement&N~
 &+L   This storage room within the basement of the Library has a variety of shelves and chests and other manner of places to contain items. Life in the Underdark is harsh, and the simple comforts such as food, wine, and other supplies are desperately needed. The merchants that come by bring such items, which are bought in bulk and stored down here.&N
 ~
-402 9 0 0
+402 9 15 0
 D1
 ~
 ~
@@ -2357,7 +2357,7 @@ S
 &+LA &+wDark Room &+Lwithin the &+wBasement &+Lof the &+wLibrary&N~
 &+L   This room appears to be a dormitory of some variety, where perhaps servants or lesser creatures are given a room in which to rest. It is not elaborately decorated, but it does have a rather series of platforms that may resemble a bed for a variety of creatures. There are also dressers for personal belongings, and tables and chairs.&N
 ~
-402 9 29 0
+402 9 15 0
 D1
 ~
 ~
