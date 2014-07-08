@@ -1253,7 +1253,7 @@ P_obj random_zone_item(P_char ch)
 
   if(reward)
   {
-    wizlog(56, "%s reward was: %s", GET_NAME(ch), reward->short_description);
+    wizlog(56, "random_zone_item: %s reward was: %s", J_NAME(ch), reward->short_description);
 
     REMOVE_BIT(reward->extra_flags, ITEM_SECRET);
     REMOVE_BIT(reward->extra_flags, ITEM_INVISIBLE);
@@ -1544,11 +1544,10 @@ void do_conjure(P_char ch, char *argument, int cmd)
     {
       memset(&af, 0, sizeof(af));
       af.type = SPELL_CONJURE_ELEMENTAL;
-      af.duration = 2;
+      af.flags = AFFTYPE_NODISPEL;
+      af.duration = 1;
       affect_to_char(ch, &af);
     }
-
-
   }
 }
 
@@ -1627,12 +1626,12 @@ bool valid_conjure(P_char ch, P_char victim)
       return FALSE;
     }
 
-    // If less than 51, conj's can summon up to 5 lvls difference
+    // If less than 51, conj's can summon up to 4 lvls difference
     if((GET_LEVEL(victim) - (GET_LEVEL(ch)) > 4) && (GET_LEVEL(ch) < 51))
       return FALSE;
 
     // New change: All conj's pets must be within 5 lvls.
-    if( GET_LEVEL(victim) - GET_LEVEL(ch) > 4 )
+    if( GET_LEVEL(victim) - GET_LEVEL(ch) > 5 )
       return FALSE;
 
     // New change: Pets can have at most 3 classes.
@@ -2506,19 +2505,21 @@ void thanksgiving_proc(P_char ch)
   char_to_room(mob, ch->in_room, 0);
 }
 
-void enhancematload(P_char ch)
+void enhancematload( P_char ch )
 {
   int reward;
   int moblvl = GET_LEVEL(ch);
-  if (IS_ELITE(ch))
-    moblvl * 10;
-  if(number(1, 5000) < moblvl)
+  if( IS_ELITE(ch) )
   {
-    debug("enhancematload: moblvl %d", moblvl);
-    if(number(1, 5000) < moblvl)
+    moblvl * 10;
+  }
+  if( number(1, 5000) < moblvl )
+  {
+    debug( "enhancematload: moblvl %d", moblvl );
+    if(number(1, 4000) < moblvl)
     {
       reward = number(1, 8);
-      switch (reward)
+      switch( reward )
       {
         case 1:
           reward = 400239;
@@ -2549,7 +2550,7 @@ void enhancematload(P_char ch)
     else
     {
       reward = number(1, 13);
-      switch (reward)
+      switch( reward )
       {
         case 1:
           reward = 400238;
@@ -2595,8 +2596,8 @@ void enhancematload(P_char ch)
     P_obj gift = read_object(reward, VIRTUAL);
     if( gift )
     {
-      debug("enhancematload: reward '%s' (%d).", gift->short_description, GET_OBJ_VNUM(gift));
-      obj_to_char(gift, ch);
+      debug( "enhancematload: '%s' (%d) rewarded to %s.", gift->short_description, GET_OBJ_VNUM(gift), J_NAME(ch) );
+      obj_to_char( gift, ch );
     }
   }
 }
@@ -2622,7 +2623,7 @@ void christmas_proc(P_char ch)
 
 void add_bloodlust(P_char ch, P_char victim)
 {
-  if (!ch)
+  if( !IS_ALIVE(ch) )
     return;
 
   int dur;

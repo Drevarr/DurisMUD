@@ -8996,13 +8996,16 @@ void spell_invigorate(int level, P_char ch, char *arg, int type, P_char victim, 
 
   if((movepoints + GET_VITALITY(victim)) > GET_MAX_VITALITY(victim))
   {
-    debug("INVIGORATE: Movements points (%d) %s to %s.",
-      GET_MAX_VITALITY(victim) - GET_VITALITY(victim), GET_NAME(ch), GET_NAME(victim));
+    if( GET_VITALITY(victim) != GET_MAX_VITALITY(victim) )
+    {
+      debug("INVIGORATE: Movement points (%d) %s to %s.",
+        GET_MAX_VITALITY(victim) - GET_VITALITY(victim), GET_NAME(ch), GET_NAME(victim));
+    }
     GET_VITALITY(victim) = GET_MAX_VITALITY(victim);
   }
   else
   {
-    debug("INVIGORATE: Movements points (%d) %s to %s.", movepoints, GET_NAME(ch), GET_NAME(victim));
+    debug("INVIGORATE: Movement points (%d) %s to %s.", movepoints, GET_NAME(ch), GET_NAME(victim));
     GET_VITALITY(victim) += movepoints;
   }
 
@@ -14656,7 +14659,7 @@ void spell_pword_blind(int level, P_char ch, char *arg, int type,
 
   debug("PWB: (%s) saving throw is (%d).", J_NAME(victim), save);
 
-  if(NewSaves(victim, SAVING_SPELL, number(0, mindpower)))
+  if(save)//NewSaves(victim, SAVING_SPELL, number(0, mindpower)))
   {
     send_to_char("Your victim has saved against your spell!\r\n", ch);
     send_to_char("You have saved against your attacker's spell!\r\n", victim);
