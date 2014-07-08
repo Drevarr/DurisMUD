@@ -500,7 +500,7 @@ void stop_memorizing(P_char ch)
   if (IS_PC(ch) && IS_AFFECTED2(ch, AFF2_MEMORIZING))
   {
     show_stop_memorizing(ch);
-    if (!USES_COMMUNE(ch) || !USES_FOCUS(ch))
+    if( USES_COMMUNE(ch) || USES_FOCUS(ch) || USES_DEFOREST(ch) )
       disarm_char_events(ch, event_memorize);
   }
 }
@@ -869,32 +869,27 @@ void handle_undead_mem(P_char ch)
   int      memorized = FALSE, highest_empty = 0;
   char     gbuf[MAX_STRING_LENGTH];
 
-  if(!USES_COMMUNE(ch) &&
-     !USES_FOCUS(ch) &&
-     !GET_CLASS(ch, CLASS_WARLOCK) &&
-     !GET_CLASS(ch, CLASS_BLIGHTER) &&
-     !((IS_UNDEADRACE(ch) ||
-        is_wearing_necroplasm(ch) ||
-        IS_PUNDEAD(ch) ||
-        IS_HARPY(ch) ||
-        GET_CLASS(ch, CLASS_ETHERMANCER) ||
-	IS_ANGEL(ch)) &&
-        IS_AFFECTED2(ch, AFF2_MEMORIZING)))
+  if(!USES_COMMUNE(ch) && !USES_FOCUS(ch) && !GET_CLASS(ch, CLASS_WARLOCK)
+    && !USES_DEFOREST(ch) && !((IS_UNDEADRACE(ch) || is_wearing_necroplasm(ch)
+    || IS_PUNDEAD(ch) || IS_HARPY(ch) || GET_CLASS(ch, CLASS_ETHERMANCER)
+    || IS_ANGEL(ch)) && IS_AFFECTED2(ch, AFF2_MEMORIZING)))
   {
     return;
   }
-  
-  for (i = get_max_circle(ch); i >= 1; i--)
+
+  for( i = get_max_circle(ch); i >= 1; i-- )
   {
-    if (ch->specials.undead_spell_slots[i] >= max_spells_in_circle(ch, i))
+    if( ch->specials.undead_spell_slots[i] >= max_spells_in_circle(ch, i) )
+    {
       continue;
-    else if (memorized)
+    }
+    else if( memorized )
     {
       highest_empty = i;
       continue;
     }
 
-    if ((USES_COMMUNE(ch) || USES_FOCUS(ch)) && (IS_CASTING(ch) || GET_OPPONENT(ch)))
+    if( (USES_COMMUNE(ch) || USES_FOCUS(ch) || USES_DEFOREST(ch)) && (IS_CASTING(ch) || GET_OPPONENT(ch)) )
     {
       highest_empty = i;
       break;
@@ -902,19 +897,16 @@ void handle_undead_mem(P_char ch)
 
     ch->specials.undead_spell_slots[i]++;
 
-    if(IS_PUNDEAD(ch) ||
-      is_wearing_necroplasm(ch) ||
-      GET_CLASS(ch, CLASS_WARLOCK) ||
-      IS_UNDEADRACE(ch))
+    if( IS_PUNDEAD(ch) || is_wearing_necroplasm(ch)
+      || GET_CLASS(ch, CLASS_WARLOCK) || IS_UNDEADRACE(ch) )
     {
       sprintf(gbuf, "&+LYou feel infused by %d%s circle DARK powers!\n",
-              i, i == 1 ? "st" : (i == 2 ? "nd" : (i == 3 ? "rd" : "th")));
+        i, i == 1 ? "st" : (i == 2 ? "nd" : (i == 3 ? "rd" : "th")));
     }
-    else if(IS_HARPY(ch) || GET_CLASS(ch, CLASS_ETHERMANCER))
+    else if( IS_HARPY(ch) || GET_CLASS(ch, CLASS_ETHERMANCER) )
     {
-      sprintf(gbuf, "&+WEthereal e&+Cssences flo&+cw into you, " 
-		      "res&+Ctoring your %d%s&+c &+Wcircle powers!\n",
-              i, i == 1 ? "st" : (i == 2 ? "nd" : (i == 3 ? "rd" : "th")));
+      sprintf(gbuf, "&+WEthereal e&+Cssences flo&+cw into you, res&+Ctoring your %d%s&+c &+Wcircle powers!\n",
+        i, i == 1 ? "st" : (i == 2 ? "nd" : (i == 3 ? "rd" : "th")));
     }
     /* reverting to use mana
 	else if(GET_CLASS(ch, CLASS_PSIONICIST) || GET_CLASS(ch, CLASS_MINDFLAYER) || GET_RACE(ch) == RACE_PILLITHID)
@@ -926,15 +918,18 @@ void handle_undead_mem(P_char ch)
     else if(IS_ANGEL(ch))
     {
       sprintf(gbuf, "&+WYou feel illuminated with a %d%s circle spell.\n",
-	     i, i == 1 ? "st" : (i == 2 ? "nd" : (i == 3 ? "rd" : "th")));
+	      i, i == 1 ? "st" : (i == 2 ? "nd" : (i == 3 ? "rd" : "th")));
     }
-    else if( GET_CLASS(ch, CLASS_BLIGHTER) )
+    else if( USES_DEFOREST(ch) )
+    {
       sprintf(gbuf, "&+yYou draw a %d%s circle of energy from your surroundings.\n",
-              i, i == 1 ? "st" : (i == 2 ? "nd" : (i == 3 ? "rd" : "th")));
+        i, i == 1 ? "st" : (i == 2 ? "nd" : (i == 3 ? "rd" : "th")));
+    }
     else
-      sprintf(gbuf, "&+GYou feel nature's energy flow into your %d%s "
-              "circle of knowledge.\n",
-              i, i == 1 ? "st" : (i == 2 ? "nd" : (i == 3 ? "rd" : "th")));
+    {
+      sprintf(gbuf, "&+GYou feel nature's energy flow into your %d%s circle of knowledge.\n",
+        i, i == 1 ? "st" : (i == 2 ? "nd" : (i == 3 ? "rd" : "th")));
+    }
 
     send_to_char(gbuf, ch);
 
@@ -942,7 +937,7 @@ void handle_undead_mem(P_char ch)
 		 * with nature.
 		 */
     balance_align(ch);//drannak
-		
+
     if (ch->specials.undead_spell_slots[i] < max_spells_in_circle(ch, i))
     {
       highest_empty = i;
@@ -952,36 +947,28 @@ void handle_undead_mem(P_char ch)
       memorized = TRUE;
   }
 
-  if (highest_empty)
+  if( highest_empty )
   {
     time = get_circle_memtime(ch, highest_empty);
     add_event(event_memorize, time, ch, 0, 0, 0, &time, sizeof(time));
   }
-  else if (!(USES_COMMUNE(ch) || USES_FOCUS(ch) || GET_CLASS(ch, CLASS_BLIGHTER)))
+  else if( !(USES_COMMUNE(ch) || USES_FOCUS(ch) || USES_DEFOREST(ch)) )
   {
     send_to_char("&+rYou feel fully infused...\n", ch);
 
-    
     CharWait(ch, WAIT_SEC);
-    
-    if(IS_PUNDEAD(ch) ||
-       is_wearing_necroplasm(ch) ||
-       IS_UNDEADRACE(ch) ||
-       GET_CLASS(ch, CLASS_WARLOCK))
+    if( IS_PUNDEAD(ch) || is_wearing_necroplasm(ch)
+      || IS_UNDEADRACE(ch) || GET_CLASS(ch, CLASS_WARLOCK) )
     {
-      send_to_char
-        ("The assimilation process leaves you momentarily shocked.\n", ch);
+      send_to_char("The assimilation process leaves you momentarily shocked.\n", ch);
     }
     else if (IS_HARPY(ch) || GET_CLASS(ch, CLASS_ETHERMANCER))
     {
-      send_to_char
-        ("&+CThe spir&n&+cits reced&+We, leaving y&+Cou in a m&n&+comentary stat&+We of lethargy.&n\n",
-         ch);
+      send_to_char("&+CThe spir&n&+cits reced&+We, leaving y&+Cou in a m&n&+comentary stat&+We of lethargy.&n\n", ch);
     }
     else if (IS_ANGEL(ch))
     {
-      send_to_char
-	("&+WYour gift from above is now complete.\n", ch);
+      send_to_char("&+WYour gift from above is now complete.\n", ch);
     }
     REMOVE_BIT(ch->specials.affected_by2, AFF2_MEMORIZING);
     stop_meditation(ch);
@@ -992,7 +979,7 @@ void handle_undead_mem(P_char ch)
     send_to_char("&+mThe energies in your mind converge into full cohesion...\n", ch);
   }
   */
-  else if( GET_CLASS(ch, CLASS_BLIGHTER) )
+  else if( USES_DEFOREST(ch) )
   {
     send_to_char( "&+yYour consumption of nature's energy is complete.&n\n", ch);
   }
@@ -1005,10 +992,13 @@ int memorized_in_circle(P_char ch, int circle)
   struct affected_type *af;
   int      memorized = 0;
 
-  for (af = ch->affected; af; af = af->next)
-    if (af->type == TAG_MEMORIZE &&
-        get_spell_circle(ch, af->modifier) == circle)
+  for( af = ch->affected; af; af = af->next )
+  {
+    if( af->type == TAG_MEMORIZE && get_spell_circle(ch, af->modifier) == circle )
+    {
       memorized++;
+    }
+  }
 
   return memorized;
 }
@@ -1019,22 +1009,21 @@ void handle_memorize(P_char ch)
   bool     memorized = FALSE;
   int      time;
 
-  if (!IS_AFFECTED2(ch, AFF2_MEMORIZING))
+  if( !IS_AFFECTED2(ch, AFF2_MEMORIZING) )
     return;
 
-  if (GET_STAT(ch) != STAT_RESTING ||
-     (GET_POS(ch) != POS_SITTING &&
-      GET_POS(ch) != POS_KNEELING))
+  if( GET_STAT(ch) != STAT_RESTING
+    || (GET_POS(ch) != POS_SITTING && GET_POS(ch) != POS_KNEELING) )
   {
     show_stop_memorizing(ch);
     return;
   }
 
-  for (af = ch->affected; af; af = af->next)
+  for( af = ch->affected; af; af = af->next )
   {
-    if (af->type == TAG_MEMORIZE && (af->flags & MEMTYPE_FULL) == 0)
+    if( af->type == TAG_MEMORIZE && (af->flags & MEMTYPE_FULL) == 0 )
     {
-      if (memorized)
+      if( memorized )
       {
         time = get_circle_memtime(ch, get_spell_circle(ch, af->modifier));
         add_event(event_memorize, time / 2, ch, 0, 0, 0, &time, sizeof(time));
@@ -1118,29 +1107,20 @@ void event_memorize(P_char ch, P_char victim, P_obj obj, void *data)
 {
   int      time = 0;
 
-  if (data)
+  if( data )
     time = *((int *) data);
 
-  if (time &&
-      (!IS_AFFECTED(ch, AFF_MEDITATE) ||
-       (!notch_skill
-        (ch, SKILL_MEDITATE, (int) get_property("skill.notch.meditate", 100))
-        && GET_CHAR_SKILL(ch, SKILL_MEDITATE) < number(0, 100))))
+  if( time && (!IS_AFFECTED(ch, AFF_MEDITATE)
+    || (!notch_skill(ch, SKILL_MEDITATE, (int) get_property("skill.notch.meditate", 100))
+    && GET_CHAR_SKILL(ch, SKILL_MEDITATE) < number(0, 100))))
   {
     add_event(event_memorize, time / 2, ch, 0, 0, 0, 0, 0);
     return;
   }
 
-  if(GET_CLASS(ch, CLASS_WARLOCK) ||
-     IS_PUNDEAD(ch) ||
-     USES_COMMUNE(ch) ||
-     GET_CLASS(ch, CLASS_BLIGHTER) ||
-     IS_HARPY(ch) ||
-     GET_CLASS(ch, CLASS_ETHERMANCER) ||
-     IS_UNDEADRACE(ch) ||
-     is_wearing_necroplasm(ch) ||
-     USES_FOCUS(ch) ||
-     IS_ANGEL(ch))
+  if(GET_CLASS(ch, CLASS_WARLOCK) || IS_PUNDEAD(ch) || USES_COMMUNE(ch)
+    || USES_DEFOREST(ch) || IS_HARPY(ch) || GET_CLASS(ch, CLASS_ETHERMANCER)
+    || IS_UNDEADRACE(ch) || is_wearing_necroplasm(ch) || USES_FOCUS(ch) || IS_ANGEL(ch))
   {
     handle_undead_mem(ch);
   }
@@ -1154,28 +1134,23 @@ void do_assimilate(P_char ch, char *argument, int cmd)
 {
   int circle, available, need_mem = 0;
 
-  if(cmd == CMD_ASSIMILATE &&
-      !(IS_PUNDEAD(ch) ||
-       IS_NPC(ch) ||
-       IS_UNDEADRACE(ch) ||
-       is_wearing_necroplasm(ch) ||
-       GET_CLASS(ch, CLASS_WARLOCK) ||
-       IS_ANGEL(ch)))
+  if( cmd == CMD_ASSIMILATE && !(IS_PUNDEAD(ch) || IS_NPC(ch) || IS_ANGEL(ch)
+    || IS_UNDEADRACE(ch) || is_wearing_necroplasm(ch) || GET_CLASS(ch, CLASS_WARLOCK)) )
   {
     send_to_char("&+LThe powers of the dark ignore you...\n", ch);
     return;
   }
-  else if (cmd == CMD_COMMUNE && !USES_COMMUNE(ch))
+  else if( cmd == CMD_COMMUNE && !USES_COMMUNE(ch) )
   {
     send_to_char("&+GThe forces of nature ignore you...\n", ch);
     return;
   }
-  else if (cmd == CMD_DEFOREST && !GET_CLASS(ch, CLASS_BLIGHTER))
+  else if( cmd == CMD_DEFOREST && !USES_DEFOREST(ch) )
   {
     send_to_char("&+yYou wave your hands trying to absorb the forces of nature.\n", ch);
     return;
   }
-  else if (cmd == CMD_TUPOR && !IS_HARPY(ch) && !GET_CLASS(ch, CLASS_ETHERMANCER))
+  else if( cmd == CMD_TUPOR && !IS_HARPY(ch) && !GET_CLASS(ch, CLASS_ETHERMANCER) )
   {
     send_to_char("You have no idea how to even begin.\n", ch);
     return;
@@ -1205,13 +1180,13 @@ void do_assimilate(P_char ch, char *argument, int cmd)
   }
   send_to_char(Gbuf1, ch);
 
-  if ((USES_COMMUNE(ch) || USES_FOCUS(ch) || GET_CLASS(ch, CLASS_BLIGHTER)) && need_mem && !get_scheduled(ch, event_memorize))
+  if( (USES_COMMUNE(ch) || USES_FOCUS(ch) || USES_DEFOREST(ch)) && need_mem && !get_scheduled(ch, event_memorize) )
     add_event(event_memorize, get_circle_memtime(ch, need_mem), ch, 0, 0, 0, 0, 0);
 
-  if (!need_mem || USES_COMMUNE(ch) || USES_FOCUS(ch) || GET_CLASS(ch, CLASS_BLIGHTER))
+  if( !need_mem || USES_COMMUNE(ch) || USES_FOCUS(ch) || USES_DEFOREST(ch) )
     return;
 
-  if (cmd == CMD_TUPOR)
+  if( cmd == CMD_TUPOR )
   {
     if (GET_STAT(ch) != STAT_RESTING ||
         (GET_POS(ch) != POS_SITTING && GET_POS(ch) != POS_KNEELING))
@@ -1730,82 +1705,75 @@ void use_spell(P_char ch, int spell)
   char buf[128];
   int spatial = GET_CHAR_SKILL(ch, SKILL_SPATIAL_FOCUS);
 
-  if(!(ch) ||
-     !IS_ALIVE(ch))
-        return;
+  if( !(ch) || !IS_ALIVE(ch) )
+    return;
 
   if(IS_TRUSTED(ch))
-  { }
-
-
-else if(USES_MANA(ch))
+  {
+    // Immortals don't use up spells.
+  }
+  else if(USES_MANA(ch))
+  {
+    if((int) (spatial / 2) > number(1, 100))
     {
-      if((int) (spatial / 2) > number(1, 100))
-      {
-         send_to_char("&+MFocusing your mind, you bend reality a bit more easily...&n\n", ch);
-         GET_MANA(ch) -= (int) (get_spell_circle(ch, spell) * 35 / 10);
-         StartRegen(ch, EVENT_MANA_REGEN);
-      }
-      else
-      {
-        GET_MANA(ch) -= get_spell_circle(ch, spell) * MANA_PER_CIRCLE;
-        StartRegen(ch, EVENT_MANA_REGEN);
-      }
+      send_to_char("&+MFocusing your mind, you bend reality a bit more easily...&n\n", ch);
+      GET_MANA(ch) -= (int) (get_spell_circle(ch, spell) * 35 / 10);
+      StartRegen(ch, EVENT_MANA_REGEN);
     }
- 
+    else
+    {
+      GET_MANA(ch) -= get_spell_circle(ch, spell) * MANA_PER_CIRCLE;
+      StartRegen(ch, EVENT_MANA_REGEN);
+    }
+  }
   else if(USES_SPELL_SLOTS(ch))
   {
-  
-// Elite mobs should not lose spell slots as quickly. Jun09 -Lucrot
-    if(IS_NPC(ch) &&
-       IS_ELITE(ch) &&
-       number(0, 1))
-          return;
-          
-    if(GET_CHAR_SKILL(ch, SKILL_DEVOTION))
+    // Elite mobs should not lose spell slots as quickly. Jun09 -Lucrot
+    if( IS_NPC(ch) && IS_ELITE(ch) && number(0, 1) )
     {
-      if(GET_CHAR_SKILL(ch, SKILL_DEVOTION) > 0 &&
-         MIN(GET_CHAR_SKILL(ch, SKILL_DEVOTION)/10, 5) + 4 > number(0,100))
+      return;
+    }
+
+    if( GET_CHAR_SKILL(ch, SKILL_DEVOTION) )
+    {
+      if( MIN(GET_CHAR_SKILL(ch, SKILL_DEVOTION)/10, 5) + 4 > number(0,100) )
       {
-        sprintf(buf, "%s's grace flows down on you refreshing your wind power!&n\n",
-            get_god_name(ch));
-        send_to_char(buf, ch);
+        sprintf(buf, "%s's grace flows down on you refreshing your wind power!&n\n", get_god_name(ch));
+        send_to_char( buf, ch );
         return;
       }
     }
     if(ch->specials.undead_spell_slots[get_spell_circle(ch, spell)] > 0)
-      ch->specials.undead_spell_slots[get_spell_circle(ch, spell)] -= 1;
-
-    if((USES_COMMUNE(ch) || USES_FOCUS(ch)) &&
-      !get_scheduled(ch, event_memorize))
     {
-      add_event(event_memorize, get_circle_memtime(ch, get_spell_circle(ch, spell)),
-                ch, 0, 0, 0, 0, 0);
+      ch->specials.undead_spell_slots[get_spell_circle(ch, spell)] -= 1;
+    }
+
+    if( (USES_COMMUNE(ch) || USES_FOCUS(ch) || USES_DEFOREST(ch)) && !get_scheduled(ch, event_memorize) )
+    {
+      add_event(event_memorize, get_circle_memtime(ch, get_spell_circle(ch, spell)), ch, 0, 0, 0, 0, 0);
     }
   }
   else
   {
-  
-// Elite mobs should not lose spell slots as quickly. Jun09 -Lucrot
-    if(IS_NPC(ch) &&
-       IS_ELITE(ch) &&
-       number(0, 1))
-          return;
-          
-    if(GET_CHAR_SKILL(ch, SKILL_DEVOTION))
+    // Elite mobs should not lose spell slots as quickly. Jun09 -Lucrot
+    if( IS_NPC(ch) && IS_ELITE(ch) && number(0, 1))
     {
-      if(MIN(GET_CHAR_SKILL(ch, SKILL_DEVOTION)/10, 5) + 4 > number(0,100))
+      return;
+    }
+
+    if( GET_CHAR_SKILL(ch, SKILL_DEVOTION) )
+    {
+      if( MIN(GET_CHAR_SKILL(ch, SKILL_DEVOTION)/10, 5) + 4 > number(0,100) )
       {
         sprintf(buf, "%s's grace flows down on you restoring the power of &+W%s.&n\n",
-            get_god_name(ch), skills[spell].name);
+          get_god_name(ch), skills[spell].name);
         send_to_char(buf, ch);
         return;
       }
     }
     for (af = ch->affected; af; af = af->next)
     {
-      if(af->type == TAG_MEMORIZE && (af->flags & MEMTYPE_FULL) &&
-          af->modifier == spell)
+      if( af->type == TAG_MEMORIZE && (af->flags & MEMTYPE_FULL) && af->modifier == spell )
       {
         if( SKILL_DATA_ALL(ch, spell).maxlearn[0] || SKILL_DATA_ALL(ch, spell).maxlearn[ch->player.spec] )
         {
