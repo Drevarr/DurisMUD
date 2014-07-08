@@ -415,11 +415,12 @@ void spell_waves_fatigue(int level, P_char ch, char *arg, int type, P_char victi
     return;
   }
 
-  if(NewSaves(victim, SAVING_PARA, 0))
+  if(NewSaves(victim, SAVING_PARA, GET_LEVEL(ch)/10))
   {
     return;
   }
 
+  act("$n looks really tired.",0, victim, 0, 0, TO_ROOM);
   event_waves_fatigue( ch, victim, NULL, NULL);
   add_event(event_waves_fatigue, PULSE_VIOLENCE/2, ch, victim, 0, 0, 0, 0);
   add_event(event_waves_fatigue, PULSE_VIOLENCE, ch, victim, 0, 0, 0, 0);
