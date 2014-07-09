@@ -162,15 +162,14 @@ P_obj get_hammer(P_char ch)
                               // GET_OBJ_VNUM(obj) == 10640 || \
                               // GET_OBJ_VNUM(obj) == 95531 || \
                               // GET_OBJ_VNUM(obj) == 49018 )
-                              
-#define IS_MINING_PICK(obj) (isname("pick", obj->name) && \
-                             obj->type == ITEM_WEAPON)
+
+#define IS_MINING_PICK(obj) (isname("pick", obj->name) && obj->type == ITEM_WEAPON)
 
 P_obj get_pick(P_char ch)
 {
   if( !ch )
     return NULL;
-  
+
   if( ch->equipment[WIELD] && IS_MINING_PICK( ch->equipment[WIELD] ) )
     return ch->equipment[WIELD];
 
@@ -1299,6 +1298,31 @@ void event_mine_check( P_char ch, P_char victim, P_obj, void *data )
   {
     send_to_char("You are too exhausted to continue mining.\n", ch);
     return;
+  }
+
+  if( IS_RIDING(ch) )
+  {
+    send_to_char( "Mining while mounted?  Good luck!\n", ch );
+    if( !number( 0, GET_CHAR_SKILL(ch, SKILL_MINE)/20 ) )
+    {
+      act( "You fumble your $p!", FALSE, ch, pick, 0, TO_CHAR );
+      if( ch->equipment[WIELD] == pick )
+      {
+        unequip_char( ch, WIELD );
+        obj_to_char( pick, ch );
+      }
+      if( ch->equipment[WIELD2] == pick )
+      {
+        unequip_char( ch, WIELD2 );
+        obj_to_char( pick, ch );
+      }
+      else
+      {
+        logit(LOG_DEBUG, "event_mine_check: %s has pick '%s' (%d) but not in slot WIELD/WIELD2.",
+          J_NAME(ch), pick->short_description, GET_OBJ_VNUM(pick) );
+      }
+      return;
+    }
   }
 
   if (!notch_skill(ch, SKILL_MINE, get_property("skill.notch.mining", 30)) &&
