@@ -5101,15 +5101,16 @@ SPELL_ADD(CLASS_NONE, 1);
 
   TAG_CREATE("fragged victim", TAG_RECENTLY_FRAGGED);
   TAG_CREATE("merc defensive proc", TAG_MERC_DEFENSE);
-  TAG_CREATE("Addicted to Blood", TAG_ADDICTED_BLOOD);
+  TAG_CREATE_WITH_MESSAGES("Addicted to Blood", TAG_ADDICTED_BLOOD,
+                           "&+LYou fail your attempt at 30 mobs in 30 min.&n", "");
 
   TAG_CREATE_WITH_MESSAGES("LAY HANDS", TAG_LAYONHANDS,
                            "&+WYour &+yhands&+W surge with &+Yholy &+Wstrength once again.&n",
-                           "&+W$n's &+yhands&+W surge with &+Yholy &+Wstrength once again.&n");  
+                           "&+W$n's &+yhands&+W surge with &+Yholy &+Wstrength once again.&n");
 
  TAG_CREATE_WITH_MESSAGES("BLOODLUST", TAG_BLOODLUST,
                            "&+rThe taste of &+Rblood &+rslowly fades from your body.&n",
-                           "&+r$n's pupils dialate and return to normal.&n"); 
+                           "&+r$n's pupils dialate and return to normal.&n");
 
   TAG_CREATE("minotaur rage", TAG_MINOTAUR_RAGE);
   TAG_CREATE("conjured pet", TAG_CONJURED_PET);
