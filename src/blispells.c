@@ -449,6 +449,11 @@ void event_acid_rain(P_char ch, P_char victim, P_obj obj, void *data)
 //  dam = 110 + GET_LEVEL(ch) * 3 + number(1, 10);
   dam = 30 + GET_LEVEL(ch) + number(0, 20);
 
+  if( GET_SPEC(ch, CLASS_BLIGHTER, SPEC_STORMBRINGER) )
+  {
+    dam += 20;
+  }
+
   // Targetted acid rain.
   if( victim )
   {
@@ -457,11 +462,6 @@ void event_acid_rain(P_char ch, P_char victim, P_obj obj, void *data)
       spell_damage(ch, victim, dam, SPLDAM_ACID, SPLDAM_NODEFLECT, &messages);
     }
     return;
-  }
-
-  if( GET_SPEC(ch, CLASS_BLIGHTER, SPEC_STORMBRINGER) )
-  {
-    dam += 20;
   }
 
   if( world[room].people )
@@ -476,6 +476,10 @@ void event_acid_rain(P_char ch, P_char victim, P_obj obj, void *data)
     if( victim == ch || ( ch->group && ch->group == victim->group ) )
       continue;
     if( !NewSaves(victim, SAVING_SPELL, GET_LEVEL(ch)>50 ? GET_LEVEL(ch)-50 : 0) )
+    {
+      spell_damage(ch, victim, dam, SPLDAM_ACID, SPLDAM_NODEFLECT, &messages);
+    }
+    else
     {
       spell_damage(ch, victim, dam, SPLDAM_ACID, SPLDAM_NODEFLECT, &messages);
     }
@@ -956,7 +960,7 @@ void spell_faluzures_vitality(int level, P_char ch, char *arg, int type, P_char 
   }
 
   bzero(&af, sizeof(af));
-  af.type = SPELL_MIELIKKI_VITALITY;
+  af.type = SPELL_FALUZURES_VITALITY;
   af.duration = 15;
   af.modifier = healpoints;
   af.location = APPLY_HIT;
