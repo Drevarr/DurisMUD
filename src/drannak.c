@@ -770,21 +770,19 @@ void create_recipe(P_char ch, P_obj temp)
   if(!is_salvageable(temp))
     return;
 
-
-
   objrecipe = read_object(400210, VIRTUAL);
   SET_BIT(objrecipe->value[6], recipenumber);
   strcpy(old_name, objrecipe->short_description);
   sprintf(buffer, "%s %s&n", old_name, temp->short_description);
 
-
-  if ((objrecipe->str_mask & STRUNG_DESC2) && objrecipe->short_description)
-    FREE(objrecipe->short_description);
+  if( (objrecipe->str_mask & STRUNG_DESC2) && objrecipe->short_description )
+    FREE( objrecipe->short_description );
 
   objrecipe->short_description = str_dup(buffer);
 
   objrecipe->str_mask |= STRUNG_DESC2;
-  obj_to_char(objrecipe, ch);
+  debug( "create_recipe: %s reward was: %s", J_NAME(ch), objrecipe->short_description );
+  obj_to_char( objrecipe, ch );
 }
 
 void random_recipe(P_char ch, P_char victim)
@@ -1253,7 +1251,7 @@ P_obj random_zone_item(P_char ch)
 
   if(reward)
   {
-    wizlog(56, "random_zone_item: %s reward was: %s", J_NAME(ch), reward->short_description);
+    debug( "random_zone_item: %s reward was: %s", J_NAME(ch), reward->short_description );
 
     REMOVE_BIT(reward->extra_flags, ITEM_SECRET);
     REMOVE_BIT(reward->extra_flags, ITEM_INVISIBLE);
