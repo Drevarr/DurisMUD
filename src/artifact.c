@@ -44,7 +44,10 @@ void poof_arti( P_char ch, char *arg );
 void swap_arti( P_char ch, char *arg );
 void set_timer_arti( P_char ch, char *arg );
 void save_artifact_data( P_char owner, P_obj artifact );
-
+int is_tracked( P_obj artifact );
+void hunt_for_artis( P_char ch, char *arg );
+void arti_clear( P_char ch );
+void nuke_eq( P_char );
 //
 // setupMortArtiList : copies everything over from 'real' arti list, to
 //                     be called once at boot, or whenever you want list
@@ -797,6 +800,11 @@ void do_artifact(P_char ch, char *arg, int cmd)
     return;
 
   arg = one_argument( arg, buf );
+  // Skip whitespaces..
+  while ( *arg == ' ' )
+  {
+    arg++;
+  }
 
   if( !buf || !*buf || is_abbrev(buf, "list") )
   {
@@ -837,6 +845,18 @@ void do_artifact(P_char ch, char *arg, int cmd)
   if( buf && *buf && is_abbrev(buf, "timer") )
   {
     set_timer_arti( ch, arg );
+    return;
+  }
+
+  if( buf && *buf && is_abbrev(buf, "hunt") )
+  {
+    hunt_for_artis( ch, arg );
+    return;
+  }
+
+  if( buf && *buf && is_abbrev(buf, "clear") )
+  {
+    arti_clear( ch );
     return;
   }
 
@@ -1071,7 +1091,7 @@ void poof_arti( P_char ch, char *arg )
     {
       sprintf( buf3, "Arti '%s' %d is not on %s's pfile.", buf, vnum, buf2 );
       wizlog( 56, buf3 );
-// PENIS: Need to extract eq from char here.
+      nuke_eq( owner );
     }
     else
     {
@@ -1294,7 +1314,7 @@ void swap_arti( P_char ch, char *arg )
           send_to_char( "Could not load arti2.\n\r", ch );
           if( vnum )
           {
-            owner->in_room = NOWHERE;
+            nuke_eq( owner );
             extract_char( owner );
           }
           return;
@@ -1315,7 +1335,7 @@ void swap_arti( P_char ch, char *arg )
       send_to_char( buf, ch );
       if( vnum )
       {
-        owner->in_room = NOWHERE;
+        nuke_eq( owner );
         extract_char( owner );
       }
       return;
@@ -1355,7 +1375,7 @@ void swap_arti( P_char ch, char *arg )
           extract_obj( arti2, FALSE );
           if( vnum )
           {
-            owner->in_room = NOWHERE;
+            nuke_eq( owner );
             extract_char( owner );
           }
           return;
@@ -1410,7 +1430,7 @@ void swap_arti( P_char ch, char *arg )
     // If vnum then owner was loaded, but not sent to room.
     if( vnum )
     {
-      owner->in_room = NOWHERE;
+      nuke_eq( owner );
       extract_char( owner );
     }
     return;
@@ -1588,6 +1608,8 @@ void event_check_arti_poof( P_char ch, P_char vict, P_obj obj, void * arg )
   P_char         owner;
   P_obj          item;
 
+  debug( "event_check_arti_poof: beginning..." );
+
   // Open the arti directory!
   dir = opendir(ARTIFACT_DIR);
   if (!dir)
@@ -1597,12 +1619,12 @@ void event_check_arti_poof( P_char ch, P_char vict, P_obj obj, void * arg )
     return;
   }
   // Loop through arti files..
-  while (dire = readdir(dir))
+  while( dire = readdir(dir) )
   {
-
     vnum = atoi(dire->d_name);
     if (!vnum)
       continue;
+    debug( "event_check_arti_poof: Checking '%s'", dire->d_name );
 
     sprintf(name, ARTIFACT_DIR "%d", vnum);
     f = fopen(name, "rt");
@@ -1668,23 +1690,7 @@ void event_check_arti_poof( P_char ch, P_char vict, P_obj obj, void * arg )
         sprintf(name, ARTIFACT_DIR "%d", vnum);
         unlink(name);
         // Remove eq from char and extract.
-/*
-        for( int i = 0; i < MAX_WEAR; i++ )
-        {
-          if (ch->equipment[i])
-          {
-            item = unequip_char(ch, i);
-            extract_obj( item, TRUE );
-          }
-        }
-        while( ch->carrying )
-        {
-          item = ch->carrying;
-          obj_from_char( item, TRUE );
-          extract_obj( item, TRUE );
-        }
-*/
-        owner->in_room = NOWHERE;
+        nuke_eq( owner );
         extract_char( owner );
       }
       else
@@ -1698,10 +1704,12 @@ void event_check_arti_poof( P_char ch, P_char vict, P_obj obj, void * arg )
   }
   closedir(dir);
 
+  debug( "event_check_arti_poof: ended." );
   // 3600 = 60sec * 60min => Repeat every one hour (not too important to have it sooner).
   add_event( event_check_arti_poof, 3600 * WAIT_SEC, ch, vict, obj, 0, arg, 0 );
 }
 
+// Saves artifact data for one artifact.
 void save_artifact_data( P_char owner, P_obj artifact )
 {
   int   vnum = obj_index[artifact->R_num].virtual_number;
@@ -1721,4 +1729,210 @@ void save_artifact_data( P_char owner, P_obj artifact )
   fprintf(f, "%s %d %lu 0 %lu", GET_NAME(owner), GET_PID(owner), time(NULL), artifact->timer[3]);
 
   fclose(f);
+}
+
+// Returns -1 if artifact is not tracked, 0 if not an arti, or PID of arti owner.
+int is_tracked( P_obj artifact )
+{
+  char  fname[256];
+  FILE *f;
+  char  name[256];
+  int   id, uo, res;
+  long unsigned last_time, blood;
+
+  // Not an artifact ?!?
+  if( !artifact || !IS_ARTIFACT(artifact) )
+  {
+    debug( "is_tracked: passed non-artifact!" );
+    return 0;
+  }
+
+  sprintf( fname, "%s%d", ARTIFACT_DIR, obj_index[artifact->R_num].virtual_number );
+  f = fopen( fname, "r" );
+
+  // Not tracked
+  if( f == NULL )
+  {
+    debug( "is_tracked: couldn't open file '%s'.", fname );
+    return -1;
+  }
+
+  // If file is corrupted?
+  if( (res = fscanf(f, "%s %d %lu %d %lu", name, &id, &last_time, &uo, &blood)) < 5)
+  {
+    debug( "is_tracked: fscanf returned bad result: %d.", res );
+    fclose(f);
+    return -1;
+  }
+
+  fclose(f);
+  return id;
+}
+
+// Searches through all pfiles with initial *arg for artis.
+void hunt_for_artis( P_char ch, char *arg )
+{
+  char  buf[MAX_STRING_LENGTH];
+  char  dname[256];
+  char  fname[256];
+  int   wearloc;
+  int   pid;
+  DIR  *dir;
+  P_obj arti;
+  P_char owner;
+  struct dirent *dire;
+
+  if( !*arg || !isalpha(*arg) )
+  {
+    send_to_char( "Arti hunt needs a letter for which initial to hunt for.\n", ch );
+    return;
+  }
+  *arg = LOWER( *arg );
+
+  // Read & loop through the directory..
+  // Open the directory!
+  sprintf( dname, "%s/%c", SAVE_DIR, *arg );
+  dir = opendir( dname );
+  if( !dir )
+  {
+    statuslog( 56, "hunt_for_artis: could not open arti dir (%s)\r\n", ARTIFACT_DIR );
+    debug( "hunt_for_artis: could not open arti dir (%s)\r\n", ARTIFACT_DIR );
+    return;
+  }
+  // Loop through the directory files.
+  while (dire = readdir(dir))
+  {
+    // Skip backup/locker files/etc
+    if( strstr( dire->d_name, "." ) )
+      continue;
+    owner = (struct char_data *) mm_get(dead_mob_pool);
+    owner->only.pc = (struct pc_only_data *) mm_get(dead_pconly_pool);
+    if( restoreCharOnly(owner, dire->d_name) < 0 )
+    {
+      sprintf( buf, "hunt_for_artis: %s has bad pfile.\n\r", dire->d_name );
+      send_to_char( buf, ch );
+      free_char( owner );
+      continue;
+    }
+    if( IS_TRUSTED( owner ) )
+    {
+      free_char( owner );
+      continue;
+    }
+    sprintf( buf, "Hunting pfile of '%s'.\n", J_NAME(owner) );
+    send_to_char( buf, ch );
+    restoreItemsOnly( owner, 100 );
+    owner->next = character_list;
+    character_list = owner;
+    setCharPhysTypeInfo( owner );
+    // Search each pfile:
+    // Search Worn equipment.
+    for( wearloc = 0; wearloc < MAX_WEAR;wearloc++ )
+    {
+      if( owner->equipment[wearloc] != NULL && IS_ARTIFACT(owner->equipment[wearloc]) )
+      {
+        sprintf( buf, "'%s' has arti %s (%d) : ", J_NAME(owner), owner->equipment[wearloc]->short_description,
+          obj_index[owner->equipment[wearloc]->R_num].virtual_number );
+        send_to_char( buf, ch );
+        if( (pid = is_tracked( owner->equipment[wearloc] )) == -1 )
+        {
+          send_to_char( "Not yet tracked!\n", ch );
+          save_artifact_data( owner, owner->equipment[wearloc] );
+        }
+        else if( pid == GET_PID(owner) )
+        {
+          send_to_char( "Already tracked.\n", ch );
+        }
+        else if( pid == 0 )
+        {
+          send_to_char( "Not an arti!!!\n", ch );
+        }
+        else
+        {
+          sprintf( buf, "On another char! PID: %d\n", pid );
+          send_to_char( buf, ch );
+        }
+      }
+    }
+    // Search inventory.
+    for( arti = owner->carrying; arti; arti = arti->next_content )
+    {
+      if( IS_ARTIFACT( arti ) )
+      {
+        sprintf( buf, "'%s' has arti %s (%d) : ", J_NAME(owner), arti->short_description,
+          obj_index[arti->R_num].virtual_number );
+        send_to_char( buf, ch );
+        if( (pid = is_tracked( arti )) == -1 )
+        {
+          send_to_char( "Not yet tracked!\n", ch );
+          save_artifact_data( owner, arti );
+        }
+        else if( pid == GET_PID(owner) )
+        {
+          send_to_char( "Already tracked.\n", ch );
+        }
+        else if( pid == 0 )
+        {
+          send_to_char( "Not an arti!!!\n", ch );
+        }
+        else
+        {
+          sprintf( buf, "On another char! PID: %d\n", pid );
+          send_to_char( buf, ch );
+        }
+      }
+    }
+    nuke_eq( owner );
+    extract_char( owner );
+  }
+  // Close the directory!
+  closedir( dir );
+  sprintf( buf, "Arti hunted '%c' successfully!\n", *arg );
+  send_to_char( buf, ch );
+}
+
+// Nukes the arti list.  Must be careful with this!
+void arti_clear( P_char ch )
+{
+  DIR *dir;
+  FILE *f;
+  char name[256];
+  struct dirent *dire;
+  int vnum;
+
+  dir = opendir( ARTIFACT_DIR );
+  while (dire = readdir(dir))
+  {
+    vnum = atoi(dire->d_name);
+    if (!vnum)
+      continue;
+    sprintf( name, "%s%d", ARTIFACT_DIR, vnum );
+    closedir( dir );
+    debug( "Deleting file '%s'...", name );
+    unlink( name );
+    dir = opendir( ARTIFACT_DIR );
+  }
+  closedir( dir );
+}
+
+// Removes a char's equipment from game without disturbing arti list.
+void nuke_eq( P_char ch )
+{
+  P_obj item;
+
+  for( int i = 0; i < MAX_WEAR; i++ )
+  {
+    if (ch->equipment[i])
+    {
+      item = unequip_char(ch, i);
+      // This must be FALSE to prevent nuking arti directory.
+      extract_obj( item, FALSE );
+    }
+  }
+  while( ch->carrying )
+  {
+    item = ch->carrying;
+    obj_from_char( item, FALSE );
+    extract_obj( item, FALSE );
+  }
 }
