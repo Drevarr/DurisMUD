@@ -47,7 +47,7 @@ void set_timer_arti( P_char ch, char *arg );
 void save_artifact_data( P_char owner, P_obj artifact );
 int is_tracked( P_obj artifact );
 void hunt_for_artis( P_char ch, char *arg );
-void arti_clear( P_char ch );
+void arti_clear( P_char ch, char *arg );
 void nuke_eq( P_char );
 //
 // setupMortArtiList : copies everything over from 'real' arti list, to
@@ -854,12 +854,12 @@ void do_artifact(P_char ch, char *arg, int cmd)
 
   if( buf && *buf && is_abbrev(buf, "clear") )
   {
-    arti_clear( ch );
+    arti_clear( ch, arg );
     return;
   }
 
   send_to_char( "Valid arguments are list, unique, ioun, swap, "
-    "poof or timer.\n\r", ch );
+    "poof, timer, hunt or clear.\n\r", ch );
 
 }
 
@@ -1783,6 +1783,7 @@ void hunt_for_artis( P_char ch, char *arg )
   if( !*arg || !isalpha(*arg) )
   {
     send_to_char( "Arti hunt needs a letter for which initial to hunt for.\n", ch );
+    send_to_char( "Arti hunt will then search all pfiles with said initial for artifacts, and add them to the arti list if necessary.\n", ch );
     return;
   }
   *arg = LOWER( *arg );
@@ -1817,8 +1818,9 @@ void hunt_for_artis( P_char ch, char *arg )
       free_char( owner );
       continue;
     }
-    sprintf( buf, "Hunting pfile of '%s'.\n", J_NAME(owner) );
-    send_to_char( buf, ch );
+// For debugging only.. gets spammy on live mud.
+//    sprintf( buf, "Hunting pfile of '%s'.\n", J_NAME(owner) );
+//    send_to_char( buf, ch );
     restoreItemsOnly( owner, 100 );
     owner->next = character_list;
     character_list = owner;
@@ -1892,30 +1894,62 @@ void hunt_for_artis( P_char ch, char *arg )
 }
 
 // Nukes the arti list.  Must be careful with this!
-void arti_clear( P_char ch )
+void arti_clear( P_char ch, char *arg )
 {
   DIR *dir;
   FILE *f;
   char name[256];
+  char buf[256];
   struct dirent *dire;
   int vnum;
 
+  if( vnum = atoi(arg) )
+  {
+    sprintf( name, "%s%d", ARTIFACT_DIR, vnum );
+    if( f = fopen( name, "r" ) )
+    {
+      fclose( f );
+      sprintf( buf, "Deleting file '%s'...\n", name );
+      send_to_char( buf, ch );
+      wizlog( 56, "%s: Deleting file '%s'...", J_NAME(ch), name );
+      unlink( name );
+    }
+    else
+    {
+      sprintf( buf, "File '%s' does not exist...\n", name );
+      send_to_char( buf, ch );
+    }
+    return;
+  }
+
+  if( !isname(arg, "confirm") )
+  {
+    send_to_char( "You must type 'artifact clear confirm' to delete all artifact files.\n", ch );
+    send_to_char( "You can type 'artifact clear <vnum>' to a single artifact file.\n", ch );
+    send_to_char( "'artifact clear confirm' is probably a bad idea unless debugging.\n", ch );
+    return;
+  }
+
+  send_to_char( "Deleting ALL live artifact files!!!\n", ch );
+  wizlog( 56, "%s: Deleting ALL live artifact files!!!", J_NAME(ch) );
   dir = opendir( ARTIFACT_DIR );
-  while (dire = readdir(dir))
+  while( dire = readdir(dir) )
   {
     vnum = atoi(dire->d_name);
-    if (!vnum)
+    if( !vnum )
       continue;
     sprintf( name, "%s%d", ARTIFACT_DIR, vnum );
     closedir( dir );
-    debug( "Deleting file '%s'...", name );
+    wizlog( 56, "%s: Deleting file '%s'...", J_NAME(ch), name );
+    sprintf( buf, "Deleting file '%s'...\n", name );
+    send_to_char( buf, ch );
     unlink( name );
     dir = opendir( ARTIFACT_DIR );
   }
   closedir( dir );
 }
 
-// Removes a char's equipment from game without disturbing arti list.
+// Removes an unsaved char's equipment from game without disturbing arti list.
 void nuke_eq( P_char ch )
 {
   P_obj item;
@@ -1925,7 +1959,7 @@ void nuke_eq( P_char ch )
     if (ch->equipment[i])
     {
       item = unequip_char(ch, i);
-      // This must be FALSE to prevent nuking arti directory.
+      // This must be FALSE to prevent nuking arti files.
       extract_obj( item, FALSE );
     }
   }
@@ -1933,6 +1967,7 @@ void nuke_eq( P_char ch )
   {
     item = ch->carrying;
     obj_from_char( item, FALSE );
+    // This must be FALSE to prevent nuking arti files.
     extract_obj( item, FALSE );
   }
 }
