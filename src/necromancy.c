@@ -200,8 +200,11 @@ int setup_pet(P_char mob, P_char ch, int duration, int flag)
 
   globe = ch->equipment[HOLD];
 
-  if (has_innate(ch, INNATE_UNHOLY_ALLIANCE) || (globe && (globe->R_num == real_object(GLOBE_SHADOWS_VNUM))))
+  if( has_innate(ch, INNATE_UNHOLY_ALLIANCE)
+    || (globe && (obj_index[globe->R_num].virtual_number == GLOBE_SHADOWS_VNUM)) )
+  {
     af.duration = -1;
+  }
 
   duration = af.duration;
   /* the higher the level of the mob, the more likely it'll be aggro to the caster after charm*/
@@ -460,7 +463,7 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
 
   globe = ch->equipment[HOLD];
 
-  if (globe && (globe->R_num == real_object(GLOBE_SHADOWS_VNUM)))
+  if( globe && (obj_index[globe->R_num].virtual_number == GLOBE_SHADOWS_VNUM) )
   {
     act("&+LYour $q &+Lpulses with evil energy, infusing part of its malevolence into your undead abomination!&N",
           FALSE, ch, globe, 0, TO_CHAR);
@@ -1022,8 +1025,7 @@ void spell_call_titan(int level, P_char ch, char *arg, int type, P_char victim, 
    
   globe = ch->equipment[HOLD];
 
-  if (globe &&
-     (globe->R_num == real_object(GLOBE_SHADOWS_VNUM)))
+  if( globe && (obj_index[globe->R_num].virtual_number == GLOBE_SHADOWS_VNUM) )
   {
      act("&+LYour $q &+Lpulses with evil energy, infusing part of its malevolence into your titan!&N",
           FALSE, ch, globe, 0, TO_CHAR);
@@ -1304,8 +1306,7 @@ void spell_create_dracolich(int level, P_char ch, char *arg, int type, P_char vi
    
   globe = ch->equipment[HOLD];
 
-  if (globe &&
-     (globe->R_num == real_object(GLOBE_SHADOWS_VNUM)))
+  if( globe && (obj_index[globe->R_num].virtual_number == GLOBE_SHADOWS_VNUM) )
   {
      act("&+LYour $q &+Lpulses with evil energy, infusing part of its malevolence into your abomination!&N",
           FALSE, ch, globe, 0, TO_CHAR);
@@ -1581,7 +1582,7 @@ void create_golem(int level, P_char ch, P_char victim, P_obj obj,
   }
 
   globe = ch->equipment[HOLD];
-  if (globe && (globe->R_num == real_object(GLOBE_SHADOWS_VNUM)))
+  if( globe && (obj_index[globe->R_num].virtual_number == GLOBE_SHADOWS_VNUM) )
   {
     act("&+LYour $q &+Lpulses with evil energy, infusing part of it's malevolence into your undead abomination!&N",
           FALSE, ch, globe, 0, TO_CHAR);
@@ -1762,7 +1763,7 @@ void spell_call_avatar(int level, P_char ch, char *arg, int type,
 
   globe = ch->equipment[HOLD];
   
-  if (globe && (globe->R_num == real_object(GLOBE_SHADOWS_VNUM)))
+  if( globe && (obj_index[globe->R_num].virtual_number == GLOBE_SHADOWS_VNUM) )
   {
     act("&+LYour $q &+Lpulses with evil energy, infusing part of it's malevolence into your undead abomination!&N",
           FALSE, ch, globe, 0, TO_CHAR);
@@ -1996,7 +1997,7 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type,
 
   globe = ch->equipment[HOLD];
   
-  if (globe && (globe->R_num == real_object(GLOBE_SHADOWS_VNUM)))
+  if( globe && (obj_index[globe->R_num].virtual_number == GLOBE_SHADOWS_VNUM) )
   {
     act("&+LYour $q &+Lpulses with evil energy, infusing part of it's malevolence into your undead abomination!&N",
           FALSE, ch, globe, 0, TO_CHAR);
