@@ -579,67 +579,58 @@ void bard_drifting(int l, P_char ch, P_char victim, int song)
 void bard_healing(int l, P_char ch, P_char victim, int song)
 {
   struct affected_type af;
- if(!affected_by_spell(victim, SONG_HEALING) ||
-     (affected_by_spell(victim, SONG_HEALING) &&  (get_linked_char(victim, LNK_SNG_HEALING) == ch)))
+  if( !affected_by_spell(victim, SONG_HEALING)
+    || (affected_by_spell(victim, SONG_HEALING) && (get_linked_char(victim, LNK_SNG_HEALING) == ch)))
   {
-  int healed, old_hits = GET_HIT(ch);
-  //healed = l * 3 * number(40, 80) / 100;
-  //spell_heal(l, ch, 0, 0, victim, NULL);
-  healed = GET_C_CHA(ch) / 3;
-  healed = healed + GET_LEVEL(ch);
-  
-   act("&+WYour body feels restored by the power of $n's soothing song!", FALSE, ch, 0, victim, TO_VICT);
-  if(ch == victim)
-  {
-    act("&+WYour body feels restored by the power of your soothing song!", FALSE, ch, 0, victim, TO_CHAR);
-    heal(victim, ch, healed , GET_MAX_HIT(victim) - number(1, 4));
-  }
-  else
-  {
-   healed = (healed * .65);
-   heal(victim, ch, healed , GET_MAX_HIT(victim) - number(1, 4));
-  }
+    int healed, old_hits = GET_HIT(ch);
+    //healed = l * 3 * number(40, 80) / 100;
+    //spell_heal(l, ch, 0, 0, victim, NULL);
+    healed = GET_C_CHA(ch) / 3;
+    healed = healed + GET_LEVEL(ch);
 
+    act("&+WYour body feels restored by the power of $n's soothing song!", FALSE, ch, 0, victim, TO_VICT);
+    if(ch == victim)
+    {
+      act("&+WYour body feels restored by the power of your soothing song!", FALSE, ch, 0, victim, TO_CHAR);
+      heal(victim, ch, healed , GET_MAX_HIT(victim) - number(1, 4));
+    }
+    else
+    {
+      healed = (healed * .65);
+      heal(victim, ch, healed , GET_MAX_HIT(victim) - number(1, 4));
+    }
+    update_pos(victim);
 
-  update_pos(victim);
-  
+    if(GET_SPEC(ch, CLASS_BARD, SPEC_MINSTREL))
+    {
+      if(IS_AFFECTED(victim, AFF_BLIND) && GET_CHAR_SKILL(ch, SONG_HEALING) >= 90)
+      {
+        spell_cure_blind(GET_LEVEL(ch), ch, NULL, SPELL_TYPE_SPELL, victim, NULL);
+      }
+      if(IS_AFFECTED2(victim, AFF2_POISONED) && GET_CHAR_SKILL(ch, SONG_HEALING) >= 50)
+      {
+        spell_remove_poison(GET_LEVEL(ch), ch, NULL, SPELL_TYPE_SPELL, victim, NULL);
+      }
+      if(GET_CHAR_SKILL(ch, SONG_HEALING) >= 70 && (affected_by_spell(victim, SPELL_DISEASE) ||
+        affected_by_spell(victim, SPELL_PLAGUE)))
+      {
+        spell_cure_disease(GET_LEVEL(ch), ch, NULL, SPELL_TYPE_SPELL, victim, NULL);
+      }
+    }
+    else if(GET_SPEC(ch, CLASS_BARD, SPEC_DISHARMONIST))
+    {
+      if(IS_AFFECTED2(ch, AFF2_SILENCED) && GET_CHAR_SKILL(ch, SONG_HEALING) >= 90)
+      {
+        affect_from_char(ch, SPELL_SILENCE);
+      }
+    }
 
-   if(GET_SPEC(ch, CLASS_BARD, SPEC_MINSTREL))
-  {
-    if(IS_AFFECTED(victim, AFF_BLIND) &&
-        GET_CHAR_SKILL(ch, SONG_HEALING) >= 90)
-    {
-      spell_cure_blind(GET_LEVEL(ch), ch, NULL, SPELL_TYPE_SPELL, victim, NULL);
-    }
-    if(IS_AFFECTED2(victim, AFF2_POISONED) &&
-        GET_CHAR_SKILL(ch, SONG_HEALING) >= 50)
-    {
-      spell_remove_poison(GET_LEVEL(ch), ch, NULL, SPELL_TYPE_SPELL, victim, NULL);
-    }
-    if(GET_CHAR_SKILL(ch, SONG_HEALING) >= 70 &&
-      (affected_by_spell(victim, SPELL_DISEASE) ||
-      affected_by_spell(victim, SPELL_PLAGUE)))
-    {
-      spell_cure_disease(GET_LEVEL(ch), ch, NULL, SPELL_TYPE_SPELL, victim, NULL);
-    }
-  }
-  else if(GET_SPEC(ch, CLASS_BARD, SPEC_DISHARMONIST))
-  {
-    if(IS_AFFECTED2(ch, AFF2_SILENCED) &&
-        GET_CHAR_SKILL(ch, SONG_HEALING) >= 90)
-    {
-      affect_from_char(ch, SPELL_SILENCE);
-    }
-  }
-
-     memset(&af, 0, sizeof(af));
+    memset(&af, 0, sizeof(af));
     af.type = SONG_HEALING;
     af.duration = PULSE_VIOLENCE * 3;
     af.flags = AFFTYPE_SHORT | AFFTYPE_NODISPEL;
 
-
     linked_affect_to_char(victim, &af, ch, LNK_SNG_HEALING);
-
   }
   else
   {
