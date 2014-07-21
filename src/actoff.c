@@ -379,46 +379,46 @@ void show_failed_takedown_messages(P_char ch, P_char victim, int skill,
 int takedown_check(P_char ch, P_char victim, int chance, int skill, ulong applicable)
 {
   int cagi, vagi;
-  
-  if(!(ch) ||
-    !(victim) ||
-    !IS_ALIVE(ch) ||
-    !IS_ALIVE(victim))
-      return TAKEDOWN_CANCELLED;
+
+  if( !IS_ALIVE(ch) || !IS_ALIVE(victim) )
+  {
+    return TAKEDOWN_CANCELLED;
+  }
 
   cagi = GET_C_AGI(ch);
   vagi = GET_C_AGI(victim);
 
-  if((ch->in_room != victim->in_room) &&
-     !affected_by_spell(ch, SKILL_LANCE_CHARGE))
-        return TAKEDOWN_CANCELLED;
+  if( (ch->in_room != victim->in_room)
+    && !affected_by_spell(ch, SKILL_LANCE_CHARGE) )
+  {
+    return TAKEDOWN_CANCELLED;
+  }
 
-  if((applicable & CHAR_BACK_RANK) &&
-      !on_front_line(ch))
+  if( (applicable & CHAR_BACK_RANK) && !on_front_line(ch) )
   {
     send_to_char("You can't seem to break the ranks!\n", ch);
     return TAKEDOWN_CANCELLED;
   }
-  
+
   if(GET_STAT(victim) <= STAT_SLEEPING)
   {
-    if (affected_by_spell(ch, SKILL_LANCE_CHARGE))
+    if( affected_by_spell(ch, SKILL_LANCE_CHARGE) )
+    {
       return TAKEDOWN_PENALTY;
-      
-    act("$N is no condition to avoid $n's attack!",
-      TRUE, ch, 0, victim, TO_NOTVICT);
-    act("$N cannot respond to your attack!",
-      TRUE, ch, 0, victim, TO_CHAR);
-    
+    }
+
+    act("$N is no condition to avoid $n's attack!", TRUE, ch, 0, victim, TO_NOTVICT);
+    act("$N cannot respond to your attack!", TRUE, ch, 0, victim, TO_CHAR);
+
     if(ch->equipment[PRIMARY_WEAPON])
       hit(ch, victim, ch->equipment[PRIMARY_WEAPON]);
     else if(ch->equipment[SECONDARY_WEAPON])
       hit(ch, victim, ch->equipment[SECONDARY_WEAPON]);
     else
       hit(ch, victim, NULL);
-     
+
     CharWait(ch, PULSE_VIOLENCE);
-    
+
     return TAKEDOWN_CANCELLED;
   }
 
@@ -434,9 +434,8 @@ int takedown_check(P_char ch, P_char victim, int chance, int skill, ulong applic
     return TAKEDOWN_CANCELLED;
   }
 
-  if((IS_PC(ch) || IS_PC_PET(ch)) && 
-    (applicable & VICTIM_BACK_RANK) &&
-    !on_front_line(victim))
+  if( (IS_PC(ch) || IS_PC_PET(ch)) && (applicable & VICTIM_BACK_RANK)
+    && !on_front_line(victim) )
   {
     send_to_char("You can't quite seem to reach them...\n", ch);
     return TAKEDOWN_CANCELLED;
@@ -458,85 +457,75 @@ int takedown_check(P_char ch, P_char victim, int chance, int skill, ulong applic
     return TAKEDOWN_CANCELLED;
   }
 
-  if((applicable & FOOTING) && 
-    !HAS_FOOTING(ch))
+  if( (applicable & FOOTING) && !HAS_FOOTING(ch) )
   {
     if(GET_RACE(ch) == RACE_W_ELEMENTAL && IS_PC_PET(ch) && IS_AFFECTED(ch, AFF_WATERBREATH) && GET_MASTER(ch)->player.spec == SPEC_WATER)
-	{
-	send_to_char("&+WYou are a water ele!\n", ch);
-	}
+	  {
+    	send_to_char("&+WYou are a water ele!\n", ch);
+  	}
     else
-	{
-    send_to_char("You have no footing here!\n", ch);
-    return TAKEDOWN_CANCELLED;
-	}
+	  {
+      send_to_char("You have no footing here!\n", ch);
+      return TAKEDOWN_CANCELLED;
+  	}
   }
 
-  if((applicable & GHOST) &&
-      IS_IMMATERIAL(victim))
+  if( (applicable & GHOST) && IS_IMMATERIAL(victim) )
   {
-    if(IS_NPC(victim))
+    if( IS_NPC(victim) )
     {
       show_failed_takedown_messages(ch, victim, skill, GHOST);
       return TAKEDOWN_PENALTY;
     }
-    
-    if(IS_PC(victim) &&
-       !number(0, 9))
+
+    if( IS_PC(victim) && !number(0, 9) )
     {
       show_failed_takedown_messages(ch, victim, skill, GHOST);
       return TAKEDOWN_PENALTY;
     }
   }
 
-  if(affected_by_spell(victim, SPELL_DISPLACEMENT) && 
-    (5 + GET_LEVEL(ch) / 10) > number(0, 100)) 
-  { 
+  if( affected_by_spell(victim, SPELL_DISPLACEMENT)
+    && (5 + GET_LEVEL(ch) / 10) > number(0, 100) )
+  {
     show_failed_takedown_messages(ch, victim, skill, GHOST); 
     return TAKEDOWN_PENALTY; 
   }
 
-  if((applicable & HARPY) && 
-    IS_HARPY(victim) && 
-    (number(0, 100) < 5))
+  if( (applicable & HARPY) && IS_HARPY(victim) && (number(0, 100) < 5) )
   {
     show_failed_takedown_messages(ch, victim, skill, HARPY);
     return TAKEDOWN_PENALTY;
   }
 
-  if((applicable & EARTH_ELEMENTAL) && 
-    GET_RACE(victim) == RACE_E_ELEMENTAL)
+  if( (applicable & EARTH_ELEMENTAL) && GET_RACE(victim) == RACE_E_ELEMENTAL )
   {
     show_failed_takedown_messages(ch, victim, skill, EARTH_ELEMENTAL);
     return TAKEDOWN_PENALTY;
   }
 
-  if((applicable & WATER_ELEMENTAL) && 
-    GET_RACE(victim) == RACE_W_ELEMENTAL)
+  if( (applicable & WATER_ELEMENTAL) && GET_RACE(victim) == RACE_W_ELEMENTAL )
   {
     show_failed_takedown_messages(ch, victim, skill, WATER_ELEMENTAL);
     return TAKEDOWN_PENALTY;
   }
 
-  if((applicable & NO_BASH) &&
-    IS_NPC(victim) &&
-    IS_SET(victim->specials.act, ACT_NO_BASH))
+  if( (applicable & NO_BASH) && IS_NPC(victim)
+    && IS_SET(victim->specials.act, ACT_NO_BASH) )
   {
     show_failed_takedown_messages(ch, victim, skill, DEFAULT);
     return TAKEDOWN_PENALTY;
   }
 
-  if((applicable & DRAGON) &&
-    IS_DRAGON(victim) &&
-    IS_NPC(victim))
+  if( (applicable & DRAGON) && IS_DRAGON(victim) && IS_NPC(victim) )
   {
     show_failed_takedown_messages(ch, victim, skill, DEFAULT);
     return TAKEDOWN_PENALTY;
   }
 
-  if((applicable & AIR_AURA) && 
-    IS_AFFECTED2(victim, AFF2_AIR_AURA))
+  if( (applicable & AIR_AURA) && IS_AFFECTED2(victim, AFF2_AIR_AURA) )
   {
+    // 6 out of 19 chance? ~31.6% wth?
     if(number(1, 20) < 7)
     {
       show_failed_takedown_messages(ch, victim, skill, GHOST);
@@ -544,42 +533,42 @@ int takedown_check(P_char ch, P_char victim, int chance, int skill, ulong applic
     }
   }
 
-  if(applicable & AGI_CHECK) // Agi versus agi Nov08 -Lucrot
+  // Agi versus agi Nov08 -Lucrot
+  if( applicable & AGI_CHECK )
   {
     chance =
       (int) (chance *
         ((double) BOUNDED(70, (100 + cagi - vagi), 125) / 100));
   }
-    
-  if(IS_NPC(ch) &&
-     !IS_PC_PET(ch)) // NPC bonus to bash Nov08 - Lucrot
+
+  // NPC bonus to bash Nov08 - Lucrot
+  if(IS_NPC(ch) && !IS_PC_PET(ch))
   {
     chance = (int) (chance * get_property("skill.bash.NPC_Modifier", 1.2));
   }
-  
-  if(GET_C_LUK(ch) / 10 > number(0, 100))
+
+  if( GET_C_LUK(ch) / 10 > number(0, 100) )
   {
     chance = (int) (chance * 1.1);
   }
 
-  if(GET_C_LUK(victim) / 10 > number(0, 100))
+  if( GET_C_LUK(victim) / 10 > number(0, 100) )
   {
     chance = (int) (chance * 0.9);
   }
-  
+
   if(affected_by_spell(victim, SPELL_GUARDIAN_SPIRITS))
   {
     guardian_spirits_messages(ch, victim);
-    
-    if(IS_PC(victim) &&
-       IS_PC(ch))
+
+    if( IS_PC(victim) && IS_PC(ch) )
     {
       debug("Takedown_check: attacker (%s) reduced by Guardian Spirit from (%d) to (%d).", GET_NAME(ch), chance, (int) (chance * get_property("spell.GuardianSpirit", 0.750)));
     }
-    
+
     chance = BOUNDED(0, (int) (chance * get_property("spell.GuardianSpirit", 0.750)), 75);
   }
-  
+
   return MAX(1, chance);
 }
 
