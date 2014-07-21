@@ -5468,7 +5468,7 @@ void bash(P_char ch, P_char victim)
   bool shieldless = false;
   char buf[512];
 
-  if( !(ch) || !IS_ALIVE(ch) || !IS_ALIVE(victim) || !IS_ALIVE(ch) )
+  if( !IS_ALIVE(ch) || !IS_ALIVE(victim) )
   {
     return;
   }
@@ -5479,10 +5479,9 @@ void bash(P_char ch, P_char victim)
     return;
   }
 
-  if(affected_by_spell(ch, SKILL_BASH))
+  if( affected_by_spell(ch, SKILL_BASH) )
   {
-    send_to_char
-      ("You haven't reoriented yourself yet enough for another bash!\n", ch);
+    send_to_char("You haven't reoriented yourself yet enough for another bash!\n", ch);
     return;
   }
 
@@ -5492,7 +5491,9 @@ void bash(P_char ch, P_char victim)
     return;
   }
 
-  if(IS_AFFECTED2(ch, AFF2_AIR_AURA) || (GET_RACE(ch) == RACE_F_ELEMENTAL) || (GET_RACE(ch) == RACE_A_ELEMENTAL) || affected_by_spell(ch, SPELL_ETHEREAL_FORM))
+  // Allowing NPC mentals to bash.
+  if( IS_AFFECTED2(ch, AFF2_AIR_AURA) || affected_by_spell(ch, SPELL_ETHEREAL_FORM)
+    || ( (GET_RACE(ch) == RACE_F_ELEMENTAL || GET_RACE(ch) == RACE_A_ELEMENTAL) && !IS_NPC(ch) ) )
   {
     send_to_char("You couldnt bash in your current form if you wanted to.\r\n", ch);
     return;
