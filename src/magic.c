@@ -1974,19 +1974,17 @@ void spell_conjour_elemental(int level, P_char ch, char *arg, int type,
     1103, "$n &+Bforms from a puddle in front of you."}
   };
 
-  if(!(ch) ||
-     !IS_ALIVE(ch) ||
-     !(room))
+  if( !IS_ALIVE(ch) || !(room) )
   {
     return;
   }
-  
+
   if(CHAR_IN_SAFE_ZONE(ch))
   {
     send_to_char("A mysterious force blocks your conjuring!\n", ch);
     return;
   }
-  
+
   if(!can_conjure_lesser_elem(ch, level))
   {
     send_to_char("You cannot control any more elementals!\n", ch);
@@ -1997,6 +1995,7 @@ void spell_conjour_elemental(int level, P_char ch, char *arg, int type,
   return;
 
   if(IS_SPECIALIZED(ch))
+  {
     switch (ch->player.spec)
     {
     case 1:
@@ -2014,6 +2013,7 @@ void spell_conjour_elemental(int level, P_char ch, char *arg, int type,
     default:
       break;
     }
+  }
   else
   {
     sum = number(0, 3);
@@ -2026,15 +2026,14 @@ void spell_conjour_elemental(int level, P_char ch, char *arg, int type,
   }
 
   mob = read_mobile(real_mobile(summons[sum].mob_number), REAL);
-  
+
   if(!mob)
   {
-    logit(LOG_DEBUG, "spell_conjure_elemental(): mob %d not loadable",
-          summons[sum].mob_number);
-    send_to_char("Bug in conjure elemental.  Tell a god!\n", ch);
+    logit( LOG_DEBUG, "spell_conjure_elemental(): mob %d not loadable", summons[sum].mob_number );
+    send_to_char( "Bug in conjure elemental.  Tell a god!\n", ch );
     return;
   }
-  
+
   GET_SIZE(mob) = SIZE_MEDIUM;
   mob->player.m_class = CLASS_WARRIOR;
 
@@ -2058,38 +2057,39 @@ void spell_conjour_elemental(int level, P_char ch, char *arg, int type,
   mob->player.level = BOUNDED(10, lvl, 45);
 
   MonkSetSpecialDie(mob);
-  
+
   if(!IS_SET(mob->specials.affected_by, AFF_INFRAVISION))
   {
     SET_BIT(mob->specials.affected_by, AFF_INFRAVISION);
   }
 
+  apply_achievement(mob, TAG_CONJURED_PET);
+
   good_terrain = conjure_terrain_check(ch, mob);
 
   if(good_terrain == 1)
   {
-
     if(IS_SET(mob->specials.affected_by2, AFF2_SLOW))
     {
       REMOVE_BIT(mob->specials.affected_by2, AFF2_SLOW);
     }
-    
+
     if(!IS_SET(mob->specials.affected_by, AFF_HASTE))
     {
       SET_BIT(mob->specials.affected_by, AFF_HASTE);
     }
-         apply_achievement(mob, TAG_CONJURED_PET);
+
     mob->points.base_hitroll = mob->points.hitroll = GET_LEVEL(mob) / 2;
     mob->points.base_damroll = mob->points.damroll = GET_LEVEL(mob) / 2;
-    
+
     mob->base_stats.Str = 100;
     mob->base_stats.Dex = 100;
     mob->base_stats.Agi = 100;
     mob->base_stats.Pow = 100;
-    
+
     GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit =
       (int) (dice(GET_LEVEL(mob) / 2, 12) + 6 * GET_LEVEL(mob) + life + charisma);
-    
+
     if(GET_C_CHA(ch) > number(0, 400))
     {
       GET_SIZE(mob) = SIZE_LARGE;
@@ -2104,12 +2104,10 @@ void spell_conjour_elemental(int level, P_char ch, char *arg, int type,
       dice(GET_LEVEL(mob) / 2, 10) + 3 * GET_LEVEL(mob) + life + charisma;
     mob->points.damsizedice = (int)(0.8 * mob->points.damsizedice);
   }
-  
-  if(IS_PC(ch) && 
-    GET_LEVEL(mob) > GET_LEVEL(ch) &&
-    charisma < number(10, (int) (get_property("summon.lesser.elemental.charisma", 140.000))) &&
-    !has_air_staff_arti(ch) &&
-    GET_LEVEL(ch) < 50)
+
+  if( IS_PC(ch) && GET_LEVEL(mob) > GET_LEVEL(ch)
+    && charisma < number(10, (int) (get_property("summon.lesser.elemental.charisma", 140.000)))
+    && !has_air_staff_arti(ch) && GET_LEVEL(ch) < 50 )
   {
     act("$N is NOT pleased at being suddenly summoned against $S will!",
         TRUE, ch, 0, mob, TO_ROOM);
@@ -2289,15 +2287,14 @@ bool can_conjure_greater_elem(P_char ch, int level)
     victim = k->follower;
       if(IS_ELEMENTAL(victim) || IS_GREATER_ELEMENTAL(victim))
       j++;
-    
   }
 /*
   if(GET_LEVEL(ch) >= 56)
     j--;
-    
+
   if(GET_LEVEL(ch) >= 60)
     j--;
-    
+
   if(GET_C_CHA(ch) >= 200)
   {
     send_to_char("Your ability to inspire is amazing.\r\n", ch);
@@ -2321,7 +2318,7 @@ bool can_conjure_greater_elem(P_char ch, int level)
   {
     return FALSE;
   }
-  
+
   return TRUE;
 */
   if(j >= 3)
@@ -2534,11 +2531,12 @@ void conjure_specialized(P_char ch, int level)
 
   summoned = 3 * (ch->player.spec - 1) + number(0, 2);
   mob = read_mobile(real_mobile(pets[summoned].vnum), REAL);
-  room = ch->in_room;
+  if( ch )
+  {
+    room = ch->in_room;
+  }
 
-  if(!(ch) ||
-     !(mob) ||
-     !(room))
+  if( !IS_ALIVE(ch) || !(mob) || !(room) )
   {
     logit(LOG_DEBUG, "spell_conjour_greater_elemental(): mob %d not loadable",
           pets[summoned].vnum);
@@ -2548,18 +2546,22 @@ void conjure_specialized(P_char ch, int level)
 
   char_to_room(mob, room, 0);
   act(summons[ch->player.spec - 1], TRUE, mob, 0, 0, TO_ROOM);
-  
+
   if(!IS_SET(mob->specials.affected_by, AFF_INFRAVISION))
   {
     SET_BIT(mob->specials.affected_by, AFF_INFRAVISION);
   }
 
-     apply_achievement(mob, TAG_CONJURED_PET);
-  
+  apply_achievement(mob, TAG_CONJURED_PET);
+
   if(GET_LEVEL(ch) > 55)
+  {
     mob->player.level = (ubyte)number(51,55);
+  }
   else
+  {
     mob->player.level = (ubyte)number(49,53);
+  }
 
   //whew, big bonus for high level mobs!
   if(mob->player.level > 53)
@@ -2577,7 +2579,7 @@ void conjure_specialized(P_char ch, int level)
       310 + number(0,50) + (life * 3) + charisma;
 
   GET_MAX_HIT(mob) = GET_HIT(mob) = (int) (GET_MAX_HIT(mob) * .66);
-  
+
   mob->points.base_hitroll = mob->points.hitroll =
     pets[summoned].damroll + number(0, 5);
   mob->points.base_damroll = mob->points.damroll =
@@ -2586,7 +2588,7 @@ void conjure_specialized(P_char ch, int level)
   mob->points.damsizedice = (int)(0.8 * mob->points.damsizedice);
 
   good_terrain = conjure_terrain_check(ch, mob);
-  
+
   if(good_terrain == -1)
   {
     GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit =
@@ -2600,12 +2602,12 @@ void conjure_specialized(P_char ch, int level)
     {
       REMOVE_BIT(mob->specials.affected_by2, AFF2_SLOW);
     }
-    
+
     if(!IS_SET(mob->specials.affected_by, AFF_HASTE))
     {
       SET_BIT(mob->specials.affected_by, AFF_HASTE);
     }
-    
+
     mob->points.base_hitroll = mob->points.hitroll =
       pets[summoned].damroll + number(20, 30);
     mob->points.base_damroll = mob->points.damroll =
@@ -2617,10 +2619,8 @@ void conjure_specialized(P_char ch, int level)
     mob->base_stats.Dex = 100;
     mob->base_stats.Agi = 100;
     mob->base_stats.Pow = 100;
-    
-    if(!IS_MULTICLASS_NPC(mob) &&
-       !IS_SPECIALIZED(mob) &&
-       GET_CLASS(mob, CLASS_WARRIOR))
+
+    if( !IS_MULTICLASS_NPC(mob) && !IS_SPECIALIZED(mob) && GET_CLASS(mob, CLASS_WARRIOR))
     {
       if(number(0, 3))
       {
@@ -2637,10 +2637,8 @@ void conjure_specialized(P_char ch, int level)
     }
   }
 
-  if(IS_PC(ch) &&
-    charisma < number(10, (int) (get_property("summon.greater.elemental.charisma", 140.000))) &&
-    !IS_TRUSTED(ch) &&
-    !(has_air_staff_arti(ch)))
+  if( IS_PC(ch) && !IS_TRUSTED(ch) && !(has_air_staff_arti(ch))
+    && charisma < number(10, (int) (get_property("summon.greater.elemental.charisma", 140.000))) )
   {
     act("$N is NOT pleased at being suddenly summoned against $S will!", TRUE,
         ch, 0, mob, TO_ROOM);
@@ -2687,49 +2685,47 @@ void spell_conjour_greater_elemental(int level, P_char ch, char *arg,
     {
     44, "$n &+Bforms from a nearby lake in front of you."}
   };
-  
-  if(!(ch) ||
-     !IS_ALIVE(ch))
+
+  if( !IS_ALIVE(ch) )
   {
     return;
   }
 
   room = ch->in_room;
-  
-  if(!(room) ||
-     CHAR_IN_SAFE_ZONE(ch))
+
+  if( !(room) || CHAR_IN_SAFE_ZONE(ch) )
   {
     send_to_char("A mysterious force blocks your conjuring!\n", ch);
     return;
   }
-  
-  if(!can_conjure_greater_elem(ch, level))
+
+  if( !can_conjure_greater_elem(ch, level) )
   {
     send_to_char("You may not control more HUGE elementals!\n", ch);
     return;
   }
 
-  if(IS_SPECIALIZED(ch) && GET_CLASS(ch, CLASS_SUMMONER) && (IS_PC(ch) || IS_PC_PET(ch)))
+  if( IS_SPECIALIZED(ch) && GET_CLASS(ch, CLASS_SUMMONER) && (IS_PC(ch) || IS_PC_PET(ch)) )
   {
    send_to_char("Specialized &+Rsummoners&n use the &+cconjure&n command to manage their minions.\r\n", ch);
    return;
   }
 
-  if(GET_CLASS(ch, CLASS_CONJURER) && IS_SPECIALIZED(ch))
+  if( GET_CLASS(ch, CLASS_CONJURER) && IS_SPECIALIZED(ch) )
   {
     conjure_specialized(ch, level);
     return;
   }
 
   sum = number(0, 3);
-  
+
   if(has_air_staff_arti(ch))
   {
     sum = 2;
   }
-  
+
   mob = read_mobile(real_mobile(summons[sum].mob_number), REAL);
-  
+
   if(!mob)
   {
     logit(LOG_DEBUG, "spell_conjure_greater_elemental(): mob %d not loadable",
@@ -2737,7 +2733,7 @@ void spell_conjour_greater_elemental(int level, P_char ch, char *arg,
     send_to_char("Bug in conjure greater elemental.  Tell a god!\n", ch);
     return;
   }
-  
+
   GET_SIZE(mob) = SIZE_LARGE;
   char_to_room(mob, room, 0);
   act(summons[sum].message, TRUE, mob, 0, 0, TO_ROOM);
@@ -2759,16 +2755,16 @@ void spell_conjour_greater_elemental(int level, P_char ch, char *arg,
 
   SET_BIT(mob->specials.affected_by, AFF_INFRAVISION);
 
+  apply_achievement(mob, TAG_CONJURED_PET);
+
   mob->points.base_hitroll = mob->points.hitroll = GET_LEVEL(mob) / 3;
   mob->points.base_damroll = mob->points.damroll = GET_LEVEL(mob) / 4;
 
   MonkSetSpecialDie(mob);       /* 2d6 to 4d5 */
   mob->points.damsizedice = (int)(0.8 * mob->points.damsizedice);
 
-  if(IS_PC(ch) &&              
-    !has_air_staff_arti(ch) &&
-    (charisma + number(0, GET_LEVEL(ch)) < number(10, (int) (get_property("summon.greater.elemental.charisma", 140.000)))) &&
-    !IS_TRUSTED(ch))
+  if( IS_PC(ch) && !has_air_staff_arti(ch) && !IS_TRUSTED(ch)
+    && (charisma + number(0, GET_LEVEL(ch)) < number(10, (int) (get_property("summon.greater.elemental.charisma", 140.000)))) )
   {
     act("$N is NOT pleased at being suddenly summoned against $S will!",
       TRUE, ch, 0, mob, TO_ROOM);
