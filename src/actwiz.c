@@ -356,8 +356,8 @@ void do_reboot_restore(P_char ch, P_char victim)
   if(affected_by_spell(victim, SPELL_WITHER))
     affect_from_char(victim, SPELL_WITHER);
 
-  if(affected_by_spell(victim, SPELL_BLOODSTONE))
-    affect_from_char(victim, SPELL_BLOODSTONE);
+  if(affected_by_spell(victim, SPELL_BLOODTOSTONE))
+    affect_from_char(victim, SPELL_BLOODTOSTONE);
   
   if(affected_by_spell(victim, SPELL_SHREWTAMENESS))
     affect_from_char(victim, SPELL_SHREWTAMENESS);

@@ -1451,7 +1451,7 @@ int do_simple_move_skipping_procs(P_char ch, int exitnumb, unsigned int flags)
        (mob_index[GET_RNUM(ch)].number == 11004)))
     return 0;
 
-  if (affected_by_spell(moving, SPELL_BLOODSTONE)) {
+  if (affected_by_spell(moving, SPELL_BLOODTOSTONE)) {
     need_movement += 4;
   }
 

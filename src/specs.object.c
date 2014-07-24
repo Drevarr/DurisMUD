@@ -14972,7 +14972,9 @@ int moonstone(P_obj obj, P_char ch, int cmd, char *argument)
   struct obj_affect *aff;
   P_nevent e;
 
-  if( !obj || obj_index[obj->R_num].virtual_number != 419 )
+  // If not moonstone or bloodstone.
+  if( !obj || (obj_index[obj->R_num].virtual_number != 419
+    && obj_index[obj->R_num].virtual_number != 433) )
   {
     logit(LOG_DEBUG, "moonstone: obj proc called with no obj or non-moonstone obj.");
   }
@@ -14991,8 +14993,16 @@ int moonstone(P_obj obj, P_char ch, int cmd, char *argument)
       ch = get_char_online( name );
       if( ch )
       {
-        send_to_char( "&+WYour moonstone fades to nothingness.&n\n", ch );
-        affect_from_char(ch, SPELL_MOONSTONE);
+        if( obj_index[obj->R_num].virtual_number == 419 )
+        {
+          send_to_char( "&+WYour moonstone fades to nothingness.&n\n", ch );
+          affect_from_char(ch, SPELL_MOONSTONE);
+        }
+        else
+        {
+          send_to_char( "&+YYour &+rblood&+ystone&+Y fades to nothingness.&n\n", ch );
+          affect_from_char(ch, SPELL_BLOODSTONE);
+        }
       }
     }
     return FALSE;

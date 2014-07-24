@@ -16,3 +16,4 @@ void spell_create_pond(int level, P_char ch, char *arg, int type, P_char victim,
 void spell_toxic_fog(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj);
 void spell_faluzures_vitality(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj);
 void spell_sap_nature(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj);
+void spell_bloodstone(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj);

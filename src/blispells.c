@@ -1045,3 +1045,63 @@ void spell_sap_nature(int level, P_char ch, char *arg, int type, P_char victim, 
   act("&+GEnergy&+y from the area begins to drain into &+y$N&+y.&n",
     FALSE, ch, 0, victim, TO_NOTVICT);
 }
+
+void spell_bloodstone(int level, P_char ch, char *arg, int type, P_char victim, P_obj tar_obj)
+{
+  P_obj bloodstone;
+  struct affected_type af, *afp;
+  int duration = level * 4 * WAIT_MIN;
+
+  if( !IS_ALIVE(ch) || IS_NPC(ch) )
+  {
+    return;
+  }
+
+  if( IS_SET(world[ch->in_room].room_flags, NO_TELEPORT)
+    || world[ch->in_room].sector_type == SECT_OCEAN )
+  {
+    send_to_char("The powers of nature ignore your call for serenity.\n", ch);
+    return;
+  }
+
+  if( afp = get_spell_from_char(ch, SPELL_BLOODSTONE) )
+  {
+    bloodstone = get_obj_in_list_num(real_object(433), world[afp->modifier].contents);
+    if( bloodstone )
+    {
+      extract_obj(bloodstone, FALSE);
+    }
+    afp->modifier = ch->in_room;
+  }
+  else
+  {
+    memset(&af, 0, sizeof(af));
+    af.type = SPELL_BLOODSTONE;
+    af.flags = /*AFFTYPE_NOSHOW |*/ AFFTYPE_NOSAVE | AFFTYPE_NODISPEL | AFFTYPE_NOAPPLY;
+    af.modifier = ch->in_room;
+    af.duration = duration / PULSES_IN_TICK;
+
+    affect_to_char(ch, &af);
+  }
+
+  bloodstone = read_object(real_object(433), REAL);
+
+  if(!bloodstone)
+  {
+    logit(LOG_DEBUG, "spell_bloodstone: obj 433 not loadable.");
+    return;
+  }
+
+  send_to_char("&+WA shimmering stone begins to take shape....\n"
+    "&+YThe stone rises into the &+cair&+Y briefly, then shoots downward with amazing speed into the ground.\n"
+    "&+yThe stone fades to a &+rblood red color.&n\n", ch);
+
+  act("&+WA shimmering stone begins to take shape....\n"
+    "&+YThe stone rises into the &+cair&+Y briefly, then shoots downward with amazing speed into the ground.\n"
+    "&+yThe stone fades to a &+rblood red color.&n\n", FALSE, ch, 0, 0, TO_ROOM);
+
+  set_obj_affected( bloodstone, duration, TAG_OBJ_DECAY, 0 );
+  bloodstone->value[0] = GET_PID(ch);
+  obj_to_room( bloodstone, ch->in_room );
+}
+

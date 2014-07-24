@@ -2771,13 +2771,13 @@ void cast_bloodstone(int level, P_char ch, char *arg, int type, P_char victim, P
   debug("duration %f", duration);
   int dur = duration;
   debug("duration: %f, dur: %d", duration, dur);  
-  if (affected_by_spell(victim, SPELL_BLOODSTONE))
+  if (affected_by_spell(victim, SPELL_BLOODTOSTONE))
   {
     send_to_char("Their blood is already made of stone!\n", ch);
     return;
   }
 
-  af.type = SPELL_BLOODSTONE;
+  af.type = SPELL_BLOODTOSTONE;
 
   GET_VITALITY(victim) -= 2;
   StartRegen(victim, EVENT_MOVE_REGEN);

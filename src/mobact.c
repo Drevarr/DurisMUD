@@ -2774,8 +2774,8 @@ bool CastDruidSpell(P_char ch, P_char victim, int helping)
   if(!spl && npc_has_spell_slot(ch, SPELL_CDOOM))
     spl = SPELL_CDOOM;
 
-  if(!spl && npc_has_spell_slot(ch, SPELL_BLOODSTONE))
-        spl = SPELL_BLOODSTONE;
+  if(!spl && npc_has_spell_slot(ch, SPELL_BLOODTOSTONE))
+        spl = SPELL_BLOODTOSTONE;
 
   if(!spl && npc_has_spell_slot(ch, SPELL_ACID_STREAM))
     spl = SPELL_ACID_STREAM;

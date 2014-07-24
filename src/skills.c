@@ -726,7 +726,7 @@ void initialize_skills()
 
   SPEC_SPELL_ADD(CLASS_DRUID, 9, SPEC_STORM);
 
-  SPELL_CREATE_MSG("blood to stone", SPELL_BLOODSTONE, PULSE_SPELLCAST * 1,
+  SPELL_CREATE_MSG("blood to stone", SPELL_BLOODTOSTONE, PULSE_SPELLCAST * 1,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO,
                 cast_bloodstone, "Your blood flows normally again.");
   SPEC_SPELL_ADD(CLASS_DRUID, 11, SPEC_STORM);
@@ -4421,6 +4421,10 @@ SPELL_ADD(CLASS_NONE, 1);
   SPELL_CREATE("moonstone", SPELL_MOONSTONE, PULSE_SPELLCAST * 6,
                 TAR_IGNORE | TAR_NOCOMBAT, spell_moonstone);
   SPELL_ADD(CLASS_DRUID, 12);
+
+  SPELL_CREATE("bloodstone", SPELL_BLOODSTONE, PULSE_SPELLCAST * 6,
+                TAR_IGNORE | TAR_NOCOMBAT, spell_bloodstone);
+  SPELL_ADD(CLASS_BLIGHTER, 12);
 
   SPELL_CREATE("create dracolich", SPELL_CREATE_DRACOLICH, PULSE_SPELLCAST * 9,
                 TAR_OBJ_ROOM | TAR_NOCOMBAT,

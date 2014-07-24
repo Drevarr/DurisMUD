@@ -1270,7 +1270,7 @@ IS_GIANT(ch) || IS_PC_PET(ch) || IS_PC(ch) || IS_UNDEAD(ch) || IS_EFREET(ch)) &&
         (affected_by_spell(victim, SPELL_CURSE) || \
         affected_by_spell(victim, SPELL_MALISON) || \
         affected_by_spell(victim, SPELL_WITHER) || \
-        affected_by_spell(victim, SPELL_BLOODSTONE) || \
+        affected_by_spell(victim, SPELL_BLOODTOSTONE) || \
         affected_by_spell(victim, SPELL_SHREWTAMENESS) || \
         affected_by_spell(victim, SPELL_MOUSESTRENGTH) || \
         affected_by_spell(victim, SPELL_MOLEVISION) || \

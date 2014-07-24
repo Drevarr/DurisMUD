@@ -1404,6 +1404,7 @@ void assign_objects(void)
   obj_index[real_object0(55320)].func.obj = artifact_stone;
 
   obj_index[real_object0(419)].func.obj = moonstone;
+  obj_index[real_object0(433)].func.obj = moonstone;
 
   obj_index[real_object0(12410)].func.obj =
     obj_index[real_object0(19916)].func.obj =

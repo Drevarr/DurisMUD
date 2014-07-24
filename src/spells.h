@@ -479,7 +479,7 @@
 #define SPELL_MAGICAL_FOUNTAIN 	     448
 #define SPELL_HURRICANE 	     449
 #define SPELL_STORMSHIELD      450
-#define SPELL_BLOODSTONE       451
+#define SPELL_BLOODTOSTONE     451
 
 // Ethermancer Spells
 #define SPELL_VAPOR_ARMOR      452
@@ -690,7 +690,8 @@
 #define SPELL_TOXIC_FOG              640
 #define SPELL_FALUZURES_VITALITY     641
 #define SPELL_SAP_NATURE             642
-#define LAST_SPELL  SPELL_SAP_NATURE
+#define SPELL_BLOODSTONE             643
+#define LAST_SPELL  SPELL_BLOODSTONE
 
 #define FIRST_SKILL                  1000  /* should be a decent split point */
 #define SKILL_SNEAK                  1000

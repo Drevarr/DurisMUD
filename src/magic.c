@@ -20472,8 +20472,7 @@ void spell_perm_increase_cha(int level, P_char ch, char *arg, int type,
 //                   PORTALS
 //--------------------------------------------------------------
 
-void spell_shadow_gate(int level, P_char ch, char *arg, int type, P_char victim,
-                  P_obj obj)
+void spell_shadow_gate(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct portal_settings set = {
       782, /* portal type  */
@@ -20497,6 +20496,7 @@ void spell_shadow_gate(int level, P_char ch, char *arg, int type, P_char victim,
     /*npc  */ "You can only open a shadow gate to another player!\n",
     /*bad  */ 0
   };
+  struct affected_type *afp;
 
   if(!ch)
     return;
@@ -20506,6 +20506,14 @@ void spell_shadow_gate(int level, P_char ch, char *arg, int type, P_char victim,
 
   int specBonus = 0;
   set.to_room = victim->in_room;
+  if(victim == ch)
+  {
+    if(affected_by_spell(ch, SPELL_BLOODSTONE))
+    {
+      afp = get_spell_from_char(ch, SPELL_BLOODSTONE);
+      set.to_room = afp->modifier;
+    }
+  }
   int maxToPass          = get_property("portals.shadowportal.maxToPass", 5);
   set.init_timeout       = get_property("portals.shadowportal.initTimeout", 3);
   set.post_enter_timeout = get_property("portals.shadowportal.postEnterTimeout", 0);
@@ -20727,14 +20735,22 @@ bool can_do_general_portal( int level, P_char ch, P_char victim,
                             struct portal_settings *settings,
                             struct portal_create_messages *messages)
 {
-   int to_room;
+  int to_room;
 
-   if(!ch) return FALSE;
+  if( !IS_ALIVE(ch) )
+  {
+    return FALSE;
+  }
 
-   if(ch == victim && !affected_by_spell(ch, SPELL_MOONSTONE) && !affected_by_spell(ch, SPELL_THOUGHT_BEACON)) return FALSE;
+  if( ch == victim && !affected_by_spell(ch, SPELL_MOONSTONE)
+    && !affected_by_spell(ch, SPELL_THOUGHT_BEACON)
+    && !affected_by_spell(ch, SPELL_BLOODSTONE))
+  {
+    return FALSE;
+  }
 
-   to_room = settings->to_room;
-   if(!IS_TRUSTED(ch) &&
+  to_room = settings->to_room;
+  if(!IS_TRUSTED(ch) &&
        // target room check
        ((to_room == NOWHERE) || (to_room == ch->in_room) ||
         IS_SET(world[ch->in_room].room_flags, NO_TELEPORT) ||
