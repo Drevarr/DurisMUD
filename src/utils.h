@@ -347,7 +347,6 @@ int IS_TWILIGHT_ROOM(int r);
 #define GET_TITLE(ch)   ((ch)->player.title)
 #define GET_DISGUISE_TITLE(ch) ((ch)->disguise.title)
 
-//#define GET_LEVEL(ch)   ((int)(ch)->player.level)
 #define GET_SECONDARY_LEVEL(ch)   ((int)(ch)->player.secondary_level)
 #define GET_DISGUISE_LEVEL(ch) ((int)(ch)->disguise.level)
 
@@ -662,8 +661,10 @@ for ((IN_ROOM) = world[(PLAYER)->in_room].people; (IN_ROOM) != NULL; (IN_ROOM) =
  IS_SET((CH)->only.pc->law_flags, PLR_THIEF)?   1: 0)
 */
 
-#define IS_TRUSTED(ch) (((GET_LEVEL(ch) > MAXLVLMORTAL) && IS_PC(ch) && !IS_SET(ch->specials.act, PLR_MORTAL)) \
-  /* || IS_SET(ch->specials.act, PLR_DEBUG)*/)
+#define GET_LEVEL(character) ((character==NULL) ? -1 :(int) character->player.level)
+
+#define IS_TRUSTED(ch) (GET_LEVEL(ch) > MAXLVLMORTAL && IS_PC(ch) && !IS_SET(ch->specials.act, PLR_MORTAL))
+  /* || IS_SET(ch->specials.act, PLR_DEBUG))*/
 
 #define IS_FIGHTING(ch) ((ch->specials.fighting)? 1: 0)
 #define IS_DESTROYING(ch) ((ch->specials.destroying_obj)? 1: 0)

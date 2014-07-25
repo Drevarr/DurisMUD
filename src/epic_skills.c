@@ -247,7 +247,7 @@ void do_epic_skills(P_char ch, char *arg, int cmd)
   char buff[MAX_STRING_LENGTH];
   P_char teacher;
 
-  if(IS_TRUSTED(ch))
+  if( IS_TRUSTED(ch) )
   {
     send_to_char("&+GSkills                    (Vnum) Teacher Name\n" \
                  "-------------------------------------------------\n", ch);

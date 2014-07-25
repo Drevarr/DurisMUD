@@ -143,7 +143,7 @@ void event_githyanki_neckbite(P_char ch, P_char victim, P_obj obj, void *data)
   if (GET_HIT(ch) < GET_MAX_HIT(ch))
     GET_HIT(ch) += MIN(GET_LEVEL(victim) * 4, GET_MAX_HIT(ch) - GET_HIT(ch));
 
-  if (GET_LEVEL(victim) < MAX(GET_LEVEL(ch) / 2, GET_LEVEL(ch - 10)))
+  if (GET_LEVEL(victim) < MAX(GET_LEVEL(ch) / 2, GET_LEVEL(ch) - 10))
   {
     get_mana = MIN(GET_LEVEL(victim) * 2, GET_MAX_MANA(ch) - GET_MANA(ch));
   }

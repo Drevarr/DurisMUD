@@ -178,7 +178,7 @@ void spell_desecrate_land(int level, P_char ch, char *arg, int type, P_char vict
     act("&+L$n&+L's prayer floods the area with dark energy.&n",0, ch, 0, 0, TO_ROOM);
     memset(&af, 0, sizeof(struct room_affect));
     af.type = SPELL_DESECRATE_LAND;
-    af.duration = (GET_LEVEL(ch) * 4);
+    af.duration = GET_LEVEL(ch) * 4;
     af.ch = ch;
     affect_to_room(ch->in_room, &af);
     break;

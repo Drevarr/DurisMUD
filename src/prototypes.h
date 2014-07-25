@@ -2856,7 +2856,6 @@ char *striplinefeed(char *mesg);
 int ScaleAreaDamage(P_char ch, int orig_dam);
 int flag2idx(int);
 bool can_char_multi_to_class(P_char, int);
-int GET_LEVEL(P_char);
 int GET_CLASS(P_char, uint);
 int GET_PRIME_CLASS(P_char, uint);
 int GET_SECONDARY_CLASS(P_char, uint);

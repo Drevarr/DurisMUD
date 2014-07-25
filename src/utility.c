@@ -3938,6 +3938,7 @@ int flag2idx(int flag)
  *
  */
 
+/* Turned this into a macro: returns same results. - Lohrr
 int GET_LEVEL(P_char ch)
 {
   if(!ch)
@@ -3945,6 +3946,7 @@ int GET_LEVEL(P_char ch)
 
   return ch->player.level;
 }
+*/
 
 /*
  * GET_CLASS
