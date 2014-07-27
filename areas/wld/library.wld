@@ -2060,12 +2060,18 @@ S
 #402115
 &+LThe &+WInn&+L at &+wThe Great &+WLi&+wb&+Wr&+wa&+Lr&+wy &+Lof &+wL&+W's&+wri&+Ll&+wli&+Wz&+wzin&n~
 &+L   This room is the reception area for the inn here at the &+wThe Great &+WLi&+wb&+Wr&+wa&+Lr&+wy &+Lof &+wL&+W's&+wri&+Ll&+wli&+Wz&+wzin&n&+L, so that the visiting scholars might have a place to take comfort. There is a series of rather comfortable looking chairs about the room for people to meet and mingle at the inn. The room is elegantly decorated with sculpted friezes in the obsidian stone walls which have been polished to glisten.&N
+&+yThere are scuff marks on the floor here.&n
 ~
 402 524296 0 0
 D1
 ~
 ~
 1 0 402011
+D5
+You found a trapdoor.  Maybe it leads out of the library.
+~
+trapdoor~
+4 0 402007
 S
 #402116
 &+LThe &+wTop&+L of a &+wSpiral Staircase&+L to the &+WBasement&n~
