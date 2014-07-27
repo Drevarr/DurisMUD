@@ -398,7 +398,7 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
 
   if(IS_NPC(ch) && IS_PC_PET(ch))
   {
-    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
+    send_to_char( "Your pet can not summon pets.\n\r", get_linked_char(ch, LNK_PET) );
     return;
   }
 
@@ -795,7 +795,7 @@ void spawn_raise_undead(P_char ch, P_char vict, P_obj corpse)
   }
   if( IS_NPC(ch) && IS_PC_PET(ch) )
   {
-    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
+    send_to_char( "Your pet can not summon pets.\n\r", get_linked_char(ch, LNK_PET) );
     return;
   }
 
@@ -1492,7 +1492,7 @@ void spell_create_golem(int level, P_char ch, char *arg, int type,
   }
   if( IS_NPC(ch) && IS_PC_PET(ch) )
   {
-    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
+    send_to_char( "Your pet can not summon pets.\n\r", get_linked_char(ch, LNK_PET) );
     return;
   }
   if( !obj )
@@ -1539,7 +1539,7 @@ void create_golem(int level, P_char ch, P_char victim, P_obj obj,
   }
   if( IS_NPC(ch) && IS_PC_PET(ch) )
   {
-    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
+    send_to_char( "Your pet can not summon pets.\n\r", get_linked_char(ch, LNK_PET) );
     return;
   }
   if( !obj )
@@ -1753,7 +1753,7 @@ void spell_call_avatar(int level, P_char ch, char *arg, int type,
   }
   if( IS_NPC(ch) && IS_PC_PET(ch) )
   {
-    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
+    send_to_char( "Your pet can not summon pets.\n\r", get_linked_char(ch, LNK_PET) );
     return;
   }
   if( !obj )
@@ -1990,7 +1990,7 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type,
   }
   if( IS_NPC(ch) && IS_PC_PET(ch) )
   {
-    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
+    send_to_char( "Your pet can not summon pets.\n\r", get_linked_char(ch, LNK_PET) );
     return;
   }
   if( !obj )

@@ -1978,7 +1978,7 @@ void spell_conjour_elemental(int level, P_char ch, char *arg, int type,
 
   if( IS_PC_PET( ch ) )
   {
-    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
+    send_to_char( "Your pet can not summon pets.\n\r", get_linked_char(ch, LNK_PET) );
     return;
   }
 
@@ -2704,7 +2704,7 @@ void spell_conjour_greater_elemental(int level, P_char ch, char *arg,
 
   if( IS_PC_PET( ch ) )
   {
-    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
+    send_to_char( "Your pet can not summon pets.\n\r", get_linked_char(ch, LNK_PET) );
     return;
   }
 
