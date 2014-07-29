@@ -578,34 +578,36 @@ int get_current_artifact_info(int rnum, int vnum, char *pname, int *id,
   {
     // Copy name into pname
     strcpy( pname, name );
+  }
 
-    owner = (struct char_data *) mm_get(dead_mob_pool);
-    owner->only.pc = (struct pc_only_data *) mm_get(dead_pconly_pool);
+  owner = (struct char_data *) mm_get(dead_mob_pool);
+  if (!dead_pconly_pool)
+  {
+    dead_pconly_pool = mm_create("PC_ONLY", sizeof(struct pc_only_data),
+      offsetof(struct pc_only_data, switched),
+      mm_find_best_chunk(sizeof (struct pc_only_data), 10, 25));
+  }
+  owner->only.pc = (struct pc_only_data *) mm_get(dead_pconly_pool);
 
-    if( restoreCharOnly(owner, skip_spaces(name)) >= 0 )
+  if( restoreCharOnly(owner, skip_spaces(name)) >= 0 )
+  {
+    if( RACE_GOOD(owner) )
     {
-      if( RACE_GOOD(owner) )
-      {
-        owner_race = 1;
-      }
-      else if( RACE_EVIL(owner) )
-      {
-        owner_race = 2;
-      }
-      else if( RACE_PUNDEAD(owner) )
-      {
-        owner_race = 3;
-      }
-      else
-      {
-        owner_race = 4;
-      }
-      free_char(owner);
+      owner_race = 1;
+    }
+    else if( RACE_EVIL(owner) )
+    {
+      owner_race = 2;
+    }
+    else if( RACE_PUNDEAD(owner) )
+    {
+      owner_race = 3;
     }
     else
     {
-      owner_race = 0;
+      owner_race = 4;
     }
+    free_char(owner);
   }
   else
   {

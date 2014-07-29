@@ -3134,8 +3134,8 @@ void reset_zone(int zone, int force_item_repop)
           obj = read_object(temp, REAL);
           if (!obj)
              break;
-          // Load the artifact unless artifact.respawn == 0
-          //   or artifact.respawn == 1 and we're not booting.
+          // Remove the artifact unless artifact.respawn == 0
+          //   or artifact.respawn == 1 and we are not booting.
           if( IS_ARTIFACT(obj)
             && ( get_property("artifact.respawn", 0) == 0
               || (get_property("artifact.respawn", 0) == 1 && force_item_repop != 2) ))
