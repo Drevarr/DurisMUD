@@ -90,33 +90,33 @@ const ShipChiefData ship_chief_data[MAXCHIEFS] = {
 #define WPNFLAG05   FORE_ALLOWED | REAR_ALLOWED                               | BALLISTIC             //med cat           
 #define WPNFLAG06   FORE_ALLOWED | REAR_ALLOWED                               | BALLISTIC             //large cat         
 #define WPNFLAG07                                 PORT_ALLOWED | STAR_ALLOWED                         //hvy ball          
-#define WPNFLAG08   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED | RANGEDAM  | CAPITOL   //light beam
-#define WPNFLAG09   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED | RANGEDAM  | CAPITOL   //heavy beam
-#define WPNFLAG10   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED | MINDBLAST | CAPITOL   //mind blast        
-#define WPNFLAG11   FORE_ALLOWED | REAR_ALLOWED                                           | CAPITOL   //frag cannon       
-#define WPNFLAG12   FORE_ALLOWED | REAR_ALLOWED                               | BALLISTIC | CAPITOL   //long tom          
+#define WPNFLAG08   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED | RANGEDAM  | CAPITAL   //light beam
+#define WPNFLAG09   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED | RANGEDAM  | CAPITAL   //heavy beam
+#define WPNFLAG10   FORE_ALLOWED | REAR_ALLOWED | PORT_ALLOWED | STAR_ALLOWED | MINDBLAST | CAPITAL   //mind blast        
+#define WPNFLAG11   FORE_ALLOWED | REAR_ALLOWED                                           | CAPITAL   //frag cannon       
+#define WPNFLAG12   FORE_ALLOWED | REAR_ALLOWED                               | BALLISTIC | CAPITAL   //long tom          
 
 const WeaponData weapon_data[MAXWEAPON] = {
-// Name                         Cost  Frags Weight Ammo    Min     Max     Min     Max  Fragments Damage  Sail   Hull    Sail    Armor   Reload  Volley      Flags
-//                                                        range   range  damage  damage   count     arc    hit  damage  damage  pierce     time    time 
- { "Small Ballistae",          50000,    0,    3,   60,      0,      8,      2,      4,      1,      10,   12,    100,     50,     10,      30,      7,  WPNFLAG01, }, //small ball  
- { "Medium Ballistae",        100000,    0,    6,   50,      0,     10,      4,      6,      1,      10,   14,    100,     50,     10,      30,      8,  WPNFLAG02, }, //med ball    
- { "Large Ballistae",         500000,    0,   10,   30,      0,     12,      6,      9,      1,      10,   16,    100,     50,     10,      30,     10,  WPNFLAG03, }, //lrg ball    
- { "Small Catapult",          500000,    0,   10,   30,      4,     15,      2,      3,      4,     160,   20,    100,    100,      2,      30,     18,  WPNFLAG04, }, //small cat   
- { "Medium Catapult",         800000,    0,   13,   20,      5,     20,      2,      4,      5,     260,   20,    100,    100,      2,      30,     24,  WPNFLAG05, }, //med cat     
- { "Large Catapult",         1200000,    0,   17,   12,      6,     25,      2,      5,      6,     360,   20,    100,    100,      2,      30,     30,  WPNFLAG06, }, //large cat   
- { "Heavy Ballistae",        1000000,    0,   15,    6,      0,      4,     15,     22,      1,      10,    0,    100,      0,     15,      30,      3,  WPNFLAG07, }, //hvy ball    
- { "Light Beamcannon",       4000000, 1600,    7,   40,      0,     20,      4,     16,      1,      10,   10,    100,     30,     15,      45,      0,  WPNFLAG08, }, //light beam  
- { "Heavy Beamcannon",       5000000, 1800,    9,   40,      0,     23,      5,     22,      1,      10,   10,    100,     30,     15,      45,      0,  WPNFLAG09, }, //heavy beam  
- { "Mind Blast Cannon",      4000000, 1700,    5,   50,      0,     20,      0,      0,      1,     360,    0,      0,      0,      0,      45,      0,  WPNFLAG10, }, //mind blast  
- { "Fragmentation Cannon",   5000000, 1900,    7,   20,      0,     16,      4,      6,      5,      90,   50,     50,    100,      0,      45,     12,  WPNFLAG11, }, //frag cannon 
- { "Long Tom Catapult",      5000000, 2000,    9,    6,     12,     32,      3,      6,      8,     360,   20,    100,    100,      3,      45,     36,  WPNFLAG12, }, //long tom    
-};                                                                                             
+// Name                         Cost  Frags Crew  Weight Ammo    Min     Max     Min     Max  Fragments Damage  Sail   Hull    Sail    Armor   Reload  Volley      Flags
+//                                           exp         range   range  damage  damage   count     arc    hit  damage  damage  pierce     time    time 
+ { "Small Ballistae",          50000,    0,    0,     3,   60,      0,      8,      2,      4,      1,      10,   12,    100,     50,     10,      30,      7,  WPNFLAG01, }, //small ball  
+ { "Medium Ballistae",        100000,    0,    0,     6,   50,      0,     10,      4,      6,      1,      10,   14,    100,     50,     10,      30,      8,  WPNFLAG02, }, //med ball    
+ { "Large Ballistae",         500000,    0,    0,    10,   30,      0,     12,      6,      9,      1,      10,   16,    100,     50,     10,      30,     10,  WPNFLAG03, }, //lrg ball    
+ { "Small Catapult",          500000,    0,    0,    10,   30,      4,     15,      2,      3,      4,     160,   20,    100,    100,      2,      30,     18,  WPNFLAG04, }, //small cat   
+ { "Medium Catapult",         800000,    0,    0,    13,   20,      5,     20,      2,      4,      5,     260,   20,    100,    100,      2,      30,     24,  WPNFLAG05, }, //med cat     
+ { "Large Catapult",         1200000,    0,    0,    17,   12,      6,     25,      2,      5,      6,     360,   20,    100,    100,      2,      30,     30,  WPNFLAG06, }, //large cat   
+ { "Heavy Ballistae",        1000000,    0,    0,    15,    6,      0,      4,     15,     22,      1,      10,    0,    100,      0,     15,      30,      3,  WPNFLAG07, }, //hvy ball    
+ { "Light Beamcannon",       4000000, 1600, 1600,     7,   40,      0,     20,      4,     16,      1,      10,   10,    100,     30,     15,      45,      0,  WPNFLAG08, }, //light beam  
+ { "Heavy Beamcannon",       5000000, 1800, 1800,     9,   40,      0,     23,      5,     22,      1,      10,   10,    100,     30,     15,      45,      0,  WPNFLAG09, }, //heavy beam  
+ { "Mind Blast Cannon",      4000000, 1700, 1700,     5,   50,      0,     20,      0,      0,      1,     360,    0,      0,      0,      0,      45,      0,  WPNFLAG10, }, //mind blast  
+ { "Fragmentation Cannon",   5000000, 1900, 1900,     7,   20,      0,     16,      4,      6,      5,      90,   50,     50,    100,      0,      45,     12,  WPNFLAG11, }, //frag cannon 
+ { "Long Tom Catapult",      5000000, 2000, 2000,     9,    6,     12,     32,      3,      6,      8,     360,   20,    100,    100,      3,      45,     36,  WPNFLAG12, }, //long tom    
+};
 
 #define EQFLAGS01  0        // Ram
-#define EQFLAGS02  CAPITOL  // Levistone
+#define EQFLAGS02  CAPITAL  // Levistone
 #define EQFLAGS03  DIPLOMAT	// Pirate Suppression Flag
-                                                            
+
 const EquipmentData equipment_data[MAXEQUIPMENT] = {
 // Name                         Cost  Frags Weight  Flags
 //
@@ -125,7 +125,6 @@ const EquipmentData equipment_data[MAXEQUIPMENT] = {
  { "&+W A &+bDi&+Bploma&+bt's &+WFlag&n",    0,	    0,    0,  EQFLAGS03,  },
 };
 
-                                                                                               
 /* NEVER CHANGE SHIP IDs Just add new ones. */
 extern const ShipTypeData ship_type_data[MAXSHIPCLASS];
 const ShipTypeData ship_type_data[MAXSHIPCLASS] = {
@@ -138,13 +137,12 @@ const ShipTypeData ship_type_data[MAXSHIPCLASS] = {
  { 5,      "Caravel",   4000000,      0,  200,     8,   100,     110,   35,        6,      10,      68,    13,     13,      30,     13,      12,   SHK_MERCHANT },
  { 6,      "Carrack",   8000000,      0,  260,    10,   130,     120,   50,        9,      15,      58,     8,     10,      35,     16,      24,   SHK_MERCHANT },
  { 7,      "Galleon",  12000000,      0,  330,    12,   165,     130,   70,       12,      20,      50,     6,      8,      40,     19,      40,   SHK_MERCHANT },
-                                                                                                                                                  
  { 8,     "Corvette",   9000000,      0,  165,     6,    82,     120,    0,        0,       6,      74,    20,     20,      31,     13,       0,   SHK_WARSHIP  },
  { 9,    "Destroyer",  15000000,      0,  220,     8,   110,     130,    0,        0,       8,      64,    13,     14,      36,     16,       0,   SHK_WARSHIP  },
  {10,      "Frigate",  22000000,      0,  285,    10,   142,     140,    0,        0,      10,      55,     8,     10,      41,     20,       0,   SHK_WARSHIP  },
  {11,      "Cruiser",  36000000,      0,  400,    12,   200,     160,    0,        0,      15,      48,     5,      8,      46,     25,       0,   SHK_WARSHIP  },
  {12,  "Dreadnought",         0,      0,  600,    14,   300,     200,    0,        0,      20,      40,     4,      6,      51,     32,       0,   SHK_WARSHIP  },
- {12,   "Large Ship",         0,      0,  600,    14,   300,     200,    0,        0,      20,      40,     4,      6,      51,     32,       0,   SHK_WARSHIP  } 
+ {13,   "Large Ship",         0,      0,  600,    14,   300,     200,    0,        0,      20,      40,     4,      6,      51,     32,       0,   SHK_WARSHIP  }
 
 };
 
@@ -159,13 +157,13 @@ const ShipArcProperties ship_arc_properties[MAXSHIPCLASS] = {
   { {  1,   3,   1,   3 },   { 17,  26,  17,  26 },   {  53,  66,  33,  66 },   {  26,  33,  16,  33 } }, // Caravel
   { {  1,   3,   1,   3 },   { 21,  31,  21,  31 },   {  69,  86,  43,  86 },   {  34,  43,  21,  43 } }, // Carrack
   { {  2,   3,   1,   3 },   { 26,  35,  26,  35 },   {  88, 110,  55, 110 },   {  44,  55,  27,  55 } }, // Galleon
-                                                      
   { {  1,   3,   1,   3 },   { 13,  32,  13,  32 },   {  50,  63,  37,  63 },   {  22,  27,  13,  27 } }, // Corvette
   { {  2,   3,   1,   3 },   { 27,  38,  27,  38 },   {  67,  84,  50,  84 },   {  29,  36,  18,  36 } }, // Destroyer
   { {  2,   3,   2,   3 },   { 31,  44,  31,  44 },   {  87, 109,  65, 109 },   {  38,  47,  23,  47 } }, // Frigate
   { {  2,   4,   2,   4 },   { 35,  50,  35,  50 },   { 122, 153,  91, 153 },   {  53,  66,  33,  66 } }, // Cruiser
   { {  3,   5,   2,   5 },   { 51,  75,  51,  75 },   { 183, 229, 138, 229 },   {  79,  99,  49,  99 } }, // Dreadnought
-};                                                                              
+  { {  3,   5,   2,   5 },   { 51,  75,  51,  75 },   { 183, 229, 138, 229 },   {  79,  99,  49,  99 } }  // Large Ship
+};
 
 extern const int ship_allowed_weapons[MAXSHIPCLASS][MAXWEAPON];
 const int ship_allowed_weapons [MAXSHIPCLASS][MAXWEAPON] = {
@@ -178,12 +176,12 @@ const int ship_allowed_weapons [MAXSHIPCLASS][MAXWEAPON] = {
   {   1,    1,    1,    1,    1,    1,    1,    1,    0,    1,    1,    0,   }, // Caravel
   {   1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,   }, // Carrack
   {   1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,   }, // Galleon
-                                                          
   {   1,    1,    1,    1,    1,    0,    0,    1,    0,    1,    1,    0,   }, // Corvette
   {   1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    0,   }, // Destroyer
   {   1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,   }, // Cruiser
   {   1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,   }, // Frigate
   {   1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,   }, // Dreadnought
+  {   1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,    1,   }, // Large Ship
 };
 
 extern const int ship_allowed_equipment [MAXSHIPCLASS][MAXEQUIPMENT];
@@ -197,12 +195,12 @@ const int ship_allowed_equipment [MAXSHIPCLASS][MAXEQUIPMENT] = {
   {   1,    1,    1,  }, // Caravel
   {   1,    1,    1,  }, // Carrack
   {   1,    1,    1,  }, // Galleon
-              
   {   1,    1,    1,  }, // Corvette
   {   1,    1,    1,  }, // Destroyer
   {   1,    1,    1,  }, // Cruiser
   {   1,    1,    1,  }, // Frigate
   {   1,    1,    1,  }, // Dreadnought
+  {   1,    1,    1,  }  // Large Ship
 };
 
 

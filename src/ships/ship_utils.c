@@ -20,7 +20,7 @@
 
 char buf[MAX_STRING_LENGTH];
 
-float hull_mod[MAXSHIPCLASS] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+float hull_mod[MAXSHIPCLASS] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 float ShipTypeData::get_hull_mod() const
 {
     if (hull_mod[_classid - 1]) return hull_mod[_classid - 1];
@@ -1730,3 +1730,35 @@ int calculate_full_cost(P_ship ship)
     return cost;
 }
 
+void ShipData::guns_skill_raise(P_char ch, float raise )
+{
+  char Gbuf1[MAX_STRING_LENGTH];
+
+  sprintf( Gbuf1, "Name: '%s&n' Owner: '%s&n'\n\rOld Guns Skill: %.2f, ", this->name, this->ownername, this->crew.guns_skill );
+  send_to_char( Gbuf1, ch );
+  this->crew.guns_skill_raise( raise );
+  sprintf( Gbuf1, "New Guns Skill: %.2f.\n\r", this->crew.guns_skill );
+  send_to_char( Gbuf1, ch );
+}
+
+void ShipData::rpar_skill_raise(P_char ch, float raise )
+{
+  char Gbuf1[MAX_STRING_LENGTH];
+
+  sprintf( Gbuf1, "Name: '%s&n' Owner: '%s&n'\n\rOld Repair Skill: %.2f, ", this->name, this->ownername, this->crew.rpar_skill );
+  send_to_char( Gbuf1, ch );
+  this->crew.rpar_skill_raise( raise );
+  sprintf( Gbuf1, "New Repair Skill: %.2f.\n\r", this->crew.rpar_skill );
+  send_to_char( Gbuf1, ch );
+}
+
+void ShipData::sail_skill_raise(P_char ch, float raise )
+{
+  char Gbuf1[MAX_STRING_LENGTH];
+
+  sprintf( Gbuf1, "Name: '%s&n' Owner: '%s&n'\n\rOld Sail Skill: %.2f, ", this->name, this->ownername, this->crew.sail_skill );
+  send_to_char( Gbuf1, ch );
+  this->crew.sail_skill_raise( raise );
+  sprintf( Gbuf1, "New Sail Skill: %.2f.\n\r", this->crew.sail_skill );
+  send_to_char( Gbuf1, ch );
+}

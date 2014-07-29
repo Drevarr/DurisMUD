@@ -86,11 +86,6 @@
 #define UNDEADSHIP        2
 #define NPCSHIP           3
 
-#define FORE_BIT          BIT_1
-#define PORT_BIT          BIT_2
-#define REAR_BIT          BIT_3
-#define STAR_BIT          BIT_4
-
 // Weapons
 #define W_SMALL_BAL         0
 #define W_MEDIUM_BAL        1
@@ -106,16 +101,21 @@
 #define W_LONGTOM          11
 #define MAXWEAPON          12
 
+#define FORE_BIT          BIT_1
+#define PORT_BIT          BIT_2
+#define REAR_BIT          BIT_3
+#define STAR_BIT          BIT_4
+
 // Weapon Flags
 #define FORE_ALLOWED     FORE_BIT
 #define PORT_ALLOWED     PORT_BIT
 #define REAR_ALLOWED     REAR_BIT
 #define STAR_ALLOWED     STAR_BIT
-#define CAPITOL          BIT_5
+#define CAPITAL          BIT_5
 #define MINDBLAST        BIT_6
 #define RANGEDAM         BIT_7
 #define BALLISTIC        BIT_8
-#define DIPLOMAT	    BIT_9
+#define DIPLOMAT	       BIT_9
 
 // Equipment
 #define E_RAM            0
@@ -413,6 +413,9 @@ struct ShipRoom
 struct ShipData
 {
     void show(P_char ch) const;
+    void guns_skill_raise(P_char, float);
+    void sail_skill_raise(P_char, float);
+    void rpar_skill_raise(P_char, float);
     int slot_weight(int type) const;
     int get_maxspeed() const { return maxspeed + maxspeed_bonus; }
     int get_capacity() const { return SHIPTYPE_PEOPLE(m_class) + capacity_bonus; }
@@ -501,6 +504,7 @@ struct WeaponData
     const char* name;
     int cost;
     int min_frags;
+    int min_crewexp;
     int weight;
     int ammo;
     int min_range;

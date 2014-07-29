@@ -153,6 +153,7 @@ void apply_zone_modifier(P_char ch);
 static P_char load_locker_char(P_char ch, char *locker_name, int bValidateAccess);
 void shopping_stat( P_char ch, P_char keeper, char *arg, int cmd );
 bool is_quested_item( P_obj obj );
+void do_setship( P_char ch, char *arg );
 
 /*
  * Macros
@@ -6017,9 +6018,9 @@ void do_setattr(P_char ch, char *arg, int cmd)
   {
     return;
   }
-  wizlog(GET_LEVEL(ch), "%s: setattr%s", GET_NAME(ch), arg);
-  logit(LOG_WIZ, "%s: setattr%s", GET_NAME(ch), arg);
-  sql_log(ch, WIZLOG, "setattr%s", arg);
+  wizlog(GET_LEVEL(ch), "%s: setattr: %s", GET_NAME(ch), arg);
+  logit(LOG_WIZ, "%s: setattr: %s", GET_NAME(ch), arg);
+  sql_log(ch, WIZLOG, "setattr: %s", arg);
 
   /* Get name of player  */
 
@@ -6034,6 +6035,12 @@ void do_setattr(P_char ch, char *arg, int cmd)
       send_to_char(attr_tuples[i].attr_name, ch);
       send_to_char("\n", ch);
     }
+    return;
+  }
+
+  if( isname(name, "ship") )
+  {
+    do_setship( ch, arg );
     return;
   }
 
@@ -6055,6 +6062,7 @@ void do_setattr(P_char ch, char *arg, int cmd)
       send_to_char(attr_tuples[i].attr_name, ch);
       send_to_char("\n", ch);
     }
+    send_to_char("ship\n", ch);
     return;
   }
 
@@ -6071,6 +6079,7 @@ void do_setattr(P_char ch, char *arg, int cmd)
       send_to_char(attr_tuples[i].attr_name, ch);
       send_to_char("\n", ch);
     }
+    send_to_char("ship\n", ch);
     return;
   }
 
@@ -6095,8 +6104,8 @@ void do_setattr(P_char ch, char *arg, int cmd)
       send_to_char(attr_tuples[i].attr_name, ch);
       send_to_char("\n", ch);
     }
+    send_to_char("ship\n", ch);
     return;
-
   }
   /* Now set attributes  */
 
@@ -10232,3 +10241,72 @@ bool is_quested_item( P_obj obj )
    return FALSE;
 }
 
+void do_setship( P_char ch, char *arg )
+{
+  char   name[MAX_STRING_LENGTH];
+  char   Gbuf1[MAX_STRING_LENGTH];
+  P_ship ship;
+
+  arg = one_argument(arg, name);
+  if( (ship = get_ship_from_owner(name)) != NULL )
+  {
+// Debugging:
+//    sprintf( Gbuf1, "Found ship '%s', Owner: '%s'.\n\r", ship->name, ship->ownername );
+//    send_to_char( Gbuf1, ch );
+
+    arg = one_argument(arg, name);
+    if( isname( name, "frags") )
+    {
+      arg = one_argument(arg, name);
+      if( !*name || atoi(name) < 0 )
+      {
+        send_to_char( "You must enter a postive amount to set ship frags to.\n\r", ch );
+        return;
+      }
+      sprintf( Gbuf1, "Name: '%s&n' Owner: '%s&n'\n\rOld Ship Frags: %d, ", ship->name, ship->ownername, ship->frags );
+      send_to_char( Gbuf1, ch );
+      ship->frags = atoi(name);
+      sprintf( Gbuf1, "New Ship frags: %d.\n\r", ship->frags );
+      send_to_char( Gbuf1, ch );
+    }
+    else if( isname( name, "guns") )
+    {
+      arg = one_argument(arg, name);
+      if( !*name )
+      {
+        send_to_char( "You must enter an amount to raise the guns crew exp.\n\r", ch );
+        return;
+      }
+      ship->guns_skill_raise( ch, atof(name) );
+    }
+    else if( isname( name, "repair") )
+    {
+      arg = one_argument(arg, name);
+      if( !*name )
+      {
+        send_to_char( "You must enter an amount to raise the repair crew exp.\n\r", ch );
+        return;
+      }
+      ship->rpar_skill_raise( ch, atof(name) );
+    }
+    else if( isname( name, "sail") )
+    {
+      arg = one_argument(arg, name);
+      if( !*name )
+      {
+        send_to_char( "You must enter an amount to raise the sail crew exp.\n\r", ch );
+        return;
+      }
+      ship->sail_skill_raise( ch, atof(name) );
+    }
+    else
+    {
+      send_to_char( "Valid Ship settings: 'frags', 'guns', 'repair', or 'skill'.\n\r", ch );
+    }
+  }
+  else
+  {
+    sprintf( Gbuf1, "Couldn't find ship '%s'.\n\r", name );
+    send_to_char( Gbuf1, ch );
+  }
+}

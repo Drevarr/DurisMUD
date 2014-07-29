@@ -287,9 +287,12 @@ int list_hulls (P_char ch, P_ship ship, int owned)
         send_to_char("                 Load   Cargo  Passenger   Max   Total  Weapons  Epic     \r\n", ch);
         send_to_char("    Name         Cap.    Cap.     Cap.    Speed  Armor (F/S/R/P) Cost Cost\r\n", ch);
         send_to_char("&+W-----------------------------------------------------------------------------------\r\n", ch);
-        for (int i = 0; i < MAXSHIPCLASS; i++)                                
+        for (int i = 0; i < MAXSHIPCLASS; i++)
         {
-            if (SHIPTYPE_COST(i) == 0) continue;
+            if (SHIPTYPE_COST(i) == 0)
+            {
+              continue;
+            }
             send_to_char_f(ch, "%-2d) %-11s   &+Y%-3d    &+Y%-3d       &+Y%-2d      &+Y%-3d    &+Y%-3d   &+Y%1d/&+Y%1d/&+Y%1d/&+Y%1d   &+R%c   &n%-14s\r\n", 
                 i + 1,
                 SHIPTYPE_NAME(i), 
@@ -336,7 +339,10 @@ int list_hulls (P_char ch, P_ship ship, int owned)
         send_to_char("&+W-----------------------------------------------------------------------------------\r\n", ch);
         for (int i = 0; i < MAXSHIPCLASS; i++)
         {
-            if (SHIPTYPE_COST(i) == 0) continue;
+            if (SHIPTYPE_COST(i) == 0)
+            {
+              continue;
+            }
             send_to_char_f(ch, "%-2d) %-11s   &+Y%-3d    &+Y%-3d       &+Y%-2d      &+Y%-3d    &+Y%-3d   &+Y%1d/&+Y%1d/&+Y%1d/&+Y%1d   &+R%c   &n%-14s\r\n",
                 i + 1,
                 SHIPTYPE_NAME(i), 
@@ -1585,21 +1591,23 @@ int buy_weapon(P_char ch, P_ship ship, char* arg1, char* arg2)
 
 /* -Removing frag requirements for weapons - Drannak 6/3/2013
  *  Readding them. - Lohrr 7/23/2014
+ *  Also added a min_crewexp value for each weapon and compared it to guns_skill for exp.
 */
-    if (ship->frags < weapon_data[w].min_frags)
+    if( ship->frags < weapon_data[w].min_frags
+      && ship->crew.guns_skill < weapon_data[w].min_crewexp )
     {
         send_to_char ("I'm sorry, but not just anyone can buy this weapon!  You must earn it!\r\n", ch);
         return TRUE;
     }
 
-    if (IS_SET(weapon_data[w].flags, CAPITOL)) 
+    if (IS_SET(weapon_data[w].flags, CAPITAL)) 
     {
         for (int j = 0; j < MAXSLOTS; j++) 
         {
-            if (((ship->slot[j].type == SLOT_WEAPON) && IS_SET(weapon_data[ship->slot[j].index].flags, CAPITOL)) ||
-                ((ship->slot[j].type == SLOT_EQUIPMENT) && IS_SET(equipment_data[ship->slot[j].index].flags, CAPITOL))) 
+            if (((ship->slot[j].type == SLOT_WEAPON) && IS_SET(weapon_data[ship->slot[j].index].flags, CAPITAL)) ||
+                ((ship->slot[j].type == SLOT_EQUIPMENT) && IS_SET(equipment_data[ship->slot[j].index].flags, CAPITAL))) 
             {
-                send_to_char ("You already have a capitol equipment! You can only have one.\r\n", ch);
+                send_to_char ("You already have a capital equipment! You can only have one.\r\n", ch);
                 return TRUE;
             }
         }
@@ -1665,20 +1673,21 @@ int buy_equipment(P_char ch, P_ship ship, char* arg1)
         return TRUE;
     }
 
-    if (ship->frags < equipment_data[e].min_frags)
+    if( ship->frags < equipment_data[e].min_frags
+      && ship->crew.guns_skill < weapon_data[e].min_crewexp )
     {
         send_to_char ("I'm sorry, but not just anyone can buy this equipment!  You must earn it!\r\n", ch);
         return TRUE;
     }
 
-    if (IS_SET(equipment_data[e].flags, CAPITOL)) 
+    if (IS_SET(equipment_data[e].flags, CAPITAL)) 
     {
         for (int j = 0; j < MAXSLOTS; j++) 
         {
-            if (((ship->slot[j].type == SLOT_WEAPON) && IS_SET(weapon_data[ship->slot[j].index].flags, CAPITOL)) ||
-                ((ship->slot[j].type == SLOT_EQUIPMENT) && IS_SET(equipment_data[ship->slot[j].index].flags, CAPITOL))) 
+            if (((ship->slot[j].type == SLOT_WEAPON) && IS_SET(weapon_data[ship->slot[j].index].flags, CAPITAL)) ||
+                ((ship->slot[j].type == SLOT_EQUIPMENT) && IS_SET(equipment_data[ship->slot[j].index].flags, CAPITAL))) 
             {
-                send_to_char ("You already have a capitol equipment! You can only have one.\r\n", ch);
+                send_to_char ("You already have a capital equipment! You can only have one.\r\n", ch);
                 return TRUE;
             }
         }
