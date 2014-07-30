@@ -1,4 +1,4 @@
-/**************************************************************************** 
+/****************************************************************************
  *
  *  File: drannak.c                                           Part of Duris
  *  Usage: drannak.c
@@ -2630,7 +2630,7 @@ void enhancematload( P_char ch, P_char killer )
     {
       // Show reward to master if killer is a pet.
       debug( "enhancematload: '%s' (%d) rewarded to %s.", gift->short_description, GET_OBJ_VNUM(gift),
-        IS_PC_PET(killer) ? J_NAME(killer) : J_NAME(get_linked_char(killer, LNK_PET)) );
+        IS_PC_PET(killer) ? J_NAME(get_linked_char(killer, LNK_PET)) : J_NAME(killer) );
       obj_to_char( gift, ch );
     }
   }
