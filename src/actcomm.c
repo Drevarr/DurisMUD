@@ -2092,7 +2092,7 @@ void do_beep(P_char ch, char *argument, int cmd)
       if( IS_SET(ch->specials.act, PLR_ECHO) || IS_NPC(ch) )
       {
         sprintf( Gbuf1, "&+WYou beep %s!\r\n", J_NAME(vict) );
-        send_to_char( Gbuf1, ch, LOG_PRIVATE );
+        send_to_char( Gbuf1, ch, LOG_NONE );
       }
       else
       {
@@ -2114,7 +2114,7 @@ void do_beep(P_char ch, char *argument, int cmd)
     }
 
     sprintf(Gbuf1, "&+W%s&+W beeps you.\a\r\n", CAN_SEE(vict, ch) ? J_NAME(ch) : "Someone" );
-    send_to_char(Gbuf1, vict, LOG_PRIVATE);
+    send_to_char(Gbuf1, vict, LOG_NONE);
     if (IS_SET(vict->specials.act, PLR_AFK))
     {
       act("$n beeped you, and your &+RAFK&N is toggled on!", FALSE, ch, 0, vict, TO_VICT);
