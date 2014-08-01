@@ -691,7 +691,8 @@
 #define SPELL_FALUZURES_VITALITY     641
 #define SPELL_SAP_NATURE             642
 #define SPELL_BLOODSTONE             643
-#define LAST_SPELL  SPELL_BLOODSTONE
+#define SPELL_RETURN_SOUL            644
+#define LAST_SPELL  SPELL_RETURN_SOUL
 
 #define FIRST_SKILL                  1000  /* should be a decent split point */
 #define SKILL_SNEAK                  1000
