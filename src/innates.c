@@ -59,6 +59,8 @@ int  cast_as_damage_area(P_char, void (*func) (int, P_char, char *, int, P_char,
 extern const int race_hatred_data[][MAX_HATRED];
 extern bool epic_summon(P_char, char *);
 extern void event_short_affect(P_char, P_char , P_obj , void *);
+extern const struct class_names class_names_table[];
+extern char *specdata[][MAX_SPEC];
 
 typedef void cmd_func(P_char, char *, int);
 
@@ -117,6 +119,8 @@ void       do_aura_healing(P_char, char *, int);
 void       do_aura_vigor(P_char, char *, int);
 void       do_divine_force(P_char, char *, int);
 void       do_wall_climbing(P_char, char *, int);
+void       do_list_innates( P_char );
+void       class_has_innate( int, int );
 
 int        get_relic_num(P_char ch);
 int        fight_in_room(P_char ch);
@@ -1022,7 +1026,7 @@ void assign_innates()
   ADD_CLASS_INNATE(INNATE_SNEAK, CLASS_ROGUE, 1, SPEC_THIEF);
   //ADD_CLASS_INNATE(INNATE_SNEAK, CLASS_ROGUE, 1, SPEC_THIEF);
   ADD_CLASS_INNATE(INNATE_TWO_DAGGERS, CLASS_ROGUE, 1, SPEC_THIEF);
-  ADD_CLASS_INNATE(INNATE_QUICK_THINKING, CLASS_THIEF, 36, SPEC_TRICKSTER);
+//  ADD_CLASS_INNATE(INNATE_QUICK_THINKING, CLASS_THIEF, 36, SPEC_TRICKSTER); No longer in game.
   ADD_CLASS_INNATE(INNATE_WALL_CLIMBING, CLASS_ROGUE, 56, SPEC_THIEF);
 
   ADD_CLASS_INNATE(INNATE_EYELESS, CLASS_DREADLORD, 1, 0);
@@ -3564,12 +3568,20 @@ void do_innate(P_char ch, char *arg, int cmd)
   char     buf[MAX_STRING_LENGTH];
 
   if (cmd == CMD_SUMMON)
+  {
     if (epic_summon(ch, arg))
+    {
       return;
+    }
     else
+    {
       strcpy(innate_name, "summon ");
+    }
+  }
   else
+  {
     innate_name[0] = '\0';
+  }
 
   argument_interpreter(arg, innate_name + strlen(innate_name), innate_args);
   if (!innate_name || *innate_name == '\0')
@@ -3577,40 +3589,58 @@ void do_innate(P_char ch, char *arg, int cmd)
     /*
      * List available racial abilities
      */
-    send_to_char
-      ("Your innate abilities: ('*' marked innates are always active)\n",
-       ch);
-    for (i = 0; i <= LAST_INNATE; i++)
+    send_to_char("Your innate abilities: ('*' marked innates are always active)\n", ch);
+    for( i = 0; i <= LAST_INNATE; i++ )
     {
-      if (has_innate(ch, i))
+      if( has_innate(ch, i) )
       {
-        if (innates_data[i].func)
+        if( innates_data[i].func )
+        {
           sprintf(buf, "   %s", innates_data[i].name);
+        }
         else
+        {
           sprintf(buf, "  *%s", innates_data[i].name);
+        }
 
         if (can_use_innate(ch, i))
+        {
           strcat(buf, "\n");
+        }
         else
+        {
           strcat(buf, " [too tired to use again]\n");
-
-
+        }
         send_to_char(buf, ch);
       }
     }
     return;
   }
 
+  if( is_abbrev(innate_name, "list") )
+  {
+    do_list_innates( ch );
+    return;
+  }
+
   for (i = 0; i <= LAST_INNATE; i++)
+  {
     if (is_abbrev(innate_name, innates_data[i].name) && has_innate(ch, i))
+    {
       break;
+    }
+  }
 
   if (i <= LAST_INNATE)
   {
     if (innates_data[i].func)
+    {
       (innates_data[i].func) (ch, innate_args, CMD_INNATE);
+    }
     else
+    {
       send_to_char("This innate is always active.\n", ch);
+    }
     return;
   }
   else
@@ -4770,3 +4800,69 @@ bool has_divine_force(P_char ch)
     return false;
   }
 }
+
+// Shows all innates to ch and who can use them.
+void do_list_innates( P_char ch )
+{
+  int i, j, k;
+  char Gbuf1[MAX_STRING_LENGTH];
+  bool found;
+
+  send_to_char( "Under Construction.\n", ch );
+
+  for( i = 0; i < LAST_INNATE+1; i++ )
+  {
+    sprintf( Gbuf1, "&+W%s:\n", innates_data[i].name );
+    send_to_char( Gbuf1, ch );
+    // Enter list of races (skip RACE_NONE).
+    found = FALSE;
+    for( j = 1; j <= LAST_RACE; j++ )
+    {
+      // If the race has the innate.
+      if( racial_innates[i][j - 1] )
+      {
+        if( !found )
+        {
+          send_to_char( "&+B Races:&n", ch );
+        }
+        sprintf( Gbuf1, "%s%s", found ? ", " : " ", race_names_table[j].ansi );
+        found = TRUE;
+        send_to_char( Gbuf1, ch );
+      }
+    }
+    if( found )
+    {
+      send_to_char( "\n", ch );
+    }
+    // Enter list of classes.
+    if( class_innates_at_all[i] )
+    {
+      send_to_char( "&+B Classes:&n", ch );
+      found = FALSE;
+      for( j = 1; j <= CLASS_COUNT; j++ )
+      {
+        // If the class has the innate.
+        if( class_innates[i][j-1][0] )
+        {
+          sprintf( Gbuf1, "%s%s", found ? ", " : " ", class_names_table[j].ansi );
+          found = TRUE;
+          send_to_char( Gbuf1, ch );
+        }
+        else
+        {
+          for( k = 1; k <= MAX_SPEC; k++ )
+          {
+            if( class_innates[i][j-1][k] )
+            {
+              sprintf( Gbuf1, "%s%s", found ? ", " : " ", specdata[j][k-1] );
+              found = TRUE;
+              send_to_char( Gbuf1, ch );
+            }
+          }
+        }
+      }
+      send_to_char( "\n", ch );
+    }
+  }
+}
+
