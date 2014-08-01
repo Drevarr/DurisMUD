@@ -531,18 +531,23 @@ void do_feign_death(P_char ch, char *arg, int cmd)
 {
   P_char   t = NULL, t_next, tch;
   int      skl_lvl = 0;
+  struct affected_type af;
 
-  if (IS_PC(ch))
+  if( IS_PC(ch) )
+  {
     skl_lvl = GET_CHAR_SKILL(ch, SKILL_FEIGN_DEATH);
+  }
   else
+  {
     skl_lvl = MIN(100, GET_LEVEL(ch) * 3);
+  }
 
-  if (!ch->specials.fighting)
+  if( !ch->specials.fighting )
   {
     send_to_char("You are not fighting anything!\r\n", ch);
     return;
   }
-  if (!skl_lvl)
+  if( !skl_lvl )
   {
     send_to_char("You know not how!\r\n", ch);
     return;
@@ -552,12 +557,23 @@ void do_feign_death(P_char ch, char *arg, int cmd)
     send_to_char("While mounted? I don't think so...\r\n", ch);
     return;
   }
-  if (!affect_timer(ch,
-      WAIT_SEC * get_property("timer.secs.feignDeath", 60), SKILL_FEIGN_DEATH))
+
+// Changed this so wear off message works.. might want to redo affect_timer as a whole.
+//  if( !affect_timer(ch, WAIT_SEC * get_property("timer.secs.feignDeath", 60), SKILL_FEIGN_DEATH) )
+  if( affected_by_spell(ch, SKILL_FEIGN_DEATH ))
   {
     send_to_char("You don't feel up to faking it right now.\r\n", ch);
     return;
   }
+
+  memset(&af, 0, sizeof(af));
+  af.type = SKILL_FEIGN_DEATH;
+  af.flags = AFFTYPE_STORE | AFFTYPE_SHORT;
+  af.duration = WAIT_SEC * get_property("timer.secs.feignDeath", 60);
+  af.modifier = 0;
+  affect_to_char(ch, &af);
+
+
   send_to_char("You try to fake your own demise..\r\n", ch);
   death_cry(ch);
   act("$n is dead! R.I.P.", FALSE, ch, 0, 0, TO_ROOM);
@@ -572,19 +588,16 @@ void do_feign_death(P_char ch, char *arg, int cmd)
       if (t->specials.fighting == ch)
       {
         stop_fighting(t);
-        
-        if((GET_CLASS(ch, CLASS_NECROMANCER) ||
-	    GET_CLASS(ch, CLASS_THEURGIST)) &&
-           GET_LEVEL(ch) > 40)
+        if((GET_CLASS(ch, CLASS_NECROMANCER) || GET_CLASS(ch, CLASS_THEURGIST))
+          && GET_LEVEL(ch) > 40)
         {
           LOOP_THRU_PEOPLE(tch, ch)
           {
-            if(IS_NPC(tch) &&
-               HAS_MEMORY(tch))
+            if(IS_NPC(tch) && HAS_MEMORY(tch))
             {
               debug("FEIGN: (%s) feigned death and mob (%s) removed.", GET_NAME(ch), J_NAME(tch));
               if(!ch || !tch)
-              return;
+                return;
               forget(tch, ch);
             }
           }
@@ -593,10 +606,8 @@ void do_feign_death(P_char ch, char *arg, int cmd)
         {
           if(IS_CASTING(t))
             StopCasting(t);
-          
           SET_BIT(ch->specials.affected_by, AFF_HIDE);
         }
-        
         SET_POS(ch, POS_PRONE + STAT_RESTING);  // was SLEEPING..
       }
     }

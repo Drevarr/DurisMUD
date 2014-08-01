@@ -3657,7 +3657,9 @@ SPELL_ADD(CLASS_NONE, 1);
   SPEC_SKILL_ADD(CLASS_BARD, 51, 95, SPEC_SCOUNDREL);
   SPEC_SKILL_ADD(CLASS_ROGUE, 16, 95, SPEC_THIEF);
 
-  SKILL_CREATE("feign death", SKILL_FEIGN_DEATH, TAR_MENTAL);
+  SKILL_CREATE_WITH_MESSAGES("feign death", SKILL_FEIGN_DEATH, TAR_MENTAL,
+                             "&+yYou feel up to faking your death again...&n",
+                             "");
   SKILL_ADD(CLASS_NECROMANCER, 1, 100);
   SKILL_ADD(CLASS_THEURGIST, 1, 100);
   SKILL_ADD(CLASS_MONK, 1, 100);
