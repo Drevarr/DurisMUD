@@ -300,27 +300,18 @@ int can_raise_draco(P_char ch, int level, bool bGreater)
 {
   int numb = count_undead(ch);
 
-  if(!(ch) ||
-    !IS_ALIVE(ch))
+  if( !IS_ALIVE(ch) )
   {
-    return false;
-  }  
-  
-  if(IS_TRUSTED(ch))
-  {
-    return true;
+    return FALSE;
   }
-  
-  //if(numb > 0)
-  //{
-  //  return FALSE;
-  //}
-  
-  //numb = -numb;
 
-  // if they aren't trying to raise a greater,
-  // and have a single greater, count it as
-  // a single draco.
+  if( IS_TRUSTED(ch) )
+  {
+    return TRUE;
+  }
+
+  // If they aren't trying to raise a greater,
+  // and have a single greater, count it as a single draco.
   //if(!bGreater &&
   //  (numb == 10))
   //{
@@ -331,28 +322,34 @@ int can_raise_draco(P_char ch, int level, bool bGreater)
   //int maxAllowed = ((level <= 53) || (bGreater)) ? 1 : 2;
 
   //return numb <= maxAllowed;
-  
+
   int necro_power = GET_LEVEL(ch) * 2;
   int cost = 0;
   if( GET_SPEC(ch, CLASS_NECROMANCER, SPEC_NECROLYTE) ||
-     GET_SPEC(ch, CLASS_THEURGIST, SPEC_TEMPLAR) ) 
-     necro_power += 10;  
- 
-  if (bGreater)
+     GET_SPEC(ch, CLASS_THEURGIST, SPEC_TEMPLAR) )
+     necro_power += 10;
+
+  // 56 * 2 == 112 == 75 + 37 => at 56, can raise 1 greater and 1 regular dracolich.
+  if( bGreater )
     cost = 75;
   else
     cost = 37;
-    
+
   //debug("numb %d + cost %d > np %d", numb, cost, necro_power);
-  if ((numb + cost > necro_power) &&
-      !IS_TRUSTED(ch))
+  if( (numb + cost > necro_power) && !IS_TRUSTED(ch) )
   {
-    act("You are too weak to animate more corpses!",
-      FALSE, ch, 0, 0, TO_CHAR);
-    return false;;
+    if( bGreater )
+    {
+      act("You are too weak to animate another greater dracolich!", FALSE, ch, 0, 0, TO_CHAR);
+    }
+    else
+    {
+      act("You are too weak to animate another dracolich!", FALSE, ch, 0, 0, TO_CHAR);
+    }
+    return FALSE;
   }
 
-  return true; 
+  return TRUE;
 }
 
 
@@ -1260,36 +1257,35 @@ void spell_create_dracolich(int level, P_char ch, char *arg, int type, P_char vi
     return;
   }
 
-  if(IS_IMMOBILE(ch))
+  if( IS_IMMOBILE(ch) )
   {
     send_to_char("But you can barely move!\r\n", ch);
     return;
   }
 
-  if(IS_NPC(ch) && affected_by_spell(ch, TAG_CONJURED_PET))
+  if( IS_NPC(ch) && affected_by_spell(ch, TAG_CONJURED_PET) )
   {
     return;
   }
 
-  if (CHAR_IN_SAFE_ZONE(ch))
+  if( CHAR_IN_SAFE_ZONE(ch) )
   {
     send_to_char("A mysterious force blocks your spell!\r\n", ch);
     return;
   }
 
-  if (obj->value[CORPSE_LEVEL] < 46)
+  if( obj->value[CORPSE_LEVEL] < 46 )
   {
-    send_to_char
-      ("This spell requires the corpse of a more powerful being!\r\n", ch);
+    send_to_char("This spell requires the corpse of a more powerful being!\r\n", ch);
     return;
   }
-  
+
   if (obj->type != ITEM_CORPSE)
   {
     act("You can't animate $p!", FALSE, ch, obj, 0, TO_CHAR);
     return;
-
   }
+
   /*
   if (count_undead(ch) > 0)
   {
@@ -1304,7 +1300,7 @@ void spell_create_dracolich(int level, P_char ch, char *arg, int type, P_char vi
     send_to_char("You cannot control any more draco-liches!\r\n", ch);
     return;
   }
-  
+
   if((IS_AFFECTED4(ch, AFF4_VAMPIRE_FORM) &&
     !is_wearing_necroplasm(ch) &&
     !IS_NPC(ch)) ||
@@ -1319,7 +1315,7 @@ void spell_create_dracolich(int level, P_char ch, char *arg, int type, P_char vi
     send_to_char("You cannot raise a corpse in another room.\r\n", ch);
     return;
   }
-   
+
   globe = get_globe( ch );
 
   if( globe )
@@ -1352,15 +1348,15 @@ void spell_create_dracolich(int level, P_char ch, char *arg, int type, P_char vi
 
   sum = number(0, 3);
   mob = read_mobile(real_mobile(summons[sum].mob_number), REAL);
-  
-  if (!mob)
+
+  if( !mob )
   {
     logit(LOG_DEBUG, "spell_create_dracolich(): mob %d not loadable",
           summons[sum].mob_number);
     send_to_char("Bug in create dracolich.  Tell a god!\r\n", ch);
     return;
   }
-  
+
   GET_SIZE(mob) = SIZE_GIANT;
   GET_RACE(mob) = RACE_DRACOLICH;
   SET_BIT(mob->specials.act, ACT_MOUNT);
@@ -1368,9 +1364,8 @@ void spell_create_dracolich(int level, P_char ch, char *arg, int type, P_char vi
   mob->specials.act |= ACT_SPEC_DIE;
   //REMOVE_BIT(mob->only.npc->aggro_flags, AGGR_ALL);
   SET_BIT(mob->only.npc->aggro_flags, AGGR_ALL);
-  
-  if(IS_NPC(ch) &&
-    !IS_PC_PET(ch))
+
+  if(IS_NPC(ch) && !IS_PC_PET(ch))
   {
     if(!IS_SET(mob->only.npc->aggro_flags, AGGR_ALL))
     {
@@ -1399,43 +1394,37 @@ void spell_create_dracolich(int level, P_char ch, char *arg, int type, P_char vi
 
   if(IS_SET(obj->value[CORPSE_FLAGS], PC_CORPSE))
   {
-    logit(LOG_CORPSE,
-          "%s got raised as dracolich ( by %s in room %d ).",
-          obj->short_description,
-          (IS_PC(ch) ? GET_NAME(ch) : ch->player.short_descr),
-          world[ch->in_room].number);
-    wizlog(57,
-           "%s got raised as dracolich ( by %s in room %d ).",
-           obj->short_description,
-           (IS_PC(ch) ? GET_NAME(ch) : ch->player.short_descr),
-           world[ch->in_room].number);
+    logit(LOG_CORPSE, "%s got raised as dracolich ( by %s in room %d ).", obj->short_description,
+      (IS_PC(ch) ? GET_NAME(ch) : ch->player.short_descr), world[ch->in_room].number);
+    wizlog(57, "%s got raised as dracolich ( by %s in room %d ).", obj->short_description,
+      (IS_PC(ch) ? GET_NAME(ch) : ch->player.short_descr), world[ch->in_room].number);
     corpselog = TRUE;
   }
 
-  if (obj->contains)
+  if( obj->contains )
   {
     create_saved_corpse(obj, mob);
     for (obj_in_corpse = obj->contains; obj_in_corpse;
          obj_in_corpse = next_obj)
     {
-      if (corpselog)
+      if( corpselog )
       {
-	logit(LOG_CORPSE, "%s raised with eq: [%d] %s", obj->short_description, 
-              obj_index[obj_in_corpse->R_num].virtual_number,
-              obj_in_corpse->name);
+        logit(LOG_CORPSE, "%s raised with eq: [%d] %s", obj->short_description, 
+         obj_index[obj_in_corpse->R_num].virtual_number, obj_in_corpse->name);
       }
       next_obj = obj_in_corpse->next_content;
       obj_from_obj(obj_in_corpse);
       obj_to_char(obj_in_corpse, mob);
     }
   }
-  
+
   int timeToDecay = 0;
   struct obj_affect *afDecay = get_obj_affect(obj, TAG_OBJ_DECAY);
-  
-  if (NULL !=  afDecay)
+
+  if( NULL != afDecay )
   {
-    timeToDecay = obj_affect_time(obj, afDecay) / (60 * 4); /* 4 pulses in a sec, 60 secs in a minute */
+    // WAIT_SEC pulses in a sec, 60 secs in a minute.
+    timeToDecay = obj_affect_time(obj, afDecay) / (60 * WAIT_SEC);
   }
 
   extract_obj(obj, TRUE);
@@ -1446,18 +1435,15 @@ void spell_create_dracolich(int level, P_char ch, char *arg, int type, P_char vi
 
   /* all dracoliches are around level 52, and PCs must be at least level 51 to cast
      this spell, so I'm just gonna make it a straight random chance */
-
-  if (IS_PC(ch) &&
-     (!number(0, 12)) /*(GET_LEVEL(mob) > number((level - i * 2) * 2, level *
-                                           3)) */ )
+  // (GET_LEVEL(mob) > number((level - i * 2) * 2, level * 3))
+  if( IS_PC(ch) && !number(0, 12) )
   {
-    act("$N is NOT pleased at being returned to life!", TRUE, ch, 0, mob,
-        TO_ROOM);
+    act("$N is NOT pleased at being returned to life!", TRUE, ch, 0, mob, TO_ROOM);
     act("$N is NOT pleased with you at all!", TRUE, ch, 0, mob, TO_CHAR);
     MobStartFight(mob, ch);
   }
   else
-  {                             /* Under control */
+  {
     act("&+W$N roars to the sky 'I LIVE!!!'", TRUE, ch, 0, mob, TO_ROOM);
     act("&+W$N roars to the sky 'I LIVE!!!'", TRUE, ch, 0, mob, TO_CHAR);
 
@@ -1467,13 +1453,11 @@ void spell_create_dracolich(int level, P_char ch, char *arg, int type, P_char vi
     GET_AC(mob) -= (GET_LEVEL(ch) * 5);
     int duration = setup_pet(mob, ch, timeToDecay/2 + (6000 / STAT_INDEX(GET_C_INT(mob))), PET_NOCASH);
     add_follower(mob, ch);
-    
-    
-  /* if the undead will stop being charmed after a bit, also make it suicide 1-10 minutes later */
-    if (duration >= 0)
+
+    // if the undead will stop being charmed after a bit, also make it suicide 1 minute later.
+    if( duration >= 0 )
     {
-      duration += number(1,10);
-      add_event(event_pet_death, (duration+1) * 60 * 4, mob, NULL, NULL, 0, NULL, 0);
+      add_event(event_pet_death, (duration+1) * 60 * WAIT_SEC, mob, NULL, NULL, 0, NULL, 0);
     }
   }
 }
@@ -1999,27 +1983,28 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type,
     debug( "spell_create_greater_dracolich: Missing obj." );
     return;
   }
-  if(IS_IMMOBILE(ch))
+  if( IS_IMMOBILE(ch) )
   {
     send_to_char("But you can barely move!\r\n", ch);
     return;
   }
 
-  if(IS_NPC(ch) && affected_by_spell(ch, TAG_CONJURED_PET))
-  return;
+  if( IS_NPC(ch) && affected_by_spell(ch, TAG_CONJURED_PET) )
+  {
+    return;
+  }
 
-  if(CHAR_IN_SAFE_ZONE(ch))
+  if( CHAR_IN_SAFE_ZONE(ch) )
   {
     send_to_char("A mysterious force blocks your spell!\r\n", ch);
     return;
   }
-  if(obj->value[CORPSE_LEVEL] < 51)
+  if( obj->value[CORPSE_LEVEL] < 51 )
   {
-    send_to_char
-      ("This spell requires the corpse of a more powerful being!\r\n", ch);
+    send_to_char("This spell requires the corpse of a more powerful being!\r\n", ch);
     return;
   }
-  if(obj->type != ITEM_CORPSE)
+  if( obj->type != ITEM_CORPSE )
   {
     act("You can't animate $p!", FALSE, ch, obj, 0, TO_CHAR);
     return;
@@ -2033,22 +2018,20 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type,
     return;
   }
   */
-  if((IS_AFFECTED4(ch, AFF4_VAMPIRE_FORM) &&
-    !is_wearing_necroplasm(ch) &&
-    !IS_NPC(ch)) ||
-    affected_by_spell(ch, SPELL_CORPSEFORM))
+  if( (IS_AFFECTED4(ch, AFF4_VAMPIRE_FORM) && !is_wearing_necroplasm(ch) &&
+    !IS_NPC(ch)) || affected_by_spell(ch, SPELL_CORPSEFORM))
   {
     send_to_char("You cannot control undead in that form!\n\r", ch);
     return;
   }
 
-  if(!can_raise_draco(ch, level, true))
+  if( !can_raise_draco(ch, level, true) )
   {
     send_to_char("You cannot control any more greater dracoliches!\r\n", ch);
     return;
   }
-  
-  if(obj->loc.room != ch->in_room)
+
+  if( obj->loc.room != ch->in_room )
   {
     send_to_char("You cannot raise a corpse in another room\r\n", ch);
     return;
@@ -2056,7 +2039,7 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type,
 
   life = GET_CHAR_SKILL(ch, SKILL_INFUSE_LIFE);
   globe = get_globe( ch );
-  
+
   if( globe )
   {
     act("&+LYour $q &+Lpulses with evil energy, infusing part of it's malevolence into your undead abomination!&N",
@@ -2068,15 +2051,14 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type,
 
   sum = number(0, 3);
   mob = read_mobile(real_mobile(summons[sum].mob_number), REAL);
-  
-  if(!mob)
+
+  if( !mob )
   {
-    logit(LOG_DEBUG, "spell_create_greater_dracolich(): mob %d not loadable",
-          summons[sum].mob_number);
+    logit(LOG_DEBUG, "spell_create_greater_dracolich(): mob %d not loadable", summons[sum].mob_number);
     send_to_char("Bug in create greater  dracolich. Tell a god!\r\n", ch);
     return;
   }
-  
+
   GET_SIZE(mob) = SIZE_GIANT;
   GET_RACE(mob) = RACE_DRACOLICH;
   SET_BIT(mob->specials.act, ACT_MOUNT);
@@ -2084,27 +2066,26 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type,
   GET_HIT(mob) = GET_MAX_HIT(mob) = mob->points.base_hit = 2500 + number(-10, 50) + (life * 5);
   //REMOVE_BIT(mob->only.npc->aggro_flags, AGGR_ALL);
   SET_BIT(mob->only.npc->aggro_flags, AGGR_ALL);
-  
-  if(IS_NPC(ch) &&
-    !IS_PC_PET(ch))
+
+  if( IS_NPC(ch) && !IS_PC_PET(ch) )
   {
-    if(!IS_SET(mob->only.npc->aggro_flags, AGGR_ALL))
+    if( !IS_SET(mob->only.npc->aggro_flags, AGGR_ALL) )
     {
       SET_BIT(mob->only.npc->aggro_flags, AGGR_ALL);
     }
-/*    if(IS_SET(mob->specials.act, ACT_SENTINEL))
+/*    if( IS_SET(mob->specials.act, ACT_SENTINEL) )
     {
       REMOVE_BIT(mob->specials.act, ACT_SENTINEL);
     } */
-    if(!SET_BIT(mob->specials.act, ACT_HUNTER))
+    if( !SET_BIT(mob->specials.act, ACT_HUNTER) )
     {
       SET_BIT(mob->specials.act, ACT_HUNTER);
     }
-    if(SET_BIT(mob->specials.act, ACT_GUILD_GOLEM))
+    if( SET_BIT(mob->specials.act, ACT_GUILD_GOLEM) )
     {
       REMOVE_BIT(mob->specials.act, ACT_GUILD_GOLEM);
     }
-    if(GET_LEVEL(ch) >= 54)
+    if( GET_LEVEL(ch) >= 54 )
     {
       if(mob->points.damnodice < 15)
       {
@@ -2114,52 +2095,44 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type,
     }
   }
 
-  if(GET_C_STR(mob) < 95 ||
-     GET_C_DEX(mob) < 95)
+  if( GET_C_STR(mob) < 95 || GET_C_DEX(mob) < 95 )
   {
     mob->base_stats.Str = 100;
     mob->base_stats.Dex = 100;
   }
-  
+
   char_to_room(mob, ch->in_room, 0);
 
-  if(IS_SET(obj->value[CORPSE_FLAGS], PC_CORPSE))
+  if( IS_SET(obj->value[CORPSE_FLAGS], PC_CORPSE) )
   {
-    logit(LOG_CORPSE,
-          "%s got raised as greater dracolich while equipped ( by %s in room %d ).",
-          obj->short_description,
-          (IS_PC(ch) ? GET_NAME(ch) : ch->player.short_descr),
-          world[ch->in_room].number);
-    wizlog(57,
-           "%s got raised as greater dracolich while equipped ( by %s in room %d ).",
-           obj->short_description,
-           (IS_PC(ch) ? GET_NAME(ch) : ch->player.short_descr),
-           world[ch->in_room].number);
+    logit(LOG_CORPSE, "%s got raised as greater dracolich while equipped ( by %s in room %d ).",
+      obj->short_description, (IS_PC(ch) ? GET_NAME(ch) : ch->player.short_descr), world[ch->in_room].number);
+    wizlog(57, "%s got raised as greater dracolich while equipped ( by %s in room %d ).",
+      obj->short_description, (IS_PC(ch) ? GET_NAME(ch) : ch->player.short_descr), world[ch->in_room].number);
     corpselog = TRUE;
   }
 
-  if (obj->contains)
+  if( obj->contains )
   {
     create_saved_corpse(obj, mob);
-    for (obj_in_corpse = obj->contains; obj_in_corpse;
-         obj_in_corpse = next_obj)
+    for( obj_in_corpse = obj->contains; obj_in_corpse; obj_in_corpse = next_obj )
     {
-      if (corpselog)
-        logit(LOG_CORPSE, "%s raised with eq: [%d] %s",
-              obj->short_description,
-              obj_index[obj_in_corpse->R_num].virtual_number,
-              obj_in_corpse->name);
+      if( corpselog )
+      {
+        logit(LOG_CORPSE, "%s raised with eq: [%d] %s", obj->short_description,
+          obj_index[obj_in_corpse->R_num].virtual_number, obj_in_corpse->name);
+      }
       next_obj = obj_in_corpse->next_content;
       obj_from_obj(obj_in_corpse);
       obj_to_char(obj_in_corpse, mob);
     }
-
   }
   int timeToDecay = 0;
   struct obj_affect *afDecay = get_obj_affect(obj, TAG_OBJ_DECAY);
   if (NULL !=  afDecay)
   {
-    timeToDecay = obj_affect_time(obj, afDecay) / (60 * 4); /* 4 pulses in a sec, 60 secs in a minute */
+     // WAIT_SEC pulses in a sec, 60 secs in a minute
+    timeToDecay = obj_affect_time(obj, afDecay) / (60 * WAIT_SEC);
   }
   extract_obj(obj, TRUE);
 
@@ -2167,32 +2140,28 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type,
 
   act(summons[sum].message, TRUE, mob, 0, 0, TO_ROOM);
 
-
   balance_affects(mob);
 
   /* all dracoliches are around level 52, and PCs must be at least level 51 to cast
      this spell, so I'm just gonna make it a straight random chance */
-
-  if (IS_PC(ch) && (!number(0, 12)) /*(GET_LEVEL(mob) > number((level - i * 2) * 2, level *
-                                           3)) */ )
+  // (GET_LEVEL(mob) > number((level - i * 2) * 2, level * 3))
+  if( IS_PC(ch) && !number(0, 12) )
   {
-    act("$N is NOT pleased at being returned to life!", TRUE, ch, 0, mob,
-        TO_ROOM);
+    act("$N is NOT pleased at being returned to life!", TRUE, ch, 0, mob, TO_ROOM);
     act("$N is NOT pleased with you at all!", TRUE, ch, 0, mob, TO_CHAR);
     MobStartFight(mob, ch);
   }
   else
-  {                             /* Under control */
+  {
     act("&+W$N roars to the sky 'I LIVE!!!'", TRUE, ch, 0, mob, TO_ROOM);
     act("&+W$N roars to the sky 'I LIVE!!!'", TRUE, ch, 0, mob, TO_CHAR);
 
     int duration = setup_pet(mob, ch, timeToDecay/2 + (6000 / STAT_INDEX(GET_C_INT(mob))), PET_NOCASH);
     add_follower(mob, ch);
-  /* if the undead will stop being charmed after a bit, also make it suicide 1-10 minutes later */
-    if (duration >= 0)
+    // if the undead will stop being charmed after a bit, also make it suicide 1 minute later
+    if( duration >= 0 )
     {
-      duration += number(1,10);
-      add_event(event_pet_death, (duration+1) * 60 * 4, mob, NULL, NULL, 0, NULL, 0);
+      add_event(event_pet_death, (duration+1) * 60 * WAIT_SEC, mob, NULL, NULL, 0, NULL, 0);
     }
   }
 }
