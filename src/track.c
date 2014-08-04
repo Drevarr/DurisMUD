@@ -47,7 +47,7 @@ void event_track_move(P_char ch, P_char vict, P_obj obj, void *data)
   int      dir, dist;
   char     buf[MAX_STRING_LENGTH];
 
-  if (IS_FIGHTING(ch) || IS_DESTROYING(ch))
+  if( IS_FIGHTING(ch) || IS_DESTROYING(ch) )
   {
     send_to_char("Something comes up, and you abandon the hunt.\r\n", ch);
     REMOVE_BIT(ch->specials.affected_by3, AFF3_TRACKING);
@@ -56,35 +56,31 @@ void event_track_move(P_char ch, P_char vict, P_obj obj, void *data)
 
   if (!IS_SET(ch->specials.affected_by3, AFF3_TRACKING))
   {
-    send_to_char
-      ("Something breaks your concentration, and you abandon the hunt.\r\n",
-       ch);
+    send_to_char("Something breaks your concentration, and you abandon the hunt.\r\n", ch);
     return;
   }
 
   dir = BFS_ERROR;
 
-  dir =
-    find_first_step(ch->in_room, vict->in_room,
-                      (IS_SET(ch->specials.affected_by, AFF_FLY) ? BFS_CAN_FLY : 0) | BFS_CAN_DISPEL,
-                      0, 0, &dist);
+//debug( "Victim: %s, specs.tracking: %d", vict ? J_NAME(vict) : "NULL", ch->specials.tracking );
+  dir = find_first_step(ch->in_room,(vict ? vict->in_room : ch->specials.tracking),
+    (IS_SET(ch->specials.affected_by, AFF_FLY) ? BFS_CAN_FLY : 0) | BFS_CAN_DISPEL, 0, 0, &dist);
 
-  if (dir == BFS_ERROR || dir == BFS_NO_PATH)
+  if( dir == BFS_ERROR || dir == BFS_NO_PATH )
   {
     send_to_char("You are unable to find any trace.\r\n", ch);
     REMOVE_BIT(ch->specials.affected_by3, AFF3_TRACKING);
-    
+
     logit(LOG_DEBUG, "BFS_ERROR or BFS_NO_PATH error in event_track_move() track.c with %s.", GET_NAME(ch));
-    
     return;
   }
-  else if (dir == BFS_ALREADY_THERE)
+  else if( dir == BFS_ALREADY_THERE )
   {
     send_to_char("The trail appears to end here.\r\n", ch);
     REMOVE_BIT(ch->specials.affected_by3, AFF3_TRACKING);
     return;
   }
-  else if (dist > MaxTrackDist(ch))
+  else if( dist > MaxTrackDist(ch) )
   {
     send_to_char("The trail is too old to follow with any certainty.\r\n", ch);
     REMOVE_BIT(ch->specials.affected_by3, AFF3_TRACKING);
@@ -95,9 +91,9 @@ void event_track_move(P_char ch, P_char vict, P_obj obj, void *data)
     /* still following the trail */
     sprintf(buf, "You find traces of tracks leading %s.\r\n", dirs[dir]);
     send_to_char(buf, ch);
-    if (EXIT(ch, dir) && (EXIT(ch, dir)->to_room != NOWHERE) &&
-        IS_SET(EXIT(ch, dir)->exit_info, EX_CLOSED) &&
-        !IS_SET(EXIT(ch, dir)->exit_info, EX_LOCKED))
+    if (EXIT(ch, dir) && (EXIT(ch, dir)->to_room != NOWHERE)
+      && IS_SET(EXIT(ch, dir)->exit_info, EX_CLOSED)
+      && !IS_SET(EXIT(ch, dir)->exit_info, EX_LOCKED))
     {
       sprintf(buf, "%s %s%s", EXIT(ch, (int) dir)->keyword ?
               FirstWord(EXIT(ch, (int) dir)->keyword) : "door",
@@ -110,8 +106,12 @@ void event_track_move(P_char ch, P_char vict, P_obj obj, void *data)
     }
 
     do_move(ch, NULL, exitnumb_to_cmd(dir));
-    if (!char_in_list(ch))
-      return;                   /* could die from various crap */
+
+    // Could die from various crap
+    if( !char_in_list(ch) )
+    {
+      return;
+    }
 
     add_event(event_track_move, 10 + number(-2, 10), ch, vict, 0, 0, 0, 0);
     act("$n intently searches for tracks.", TRUE, ch, 0, 0, TO_ROOM);
@@ -281,11 +281,14 @@ void do_track(P_char ch, char *arg, int cmd) //do_track_not_in_use
   return;
 #endif
 
-  if (IS_NPC(ch))
-    return;                     /* Pets can't track.  */
+  /* Pets can't track.  */
+  if( IS_NPC(ch) )
+  {
+    return;
+  }
 
-  skill_lvl = GET_CHAR_SKILL(ch, SKILL_TRACK);
-  if (!skill_lvl)
+  skill_lvl = IS_TRUSTED(ch) ? 100 : GET_CHAR_SKILL(ch, SKILL_TRACK);
+  if( !skill_lvl )
   {
     send_to_char("You dont know how to track!\r\n", ch);
     return;
@@ -306,7 +309,7 @@ void do_track(P_char ch, char *arg, int cmd) //do_track_not_in_use
       // Should we do anything for non map rooms?
     }
   }
-  
+
   /* wimps */
   if (!strcmp(name, "stop") || !strcmp(name, "off"))
   {
@@ -334,33 +337,37 @@ void do_track(P_char ch, char *arg, int cmd) //do_track_not_in_use
 /* New IF */
  // victim = get_char_vis(ch, name);
 
-  if(!name[0] &&
-    (GET_SPEC(ch, CLASS_ROGUE, SPEC_ASSASSIN) ||
-    GET_CLASS(ch, CLASS_ASSASSIN)  ||
-    GET_SPEC(ch, CLASS_ROGUE, SPEC_THIEF)) &&
-    ch->specials.was_fighting &&
-    char_in_list(ch->specials.was_fighting))
+  if( !name[0] && (GET_SPEC(ch, CLASS_ROGUE, SPEC_ASSASSIN) || GET_CLASS(ch, CLASS_ASSASSIN)
+    || GET_SPEC(ch, CLASS_ROGUE, SPEC_THIEF)) && ch->specials.was_fighting
+    && char_in_list(ch->specials.was_fighting) )
   {
     victim = ch->specials.was_fighting;
   }
   else
+  {
     victim = get_char_vis(ch, name);
+  }
 
   // is victim disguised?  if so, do some special checking to make sure
   // tracker is not tracking by real name, thereby bypassing racewars
   // checks due to the operation of racewar()/get_char_vis() functions
 
-  if (victim && IS_DISGUISE(victim) && isname(name, GET_NAME(victim)))
-    victim = NULL;
-
-  if (!victim || IS_AFFECTED3(victim, AFF3_PASS_WITHOUT_TRACE))
+  if( victim && IS_DISGUISE(victim) && isname(name, GET_NAME(victim)) )
   {
-    send_to_char("You are unable to find any tracks.\n", ch);
-    return;
+    victim = NULL;
   }
 
+  if( (!victim || IS_AFFECTED3(victim, AFF3_PASS_WITHOUT_TRACE)) )
+  {
+    // If it's a God, allow tracking to room vnum.
+    if( !IS_TRUSTED(ch) || real_room(atoi(name)) <= 0 )
+    {
+      send_to_char("You are unable to find any tracks.\n", ch);
+      return;
+    }
+  }
   SET_BIT(ch->specials.affected_by3, AFF3_TRACKING);
-  ch->specials.tracking = victim->in_room;
+  ch->specials.tracking = (victim ? victim->in_room : real_room(atoi(name)));
   ch->specials.was_fighting = victim;
   send_to_char("You attempt your skills at tracking.\n", ch);
   add_event(event_track_move, 5, ch, victim, 0, 0, 0, 0);
