@@ -221,9 +221,9 @@ D 0 45154 2 1 100 0 0 0
 *     south exit from "The Trail of Tears" to
 *     "The Commons of the Charing Grovetree Theatre" - closed
 *
-D 0 45168 2 5 100 0 0 0
+D 0 45168 2 1 100 0 0 0
 *     south exit from "The Base of the Great Tree Charing" to
-*     "Before the Great Tree Charing" - closed/secret
+*     "Before the Great Tree Charing" - closed
 *
 D 0 45169 0 5 100 0 0 0
 *     north exit from "Before the Great Tree Charing" to
@@ -250,6 +250,7 @@ O 0 45030 2 45101 100 0 0 0        * a tally sheet
 M 0 45046 2 45000 100 0 0 0        * the great oak tree
 M 0 45073 7 45000 100 0 0 0        * an elven cat
 M 0 45072 8 45000 100 0 0 0        * a visiting human
+M 0 401030 1 45000 100 0 0 0       * (mob type not in this .mob file)
 M 0 45050 12 45003 100 0 0 0       * a snake
 M 0 45038 1 45006 100 0 0 0        * an elven receptionist
 M 0 45030 12 45006 100 0 0 0       * an elite elven guard
@@ -677,6 +678,5 @@ M 0 45026 6 45204 100 0 0 0        * a elven cleric
 M 0 45035 2 45206 100 0 0 0        * a black panther
 M 0 45032 10 45207 100 0 0 0       * a kooshie dog
 M 0 45004 10 45209 100 0 0 0       * the robin
-M 0 401030 1 45000 100 0 0 0       * the Charing Quartermaster
 *
 S
