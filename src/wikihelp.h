@@ -4,15 +4,15 @@
 #define WIKIHELP_RESULTS_LIMIT 100
 
 string wiki_help(string str);
-string wiki_racial_stats(string str);
-string wiki_classes(string str);
-string wiki_specs(string str);
-string wiki_innates(string str);
-string wiki_races(string str);
 string wiki_help_single(string str);
-string wiki_spells(string title);
-string wiki_skills(string title);
+string wiki_classes(string str);
+string wiki_innates(string title, int type);
 string wiki_multiclass( string title );
+string wiki_races(string str);
+string wiki_racial_stats(string str);
+string wiki_specs(string str);
+string wiki_spells(string title, int type);
+string wiki_skills(string title, int type);
 
 struct cmd_attrib_data {
   char *name;
@@ -34,9 +34,9 @@ char *attrib_help( char * );
 #define ATT_LUK	9
 #define ATT_MAX 10
 
-#define INNATES_RACE 1
-#define INNATES_CLASS 2
-#define INNATES_SPEC 3
+#define WIKI_RACE  1
+#define WIKI_CLASS 2
+#define WIKI_SPEC  3
 
 #endif // __WIKIHELP_H__
 

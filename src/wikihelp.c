@@ -335,7 +335,7 @@ string wiki_innates(string title, int type)
   string return_str;
   int i, j = 0, innate, found = 0;
 
-  if( type == INNATES_RACE )
+  if( type == WIKI_RACE )
   {
     for (i = 0; i <= RACE_PLAYER_MAX; i++)
     {
@@ -347,7 +347,7 @@ string wiki_innates(string title, int type)
     }
   }
 
-  if( type == INNATES_CLASS )
+  if( type == WIKI_CLASS )
   {
     for (i = 0; i <= CLASS_COUNT; i++)
     {
@@ -359,7 +359,7 @@ string wiki_innates(string title, int type)
     }
   }
 
-  if( type == INNATES_SPEC )
+  if( type == WIKI_SPEC )
   {
     // Skip "CLASS_NONE"
     for( i = 1; i <= CLASS_COUNT; i++ )
@@ -474,7 +474,7 @@ string wiki_help_single(string str)
     return_str += "\n";
     return_str += wiki_racial_stats(title);
     return_str += "\n";
-    return_str += wiki_innates(title, INNATES_RACE);
+    return_str += wiki_innates(title, WIKI_RACE);
   }
   // Class type help files
   else if( atoi(row[2]) == 9 )
@@ -483,7 +483,7 @@ string wiki_help_single(string str)
     return_str += "\n";
     return_str += wiki_races(title);
     return_str += "\n";
-    return_str += wiki_innates(title, INNATES_CLASS);
+    return_str += wiki_innates(title, WIKI_CLASS);
     return_str += "\n";
     return_str += wiki_specs(title);
   }
@@ -493,11 +493,11 @@ string wiki_help_single(string str)
     title += row[0];
     // Dunno why it requires two carriage returns here, but it does.
     return_str += "\n\n";
-    return_str += wiki_innates(title, INNATES_SPEC);
+    return_str += wiki_innates(title, WIKI_SPEC);
     return_str += "\n";
-    return_str += wiki_skills(title);
+    return_str += wiki_skills(title, WIKI_SPEC);
     return_str += "\n";
-    return_str += wiki_spells(title);
+    return_str += wiki_spells(title, WIKI_SPEC);
   }
   // Class skillsets type help files
   else if( atoi(row[2]) == 10 )
@@ -507,11 +507,11 @@ string wiki_help_single(string str)
     one_argument( row[0], buf );
     title += buf;
     return_str += "\n\n";
-    return_str += wiki_innates(title, INNATES_CLASS);
+    return_str += wiki_innates(title, WIKI_CLASS);
     return_str += "\n";
-    return_str += wiki_skills(title);
+    return_str += wiki_skills(title, WIKI_CLASS);
     return_str += "\n";
-    return_str += wiki_spells(title);
+    return_str += wiki_spells(title, WIKI_CLASS);
   }
 
   // Yeah, yeah.. I know this is a hack..
@@ -708,23 +708,26 @@ char *attrib_help( char *arg )
   return NULL;
 }
 
-string wiki_spells( string title )
+string wiki_spells( string title, int type )
 {
   string return_str;
   int i, j, innate;
   bool found = FALSE;
 
-  for( i = 0; i <= CLASS_COUNT; i++ )
+  if( type == WIKI_CLASS )
   {
-    if( !strcmp(tolower(class_names_table[i].normal).c_str(), tolower(title).c_str()) )
+    for( i = 0; i <= CLASS_COUNT; i++ )
     {
-	    found = TRUE;
-      j = 0;
-    	break;
+      if( !strcmp(tolower(class_names_table[i].normal).c_str(), tolower(title).c_str()) )
+      {
+	      found = TRUE;
+        j = 0;
+      	break;
+      }
     }
   }
 
-  if( !found )
+  if( type == WIKI_SPEC )
   {
     for( i = 0; i <= CLASS_COUNT; i++ )
     {
@@ -772,23 +775,26 @@ string wiki_spells( string title )
   return return_str;
 }
 
-string wiki_skills( string title )
+string wiki_skills( string title, int type )
 {
   string return_str;
   int i, j, innate;
   bool found = FALSE;
 
-  for( i = 0; i <= CLASS_COUNT; i++ )
+  if( type == WIKI_CLASS )
   {
-    if( !strcmp(tolower(class_names_table[i].normal).c_str(), tolower(title).c_str()) )
+    for( i = 0; i <= CLASS_COUNT; i++ )
     {
-	    found = TRUE;
-      j = 0;
-    	break;
+      if( !strcmp(tolower(class_names_table[i].normal).c_str(), tolower(title).c_str()) )
+      {
+	      found = TRUE;
+        j = 0;
+    	  break;
+      }
     }
   }
 
-  if( !found )
+  if( type == WIKI_SPEC )
   {
     for( i = 0; i <= CLASS_COUNT; i++ )
     {
