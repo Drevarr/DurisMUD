@@ -75,6 +75,7 @@ extern Skill skills[];
 extern bool innate_two_daggers(P_char);
 extern const char *event_names[];
 int get_honing(P_obj);
+extern float spell_pulse_data[LAST_RACE + 1];
 
 struct mm_ds *dead_affect_pool = NULL;
 struct mm_ds *dead_room_affect_pool = NULL;
@@ -821,14 +822,13 @@ void apply_affs(P_char ch, int mode)
     ch->points.damroll += GET_LEVEL(ch) / 12;
   }
 
-  if( has_innate(ch, INNATE_LONGSWORD_MASTER) &&
-      ( ch->equipment[PRIMARY_WEAPON] && 
-	ch->equipment[PRIMARY_WEAPON]->value[0] == WEAPON_LONGSWORD))
+  if( has_innate(ch, INNATE_LONGSWORD_MASTER) && ( ch->equipment[PRIMARY_WEAPON]
+    && ch->equipment[PRIMARY_WEAPON]->value[0] == WEAPON_LONGSWORD))
   {
     ch->points.hitroll += GET_LEVEL(ch) / 8;
     ch->points.damroll += GET_LEVEL(ch) / 12;
   }
-  
+
   if (has_innate(ch, INNATE_GAMBLERS_LUCK))
   {
     GET_C_LUK(ch) = GET_C_LUK(ch) + 10;
@@ -858,7 +858,11 @@ void apply_affs(P_char ch, int mode)
   ch->points.hit_reg = TmpAffs.hit_reg;
   ch->points.move_reg = TmpAffs.move_reg;
   ch->points.mana_reg = TmpAffs.mana_reg;
-  switch(TmpAffs.spell_pulse)
+
+  // Trying this out instead of regular spell_pulse crap.
+  // Using racial pulse to set pulse eq to a smaller value for faster casters, and larger for slow casters.
+  TmpAffs.spell_pulse *= spell_pulse_data[GET_RACE(ch)];
+/*  switch((int)TmpAffs.spell_pulse)
   {
     case 5:
     case 4:
@@ -891,12 +895,14 @@ void apply_affs(P_char ch, int mode)
       TmpAffs.spell_pulse = -4;
       break;
     default:
+      debug( "Char '%s' has spell pulse out of range (5 - -8) %d.", J_NAME(ch), TmpAffs.spell_pulse);
       TmpAffs.spell_pulse = 0;
       break;
   }
+*/
   ch->points.spell_pulse = TmpAffs.spell_pulse;
-  
-  switch(TmpAffs.combat_pulse)
+
+  switch((int)TmpAffs.combat_pulse)
   {
       TmpAffs.combat_pulse = 3;
       break;

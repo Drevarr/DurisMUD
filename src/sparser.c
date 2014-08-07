@@ -899,9 +899,15 @@ int SpellCastTime(P_char ch, int spl)
   int      dura;
 
   dura = (int)skills[spl].beats;
+// if( IS_PC(ch) ) debug( "SpellCastTime: initial beats: %d", dura );
   dura = (dura * spell_pulse_data[GET_RACE(ch)]);
-  dura = (dura + get_property("spellcast.pulse.racial.All", 1.000)); // Affects all racial modifiers.
-  dura = (dura * (12.0 + ch->points.spell_pulse)/12 );
+// if( IS_PC(ch) ) debug( "SpellCastTime: beats with racial pulse: %d", dura );
+  // Affects all racial modifiers.
+  dura = (dura + get_property("spellcast.pulse.racial.All", 1.000));
+// if( IS_PC(ch) ) debug( "SpellCastTime: beats with racial.All: %d", dura );
+  // SPELL_PULSE is a standard modifier, used here, in do_score, and do_stat char..
+  dura = dura * SPELL_PULSE(ch);
+// if( IS_PC(ch) ) debug( "SpellCastTime: beats with ch->spell_pulse: %d", dura );
 
   if (IS_AFFECTED2(ch, AFF2_FLURRY))
   {
@@ -911,6 +917,7 @@ int SpellCastTime(P_char ch, int spl)
   {
     dura = (dura * .8);
   }
+if( IS_PC(ch) ) debug( "SpellCastTime: beats with flurry/haste: %d", dura );
 
   return MAX(1, dura);
 }
@@ -1900,7 +1907,7 @@ void do_will(P_char ch, char *argument, int cmd)
       !IS_TRUSTED(ch) && number(0, 1))
   {
     send_to_char
-      ("You are blinded by the light and lose your concentration.\n", ch);
+      ("&+YYou are blinded by the light and lose your concentration.&n\n", ch);
     StopCasting(ch);
     return;
   }
@@ -1912,21 +1919,27 @@ void do_will(P_char ch, char *argument, int cmd)
     return;
   }
 
-  if (IS_AGG_SPELL(spl))
+  if( IS_AGG_SPELL(spl) )
+  {
     if (check_mob_retaliate(ch, tar_char, spl))
+    {
       return;
-
+    }
+  }
   is_tank = FALSE;
 
   LOOP_THRU_PEOPLE(kala, ch)
   {
     if (kala->specials.fighting == ch)
+    {
       is_tank = TRUE;
+    }
   }
 
-
   if (IS_TRUSTED(ch))
+  {
     dura = 1;
+  }
   else
   {
     /*if (GET_CLASS(ch, CLASS_PSIONICIST) &&
@@ -1949,22 +1962,29 @@ void do_will(P_char ch, char *argument, int cmd)
   if (common_target_data.arg)
     tmp_spl.arg = str_dup(common_target_data.arg);
 
-  if (get_spell_circle(ch, tmp_spl.spell) == get_max_circle(ch)
-      && number(0,100) > GET_C_AGI(ch)/2 + 50)
+  if( get_spell_circle(ch, tmp_spl.spell) == get_max_circle(ch)
+    && number(0,100) > GET_C_AGI(ch)/2 + 50 )
+  {
     add_event(event_abort_spell, number(0,10)*dura/10, ch, 0, 0, 0, 0, 0);
+  }
 
   dura = BOUNDED(1, dura, 4);
   tmp_spl.timeleft -= dura;
   DelayCommune(ch, dura);
   SET_BIT(ch->specials.affected_by2, AFF2_CASTING);
-  add_event(event_spellcast, BOUNDED(1, dura, 4), ch, 
-    common_target_data.t_char, 0, 0, &tmp_spl,
-    sizeof(struct spellcast_datatype));
+  add_event(event_spellcast, BOUNDED(1, dura, 4), ch, common_target_data.t_char,
+    0, 0, &tmp_spl, sizeof(struct spellcast_datatype));
   if (common_target_data.t_char)
+  {
     if (IS_SET(skills[common_target_data.ttype].targets, TAR_CHAR_WORLD))
+    {
       link_char(ch, common_target_data.t_char, LNK_CAST_WORLD);
+    }
     else
+    {
       link_char(ch, common_target_data.t_char, LNK_CAST_ROOM);
+    }
+  }
 }
 
 bool check_disruptive_blow(P_char ch)
@@ -2207,8 +2227,10 @@ void do_cast(P_char ch, char *argument, int cmd)
 
   dura = (SpellCastTime(ch, spl));
   if (GET_CHAR_SKILL(ch, SKILL_CHANT_MASTERY))
-    // this function calls CharWait appropriately
+  {
+    // This function calls CharWait appropriately
     dura = chant_mastery_bonus(ch, dura);
+  }
   else if(GET_CHAR_SKILL(ch, SKILL_TOTEMIC_MASTERY) > number(50, 200) && hasTotem(ch, spl))
   {
     act("&+yYou call upon the powers of the &+wspirit &+Lrealm&+y, channeling your power...&n", FALSE, ch, 0, 0, TO_CHAR);
@@ -2257,8 +2279,10 @@ void do_cast(P_char ch, char *argument, int cmd)
   // Why were Psi's set to instacast?? This must've been really old code.
   // It only showed up when caster/psi multi was played, making a psi
   //  secondary trigger on the code in do_cast instead of do_will.
-  if( IS_TRUSTED(ch) || IS_SET(skills[spl].targets, TAR_INSTACAST))
+  if( IS_TRUSTED(ch) || IS_SET(skills[spl].targets, TAR_INSTACAST) )
+  {
     dura = 1;
+  }
   else if( (GET_CLASS(ch, CLASS_DRUID) && !IS_MULTICLASS_PC(ch))
     || (GET_CLASS(ch, CLASS_BLIGHTER) && !IS_MULTICLASS_PC(ch))
     || ((!is_tank || number(0, 1)) && (IS_NPC(ch) || IS_SET(ch->specials.act2, PLR2_QUICKCHANT))
@@ -2270,37 +2294,52 @@ void do_cast(P_char ch, char *argument, int cmd)
 
   tmp_spl.timeleft = dura;
 
-  if (get_spell_circle(ch, tmp_spl.spell) == get_max_circle(ch)
-      && number(0,100) > GET_C_AGI(ch)/2 + 50)
+  if( get_spell_circle(ch, tmp_spl.spell) == get_max_circle(ch)
+    && number(0,100) > GET_C_AGI(ch)/2 + 50 )
+  {
     add_event(event_abort_spell, number(0,9)*dura/10, ch, 0, 0, 0, 0, 0);
+  }
 
   dura = BOUNDED(1, dura, 4);
   tmp_spl.timeleft -= dura;
   DelayCommune(ch, dura);
-  if (cmd == CMD_SPELLWEAVE)
+  if( cmd == CMD_SPELLWEAVE )
+  {
     if (GET_CHAR_SKILL(ch, SKILL_SPELLWEAVE))
+    {
       tmp_spl.flags = CST_SPELLWEAVE;
-    else {
+    }
+    else
+    {
       send_to_char("You haven't mastered this sophisticated art.\n", ch);
       return;
     }
+  }
 
-  if (common_target_data.arg)
+  if( common_target_data.arg )
+  {
     tmp_spl.arg = str_dup(common_target_data.arg);
+  }
 
   SET_BIT(ch->specials.affected_by2, AFF2_CASTING);
-  add_event(event_spellcast, BOUNDED(1, dura, 4), ch,
-      common_target_data.t_char, 0, 0, &tmp_spl,
-      sizeof(struct spellcast_datatype));
+  add_event(event_spellcast, BOUNDED(1, dura, 4), ch, common_target_data.t_char,
+    0, 0, &tmp_spl, sizeof(struct spellcast_datatype));
 
-  if (common_target_data.t_char)
+  if( common_target_data.t_char )
+  {
     if (IS_SET(skills[common_target_data.ttype].targets, TAR_CHAR_WORLD))
+    {
       link_char(ch, common_target_data.t_char, LNK_CAST_WORLD);
+    }
     else
+    {
       link_char(ch, common_target_data.t_char, LNK_CAST_ROOM);
-
-  if (IS_FIGHTING(ch) && check_disruptive_blow(ch))
+    }
+  }
+  if( IS_FIGHTING(ch) && check_disruptive_blow(ch) )
+  {
     return;
+  }
 }
 
 bool is_obj_in_list_vis(P_char ch, P_obj obj, P_obj list)

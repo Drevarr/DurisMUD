@@ -5192,7 +5192,7 @@ void do_score(P_char ch, char *argument, int cmd)
   
         sprintf(buf, "&+YCombat Pulse: &N%4d&+Y &+MSpell Pulse&n:  %.2f&+Y ",
 //            ch->specials.base_combat_round, ch->points.spell_pulse);
-         ch->specials.base_combat_round, (spell_pulse_data[GET_RACE(ch)] * ((12.0 + ch->points.spell_pulse)/12)));
+         ch->specials.base_combat_round, spell_pulse_data[GET_RACE(ch)] * SPELL_PULSE(ch) );
 
 
 

@@ -2245,7 +2245,8 @@ struct hold_data
   int      AC, Age, Dam, Hit, Hits, Fprot, Move, Mana;
   int      S_spell, S_para, S_petri, S_rod, S_breath;
   sh_int   hit_reg, move_reg, mana_reg;
-  sh_int   spell_pulse, combat_pulse;
+//  sh_int   spell_pulse, combat_pulse;
+  float    spell_pulse, combat_pulse;
   ulong    BV_1, BV_2, BV_3, BV_4, BV_5, BV_6;
 };
 

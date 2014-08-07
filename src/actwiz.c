@@ -2581,7 +2581,7 @@ void do_stat(P_char ch, char *argument, int cmd)
 
     sprintf(buf2,
             "\n&+YHometown: &N%d  &+YBirthplace: &N%d  &+YOrig BP: &n%d &+YSpell Pulse: &n%+.2f\n",
-            GET_HOME(k), GET_BIRTHPLACE(k), GET_ORIG_BIRTHPLACE(k), (spell_pulse_data[GET_RACE(k)] * ((12.0 + k->points.spell_pulse)/12)) );
+            GET_HOME(k), GET_BIRTHPLACE(k), GET_ORIG_BIRTHPLACE(k), spell_pulse_data[GET_RACE(ch)] * SPELL_PULSE(ch) );
     strcat(buf, buf2);
     strcat(o_buf, buf);
     if(IS_PC(k))
