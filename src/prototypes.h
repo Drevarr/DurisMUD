@@ -253,6 +253,7 @@ void do_hitall(P_char, char *, int);
 void do_war_cry(P_char, char *, int);
 int do_roar_of_heroes(P_char);
 void do_tackle(P_char, char *, int);
+void do_legsweep(P_char, char *, int);
 void do_grapple(P_char, char *, int);
 void do_meditate(P_char, char *, int);
 void stop_meditation(P_char);

@@ -492,7 +492,7 @@ const char *command[] = {
   "nog",
   "twibble",
   "throw",
-  "lightning",                  /*
+  "legsweep",                   /*
                                  * 315
                                  */
   "sweep",
@@ -2226,7 +2226,6 @@ void assign_command_pointers(void)
   CMD_GRT(CMD_KNOCK, STAT_DEAD + POS_PRONE, do_knock, AVATAR);
   CMD_GRT(CMD_LEVELS, STAT_DEAD + POS_PRONE, do_levels, LESSER_G);
   CMD_GRT(CMD_LFLAGS, STAT_DEAD + POS_PRONE, do_law_flags, AVATAR);
-  CMD_GRT(CMD_LIGHTNING, STAT_DEAD + POS_PRONE, do_action, AVATAR);
   CMD_GRT(CMD_LOAD, STAT_DEAD + POS_PRONE, do_load, LESSER_G);
   CMD_GRT(CMD_LOOKUP, STAT_DEAD + POS_PRONE, do_lookup, IMMORTAL);
   CMD_GRT(CMD_LWITNESS, STAT_DEAD + POS_PRONE, do_list_witness, AVATAR);
@@ -2573,8 +2572,9 @@ void assign_command_pointers(void)
   CMD_Y(CMD_HIT, STAT_NORMAL + POS_STANDING, do_hit, 0);
   CMD_Y(CMD_DESTROY, STAT_NORMAL + POS_STANDING, do_hit, 0);
   CMD_Y(CMD_HITALL, STAT_NORMAL + POS_STANDING, do_hitall, 0);
-  CMD_Y(CMD_WARCRY, STAT_NORMAL + POS_STANDING, do_war_cry, 0); 
+  CMD_Y(CMD_WARCRY, STAT_NORMAL + POS_STANDING, do_war_cry, 0);
   CMD_Y(CMD_TACKLE, STAT_NORMAL + POS_STANDING, do_tackle, 0);
+  CMD_Y(CMD_LEGSWEEP, STAT_NORMAL + POS_STANDING, do_legsweep, 0);
   CMD_Y(CMD_HOLD, STAT_RESTING + POS_PRONE, do_grab, 0);
   CMD_Y(CMD_IDEA, STAT_DEAD + POS_PRONE, do_idea, 0);
   CMD_Y(CMD_IGNORE, STAT_SLEEPING + POS_PRONE, do_ignore, 0);

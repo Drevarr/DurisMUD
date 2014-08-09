@@ -10229,3 +10229,195 @@ void do_garrote(P_char ch, char *argument, int cmd)
 	add_event(event_garroteproc, PULSE_VIOLENCE, victim, 0, 0, 0, &numb, sizeof(numb));
 
 }
+
+void do_legsweep(P_char ch, char *arg, int cmd)
+{
+  P_char vict = NULL;
+  struct affected_type af;
+  int i, door, target_room;
+  float percent_chance;
+
+  if( !IS_ALIVE(ch) )
+  {
+    return;
+  }
+
+  if( IS_CENTAUR(ch) || GET_RACE(ch) == RACE_QUADRUPED || GET_RACE(ch) == RACE_DRIDER )
+  {
+    send_to_char("You rear up and .. wait, how does your leg bend?!\n", ch);
+    return;
+  }
+
+  if( IS_DESTROYING(ch) )
+  {
+    send_to_char( "You can't tackle an object.\n", ch );
+    return;
+  }
+
+  if( !IS_FIGHTING(ch) )
+  {
+    vict = ParseTarget(ch, arg);
+    if( !vict )
+    {
+      send_to_char("Tackle who?\n", ch);
+      return;
+    }
+  }
+  else
+  {
+    vict = ch->specials.fighting;
+    // If fighting and not fighting. buggy!
+    if( !vict )
+    {
+      stop_fighting(ch);
+      return;
+    }
+  }
+  if( !IS_ALIVE(vict) )
+  {
+    return;
+  }
+
+
+  if( GET_CHAR_SKILL(ch, SKILL_LEGSWEEP) < 1 )
+  {
+    send_to_char("You really dont know how.\n", ch);
+    return;
+  }
+
+  appear(ch);
+
+  if( get_takedown_size(vict) < get_takedown_size(ch) )
+  {
+    act("Due to $S small size, you manage to take your own legs out from under you!",
+      FALSE, ch, 0, vict, TO_CHAR);
+    act("$n attempts to legsweep $N and winds up on $s ass instead!",
+      FALSE, ch, 0, vict, TO_NOTVICT);
+    act("$n attempts to legsweep you but loses $s &+Wbalance&n and lands on $s ass instead!",
+      FALSE, ch, 0, vict, TO_VICT);
+    CharWait(ch, (int) (PULSE_VIOLENCE * 0.5));
+    return;
+  }
+
+  if( get_takedown_size(vict) > (get_takedown_size(ch) + 1) )
+  {
+    act("You attempt to legsweep $M only to manage to hit $S massive shin and fall down yourself!",
+      FALSE, ch, 0, vict, TO_CHAR);
+    act("$n attempts to legsweep $N and winds up on $s ass instead!",
+      FALSE, ch, 0, vict, TO_NOTVICT);
+    act("$n attempts to legsweep you but loses $s &+Wbalance&n and lands on $s ass instead!",
+      FALSE, ch, 0, vict, TO_VICT);
+    CharWait(ch, (int) (PULSE_VIOLENCE * 0.5));
+    return;
+  }
+
+  if( !CanDoFightMove(ch, vict) )
+  {
+    return;
+  }
+
+  if(affected_by_spell(ch, SKILL_BASH))
+  {
+    send_to_char("You haven't yet reoriented yourself enough!\n", ch);
+    return;
+  }
+
+  percent_chance = GET_CHAR_SKILL(ch, SKILL_LEGSWEEP);
+
+  if( !on_front_line(ch) || !on_front_line(vict) )
+  {
+    send_to_char("With an awesome aerial maneuver you manage to reach the target.\n", ch);
+    percent_chance *= 0.5;
+  }
+
+  if( GET_C_LUK(ch) / 2 > number(1, 100) )
+  {
+    percent_chance *= 1.1;
+  }
+  if( GET_C_LUK(vict) / 2 > number(1, 100) )
+  {
+    percent_chance *= .9;
+  }
+
+  if(IS_AFFECTED(vict, AFF_AWARE))
+  {
+    percent_chance *= .75;
+  }
+
+  percent_chance = takedown_check(ch, vict, percent_chance, SKILL_LEGSWEEP, APPLY_ALL ^ FOOTING);
+
+  if( percent_chance == TAKEDOWN_CANCELLED )
+  {
+    return;
+  }
+
+  if(percent_chance == TAKEDOWN_PENALTY)
+  {
+    percent_chance = 0;
+  }
+
+  if( IS_PC(ch) )
+  {
+    debug("(%s) legsweeping (%s) with percentage of (%d).", GET_NAME(ch), GET_NAME(vict), (int)percent_chance);
+  }
+
+  if( IS_NPC(ch) && IS_ELITE(ch) && !IS_PC_PET(ch))
+  {
+    percent_chance = 100;
+  }
+
+  if( (notch_skill(ch, SKILL_LEGSWEEP, get_property("skill.notch.offensive", 7))
+    || number(1, 100) < percent_chance || IS_TRUSTED(ch)) && GET_POS(vict) == POS_STANDING )
+  {
+    if( !IS_TRUSTED(ch) )
+    {
+      set_short_affected_by(ch, SKILL_BASH, (int) (3.5 * PULSE_VIOLENCE));
+    }
+
+    // 15% chance to ass target.
+    if( number(1, 100) <= 15 )
+    {
+      act("You quickly maneuver alongside $N&n, drop low and &+RCOMPLETELY&n &+Wsweep&n $S legs out from under $M!",
+        FALSE, ch, 0, vict, TO_CHAR);
+      act("$n masterfully maneuvers next to $N and completely &+Wsweeps&n $S legs out from beneath $M!!!",
+        FALSE, ch, 0, vict, TO_NOTVICT);
+      act("Before you can react, $n maneuvers beside you and &+RCOMPLETELY&n &+Wkicks&n your legs out from beneath you!!!",
+        FALSE, ch, 0, vict, TO_VICT);
+
+      SET_POS(vict, POS_PRONE + GET_STAT(vict));
+    }
+    else
+    {
+      act("You swiftly maneuver next to $N&n, drop low and &+Wsweep&n $S legs out from under $M!",
+        FALSE, ch, 0, vict, TO_CHAR);
+      act("$n quickly maneuvers alongside $N and &+Wsweeps&n $S legs out from under $M!",
+        FALSE, ch, 0, vict, TO_NOTVICT);
+      act("$n quickly maneuvers beside you and &+Wkicks&n your legs out from under you!",
+        FALSE, ch, 0, vict, TO_VICT);
+
+      SET_POS(vict, POS_SITTING + GET_STAT(vict));
+    }
+    CharWait(ch, PULSE_VIOLENCE * 2);
+    CharWait(vict, PULSE_VIOLENCE * 2);
+
+  }
+  else
+  {
+    act("You attempt to legsweep $M but manage to land on your own ass instead!",
+      FALSE, ch, 0, vict, TO_CHAR);
+    act("$n attemps to legsweep $N but only manages to land on $s ass.",
+      FALSE, ch, 0, vict, TO_NOTVICT);
+    act("$n attemps to legsweep you, but only manages to land on $s ass.",
+      FALSE, ch, 0, vict, TO_VICT);
+
+    SET_POS(ch, POS_PRONE + GET_STAT(ch));
+    CharWait(ch, PULSE_VIOLENCE * 2);
+  }
+
+  if( !IS_FIGHTING(ch) && IS_ALIVE(ch) && IS_ALIVE(vict) )
+  {
+    set_fighting(ch, vict);
+  }
+  return;
+}
+

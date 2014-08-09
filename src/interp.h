@@ -339,7 +339,7 @@ extern unsigned int game_locked;
 #define CMD_NOG            312
 #define CMD_TWIBBLE        313
 #define CMD_THROW          314
-#define CMD_LIGHTNING      315 // Unused command.
+#define CMD_LEGSWEEP       315
 #define CMD_SWEEP          316 // Tailsweep
 #define CMD_APOLOGIZE      317
 #define CMD_AFK            318
