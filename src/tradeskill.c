@@ -3504,6 +3504,10 @@ int get_ival_from_proc( obj_proc_type proc )
   {
     return 80;
   }
+  if( proc == generic_drow_eq )
+  {
+    return 5;
+  }
 
   return 100;
 /* Below is a list of procs I haven't gotten a chance to define a ivalue to:
@@ -3724,7 +3728,6 @@ int get_ival_from_proc( obj_proc_type proc )
  *   dispator;
  *   nightbringer;
  *   undead_trident;
- *   generic_drow_eq;
  *   iron_flindbar;
  *   generic_parry_proc;
  *   generic_riposte_proc;

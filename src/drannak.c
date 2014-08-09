@@ -1502,6 +1502,11 @@ void do_conjure(P_char ch, char *argument, int cmd)
           tobj, TO_CHAR);
       GET_MAX_HIT(tobj) = GET_HIT(tobj) = tobj->points.base_hit = (tobj->points.base_hit * (number(6, 9) * .1));
     }
+    // 20% bonus hps for max skill, 2% for each skill notch.
+    if( GET_CHAR_SKILL(ch, SKILL_INFUSE_LIFE) )
+    {
+      GET_MAX_HIT(tobj) = GET_HIT(tobj) = tobj->points.base_hit = GET_HIT(tobj) * ((500.0 + GET_CHAR_SKILL(ch, SKILL_INFUSE_LIFE)) / 500.0);
+    }
 
     //Set up NPCACT etc.
     if(tobj->points.base_hit > 8000)
@@ -1539,7 +1544,7 @@ void do_conjure(P_char ch, char *argument, int cmd)
           tobj, TO_CHAR);
     }
 
-    tobj->only.npc->aggro_flags = 0;     
+    tobj->only.npc->aggro_flags = 0;
     act("$n utters a quick &+mincantation&n, calling forth $N who softly says 'Your wish is my command, $n!'", TRUE, ch, 0,
         tobj, TO_ROOM);
     act("You utter a quick &+mincantation&n, calling forth $N who softly says 'Your wish is my command, master!'", TRUE, ch, 0,
