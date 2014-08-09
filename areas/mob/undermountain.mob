@@ -355,7 +355,7 @@ kobold ugly~
 &+Linto the darkness.
 ~
 1073744012 1 0 0 33554556 0 0 0 -700 S
-HG 0 1 0 -1
+KB 0 1 0 -1
 39 15 51 15d27+90 2d5+2
 7.6.2.0 7290
 8 8 1
@@ -803,7 +803,7 @@ kobold leader~
 &+Las the normal strains of kobold are very unpredictable and lack serious morale.
 ~
 2062 1 0 0 33554492 2048 0 0 -1000 S
-HG 0 1 0 -1
+KB 0 1 0 -1
 20 13 35 20d35+140 3d4+2
 0.9.3.0 9720
 8 8 1
