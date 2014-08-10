@@ -399,29 +399,28 @@ int IsTaughtHere(P_char ch, int skl)
 
   teacher = FindTeacher(ch);
 
-  if (!teacher)
+  if( !teacher )
   {
     // In the room of knowledge.  This is for 'scribe all' option.
     if( find_gh_library_book_obj(ch) != NULL )
+    {
       return TRUE;
+    }
     send_to_char("And just who did you plan on teaching you?!?\n", ch);
     return FALSE;
   }
-  if (IS_SPELL(skl))
+  if( IS_SPELL(skl) )
   {
-    if (IS_TRUSTED(teacher) || knows_spell(teacher, skl)
-      || is_spec_spell( teacher, skl ) )
+    if( IS_TRUSTED(teacher) || knows_spell(teacher, skl) || is_spec_spell(teacher, skl) )
     {
       return TRUE;
     }
     else
     {
-      if (IS_CASTER(teacher) || IS_SEMI_CASTER(teacher))
-        sprintf(Gbuf1,
-                "I'm not familiar with that spell. Perhaps another more experienced could aid you.");
+      if( IS_CASTER(teacher) || IS_SEMI_CASTER(teacher) )
+        sprintf(Gbuf1, "I'm not familiar with that spell. Perhaps another more experienced could aid you.");
       else
-        sprintf(Gbuf1,
-                "Magic?!? If you had wished to learn the arts, you should have signed up with another guild!");
+        sprintf(Gbuf1, "Magic?!? If you had wished to learn the arts, you should have signed up with another guild!");
       mobsay(teacher, Gbuf1);
       return FALSE;
     }
@@ -892,7 +891,7 @@ void prac_all_spells(P_char ch)
   int nSpellCnt = 0;
   struct spl_list spell_list[LAST_SPELL+1];
 
-  if (!meming_class(ch))
+  if( !meming_class(ch) )
   {
     send_to_char( "You don't practice spells.\n", ch );
     return;
@@ -922,29 +921,33 @@ void prac_all_spells(P_char ch)
   // have in a spellbook
 
   for (spl = 0; spl < nSpellCnt; spl++)
-    if (!SpellInSpellBook(ch, spell_list[spl].spell,
-        SBOOK_MODE_IN_INV + SBOOK_MODE_AT_HAND + SBOOK_MODE_ON_BELT ))
+  {
+    if( !SpellInSpellBook(ch, spell_list[spl].spell, SBOOK_MODE_IN_INV + SBOOK_MODE_AT_HAND + SBOOK_MODE_ON_BELT ) )
     {
       // yes!  found a spell to scribe!
       char buf[MAX_STRING_LENGTH];
       sprintf(buf, "Attempting to scribe '%s'...\r\n", skills[spell_list[spl].spell].name);
       send_to_char(buf, ch);
-      if (!IsTaughtHere(ch, spell_list[spl].spell))
+      if( !IsTaughtHere(ch, spell_list[spl].spell) )
+      {
         continue;
+      }
 
       if (!ScriberSillyChecks(ch, spell_list[spl].spell))
+      {
         return;
+      }
 
       add_scribe_data(spell_list[spl].spell, ch, SpellBookAtHand(ch), 0, NULL, NULL, prac_all_spells);
 //      CharWait(ch, (int) ((3.0 - ((double) GET_CHAR_SKILL(ch, SKILL_SCRIBE)) / 45) * PULSE_VIOLENCE));
       return;
 
     }
-
+  }
 
   // everything they can scribe is already scribed!
   P_char teacher = FindTeacher(ch);
-  if (teacher)
+  if( teacher )
     mobsay(teacher, "You have everything I will teach you scribed!");
 
 }

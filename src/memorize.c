@@ -1492,24 +1492,18 @@ void do_memorize(P_char ch, char *argument, int cmd)
   {
     if ((!book_class(ch) || sbook) && !quested_spell(ch, spl))
     {
-      send_to_char
-        ("That is too powerful an enchantment for you to master.. yet, anyway.\n",
-         ch);
+      send_to_char("That is too powerful an enchantment for you to master.. yet, anyway.\n", ch);
       return;
     }
     else if (!sbook)
     {
-      send_to_char
-        ("Yes, you _HAVE_ heard of rumors about that spell.. but you think it beyond your powers anyway.\n",
-         ch);
+      send_to_char("Yes, you _HAVE_ heard of rumors about that spell.. but you think it beyond your powers anyway.\n", ch);
       return;
     }
   }
   else if (!sbook && book_class(ch))
   {
-    send_to_char
-      ("Sorry, but you haven't got that spell in any available spellbooks!\n",
-       ch);
+    send_to_char("Sorry, but you haven't got that spell in any available spellbooks!\n", ch);
     return;
   }
   else if( !SKILL_DATA_ALL(ch, spl).maxlearn[0] && !SKILL_DATA_ALL(ch, spl).maxlearn[ch->player.spec] && !quested_spell(ch, spl))
@@ -1668,26 +1662,29 @@ int knows_spell(P_char ch, int spell)
 {
   int      circle;
 
-  if (IS_TRUSTED(ch))
+  if( IS_TRUSTED(ch) )
     return TRUE;
 
-  if (!IS_SPELL(spell) || !ch->player.m_class)
+  if( !IS_SPELL(spell) || !ch->player.m_class )
     return FALSE;
 
-  if (IS_PC(ch) && !USES_SPELL_SLOTS(ch) && has_memorized(ch, spell))
+  if( IS_PC(ch) && !USES_SPELL_SLOTS(ch) && has_memorized(ch, spell) )
     return -1;
 
-  if (IS_PC(ch))
-  {  // check for specs (mostly only concerns druids, as this check is done for others at mem/pray time)
+  // Check for specs (mostly only concerns druids, as this check is done for others at mem/pray time)
+  if( IS_PC(ch) )
+  {
     if( !SKILL_DATA_ALL(ch, spell).maxlearn[0] && !SKILL_DATA_ALL(ch, spell).maxlearn[ch->player.spec] )
+    {
       return FALSE;
+    }
   }
 
   circle = get_spell_circle(ch, spell);
   return (circle > get_max_circle(ch)) ? 0 : circle;
 }
 
-void    *has_memorized(P_char ch, int spell)
+void *has_memorized(P_char ch, int spell)
 {
   struct affected_type *af;
 
@@ -2022,7 +2019,6 @@ void add_scribing(P_char ch, int spl, P_obj book, int flag, P_obj obj,
 //    debug("wait_rounds: %d", wait_rounds);
     CharWait(ch, MAX(1, wait_rounds * PULSE_VIOLENCE) );
   }
-                         
 }
 
 int ScriberSillyChecks(P_char ch, int spl)
@@ -2037,13 +2033,12 @@ int ScriberSillyChecks(P_char ch, int spl)
   }
   if (IS_AFFECTED2(ch, AFF2_SCRIBING))
   {
-    send_to_char
-      ("Sorry, you cannot speed up your scribing by doing multiple jobs at same time, \nnor teach/scribe at same time.\nYou are not UNIX compatible.\n*bonk*\n\n",
-       ch);
+    send_to_char("Sorry, you cannot speed up your scribing by doing multiple jobs at same time, \n"
+      "nor teach/scribe at same time.\nYou are not UNIX compatible.\n*bonk*\n\n", ch);
     return FALSE;
   }
-  if ((GET_STAT(ch) != STAT_RESTING) ||
-      ((GET_POS(ch) != POS_SITTING) && (GET_POS(ch) != POS_KNEELING)))
+  if( (GET_STAT(ch) != STAT_RESTING) ||
+      ((GET_POS(ch) != POS_SITTING) && (GET_POS(ch) != POS_KNEELING)) )
   {
     send_to_char("You don't feel comfortable enough to start to scribe.\n",
                  ch);
@@ -2052,18 +2047,12 @@ int ScriberSillyChecks(P_char ch, int spl)
   /*
      modified by DTS 7/9/95 - yet another possible null ptr. dereference
    */
-  if (!(o1 = ch->equipment[WIELD]))
+  if (!(o1 = ch->equipment[WIELD]) || !(o2 = ch->equipment[HOLD]) )
   {
-    send_to_char("You lack one of the necessary implements for scribing!\n",
-                 ch);
+    send_to_char("You lack one of the necessary implements for scribing!\n", ch);
     return FALSE;
   }
-  if (!(o2 = ch->equipment[HOLD]))
-  {
-    send_to_char("You lack one of the necessary implements for scribing!\n",
-                 ch);
-    return FALSE;
-  }
+
   if (o1->type == ITEM_PEN)
   {
     o3 = o1;
@@ -2072,8 +2061,7 @@ int ScriberSillyChecks(P_char ch, int spl)
   }
   if (o1->type != ITEM_PEN && o2->type != ITEM_PEN)
   {
-    send_to_char
-      ("You need a quill with which to scribe to spellbook! [held]\n", ch);
+    send_to_char("You need a quill with which to scribe to spellbook! [held]\n", ch);
     return FALSE;
   }
   if (o1->type != ITEM_SPELLBOOK && o2->type != ITEM_SPELLBOOK)
@@ -2106,16 +2094,14 @@ int ScriberSillyChecks(P_char ch, int spl)
 #endif
 
   d = find_spell_description(o1);
-  if (d && SpellInThisSpellBook(d, spl))
+  if( d && SpellInThisSpellBook(d, spl) )
   {
-    send_to_char("You have the spell already in your spellbook, boggle?\n",
-                 ch);
+    send_to_char("You have the spell already in your spellbook, boggle?\n", ch);
     return FALSE;
   }
   if ((GetSpellPages(ch, spl) + o1->value[3]) > o1->value[2])
   {
-    send_to_char
-      ("Sorry, the spellbook at hand has no room for more spells.\n", ch);
+    send_to_char("Sorry, the spellbook at hand has no room for more spells.\n", ch);
     return FALSE;
   }
   /*
@@ -2144,21 +2130,39 @@ void do_teach(P_char ch, char *arg, int cmd)
 
   int      spl, tmp;
 
-  if (!*arg || !arg)
+  if( !IS_ALIVE(ch) || !ch->in_room )
   {
-    if (ch)
+    if( !ch )
     {
-      if (IS_AFFECTED2(ch, AFF2_SCRIBING))
-        do_scribe(ch, arg, CMD_SCRIBE);
-      else
-        send_to_char("usage: teach char spellname\n", ch);
+      debug( "do_teach: ch: NULL, arg: '%s', cmd: %d!", arg, cmd );
+    }
+    else if( !IS_ALIVE(ch) )
+    {
+      debug( "do_teach: DEAD ch: '%s', arg: '%s', cmd: %d!", J_NAME(ch), arg, cmd );
+    }
+    else
+    {
+      debug( "do_teach: ch not in room!: ch: '%s', arg: '%s', cmd: %d!", arg, cmd );
+    }
+
+    return;
+  }
+
+  if( !arg || !*arg )
+  {
+    if( IS_AFFECTED2(ch, AFF2_SCRIBING) )
+    {
+      do_scribe(ch, arg, CMD_SCRIBE);
+    }
+    else
+    {
+      send_to_char("usage: teach char spellname\n", ch);
     }
     return;
   }
-  if (ch && (!book_class(ch) || !IS_TRUSTED(ch)))
+  if( !book_class(ch) && !IS_TRUSTED(ch) )
   {
-    send_to_char("Teaching others spells just isn't in your field of work!\n",
-                 ch);
+    send_to_char("Teaching others spells just isn't in your field of work!\n", ch);
     return;
   }
   /*
@@ -2169,50 +2173,43 @@ void do_teach(P_char ch, char *arg, int cmd)
      params
    */
   arg = one_argument(arg, Gbuf1);
-  if (!(target = get_char_room(Gbuf1, ch ? ch->in_room : cmd)))
+  if( !(target = get_char_room(Gbuf1, ch->in_room)) )
   {
-    if (ch)
-      send_to_char("Teach who?\n", ch);
+    send_to_char("Teach who?\n", ch);
     return;
   }
-  if (ch && !CAN_SEE(ch, target))
+  if( !CAN_SEE(ch, target) )
   {
     send_to_char("You cannot see anyone with such name here!\n", ch);
     return;
   }
-  if (ch == target)
+  if( ch == target )
   {
-    send_to_char("You believe you know, or don't know, that spell already!\n",
-                 ch);
+    send_to_char("You believe you know, or don't know, that spell already!\n", ch);
     return;
   }
   arg = skip_spaces(arg);
   spl = old_search_block(arg, 0, strlen(arg), (const char **) spells, 0);
   if (spl != -1)
-    spl--;
-  if (spl == -1 || get_spell_circle(target, (tmp = spl)) > MAX_CIRCLE)
   {
-    if (ch)
-      send_to_char
-        ("Teach _WHAT_ spell?? That your target cannot learn, at least.\n",
-         ch);
+    spl--;
+  }
+  if( spl == -1 || get_spell_circle(target, (tmp = spl)) > MAX_CIRCLE )
+  {
+    send_to_char("Teach _WHAT_ spell?? That your target cannot learn, at least.\n", ch);
     return;
   }
-  if (ch &&
-      !(o3 =
-        FindSpellBookWithSpell(ch, tmp,
-                               SBOOK_MODE_IN_INV + SBOOK_MODE_ON_BELT)) &&
-      !IS_TRUSTED(ch))
+  if( !(o3 = FindSpellBookWithSpell(ch, tmp, SBOOK_MODE_IN_INV + SBOOK_MODE_ON_BELT))
+    && !IS_TRUSTED(ch) )
   {
     send_to_char("You don't have such spell in your _own_ spellbooks!\n", ch);
     return;
   }
   /* ok, we've gotta valid spell _and_ target */
 
-  if (!ScriberSillyChecks(target, tmp))
+  if( !ScriberSillyChecks(target, tmp) )
   {
-    if (ch)
-      send_to_char("Your student isn't ready to start yet!\n", ch);
+    send_to_char("Your student isn't ready to start yet!\n", ch);
     return;
   }
   add_scribing(target, tmp, SpellBookAtHand(target), 0, 0, ch);
@@ -2220,23 +2217,23 @@ void do_teach(P_char ch, char *arg, int cmd)
 
 void do_scribe(P_char ch, char *arg, int cmd)
 {
-  int      spl = 0;
-  P_obj    o1, o2, o3;
+  int    spl = 0;
+  P_obj  o1, o2, o3;
   struct scribing_data_type *tmp_s;
-  P_char   teacher;
+  P_char teacher;
 
-  if (IS_NPC(ch))               /*
-                                   no scribing services, at least of now. we'll
-                                   see later tho.
-                                 */
+  // No scribing services, at least of now. we'll see later tho.
+  if( IS_NPC(ch) )
+  {
     return;
+  }
 
-  if (!GET_CHAR_SKILL(ch, SKILL_SCRIBE))
+  if( !GET_CHAR_SKILL(ch, SKILL_SCRIBE) )
   {
     send_to_char("You don't know how to scribe!\n", ch);
     return;
   }
-  if (!*arg || !arg)
+  if( !arg || !*arg )
   {
     if (!IS_AFFECTED2(ch, AFF2_SCRIBING))
     {
@@ -2256,43 +2253,49 @@ void do_scribe(P_char ch, char *arg, int cmd)
   }
 
   spl = old_search_block(arg, 0, strlen(arg), (const char **) spells, 0);
-  if (spl != -1)
+  if( spl != -1 )
+  {
     spl--;
-  if (spl == -1)
+  }
+  if( spl == -1 )
   {
     send_to_char("Scribe _WHAT_ spell?\n", ch);
     return;
   }
 
-  if (!ScriberSillyChecks(ch, spl))
+  if( !ScriberSillyChecks(ch, spl) )
+  {
     return;
+  }
 
   o1 = ch->equipment[WIELD];
   o2 = ch->equipment[HOLD];
 
-  if (o1->type == ITEM_PEN)
+  // Shortened this and made it make sense.  Book in other hand.
+  if( o1->type != ITEM_SPELLBOOK )
   {
-    o3 = o1;
+    // ScriberSillyChecks -> o1 and o2 are spellbook and pen (or pen and spellbook).
     o1 = o2;
-    o2 = o3;
   }
-  /*
-     only in this, thus cannot use globally, as teached spell requires no
-     spellbook (obviously)
-   */
 
-  if (!
-      (o3 =
-       FindSpellBookWithSpell(ch, spl,
-                              SBOOK_MODE_IN_INV + SBOOK_MODE_ON_BELT)))
+  // If ch doesn't have a book with spl in it already,
+  if( !(o3 = FindSpellBookWithSpell(ch, spl, SBOOK_MODE_IN_INV + SBOOK_MODE_ON_BELT)) )
   {
     // Only fail if there's no teacher to teach it.
     teacher = FindTeacher(ch);
-    if( !teacher
-      || GET_LVL_FOR_SKILL(ch, spl) > GET_LEVEL(ch)
-      || GET_LVL_FOR_SKILL(teacher, spl) > GET_LEVEL(teacher) )
+    if( !knows_spell(ch, spl) )
+    {
+      send_to_char("That is too powerful an enchantment for you to master.. right now.\n", ch);
+      return;
+    }
+    else if( !teacher )
     {
       send_to_char("You don't have that spell in any of your books or scrolls in learnable form!\n", ch);
+      return;
+    }
+    else if( !knows_spell(teacher, spl) )
+    {
+      mobsay( teacher, "Yes, I have heard of rumors about that spell.. but I do not know it." );
       return;
     }
     else
@@ -2301,10 +2304,7 @@ void do_scribe(P_char ch, char *arg, int cmd)
       return;
     }
   }
-  /*
-     urp.. all taken care of (I fervently hope, anyway)
-   */
-
+  // Otherwise, learn from the book.
   add_scribing(ch, spl, o1, TRUE, o3, NULL);
 }
 
