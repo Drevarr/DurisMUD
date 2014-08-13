@@ -5449,7 +5449,6 @@ void check_vamp(P_char ch, P_char victim, double fdam, uint flags)
   }
 
   // This is battle x vamp for PC group hits and damage spells.
-
   if( dam >= 10 && ((flags & RAWDAM_BTXVAMP) || (flags & PHSDAM_ARROW)) )
   {
     if( IS_PC(ch) || IS_PC_PET(ch) )
@@ -5458,10 +5457,10 @@ void check_vamp(P_char ch, P_char victim, double fdam, uint flags)
       {
         tch = group->ch;
 
-        if(IS_AFFECTED4(tch, AFF4_BATTLE_ECSTASY)
-          && tch->in_room == ch->in_room && tch != ch )
+        if( IS_AFFECTED4(tch, AFF4_BATTLE_ECSTASY) && tch->in_room == ch->in_room && tch != ch )
         {
-          vamp(tch, dam * get_property("vamping.battleEcstasy", .140), GET_MAX_HIT(tch) * BOUNDED(1.10, GET_C_POW(tch) / 90, 2.20) );
+          // Have to use BOUNDEDF here for floats.. *sigh*
+          vamp(tch, dam * get_property("vamping.battleEcstasy", .140), BOUNDEDF(1.10, (GET_C_POW(tch) / 90.0), 2.20) * GET_MAX_HIT(tch) );
         }
       }
     }

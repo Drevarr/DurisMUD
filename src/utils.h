@@ -26,7 +26,7 @@
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #if 0
-#define BOUNDED(a, b, c) (MIN (MAX (a, b), c))
+#define BOUNDED(a, b, c) (MIN( MAX (a, b), c ))
 #endif
 
 #define ISNEWL(ch) ((ch) == '\n' || (ch) == '\r')
