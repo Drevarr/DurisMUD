@@ -112,8 +112,7 @@ int compare_skills(const void *v1, const void *v2)
   return strcmp(skills[*skill1].name, skills[*skill2].name);
 }
 
-void perform_chaos_check(P_char ch, P_char tar,
-                         struct spellcast_datatype *arg)
+void perform_chaos_check(P_char ch, P_char tar, struct spellcast_datatype *arg)
 {
   bool     controlled;
   P_char   tch, next;
@@ -533,8 +532,7 @@ void stop_follower(P_char ch)
 
   if (!(ch && ch->following))
   {
-    logit(LOG_DEBUG,
-          "assert: bogus parms (stop_follower - ch or ch->following is NULL)");
+    logit(LOG_DEBUG, "assert: bogus parms (stop_follower - ch or ch->following is NULL)");
 		return;
   }
   if (GET_MASTER(ch))
@@ -1234,8 +1232,7 @@ bool cast_common_generic(P_char ch, int spl)
   {
     if (!GET_CLASS(ch, CLASS_PSIONICIST))
     {
-      send_to_char
-        ("Too bad, looks like you've been stopped in your tracks!\n", ch);
+      send_to_char("Too bad, looks like you've been stopped in your tracks!\n", ch);
       return FALSE;
     }
   }
@@ -1243,8 +1240,7 @@ bool cast_common_generic(P_char ch, int spl)
 }
 
 
-bool parse_spell_arguments(P_char ch, struct spell_target_data * data,
-                           char *argument)
+bool parse_spell_arguments(P_char ch, struct spell_target_data * data, char *argument)
 {
   P_char   vict;
   P_obj    obj;
@@ -2075,30 +2071,32 @@ void do_cast(P_char ch, char *argument, int cmd)
   struct affected_type *weave_af;
 
   memset(&tmp_spl, 0, sizeof(tmp_spl));
-  if (cmd == CMD_SPELLWEAVE && affected_by_spell(ch, SKILL_SPELLWEAVE)) {
+  if( cmd == CMD_SPELLWEAVE && affected_by_spell(ch, SKILL_SPELLWEAVE) )
+  {
     send_to_char("You already have a spell prepared.\n", ch);
     return;
   }
 
-  if (affected_by_spell_flagged(ch, SKILL_THROAT_CRUSH, AFFTYPE_CUSTOM1) &&
-	  !GET_CHAR_SKILL(ch, SKILL_SILENT_SPELL))
+  if( affected_by_spell_flagged(ch, SKILL_THROAT_CRUSH, AFFTYPE_CUSTOM1)
+    && !GET_CHAR_SKILL(ch, SKILL_SILENT_SPELL) )
   {
     send_to_char("Your throat hurts too much to cast. \n", ch);
     return;
   }
 
-  if (GET_CLASS(ch, CLASS_DRUID) && IS_DISGUISE_SHAPE(ch))
+  if( GET_CLASS(ch, CLASS_DRUID) && IS_DISGUISE_SHAPE(ch) )
   {
     send_to_char("You grunt and chirp a little, then realize you're an animal.\n", ch);
     return;
   }
 
-  if (IS_AFFECTED(ch, AFF_BOUND))
+  if( IS_AFFECTED(ch, AFF_BOUND) )
   {
     send_to_char("Your binds are too tight for that!\n", ch);
     return;
   }
-  if (affected_by_spell(ch, SKILL_BERSERK) && !IS_TRUSTED(ch) && !GET_CLASS(ch, CLASS_SORCERER) && !GET_CLASS(ch, CLASS_SHAMAN) && (GET_RACE(ch) != RACE_MINOTAUR))
+  if( affected_by_spell(ch, SKILL_BERSERK) && !IS_TRUSTED(ch) && !GET_CLASS(ch, CLASS_SORCERER)
+    && !GET_CLASS(ch, CLASS_SHAMAN) && (GET_RACE(ch) != RACE_MINOTAUR) )
   {
     send_to_char("You are too filled with &+RRAGE&N to cast!\n", ch);
     return;
@@ -2121,23 +2119,22 @@ void do_cast(P_char ch, char *argument, int cmd)
     return;
   }*/
 
-  if (P_char mount = get_linked_char(ch, LNK_RIDING))
+  if( P_char mount = get_linked_char(ch, LNK_RIDING) )
   {
-    if (!GET_CHAR_SKILL(ch, SKILL_MOUNTED_COMBAT) && !is_natural_mount(ch, mount))/* ||
-	(GET_RACE(ch) == RACE_GOBLIN)) Goblins once again get innate mount casting - drannak 1/8/2013 */
+    if( !GET_CHAR_SKILL(ch, SKILL_MOUNTED_COMBAT) && !is_natural_mount(ch, mount) )
     {
       send_to_char("You're too busy concentrating on staying on your mount to cast!\n", ch);
       return;
     }
   }
 
-  if (affected_by_spell(ch, FIRST_INSTRUMENT))
+  if( affected_by_spell(ch, FIRST_INSTRUMENT) )
   {
     send_to_char("You haven't regained your composure.\n", ch);
     return;
   }
 
-  if (IS_HEADLOCK(ch))
+  if( IS_HEADLOCK(ch) )
   {
     send_to_char("You're having a hard enough time breathing, let alone trying to cast anything right now!\n", ch);
     return;
@@ -2146,29 +2143,29 @@ void do_cast(P_char ch, char *argument, int cmd)
   argument = skip_spaces(argument);
   orig_arg = argument;
 
-  if (IS_AFFECTED2(ch, AFF2_SILENCED) && !USES_MANA(ch) && 
-      !GET_CHAR_SKILL(ch, SKILL_SILENT_SPELL) && !IS_TRUSTED(ch))
+  if( IS_AFFECTED2(ch, AFF2_SILENCED) && !USES_MANA(ch)
+    && !GET_CHAR_SKILL(ch, SKILL_SILENT_SPELL) && !IS_TRUSTED(ch) )
   {
-    send_to_char
-      ("You seem unable to say your own name, much less chant a spell!\n", ch);
+    send_to_char("You seem unable to say your own name, much less chant a spell!\n", ch);
     return;
   }
 
   if( !parse_spell(ch, argument, &common_target_data, cmd) )
+  {
     return;
+  }
 
-
-  if ((weave_af = get_spell_from_char(ch, SKILL_SPELLWEAVE)) &&
-      weave_af->modifier == common_target_data.ttype)
+  if( (weave_af = get_spell_from_char(ch, SKILL_SPELLWEAVE)) &&
+      weave_af->modifier == common_target_data.ttype )
   {
     send_to_char("You call forth your prepared spell...\n", ch);
-    weaved = true;
+    weaved = TRUE;
   }
   else
   {
     if(is_silent(ch, FALSE))
     {
-      if(silent_spell_check(ch))
+      if( silent_spell_check(ch) )
       {
         send_to_char("With the absence of sound, you begin using your hands to channel the weave...\n", ch);
       }
@@ -2190,32 +2187,32 @@ void do_cast(P_char ch, char *argument, int cmd)
   tmp_spl.spell = common_target_data.ttype;
   tmp_spl.object = common_target_data.t_obj;
 
-  if (IS_SET(world[ch->in_room].room_flags, NO_MAGIC) && !IS_TRUSTED(ch))
+  if( IS_SET(world[ch->in_room].room_flags, NO_MAGIC) && !IS_TRUSTED(ch) )
   {
     send_to_char("The magic gathers, then fades away.\n", ch);
     StopCasting(ch);
     return;
   }
 
-  if (get_spell_from_room(&world[ch->in_room], SPELL_STARSHELL) &&
-      !IS_TRUSTED(ch) && number(0, 1))
+  if( get_spell_from_room(&world[ch->in_room], SPELL_STARSHELL)
+    && !IS_TRUSTED(ch) && number(0, 1) )
   {
     send_to_char("You are blinded by the light and lose your concentration.\n", ch);
     StopCasting(ch);
     return;
   }
 
-  if (IS_AFFECTED5(ch, AFF5_MEMORY_BLOCK) && number(0, 1))
+  if( IS_AFFECTED5(ch, AFF5_MEMORY_BLOCK) && number(0, 1) )
   {
     send_to_char("You seem to have forgotten how to cast!\n", ch);
     StopCasting(ch);
     return;
   }
 
-  if (weaved)
+  if( weaved )
   {
-    if (notch_skill(ch, SKILL_SPELLWEAVE, get_property("skill.notch.spellWeave", 50))
-      || GET_CHAR_SKILL(ch, SKILL_SPELLWEAVE) > number(0, 100))
+    if( notch_skill(ch, SKILL_SPELLWEAVE, get_property("skill.notch.spellWeave", 50))
+      || GET_CHAR_SKILL(ch, SKILL_SPELLWEAVE) > number(0, 100) )
     {
       SET_BIT(ch->specials.affected_by2, AFF2_CASTING);
       event_spellcast(ch, tar_char, 0, &tmp_spl);
@@ -2229,35 +2226,37 @@ void do_cast(P_char ch, char *argument, int cmd)
   }
 
   dura = (SpellCastTime(ch, spl));
-  if (GET_CHAR_SKILL(ch, SKILL_CHANT_MASTERY))
+  if( GET_CHAR_SKILL(ch, SKILL_CHANT_MASTERY) )
   {
     // This function calls CharWait appropriately
     dura = chant_mastery_bonus(ch, dura);
   }
-  else if(GET_CHAR_SKILL(ch, SKILL_TOTEMIC_MASTERY) > number(50, 200) && hasTotem(ch, spl))
+  else if( GET_CHAR_SKILL(ch, SKILL_TOTEMIC_MASTERY) > number(50, 200) && hasTotem(ch, spl) )
   {
     act("&+yYou call upon the powers of the &+wspirit &+Lrealm&+y, channeling your power...&n", FALSE, ch, 0, 0, TO_CHAR);
     act("&+y$n &+ygrasps his totem tightly, and begins communing with the &+wspirits&+y.&n", TRUE, ch, 0, 0, TO_ROOM);
     dura = (int) (dura * .75);
     CharWait(ch, dura);
   }
-  else if(GET_CHAR_SKILL(ch, SKILL_NATURES_SANCTITY) > number(1, 100) && OUTSIDE(ch))
+  else if( GET_CHAR_SKILL(ch, SKILL_NATURES_SANCTITY) > number(1, 100) && OUTSIDE(ch) )
   {
     send_to_char("&+GThe power of nature flows into you, hastening your incantation.\n", ch);
     dura = (int) (dura * .75);
     CharWait(ch, dura);
   }
-  else if (GET_CLASS(ch, CLASS_DRUID) && !IS_MULTICLASS_PC(ch))
+  else if( GET_CLASS(ch, CLASS_DRUID) && !IS_MULTICLASS_PC(ch) )
   {
     CharWait(ch, (dura >> 1) + 6);
   }
-  else if (affected_by_spell(ch, SKILL_BERSERK))
+  else if( affected_by_spell(ch, SKILL_BERSERK) )
   {
     dura = (int) (dura * get_property("spell.berserk.casting.starMod", 1.500));
     CharWait(ch, dura);
   }
   else
+  {
     CharWait(ch, dura);
+  }
 
   SpellCastShow(ch, spl);
 
@@ -2265,7 +2264,7 @@ void do_cast(P_char ch, char *argument, int cmd)
   {
     appear(ch);
 
-    if(check_mob_retaliate(ch, tar_char, spl))
+    if( check_mob_retaliate(ch, tar_char, spl) )
     {
       return;
     }
