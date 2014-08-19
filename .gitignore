@@ -14,6 +14,7 @@ lib/information/leaderboardprod
 lib/information/hardcore_hall_of_fame
 lib/information/hardcore_hall_of_fameprod
 lib/information/leaderboardprod
+lib/etc/help
 lib/etc/vote.undead
 lib/etc/vote.miniwipe
 lib/ban_sites

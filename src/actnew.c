@@ -3545,7 +3545,8 @@ void do_vote(P_char ch, char *argument, int cmd)
   int      vote_serial = 9, voting_enabled = 1;
   int      max_vote = 0;
   FILE    *f = NULL;
-  char    *ip, ipbuf[255];
+  const char *ip;
+  char ipbuf[255];
   time_t   lastConnect, lastDisconnect;
   char    *vote_options[] = {
     "nothing",
@@ -3610,7 +3611,7 @@ void do_vote(P_char ch, char *argument, int cmd)
     return;
   }
   ip = sql_select_IP_info( ch, ipbuf, sizeof(char)*255, &lastConnect, &lastDisconnect );
-  fprintf(f, "%s : %s : %s\n", ip, J_NAME(ch), vote_options[votes]);
+  fprintf(f, "%s\t%s\t%s\n", ip, J_NAME(ch), vote_options[votes]);
   ch->only.pc->vote = vote_serial;
 
   if( f )

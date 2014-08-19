@@ -1963,7 +1963,7 @@ struct  mob_prog_data
 #define LOG_DONATION "logs/log/donation"
 #define LOG_PETITION "logs/log/petition"
 #define LOG_EPIC "logs/log/epic"
-#define LOG_HELP "logs/log/help"
+#define LOG_HELP "lib/etc/help"
 
 /* these logs have data of lasting importance, so they are kept longer */
 #define LOG_CORPSE "logs/player-log/corpse"
