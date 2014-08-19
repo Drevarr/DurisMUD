@@ -10366,7 +10366,7 @@ void do_setship( P_char ch, char *arg )
     }
     else
     {
-      send_to_char( "Valid Ship settings: 'frags', 'guns', 'repair', or 'skill'.\n\r", ch );
+      send_to_char( "Valid Ship settings: 'frags', 'guns', 'repair', or 'sail'.\n\r", ch );
     }
   }
   else
