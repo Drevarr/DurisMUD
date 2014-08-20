@@ -203,7 +203,7 @@ struct allowed_race_spec_struct {
 	{RACE_GNOME, CLASS_ILLUSIONIST, SPEC_ALL},
 	{RACE_GNOME, CLASS_BARD,        SPEC_ALL},
 	{RACE_GNOME, CLASS_SHAMAN,      SPEC_ALL},
-	{RACE_GNOME, CLASS_SHAMAN,      SPEC_ALL},
+	{RACE_GNOME, CLASS_NECROMANCER, SPEC_ALL},
 	/* End Gnome Options */
 
 	/* Start Kobold Options */
