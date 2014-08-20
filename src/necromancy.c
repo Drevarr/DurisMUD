@@ -436,7 +436,7 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
     return;
   }
 
-  clev  el = obj->value[CORPSE_LEVEL];
+  clevel = obj->value[CORPSE_LEVEL];
 
   if( IS_SET(obj->value[CORPSE_FLAGS], PC_CORPSE) && (clevel < 0) )
   {
