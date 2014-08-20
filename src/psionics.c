@@ -1173,9 +1173,7 @@ void spell_death_field(int level, P_char ch, char *arg, int type,
 
 
 
-void
-spell_detonate2(int level, P_char ch, char *arg, int type, P_char victim,
-               P_obj obj)
+void spell_detonate2(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int      dam;
   struct damage_messages messages = {
@@ -1215,9 +1213,7 @@ if(!StatSave(victim, APPLY_POW, (GET_LEVEL(victim) - GET_LEVEL(ch)) / 5) &&
   CharWait(ch, (int) (PULSE_SPELLCAST * 1));
 }
 
-void
-spell_detonate(int level, P_char ch, char *arg, int type, P_char victim,
-               P_obj obj)
+void spell_detonate(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int      dam;
   struct damage_messages messages = {
@@ -1231,23 +1227,33 @@ spell_detonate(int level, P_char ch, char *arg, int type, P_char victim,
 
   dam = dice(MIN(level, 40) * 2, 8);
   dam += 2 * GET_DAMROLL(ch);
-
-// spell_damage already doubles against pets - Jexni 6/21/08
-  if (/*get_linked_char(victim, LNK_PET) ||*/ GET_RACE(victim) == RACE_GOLEM \
-      || GET_RACE(victim) == RACE_PLANT)
-  dam = (dam * 2); 
-
-  if (resists_spell(ch, victim))
-    if (GET_SPEC(ch, CLASS_PSIONICIST, SPEC_PYROKINETIC))
-      dam = (int) (dam * get_property("spell.detonate.shrugModifier", 0.7));
-    else
-      return;
-
-if(!StatSave(victim, APPLY_POW, (GET_LEVEL(victim) - GET_LEVEL(ch)) / 5) &&
-           !IS_ELITE(victim))
+  if( GET_CLASS(ch, CLASS_MINDFLAYER) )
   {
-    spell_damage(ch, victim, dam, SPLDAM_PSI, SPLDAM_NOSHRUG, &messages); 
- }
+    dam += level * 4;
+  }
+  // spell_damage already doubles against pets - Jexni 6/21/08
+  if( GET_RACE(victim) == RACE_GOLEM || GET_RACE(victim) == RACE_PLANT )
+  {
+    dam = (dam * 2);
+  }
+
+  if( resists_spell(ch, victim) )
+  {
+    if( GET_SPEC(ch, CLASS_PSIONICIST, SPEC_PYROKINETIC) )
+    {
+      dam = (int) (dam * get_property("spell.detonate.shrugModifier", 0.7));
+    }
+    else
+    {
+      return;
+    }
+  }
+
+  if( !StatSave(victim, APPLY_POW, (GET_LEVEL(victim) - GET_LEVEL(ch)) / 5)
+    && !IS_ELITE(victim) )
+  {
+    spell_damage(ch, victim, dam, SPLDAM_PSI, SPLDAM_NOSHRUG, &messages);
+  }
   else
   {
    spell_damage(ch, victim, dam >> 1, SPLDAM_PSI, SPLDAM_NOSHRUG, &messages);
