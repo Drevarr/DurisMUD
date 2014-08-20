@@ -14374,7 +14374,8 @@ int moonstone(P_obj obj, P_char ch, int cmd, char *argument)
   if( !obj || (obj_index[obj->R_num].virtual_number != 419
     && obj_index[obj->R_num].virtual_number != 433) )
   {
-    logit(LOG_DEBUG, "moonstone: obj proc called with no obj or non-moonstone obj.");
+    logit(LOG_DEBUG, "moonstone: obj proc called with no obj or non-moonstone obj: '%s' %d.",
+      !obj ? "Null" : obj->short_description, !obj ? -1 : GET_OBJ_VNUM(obj) );
   }
 
   if (cmd == CMD_SET_PERIODIC)
