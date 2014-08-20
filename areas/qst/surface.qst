@@ -781,7 +781,7 @@ S
 #500111
 M
 qc_action 55~
-&+WModug &+ygrunts and casts a fishing line into the fresh &+Clake &+Bwaters&+y.
+&+WMoldug &+ygrunts and casts a fishing line into the fresh &+Clake &+Bwaters&+y.
 ~
 M
 qc_action 55~
@@ -789,29 +789,29 @@ qc_action 55~
 ~
 MA
 hi hello~
-&+WModug &+ysmiles at $N and says '&+WGreetings.  I am a strong fisherman!  But my
+&+WMoldug &+ysmiles at $N and says '&+WGreetings.  I am a strong fisherman!  But my
 &+Wpeople have even stronger appetite!  Help me bring in tastey fish.  I am looking
 &+Wfor particular &+Bfish&+W'
 ~
 MA
 fish~
-&+WModug &+ynods at $N and continues '&+WThere are certain fish we eat in my village.
+&+WMoldug &+ynods at $N and continues '&+WThere are certain fish we eat in my village.
 &+WBring me back any &+clarge bass&+y, &+Wmedium sized cod&+y, or even a..'
-&+WModug &+ybegins drooling &+W'Delicious &+rpiranha&+y'
+&+WMoldug &+ybegins drooling &+W'Delicious &+rpiranha&+y'
 &+W'Go now!'&+y He says, &+W'You have fishing to do!'
 ~
 Q
-&+WModug &+ythanks you.
+&+WMoldug &+ythanks you.
 ~
 R C 1000
 G I 293
 Q
-&+WModug &+ythanks you.
+&+WMoldug &+ythanks you.
 ~
 R C 950
 G I 295
 Q
-&+WModug &+ythanks you.
+&+WMoldug &+ythanks you.
 ~
 R C 2000
 G I 294
