@@ -1690,40 +1690,43 @@ void event_bardsong(P_char ch, P_char victim, P_obj obj, void *data)
   struct song_description *sd;
   P_char tch, next;
 
-  if( !(ch) || !IS_ALIVE(ch) )
+  if( !IS_ALIVE(ch) )
+  {
     return;
+  }
 
   song = *((int *) data);
 
-  if(!SINGING(ch))
+  if( !SINGING(ch) )
+  {
     return;
+  }
 
-  for (cld = ch->linked; cld; cld = next_cld)
+  for( cld = ch->linked; cld; cld = next_cld )
   {
     next_cld = cld->next_linked;
-    if(cld->type == LNK_SONG && cld->affect &&
-        (cld->affect->type != song || ch->in_room != cld->linking->in_room))
+    if( cld->type == LNK_SONG && cld->affect
+      && (cld->affect->type != song || ch->in_room != cld->linking->in_room) )
     {
       affect_remove(cld->linking, cld->affect);
     }
   }
-  if(!CAN_SING(ch))
+  if( !CAN_SING(ch) )
   {
     stop_singing(ch);
     return;
   }
-  if(number(1, 90) > bard_calc_chance(ch, song))
+  if( number(1, 90) > bard_calc_chance(ch, song) )
   {
     act("Uh oh.. how did the song go, anyway?", FALSE, ch, 0, 0, TO_CHAR);
-    act("$n stutters in $s song, and falls silent.", FALSE, ch, 0, 0,
-        TO_ROOM);
+    act("$n stutters in $s song, and falls silent.", FALSE, ch, 0, 0, TO_ROOM);
     set_short_affected_by(ch, FIRST_INSTRUMENT,  PULSE_VIOLENCE);
     do_action(ch, 0, CMD_BLUSH);
     stop_singing(ch);
     return;
   }
 
-  if(CHAR_IN_NO_MAGIC_ROOM(ch))
+  if( CHAR_IN_NO_MAGIC_ROOM(ch) )
   {
     send_to_char("&+BThe power of song has no effect here.\r\n", ch);
     stop_singing(ch);
@@ -1734,13 +1737,13 @@ void event_bardsong(P_char ch, P_char victim, P_obj obj, void *data)
 
   l = bard_song_level(ch, song) + number(-2, 2);
 
-  if(l <= 0)
+  if( l <= 0 )
   {
     l = 1;
   }
-  for (i = 0; songs[i].name; i++)
+  for( i = 0; songs[i].name; i++ )
   {
-    if(songs[i].song == song)
+    if( songs[i].song == song )
     {
       sd = &songs[i];
       break;
@@ -1748,47 +1751,49 @@ void event_bardsong(P_char ch, P_char victim, P_obj obj, void *data)
   }
   room = ch->in_room;
 
-  for (tch = world[room].people; tch; tch = next)
+  for( tch = world[room].people; tch; tch = next )
   {
     next = tch->next_in_room;
 
-    if(IS_TRUSTED(tch))
+    if( IS_TRUSTED(tch) )
     {
       continue;
     }
-    
-    if((ch == tch &&
-      !(sd->flags & SONG_AGGRESSIVE)) ||
-      (grouped(ch, tch) && !(sd->flags & SONG_AGGRESSIVE)) ||
-      (ch != tch &&
-      !grouped(ch, tch) &&
-      !(sd->flags & SONG_ALLIES)))
+
+    if( (ch == tch && !(sd->flags & SONG_AGGRESSIVE))
+      || (grouped(ch, tch) && !(sd->flags & SONG_AGGRESSIVE))
+      || (ch != tch && !grouped(ch, tch) && !(sd->flags & SONG_ALLIES)) )
     {
-      if((sd->flags & SONG_AGGRESSIVE) &&
-        bard_saves(ch, tch, song))
+      if( (sd->flags & SONG_AGGRESSIVE) && bard_saves(ch, tch, song) )
       {
-        if(!IS_FIGHTING(tch))
+        if( !IS_FIGHTING(tch) )
         {
           bard_aggro(tch, ch);
         }
       }
-      if(is_char_in_room(tch, room))
+      if( IS_ALIVE(ch) && is_char_in_room(tch, room) )
       {
         (sd->funct) (l, ch, tch, song);
       }
     }
   }
+  if( !IS_ALIVE(ch) )
+  {
+    return;
+  }
 
   notch_skill(ch, song, 3.5);
-  if((instrument = has_instrument(ch)))
+  if( instrument = has_instrument(ch) )
   {
-    if(bard_get_type(song) == instrument->value[0] + INSTRUMENT_OFFSET)
+    if( bard_get_type(song) == instrument->value[0] + INSTRUMENT_OFFSET )
+    {
       notch_skill(ch, instrument->value[0] + INSTRUMENT_OFFSET, 3.5);
+    }
   }
-  for (af = ch->affected; af; af = af2)
+  for( af = ch->affected; af; af = af2 )
   {
     af2 = af->next;
-    if(af->bitvector3 == AFF3_SINGING && af->duration == 1)
+    if( af->bitvector3 == AFF3_SINGING && af->duration == 1 )
     {
       act("&+BYou finish your song.", FALSE, ch, 0, 0, TO_CHAR);
       act("&+B$n finishes $s song.", FALSE, ch, 0, 0, TO_ROOM);
@@ -1801,35 +1806,34 @@ void event_bardsong(P_char ch, P_char victim, P_obj obj, void *data)
   terrainType = world[ch->in_room].sector_type;
 
   // cannot echo underwater
-  if(IS_UNDERWATER(ch))
+  if( IS_UNDERWATER(ch) )
   {
     return;
   }
   // whether they like it or not, Disharmonists get an echo to their songs
-  if(has_innate(ch, INNATE_ECHO))
+  if( has_innate(ch, INNATE_ECHO) )
   {
     echoChance = 20;
 
-    if(terrainType == SECT_MOUNTAIN)
+    if( terrainType == SECT_MOUNTAIN )
     {
       echoChance += 10;
     }
-    else if(terrainType == SECT_HILLS)
+    else if( terrainType == SECT_HILLS )
     {
       echoChance += 5;
     }
-    else if(terrainType == SECT_FOREST)
+    else if( terrainType == SECT_FOREST )
     {
       echoChance -= 5;
     }
-    if(echoChance >= number(1, 100))
+    if( echoChance >= number(1, 100) )
     {
       echoDetails.song = song;
       echoDetails.room = ch->in_room;
-      if(!get_scheduled(ch, event_echosong))
+      if( !get_scheduled(ch, event_echosong) )
       {
-        add_event(event_echosong, (get_bard_pulse(ch) / 6), ch, 0, 0, 0,
-                  &echoDetails, sizeof(echoDetails));
+        add_event(event_echosong, (get_bard_pulse(ch) / 6), ch, 0, 0, 0, &echoDetails, sizeof(echoDetails));
       }
     }
   }
