@@ -1725,18 +1725,20 @@ void do_put(P_char ch, char *argument, int cmd)
   char     cont_name[MAX_STRING_LENGTH];
   bool     attempted = FALSE;
 
-  if (IS_ANIMAL(ch))
+  if( IS_ANIMAL(ch) )
+  {
     return;
+  }
 
   argument = one_argument(argument, obj_name);
 
-  if (!*obj_name)
+  if( !*obj_name )
   {
     send_to_char("Put what in what?\r\n", ch);
     return;
   }
 
-  if (is_number(obj_name))
+  if( is_number(obj_name) )
   {
     type = PUT_COINS;
     if (strlen(obj_name) > 7)
@@ -1764,7 +1766,7 @@ void do_put(P_char ch, char *argument, int cmd)
     else if (ctype == 0)
       copp = amount;
   }
-  else if (!str_cmp(obj_name, "all"))
+  else if( !str_cmp(obj_name, "all") )
   {
     type = PUT_ALL;
   }
@@ -1776,7 +1778,7 @@ void do_put(P_char ch, char *argument, int cmd)
     silv = ch->points.cash[1];
     copp = ch->points.cash[0];
   }
-  else if (sscanf(obj_name, "all.%s", buf) != 0)
+  else if( sscanf(obj_name, "all.%s", buf) == 1 )
   {
     strcpy(obj_name, buf);
     type = PUT_ALLDOT;
@@ -1786,22 +1788,21 @@ void do_put(P_char ch, char *argument, int cmd)
 
   argument = one_argument(argument, cont_name);
 
-  if (!*cont_name)
+  if( !*cont_name )
   {
     sprintf(buf, "Put %s in what?\r\n", obj_name);
     send_to_char(buf, ch);
     return;
   }
 
-  bits = generic_find(cont_name, FIND_OBJ_INV | FIND_OBJ_ROOM,
-                      ch, &t_ch, &s_obj);
+  bits = generic_find(cont_name, FIND_OBJ_INV | FIND_OBJ_ROOM, ch, &t_ch, &s_obj);
   if (!s_obj)
   {
     send_to_char("Into what?\r\n", ch);
     return;
   }
 
-  if (type == PUT_COINS && (attempted = plat + gold + silv + copp > 0))
+  if( type == PUT_COINS && (attempted = plat + gold + silv + copp > 0) )
   {
     p = plat;
     g = gold;
@@ -1846,8 +1847,10 @@ void do_put(P_char ch, char *argument, int cmd)
   if (type == PUT_ITEM)
   {
     attempted = generic_find(obj_name, FIND_OBJ_INV, ch, &t_ch, &o_obj);
-    if (attempted)
+    if( attempted )
+    {
       count = put(ch, o_obj, s_obj, TRUE);
+    }
   }
   else if (type == PUT_ALL || type == PUT_ALLDOT)
   {
