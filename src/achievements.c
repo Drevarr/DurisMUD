@@ -257,6 +257,7 @@ void update_achievements(P_char ch, P_char victim, int cmd, int ach)
       else
       {
         send_to_char( "&+yCheck the &+Wdocks &+yfor your reward: &+WA free sloop&+y!&n\n\r", ch);
+        send_to_char( "&+y(Type &+g'list hull'&+y at any docks where you can buy a ship.)&n\n\r", ch);
         // Tag them for a free sloop.
         apply_achievement(ch, AIP_FREESLOOP);
       }
