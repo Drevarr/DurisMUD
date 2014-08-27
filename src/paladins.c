@@ -599,63 +599,60 @@ bool dread_blade_proc(P_char ch, P_char victim)
   victim->specials.apply_saving_throw[SAVING_SPELL] = save;
 }
 
+#define MAX_PROCSPELLS 5
 bool holy_weapon_proc(P_char ch, P_char victim)
 {
-  int num, room = ch->in_room, save, pos;
+  int num, room, lvl;
   P_obj wpn;
-  
+
   typedef void (*spell_func_type) (int, P_char, char *, int, P_char, P_obj);
-  spell_func_type spells[5] = {
+  spell_func_type spells[MAX_PROCSPELLS] = {
     spell_cure_light,
     spell_heal,
     spell_cure_critic,
     spell_cure_critic,
     spell_cure_light
   };
-  spell_func_type spell_func;
-  
-  if (!IS_FIGHTING(ch) ||
-      !(victim = ch->specials.fighting) ||
-      !IS_ALIVE(victim) ||
-      !(room) ||
-      number(0, 15)) // 3%
-    return false;
-    
-  P_char vict = victim;
- 
-  for (wpn = NULL, pos = 0; pos < MAX_WEAR; pos++)
+
+  if( !IS_ALIVE(ch) || !IS_FIGHTING(ch) || !(victim = ch->specials.fighting)
+    || !IS_ALIVE(victim) || !(room = ch->in_room) || number(0, 15)) // 3%
   {
-    if((wpn = ch->equipment[pos]) &&
-        wpn->type == ITEM_WEAPON &&
-        wpn->type != ITEM_FIREWEAPON &&
-        CAN_SEE_OBJ(ch, wpn))
-      break;
+    return FALSE;
   }
 
-  if(wpn == NULL)
-    return false;
-/*
+  lvl = MAX( 2, GET_LEVEL(ch));
+
+  // wpn = wield slot iff it's a paladin sword.
+  if( (wpn = ch->equipment[WIELD]) && (!IS_PALADIN_SWORD(wpn) || !CAN_SEE_OBJ(ch, wpn)) )
+  {
+    wpn = NULL;
+  }
+
+  if( wpn == NULL )
+  {
+    return FALSE;
+  }
+
+  act("&+WThe holy power of your&n $p &+Wreplenishes your &+ysoul&+W with holy &+Yenergy&+W!&n",
+    TRUE, ch, wpn, NULL, TO_CHAR);
+  act("$n's $p &+Weminates a soft &+yg&+Yl&+Wow and $n &+Wlooks &+Yrefreshed&+W!",
+    TRUE, ch, wpn, NULL, TO_ROOM);
+
+  if( !(IS_MAGIC_LIGHT(room)) )
+  {
+    spell_continual_light(lvl, ch, 0, 0, 0, 0);
+  }
+
+  num = number(1, MAX_PROCSPELLS) - 1;
+
+/* WTH was this for? uber proc'ing on the victim?
   save = victim->specials.apply_saving_throw[SAVING_SPELL];
   victim->specials.apply_saving_throw[SAVING_SPELL] += 15;
 */
-  
-  act("&+WThe holy power of your&n $p &+Wreplenishes your &+ysoul&+W with holy &+Yenergy&+W!&n",
-    TRUE, ch, wpn, vict, TO_CHAR);
-  act("$n's $p &+Weminates a soft &+yg&+Yl&+Wow and $n &+Wlooks &+Yrefreshed&+W!",
-    TRUE, ch, wpn, vict, TO_NOTVICT);
-  
-  if(!(IS_MAGIC_LIGHT(room)))
-  {
-    spell_continual_light(GET_LEVEL(ch), ch, 0, 0, 0, 0);
-  }
-  
-  num = number(0, 4);
-  
-  spell_func = spells[num];
-  
-  spell_func(number(1, GET_LEVEL(ch)), ch, 0, 0, ch, 0);
-  /*
+  spells[num](number(lvl/2, lvl), ch, 0, 0, ch, 0);
+  /* And this is the undoing of the uber proc.. which isn't used.
   return !is_char_in_room(ch, room) || !is_char_in_room(victim, room);
   victim->specials.apply_saving_throw[SAVING_SPELL] = save;
   */
+  return TRUE;
 }
