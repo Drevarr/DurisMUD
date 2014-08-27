@@ -17,16 +17,16 @@
 #define GET_A_BITS(ch) (ch)->specials.guild_status
 
 /* maximum/minimum numbers of associations */
-#define MAX_ASC       999       /* maximal number of associations */
-#define MAX_ENEMIES   10        /* maximal number of non-member enemies */
-#define MIN_LEVEL     25        /* minimum level to join */
-#define MAX_DISPLAY   200       /* max number of shown people on soc list */
+#define MAX_ASC           999       /* maximal number of associations */
+#define ASC_MAX_ENEMIES    10       /* maximal number of non-member enemies */
+#define ASC_MIN_LEVEL      25       /* minimum level to join */
+#define ASC_MAX_DISPLAY   200       /* max number of shown people on soc list */
 
 /* note that the following is including ansi color chars, displayed
    strings are much shorter due to color */
-#define MAX_STR_RANK     78        /* maximum length of rank name */
-#define MAX_STR_ASC      78        /* maximum length of association name */
-#define MAX_STR_TITLE    156       /* maximum length title=rank+asc name */
+#define ASC_MAX_STR_RANK      78       /* maximum length of rank name */
+#define ASC_MAX_STR           78       /* maximum length of association name */
+#define ASC_MAX_STR_TITLE    156       /* maximum length title=rank+asc name */
 
 /* saves definitions */
 #define ASC_DIR "Players/Assocs/"

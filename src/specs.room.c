@@ -149,14 +149,16 @@ int multiclass_proc(int room, P_char ch, int cmd, char *arg)
 {
   int      i;
   int skls[MAX_SKILLS];
-  int min_level = get_property("multiclass.level.req.min", 50);  
+  int min_level = get_property("multiclass.level.req.min", 50);
 
-  if ((cmd == CMD_SET_PERIODIC) || (ch == NULL) || IS_NPC(ch) || IS_MORPH(ch) ||
-      !((cmd == CMD_MULTICLASS)))
+  if( (cmd == CMD_SET_PERIODIC) || (ch == NULL) || IS_NPC(ch) || IS_MORPH(ch)
+    || cmd != CMD_MULTICLASS )
+  {
     return FALSE;
+  }
 
 // SET_BIT(ch->specials.act2, PLR2_HARDCORE_CHAR);
-  if (GET_RACE(ch) != RACE_ORC && GET_RACE(ch) != RACE_HUMAN)
+  if( GET_RACE(ch) != RACE_ORC && GET_RACE(ch) != RACE_HUMAN )
   {
     send_to_char("Your race is not versatile enough to learn that much.\n", ch);
     return FALSE;
@@ -166,47 +168,47 @@ int multiclass_proc(int room, P_char ch, int cmd, char *arg)
   {
     return FALSE;
   }
-  else if (GET_LEVEL(ch) < min_level)
+  else if( GET_LEVEL(ch) < min_level )
   {
     do_multiclass(ch, "", -1);  // show list of available secondary classes
   }
   else
   {
-    while (*arg == ' ')
+    while( *arg == ' ' )
       arg++;
 
-    if(ch->only.pc->epics < get_property("multiclass.epic.req.min", 250))
+    if( ch->only.pc->epics < get_property("multiclass.epic.req.min", 250) )
     {
       send_to_char("You need more &+yepic&n experience.\r\n", ch);
       return FALSE;
     }
     if (!*arg)
+    {
       do_multiclass(ch, "", -1);        // show list of available secondary classes
+    }
     else
     {
-      int      i;
-
-      for (i = 1; i <= CLASS_COUNT; i++)
+      for( i = 1; i <= CLASS_COUNT; i++ )
       {
-        if (is_abbrev(arg, class_names_table[i].normal))
+        if( is_abbrev(arg, class_names_table[i].normal) )
           break;
       }
 
-      if (i > CLASS_COUNT)
+      if( i > CLASS_COUNT )
       {
         send_to_char("That's no class, bubba.\r\n", ch);
       }
-      else if (can_char_multi_to_class(ch, i ))
+      else if( can_char_multi_to_class(ch, i ) )
       {
           ch->points.max_mana = 0;
           ch->points.base_vitality = 0;
           uint played = ch->player.time.played;
           save_epic_skills(ch, skls);
-          do_start(ch, 1);
+          do_start(ch, cmd);
           restore_epic_skills(ch, skls);
           ch->player.time.played = played;
           send_to_char("&+WWith a suddenness that stops your breath, you feel oddly different..  less powerful, and yet with the potential to be something much greater than you ever were before.\r\n", ch);
-          ch->player.secondary_class = 1 << (i -1);
+          ch->player.secondary_class = 1 << (i - 1);
           ch->player.spec = 0;
           do_restore(ch, GET_NAME(ch), 0);
           forget_spells(ch, -1);
@@ -214,8 +216,7 @@ int multiclass_proc(int room, P_char ch, int cmd, char *arg)
       }
       else
       {
-        send_to_char("You cannot multiclass to that particular class.\r\n",
-                     ch);
+        send_to_char("You cannot multiclass to that particular class.\r\n", ch);
       }
     }
   }

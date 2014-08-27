@@ -210,7 +210,7 @@ void show_outposts(P_char ch)
     {
       fgets(Gbuf2, MAX_STR_NORMAL, f);
       Gbuf2[strlen(Gbuf2)-1] = 0;
-      Gbuf2[MAX_STR_ASC-1] = 0;
+      Gbuf2[ASC_MAX_STR-1] = 0;
       strcpy(title, Gbuf2);
       fclose(f);
     }
@@ -1443,7 +1443,7 @@ int outpost_generate_portals(Building *building)
     {
       fgets(Gbuf2, MAX_STR_NORMAL, f);
       Gbuf2[strlen(Gbuf2)-1] = 0;
-      Gbuf2[MAX_STR_ASC-1] = 0;
+      Gbuf2[ASC_MAX_STR-1] = 0;
       strcpy(ghname, Gbuf2);
       fclose(f);
     }

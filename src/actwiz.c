@@ -4910,38 +4910,42 @@ void NewbySkillSet(P_char ch)
   }
 }
 
+// If nomsg == 0, send a message and assume a new char.
+// If nomsg == CMD_MULTICLASS, this is a new multiclassed char.
 void do_start(P_char ch, int nomsg)
 {
   int      i;
   P_obj    tempobj;
 
-  if(IS_NPC(ch))
+  if( IS_NPC(ch) )
+  {
     return;
+  }
 
   ch->player.level = 1;
   ch->points.base_hit = 1;
   ch->points.base_mana = 1;
 
-  if(!nomsg)
+  if( !nomsg )
+  {
     send_to_char("Welcome. This is now your character on Duris.\n"
-                 "May your journey here never end.....\n\n"
-                 " NOTE:  Type TOGGLE and HELP for useful information!\n",
-                 ch);
+      "May your journey here never end.....\n\n"
+      " NOTE:  Type TOGGLE and HELP for useful information!\n", ch);
+  }
 
   set_title(ch);
 
-  if(!(GET_CLASS(ch, CLASS_AVENGER | CLASS_DREADLORD)) &&
-     !((GET_RACE(ch) == RACE_DUERGAR ||
-       GET_RACE(ch) == RACE_MOUNTAIN) &&
-       GET_CLASS(ch, CLASS_BERSERKER)))
+  if( !(GET_CLASS(ch, CLASS_AVENGER | CLASS_DREADLORD))
+    && !((GET_RACE(ch) == RACE_DUERGAR || GET_RACE(ch) == RACE_MOUNTAIN)
+    && GET_CLASS(ch, CLASS_BERSERKER)) )
   {
     load_obj_to_newbies(ch);
   }
-  
+
   init_defaultlanguages(ch);
 
   /* problem, need to clear the skills array */
-  for (i = 0; i < MAX_SKILLS; i++)
+  for( i = 0; i < MAX_SKILLS; i++ )
   {
     ch->only.pc->skills[i].learned = 0;
   }
@@ -4949,8 +4953,16 @@ void do_start(P_char ch, int nomsg)
   ZONE_TROPHY(ch) = NULL;
 
   ch->only.pc->prestige = 0;
-  ch->specials.guild = 0;
-  ch->specials.guild_status = 0;
+  if( nomsg == CMD_MULTICLASS )
+  {
+    // Set ch to parole if guilded.
+    level_check(ch);
+  }
+  else
+  {
+    ch->specials.guild = 0;
+    ch->specials.guild_status = 0;
+  }
 
   NewbySkillSet(ch);
 
@@ -4959,15 +4971,15 @@ void do_start(P_char ch, int nomsg)
   GET_EXP(ch) = 1;
 
   if(isname("Duris", GET_NAME(ch)))
+  {
     ch->player.level = OVERLORD;
-  GET_HIT(ch) = ch->points.base_hit;
-  GET_MAX_HIT(ch) = GET_HIT(ch);
+  }
 
-  GET_MANA(ch) = ch->points.base_mana;
-  GET_MAX_MANA(ch) = GET_MANA(ch);
+  GET_MAX_HIT(ch) = GET_HIT(ch) = ch->points.base_hit;
 
-  GET_VITALITY(ch) = vitality_limit(ch);
-  GET_MAX_VITALITY(ch) = GET_VITALITY(ch);
+  GET_MAX_MANA(ch) = GET_MANA(ch) = ch->points.base_mana;
+
+  GET_MAX_VITALITY(ch) = GET_VITALITY(ch) = vitality_limit(ch);
 
   if(GET_RACE(ch) != RACE_ILLITHID)
   {
@@ -4982,34 +4994,42 @@ void do_start(P_char ch, int nomsg)
 
   GET_COND(ch, FULL) = 96;
 
-  /* set some defaults. */
-  ch->specials.act = (PLR_PETITION | PLR_ECHO | PLR_SNOTIFY | PLR_PAGING_ON | PLR_MAP);
-
-  /* preserve hardcore and newbie bits */
-  ch->specials.act2 &= (PLR2_HARDCORE_CHAR | PLR2_NEWBIE);
-
-
-  SET_BIT(ch->specials.act2, PLR2_NCHAT);
-  SET_BIT(ch->specials.act2, PLR2_QUICKCHANT);
-  SET_BIT(ch->specials.act2, PLR2_SPEC);
-  SET_BIT(ch->specials.act2, PLR2_HINT_CHANNEL);
-  SET_BIT(ch->specials.act2, PLR2_SHOW_QUEST);
-  SET_BIT(ch->specials.act2, PLR2_SHIPMAP);
-
-  if(!GET_CLASS(ch, CLASS_PALADIN))
+  if( nomsg != CMD_MULTICLASS )
   {
-    SET_BIT(ch->specials.act, PLR_VICIOUS);
+    /* set some defaults. */
+    ch->specials.act = (PLR_PETITION | PLR_ECHO | PLR_SNOTIFY | PLR_PAGING_ON | PLR_MAP);
+
+    /* preserve hardcore and newbie bits */
+    ch->specials.act2 &= (PLR2_HARDCORE_CHAR | PLR2_NEWBIE);
+
+    SET_BIT(ch->specials.act2, PLR2_NCHAT);
+    SET_BIT(ch->specials.act2, PLR2_QUICKCHANT);
+    SET_BIT(ch->specials.act2, PLR2_SPEC);
+    SET_BIT(ch->specials.act2, PLR2_HINT_CHANNEL);
+    SET_BIT(ch->specials.act2, PLR2_SHOW_QUEST);
+    SET_BIT(ch->specials.act2, PLR2_SHIPMAP);
+    if( !GET_CLASS(ch, CLASS_PALADIN) )
+    {
+      SET_BIT(ch->specials.act, PLR_VICIOUS);
+    }
+    ch->only.pc->wimpy = 10;
+    ch->only.pc->aggressive = -1;
+
+    ch->only.pc->prompt =
+      (PROMPT_HIT | PROMPT_MAX_HIT | PROMPT_MOVE | PROMPT_MAX_MOVE |
+      PROMPT_TANK_NAME | PROMPT_TANK_COND | PROMPT_ENEMY |
+      PROMPT_ENEMY_COND | PROMPT_TWOLINE | PROMPT_STATUS);
+  }
+  // New multi'd Paladins don't get vicious on.
+  else if( GET_CLASS(ch, CLASS_PALADIN) )
+  {
+      REMOVE_BIT(ch->specials.act, PLR_VICIOUS);
   }
 
-  ch->only.pc->wimpy = 10;
-  ch->only.pc->aggressive = -1;
-
-  ch->only.pc->prompt =
-    (PROMPT_HIT | PROMPT_MAX_HIT | PROMPT_MOVE | PROMPT_MAX_MOVE |
-     PROMPT_TANK_NAME | PROMPT_TANK_COND | PROMPT_ENEMY |
-     PROMPT_ENEMY_COND | PROMPT_TWOLINE | PROMPT_STATUS);
-  if(/*GET_CLASS(ch, CLASS_PSIONICIST) ||*/ GET_CLASS(ch, CLASS_MINDFLAYER))
+  if( USES_MANA(ch) )
+  {
     ch->only.pc->prompt |= (PROMPT_MANA | PROMPT_MAX_MANA);
+  }
 
 /*  if(!GET_CLASS(ch, CLASS_PSIONICIST) && !GET_CLASS(ch, CLASS_MINDFLAYER))
     ch->only.pc->prompt =

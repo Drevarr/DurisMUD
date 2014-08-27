@@ -399,7 +399,7 @@ int found_asc(P_char god, P_char leader, char *bits, char *asc_name)
 
   FILE    *f;
   char     Gbuf[MAX_STR_NORMAL];
-  char     title[MAX_STR_TITLE], *new_title;
+  char     title[ASC_MAX_STR_TITLE], *new_title;
   ush_int  i;
   uint     temp, asc_bits;
   struct stat statbuf;
@@ -418,8 +418,8 @@ int found_asc(P_char god, P_char leader, char *bits, char *asc_name)
     send_to_char("That person is unable to found an association...\r\n", god);
     return (0);
   }
-  /* no associations under level MIN_LEVEL */
-  if (GET_LEVEL(leader) < MIN_LEVEL)
+  /* no associations under level ASC_MIN_LEVE */
+  if (GET_LEVEL(leader) < ASC_MIN_LEVEL)
   {
     send_to_char("That person is too low in level!\r\n", god);
     return (0);
@@ -447,8 +447,8 @@ int found_asc(P_char god, P_char leader, char *bits, char *asc_name)
     return (-1);
   }
   /* name of association */
-  if (strlen(asc_name) >= MAX_STR_ASC)
-    asc_name[MAX_STR_ASC - 1] = 0;
+  if (strlen(asc_name) >= ASC_MAX_STR)
+    asc_name[ASC_MAX_STR - 1] = 0;
   fprintf(f, "%s\n", asc_name);
   /* name of ranks: god to enemy standard names */
   fprintf(f, "%s\n", "Enemy of ");
@@ -630,8 +630,8 @@ int name_asc(P_char god, ush_int asc_number, char *asc_name)
   /* change the name */
   fgets(Gbuf2, MAX_STR_NORMAL, f);
   /* name of association */
-  if (strlen(asc_name) >= MAX_STR_ASC)
-    asc_name[MAX_STR_ASC - 1] = 0;
+  if (strlen(asc_name) >= ASC_MAX_STR)
+    asc_name[ASC_MAX_STR - 1] = 0;
   sprintf(buf, "%s\n", asc_name);
   while (fgets(Gbuf2, MAX_STR_NORMAL, f))
     strcat(buf, Gbuf2);
@@ -915,7 +915,7 @@ void do_society(P_char member, char *argument, int cmd)
     }
 
   }
-  /* test for MIN_LEVEL */
+  /* test for ASC_MIN_LEVE */
   if (level_check(member) < 1)
   {
     update_member(member, 1);
@@ -1252,8 +1252,8 @@ int apply_asc(P_char newone, P_char member)
     send_to_char("You are already a member in an association!\r\n", newone);
     return (-1);
   }
-  /* no associations under level MIN_LEVEL */
-  if (GET_LEVEL(newone) < MIN_LEVEL)
+  /* no associations under level ASC_MIN_LEVE */
+  if (GET_LEVEL(newone) < ASC_MIN_LEVEL)
   {
     send_to_char("Associations are for experienced players only!\r\n",
                  newone);
@@ -1330,8 +1330,8 @@ int enrol_asc(P_char member, P_char newone)
   FILE    *f;
   char     Gbuf1[MAX_STR_NORMAL];
   char     Gbuf2[MAX_STR_NORMAL];
-  char     asc_name[MAX_STR_ASC];
-  char     title[MAX_STR_TITLE], *new_title;
+  char     asc_name[ASC_MAX_STR];
+  char     title[ASC_MAX_STR_TITLE], *new_title;
   int      i, dummy2, dummy3, dummy4, dummy5;
   uint     asc_bits, dummy1;
   ush_int  asc_number;
@@ -1384,8 +1384,8 @@ int enrol_asc(P_char member, P_char newone)
     send_to_char("Pay your dues! Let's see some cash...\r\n", member);
     return (0);
   }
-  /* no associations under level MIN_LEVEL */
-  if (GET_LEVEL(newone) < MIN_LEVEL)
+  /* no associations under level ASC_MIN_LEVE */
+  if (GET_LEVEL(newone) < ASC_MIN_LEVEL)
   {
     send_to_char("Try to find more experienced applicants!\r\n", member);
     return (0);
@@ -1409,13 +1409,13 @@ int enrol_asc(P_char member, P_char newone)
   /* goto and read association bits, copy "normal member" title */
   fgets(Gbuf2, MAX_STR_NORMAL, f);
   Gbuf2[strlen(Gbuf2) - 1] = 0;
-  Gbuf2[MAX_STR_ASC - 1] = 0;
+  Gbuf2[ASC_MAX_STR - 1] = 0;
   strcpy(asc_name, Gbuf2);
   for (i = 1; i < 3; i++)
     fgets(Gbuf2, MAX_STR_NORMAL, f);
   fgets(Gbuf2, MAX_STR_NORMAL, f);
   Gbuf2[strlen(Gbuf2) - 1] = 0;
-  Gbuf2[MAX_STR_RANK - 1] = 0;
+  Gbuf2[ASC_MAX_STR_RANK - 1] = 0;
   if (!IS_HIDDENSUBTITLE(asc_number))
     strcpy(title, Gbuf2);
   for (i = 4; i < 9; i++)
@@ -1489,9 +1489,9 @@ void update_member(P_char member, int full)
   FILE    *f;
   char     Gbuf1[MAX_STRING_LENGTH];
   char     Gbuf2[MAX_STRING_LENGTH];
-  char     asc_name[MAX_STR_ASC], home[1000];
-  char     rank_name[8][MAX_STR_RANK];
-  char     title[MAX_STR_TITLE], *new_title;
+  char     asc_name[ASC_MAX_STR], home[1000];
+  char     rank_name[8][ASC_MAX_STR_RANK];
+  char     title[ASC_MAX_STR_TITLE], *new_title;
   int      i, flag, x;
   // old guildhalls (deprecated)
 //  P_house  temp_house;
@@ -1554,7 +1554,7 @@ void update_member(P_char member, int full)
 //    }
 //    return;
 
-  /* test for MIN_LEVEL */
+  /* test for ASC_MIN_LEVE */
   level_check(member);
 
   // If not guilded, return.
@@ -1583,14 +1583,14 @@ void update_member(P_char member, int full)
   /* read the association name */
   fgets(Gbuf2, MAX_STR_NORMAL, f);
   Gbuf2[strlen(Gbuf2) - 1] = 0;
-  Gbuf2[MAX_STR_ASC - 1] = 0;
+  Gbuf2[ASC_MAX_STR - 1] = 0;
   strcpy(asc_name, Gbuf2);
   /* read the rank names */
   for (i = 0; i < 8; i++)
   {
     fgets(Gbuf2, MAX_STR_NORMAL, f);
     Gbuf2[strlen(Gbuf2) - 1] = 0;
-    Gbuf2[MAX_STR_RANK - 1] = 0;
+    Gbuf2[ASC_MAX_STR_RANK - 1] = 0;
     strcpy(rank_name[i], Gbuf2);
   }
   /* goto past cash */
@@ -1690,7 +1690,7 @@ void update_member(P_char member, int full)
 
 
 
-/* checks the level of member, and if he has fallen below MIN_LEVEL,
+/* checks the level of member, and if he has fallen below ASC_MIN_LEVE,
    he is put on parole, returns 1 if level ok or on parole/enemy already,
    0 if he is below, -1 on file problems */
 
@@ -1706,7 +1706,7 @@ int level_check(P_char member)
   ush_int  asc_number;
 
   /* no need to do anything */
-  if (GET_LEVEL(member) >= MIN_LEVEL)
+  if (GET_LEVEL(member) >= ASC_MIN_LEVEL)
     return (1);
 
   /* what association is member in? */
@@ -2898,8 +2898,8 @@ int name_rank(P_char leader, char *level, char *new_name)
     update_member(leader, 1);
     return (-1);
   }
-  if (strlen(new_name) >= MAX_STR_RANK)
-    new_name[MAX_STR_RANK - 1] = 0;
+  if (strlen(new_name) >= ASC_MAX_STR_RANK)
+    new_name[ASC_MAX_STR_RANK - 1] = 0;
 
   /* read the association name */
   fgets(Gbuf2, MAX_STR_NORMAL, f);
@@ -2946,7 +2946,7 @@ void member_list(P_char member)
   char	   cash[MAX_STR_NORMAL];
   char     ostra[MAX_STR_NORMAL];
   char     buf[MAX_STRING_LENGTH];
-  char     rank_names[8][MAX_STR_RANK];
+  char     rank_names[8][ASC_MAX_STR_RANK];
   char     name[MAX_STR_NORMAL];
   char     guild_name[MAX_STR_NORMAL];
   const char *standard_names[] = { "enemy", "parole", "normal", "senior",
@@ -2959,7 +2959,7 @@ void member_list(P_char member)
   {
     int      ranknr;
     char     info[MAX_STR_NORMAL];
-  } displayed[MAX_DISPLAY];
+  } displayed[ASC_MAX_DISPLAY];
   P_char   target = NULL;
 
   temp = GET_A_BITS(member);
@@ -3016,7 +3016,7 @@ void member_list(P_char member)
   {
     fgets(Gbuf2, MAX_STR_NORMAL, f);
     Gbuf2[strlen(Gbuf2) - 1] = 0;
-    Gbuf2[MAX_STR_RANK - 1] = 0;
+    Gbuf2[ASC_MAX_STR_RANK - 1] = 0;
     strcpy(rank_names[i], Gbuf2);
     /* now show */
     if (GT_DEPUTY(temp))
@@ -3069,7 +3069,7 @@ void member_list(P_char member)
   strcpy(ostra, "\r\n&+cSuffering ostracism:&n\r\n");
   
   /* display info on members */
-  while (fgets(Gbuf3, MAX_STR_NORMAL, f) && i < MAX_DISPLAY)
+  while (fgets(Gbuf3, MAX_STR_NORMAL, f) && i < ASC_MAX_DISPLAY)
   {
     sscanf(Gbuf3, "%s %u %i %i %i %i\r\n", Gbuf2, &dummy1, &dummy2,
            &dummy3, &dummy4, &dummy5);
@@ -3445,7 +3445,7 @@ int ostracize_enemy(P_char leader, char *enemy)
   }
   fclose(f);
 
-  if (i >= MAX_ENEMIES)
+  if (i >= ASC_MAX_ENEMIES)
   {
     send_to_char("Your have enough enemies already!\r\n", leader);
     return (0);
@@ -3476,7 +3476,7 @@ void retitle_member(P_char member, P_char titlee, char *title)
   char     Gbuf1[MAX_STR_NORMAL];
   char     Gbuf2[MAX_STR_NORMAL];
 
-/*  char asc_name[MAX_STR_ASC];*/
+/*  char asc_name[ASC_MAX_STR];*/
   char    *new_title;
 
 /*  int i;*/
@@ -3530,9 +3530,9 @@ void retitle_member(P_char member, P_char titlee, char *title)
     return;
   }
 
-  if (strlen(title) >= MAX_STR_RANK)
+  if (strlen(title) >= ASC_MAX_STR_RANK)
   {
-    title[MAX_STR_RANK - 1] = '\0';
+    title[ASC_MAX_STR_RANK - 1] = '\0';
   }
 
   if( !is_valid_ansi_with_msg(titlee, title, FALSE) )
@@ -4477,7 +4477,7 @@ void init_guild_frags()
   char     Gbuf4[MAX_STR_NORMAL];
   char     ostra[MAX_STR_NORMAL];
   char     buf[MAX_STRING_LENGTH];
-  char     rank_names[8][MAX_STR_RANK];
+  char     rank_names[8][ASC_MAX_STR_RANK];
   char     name[MAX_STR_NORMAL];
   char     guild_name[40];
   const char *standard_names[] = { "enemy", "parole", "normal", "senior",
@@ -4490,7 +4490,7 @@ void init_guild_frags()
   {
     int      ranknr;
     char     info[MAX_STR_NORMAL];
-  } displayed[MAX_DISPLAY];
+  } displayed[ASC_MAX_DISPLAY];
   P_char   target = NULL;
 
   wizlog(56, "creating guild fraglist....");
@@ -4521,7 +4521,7 @@ void init_guild_frags()
       fscanf(f, "%u\n", &asc_bits);
       fscanf(f, "%i %i %i %i\n", &dummy2, &dummy3, &dummy4, &dummy5);
       os = 0;
-      while (fgets(Gbuf3, MAX_STR_NORMAL, f) && i < MAX_DISPLAY)
+      while (fgets(Gbuf3, MAX_STR_NORMAL, f) && i < ASC_MAX_DISPLAY)
       {
         sscanf(Gbuf3, "%s %u %i %i %i %i\r\n", Gbuf2, &dummy1, &dummy2,
                &dummy3, &dummy4, &dummy5);

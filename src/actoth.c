@@ -85,44 +85,46 @@ void do_terrain(P_char ch, char *arg, int cmd)
   send_to_char(out, ch);
 }
 
+// Actual multiclass code found in: specs.room.c in multiclass_proc.
+//  This function just tells ch what he can multi as if anything.
 void do_multiclass(P_char ch, char *arg, int cmd)
 {
   char buf[MAX_STRING_LENGTH];
   int found_one = FALSE, i;
   int min_level = get_property("multiclass.level.req.min", 41);
-  
-  if (IS_MULTICLASS_PC(ch))
+
+  if( IS_MULTICLASS_PC(ch) )
   {
-    send_to_char
-      ("You've already chosen your secondary class..  it's too late now to change your mind.\r\n",
-       ch);
+    send_to_char("You've already chosen your secondary class..  it's too late now to change your mind.\r\n", ch);
     return;
   }
 
-  if (IS_NPC(ch))
+  if( IS_NPC(ch) )
   {
     send_to_char("No NPCs allowed.\r\n", ch);
     return;
   }
 
-  if (GET_RACE(ch) != RACE_ORC && GET_RACE(ch) != RACE_HUMAN)
+  if( GET_RACE(ch) != RACE_ORC && GET_RACE(ch) != RACE_HUMAN )
   {
     send_to_char("Your race is not versatile enough to learn that much.\n", ch);
     return;
   }
 
-  if (GET_LEVEL(ch) < min_level)
+  if( GET_LEVEL(ch) < min_level )
   {
     sprintf(buf, "You cannot multiclass until you reach level %d.\r\nHowever, here is a list of your future choices:\r\n\r\n", min_level);
     send_to_char(buf, ch);
   }
-  else if (cmd != -1)           // indicates called from proc with no arg..  aren't i nice
+  else if( cmd != -1 )           // indicates called from proc with no arg..  aren't i nice
+  {
     send_to_char("You are not in the proper location to multiclass.\r\n"
-                 "However, here is a list of your possible choices:\r\n\r\n", ch);
+      "However, here is a list of your possible choices:\r\n\r\n", ch);
+  }
 
   for (i = 1; i <= CLASS_COUNT; i++)
   {
-    if (can_char_multi_to_class(ch, i ))
+    if( can_char_multi_to_class(ch, i ) )
     {
       char     strn[2048];
 
@@ -134,7 +136,7 @@ void do_multiclass(P_char ch, char *arg, int cmd)
     }
   }
 
-  if (!found_one)
+  if( !found_one )
     send_to_char("   None (don't despair, you can always specialize)\r\n", ch);
 
   send_to_char("\r\n\r\n", ch);
