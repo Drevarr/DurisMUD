@@ -2702,21 +2702,22 @@ void add_bloodlust(P_char ch, P_char victim)
   else
   {
     struct affected_type *findaf, *next_af;  //initialize affects
+    int lvl = MIN(50, GET_LEVEL(ch));
     for(findaf = ch->affected; findaf; findaf = next_af)
     {
       next_af = findaf->next;
-      // Lvls 1-40 get 200% bloodlust
-      if( findaf && findaf->type == TAG_BLOODLUST && findaf->modifier < 20 && GET_LEVEL(ch) <= 40 )
+      // Lvls 1-40 get 100% bloodlust
+      if( findaf && findaf->type == TAG_BLOODLUST && findaf->modifier < 10 && lvl <= 40 )
       {
         findaf->modifier += 1;
         findaf->duration = dur;
       }
       // We are guarenteed here that level is between 41 and 49.
-      else if(findaf && findaf->type == TAG_BLOODLUST && GET_LEVEL(ch) > 40 )
+      else if(findaf && findaf->type == TAG_BLOODLUST && lvl > 40 )
       {
-        // Lose 20% for ever level over 40.
-        // 20 == max_modifier @ 40, 18 = max_modifier @ 41, ... 2 = max_modifier @ 49.
-        findaf->modifier = (findaf->modifier < (100 - 2*GET_LEVEL(ch))) ? findaf->modifier+1 : (100 - 2*GET_LEVEL(ch));
+        // Lose 10% for ever level over 40.
+        // 10 == max_modifier @ 40, 18 = max_modifier @ 41, ... 1 = max_modifier @ 49.
+        findaf->modifier = (findaf->modifier < 50 - lvl) ? findaf->modifier + 1 : 50 - lvl;
         findaf->duration = dur;
       }
       // We are at maxxed bloodlust, so just reset timer.
