@@ -2426,6 +2426,14 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
       sprintf(buffer, "You extend your sights %sward.\n", dirs[keyword_no]);
       send_to_char(buffer, ch);
     }
+    for( tmp_char = world[temp].people; tmp_char != NULL; tmp_char = tmp_char->next_in_room )
+    {
+      if( IS_AFFECTED5(tmp_char, AFF5_OBSCURING_MIST) && !IS_TRUSTED(ch) )
+      {
+         send_to_char("&+cA very thick &+Wcloud of mist&+c blocks your vision.&n\n", ch);
+         return;
+      }
+    }
     if (temp == NOWHERE)
     {
       if (IS_TRUSTED(ch))
@@ -8506,11 +8514,11 @@ void do_scan(P_char ch, char *argument, int cmd)
             obscurmist = TRUE;
             break;
           }
-        vict_next = vict->next_in_room;
+          vict_next = vict->next_in_room;
         }
         for (vict = world[EXIT(ch, dir)->to_room].people; vict != NULL; vict = vict_next)
         {
-          if (obscurmist)
+          if( obscurmist )
           {
             send_to_char("&+cA very thick &+Wcloud of mist&+c blocks your vision.&n\n", ch);
             break;
@@ -8546,8 +8554,7 @@ void do_scan(P_char ch, char *argument, int cmd)
               sprintf(buf, "&+m(Illusion)&n $N who is %s %s.", dist_name[((distance > 6) ? 6 : distance)], dir_desc[dir]);
             }
             else
-              sprintf(buf, "$N who is %s %s.", dist_name[((distance > 6) ? 6 : distance)], dir_desc[dir]);            
-            
+              sprintf(buf, "$N who is %s %s.", dist_name[((distance > 6) ? 6 : distance)], dir_desc[dir]);
             found = TRUE;
             act(buf, FALSE, ch, 0, vict, TO_CHAR);
           }
