@@ -301,7 +301,7 @@ void do_offensive(P_char, char *, int);
 int wield_item_size(P_char ch, P_obj obj);
 int get_numb_free_hands(P_char);
 bool put(P_char, P_obj, P_obj, int);
-int wear(P_char, P_obj, int, int);
+int wear(P_char, P_obj, int, bool);
 int remove_item(P_char, P_obj, int);
 int remove_and_wear(P_char, P_obj, int, int, int, int);
 bool find_chance(P_char);

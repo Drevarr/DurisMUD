@@ -898,6 +898,8 @@ for ((IN_ROOM) = world[(PLAYER)->in_room].people; (IN_ROOM) != NULL; (IN_ROOM) =
 
 #define IS_KOBOLD(ch) (GET_RACE(ch) == RACE_KOBOLD)
 
+#define HAS_TAIL(ch) (IS_CENTAUR(ch) || IS_MINOTAUR(ch) || IS_PSBEAST(ch) || IS_KOBOLD(ch))
+
 #define HAS_FOUR_HANDS(ch) ((GET_RACE(ch) == RACE_THRIKREEN) || \
                            (IS_AFFECTED3((ch), AFF3_FOUR_ARMS)))
 

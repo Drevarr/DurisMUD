@@ -27,7 +27,7 @@ void send_to_char(const char *txt, P_char ch)
 {
 } 
 
-int wear(P_char ch, P_obj obj_object, int keyword, int showit)
+int wear(P_char ch, P_obj obj_object, int keyword, bool showit)
 {
 } 
 

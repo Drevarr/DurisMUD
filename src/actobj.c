@@ -3556,7 +3556,7 @@ bool check_single_artifact(P_char ch, P_obj obj)
  * Helper function to cut down on massive repetition.  It executes the wear
  * call once the Controller [Wear()] has determined to do so. -Sniktiorg (Nov.16.12)
  */
-void execute_wear(P_char ch, P_obj obj_object, int position, int keyword, int showit)
+void execute_wear(P_char ch, P_obj obj_object, int position, int keyword, bool showit)
 {
   if (showit) // Show the Object Wear?
     perform_wear(ch, obj_object, keyword);
@@ -3574,7 +3574,7 @@ void execute_wear(P_char ch, P_obj obj_object, int position, int keyword, int sh
  * own convoluted logic as I was again too lazy to figure out how to make them more
  * concise. -Sniktiorg (Dec.12.12)
  */
-int stop_or_wear(const char denied[], P_char ch, P_obj obj_object, int position, int keyword, int showit)
+int stop_or_wear(const char denied[], P_char ch, P_obj obj_object, int position, int keyword, bool showit)
 {
   // Already Wearing the Item
   if (ch->equipment[position]) {
@@ -3592,27 +3592,55 @@ int stop_or_wear(const char denied[], P_char ch, P_obj obj_object, int position,
  * Helper function which wraps about Execute_Wear() and allows for the remove
  * and replace behavior used on single location items (ie. head, arms, body, etc). -Sniktiorg (Dec.1.12)
  */
-int remove_and_wear(P_char ch, P_obj obj_object, int position, int keyword, int comnd, int showit)
+int remove_and_wear(P_char ch, P_obj obj_object, int position, int keyword, int comnd, bool showit)
 {
+  P_obj temp = ch->equipment[position];
+  int removed;
   // Remove Item Already in Place
    //send_to_char(sprintf("%1", ch->equipment[position]), ch);
-  if (ch->equipment[position]) {
-   remove_item(ch, ch->equipment[position], position);
+  if( temp )
+  {
+    removed = remove_item(ch, temp, position);
+    if( removed == 0 || removed == 2 )
+    {
+      if( showit )
+      {
+        act("You stop using $p.", FALSE, ch, temp, 0, TO_CHAR);
+        if( removed == 2 )
+        {
+          act("&+cSome of your &+Cmagic&+c dissipates...&n", FALSE, ch, 0, 0, TO_CHAR);
+        }
+      }
+      // Wear Item
+      execute_wear(ch, obj_object, position, keyword, showit);
+      return TRUE;
+    }
+    else if( removed == 1 )
+    {
+      if( showit )
+      {
+        act("$p won't budge!  Perhaps it's cursed?!?", TRUE, ch, temp, 0, TO_CHAR);
+      }
+    }
+    else if( removed == 3 )
+    {
+      if( showit )
+      {
+        send_to_char("You can't carry that many items.\r\n", ch);
+      }
+    }
   }
-  // Check if Item Removed
-  if (ch->equipment[position]) {
-    return false;
-  } else {
-  // Wear Item
+  else
+  {
     execute_wear(ch, obj_object, position, keyword, showit);
-    return true;
+    return TRUE;
   }
 }
 
 /*
  * The Controller to the Do_Wear() function.  I have refactored it down
  * in size, squished some needless repetitive code, and moved most of the
- * messages into the View [Perform_Wear()].  There are still areas that 
+ * messages into the View [Perform_Wear()].  There are still areas that
  * can be refactored, both minor portions and the function as a whole
  * (which still retains a highly repetitive nature and begs for some more
  * thought into how to rid the function of this. -Sniktiorg (Nov.16.12)
@@ -3620,33 +3648,32 @@ int remove_and_wear(P_char ch, P_obj obj_object, int position, int keyword, int 
  * 1) Let player to wield 2 weapons (Dual Wield).
  * 2) Returns INT now because else it would piss off mobs.
  *    (1=Successful, 0=Failure)
- * 3) Shows the item you are currently wearing if the function 
+ * 3) Shows the item you are currently wearing if the function
  *    doesn't replace the item automatically.
  * 4) Replaces certain items with new item on wear.
  *
- * When adding new item types, execute_wear() should be followed by a 
+ * When adding new item types, execute_wear() should be followed by a
  * RETURN TRUE, stop_or_wear() should be be couched in an if statement
- * which returns true [ie. if (stop_or_wear()) return true], and 
- * remove_and_wear() should be called following a RETURN statement 
+ * which returns true [ie. if (stop_or_wear()) return true], and
+ * remove_and_wear() should be called following a RETURN statement
  * [ie. return remove_and_wear()]. -Sniktiorg (Dec.12.12)
  */
-int wear(P_char ch, P_obj obj_object, int keyword, int showit)
+int wear(P_char ch, P_obj obj_object, int keyword, bool showit)
 {
   char     Gbuf3[MAX_STRING_LENGTH];
   int      free_hands, wield_to_where, o_size, hands_needed, comnd;
 
   // Kill on !Object or !Character
-  if(!obj_object || !ch)
+  if( !obj_object || !ch )
     return false;
 
   // Scrap it. Might cause crash. Dec08 -Lucrot
-  if(obj_object->condition <= 0) 
+  if(obj_object->condition <= 0)
   {
     wizlog(56, "%s wore %s that's condition 0 or less : attempting to scrap.",
-          GET_NAME(ch),
-          obj_object->short_description);
+      GET_NAME(ch), obj_object->short_description);
     MakeScrap(ch, obj_object);
-    return false;
+    return FALSE;
   }
 
   // Quick and dirty periodic check for buggy items. Dec08 -Lucrot
@@ -3657,32 +3684,28 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
        obj_object->affected[i].modifier == 2)
     {
       wizlog(56, "%s has buggy item with a bad apply : %s",
-            GET_NAME(ch),
-            obj_object->short_description);
+        GET_NAME(ch), obj_object->short_description);
     }
     // Hunting Max_Race Equipment
     if(obj_object->affected[i].location >= 41 &&
       obj_object->affected[i].location <= 50)
     {
       wizlog(56, "%s has MAX_RACE item : %s",
-            GET_NAME(ch),
-            obj_object->short_description);
+        GET_NAME(ch), obj_object->short_description);
     }
     // Hunting APPLY_DAMROLL >= 20
     if(obj_object->affected[i].location == APPLY_DAMROLL &&
        obj_object->affected[i].modifier >= 20)
     {
       wizlog(56, "%s has item with >= 20 damroll : %s",
-             GET_NAME(ch),
-             obj_object->short_description);
+        GET_NAME(ch), obj_object->short_description);
     }
-    // Hunting APPLY_HITROLL >= 20  
+    // Hunting APPLY_HITROLL >= 20
     if(obj_object->affected[i].location == APPLY_HITROLL &&
        obj_object->affected[i].modifier >= 20)
     {
       wizlog(56, "%s has item with >= 20 hitroll : %s",
-             GET_NAME(ch),
-             obj_object->short_description);
+        GET_NAME(ch), obj_object->short_description);
     }
 
     if(is_stat_max(obj_object->affected[i].location) && !IS_ARTIFACT(obj_object))
@@ -3692,10 +3715,7 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
         char buf[128];
         sprinttype(obj_object->affected[i].location, apply_types, buf);
         wizlog(56, "%s has %s with %d %s.",
-              GET_NAME(ch),
-              obj_object->short_description,
-              obj_object->affected[i].modifier,
-              buf);
+          GET_NAME(ch), obj_object->short_description, obj_object->affected[i].modifier, buf);
       }
     }
   }
@@ -3703,7 +3723,7 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
   // Cannot use the item.  Return FALSE.
   if (!can_char_use_item(ch, obj_object))
   {
-    if (showit)
+    if( showit )
       act("You can't use $p.", FALSE, ch, obj_object, 0, TO_CHAR);
     return FALSE;
   }
@@ -3759,79 +3779,100 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
   switch (keyword)
   {
   case 0: /* None */
-    logit(LOG_OBJ,
-          "wear(): object worn in invalid location (%s, %s)",
-          GET_NAME(ch), obj_object->short_description);
+    logit(LOG_OBJ, "wear(): object worn in invalid location (%s, %s)",
+      GET_NAME(ch), obj_object->short_description);
     break;
 
   case 1: /* Finger */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_FINGER) && !IS_THRIKREEN(ch))
+    if( CAN_WEAR(obj_object, ITEM_WEAR_FINGER) && !IS_THRIKREEN(ch) )
     {
       // Already Wearing the Item
-      if ((ch->equipment[WEAR_FINGER_L]) && (ch->equipment[WEAR_FINGER_R])) {
-        if (showit)
+      if( (ch->equipment[WEAR_FINGER_L]) && (ch->equipment[WEAR_FINGER_R]) )
+      {
+        if( showit )
+        {
           send_to_char("Your fingers are already well adorned.\r\n", ch);
-      } else {
-	// Wear Item
+        }
+      }
+      else
+      {
+        // Wear Item
         execute_wear(ch, obj_object, ((ch->equipment[WEAR_FINGER_L]) ? WEAR_FINGER_R : WEAR_FINGER_L), keyword, showit);
         return TRUE;
       }
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that on your fingers.\r\n", ch);
+      }
     }
     break;
 
   case 2: /* Neck */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_NECK))
+    if( CAN_WEAR(obj_object, ITEM_WEAR_NECK) )
     {
       // Already Wearing the Item
-      if ((ch->equipment[WEAR_NECK_1]) && (ch->equipment[WEAR_NECK_2])) {
-        if (showit)
+      if( (ch->equipment[WEAR_NECK_1]) && (ch->equipment[WEAR_NECK_2]) )
+      {
+        if( showit )
+        {
           send_to_char("You can't wear any more around your neck.\r\n", ch);
-      } else {
-	// Wear Item
+        }
+      }
+      else
+      {
+        // Wear Item
         execute_wear(ch, obj_object, ((ch->equipment[WEAR_NECK_1]) ? WEAR_NECK_2 : WEAR_NECK_1), keyword, showit);
         return TRUE;
       }
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that around your neck.\r\n", ch);
+      }
     }
     break;
 
   case 3: /* Body */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_BODY) && !IS_THRIKREEN(ch) )
+    if( CAN_WEAR(obj_object, ITEM_WEAR_BODY) && !IS_THRIKREEN(ch) )
     {
-      if (IS_SET(obj_object->extra_flags, ITEM_WHOLE_BODY))
+      if( IS_SET(obj_object->extra_flags, ITEM_WHOLE_BODY) )
       {
-        if (IS_CENTAUR(ch) || IS_MINOTAUR(ch) || IS_OGRE(ch) || IS_SGIANT(ch) ||
-            GET_RACE(ch) == RACE_WIGHT || GET_RACE(ch) == RACE_SNOW_OGRE)
+        if( IS_CENTAUR(ch) || IS_MINOTAUR(ch) || IS_OGRE(ch) || IS_SGIANT(ch)
+          || GET_RACE(ch) == RACE_WIGHT || GET_RACE(ch) == RACE_SNOW_OGRE )
         {
-          if (showit)
+          if( showit )
+          {
             send_to_char("You can't wear full body armor.\r\n", ch);
+          }
           break;
         }
-        else if ((ch->equipment[WEAR_ARMS]) && (ch->equipment[WEAR_LEGS]))
+        else if( (ch->equipment[WEAR_ARMS]) && (ch->equipment[WEAR_LEGS]) )
         {
-          if (showit)
+          if( showit )
+          {
             send_to_char("You can't wear something on your arms and legs and wear that.\r\n", ch);
+          }
           break;
         }
-        else if (ch->equipment[WEAR_ARMS])
+        else if( ch->equipment[WEAR_ARMS] )
         {
-          if (showit)
+          if( showit )
+          {
             send_to_char("You can't wear something on your arms and wear that.\r\n", ch);
+          }
           break;
         }
-        else if (ch->equipment[WEAR_LEGS])
+        else if( ch->equipment[WEAR_LEGS] )
         {
-          if (showit)
+          if( showit )
+          {
             send_to_char("You can't wear something on your legs and wear that.\r\n", ch);
+          }
           break;
         }
       }
@@ -3840,33 +3881,41 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that on your body.\r\n", ch);
+      }
     }
     break;
 
   case 4: /* Head */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_HEAD)
-        && !IS_MINOTAUR(ch) && !IS_ILLITHID(ch) && !IS_PILLITHID(ch)) /* Should be a Macro */
+    if( CAN_WEAR(obj_object, ITEM_WEAR_HEAD)
+        && !IS_MINOTAUR(ch) && !IS_ILLITHID(ch) && !IS_PILLITHID(ch) ) /* Should be a Macro */
     {
-      if (IS_SET(obj_object->extra_flags, ITEM_WHOLE_HEAD))
+      if( IS_SET(obj_object->extra_flags, ITEM_WHOLE_HEAD) )
       {
-        if ((ch->equipment[WEAR_EYES]) && (ch->equipment[WEAR_FACE]))
+        if( (ch->equipment[WEAR_EYES]) && (ch->equipment[WEAR_FACE]) )
         {
-          if (showit)
+          if( showit )
+          {
             send_to_char("You can't wear something on your eyes and face and wear that.\r\n", ch);
+          }
           break;
         }
-        else if (ch->equipment[WEAR_EYES])
+        else if( ch->equipment[WEAR_EYES] )
         {
-          if (showit)
+          if( showit )
+          {
             send_to_char("You can't wear something on your eyes and wear that.\r\n", ch);
+          }
           break;
         }
-        else if (ch->equipment[WEAR_FACE])
+        else if( ch->equipment[WEAR_FACE] )
         {
-          if (showit)
+          if( showit )
+          {
             send_to_char("You can't wear something on your face and wear that.\r\n", ch);
+          }
           break;
         }
       }
@@ -3875,28 +3924,28 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
     }
     else
     {
-      if (showit)
+      if( showit )
       {
-        if (IS_ILLITHID(ch) || IS_PILLITHID(ch))
+        if( IS_ILLITHID(ch) || IS_PILLITHID(ch) )
+        {
           send_to_char("Sorry, you can't wear anything on your head.\r\n", ch);
+        }
         else
+        {
           send_to_char("You can't wear that on your head.\r\n", ch);
+        }
       }
     }
     break;
 
   case 5: /* Legs */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_LEGS) && 
-       !IS_DRIDER(ch) &&
-       !IS_CENTAUR(ch) &&
-       !IS_HARPY(ch) &&
-       !IS_OGRE(ch) &&
-       !IS_FIRBOLG(ch) )
+    if( CAN_WEAR(obj_object, ITEM_WEAR_LEGS) && !IS_DRIDER(ch) && !IS_CENTAUR(ch)
+      && !IS_HARPY(ch) && !IS_OGRE(ch) && !IS_FIRBOLG(ch) )
     {
-      if (ch->equipment[WEAR_BODY] &&
-          IS_SET(ch->equipment[WEAR_BODY]->extra_flags, ITEM_WHOLE_BODY))
+      if( ch->equipment[WEAR_BODY] &&
+          IS_SET(ch->equipment[WEAR_BODY]->extra_flags, ITEM_WHOLE_BODY) )
       {
-        if (showit)
+        if( showit )
           send_to_char("You can't wear something on your legs and wear that on your body.\r\n", ch);
         break;
       }
@@ -3907,176 +3956,208 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
     {
       if (showit)
       {
-         if(IS_EFREET(ch))
-         {
-            send_to_char("What legs?!  You have none!\r\n", ch);
-         }
-         else
-            send_to_char("You can't wear that on your legs.\r\n", ch);
+        if(IS_EFREET(ch))
+        {
+          send_to_char("What legs?!  You have none!\r\n", ch);
+        }
+        else
+        {
+          send_to_char("You can't wear that on your legs.\r\n", ch);
+        }
       }
     }
     break;
 
   case 6: /* Feet */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_FEET) 
-	&& !IS_DRIDER(ch) && !IS_THRIKREEN(ch)
-	&& !IS_HARPY(ch) && !IS_MINOTAUR(ch)
-	&& (!IS_CENTAUR(ch)
-        || (IS_CENTAUR(ch) && !strcmp(obj_object->name, "horseshoe")))) 
+    if( CAN_WEAR(obj_object, ITEM_WEAR_FEET) && !IS_DRIDER(ch) && !IS_THRIKREEN(ch)
+      && !IS_HARPY(ch) && !IS_MINOTAUR(ch) && (!IS_CENTAUR(ch)
+      || (IS_CENTAUR(ch) && !strcmp(obj_object->name, "horseshoe"))) )
     {
       // Replace if Wearing Something or Wear New Item
       return remove_and_wear(ch, obj_object, WEAR_FEET, keyword, comnd, showit);
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that on your feet.\r\n", ch);
+      }
     }
     break;
 
   case 7: /* Hands */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_HANDS))
+    if( CAN_WEAR(obj_object, ITEM_WEAR_HANDS) )
     {
-      /* Didn't condense the following because it differentiates enough and a compound 
+      /* Didn't condense the following because it differentiates enough and a compound
        * ternary expression is too much to read. - Sniktiorg (Nov.12.12)
-       */	    
-      if (HAS_FOUR_HANDS(ch))
+       */
+      if( HAS_FOUR_HANDS(ch) )
       {
-        if ((ch->equipment[WEAR_HANDS]) && (ch->equipment[WEAR_HANDS_2])) {
-          if (showit)
+        if( (ch->equipment[WEAR_HANDS]) && (ch->equipment[WEAR_HANDS_2]) )
+        {
+          if( showit )
+          {
             send_to_char("You can't wear any more on your hands.\r\n", ch);
-        } else {
-  	  // Wear Item
+          }
+        }
+        else
+        {
+          // Wear Item
           execute_wear(ch, obj_object, ((ch->equipment[WEAR_HANDS]) ? WEAR_HANDS_2 : WEAR_HANDS), keyword, showit);
           return TRUE;
         }
       } // End Four_Hands
       else
       {
-      // Check if Wearing Something or Wear New Item (Technically, Could Auto-replace)
-      if (stop_or_wear("You already wear $p on your hands.", ch, obj_object, WEAR_HANDS, keyword, showit)) 
-	return TRUE;
+        // Check if Wearing Something or Wear New Item (Technically, Could Auto-replace)
+        if( stop_or_wear("You already wear $p on your hands.", ch, obj_object, WEAR_HANDS, keyword, showit) )
+        {
+          return TRUE;
+        }
       } // End Two_Hands
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that on your hands.\r\n", ch);
+      }
     }
     break;
 
   case 8: /* Arms */
-    if(CAN_WEAR(obj_object, ITEM_WEAR_ARMS)
-      && !IS_OGRE(ch) && !IS_FIRBOLG(ch)
-      // !IS_SGIANT(ch) &&
-      // !(GET_RACE(ch) == RACE_SNOW_OGRE)
-      )
+    if( CAN_WEAR(obj_object, ITEM_WEAR_ARMS) && !IS_OGRE(ch) && !IS_FIRBOLG(ch) && !IS_SGIANT(ch)
+      && !(GET_RACE(ch) == RACE_SNOW_OGRE) )
     {
-      /* Didn't condense the following because it differentiates enough and a compound 
-       * ternary expression is too much to read. - Sniktiorg (Nov.12.12)
-       */	    
-      if (HAS_FOUR_HANDS(ch))
+     /* Didn't condense the following because it differentiates enough and a compound 
+      * ternary expression is too much to read. - Sniktiorg (Nov.12.12)
+      */
+      if( HAS_FOUR_HANDS(ch) )
       {
         // Already Wearing Items on Both Arms
-        if ((ch->equipment[WEAR_ARMS]) && (ch->equipment[WEAR_ARMS_2]))
+        if( (ch->equipment[WEAR_ARMS]) && (ch->equipment[WEAR_ARMS_2]) )
         {
-          if (showit)
+          if( showit )
+          {
             send_to_char("You can't wear any more on your arms.\r\n", ch);
-        } else {
-  	  // Wear Item
+          }
+        }
+        else
+        {
+          // Wear Item
           execute_wear(ch, obj_object, ((ch->equipment[WEAR_ARMS]) ? WEAR_ARMS_2 : WEAR_ARMS), keyword, showit);
           return TRUE;
         }
       }
       else
       {
-        if (ch->equipment[WEAR_BODY] && IS_SET(ch->equipment[WEAR_BODY]->extra_flags, ITEM_WHOLE_BODY))
+        if( ch->equipment[WEAR_BODY] && IS_SET(ch->equipment[WEAR_BODY]->extra_flags, ITEM_WHOLE_BODY) )
         {
-          if (showit)
+          if( showit )
+          {
             send_to_char("You can't wear something on your arms and wear that on your body.\r\n", ch);
+          }
           break;
         }
         // Check if Wearing Something or Wear New Item (Technically, Could Auto-replace)
-        if (stop_or_wear("You already wear $p on your arms.", ch, obj_object, WEAR_ARMS, keyword, showit)) 
-	  return TRUE;
+        if( stop_or_wear("You already wear $p on your arms.", ch, obj_object, WEAR_ARMS, keyword, showit) )
+        {
+          return TRUE;
+        }
       }
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that on your arms.\r\n", ch);
+      }
     }
     break;
 
   case 9: /* About */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_ABOUT))
+    if( CAN_WEAR(obj_object, ITEM_WEAR_ABOUT) )
     {
       // Replace if Wearing Something or Wear New Item
       return remove_and_wear(ch, obj_object, WEAR_ABOUT, keyword, comnd, showit);
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that about your body.\r\n", ch);
+      }
     }
     break;
 
   case 10: /* Waist */
-    if ((CAN_WEAR(obj_object, ITEM_WEAR_WAIST)))
+    if( (CAN_WEAR(obj_object, ITEM_WEAR_WAIST)) )
     {
       // Replace if Wearing Something or Wear New Item
       return remove_and_wear(ch, obj_object, WEAR_WAIST, keyword, comnd, showit);
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that about your waist.\r\n", ch);
+      }
     }
     break;
 
   case 11: /* Wrist */
     // Can be Refactored a Bit, but I am too lazy at the moment.  -Sniktiorg (Nov.12.12)
-    if (CAN_WEAR(obj_object, ITEM_WEAR_WRIST))
+    if( CAN_WEAR(obj_object, ITEM_WEAR_WRIST) )
     {
-      if ((!HAS_FOUR_HANDS(ch) && ch->equipment[WEAR_WRIST_L] && ch->equipment[WEAR_WRIST_R]) || 
-	  (HAS_FOUR_HANDS(ch) && ch->equipment[WEAR_WRIST_L] &&
-                                 ch->equipment[WEAR_WRIST_R] &&
-                                 ch->equipment[WEAR_WRIST_LL] &&
-                                 ch->equipment[WEAR_WRIST_LR]))
+      if( (!HAS_FOUR_HANDS(ch) && ch->equipment[WEAR_WRIST_L] && ch->equipment[WEAR_WRIST_R])
+        || (HAS_FOUR_HANDS(ch) && ch->equipment[WEAR_WRIST_L] && ch->equipment[WEAR_WRIST_R]
+        && ch->equipment[WEAR_WRIST_LL] && ch->equipment[WEAR_WRIST_LR]) )
       {
-        if (showit)
+        if( showit )
+        {
           send_to_char("You already wear something around all your wrists.\r\n", ch);
+        }
       }
       else
       {
-        if (showit)
-          perform_wear(ch, obj_object, keyword);
-        obj_from_char(obj_object, TRUE);
-        if (!ch->equipment[WEAR_WRIST_L])
+        if( showit )
         {
-          if (showit)
+          perform_wear(ch, obj_object, keyword);
+        }
+        obj_from_char(obj_object, TRUE);
+        if( !ch->equipment[WEAR_WRIST_L] )
+        {
+          if( showit )
+          {
             act("You place $p around your left wrist.", 0, ch, obj_object, 0, TO_CHAR);
+          }
           equip_char(ch, obj_object, WEAR_WRIST_L, !showit);
           return TRUE;
         }
-        else if (!ch->equipment[WEAR_WRIST_R])
+        else if( !ch->equipment[WEAR_WRIST_R] )
         {
-          if (showit)
+          if( showit )
+          {
             act("You place $p around your right wrist.", 0, ch, obj_object, 0, TO_CHAR);
+          }
           equip_char(ch, obj_object, WEAR_WRIST_R, !showit);
           return TRUE;
         }
-        else if (!ch->equipment[WEAR_WRIST_LL])
+        else if( !ch->equipment[WEAR_WRIST_LL] )
         {
-          if (showit)
+          if( showit )
+          {
             act("You place $p around your lower left wrist.", 0, ch, obj_object, 0, TO_CHAR);
+          }
           equip_char(ch, obj_object, WEAR_WRIST_LL, !showit);
           return TRUE;
         }
         else
         {
-          if (showit)
+          if( showit )
+          {
             act("You place $p around your lower right wrist.", 0, ch, obj_object, 0, TO_CHAR);
+          }
           equip_char(ch, obj_object, WEAR_WRIST_LR, !showit);
           return TRUE;
         }
@@ -4084,48 +4165,57 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that around your wrist.\r\n", ch);
+      }
     }
     break;
 
   case 12: /* Wield */
-    if (!CAN_WEAR(obj_object, ITEM_WIELD))
+    if( !CAN_WEAR(obj_object, ITEM_WIELD) )
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wield that.\r\n", ch);
+      }
       break;
     }
-    if (!free_hands)
+    if( !free_hands )
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You need at least one free hand to wield anything.\r\n", ch);
+      }
       break;
     }
 
     hands_needed = (IS_SET(obj_object->extra_flags, ITEM_TWOHANDS) || obj_object->value[0] == WEAPON_2HANDSWORD) ? 2 : 1;
 
-    if (hands_needed == 2 && free_hands < 2)
+    if( hands_needed == 2 && free_hands < 2 )
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You need two free hands to wield that.\r\n", ch);
+      }
       break;
     }
 
-    if (GET_OBJ_WEIGHT(obj_object) >
-        (str_app[STAT_INDEX(GET_C_STR(ch))].wield_w))
+    if( GET_OBJ_WEIGHT(obj_object) > (str_app[STAT_INDEX(GET_C_STR(ch))].wield_w) )
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("It is too heavy for you to use.\r\n", ch);
+      }
       break;
     }
-    /*
-     * Check wield to where .. if primary is occupied, wield to
-     * secondary, and vice versa.  Four-handed guys aren't quite so simple.
-     */
-    if (HAS_FOUR_HANDS(ch))
+   /*
+    * Check wield to where .. if primary is occupied, wield to
+    * secondary, and vice versa.  Four-handed guys aren't quite so simple.
+    */
+    if( HAS_FOUR_HANDS(ch) )
     {
-      if (hands_needed == 1)
+      if( hands_needed == 1 )
       {
         if( !ch->equipment[PRIMARY_WEAPON] )
         {
@@ -4141,8 +4231,8 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
         {
           wield_to_where = THIRD_WEAPON;
         }
-        else if( !(IS_SET(ch->equipment[THIRD_WEAPON]->extra_flags, ITEM_TWOHANDS) || ch->equipment[THIRD_WEAPON]->value[0] == WEAPON_2HANDSWORD)
-              || IS_TRUSTED(ch) )
+        else if( !(IS_SET(ch->equipment[THIRD_WEAPON]->extra_flags, ITEM_TWOHANDS)
+          || ch->equipment[THIRD_WEAPON]->value[0] == WEAPON_2HANDSWORD) || IS_TRUSTED(ch) )
         {
           wield_to_where = FOURTH_WEAPON;
         }
@@ -4151,37 +4241,35 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
       // the case where the weapon takes two hands
       else
       {
-        if (!ch->equipment[PRIMARY_WEAPON])
+        if( !ch->equipment[PRIMARY_WEAPON] && !ch->equipment[SECONDARY_WEAPON] )
         {
-          if (ch->equipment[SECONDARY_WEAPON])
-          {
-            if (showit)
-              send_to_char("You do not have enough hands free to use that.\r\n", ch);
-            break;
-          }
           wield_to_where = PRIMARY_WEAPON;
         }
-        else if (!ch->equipment[THIRD_WEAPON])
+        else if( !ch->equipment[THIRD_WEAPON] )
         {
-          if (ch->equipment[FOURTH_WEAPON])
+          if( ch->equipment[FOURTH_WEAPON] )
           {
-            if (showit)
+            if( showit )
+            {
               send_to_char("You do not have enough hands free to use that.\r\n", ch);
+            }
             break;
           }
           wield_to_where = THIRD_WEAPON;
         }
         else
         {
-          if (showit)
+          if( showit )
+          {
             send_to_char("You do not have enough hands free to use that.\r\n", ch);
+          }
           break;
         }
       }
     }
     else
     {
-      if (ch->equipment[PRIMARY_WEAPON])
+      if( ch->equipment[PRIMARY_WEAPON] )
       {
         wield_to_where = SECONDARY_WEAPON;
       }
@@ -4189,87 +4277,100 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
       {
         wield_to_where = PRIMARY_WEAPON;
       }
-      if (wield_to_where == SECONDARY_WEAPON)
+      if( wield_to_where == SECONDARY_WEAPON )
       {
-        if( (IS_PC(ch) && !GET_CHAR_SKILL(ch, SKILL_DUAL_WIELD)) ||
-            (IS_NPC(ch) && (!IS_WARRIOR(ch) || (GET_LEVEL(ch) < 15)) &&
-             (!IS_THIEF(ch) || (GET_LEVEL(ch) < 20))) )
+        if( (IS_PC(ch) && !GET_CHAR_SKILL(ch, SKILL_DUAL_WIELD))
+          || (IS_NPC(ch) && (!IS_WARRIOR(ch) || (GET_LEVEL(ch) < 15))
+          && (!IS_THIEF(ch) || (GET_LEVEL(ch) < 20))) )
         {
-          if (showit)
+          if( showit )
+          {
             send_to_char("You lack the training to use two weapons.\r\n", ch);
+          }
           break;
         }
       }
 
-
       if( (wield_to_where == SECONDARY_WEAPON) && (IS_REACH_WEAPON(obj_object)
-        || (!GET_CLASS(ch, CLASS_RANGER) &&
-            (GET_OBJ_WEIGHT(obj_object) * ((IS_OGRE(ch) || IS_SNOWOGRE(ch)) ? 2 : 3) >
-             (str_app[STAT_INDEX(GET_C_STR(ch))].wield_w)))))
+        || (!GET_CLASS(ch, CLASS_RANGER) && (GET_OBJ_WEIGHT(obj_object)
+        * ((IS_OGRE(ch) || IS_SNOWOGRE(ch)) ? 2 : 3) > (str_app[STAT_INDEX(GET_C_STR(ch))].wield_w)))) )
       {
-        if (showit)
+        if( showit )
+        {
           send_to_char("It is too heavy to wield in your secondary hand.\r\n", ch);
+        }
         break;
       }
     }
 
-    /* Removed by Zod */
-/*
-    if (wield_item_size(ch, obj_object) <= free_hands) { 
-*/
     // Wear Item
     execute_wear(ch, obj_object, wield_to_where, keyword, showit);
     return TRUE;
-/*
-    } else {
-      if (showit)
-        send_to_char("Dont seem to be the right size.\r\n", ch);
-    }
-*/
     break;
 
   case 13: /* Hold */
-    if (!CAN_WEAR(obj_object, ITEM_HOLD) &&
-        (GET_ITEM_TYPE(obj_object) != ITEM_LIGHT))
+    if( !CAN_WEAR(obj_object, ITEM_HOLD) && (GET_ITEM_TYPE(obj_object) != ITEM_LIGHT) )
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't hold this.\r\n", ch);
+      }
       break;
     }
-    if (!free_hands) {
-      if (showit)
-        send_to_char("Your hands are full.\r\n", ch);
-      break;
-    }
-    if( (IS_SET(obj_object->extra_flags, ITEM_TWOHANDS) || (obj_object->type == ITEM_WEAPON && obj_object->value[0] == WEAPON_2HANDSWORD))
-      && (free_hands < 2) )
+    if( !free_hands )
     {
-      if (showit)
-        send_to_char("You need two free hands to hold that.\r\n", ch);
+      if( showit )
+      {
+        send_to_char("Your hands are full.\r\n", ch);
+      }
       break;
     }
-    if (showit) // Show the Object Wear?
+    if( (IS_SET(obj_object->extra_flags, ITEM_TWOHANDS) || (obj_object->type == ITEM_WEAPON
+      && obj_object->value[0] == WEAPON_2HANDSWORD)) && (free_hands < 2) )
+    {
+      if( showit )
+      {
+        send_to_char("You need two free hands to hold that.\r\n", ch);
+      }
+      break;
+    }
+    if( showit )
+    {
       perform_wear(ch, obj_object, keyword);
+    }
     obj_from_char(obj_object, TRUE);
-    if (HAS_FOUR_HANDS(ch)) {
-      if (!ch->equipment[HOLD])
+    if( HAS_FOUR_HANDS(ch) )
+    {
+      if( !ch->equipment[HOLD] )
+      {
         equip_char(ch, obj_object, HOLD, !showit);
-      else if (!ch->equipment[WIELD])
+      }
+      else if( !ch->equipment[WIELD] )
+      {
         equip_char(ch, obj_object, WIELD, !showit);
-      else if (!ch->equipment[WIELD3])
+      }
+      else if( !ch->equipment[WIELD3] )
+      {
         equip_char(ch, obj_object, WIELD3, !showit);
+      }
       else
+      {
         equip_char(ch, obj_object, WIELD4, !showit);
+      }
     }
     else
     {
       if( !ch->equipment[HOLD] || !ch->equipment[WIELD] )
+      {
         equip_char(ch, obj_object, ch->equipment[HOLD] ? WIELD : HOLD, !showit);
+      }
       else
       {
         obj_to_char(obj_object, ch);
-        if (showit)
+        if( showit )
+        {
           send_to_char("Weird bug in wield.\r\n", ch);
+        }
         return FALSE;
       }
     }
@@ -4277,20 +4378,29 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
     break;
 
   case 14: /* Shield */
-    if (!CAN_WEAR(obj_object, ITEM_WEAR_SHIELD)) {
-      if (showit)
+    if( !CAN_WEAR(obj_object, ITEM_WEAR_SHIELD) )
+    {
+      if( showit )
+      {
         send_to_char("You can't use that as a shield.\r\n", ch);
+      }
       break;
     }
-    if (!free_hands) {
-      if (showit)
+    if( !free_hands )
+    {
+      if( showit )
+      {
         send_to_char("Your hands are full.\r\n", ch);
+      }
       break;
     }
     // Already Wearing the Item
-    if ((ch->equipment[WEAR_SHIELD])) {
-      if (showit)
+    if( ch->equipment[WEAR_SHIELD] )
+    {
+      if( showit )
+      {
         act("You are already using $p.", 0, ch, ch->equipment[WEAR_SHIELD], 0, TO_CHAR);
+      }
       break;
     }
     // Wear Item
@@ -4299,15 +4409,15 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
     break;
 
   case 15: /* Eyes */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_EYES))
+    if( CAN_WEAR(obj_object, ITEM_WEAR_EYES) )
     {
       // Already Wearing an ITEM_WHOLE_HEAD
-      if (ch->equipment[WEAR_HEAD] &&
-          IS_SET(ch->equipment[WEAR_HEAD]->extra_flags, ITEM_WHOLE_HEAD))
+      if( ch->equipment[WEAR_HEAD] && IS_SET(ch->equipment[WEAR_HEAD]->extra_flags, ITEM_WHOLE_HEAD) )
       {
-        if (showit)
+        if( showit )
+        {
           act("You can't wear something on your eyes and wear $p on your head.", 0, ch, ch->equipment[WEAR_HEAD], 0, TO_CHAR);
-          //send_to_char("You can't wear something on your eyes and wear that on your head.\r\n", ch);
+        }
         break;
       }
       // Replace if Wearing Something or Wear New Item
@@ -4315,21 +4425,23 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that on your eyes.\r\n", ch);
+      }
     }
     break;
 
   case 16: /* Face */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_FACE))
+    if( CAN_WEAR(obj_object, ITEM_WEAR_FACE) )
     {
       // Already Wearing an ITEM_WHOLE_HEAD
-      if (ch->equipment[WEAR_HEAD] &&
-          IS_SET(ch->equipment[WEAR_HEAD]->extra_flags, ITEM_WHOLE_HEAD))
+      if( ch->equipment[WEAR_HEAD] && IS_SET(ch->equipment[WEAR_HEAD]->extra_flags, ITEM_WHOLE_HEAD) )
       {
-        if (showit)
+        if( showit )
+        {
           act("You can't wear something on your face and wear $p on your head.", 0, ch, ch->equipment[WEAR_HEAD], 0, TO_CHAR);
-          // send_to_char("You can't wear something on your face and wear that on your head.\r\n", ch);
+        }
         break;
       }
       // Replace if Wearing Something or Wear New Item
@@ -4337,97 +4449,121 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that on your face.\r\n", ch);
+      }
     }
     break;
 
   case 17: /* Earring */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_EARRING) && !IS_THRIKREEN(ch))
+    if( CAN_WEAR(obj_object, ITEM_WEAR_EARRING) && !IS_THRIKREEN(ch) )
     {
       // Already Wearing Two Earrings
-      if ((ch->equipment[WEAR_EARRING_L]) && (ch->equipment[WEAR_EARRING_R])) {
-        if (showit)
+      if( (ch->equipment[WEAR_EARRING_L]) && (ch->equipment[WEAR_EARRING_R]) )
+      {
+        if( showit )
+        {
           send_to_char("You already wear an earring in each ear.\r\n", ch);
-      } else {
-  	// Wear Item
+        }
+      }
+      else
+      {
+        // Wear Item
         execute_wear(ch, obj_object, ((ch->equipment[WEAR_EARRING_L]) ? WEAR_EARRING_R : WEAR_EARRING_L), keyword, showit);
-        return TRUE;	
+        return TRUE;
       }
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that in your ear.\r\n", ch);
+      }
     }
     break;
 
   case 18: /* Quiver */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_QUIVER))
+    if( CAN_WEAR(obj_object, ITEM_WEAR_QUIVER) )
     {
       // Replace if Wearing Something or Wear New Item
       return remove_and_wear(ch, obj_object, WEAR_QUIVER, keyword, comnd, showit);
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't use that as your quiver.\r\n", ch);
+      }
     }
     break;
 
   case 19: /* Guild Insignia */
-    if (CAN_WEAR(obj_object, ITEM_GUILD_INSIGNIA))
+    if( CAN_WEAR(obj_object, ITEM_GUILD_INSIGNIA) )
     {
       // Replace if Wearing Something or Wear New Item
       return remove_and_wear(ch, obj_object, GUILD_INSIGNIA, keyword, comnd, showit);
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't use that as an insignia.\r\n", ch);
+      }
     }
     break;
 
   case 20: /* Back */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_BACK))
+    if( CAN_WEAR(obj_object, ITEM_WEAR_BACK) )
     {
       // Replace if Wearing Something or Wear New Item
       return remove_and_wear(ch, obj_object, WEAR_BACK, keyword, comnd, showit);
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that on your back.\r\n", ch);
+      }
     }
     break;
 
   case 21: /* Attach Belt */
-    if (CAN_WEAR(obj_object, ITEM_ATTACH_BELT))
+    if( CAN_WEAR(obj_object, ITEM_ATTACH_BELT) )
     {
-      if (!ch->equipment[WEAR_WAIST])
+      if( !ch->equipment[WEAR_WAIST] )
       {
-        if (showit)
-          act("You need a belt to attach $p to it.", 0, ch, obj_object, 0,
-              TO_CHAR);
+        if( showit )
+        {
+          act("You need a belt to attach $p to it.", 0, ch, obj_object, 0, TO_CHAR);
+        }
       }
-      else if ((ch->equipment[WEAR_ATTACH_BELT_1]) &&
-               (ch->equipment[WEAR_ATTACH_BELT_2]) &&
-               (ch->equipment[WEAR_ATTACH_BELT_3]))
+      else if( (ch->equipment[WEAR_ATTACH_BELT_1]) && (ch->equipment[WEAR_ATTACH_BELT_2])
+        && (ch->equipment[WEAR_ATTACH_BELT_3]) )
       {
-        if (showit)
+        if( showit )
+        {
           send_to_char("Your belt is full.\r\n", ch);
+        }
       }
       else
       {
-        if (showit) // Show the Object Wear?
+        if( showit )
+        {
           perform_wear(ch, obj_object, keyword);
-	obj_from_char(obj_object, TRUE);
+        }
+        obj_from_char(obj_object, TRUE);
         // Left the following an If-Then-Else instead of a ?: for ease of read.  -Sniktiorg (Nov.12.12)
-	if (!ch->equipment[WEAR_ATTACH_BELT_1]) {
+        if( !ch->equipment[WEAR_ATTACH_BELT_1] )
+        {
           equip_char(ch, obj_object, WEAR_ATTACH_BELT_1, !showit);
-        } else if (!ch->equipment[WEAR_ATTACH_BELT_2]) {
+        }
+        else if( !ch->equipment[WEAR_ATTACH_BELT_2] )
+        {
           equip_char(ch, obj_object, WEAR_ATTACH_BELT_2, !showit);
-        } else {
+        }
+        else
+        {
           equip_char(ch, obj_object, WEAR_ATTACH_BELT_3, !showit);
         }
         return TRUE;
@@ -4435,36 +4571,42 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't attach that to your belt.\r\n", ch);
+      }
     }
     break;
 
   case 22: /* Horse Body */
-    if (CAN_WEAR(obj_object, ITEM_HORSE_BODY) && (IS_CENTAUR(ch)))
+    if( CAN_WEAR(obj_object, ITEM_HORSE_BODY) && (IS_CENTAUR(ch)) )
     {
       // Replace if Wearing Something or Wear New Item
       return remove_and_wear(ch, obj_object, WEAR_HORSE_BODY, keyword, comnd, showit);
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that.\r\n", ch);
+      }
     }
     break;
 
   case 23: /* Tail */
-    if (IS_CENTAUR(ch) || IS_MINOTAUR(ch) || IS_PSBEAST(ch) || IS_KOBOLD(ch)) /* Should be a Macro */
+    if( HAS_TAIL(ch) )
     {
-      if (CAN_WEAR(obj_object, ITEM_WEAR_TAIL))
+      if( CAN_WEAR(obj_object, ITEM_WEAR_TAIL) )
       {
-      // Replace if Wearing Something or Wear New Item
-      return remove_and_wear(ch, obj_object, WEAR_TAIL, keyword, comnd, showit);
+        // Replace if Wearing Something or Wear New Item
+        return remove_and_wear(ch, obj_object, WEAR_TAIL, keyword, comnd, showit);
       }
       else
       {
-        if (showit)
+        if( showit )
+        {
           send_to_char("You can't wear that on your &+Ltail&n.\r\n", ch);
+        }
       }
     }
     else
@@ -4474,59 +4616,66 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
     break;
 
   case 24: /* Nose */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_NOSE) && IS_MINOTAUR(ch))
+    if( CAN_WEAR(obj_object, ITEM_WEAR_NOSE) && IS_MINOTAUR(ch) )
     {
-      // Replace if Wearing Something or Wear New Item
       return remove_and_wear(ch, obj_object, WEAR_NOSE, keyword, comnd, showit);
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that on your nose.\r\n", ch);
+      }
     }
     break;
 
   case 25: /* Horns */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_HORN) &&
-        (IS_MINOTAUR(ch) || IS_HARPY(ch) || IS_PSBEAST(ch)))
+    if( CAN_WEAR(obj_object, ITEM_WEAR_HORN)
+      && (IS_MINOTAUR(ch) || IS_HARPY(ch) || IS_PSBEAST(ch)) )
     {
-      // Replace if Wearing Something or Wear New Item
       return remove_and_wear(ch, obj_object, WEAR_HORN, keyword, comnd, showit);
     }
     else
     {
-      if (showit)
+      if( showit )
+      {
         send_to_char("You can't wear that on your &+Lhorns&n.\r\n", ch);
+      }
     }
     break;
 
   case 26: /* Ioun Stone */
-    if (CAN_WEAR(obj_object, ITEM_WEAR_IOUN))
+    if( CAN_WEAR(obj_object, ITEM_WEAR_IOUN) )
     {
-      // Replace if Wearing Something or Wear New Item
       return remove_and_wear(ch, obj_object, WEAR_IOUN, keyword, comnd, showit);
     }
     break;
 
   case 27: /* Spider Body */
-    if (CAN_WEAR(obj_object, ITEM_SPIDER_BODY))
+    if( CAN_WEAR(obj_object, ITEM_SPIDER_BODY) )
     {
-      if (GET_RACE(ch) != RACE_DRIDER)
+      if( !has_innate( ch, INNATE_SPIDER_BODY ) )
       {
-        if (showit)
+        if( showit )
+        {
           send_to_char("You can't wear &+Lspider's&n abdomen armor.\r\n", ch);
+        }
         break;
       }
       // Replace if Wearing Something or Wear New Item
       return remove_and_wear(ch, obj_object, WEAR_SPIDER_BODY, keyword, comnd, showit);
     }
     else
+    {
       if (showit)
+      {
         send_to_char("You can't wear that.\r\n", ch);
+      }
+    }
     break;
 
   case -1:
-    if (showit)
+    if( showit )
     {
       sprintf(Gbuf3, "Wear %s where?\r\n", FirstWord(obj_object->name));
       send_to_char(Gbuf3, ch);
@@ -4534,7 +4683,7 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
     break;
 
   case -2:
-    if (showit)
+    if( showit )
     {
       sprintf(Gbuf3, "You can't wear the %s.\r\n", FirstWord(obj_object->name));
       send_to_char(Gbuf3, ch);
@@ -4648,8 +4797,6 @@ void do_wear(P_char ch, char *argument, int cmd)
     return;
   }
 
-
-
   argument_interpreter(argument, Gbuf1, Gbuf2);
   if (*Gbuf1 && str_cmp(Gbuf1, "all"))
   {
@@ -4670,37 +4817,37 @@ void do_wear(P_char ch, char *argument, int cmd)
       else
       {
         keyword = -2;
-	/*
-         * Determine the object's proper keyword position using a Break-Loop in place of
-         * a fifty-line if-then statement. - Sniktiorg (Nov.12.12)
-	 */     
-	for (loop = 0; loop < CUR_MAX_WEAR; loop++)
+	     /*
+        * Determine the object's proper keyword position using a Break-Loop in place of
+        *   a fifty-line if-then statement. - Sniktiorg (Nov.12.12)
+	      */
+        for (loop = 0; loop < CUR_MAX_WEAR; loop++)
         {
           if (CAN_WEAR(obj_object, equipment_pos_table[loop][0])) // Checks if Item can be Worn in this Spot
-	  {
+          {
             keyword = equipment_pos_table[loop][1]; // Assigns appropriate Keyword
-	    break;
-	  }
+            break;
+          }
         }
-	// Can't Find a Wear Position
-        if (keyword == -2)
+      	// Can't Find a Wear Position
+        //  This is really weird. there's no -2 in the equipment_pos_table[][], nor in WEAR_*.
+        if( keyword == -2 )
         {
           send_to_char("That doesn't seem to work.\r\n", ch);
           return;
         }
         // Wear the Object
-              if (obj_index[obj_object->R_num].virtual_number == 400218 && IS_MULTICLASS_PC(ch))
-    {
-	send_to_char("&nThe power of this item is too great for a multiclassed character!&n\r\n", ch);
-	return;
-    }
-      if(IS_OBJ_STAT2(obj_object, ITEM2_SOULBIND) &&
-      !isname(GET_NAME(ch), obj_object->name))
-      {
-       send_to_char("&+LThis item is bound to someone elses &+Wsoul&+L, you may not wear it!&n\r\n", ch);
-       return;
-      }
-        wear(ch, obj_object, keyword, 1);
+        if (obj_index[obj_object->R_num].virtual_number == 400218 && IS_MULTICLASS_PC(ch))
+        {
+          send_to_char("&nThe power of this item is too great for a multiclassed character!&n\r\n", ch);
+          return;
+        }
+        if(IS_OBJ_STAT2(obj_object, ITEM2_SOULBIND) && !isname(GET_NAME(ch), obj_object->name))
+        {
+          send_to_char("&+LThis item is bound to someone elses &+Wsoul&+L, you may not wear it!&n\r\n", ch);
+          return;
+        }
+        wear(ch, obj_object, keyword, TRUE);
       }
     }
     else // Object Doesn't Exist
@@ -4715,39 +4862,41 @@ void do_wear(P_char ch, char *argument, int cmd)
   }
   else
   {
-    /*
-     * WEAR ALL
-     * Rearranged things here, should be faster, as it only checks for
-     * filling empty equipment slots now, and equip is usually at top
-     * of the inventory. - JAB
-     */
-    for (loop = 0; loop < CUR_MAX_WEAR; loop++) 
-    { // Outer Loop
-      if (!(ch->equipment[equipment_pos_table[loop][2]]))
-
-        for (obj_object = ch->carrying; obj_object; obj_object = next_obj)
-        { // Inner Loop
-	            if (obj_index[obj_object->R_num].virtual_number == 400218 && IS_MULTICLASS_PC(ch))
-    		{
-			send_to_char("&nThe power of this item is too great for a multiclassed character!&n\r\n", ch);
-			return;
-  		  }
-                      if(IS_OBJ_STAT2(obj_object, ITEM2_SOULBIND) &&
-     		 !isname(GET_NAME(ch), obj_object->name))
-     		 {
-    		   send_to_char("&+LThis item is bound to someone elses &+Wsoul&+L, you may not wear it!&n\r\n", ch);
-   		    return;
-   		   }
+   /*
+    * WEAR ALL
+    * Rearranged things here, should be faster, as it only checks for
+    * filling empty equipment slots now, and equip is usually at top
+    * of the inventory. - JAB
+    */
+    // Outer Loop
+    for( loop = 0; loop < CUR_MAX_WEAR; loop++ )
+    {
+      if( !(ch->equipment[equipment_pos_table[loop][2]]) )
+      {
+        // Inner Loop
+        for( obj_object = ch->carrying; obj_object; obj_object = next_obj )
+        {
+          if (obj_index[obj_object->R_num].virtual_number == 400218 && IS_MULTICLASS_PC(ch))
+          {
+            send_to_char("&nThe power of this item is too great for a multiclassed character!&n\r\n", ch);
+            return;
+          }
+          if( IS_OBJ_STAT2(obj_object, ITEM2_SOULBIND) && !isname(GET_NAME(ch), obj_object->name) )
+          {
+            send_to_char("&+LThis item is bound to someone elses &+Wsoul&+L, you may not wear it!&n\r\n", ch);
+            return;
+          }
           next_obj = obj_object->next_content;
           if (obj_object->type != ITEM_SPELLBOOK)
           {
             if (CAN_WEAR(obj_object, equipment_pos_table[loop][0]))
             {
-	      wear(ch, obj_object, equipment_pos_table[loop][1], TRUE);
+              wear(ch, obj_object, equipment_pos_table[loop][1], TRUE);
               break;
             }
           }
         } // End Inner Loop
+      }
     } // End Outer Loop
     // Give a Message that the ch has Equiped itself Fully.  However, doesn't
     // actually check if something was equiped.  Removed for now.
