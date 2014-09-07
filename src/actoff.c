@@ -3022,16 +3022,14 @@ void do_bash(P_char ch, char *argument, int cmd)
 {
   P_char   victim = NULL;
 
-  if(!(ch) ||
-    !IS_ALIVE(ch))
+  if( !IS_ALIVE(ch) )
   {
     return;
   }
 
   victim = ParseTarget(ch, argument);
-  
-  if(!(victim) ||
-     !IS_ALIVE(victim))
+
+  if( !IS_ALIVE(victim) )
   {
     //CharWait(ch, (int)(0.5 * PULSE_VIOLENCE));
     send_to_char("Bash who?\n", ch);
@@ -5481,7 +5479,7 @@ void bash(P_char ch, P_char victim)
     return;
   }
 
-  if(GET_CHAR_SKILL(ch, SKILL_BASH) < 1)
+  if( GET_CHAR_SKILL(ch, SKILL_BASH) < 1 )
   {
     send_to_char("You don't know how to bash.\n", ch);
     return;
@@ -5501,12 +5499,12 @@ void bash(P_char ch, P_char victim)
     return;
   }
 
-  if(!CanDoFightMove(ch, victim))
+  if( !CanDoFightMove(ch, victim) )
   {
     return;
   }
 
-  if(IS_TRUSTED(victim) && IS_SET(victim->specials.act, PLR_AGGIMMUNE))
+  if( IS_TRUSTED(victim) && IS_SET(victim->specials.act, PLR_AGGIMMUNE) )
   {
     send_to_char("Bash a god?  I think not.", ch);
     return;
@@ -5514,7 +5512,7 @@ void bash(P_char ch, P_char victim)
 
   appear(ch);
 
-  if(GET_POS(victim) != POS_STANDING)
+  if( GET_POS(victim) != POS_STANDING )
   {
     act("As $N avoids your bash, you topple over and fall to the ground.",
       FALSE, ch, 0, victim, TO_CHAR);
@@ -5556,11 +5554,9 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
   }
 }*/
   /* you must be size more than size down or same size of centaur/drider to try bashing */
-  if(ch_size < vict_size - 1 ||
-     ((has_innate(victim, INNATE_HORSE_BODY) ||
-       has_innate(victim, INNATE_SPIDER_BODY) ||
-       GET_RACE(ch) == RACE_QUADRUPED)  &&
-      ch_size <= vict_size))
+  if( ch_size < vict_size - 1 || ((has_innate(victim, INNATE_HORSE_BODY)
+    || has_innate(victim, INNATE_SPIDER_BODY) || GET_RACE(ch) == RACE_QUADRUPED)
+    && ch_size <= vict_size) )
   {
     act("$n makes a futile attempt to bash $N, but $E is simply immovable.", FALSE, ch, 0, victim, TO_NOTVICT);
     act("$n makes a futile attempt to bash you, but you are simply immovable.", FALSE, ch, 0, victim, TO_VICT);
@@ -5570,7 +5566,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
     return;
   }
 
-  if(ch_size > vict_size + 1)
+  if( ch_size > vict_size + 1 )
   {
     act("$n topples over $mself as $e tries to bash $N.", FALSE, ch, 0, victim, TO_NOTVICT);
     act("$n topples over $mself as $e tries to bash you.", FALSE, ch, 0, victim, TO_VICT);
@@ -5582,19 +5578,19 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
 
   percent_chance = GET_CHAR_SKILL(ch, SKILL_BASH); // Base chance
 
-  if(!on_front_line(victim))
-    percent_chance = (int) (percent_chance * 0.5);
-
-  if(IS_HUMANOID(ch))
+  if( !on_front_line(victim) )
   {
-    if(!(ch->equipment[WEAR_SHIELD]) && 
-       (GET_CLASS(ch, CLASS_PALADIN) ||
-       GET_CLASS(ch, CLASS_ANTIPALADIN)) &&
-       GET_CHAR_SKILL(ch, SKILL_SHIELDLESS_BASH) < 1)
+    percent_chance = (int) (percent_chance * 0.5);
+  }
+
+  if( IS_HUMANOID(ch) )
+  {
+    if( !(ch->equipment[WEAR_SHIELD]) && (GET_CLASS(ch, CLASS_PALADIN | CLASS_ANTIPALADIN))
+      && GET_CHAR_SKILL(ch, SKILL_SHIELDLESS_BASH) < 1 )
     {
-      if(ch->equipment[WIELD])
+      if( ch->equipment[WIELD] )
       {
-        if(IS_ARTIFACT(ch->equipment[WIELD]))
+        if( IS_ARTIFACT(ch->equipment[WIELD]) )
         {
           percent_chance += 7;
            // Artifacts are often low weight to allow all
@@ -5602,8 +5598,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
         }
         else
         {
-          percent_chance +=
-          ch->equipment[WIELD]->weight / 2;
+          percent_chance += ch->equipment[WIELD]->weight / 2;
         }
       }
     }
@@ -5615,31 +5610,30 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
       }
       else
       {
-        shieldless = true;
+        shieldless = TRUE;
         notch_skill(ch, SKILL_SHIELDLESS_BASH, get_property("skill.notch.offensive", 7));
-        percent_chance =
-          (int) (percent_chance *
+        percent_chance = (int) (percent_chance *
           ((float) MAX(20, GET_CHAR_SKILL(ch, SKILL_SHIELDLESS_BASH))) / 100);
 
-        if(GET_CHAR_SKILL(ch, SKILL_SHIELDLESS_BASH) < 1)
+        if( GET_CHAR_SKILL(ch, SKILL_SHIELDLESS_BASH) < 1 )
+        {
           send_to_char("Bashing without a shield is tough, but you try anyway...\n", ch);
 //        debug("bash: (%s) shieldless bashing (%s) percentage (%d).", GET_NAME(ch), GET_NAME(victim), percent_chance);
+        }
       }
     }
   }
 
-  if(skewer > 0 &&
-     IS_FIGHTING(ch) &&
-     victim->specials.fighting != ch &&
-     ch->specials.fighting != victim)
+  if( skewer > 0 && IS_FIGHTING(ch) && victim->specials.fighting != ch
+    && ch->specials.fighting != victim )
   {
     skewer = (int) (skewer * get_property("skill.skewer.OffTarget.Penalty", 0.500));
   }
 
-  if(skewer > 0 && GET_POS(victim) != POS_STANDING && ch->equipment[WIELD]
+  if( skewer > 0 && GET_POS(victim) != POS_STANDING && ch->equipment[WIELD]
     && good_for_skewering(ch->equipment[WIELD])
     && (notch_skill(ch, SKILL_SKEWER, get_property("skill.notch.offensive", 7))
-    || skewer / 3 > number(1, 100)))
+    || skewer / 3 > number(1, 100)) )
   {
     act("$n grins as $e skewers you with $s $q.", FALSE, ch,
         ch->equipment[WIELD], victim, TO_VICT);
@@ -5658,13 +5652,10 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
     return;
   }
 
-  percent_chance =
-    (int) (percent_chance *
-           ((GET_POS(victim) == POS_PRONE) ? 0.00 :
-           (GET_POS(victim) != POS_STANDING) ? 0.00 :
-           1));
+  percent_chance = (int) (percent_chance * ((GET_POS(victim) == POS_PRONE) ? 0.00 :
+    (GET_POS(victim) != POS_STANDING) ? 0.00 : 1));
 
-  if(!IS_PC_PET(ch))
+  if( !IS_PC_PET(ch) )
   {
     modifier = 1 + ((GET_C_STR(ch) + GET_C_DEX(ch))/2 - GET_C_AGI(victim)) / 50.0;
     percent_chance *= modifier;
@@ -5678,9 +5669,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
   /*
    * if they are fighting something and try to bash something else
    */
-  if(IS_FIGHTING(ch) &&
-    victim->specials.fighting != ch &&
-    ch->specials.fighting != victim)
+  if( IS_FIGHTING(ch) && victim->specials.fighting != ch && ch->specials.fighting != victim )
   {
     send_to_char("You are fighting something else! Nevertheless, you attempt the bash...\n", ch);
     percent_chance = (int) (percent_chance * 0.7);
@@ -5690,41 +5679,36 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
   percent_chance *= modifier;
 //  debug("bash: (%s) bashing (%s) lvl percentage (%d) mod (%f).", GET_NAME(ch), GET_NAME(victim), percent_chance, modifier);
 
-  if(IS_THRIKREEN(ch))
+  if( IS_THRIKREEN(ch) )
   {
     percent_chance = (int) (percent_chance * 0.70);
   }
 
-  bool bigger_victim = false;
-  if(vict_size > ch_size ||
-   ((has_innate(victim, INNATE_HORSE_BODY) ||
-     has_innate(victim, INNATE_SPIDER_BODY) ||
-     GET_RACE(ch) == RACE_QUADRUPED)  &&
-    ch_size == vict_size))
+  bool bigger_victim = FALSE;
+  if( vict_size > ch_size || ((has_innate(victim, INNATE_HORSE_BODY) || has_innate(victim, INNATE_SPIDER_BODY)
+    || GET_RACE(ch) == RACE_QUADRUPED) && ch_size == vict_size) )
   {
-    bigger_victim = true;
+    bigger_victim = TRUE;
   }
 
-  if (bigger_victim)
+  if( bigger_victim )
   {
     percent_chance = (int) (percent_chance * 0.70);
   }
 
-  if(IS_AFFECTED(victim, AFF_AWARE))
+  if( IS_AFFECTED(victim, AFF_AWARE) )
   {
     percent_chance = (int) (percent_chance * 0.93);
   }
 //  debug("bash: (%s) bashing (%s) aware/size percentage (%d).", GET_NAME(ch), GET_NAME(victim), percent_chance);
 
-  percent_chance =
-    takedown_check(ch, victim, percent_chance, SKILL_BASH,
-                   APPLY_ALL ^ AGI_CHECK ^ VICTIM_BACK_RANK);
+  percent_chance = takedown_check(ch, victim, percent_chance, SKILL_BASH, APPLY_ALL ^ AGI_CHECK ^ VICTIM_BACK_RANK);
 
-  if(percent_chance == TAKEDOWN_CANCELLED)
+  if( percent_chance == TAKEDOWN_CANCELLED )
   {
     return;
   }
-  else if(percent_chance == TAKEDOWN_PENALTY)
+  else if( percent_chance == TAKEDOWN_PENALTY )
   {
     SET_POS(ch, POS_SITTING + GET_STAT(ch));
     CharWait(ch, PULSE_VIOLENCE * 2);
@@ -5733,18 +5717,16 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
 
 //  debug("bash: (%s) bashing (%s) takedown check percentage (%d).", GET_NAME(ch), GET_NAME(victim), percent_chance);
 
-  if(IS_PC_PET(ch) &&
-     IS_ELEMENTAL(ch) &&
-     get_linked_char(ch, LNK_PET) &&
-     get_linked_char(ch, LNK_PET)->in_room == ch->in_room)
+  if( IS_PC_PET(ch) && IS_ELEMENTAL(ch) && get_linked_char(ch, LNK_PET)
+    && get_linked_char(ch, LNK_PET)->in_room == ch->in_room )
   {
     int NumFol = CountNumGreaterElementalFollowersInSameRoom(get_linked_char(ch, LNK_PET));
 
-    if(GET_POS(victim) != POS_STANDING)
+    if( GET_POS(victim) != POS_STANDING )
     {
       percent_chance = 0;
     }
-    else if(NumFol > 1)
+    else if( NumFol > 1 )
     {
       percent_chance /= NumFol;
     }
@@ -5757,18 +5739,19 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
    * final check to smarten mobs up a little, if odds are too low don't
    * try very often.  JAB
    */
-  if(GET_POS(victim) != POS_STANDING)
+  if( GET_POS(victim) != POS_STANDING )
+  {
     percent_chance = 0;
-
+  }
 
 
   rolled = number(1, 100);
   debug("bash: (%s) bashing (%s) final percentage (%d).", GET_NAME(ch), GET_NAME(victim), percent_chance);
 
-  if(!notch_skill(ch, SKILL_BASH, get_property("skill.notch.offensive", 7))
-    && percent_chance < rolled)
+  if( !notch_skill(ch, SKILL_BASH, get_property("skill.notch.offensive", 7))
+    && percent_chance < rolled )
   {
-    if (bigger_victim && number(1,2) == 1)
+    if( bigger_victim && number(1,2) == 1 )
     {
       act("As $N withstands your bash, you bounce back and fall to the ground.",
           FALSE, ch, 0, victim, TO_CHAR);
@@ -5791,7 +5774,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
      * mostly to knees, but can wind up prone too
      */
     engage(ch, victim);
-    if(rolled > (percent_chance * 3))
+    if( rolled > (percent_chance * 3) )
     {
       SET_POS(ch, POS_PRONE + GET_STAT(ch));
       CharWait(ch, PULSE_VIOLENCE * 3);
@@ -5805,10 +5788,10 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
   else
   {
     dmg = 1 + str_app[STAT_INDEX(GET_C_STR(ch))].todam;
-    if(ch->equipment[WEAR_SHIELD])
+    if( ch->equipment[WEAR_SHIELD] )
     {
       dmg += number(0, 4) + ch->equipment[WEAR_SHIELD]->weight / 2;
-      if(strstr(ch->equipment[WEAR_SHIELD]->name, "spiked"))
+      if( strstr(ch->equipment[WEAR_SHIELD]->name, "spiked") )
       {
         dmg *= 2;
       }
@@ -5816,11 +5799,11 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
 
     CharWait(ch, PULSE_VIOLENCE * 2);
 
-    if(GET_POS(victim) != POS_STANDING)
+    if( GET_POS(victim) != POS_STANDING )
     {
       CharWait(victim, PULSE_VIOLENCE * 1);
     }
-    else if(GET_SPEC(ch, CLASS_WARRIOR, SPEC_GUARDIAN))
+    else if( GET_CLASS(ch, CLASS_PALADIN | CLASS_ANTIPALADIN) )
     {
 	    CharWait(victim, (int) (PULSE_VIOLENCE * 2.5));
     }
@@ -5829,17 +5812,17 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
       CharWait(victim, (int) (PULSE_VIOLENCE * 2));
     }
 
-    if(melee_damage(ch, victim, MAX(1, dmg), PHSDAM_TOUCH, 0) == DAM_NONEDEAD)
+    if( melee_damage(ch, victim, MAX(1, dmg), PHSDAM_TOUCH, 0) == DAM_NONEDEAD )
     {
       //act("Your bash knocks $N to the ground!", FALSE, ch, 0, victim, TO_CHAR);
-      if(GET_SPEC(ch, CLASS_WARRIOR, SPEC_GUARDIAN))
+      if( GET_CLASS(ch, CLASS_PALADIN | CLASS_ANTIPALADIN) )
       {
         act("Your skillful bash knocks $N to the ground!", FALSE, ch, 0, victim, TO_CHAR);
         act("You are knocked to the ground by $n's skillful bash!", FALSE, ch, 0, victim, TO_VICT);
        	act("$N is knocked to the ground by $n's skillful bash!", FALSE, ch, 0, victim, TO_NOTVICT);
         set_short_affected_by(ch, SKILL_BASH, (int) (2.8 * PULSE_VIOLENCE));
       }
-      else if(!LEGLESS(ch))
+      else if( !LEGLESS(ch) )
       {
         act("Your bash knocks $N to the ground!", FALSE, ch, 0, victim, TO_CHAR); 
         act("You are knocked to the ground by $n's mighty bash!", FALSE, ch, 0, victim, TO_VICT);
@@ -5857,18 +5840,18 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
       update_pos(victim);
     }
 
-    if(!IS_ALIVE(ch))
+    if( !IS_ALIVE(ch) )
     {
       return;
     }
 
-    if(GET_CHAR_SKILL(ch, SKILL_SKEWER) > 0 && ch->equipment[WIELD] && good_for_skewering(ch->equipment[WIELD]))
+    if( GET_CHAR_SKILL(ch, SKILL_SKEWER) > 0 && ch->equipment[WIELD] && good_for_skewering(ch->equipment[WIELD]) )
     {
       percent_chance = GET_CHAR_SKILL(ch, SKILL_SKEWER) / 2;
-      if(notch_skill(ch, SKILL_SKEWER, get_property("skill.notch.offensive", 7))
-        || percent_chance > number(0, 100))
+      if( notch_skill(ch, SKILL_SKEWER, get_property("skill.notch.offensive", 7))
+        || percent_chance > number(0, 100) )
       {
-        if(!IS_ALIVE(victim))
+        if( !IS_ALIVE(victim) )
         {
           act("$n grins as $e pierces the lifeless body again and again with $s $p.", FALSE, ch, ch->equipment[WIELD], 0, TO_ROOM);
           act("You dive your $q right through the lifeless body of your opponent.", FALSE, ch, ch->equipment[WIELD], 0, TO_CHAR);
@@ -5882,7 +5865,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
           act("$n dives at $N skewering $M with $s $q.", FALSE, ch,
               ch->equipment[WIELD], victim, TO_NOTVICT);
           //codemod dice(20, 10) - changed to make skewer do more damage instead of lag user longer
-          if(melee_damage(ch, victim, dice(45, 10), 0, 0) == DAM_NONEDEAD)
+          if( melee_damage(ch, victim, dice(45, 10), 0, 0) == DAM_NONEDEAD )
           {
             CharWait(victim, (int) (PULSE_VIOLENCE * 2.0));
           }
@@ -5899,7 +5882,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
   }
 
 #ifdef REALTIME_COMBAT
-  if(ch->specials.fighting && !ch->specials.combat)
+  if( ch->specials.fighting && !ch->specials.combat )
   {
     ch->specials.fighting = NULL;
     set_fighting(ch, victim);
