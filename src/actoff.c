@@ -5804,8 +5804,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
     {
       CharWait(victim, PULSE_VIOLENCE * 1);
     }
-    else if( GET_CLASS(ch, CLASS_PALADIN | CLASS_ANTIPALADIN)
-      && weap && IS_PALADIN_SWORD(weap) )
+    else if( GET_SPEC(ch, CLASS_WARRIOR, SPEC_GUARDIAN) )
     {
 	    CharWait(victim, (int) (PULSE_VIOLENCE * 2.5));
     }
@@ -5817,7 +5816,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
     if( melee_damage(ch, victim, MAX(1, dmg), PHSDAM_TOUCH, 0) == DAM_NONEDEAD )
     {
       //act("Your bash knocks $N to the ground!", FALSE, ch, 0, victim, TO_CHAR);
-      if( GET_CLASS(ch, CLASS_PALADIN | CLASS_ANTIPALADIN) && weap && IS_PALADIN_SWORD(weap) )
+      if( GET_SPEC(ch, CLASS_WARRIOR, SPEC_GUARDIAN) )
       {
         act("Your skillful bash knocks $N to the ground!", FALSE, ch, 0, victim, TO_CHAR);
         act("You are knocked to the ground by $n's skillful bash!", FALSE, ch, 0, victim, TO_VICT);
