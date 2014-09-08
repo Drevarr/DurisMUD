@@ -599,28 +599,38 @@ bool dread_blade_proc(P_char ch, P_char victim)
   victim->specials.apply_saving_throw[SAVING_SPELL] = save;
 }
 
-#define MAX_PROCSPELLS 5
 bool holy_weapon_proc(P_char ch, P_char victim)
 {
   int num, room, lvl;
   P_obj wpn;
 
   typedef void (*spell_func_type) (int, P_char, char *, int, P_char, P_obj);
-  spell_func_type spells[MAX_PROCSPELLS] = {
-    spell_cure_light,
-    spell_heal,
-    spell_cure_critic,
-    spell_cure_critic,
-    spell_cure_light
+  spell_func_type spells[] = {
+    spell_cure_light,   // 0
+    spell_cure_light,   // 1
+    spell_cure_light,   // 2
+    spell_cure_serious, // 3
+    spell_cure_serious, // 4
+    spell_cure_critic,  // 5
+    spell_cure_critic,  // 6
+    spell_heal,         // 7
+    spell_heal,         // 8
+    spell_full_heal     // 9
   };
 
   if( !IS_ALIVE(ch) || !IS_FIGHTING(ch) || !(victim = ch->specials.fighting)
-    || !IS_ALIVE(victim) || !(room = ch->in_room) || number(0, 15)) // 3%
+    || !IS_ALIVE(victim) || !(room = ch->in_room) || number(0, 14)) // 6.67%
   {
     return FALSE;
   }
 
-  lvl = MAX( 2, GET_LEVEL(ch));
+  // Level ranges from 0 to spells[].size - 2.
+  lvl = GET_LEVEL(ch) >= 54 ? 7 : (GET_LEVEL(ch) >= 50 ? 6 : (GET_LEVEL(ch) >= 40 ? 5 :
+    (GET_LEVEL(ch) >= 30 ? 4 : (GET_LEVEL(ch) >= 20 ? 3 : (GET_LEVEL(ch) >= 15 ? 2 : 
+    (GET_LEVEL(ch) >= 10 ? 1 : 0))))));
+
+  // Add a bit of randomness.
+  num = number(0, 2) + lvl;
 
   // wpn = wield slot iff it's a paladin sword.
   if( (wpn = ch->equipment[WIELD]) && (!IS_PALADIN_SWORD(wpn) || !CAN_SEE_OBJ(ch, wpn)) )
@@ -640,16 +650,14 @@ bool holy_weapon_proc(P_char ch, P_char victim)
 
   if( !(IS_MAGIC_LIGHT(room)) )
   {
-    spell_continual_light(lvl, ch, 0, 0, 0, 0);
+    spell_continual_light(GET_LEVEL(ch), ch, 0, 0, 0, 0);
   }
-
-  num = number(1, MAX_PROCSPELLS) - 1;
 
 /* WTH was this for? uber proc'ing on the victim?
   save = victim->specials.apply_saving_throw[SAVING_SPELL];
   victim->specials.apply_saving_throw[SAVING_SPELL] += 15;
 */
-  spells[num](number(lvl/2, lvl), ch, 0, 0, ch, 0);
+  spells[num](number(GET_LEVEL(ch)/2, GET_LEVEL(ch)), ch, 0, 0, ch, 0);
   /* And this is the undoing of the uber proc.. which isn't used.
   return !is_char_in_room(ch, room) || !is_char_in_room(victim, room);
   victim->specials.apply_saving_throw[SAVING_SPELL] = save;
