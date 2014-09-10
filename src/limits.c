@@ -106,19 +106,27 @@ int graf(P_char ch, int t_age,
 
 int vitality_limit(P_char ch)
 {
-  int      max;
-  int      endurance = GET_CHAR_SKILL(ch, SKILL_IMPROVED_ENDURANCE);
+  int max;
+  int endurance = GET_CHAR_SKILL(ch, SKILL_IMPROVED_ENDURANCE);
 
-  if (IS_PC(ch) && (GET_AGE(ch) <= racial_data[GET_RACE(ch)].max_age))
-    max =
-      racial_data[(int) GET_RACE(ch)].base_vitality +
-      ch->points.base_vitality + graf(ch, age(ch).year, 10, 20, 30, 40, 50,
-                                      60, 70);
+  // Giving mounts epic endurance, since that's all they do.. (and tank sometimes).
+  if( IS_NPC(ch) && IS_SET(ch->specials.act, ACT_MOUNT) )
+  {
+    endurance = 100;
+  }
+
+  if( IS_PC(ch) && (GET_AGE(ch) <= racial_data[GET_RACE(ch)].max_age) )
+  {
+    max = racial_data[(int) GET_RACE(ch)].base_vitality + ch->points.base_vitality
+      + graf(ch, age(ch).year, 10, 20, 30, 40, 50, 60, 70);
+  }
   else
+  {
     // this is a hack.  remort'd undead will hit this condition almost always... they should use the
     // racial mod, but many undead had their base vit setbit... also some mobs might be using
     // the base vit (and not have a valid racial entry).  this will hopefully be a happy medium.
     max = ch->points.base_vitality ? ch->points.base_vitality : racial_data[(int) GET_RACE(ch)].base_vitality;
+  }
 
   /* This is another pretty hack to increase movement points
    * due to having the IMPROVED ENDURANCE epic skill. Once
@@ -126,8 +134,10 @@ int vitality_limit(P_char ch)
    * ceases to exist.
    * Zion 11/1/07
    */
-  if (endurance > 0)
-  max += (endurance / 2);
+  if( endurance > 0 )
+  {
+    max += (endurance / 2);
+  }
 
   return (max);
 }
@@ -368,24 +378,31 @@ int hit_regen(P_char ch)
 int move_regen(P_char ch)
 {
   float gain;
-  int endurance = GET_CHAR_SKILL(ch, SKILL_IMPROVED_ENDURANCE);
+  int endurance;
 
-  if(!(ch) ||
-     !IS_ALIVE(ch))
-        return 0;
-        
-  if(ch->points.move_reg >= 0 &&
-     GET_VITALITY(ch) == GET_MAX_VITALITY(ch))
-        return 0;
+  if( !IS_ALIVE(ch) )
+  {
+    return 0;
+  }
 
-  if(IS_AFFECTED3(ch, AFF3_SWIMMING) ||
-     IS_AFFECTED2(ch, AFF2_HOLDING_BREATH) ||
-     IS_AFFECTED2(ch, AFF2_IS_DROWNING) ||
-     IS_FIGHTING(ch) ||
-     IS_DESTROYING(ch) ||
-     IS_STUNNED(ch))
-        return 0;
-        
+  endurance = GET_CHAR_SKILL(ch, SKILL_IMPROVED_ENDURANCE);
+
+  // Giving mounts epic endurance, since that's all they do.. (and tank sometimes).
+  if( IS_NPC(ch) && IS_SET(ch->specials.act, ACT_MOUNT) )
+  {
+    endurance = 100;
+  }
+
+  if( ch->points.move_reg >= 0 && GET_VITALITY(ch) == GET_MAX_VITALITY(ch) )
+  {
+    return 0;
+  }
+
+  if( IS_AFFECTED3(ch, AFF3_SWIMMING) || IS_AFFECTED2(ch, AFF2_HOLDING_BREATH)
+    || IS_AFFECTED2(ch, AFF2_IS_DROWNING) || IS_FIGHTING(ch) || IS_DESTROYING(ch) || IS_STUNNED(ch) )
+  {
+    return 0;
+  }
 
   if(GET_VITALITY(ch) > GET_MAX_VITALITY(ch))
   {
