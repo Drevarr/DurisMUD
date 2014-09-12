@@ -13038,7 +13038,8 @@ int random_set(P_char ch, P_obj obj, int count, int cmd, char *arg)
     af.type = TAG_SETPROC;
     af.flags = AFFTYPE_NOSAVE | AFFTYPE_NOSHOW | AFFTYPE_NODISPEL;
     af.location = APPLY_HIT;
-    af.duration = 1;
+    // This should be indefinite: Only changes upon eq removal/wear new eq.
+    af.duration = -1;
     afp = affect_to_char(ch, &af);
   }
 
