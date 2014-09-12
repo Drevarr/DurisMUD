@@ -10,7 +10,7 @@ distinctively snake-like mouth, this construct looks very fearsome.
 1107363947 1 0 0 536870936 0 131072 0 -1000 S
 OG 0 1 0 -1
 54 190 -100 1d20+25000 7d6+40
-0.0.0.0 40000000
+0.0.0.0 400000
 8 8 0
 #19601
 worshiper figure dragonian~
@@ -24,7 +24,7 @@ intertwine around the robe, forming a star pattern on the back.
 33622090 1 0 0 536871064 2048 131072 0 -1000 S
 G 0 1 0 -1
 52 200 -100 1d100+20000 7d6+60
-0.0.0.0 4000000
+0.0.0.0 400000
 8 8 1
 #19602
 black dragon guard~
@@ -35,7 +35,7 @@ black dragon guard~
 1107363912 1 0 0 536871064 2048 131072 0 -1000 S
 D 0 1 0 -1
 56 200 -100 1d100+20000 7d6+60
-0.0.0.0 4000000
+0.0.0.0 400000
 8 8 1
 #19603
 black wyrm~
@@ -49,7 +49,7 @@ a long neck.
 33622090 1 0 0 536871064 2048 131072 0 -1000 S
 D 0 1 0 -1
 58 200 -100 1d100+30000 7d6+60
-0.0.0.0 4000000
+0.0.0.0 400000
 8 8 0
 #19604
 blue wyrm~
@@ -64,7 +64,7 @@ armies destroyed, glare in anger at your approach.
 33622090 1 0 0 536871064 2048 131072 0 -1000 S
 D 0 1 0 -1
 54 200 -100 1d100+30000 7d6+60
-0.0.0.0 4000000
+0.0.0.0 400000
 8 8 0
 #19605
 green wyrm~
@@ -79,7 +79,7 @@ armies destroyed, glare in anger at your approach.
 33622090 1 0 0 536871064 2048 131072 0 -1000 S
 D 0 1 0 -1
 52 200 -100 1d100+30000 7d6+60
-0.0.0.0 4000000
+0.0.0.0 400000
 8 8 2
 #19606
 green wyrm~
@@ -94,7 +94,7 @@ armies destroyed, glare in anger at your approach.
 1107363914 1 0 0 536871064 2048 131072 0 -1000 S
 D 0 256 0 -1
 56 200 -100 1d100+30000 7d6+60
-0.0.0.0 4000000
+0.0.0.0 400000
 8 8 0
 #19607
 red wyrm~
@@ -109,7 +109,7 @@ armies destroyed, glare in anger at your approach.
 1107363914 1 0 0 536871064 2048 131072 0 -1000 S
 D 0 1 0 -1
 55 200 -100 1d100+30000 7d6+60
-0.0.0.0 4000000
+0.0.0.0 400000
 8 8 0
 #19608
 blue wyrm~
@@ -124,7 +124,7 @@ armies destroyed, glare in anger at your approach.
 33622090 1 0 0 536871064 2048 131072 0 -1000 S
 D 0 16 0 -1
 55 200 -100 1d100+30000 7d6+60
-0.0.0.0 4000000
+0.0.0.0 400000
 8 8 1
 #19609
 white wyrm~
@@ -139,7 +139,7 @@ armies destroyed, glare in anger at your approach.
 1107363914 1 0 0 536871064 2048 131072 0 -1000 S
 D 0 512 0 -1
 55 200 -100 1d100+30000 7d6+60
-0.0.0.0 4000000
+0.0.0.0 400000
 8 8 0
 #19610
 white wyrm~
@@ -154,7 +154,7 @@ armies destroyed, glare in anger at your approach.
 33622090 1 0 0 536871064 2048 131072 0 -1000 S
 D 0 1 0 -1
 57 200 -100 1d100+30000 7d6+60
-0.0.0.0 4000000
+0.0.0.0 400000
 8 8 1
 #19611
 shadow wyrm~
@@ -169,7 +169,7 @@ armies destroyed, glare in anger at your approach.
 34670666 1 0 0 536871064 2048 131072 0 -1000 S
 D 0 512 0 -1
 57 200 -100 1d100+30000 7d6+60
-0.0.0.0 10000000
+0.0.0.0 800000
 8 8 0
 #19612
 wyrm white~
@@ -184,7 +184,7 @@ armies destroyed, glare in anger at your approach.
 35719242 1 0 0 536871064 2048 131072 0 -1000 S
 D 0 256 0 -1
 59 200 -100 1d100+30000 7d6+60
-0.0.0.0 10000000
+0.0.0.0 800000
 8 8 2
 #19613
 worshiper figure dragonian~
@@ -198,7 +198,7 @@ intertwine around the robe, forming a star pattern on the back.
 1107380302 1 0 0 538443928 2048 131072 0 -1000 S
 G 0 512 0 -1
 60 200 -100 1d100+20000 7d6+60
-0.0.0.0 2000000
+0.0.0.0 250000
 8 8 0
 #19614
 wyrm white~
@@ -213,7 +213,7 @@ armies destroyed, glare in anger at your approach.
 1109461066 1 0 0 536870936 0 0 0 0 S
 D 0 256 0 -1
 50 200 -100 1d100+30000 7d6+60
-0.0.0.0 10000000
+0.0.0.0 800000
 8 8 2
 #19615
 black wyrm~
@@ -227,7 +227,7 @@ a long neck.
 1174472778 1 0 0 536870936 0 0 0 -1000 S
 D 0 1 0 -1
 50 200 -100 1d100+30000 7d6+60
-0.0.0.0 4000000
+0.0.0.0 400000
 8 8 0
 #19616
 oddly clothed man~
@@ -266,7 +266,7 @@ armies destroyed, glare in anger at your approach.
 1107363914 1 0 0 536871064 2048 131072 0 -1000 S
 D 0 1 0 -1
 51 200 -100 1d100+30000 7d6+60
-0.0.0.0 4000000
+0.0.0.0 400000
 8 8 0
 #19619
 red wyrm~
@@ -281,5 +281,5 @@ armies destroyed, glare in anger at your approach.
 33622090 1 0 0 536871064 2048 131072 0 -1000 S
 D 0 1 0 -1
 56 200 -100 1d100+30000 7d6+60
-0.0.0.0 4000000
+0.0.0.0 400000
 8 8 1
