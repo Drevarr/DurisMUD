@@ -297,7 +297,7 @@ int IS_TWILIGHT_ROOM(int r);
 #define CAN_SEE_Z_CORD(sub, obj)       (ac_can_see((sub), (obj), FALSE))
 
 #define IS_ARTIFACT(obj)  (IS_SET(obj->extra_flags, ITEM_ARTIFACT))
-#define IS_IOUN(obj)      (CAN_WEAR(obj, WEAR_IOUN))
+#define IS_IOUN(obj)      (CAN_WEAR(obj, ITEM_WEAR_IOUN))
 #define IS_UNIQUE(obj)    (isname("unique", (obj)->name) && !isname("powerunique", (obj)->name))
 
 #define GET_REQ(i) (i<1  ? "Awful" :(i<3  ? "Bad"     :(i<5  ? "Poor"      :\

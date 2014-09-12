@@ -184,8 +184,8 @@ void UpdateArtiBlood(P_char ch, P_obj obj, int mod)
     oldtime = obj->timer[3];
     diff = time(NULL) - oldtime;
 
-    bool bIsIoun = CAN_WEAR(obj, ITEM_WEAR_IOUN);
-    bool bIsUnique = (isname("unique", obj->name) && !isname("powerunique", obj->name));
+    bool bIsIoun = IS_IOUN(obj);
+    bool bIsUnique = IS_UNIQUE(obj);
     bool bIsTrueArti = (!bIsIoun && !bIsUnique);
 
     // If arti timer is longer than maximum number of days.
@@ -2372,10 +2372,10 @@ void artifact_fight( P_char owner, P_obj arti )
   P_obj obj;
 
   main = unique = ioun = 0;
-  // Count up the equipped artis.
-  for( i = numartis = 0;i < MAX_WEAR;i++ )
+  // Count up the equipped artis (skip 0 -> WEAR_LIGHT).
+  for( i = 1;i < MAX_WEAR;i++ )
   {
-    if( owner->equipment[i] && (IS_ARTIFACT(owner->equipment[i]) || isname("powerunique", owner->equipment[i]->name)) )
+    if( owner->equipment[i] && IS_ARTIFACT(owner->equipment[i]) )
     {
       if( IS_IOUN(owner->equipment[i]) )
       {
@@ -2395,7 +2395,7 @@ void artifact_fight( P_char owner, P_obj arti )
   obj = owner->carrying;
   while( obj )
   {
-    if( IS_ARTIFACT(obj) || isname("powerunique", obj->name) )
+    if( IS_ARTIFACT(obj) )
     {
       if( IS_IOUN(obj) )
       {
@@ -2415,6 +2415,8 @@ void artifact_fight( P_char owner, P_obj arti )
   numartis = (main > 1) ? main - 1 : 0;
   numartis += (unique > 1) ? unique - 1 : 0;
   numartis += (ioun > 1) ? ioun - 1 : 0;
+
+//debug( "numartis: %d, main: %d, unique: %d, ioun: %d.", numartis, main, unique, ioun );
   if( numartis > 0 )
   {
     // 1: 2, 2: 6, 3: 16, 4: 30, 5: 48, 6: 70, 7: 96
