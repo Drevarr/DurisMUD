@@ -358,40 +358,45 @@ int artifact_biofeedback(P_obj obj, P_char ch, int cmd, char *argument)
   int      curr_time;
   P_char   temp_ch;
 
-  if (cmd == CMD_SET_PERIODIC)               /*
-                                   Events have priority
-                                 */
+  if( cmd == CMD_SET_PERIODIC )
+  {
     return TRUE;
+  }
 
-  if (!obj)                     /*
-                                   If the player ain't here, why are we?
-                                 */
+  if( !obj )
+  {
     return FALSE;
+  }
 
   temp_ch = ch;
 
-  if (!ch)
+  if( !ch )
   {
-    if (OBJ_WORN(obj) && obj->loc.wearing)
+    if( OBJ_WORN(obj) && obj->loc.wearing )
+    {
       temp_ch = obj->loc.wearing;
+    }
     else
+    {
       return FALSE;
+    }
   }
 
 
-  if (!OBJ_WORN(obj))           /*
-                                   Most things don't work in a sack...
-                                 */
+  if( !OBJ_WORN(obj) )
+  {
     return FALSE;
+  }
 
-  if (cmd && !(cmd / 1000))     /* periodic or when worn */
-
+  if( cmd != CMD_PERIODIC && !(cmd / 1000) )
+  {
     return FALSE;
+  }
 
   curr_time = time(NULL);
 
-  if (obj->timer[0] + get_property("timer.bioIoun", 80) <= curr_time &&
-      !affected_by_spell(temp_ch, SPELL_BIOFEEDBACK))
+  if( obj->timer[0] + get_property("timer.bioIoun", 80) <= curr_time &&
+      !has_skin_spell(temp_ch) )
   {
     spell_biofeedback(25, temp_ch, 0, SPELL_TYPE_SPELL, temp_ch, 0);
     obj->timer[0] = curr_time;
