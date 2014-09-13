@@ -106,6 +106,7 @@ void     add_quest_data(char *map);
 #define CONTAINS_GUILDHALL   21
 #define CONTAINS_CARGO       22
 #define CONTAINS_CTF_FLAG    23
+#define CONTAINS_GEMMINE     24
 
 #define HIDDEN_BY_FOREST(from_room,to_room) ( world[to_room].sector_type == SECT_FOREST && world[from_room].sector_type != SECT_FOREST )
 
@@ -368,14 +369,16 @@ int whats_in_maproom(P_char ch, int room, int distance, int show_regardless)
           val = MIN(val, CONTAINS_CORPSE);
         }
       }
-      else if(GET_OBJ_VNUM(obj) == MINE_VNUM &&
-              (( (has_innate(ch, INNATE_MINER) ||
-		  IS_AFFECTED5(ch, AFF5_MINE)) &&
-		 distance < 3 ) ||
-              IS_TRUSTED(ch) ) )
+      else if(GET_OBJ_VNUM(obj) == GEMMINE_VNUM && (( (has_innate(ch, INNATE_MINER) ||
+        IS_AFFECTED5(ch, AFF5_MINE)) && distance < 2 ) || IS_TRUSTED(ch) ) )
+      {
+        val = MIN(val, CONTAINS_GEMMINE);
+      }
+      else if(GET_OBJ_VNUM(obj) == MINE_VNUM && (( (has_innate(ch, INNATE_MINER) ||
+        IS_AFFECTED5(ch, AFF5_MINE)) && distance < 3 ) || IS_TRUSTED(ch) ) )
       {
         val = MIN(val, CONTAINS_MINE);
-      } 
+      }
       // Using track scan ?
       else if ((obj_index[obj->R_num].virtual_number == 1276) &&
         ((distance <= (GET_CHAR_SKILL(ch, SKILL_IMPROVED_TRACK)/20)) ||
@@ -757,10 +760,14 @@ void display_map_room(P_char ch, int from_room, int n, int show_map_regardless)
       else if (whats_in == CONTAINS_CORPSE)
       {
         strcat(buf, "&+rC");
-      } 
+      }
       else if (whats_in == CONTAINS_MINE)
       {
         strcat(buf, "&+Ym");
+      }
+      else if (whats_in == CONTAINS_GEMMINE)
+      {
+        strcat(buf, "&+ym");
       }
       else if (ch->specials.z_cord < 0 && what != SECT_OCEAN && what != SECT_WATER_NOSWIM && what != SECT_NO_GROUND)
       {                         /* underwater */
