@@ -2960,9 +2960,11 @@ void kill_gain(P_char ch, P_char victim)
     exp_divider *= 10;
     }  //removed group cap for exp  -Odorf*/
 
+  // Group exp groupexp function - For searching.
   // exp gain drops slower than group size increases to avoid people being unable to get in groups  -Odorf
-  // Groupsize:exp_divider - 1:1, 2:1.33, 3:1.67, 4:2.00, 5:2.33, .. , 10:4.00, .. , 15:5.67.. and so on.
-  float exp_divider = ((float)group_size + 2.0) / 3.0;
+  // +2/3 - Groupsize:exp ratio - 1: 1, 2: 3/4, 3: 3/5, 4: 1/2, 5: 3/7, .. , 10:1/4, .. , 16:1/6.. and so on.
+  // +3/4 - Groupsize:exp ratio - 1: 1, 2: 4/5, 3: 2/3, 4: 4/7, 5: 1/2, .. ,  9:1/3, .. , 17:1/5.. and so on.
+  float exp_divider = ((float)group_size + 3.0) / 4.0;
 
   for( gl = ch->group; gl; gl = gl->next )
   {
