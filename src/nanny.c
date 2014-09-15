@@ -4269,7 +4269,8 @@ void select_pwd(P_desc d, char *arg)
     echo_on(d);
 
 	// send to "are you a newbie on duris?" question
-	SEND_TO_Q("\r\nAre you new to the World of Duris? (y/n) ", d);
+	SEND_TO_Q("\r\nAnswer the following question honestly, as you will either get help, or not.", d);
+	SEND_TO_Q("\r\nAre you NEW to the World of Duris, or a veteran player? (y/n) ", d);
 	STATE(d) = CON_NEWBIE;
 /*    SEND_TO_Q(racetable, d);
     STATE(d) = CON_QRACE;*/
@@ -4465,28 +4466,30 @@ void select_main_menu(P_desc d, char *arg)
 	Characters with the "newbie" flag will help imms see who's new and who needs special
 	attention.
 */
-void select_newbie(P_desc d, char *arg) {
+void select_newbie(P_desc d, char *arg)
+{
   for(; isspace(*arg); arg++) ;
 
   switch(*arg) {
     case 'Y':
     case 'y':
-		SET_BIT(d->character->specials.act2, PLR2_NEWBIE);
-		SEND_TO_Q("\r\nWelcome to Duris!\r\n", d);
-		break;
+      SET_BIT(d->character->specials.act2, PLR2_NEWBIE);
+      SEND_TO_Q("\r\nWelcome to Duris!\r\n", d);
+      SEND_TO_Q(racewars, d);
+      STATE(d) = CON_RACEWAR;
+      break;
 
-	case 'N':
+    case 'N':
     case 'n':
-		break;
+      SEND_TO_Q(racetable, d);
+      STATE(d) = CON_QRACE;
+      break;
 
     default:
       SEND_TO_Q("\r\nThat's not a valid option.\r\n", d);
-      SEND_TO_Q("Are you new to the World of Duris? (y/n) ", d);
+      SEND_TO_Q("Are you new to the World of Duris, or a veteran player? (y/n) ", d);
       return;
    }
-
-   SEND_TO_Q(racewars, d);
-   STATE(d) = CON_RACEWAR;
 
 }
 
