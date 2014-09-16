@@ -1341,6 +1341,12 @@ IS_GIANT(ch) || IS_PC_PET(ch) || IS_PC(ch) || IS_UNDEAD(ch) || IS_EFREET(ch)) &&
 #define IS_CONSTRUCT(ch) ((GET_RACE(ch) == RACE_GOLEM) || \
                           (GET_RACE(ch) == RACE_CONSTRUCT))
 
+#define IS_NECRO_GOLEM(ch) IS_NPC(ch) && (GET_RACE(ch) == RACE_GOLEM) \
+                      && ( GET_VNUM(ch) == golem_data[0].vnum || \
+                           GET_VNUM(ch) == golem_data[1].vnum || \
+                           GET_VNUM(ch) == golem_data[2].vnum || \
+                           GET_VNUM(ch) == golem_data[3].vnum )
+
 #define IS_ANGEL(ch) ((GET_RACE(ch) == RACE_ANGEL) || \
                       (GET_RACE(ch) == RACE_ELADRIN) || \
                       (GET_RACE(ch) == RACE_AGATHINON) || \

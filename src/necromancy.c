@@ -39,16 +39,7 @@ struct undead_description
   int      race;
 };
 
-struct golem_description
-{
-  char    *name;
-  int      vnum;
-  int      corpse_lvl;
-  float    hps;
-  int      max_level;
-  int      cost;
-};
-
+extern const struct golem_description golem_data[];
 const struct golem_description golem_data[4] = {
   {
    "flesh golem", 34, 41, 15.0, 50, 6},

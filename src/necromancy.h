@@ -39,6 +39,16 @@
 #define THEURGOLEM_VALOR 3
 #define NECROGOLEM_LAST  3
 
+struct golem_description
+{
+  char    *name;
+  int      vnum;
+  int      corpse_lvl;
+  float    hps;
+  int      max_level;
+  int      cost;
+};
+
 #define CORPSEFORM_INNATE 0
 #define CORPSEFORM_REG    1
 

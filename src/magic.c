@@ -93,7 +93,7 @@ extern struct mm_ds *dead_mob_pool;
 extern struct mm_ds *dead_pconly_pool;
 extern void set_long_description(P_obj t_obj, const char *newDescription);
 extern void set_short_description(P_obj t_obj, const char *newDescription);
-
+extern const struct golem_description golem_data[];
 // THE NEXT PERSON THAT OUTRIGHT COPIES A SPELL JUST TO CHANGE THE NAME/MESSAGES
 // IT OUTPUTS IS GOING TO BE CASTRATED BY ME AND FORCED TO EAT THEIR OWN GENITALIA.
 // There is no reason to do this other than to make a headache for another coder.
@@ -9347,8 +9347,8 @@ void spell_vitalize_undead(int level, P_char ch, char *arg, int type,
   struct affected_type af;
   int healpoints = 2 * level;
 
-  if(!IS_UNDEADRACE(victim) &&
-      !(IS_ANGEL(victim) && GET_CLASS(ch, CLASS_THEURGIST)))
+  if( !IS_UNDEADRACE(victim) && !IS_NECRO_GOLEM(victim)
+    && !(IS_ANGEL(victim) && GET_CLASS(ch, CLASS_THEURGIST)) )
   {
     send_to_char("Nothing seems to happen.\n", ch);
     return;
