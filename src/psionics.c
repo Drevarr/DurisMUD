@@ -1229,10 +1229,10 @@ void spell_detonate(int level, P_char ch, char *arg, int type, P_char victim, P_
   dam += 2 * GET_DAMROLL(ch);
 
 // +2 damage per level?  Hell no! Not for a Lich. That's +102 damage at 56!!!
-//   Howabout, +.25 damage per level -> +14 damage at 56.
+//   Howabout, +.75 damage per level -> +42 damage at 56.
   if( GET_CLASS(ch, CLASS_MINDFLAYER) )
   {
-    dam += level;
+    dam += level * 3;
   }
 
   // spell_damage already doubles against pets - Jexni 6/21/08
