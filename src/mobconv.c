@@ -143,12 +143,13 @@ void convertMob(P_char ch)
   if ((ch->player.m_class == 0) && (GET_LEVEL(ch) >= 15))
     ch->player.m_class = CLASS_WARRIOR;
 
-  /* minimum mob level */
+  // Minimum mob level
   if( GET_LEVEL(ch) < 1 )
     ch->player.level = 1;
-
+  // Max mob level
   if( GET_LEVEL(ch) > MAXLVL )
     ch->player.level = MAXLVL;
+  level = GET_LEVEL(ch);
 
   xp = copp = silv = gold = plat = 0;
 
@@ -203,11 +204,11 @@ void convertMob(P_char ch)
     plat = 0.0;
   }
   /* apply multipliers */
-  GET_EXP(ch) = (int) (GET_LEVEL(ch) * xp);
-  GET_PLATINUM(ch) = (int) (GET_LEVEL(ch) * plat * number(75, 125) / 100);
-  GET_GOLD(ch) = (int) (GET_LEVEL(ch) * gold * number(75, 125) / 100);
-  GET_SILVER(ch) = (int) (GET_LEVEL(ch) * silv * number(75, 125) / 100);
-  GET_COPPER(ch) = (int) (GET_LEVEL(ch) * copp * number(75, 125) / 100);
+  GET_EXP(ch) = (int) (level * xp);
+  GET_PLATINUM(ch) = (int) (level * plat * number(75, 125) / 100);
+  GET_GOLD(ch) = (int) (level * gold * number(75, 125) / 100);
+  GET_SILVER(ch) = (int) (level * silv * number(75, 125) / 100);
+  GET_COPPER(ch) = (int) (level * copp * number(75, 125) / 100);
 
 // EXP modifiers are found in limits.c in gain_exp().
 
@@ -248,30 +249,33 @@ void convertMob(P_char ch)
     GET_PLATINUM(ch) = GET_GOLD(ch) = GET_SILVER(ch) = GET_COPPER(ch) = 0;
 
   /* adjust for mana */
-  if (GET_CLASS(ch, CLASS_PSIONICIST))
-    ch->points.mana = ch->points.base_mana = ch->points.max_mana =
-      GET_LEVEL(ch) * 25;
+  if( GET_CLASS(ch, CLASS_PSIONICIST) )
+  {
+    // 30 : double, 45 : triple, 60 : quadruple mana. - This helps with cannibalize spell.
+    ch->points.mana = ch->points.base_mana = ch->points.max_mana = level * 25 * level > 29 ? level / 15 : 1;
+  }
   else
-    ch->points.mana = ch->points.base_mana = ch->points.max_mana =
-      GET_LEVEL(ch) * 10;
+  {
+    ch->points.mana = ch->points.base_mana = ch->points.max_mana = level * 10 * level > 29 ? level / 15 : 1;
+  }
 
   /* thac0 */
   if (IS_MELEE_CLASS(ch) || IS_DRAGON(ch) || IS_DEMON(ch) || IS_GIANT(ch))
-    ch->points.base_hitroll = BOUNDED(2, (GET_LEVEL(ch) / 2), 35);
+    ch->points.base_hitroll = BOUNDED(2, (level / 2), 35);
   else
-    ch->points.base_hitroll = BOUNDED(0, (GET_LEVEL(ch) / 3), 25);
+    ch->points.base_hitroll = BOUNDED(0, (level / 3), 25);
 
   ch->points.hitroll = ch->points.base_hitroll;
 
   /* AC computations... first base AC */
-  ch->points.base_armor = (int) (GET_LEVEL(ch) * -3 + 100);
+  ch->points.base_armor = (int) (level * -3 + 100);
 
   /* then additions based on level... */
-  if (GET_LEVEL(ch) > 57)
+  if (level > 57)
     ch->points.base_armor -= 150;
-  else if (GET_LEVEL(ch) > 49)
+  else if (level > 49)
     ch->points.base_armor -= 100;
-  else if (GET_LEVEL(ch) > 40)
+  else if (level > 40)
     ch->points.base_armor -= 50;
 
   /* racial conditions to AC */
@@ -303,7 +307,6 @@ void convertMob(P_char ch)
   /* hitpoints, and damage dice */
 
   damN = damS = damA = 0;
-  level = GET_LEVEL(ch);
 
   if(IS_ELITE(ch))
   {
