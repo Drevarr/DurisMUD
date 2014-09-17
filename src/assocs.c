@@ -1340,122 +1340,130 @@ int enrol_asc(P_char member, P_char newone)
   dummy1 = GET_A_BITS(member);
   asc_number = GET_A_NUM(member);
   /* only members can do this */
-  if (!IS_MEMBER(dummy1) || !asc_number)
+  if( !IS_MEMBER(dummy1) || !asc_number )
   {
     send_to_char("How about joining an association first?\r\n", member);
-    return (0);
+    return 0;
   }
   /* idiot calls */
-  if (member == newone)
+  if( member == newone )
   {
     send_to_char("Who do you think are you fooling?\r\n", member);
-    return (0);
+    return 0;
   }
   /* only seniors or higher can enrol new members */
-  if (!GT_NORMAL(dummy1))
+  if( !GT_NORMAL(dummy1) )
   {
     send_to_char("Maybe one day you will be trusted enough to do that.\r\n",
                  member);
-    return (0);
+    return 0;
   }
   /* illithid?  ack, phhbptphbpth */
 #if 0
-  if (IS_ILLITHID(newone) && GET_LEVEL(newone) < 40)
+  if( IS_ILLITHID(newone) && GET_LEVEL(newone) < 40 )
   {
-    send_to_char("You crazy?  You'd be missing your brains in seconds.\r\n",
-                 member);
+    send_to_char("You crazy?  You'd be missing your brains in seconds.\r\n", member);
     return 0;
   }
 #endif
   /* is this one willing to join? */
-  if (!IS_APPLICANT(GET_A_BITS(newone)))
+  if( !IS_APPLICANT(GET_A_BITS(newone)) )
   {
     send_to_char("Don't bug other people...\r\n", member);
-    return (0);
+    return 0;
   }
-  if (GET_A_NUM(newone) != asc_number)
+  if( GET_A_NUM(newone) != asc_number )
   {
     send_to_char("Trying to snatch applicants, eh?\r\n", member);
-    return (0);
+    return 0;
   }
   /* people with debts can't do this */
-  if (IS_DEBT(dummy1) && !IS_TRUSTED(member))
+  if( IS_DEBT(dummy1) && !IS_TRUSTED(member) )
   {
     send_to_char("Pay your dues! Let's see some cash...\r\n", member);
-    return (0);
+    return 0;
   }
   /* no associations under level ASC_MIN_LEVE */
-  if (GET_LEVEL(newone) < ASC_MIN_LEVEL)
+  if( GET_LEVEL(newone) < ASC_MIN_LEVEL )
   {
     send_to_char("Try to find more experienced applicants!\r\n", member);
-    return (0);
+    return 0;
   }
   /* not for mobs */
-  if (IS_NPC(newone))
+  if( IS_NPC(newone) )
   {
-    send_to_char
-      ("Geez, hard up for applicants? Try getting a life, maybe you'll be a bit more popular.\r\n",
-       member);
+    send_to_char("Geez, hard up for applicants? Try getting a life, maybe you'll be a bit more popular.\r\n", member);
     return 0;
   }
   /* open association file */
   sprintf(Gbuf1, "%sasc.%u", ASC_DIR, asc_number);
   f = fopen(Gbuf1, "r");
-  if (!f)
+  if( !f )
   {
     update_member(member, 1);
-    return (-1);
+    return -1;
   }
   /* goto and read association bits, copy "normal member" title */
   fgets(Gbuf2, MAX_STR_NORMAL, f);
   Gbuf2[strlen(Gbuf2) - 1] = 0;
   Gbuf2[ASC_MAX_STR - 1] = 0;
   strcpy(asc_name, Gbuf2);
-  for (i = 1; i < 3; i++)
+  for( i = 1; i < 3; i++ )
+  {
     fgets(Gbuf2, MAX_STR_NORMAL, f);
+  }
   fgets(Gbuf2, MAX_STR_NORMAL, f);
   Gbuf2[strlen(Gbuf2) - 1] = 0;
   Gbuf2[ASC_MAX_STR_RANK - 1] = 0;
-  if (!IS_HIDDENSUBTITLE(asc_number))
+  if( !IS_HIDDENSUBTITLE(asc_number) )
+  {
     strcpy(title, Gbuf2);
-  for (i = 4; i < 9; i++)
+  }
+  for( i = 4; i < 9; i++ )
+  {
     fgets(Gbuf2, MAX_STR_NORMAL, f);
+  }
   fscanf(f, "%u\n", &asc_bits);
   /* go past cash */
   fgets(Gbuf2, MAX_STR_NORMAL, f);
 
   /* control if newone doesn't exist already or guild is too big */
   i = 0;
-  while (fscanf(f, "%s %u %i %i %i %i\n", Gbuf2, &dummy1, &dummy2,
-                &dummy3, &dummy4, &dummy5) != EOF)
+  while( fscanf(f, "%s %u %i %i %i %i\n", Gbuf2, &dummy1, &dummy2, &dummy3, &dummy4, &dummy5) != EOF )
   {
-    if (!str_cmp(GET_NAME(newone), Gbuf2))
+    if( !str_cmp(GET_NAME(newone), Gbuf2) )
     {
       fclose(f);
       send_to_char("That person is enrolled anyway.\r\n", member);
-      return (0);
+      return 0;
     }
-    if (IS_MEMBER(dummy1))
+    if( IS_MEMBER(dummy1) )
+    {
       i++;
+    }
   }
   fclose(f);
 
-  if (i >= max_assoc_size(asc_number) )
+  if( i >= max_assoc_size(asc_number) )
   {
     send_to_char("Your association cannot grow any further until you gain some prestige!\r\n", member);
-    return (0);
+    return 0;
   }
-  
+
   /* write newone at end of list */
   f = fopen(Gbuf1, "a");
-  if (!f)
+  if( !f )
   {
     update_member(member, 1);
-    return (-1);
+    return -1;
   }
   dummy1 = asc_bits;
   SET_MEMBER(dummy1);
   SET_NORMAL(dummy1);
+  // Make sure gcc and acc are on when joining guild.
+  SET_BIT(newone->specials.act, PLR_GCC);
+  SET_BIT(newone->specials.act2, PLR2_ACC);
+
   fprintf(f, "%s %u %i %i %i %i\n", GET_NAME(newone), dummy1, 0, 0, 0, 0);
   fclose(f);
 
@@ -1466,7 +1474,7 @@ int enrol_asc(P_char member, P_char newone)
   /* construct and add new title */
   strcat(title, asc_name);
   new_title = title_member(newone, title);
-  if (new_title)
+  if( new_title )
   {
     strcpy(Gbuf2, "You are now ");
     strcat(Gbuf2, title);
@@ -1475,7 +1483,7 @@ int enrol_asc(P_char member, P_char newone)
   }
   send_to_char("Yeah! Another member!\r\n", member);
 
-  return (i);
+  return i;
 }
 
 
