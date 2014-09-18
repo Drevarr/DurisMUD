@@ -252,11 +252,11 @@ void convertMob(P_char ch)
   if( GET_CLASS(ch, CLASS_PSIONICIST) )
   {
     // 30 : double, 45 : triple, 60 : quadruple mana. - This helps with cannibalize spell.
-    ch->points.mana = ch->points.base_mana = ch->points.max_mana = level * 25 * level > 29 ? level / 15 : 1;
+    ch->points.mana = ch->points.base_mana = ch->points.max_mana = level * 25 * (level > 29 ? level / 15 : 1);
   }
   else
   {
-    ch->points.mana = ch->points.base_mana = ch->points.max_mana = level * 10 * level > 29 ? level / 15 : 1;
+    ch->points.mana = ch->points.base_mana = ch->points.max_mana = level * 10 * (level > 29 ? level / 15 : 1);
   }
 
   /* thac0 */
