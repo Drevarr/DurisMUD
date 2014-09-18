@@ -785,7 +785,6 @@ void initialize_skills()
                 TAR_CHAR_ROOM,
                 spell_virtue, "You no longer feel the call of the &+Wgods&n.");
   SPEC_SPELL_ADD(CLASS_CLERIC, 8, SPEC_HOLYMAN );
-  SPEC_SPELL_ADD(CLASS_CLERIC, 6, SPEC_ZEALOT);
   SPEC_SPELL_ADD(CLASS_RANGER, 8, SPEC_MARSHALL);
 
   SPELL_CREATE("group teleport", SPELL_GROUP_TELEPORT, PULSE_SPELLCAST,
