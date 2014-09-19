@@ -3510,31 +3510,31 @@ int can_char_use_item(P_char ch, P_obj obj)
     }
   }
 
-  if( ch && !IS_MULTICLASS_PC(ch) )
+  // Allow Blighters/Blighter Multiclasses to use Druid eq unless specifically denied.
+  if( GET_CLASS(ch, CLASS_BLIGHTER) )
   {
-    // Allow Blighters to use Druid eq unless specifically denied.
-    if( GET_CLASS(ch, CLASS_BLIGHTER) )
+    if( IS_SET(obj->extra_flags, ITEM_ALLOWED_CLASSES) )
     {
-      if( IS_SET(obj->extra_flags, ITEM_ALLOWED_CLASSES) )
+      if( IS_SET(obj->anti_flags, CLASS_DRUID) )
       {
-        if( IS_SET(obj->anti_flags, CLASS_DRUID) )
-        {
-          return TRUE;
-        }
+        return TRUE;
       }
     }
-    // Allow Summoners to wear Conjurer eq unless specifically denied.
-    if( GET_CLASS(ch, CLASS_SUMMONER) )
+  }
+  // Allow Summoners/Summoner Multiclasses to wear Conjurer eq unless specifically denied.
+  if( GET_CLASS(ch, CLASS_SUMMONER) )
+  {
+    if( IS_SET(obj->extra_flags, ITEM_ALLOWED_CLASSES) )
     {
-      if( IS_SET(obj->extra_flags, ITEM_ALLOWED_CLASSES) )
+      if( IS_SET(obj->anti_flags, CLASS_CONJURER) )
       {
-        if( IS_SET(obj->anti_flags, CLASS_CONJURER) )
-        {
-          return TRUE;
-        }
+        return TRUE;
       }
     }
+  }
 
+  if( !IS_MULTICLASS_PC(ch) )
+  {
     if( !IS_SET(obj->extra_flags, ITEM_ALLOWED_CLASSES) )
     {
       if( IS_SET(obj->anti_flags, ch->player.m_class) )
@@ -3548,14 +3548,14 @@ int can_char_use_item(P_char ch, P_obj obj)
     }
   }
   // Multiclass can use either class of equipment. Nov08 -Lucrot
-  else if( ch && (IS_MULTICLASS_PC(ch) || IS_MULTICLASS_NPC(ch)) )
+  else if( IS_MULTICLASS_PC(ch) || IS_MULTICLASS_NPC(ch) )
   {
     if(!IS_SET(obj->extra_flags, ITEM_ALLOWED_CLASSES))
     {
       if(IS_SET(obj->anti_flags, ch->player.m_class) &&
         IS_SET(obj->anti_flags, ch->player.secondary_class))
       {
-        return false;
+        return FALSE;
       }
     }
     else if(!IS_SET(obj->anti_flags, ch->player.m_class) &&
