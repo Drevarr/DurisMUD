@@ -7572,50 +7572,48 @@ int ItemsIn(P_obj obj)
 /* Return TRUE if mob shouldn't do anything else this pulse, */
 int handle_npc_assist(P_char ch)
 {
-  P_char   tmp_ch, Victim, foe;
+  P_char   tmp_ch, Victim, foe = NULL;
   char     Gbuf1[MAX_STRING_LENGTH];
   struct follow_type *fol;
 
-  if(IS_NPC(ch) &&
-     GET_VNUM(ch) == IMAGE_REFLECTION_VNUM)
-      return false;
-  
+  if( IS_NPC(ch) && GET_VNUM(ch) == IMAGE_REFLECTION_VNUM )
+  {
+    return FALSE;
+  }
+
   /*
    * Expanded NPC assistance added below.  Assumes one NPC following another as
    * sufficient for assistance of attacked NPC by the unattacked follower or
    * leader. - SKB 19 May 1995
    */
 
-  if((GET_POS(ch) > POS_SITTING) &&
-     (ch->following) &&
-     (ch->in_room == ch->following->in_room) &&
-     (IS_NPC(ch->following) ||
-     (GET_MASTER(ch) && GET_MASTER(ch) != GET_RIDER(ch))) &&
-     (ch->following->specials.fighting || NumAttackers(ch->following)))
+  if( (GET_POS(ch) > POS_SITTING) && (ch->following)
+    && (ch->in_room == ch->following->in_room) && (IS_NPC(ch->following)
+    || (GET_MASTER(ch) && GET_MASTER(ch) != GET_RIDER(ch)))
+    && (ch->following->specials.fighting || NumAttackers(ch->following)) )
   {
-    if(GET_CHAR_SKILL(ch, SKILL_RESCUE) &&
-       GET_CHAR_SKILL(ch, SKILL_RESCUE) > 0 &&
-      (NumAttackers(ch) < NumAttackers(ch->following)) &&
-      ((GET_HIT(ch) > GET_HIT(ch->following)) || number(0, 1)))
+    if( GET_CHAR_SKILL(ch, SKILL_RESCUE) > 0
+      && (NumAttackers(ch) < NumAttackers(ch->following))
+      && ((GET_HIT(ch) > GET_HIT(ch->following)) || number(0, 1)) )
     {
-        if(IS_NPC(ch->following) || IS_PC_PET(ch)) 
+      if( IS_NPC(ch->following) || IS_PC_PET(ch) )
+      {
+        if( IS_UNDEADRACE(ch) )
         {
-          if (IS_UNDEADRACE(ch))
+          if( GET_C_POW(ch->following) > number(1, 500) )// 100 pow ~= 20%
           {
-            if (GET_C_POW(ch->following) > number(1, 500))// 100 pow ~= 20%
-            {
-              rescue(ch, ch->following, FALSE);
-              return TRUE;
-            }
+            rescue(ch, ch->following, FALSE);
+            return TRUE;
           }
-          else
+        }
+        else
+        {
+          if( GET_C_CHA(ch->following) > number(1, 500) )// 100 charisma ~= 20%
           {
-            if (GET_C_CHA(ch->following) > number(1, 500))// 100 charisma ~= 20%
-            {
-              rescue(ch, ch->following, FALSE);
-              return TRUE;
-            }
+            rescue(ch, ch->following, FALSE);
+            return TRUE;
           }
+        }
       }
     }
 
@@ -7641,9 +7639,9 @@ int handle_npc_assist(P_char ch)
             break;
         }
       }
-      
+
       foe = ch->following->specials.fighting;
-      
+
       if(foe && CAN_SEE(ch, foe))
       {
         if(!CAN_SPEAK(ch))
@@ -7669,9 +7667,8 @@ int handle_npc_assist(P_char ch)
     for (fol = ch->followers; fol; fol = fol->next)
     {
       tmp_ch = fol->follower;
-      if(IS_FIGHTING(tmp_ch) &&
-          (tmp_ch->in_room == ch->in_room) &&
-          IS_NPC(tmp_ch) && !(IS_MORPH(tmp_ch)))
+      if( IS_FIGHTING(tmp_ch) && (tmp_ch->in_room == ch->in_room)
+        && IS_NPC(tmp_ch) && !(IS_MORPH(tmp_ch)) )
       {
         foe = tmp_ch->specials.fighting;
         if(CAN_SEE(ch, foe))
@@ -7689,17 +7686,16 @@ int handle_npc_assist(P_char ch)
   }
 
 
-  if(CAN_ACT(ch) &&
-     GET_POS(ch) > POS_SITTING &&
-     IS_SET(ch->specials.act, ACT_PROTECTOR) &&
-     GET_STAT(ch) > STAT_SLEEPING &&
-     !IS_STUNNED(ch))
+  if( CAN_ACT(ch) && GET_POS(ch) > POS_SITTING
+    && IS_SET(ch->specials.act, ACT_PROTECTOR)
+    && GET_STAT(ch) > STAT_SLEEPING && !IS_STUNNED(ch) )
   {
-    Victim = find_protector_target(ch);
-    if(Victim)
+    if( (Victim = find_protector_target(ch)) != NULL )
+    {
       foe = Victim->specials.fighting;
+    }
 
-    if(Victim && CAN_SEE(ch, foe))
+    if( Victim && foe && CAN_SEE(ch, foe) )
     {
       act("You assist $N heroically.", FALSE, ch, 0, Victim, TO_CHAR);
       act("$n assists you heroically.", FALSE, ch, 0, Victim, TO_VICT);
@@ -10191,44 +10187,67 @@ P_char find_protector_target(P_char ch)
   int      is_guard = FALSE;    /* set to TRUE if ch is a justice
                                    guard */
 
-  if(!ch || IS_FIGHTING(ch) || IS_DESTROYING(ch) || !CAN_ACT(ch) || ALONE(ch) || GET_MASTER(ch))
+  if( !ch || IS_FIGHTING(ch) || IS_DESTROYING(ch) || !CAN_ACT(ch) || ALONE(ch) || GET_MASTER(ch) )
+  {
     return NULL;
+  }
 
-  if(CHAR_IN_TOWN(ch) && (hometowns[CHAR_IN_TOWN(ch) - 1].flags) && IS_GUARD(ch))
+  if( CHAR_IN_TOWN(ch) && (hometowns[CHAR_IN_TOWN(ch) - 1].flags) && IS_GUARD(ch) )
+  {
     is_guard = TRUE;
+  }
 
   LOOP_THRU_PEOPLE(t_ch, ch)
   {
     cur_val = 0;
+
     if((ch == t_ch) || !IS_FIGHTING(t_ch) || !CAN_SEE(ch, t_ch) || IS_MORPH(t_ch) )
+    {
       continue;
+    }
 
     // don't assist undead unless ch and vict share group/follow
     if(!IS_UNDEAD(ch) && IS_UNDEAD(t_ch) && (t_ch->following != ch) && (ch->following != t_ch) && (!ch->group || (ch->group != t_ch->group)))
+    {
       continue;
+    }
 
     /* Don't assist animals... we're not all druids/hippies here */
     if(IS_ANIMAL(t_ch) && (t_ch->following != ch) && (ch->following != t_ch))
+    {
       continue;
+    }
 
     /* never assist charmies... UNLESS they are charmed by me.  Note
        that if AFF_CHARM is set, but they aren't following anyone,
        then they aren't really charmed  */
-    if(IS_NPC(t_ch) && IS_PC_PET(t_ch))
+    if( IS_NPC(t_ch) && IS_PC_PET(t_ch) )
+    {
       continue;
+    }
 
     vict = t_ch->specials.fighting;
 
+    // If both vict and t_ch are town guards, they do not engage eachother.
+    if( vict && IS_GUARD(vict) && is_guard )
+    {
+      continue;
+    }
+
     /* FIRST, if this is my "leader", then highest value... */
-    if(ch->following == t_ch)
+    if( ch->following == t_ch )
+    {
       cur_val |= BIT_32;
+    }
 
     /* SECOND, check for same vnum... */
-    if(IS_NPC(t_ch) && GET_VNUM(ch) == GET_VNUM(t_ch))
+    if( IS_NPC(t_ch) && GET_VNUM(ch) == GET_VNUM(t_ch) )
+    {
       cur_val |= BIT_31;
+    }
 
     /* special handling for guild golems */
-    if(GET_A_NUM(ch))
+    if( GET_A_NUM(ch) )
     {
 
       /* golems ALWAYS kill enemies */

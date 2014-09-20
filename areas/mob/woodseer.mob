@@ -3049,7 +3049,7 @@ the criminals that try to use magic to sneak by.  His grim green eyes survey
 everything that goes by, it is hard to believe that such a vigilant guard
 would even need magical assistance to help keep watch.
 ~
-100665418 160 0 0 8 0 0 0 1000 S
+100665418 672 0 0 8 0 0 0 1000 S
 PF 7 1 0 -1
 50 -7 -114 56d143+5880 7d6+35
 1.3.8.6 226800
@@ -3401,7 +3401,7 @@ minotaur guard mercenary _spec1_~
 &+yA most mercenaries groups, there are a wide variety of skills and
 &+Yexpertise.
 ~
-1073969226 128 0 0 939524152 4 0 67121152 0 S
+1073969226 640 0 0 939524152 4 0 67121152 0 S
 mt 0 16384 0 -1
 51 0 -250 50d50+2000 10d10+60
 0.0.0.0 0
@@ -3416,7 +3416,7 @@ minotaur guard wizard _spec1_ _nosneak_~
 &+yA most mercenaries groups, there are a wide variety of skills and
 &+Yexpertise.
 ~
-1073969226 128 0 0 939524152 4 0 67121152 0 S
+1073969226 640 0 0 939524152 4 0 67121152 0 S
 mt 0 512 0 -1
 51 0 0 50d50+1000 8d8+20
 0.0.0.0 0
