@@ -49,6 +49,8 @@ extern P_index obj_index;
 extern P_obj object_list;
 extern P_room world;
 
+void get_pkill_player_description(P_char ch, char *buffer);
+
 #ifdef __NO_MYSQL__
 int initialize_mysql()
 {
@@ -431,10 +433,23 @@ unsigned long new_pkill_event(P_char ch)
   return mysql_insert_id(DB);
 }
 
+void get_pkill_player_description(P_char ch, char *buffer)
+{
+  char assoc_name[MAX_STRING_LENGTH];
+
+  get_assoc_name(GET_A_NUM(ch), assoc_name);
+
+  sprintf(buffer, "[%02d %s&n] %s &n%s &n(%s&n)",
+               GET_LEVEL(ch), get_class_name(ch, ch), GET_NAME(ch), assoc_name, race_names_table[GET_RACE(ch)].ansi);
+  
+  logit(LOG_DEBUG, "%s", buffer);
+}
+
 void store_pkill_info(unsigned long pkill_event, P_char ch, const char *type, int leader, int in_room)
 {
   char     buf[MAX_STRING_LENGTH];
   char     equip_sql[MAX_STRING_LENGTH];
+  char     player_description_sql[MAX_STRING_LENGTH];
   char     log_sql[MAX_LOG_LEN];
 
   if( !ch || !IS_PC(ch) )
@@ -449,10 +464,14 @@ void store_pkill_info(unsigned long pkill_event, P_char ch, const char *type, in
   get_equipment_list(ch, buf, 1);
   mysql_str(buf, equip_sql);
 
+  get_pkill_player_description(ch, buf);
+  mysql_str(buf, player_description_sql);
+
   mysql_str( GET_PLAYER_LOG(ch)->read(LOG_PUBLIC, MAX_LOG_LEN), log_sql);
 
-  db_query("INSERT INTO pkill_info VALUES( 0, %d, %d, %d, '%s', '%s','%s', %d ,%d )",
-      pkill_event, GET_PID(ch), GET_LEVEL(ch), type, equip_sql, log_sql, in_room, leader );
+  db_query("INSERT INTO pkill_info (event_id, pid, level, pk_type, player_description, equip, log, inroom, leader) "
+           "VALUES( %d, %d, %d, '%s', '%s', '%s', '%s', %d ,%d )",
+      pkill_event, GET_PID(ch), GET_LEVEL(ch), type, player_description_sql, equip_sql, log_sql, in_room, leader);
 }
 
 /* Save racewr pkill information */
