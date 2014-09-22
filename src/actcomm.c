@@ -124,6 +124,9 @@ bool is_overload(P_char ch)
 
 bool is_silent(P_char ch, bool showit)
 {
+  if(!ch)
+    return (FALSE);
+
   if( ch->in_room != NOWHERE
     && ((IS_SET(zone_table[world[ch->in_room].zone].flags, ZONE_SILENT)
     || IS_SET(world[ch->in_room].room_flags, ROOM_SILENT)
