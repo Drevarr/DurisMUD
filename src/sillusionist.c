@@ -480,9 +480,9 @@ void spell_stunning_visions(int level, P_char ch, char *arg, int type, P_char vi
     return;
   }
 
-  if( GET_POS(victim) != POS_STANDING || IS_ACT2(victim, PLR2_WAIT) )
+  if( GET_POS(victim) != POS_STANDING )
   {
-    send_to_char("&+YYour target seems to be dazed already..\r\n", ch);
+    act("&+Y$N&+Y seems to be busy playing in the dirt..&n\r\n", FALSE, ch, 0, victim, TO_CHAR);
     return;
   }
 
