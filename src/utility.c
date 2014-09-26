@@ -2673,8 +2673,8 @@ char *PERS(P_char ch, P_char vict, int short_d, bool noansi)
 //if( IS_PC(vict) ) debug( "IS_DARK: %s, IS_TWILIGHT: %s.", IS_DARK(ch->in_room) ? "YES" : "NO", IS_TWILIGHT_ROOM(ch->in_room) ? "YES" : "NO" );
   if( IS_DARK(ch->in_room) && !IS_TWILIGHT_ROOM(ch->in_room) )
   {
-    if (IS_TRUSTED(vict) || IS_AFFECTED2(vict, AFF2_ULTRAVISION) ||
-        IS_AFFECTED(vict, AFF_WRAITHFORM))
+    if( IS_TRUSTED(vict) || IS_AFFECTED2(vict, AFF2_ULTRAVISION)
+      || IS_AFFECTED(vict, AFF_WRAITHFORM) )
     {
       if (IS_NPC(ch))
         return (ch->player.short_descr);

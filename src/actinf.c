@@ -1970,9 +1970,9 @@ void list_char_to_char(P_char list, P_char ch, int mode)
     // CAN_SEE returns TRUE for infravision sight.
     if( CAN_SEE(ch, i) )
     {
-      // Infravision: DARK -> not Twilight.
-      if( IS_AFFECTED(ch, AFF_INFRAVISION) && (IS_MAGIC_DARK(i->in_room)
-        || IS_DARK(i->in_room)) )
+      // Infravision: DARK -> not Twilight, Ultra supercedes Infra.
+      if( IS_AFFECTED(ch, AFF_INFRAVISION) && !IS_AFFECTED2(ch, AFF2_ULTRAVISION)
+        && (IS_MAGIC_DARK(i->in_room) || IS_DARK(i->in_room)) )
       {
         sprintf(buf, "&+rYou see the red shape of a %s living being %shere.\n",
           size_types[GET_ALT_SIZE(i)], higher ? "above you " : lower ? "below you " : "");
