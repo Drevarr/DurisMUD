@@ -414,13 +414,19 @@ void spell_waves_fatigue(int level, P_char ch, char *arg, int type, P_char victi
     return;
   }
 
-  int moves = dice( GET_LEVEL(ch)/2, 4 )/4;
-  if(NewSaves(victim, SAVING_PARA, (level / 5) - 1))
+  // moves: level / 4 -> 10 - 16 @ 56 * 3 waves = 30 - 48.
+  int moves = GET_LEVEL(ch)/4 + number( -4, 2);
+  // level / 6 : 26: 4, 32: 5, 44: 7, 50: 8, 56: 9.
+  if( NewSaves(victim, SAVING_PARA, (level-2) / 6) )
   {
-    moves /= 2;
+    // 2-4 * 3 waves = 6-12 moves.
+    moves /= 4;
+    act("&+y$n&+y looks a bit tired.&n", 0, victim, 0, 0, TO_ROOM);
   }
-
-  act("$n looks really tired.",0, victim, 0, 0, TO_ROOM);
+  else
+  {
+    act("&+y$n&+y looks really tired.&n", 0, victim, 0, 0, TO_ROOM);
+  }
   event_waves_fatigue( ch, victim, NULL, &moves);
   add_event(event_waves_fatigue, PULSE_VIOLENCE/2, ch, victim, 0, 0, &moves, sizeof(moves));
   add_event(event_waves_fatigue, PULSE_VIOLENCE, ch, victim, 0, 0, &moves, sizeof(moves));

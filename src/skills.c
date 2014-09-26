@@ -744,12 +744,12 @@ void initialize_skills()
   SPEC_SPELL_ADD(CLASS_DRUID, 11, SPEC_STORM);
   SPEC_SPELL_ADD(CLASS_BLIGHTER, 11, SPEC_STORMBRINGER);
 
-  SPELL_CREATE_MSG("waves of fatigue", SPELL_WAVES_FATIGUE, PULSE_SPELLCAST * 1,
+  SPELL_CREATE_MSG("waves of fatigue", SPELL_WAVES_FATIGUE, (PULSE_SPELLCAST * 3) / 2,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO,
                 spell_waves_fatigue, "You feel like moving again.");
   SPELL_ADD( CLASS_BLIGHTER, 6 );
 
-  SPELL_CREATE_MSG("accelerated healing", SPELL_ACCEL_HEALING, PULSE_SPELLCAST * 3 / 2,
+  SPELL_CREATE_MSG("accelerated healing", SPELL_ACCEL_HEALING, (PULSE_SPELLCAST * 3) / 2,
                 TAR_CHAR_ROOM,
                 spell_accel_healing, "You no longer regenerate.");
   SPELL_ADD(CLASS_CLERIC, 10);
