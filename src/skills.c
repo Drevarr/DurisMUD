@@ -1048,7 +1048,7 @@ void initialize_skills()
 				spell_psychic_crush, "&+MYou feel your mind recover from the assault.&n");
   SPELL_ADD(CLASS_PSIONICIST, 9);
 
-  SPELL_CREATE_MSG("pyrokinesis", SPELL_PYROKINESIS, PULSE_SPELLCAST * 3,
+  SPELL_CREATE_MSG("pyrokinesis", SPELL_PYROKINESIS, PULSE_SPELLCAST * 2,
                 TAR_CHAR_ROOM + TAR_FIGHT_VICT | TAR_AGGRO,
 				spell_pyrokinesis, "&+MYou feel your body recover from the heat.&n");
   //SPELL_ADD(CLASS_PSIONICIST, 11);
