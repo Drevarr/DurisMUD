@@ -452,12 +452,14 @@ string single_spec_list(int race, int cls)
 void do_spec_list(P_char ch)
 {
   char Gbuf[MAX_STRING_LENGTH], list[MAX_STRING_LENGTH];
-  int race, cls, spec, comma, show;
+  int race, cls, spec, show;
+  bool comma;
 
   send_to_char("&+WCurrent list of specializations available:&n\n\n", ch);
-  for (cls = 1; cls <= CLASS_COUNT; cls++)
+  for( cls = 1; cls <= CLASS_COUNT; cls++ )
   {
-    for (spec = 0; spec < MAX_SPEC; spec++)
+    // Look for valid spec for the class.
+    for( spec = 0; spec < MAX_SPEC; spec++ )
     {
       show = 0;
       if (strcmp(specdata[cls][spec], "")
@@ -467,44 +469,42 @@ void do_spec_list(P_char ch)
         break;
       }
     }
-    if (show)
+    if( show )
     {
       sprintf(Gbuf, "&+W*&n %s &+W*&n\n", class_names_table[cls].ansi);
       send_to_char(Gbuf, ch);
     }
-    for (spec = 0; spec < MAX_SPEC; spec++)
+    // Walk through each spec.
+    for( spec = 0; spec < MAX_SPEC; spec++ )
     {
-      if (strcmp(specdata[cls][spec], "")
-        && strcmp(specdata[cls][spec], "Not Used"))
+      if( strcmp(specdata[cls][spec], "") && strcmp(specdata[cls][spec], "Not Used") )
       {
-        sprintf(list, "%s:", specdata[cls][spec]);
-        comma = 0;
-        for (race = 1; race <= RACE_PLAYER_MAX; race++)
+        sprintf(list, " %s:", specdata[cls][spec]);
+        comma = FALSE;
+        for( race = 1; race <= RACE_PLAYER_MAX; race++ )
         {
-          if (is_allowed_race_spec(race, 1 << (cls - 1), spec+1))
+          // If race has the spec, add it to the list.
+          if( is_allowed_race_spec(race, 1 << (cls - 1), spec+1) )
           {
-            if (comma)
+            if( comma )
             {
               sprintf(list + strlen(list), ", %s&n", race_names_table[race].ansi);
             }
             else
             {
-              comma = 1;
+              comma = TRUE;
               sprintf(list + strlen(list), " %s&n", race_names_table[race].ansi);
             }
           }
-          continue;
         }
         send_to_char(list, ch);
         send_to_char("\n", ch);
       }
-      continue;
     }
-    if (show)
+    if( show )
     {
       send_to_char("\n", ch);
     }
-    continue;
   }
 }
 
