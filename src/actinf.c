@@ -8274,7 +8274,7 @@ void do_punish(P_char ch, char *arg, int cmd)
   }
   t = time(0);
   // Note: ctime contains a carriage return, so nothing after it.
-  sprintf(Gbuf1, "&+W%s &+Lpunished&+W %d levels for: %s -  %s", GET_NAME(t_ch), i, arg, ctime(&t));
+  sprintf(Gbuf1, "&+W%s &+Lpunished&+W %d level%s for: %s -  %s", GET_NAME(t_ch), i, (i>1) ? "s" : "", arg, ctime(&t));
 
   if( !(fl = fopen(CHEATERS_FILE, "a")) )
   {
