@@ -160,8 +160,6 @@ O 0 45524 1 45703 100 0 0 0        * a banquet table
 O 0 45521 1 45717 100 0 0 0        * an angelic statue
 O 0 45538 1 45718 100 0 0 0        * a glowing portal
 O 0 63 1 45718 100 0 0 0           * (object type not in this .obj file)
-O 0 921 1 45718 100 0 0 0          * (object type not in this .obj file)
-O 0 25103 1 45718 100 0 0 0        * (object type not in this .obj file)
 O 0 45534 999 45722 100 0 0 0      * a glowing potion
 O 0 25759 999 45723 100 0 0 0      * (object type not in this .obj file)
 O 0 26661 999 45724 100 0 0 0      * (object type not in this .obj file)
@@ -372,6 +370,8 @@ E 1 45530 1 2 100 0 0 0            *   the ring of the masters
 E 1 45531 1 13 100 0 0 0           *   the masters belt
 G 1 45544 1 0 100 0 0 0            *    a jeweled key
 G 1 360 1 0 100 0 0 0              *    (object type not in this .obj file)
+G 1 921 1 45718 100 0 0 0          * (object type not in this .obj file)
+G 1 25103 1 45718 100 0 0 0        * (object type not in this .obj file)
 M 0 45545 12 45689 100 0 0 0       * a titan soldier
 M 0 45545 12 45690 100 0 0 0       * a titan soldier
 M 0 45573 10 45690 100 0 0 0       * a siren
