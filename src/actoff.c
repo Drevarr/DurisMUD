@@ -4767,7 +4767,7 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
   dam = (int) dam * final_mult;
 
 
-  if((IS_AFFECTED(victim, AFF_AWARE) && IS_PC(victim) && ((GET_RACE(ch) != RACE_MOUNTAIN) && (GET_RACE(ch) != RACE_DUERGAR)))
+  if( (IS_AFFECTED(victim, AFF_AWARE) && IS_PC(victim) && ((GET_RACE(ch) != RACE_MOUNTAIN) && (GET_RACE(ch) != RACE_DUERGAR)))
     || affected_by_spell(victim, SKILL_BACKSTAB) )
   {
     int chance = GET_C_INT(victim);
@@ -4950,27 +4950,27 @@ bool backstab(P_char ch, P_char victim)
   int      percent_chance;
   bool     stabbed = FALSE;
 
-  if(!(ch) || !IS_ALIVE(ch))
+  if( !IS_ALIVE(ch) )
     return FALSE;
 
-  if(!SanityCheck(ch, "do_backstab"))
+  if( !SanityCheck(ch, "do_backstab") )
     return FALSE;
 
-  if(IS_IMMOBILE(ch))
+  if( IS_IMMOBILE(ch) )
   {
     send_to_char("In your present condition, just relax and take in the sights.\r\n", ch);
     return false;
   }
 
-  if (IS_SET(world[ch->in_room].room_flags, SINGLE_FILE))
+  if( IS_SET(world[ch->in_room].room_flags, SINGLE_FILE) )
   {
     send_to_char("It's far too narrow in here to sneak up behind someone to stab them in the back...\r\n", ch);
     return false;
   }
 
-  if(!IS_FIGHTING(ch))
+  if( !IS_FIGHTING(ch) )
   {
-    if(!(victim) || !IS_ALIVE(victim))
+    if( !IS_ALIVE(victim) )
     {
       send_to_char("Backstab who?\n", ch);
       return FALSE;
@@ -4983,13 +4983,13 @@ bool backstab(P_char ch, P_char victim)
     return FALSE;
   }
 
-  if(ch->specials.fighting)
+  if( ch->specials.fighting )
   {
     send_to_char("Sorry, you cannot concentrate enough with that fellow pounding on you.\n", ch);
     return FALSE;
   }
 
-  if(!can_hit_target(ch, victim))
+  if( !can_hit_target(ch, victim) )
   {
     send_to_char("Seems that it's too crowded!\n", ch);
     return FALSE;
@@ -4997,21 +4997,21 @@ bool backstab(P_char ch, P_char victim)
 
   victim = guard_check(ch, victim);
 
-  if((get_takedown_size(ch) > get_takedown_size(victim) + 1)
-    && AWAKE(victim) && GET_POS(victim) > POS_KNEELING)
+  if( (get_takedown_size(ch) > get_takedown_size(victim) + 1)
+    && AWAKE(victim) && GET_POS(victim) > POS_KNEELING )
   {
     send_to_char("Smirk. I don't believe you could sneak behind to stab it.\n", ch);
     return FALSE;
   }
 
-  if(get_takedown_size(ch) + 1 < get_takedown_size(victim) &&
-    GET_POS(victim) > POS_KNEELING)
+  if( get_takedown_size(ch) + 1 < get_takedown_size(victim)
+    && GET_POS(victim) > POS_KNEELING )
   {
     send_to_char("Smirk. Backstabbing in a calf is not very effective.\n", ch);
     return FALSE;
   }
 
-  if(should_not_kill(ch, victim))
+  if( should_not_kill(ch, victim) )
     return FALSE;
 
   if(!CanDoFightMove(ch, victim))
@@ -5020,14 +5020,14 @@ bool backstab(P_char ch, P_char victim)
   first_w = ch->equipment[WIELD];
   second_w = ch->equipment[SECONDARY_WEAPON];
 
-  if(!first_w && !second_w)
+  if( !first_w && !second_w )
   {
     send_to_char("You need to wield a weapon to even try.\n", ch);
     return FALSE;
   }
 
-  if((!first_w || !IS_BACKSTABBER(first_w))
-    && (!second_w || !IS_BACKSTABBER(second_w)))
+  if( (!first_w || !IS_BACKSTABBER(first_w))
+    && (!second_w || !IS_BACKSTABBER(second_w)) )
   {
     send_to_char("Only piercing weapons can be used to backstab.\n", ch);
     return FALSE;
@@ -5037,28 +5037,28 @@ bool backstab(P_char ch, P_char victim)
 
   percent_chance = (int) (0.95 * GET_CHAR_SKILL(ch, SKILL_BACKSTAB));
 
-  if(GET_C_LUK(ch) / 2 > number(0, 100))
+  if( GET_C_LUK(ch) / 2 > number(0, 100) )
   {
     percent_chance = (int) (percent_chance * 1.1);
   }
 
-  if(GET_C_LUK(victim) / 2 > number(0, 100))
+  if( GET_C_LUK(victim) / 2 > number(0, 100) )
   {
     percent_chance = (int) (percent_chance * 0.9);
   }
 
-  if(GET_CHAR_SKILL(ch, SKILL_ANATOMY) &&
-     5 + GET_CHAR_SKILL(ch, SKILL_ANATOMY)/10 > number(0,100))
+  if( GET_CHAR_SKILL(ch, SKILL_ANATOMY)
+    && 5 + GET_CHAR_SKILL(ch, SKILL_ANATOMY)/10 > number(0,100) )
   {
      percent_chance = (int) (percent_chance * 1.1);
   }
 
-  if(IS_AFFECTED(victim, AFF_AWARE) && AWAKE(victim))
+  if( IS_AFFECTED(victim, AFF_AWARE) && AWAKE(victim) )
   {
     percent_chance = (int) (percent_chance * get_property("backstab.AwareModifier", 0.850));
   }
 
-  if(!IS_IMMOBILE(victim) && IS_AFFECTED(victim, AFF_SKILL_AWARE))
+  if( !IS_IMMOBILE(victim) && IS_AFFECTED(victim, AFF_SKILL_AWARE) )
   {
     for(af_ptr = victim->affected; af_ptr; af_ptr = af_ptr->next)
     {
@@ -5074,22 +5074,22 @@ bool backstab(P_char ch, P_char victim)
       logit(LOG_DEBUG, "aware, but no affected structure");
   }
 
-  if(IS_FIGHTING(victim) && !IS_IMMOBILE(victim))
+  if( IS_FIGHTING(victim) && !IS_IMMOBILE(victim) )
   {
     percent_chance = (int) (percent_chance / 1.5);
   }
 
-  if(!CAN_SEE(victim, ch))
-    percent_chance = (int) (percent_chance * 1.5);
-
-  if(has_innate(victim, INNATE_DRAGONMIND) && number(0,1) )
+  if( !CAN_SEE(victim, ch) )
   {
-    act("$N notices your lethal attempt!", FALSE, ch,
-        0, victim, TO_CHAR);
-    act("$n tries to backstab $N but is too slow!", FALSE, ch,
-        0, victim, TO_NOTVICT);
+    percent_chance = (int) (percent_chance * 1.5);
+  }
+
+  if( has_innate(victim, INNATE_DRAGONMIND) && number(0,1) )
+  {
+    act("$N notices your lethal attempt!", FALSE, ch, 0, victim, TO_CHAR);
+    act("$n tries to backstab $N but is too slow!", FALSE, ch, 0, victim, TO_NOTVICT);
     act("$n's attempt to backstab you fails as the dragon mind within takes control!",
-        FALSE, ch, 0, victim, TO_VICT);
+      FALSE, ch, 0, victim, TO_VICT);
     set_fighting(ch, victim);
 
     return FALSE;
@@ -5099,12 +5099,12 @@ bool backstab(P_char ch, P_char victim)
     BOUNDED(8, 10 + (GET_LEVEL(ch) - GET_LEVEL(victim)) / 10, 11) / 10);
   percent_chance = BOUNDED(0, percent_chance, 95);
 
-  if(IS_IMMOBILE(victim) || GET_STAT(victim) <= STAT_SLEEPING)
+  if( IS_IMMOBILE(victim) || GET_STAT(victim) <= STAT_SLEEPING )
   {
     percent_chance = 101;
   }
 
-  CharWait(ch, WAIT_SEC);
+  CharWait(ch, WAIT_SEC + 1);
 
   if( IS_PC(ch) && (!on_front_line(ch) || !on_front_line(victim)) )
   {
@@ -5184,9 +5184,10 @@ bool backstab(P_char ch, P_char victim)
     }
   }
 
-  if( victim && IS_ALIVE(victim) && IS_PC(victim) && !affected_by_spell(victim, SKILL_BACKSTAB) )
+  // Victim's timer resets each stab.. don't bother clearing it as it will auto-clear in 2.5sec anyway.
+  if( victim && IS_ALIVE(victim) && IS_PC(victim) )
   {
-    set_short_affected_by(victim, SKILL_BACKSTAB, 2*WAIT_SEC );
+    set_short_affected_by(victim, SKILL_BACKSTAB, 5*WAIT_SEC/2 );
 /* Making this a short duration instead of PULSE_VIOLENCE ticks (like 20 min).
     bzero(&af, sizeof(af));
     af.type = SKILL_BACKSTAB;
