@@ -405,8 +405,10 @@ static void setbit_zone(P_char ch, char *name, char *flag, char *val, int on_off
 #define OFFSET(Field)   OFFSET_OF(struct zone_data*, Field)
 
   /* Table */
+// PENIS: These are strange...
   SetBitTable table[] = {
-    {"difficulty", OFFSET(difficulty), NULL, ac_shintCopy}
+    {"difficulty", OFFSET(difficulty), NULL, ac_shintCopy},
+    {"age", OFFSET(age), NULL, ac_intCopy}
   };
 
   /* Local Variables */
@@ -416,16 +418,27 @@ static void setbit_zone(P_char ch, char *name, char *flag, char *val, int on_off
   int zone_number = atoi(name);
   zone_id = real_zone(zone_number);
 
-  if (zone_id < 0)
+  if( zone_id < 0 )
   {
-    send_to_char("Invalid zone ID\n", ch);
+    send_to_char("Invalid zone ID.\n", ch);
     return;
   }
 
-  if (!strcmp(flag, "difficulty") && ( atoi(val) < 0 || atoi(val) > 13) )
+  if( !strcmp(flag, "difficulty") )
   {
-    send_to_char("Difficulty must be from 1 to 13\n", ch);
-    return;
+    if( atoi(val) < 1 || atoi(val) > 13 )
+    {
+      send_to_char("Difficulty must be from 1 to 13\n", ch);
+      return;
+    }
+  }
+  else if( !strcmp(flag, "age") )
+  {
+    if( atoi(val) < 0 || atoi(val) > 1000 )
+    {
+      send_to_char("Age must be from 0 to 1000.\n", ch);
+      return;
+    }
   }
 
   setbit_parseTable(ch, (void *) (zone_table + zone_id), table,
@@ -1347,7 +1360,7 @@ static void setbit_syntax(P_char ch, int type)
   }
   if( type == SETBIT_ZONE || type == -1 )
   {
-    send_to_char("setbit zone difficulty value\r\n", ch);
+    send_to_char("setbit zone zone# flag value\r\n", ch);
   }
   if( type == SETBIT_SHIP || type == -1 )
   {
