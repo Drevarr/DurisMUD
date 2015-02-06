@@ -152,7 +152,7 @@ O 0 89 9999 75 100 0 0 0           * a holy bulletin board
 O 0 1278 999 75 100 0 0 0          * the book of files
 O 0 75 999 77 100 0 0 0            * a Zone Planning board
 O 0 1278 999 77 100 0 0 0          * the book of files
-O 0 57 1 77 100 0 0 0              * a salty tome marked 'A Guide to the High Seas'
+O 0 57 2 77 100 0 0 0              * a salty tome marked 'A Guide to the High Seas'
 O 0 89 9999 107 100 0 0 0          * a holy bulletin board
 O 0 1278 999 107 100 0 0 0         * the book of files
 O 0 89 9999 111 100 0 0 0          * a holy bulletin board
@@ -177,11 +177,27 @@ O 0 34 1 1198 100 0 0 0            * a collection of blood
 O 0 33 1 1199 100 0 0 0            * a small stream
 O 0 89 9999 1200 100 0 0 0         * a holy bulletin board
 O 0 1278 999 1200 100 0 0 0        * the book of files
-O 0 27 1 1201 100 0 0 0            * The Book of the Council
+O 0 27 2 1201 100 0 0 0            * The Book of the Council
 O 0 11118 1 1201 100 0 0 0         * (object type not in this .obj file)
 O 0 89 9999 1202 100 0 0 0         * a holy bulletin board
 O 0 89 9999 1203 100 0 0 0         * a holy bulletin board
 O 0 1278 999 1203 100 0 0 0        * the book of files
+O 0 1278 999 1204 100 0 0 0        * the book of files
+O 0 89 9999 1204 100 0 0 0         * a holy bulletin board
+O 0 40 2 1204 100 0 0 0            * a bookcase
+P 1 10 1 40 100 0 0 0              *   a book title Quest Immortal Guide
+P 1 1211 99 40 100 0 0 0           *   a book of Duris ANSI codes
+P 1 1279 1 40 100 0 0 0            *   a book concerning standard god eq
+P 1 57 2 40 100 0 0 0              *   a salty tome marked 'A Guide to the High Seas'
+P 1 27 2 40 100 0 0 0              *   The Book of the Council
+P 1 172 1 40 100 0 0 0             *   an ancient tome filled with forgotten knowledge
+P 1 94 1 40 100 0 0 0              *   Duris Maps (ANSI)
+P 1 135129 1 40 100 0 0 0          *   (object type not in this .obj file)
+P 1 95 1 40 100 0 0 0              *   Duris Maps (GODS ONLY)
+P 1 77551 1 40 100 0 0 0           *   (object type not in this .obj file)
+P 1 44 1 40 100 0 0 0              *   A restring coupon
+P 1 1114 1 40 100 0 0 0            *   a quill
+O 0 1721 3 1204 100 0 0 0          * (object type not in this .obj file)
 O 0 89 9999 1206 100 0 0 0         * a holy bulletin board
 O 0 75 999 1207 100 0 0 0          * a Zone Planning board
 O 0 89 9999 1212 100 0 0 0         * a holy bulletin board
@@ -218,8 +234,13 @@ O 0 91 99 1216 100 0 0 0           * a meeting board
 O 0 1202 1 1218 100 0 0 0          * wisp of shadow
 O 0 1278 999 1218 100 0 0 0        * the book of files
 O 0 89 9999 1218 100 0 0 0         * a holy bulletin board
-O 0 40 1 1219 100 0 0 0            * a bookcase
+O 0 40 2 1219 100 0 0 0            * a bookcase
 O 0 89 9999 1219 100 0 0 0         * a holy bulletin board
+O 0 1721 3 1221 100 0 0 0          * (object type not in this .obj file)
+O 0 1721 3 1221 100 0 0 0          * (object type not in this .obj file)
+O 0 58328 1 1221 100 0 0 0         * (object type not in this .obj file)
+O 0 45 100 1221 100 0 0 0          * a slot machine
+O 0 1204 1 1221 100 0 0 0          * Gellz Scratchpad and Notebook
 O 0 89 9999 1227 100 0 0 0         * a holy bulletin board
 O 0 89 9999 1228 100 0 0 0         * a holy bulletin board
 O 0 89 9999 1234 100 0 0 0         * a holy bulletin board

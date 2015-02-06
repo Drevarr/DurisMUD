@@ -871,6 +871,22 @@ S
 ~
 1 176197704 0
 S
+#1204
+&+LG&+well&+Lz&n &+wRoom of &+LIn&+wfo&+Wrm&+wat&+Lion&n~
+&+cUpon entering, your first glance indicates that this room seems to be rather cluttered. Tables are full of piles and uneven stacks of books, various &+wpapers&+c are strewn all over the place and notepads and writing implements seem to litter every other available space. &+cThe many other &+Lbooks&+c on the bookshelves seem thick and well read, with their bindings showing &+Lwear&+c and &+Ltear&+c as one would expect from such ancient texts. Many &+bbulletin boards&+c and &+rdisplay easels&+c seem to present a myriad of information, most of which seems very in-depth and full of scribings of &+wc&+Wo&+Gm&+Yp&+ml&+Me&+bx&+c data and formulas.&n
+&+cThis is the room where &+LG&+well&+Lz&+c seems to spend a lot of his private time, obviously &+gpracticing&+c and &+bhoning&+c his skills.&n
+&+cThis is a &+Lquiet&+c relaxing place for the &+Wenlightened&+c.&n
+~
+1 1287819336 0
+D0
+~
+~
+0 0 1221
+D5
+~
+doorway~
+0 0 110000
+S
 #1205
 &+WDuris Mud-Code Project Headquarters&n~
    Headquarters for the Code project coordinator, whomever that may be at
@@ -1065,6 +1081,54 @@ S
 &+Lstepped on each piece of earth of Duris.&N
 ~
 1 8392712 0
+S
+#1221
+&+LThe &+WIntrospection &+Land E&+wx&+Wp&+Yer&+yi&+mm&+Me&+cn&+bt&+ra&+mt&+yi&+Wo&+wn &+LChambers.&n~
+&+cA strange sense of &+Ccalm&+c understanding overcomes you as you appear in the middle of this room. This is the room where &+LG&+well&+Lz&+c comes to &+Bcreate&+c, &+Yconjure&+c, &+Gconfigure&+c and &+Rcollapse&+c various items, objects and creatures. &+cThere are &+rs&+Rc&+Yo&+Wr&+Yc&+Rh &+Rm&+Ya&+Wr&+Yk&+Rs&+c on the floors, and &+ysc&+Lr&+wa&+wT&+wc&+Lh&+yes&+c randomly mark the walls. &+cAn open &+rfi&+Rrep&+Yl&+Ra&+Yc&+re&+c stretches across the centre of the room, producing a warm glow and gentle radiant heat. There is a pair of rather worn, comfortable looking &+yleather&+c armchairs hovering just above the floor, beckoning you to sit and study awhile.&n
+&+cAs you turn, you notice all the &+Rdi&+Gff&+Ber&+Yen&+Ct &+cdoors around the edges of the room that shimmer and appear almost &+Ltr&+Wans&+Lluc&+We&+Lnt&+c. Glancing through some of them, you seem to be looking out to various places within the &+RLands of Bloodlust&+c. Immediately you notice some familiar places, &+WTharnadia &+BFountain&+c, &+WShady Grove&+c, &+mVellas&+c and &+BN&+by'&+BN&+beth&+c to name but a few. Most though, look very strange and unfamiliar to you, causing to wonder how much here is purely just a glimpse into the mind of the Immortal &+LG&+well&+Lz&+c, as opposed to views of the real lands.&n
+&+cThis is a &+Lserene&+c place of &+Yintense &+clearning&+c.&n
+~
+1 1287819336 0
+D0
+~
+~
+0 0 34
+D1
+~
+~
+0 0 27
+D2
+~
+~
+0 0 26
+D3
+~
+~
+0 0 25
+D4
+~
+~
+0 0 40
+D5
+~
+~
+0 0 1134
+D6
+~
+~
+0 0 24
+D7
+~
+~
+0 0 31
+D8
+~
+~
+0 0 13714
+D9
+~
+~
+0 0 35
 S
 #1227
 &+rThe Bone Temple of Orcus in the Abyss&+w~
