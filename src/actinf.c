@@ -7420,6 +7420,8 @@ void do_motd(P_char ch, char *argument, int cmd)
   send_to_char(motd.c_str(), ch, LOG_NONE);
 }
 
+// Does a lookup and shows where things are in game.
+//   Note: This is an Immortal only command per interp.c -> assign_command_pointers.
 void do_where(P_char ch, char *argument, int cmd)
 {
   char     buf[MAX_STRING_LENGTH], buf2[MAX_STRING_LENGTH];
@@ -7434,10 +7436,12 @@ void do_where(P_char ch, char *argument, int cmd)
   buf[0] = 0;
   length = 0;
 
-  while (*argument == ' ')
+  while( *argument == ' ' )
+  {
     argument++;
+  }
 
-  if (!*argument)
+  if( !*argument )
   {
     strcpy(buf, "Players:\n--------\n");
 
@@ -7471,29 +7475,47 @@ void do_where(P_char ch, char *argument, int cmd)
     page_string(ch->desc, buf, 1);
     return;
   }
-  if (isname(argument, "evils") || isname(argument,"goods") )
+  if( isname(argument, "evils") || isname(argument,"goods") || isname(argument,"undeads")
+    || isname(argument,"neutrals") )
   {
    	int racewar = 0;
-		
+
 		if( isname(argument, "goods") )
 		{
-		 racewar = 1;
+		 racewar = RACEWAR_GOOD;
 		 strcpy(buf, "Players (goods):\n--------------\n");
 		}
 		else if( isname(argument, "evils") )
 		{
-		 racewar = 2;
+		 racewar = RACEWAR_EVIL;
 		 strcpy(buf, "Players (evils):\n--------------\n");
 		}
-		
-		for (d = descriptor_list; d; d = d->next)
+		else if( isname(argument, "undeads") )
+		{
+		 racewar = RACEWAR_UNDEAD;
+		 strcpy(buf, "Players (undeads):\n--------------\n");
+		}
+		else if( isname(argument, "neutrals") )
+		{
+		 racewar = RACEWAR_NEUTRAL;
+		 strcpy(buf, "Players (neutrals):\n--------------\n");
+		}
+    else
+    {
+      racewar = RACEWAR_NONE;
+		 strcpy(buf, "Players (&+Rbuggy&n):\n--------------\n");
+    }
+
+		for( d = descriptor_list; d; d = d->next )
     {
       t_ch = d->character;
-      if ((!t_ch) && d->original)
+      if( (!t_ch) && d->original )
+      {
         t_ch = d->original;
+      }
 
-      if (t_ch && IS_PC(t_ch) && (d->connected == CON_PLYNG) &&
-          (d->character->in_room != NOWHERE) && CAN_SEE(ch, t_ch) && t_ch->player.racewar == racewar )
+      if( t_ch && IS_PC(t_ch) && (d->connected == CON_PLYNG)
+        && (d->character->in_room != NOWHERE) && CAN_SEE(ch, t_ch) && t_ch->player.racewar == racewar )
       {
         if (d->original)        /* If switched */
           sprintf(buf2, "%-20s - [%4d:%6d] %s &n(In body of %s&n)\n",
@@ -7503,7 +7525,7 @@ void do_where(P_char ch, char *argument, int cmd)
           sprintf(buf2, "%-20s - [%4d:%6d] %s\n",
                   t_ch->player.name, ROOM_ZONE_NUMBER(d->character->in_room), world[d->character->in_room].number,
                   world[d->character->in_room].name);
-        
+
         if (strlen(buf2) + length + 35 > MAX_STRING_LENGTH)
         {
           sprintf(buf2, "   ...the list is too long...\n");
@@ -7521,29 +7543,21 @@ void do_where(P_char ch, char *argument, int cmd)
    * number.  It will return all mobs/objects with that v-number.
    * Otherwise it defaults to treating the argument as a string.
    */
-  if (is_number(argument))
+  if( is_number(argument) )
   {
-    if (!IS_TRUSTED(ch))
-    {
-      send_to_char("Huh?\n", ch);
-      return;
-    }
     v_num = atoi(argument);
 
     /* mobs */
-    for (i = character_list; i && !flag; i = i->next)
+    for( i = character_list; i && !flag; i = i->next )
     {
-      if (IS_NPC(i) && CAN_SEE(ch, i) &&
-          (v_num == mob_index[GET_RNUM(i)].virtual_number))
+      if( IS_NPC(i) && CAN_SEE(ch, i) && (v_num == GET_VNUM(i)) )
       {
-        if ((i->in_room != NOWHERE) &&
-            (IS_TRUSTED(ch) ||
-             (world[i->in_room].zone == world[ch->in_room].zone)))
+        if( (i->in_room != NOWHERE) && (IS_TRUSTED(ch) || (world[i->in_room].zone == world[ch->in_room].zone)) )
         {
           count++;
-          sprintf(buf2, "%3d. [%6d] %s - [%4d:%6d] %s\n",
-                  count, v_num, pad_ansi(i->player.short_descr, 40).c_str(), ROOM_ZONE_NUMBER(i->in_room), world[i->in_room].number, world[i->in_room].name);
-          if ((length + strlen(buf2) + 35) > MAX_STRING_LENGTH)
+          sprintf(buf2, "%3d. [%6d] %s - [%4d:%6d] %s\n", count, v_num, pad_ansi(i->player.short_descr, 40).c_str(),
+            ROOM_ZONE_NUMBER(i->in_room), world[i->in_room].number, world[i->in_room].name);
+          if( (length + strlen(buf2) + 35) > MAX_STRING_LENGTH )
           {
             strcpy(buf2, "   ...the list is too long...\n");
             flag = TRUE;
@@ -7554,34 +7568,38 @@ void do_where(P_char ch, char *argument, int cmd)
       }
     }
 
-    if (count && !flag)
+    if( count && !flag )
+    {
       strcat(buf, "\n\n");      /* extra lines between mobs/objs */
+    }
 
     /* objects */
-    
-    for (k = object_list; k && !flag; k = k->next)
+    for( k = object_list; k && !flag; k = k->next )
     {
-      if (v_num == obj_index[k->R_num].virtual_number)
+      if( v_num == GET_OBJ_VNUM(k) )
       {
         // wizinvis checks
         P_obj tobj = k;
-        if ((k->affected[0].location == APPLY_LEVEL ||
-            k->affected[1].location == APPLY_LEVEL) &&
-            GET_LEVEL(ch) <= 59)
+        if( (k->affected[0].location == APPLY_LEVEL || k->affected[1].location == APPLY_LEVEL) && GET_LEVEL(ch) <= 59 )
+        {
           continue;
-        while (OBJ_INSIDE(tobj))
+        }
+        while( OBJ_INSIDE(tobj) )
+        {
           tobj = tobj->loc.inside;
-        if (OBJ_WORN(tobj) && WIZ_INVIS(ch, tobj->loc.wearing))
+        }
+        if( (OBJ_WORN(tobj) && WIZ_INVIS(ch, tobj->loc.wearing))
+          || (OBJ_CARRIED(tobj) && WIZ_INVIS(ch, tobj->loc.carrying)) )
+        {
           continue;
-        if (OBJ_CARRIED(tobj) && WIZ_INVIS(ch, tobj->loc.carrying))
-          continue;
+        }
 
         o_count++;
         count++;
-        
+
         sprintf(buf2, "%3d. [%6d] %s - %s\n", o_count, v_num, pad_ansi(k->short_description, 40).c_str(), where_obj(k, FALSE));
-        
-        if ((strlen(buf2) + length + 35) > MAX_STRING_LENGTH)
+
+        if( (strlen(buf2) + length + 35) > MAX_STRING_LENGTH )
         {
           strcpy(buf2, "   ...the list is too long...\n");
           flag = TRUE;
@@ -7590,20 +7608,21 @@ void do_where(P_char ch, char *argument, int cmd)
         length += strlen(buf2);
       }
     }
-    if (!count)
+    if( !count )
+    {
       send_to_char("Nothing found.\n", ch);
+    }
     else
+    {
       page_string(ch->desc, buf, 1);
+    }
     return;
   }
   /*
    * "where zone" -- added by DTS 7/6/95
    */
-  if (is_abbrev(argument, "zone"))
+  if( is_abbrev(argument, "zone") )
   {
-
-    if (!IS_TRUSTED(ch))
-      return;
 
     strcpy(buf, "Players in this zone:\n---------------------\n");
 
@@ -7644,11 +7663,10 @@ void do_where(P_char ch, char *argument, int cmd)
   }
   else if (is_abbrev(argument, "trap"))
     do_traplist(ch, argument, 0);
-  
+
   args = one_argument(argument, buf);
-  if (is_abbrev(buf, "stat") )
+  if( is_abbrev(buf, "stat") )
   {
-    
     where_stat(ch, args);
     return;
   }

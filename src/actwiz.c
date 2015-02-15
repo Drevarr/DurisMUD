@@ -39,7 +39,7 @@
 #include "epic.h"
 #include "trophy.h"
 #include "ships.h"
-
+#include "utility.h"
 /*
  * external variables
  */
@@ -154,6 +154,7 @@ static P_char load_locker_char(P_char ch, char *locker_name, int bValidateAccess
 void shopping_stat( P_char ch, P_char keeper, char *arg, int cmd );
 bool is_quested_item( P_obj obj );
 void do_setship( P_char ch, char *arg );
+void which_race( P_char ch, char *argument );
 
 /*
  * Macros
@@ -8065,7 +8066,8 @@ void do_inroom(P_char ch, char *args, int cmd)
   }
 }
 
-#define WHICH_SYNTAX "Syntax:\n   which room <zone flag>\n   which zone <zone flag>\n   which char|mob <mobact flag>\n   which obj|item <wear, extra(2), anti(2) or aff(2-6) flag>\n"
+#define WHICH_SYNTAX "Syntax:\n   which room <zone flag>\n   which zone <zone flag>\n   which char|mob <mobact flag>\n"\
+  "which race <race name|race number>\nwhich obj|item <wear, extra(2), anti(2) or aff(2-6) flag>\n"
 
 /*
  * this is 'where' based on flags, so we can find all the 'peace' rooms,
@@ -8198,10 +8200,16 @@ void do_which(P_char ch, char *args, int cmd)
 
   if((*arg1 == 'r') || (*arg1 == 'R'))
   {
+    if( LOWER(arg1[1]) == 'a' )
+    {
+      which_race( ch, arg2 );
+      return;
+    }
     /* room and zone flags are the easiest, just run down the list  */
-    for (i = 0;
-         room_bits[i].flagShort && str_cmp(room_bits[i].flagShort, arg2);
-         i++) ;
+    for( i = 0; room_bits[i].flagShort && str_cmp(room_bits[i].flagShort, arg2); i++ )
+    {
+      ;
+    }
     if(!room_bits[i].flagShort)
     {
       send_to_char("Unknown flag, valid options are:\n", ch);
@@ -10408,5 +10416,148 @@ void do_setship( P_char ch, char *arg )
   {
     sprintf( Gbuf1, "Couldn't find ship '%s'.\n\r", name );
     send_to_char( Gbuf1, ch );
+  }
+}
+
+// Displays each type of mob with race corresponding to argument.
+// May be kinda slow since we're walking through the whole mob table and
+//   creating/destroying a mob of each type to find its race/zone/etc.
+void which_race( P_char ch, char *argument )
+{
+  char    arg[MAX_STRING_LENGTH];
+  char    buf[MAX_STRING_LENGTH];
+  char    oBuf[MAX_STRING_LENGTH];
+  int     mobRace, mobVnum, mobZone, raceIndex, count, i, j, oBufLength;
+  P_char  mob;
+  P_index mobIndex;
+
+  one_argument(argument, arg);
+  raceIndex = -1;
+  oBufLength = 0;
+  oBuf[0] = '\0';
+
+  // No argument or ? -> display format.
+  if( arg[0] == '\0' || arg[0] == '?' )
+  {
+    send_to_char( "Format: which race < race name | race number >\n", ch );
+    send_to_char( "i.e. 'which race < human | 1 >' for all mob types which are human.\n", ch );
+    return;
+  }
+  // If the argument isn't a positive integer, check to see if it's a race name.
+  if( !is_number(arg) )
+  {
+    // Check for an exact match first...
+    for( i = 0; i < LAST_RACE; i++ )
+    {
+      // Check race, ignoring case
+      if( !strcasecmp(race_names_table[i].normal, arg) )
+      {
+        raceIndex = i;
+        break;
+      }
+    }
+    // Check for a short version of race name iff not found above. (i.e. just 'grey' instead of 'grey elf')
+    if( raceIndex <= 0 )
+    {
+      for( i = 0; i <= LAST_RACE; i++ )
+      {
+        // Mob should always load, but just in case...
+        if( is_abbrev(arg, race_names_table[i].normal) )
+        {
+          raceIndex = i;
+          break;
+        }
+      }
+    }
+  }
+  else
+  {
+    // If it's a number, set raceIndex, bounds handling below.
+    raceIndex = atoi(arg);
+  }
+
+  // If we couldn't identify the race to look for.. (allowing RACE_NONE since this is a Imm command).
+  if( raceIndex < 0 || raceIndex > LAST_RACE )
+  {
+    sprintf( buf, "Race '%s' not found.  Please enter a number between 1 and %d or a valid race name.\n\r",
+      arg, LAST_RACE );
+    send_to_char( buf, ch );
+    return;
+  }
+
+  sprintf( buf, "Race: %s (%d) listing: \n\r", race_names_table[raceIndex].ansi, raceIndex );
+  send_to_char( buf, ch );
+
+  count = 0;
+  // Walk through the mob_index table...
+  for( i = 0; i < top_of_mobt; i++ )
+  {
+    // If we don't have a valid mob index, or an incomplete one.
+    if( (mobIndex = &(mob_index[i])) == NULL || mobIndex->virtual_number == 0 )
+    {
+      debug( "which_race: Mob index %d %s.", i, (mobIndex == NULL) ? "is NULL" : "has virtual number 0." );
+      continue;
+    }
+    // If we fail to load an instance of the mob.
+    if( (mob = read_mobile( mobIndex->virtual_number, VIRTUAL )) == NULL )
+    {
+      continue;
+    }
+    mobRace = GET_RACE(mob);
+    mobVnum = GET_VNUM(mob);
+    // If we have a match, create a line.
+    if( mobRace == raceIndex )
+    {
+      // Walk through the list of zones.
+      for( j = 1; j <= top_of_zone_table; j++ )
+      {
+        // When we reach the first zone where the vnum should be in the zone before it,
+        if( mobVnum < zone_table[j].number * 100 )
+        {
+          // If the vnum does fit in the zone before,
+          if( mobVnum >= zone_table[j-1].number * 100 )
+          {
+            // Set the zone number correctly.
+            mobZone = j-1;
+          }
+          // Otherwise, we have some buggy s*** going on.
+          else
+          {
+            debug( "which_race: mob '%s' (%d) does not have a home zone?!?", J_NAME(mob), mobVnum );
+            // Set the zone number to Heavens to prevent crashes.
+            mobZone = 0;
+          }
+          break;
+        }
+      }
+      extract_char( mob );
+      sprintf( buf, "%3d)&+W%c&n%6d %s &n-%c&+c%2d&n/&+C%2d&n  %s\n", ++count, (mobIndex->func.mob == NULL) ? ' ' : '*',
+        mobVnum, pad_ansi( (mobIndex->desc2==NULL) ? "(NULL)" : mobIndex->desc2, 30, TRUE ).c_str(),
+        (mobIndex->qst_func == NULL) ? ' ' : 'Q', mobIndex->number, mobIndex->limit, zone_table[mobZone].name );
+      // If the next line exceeds size of return buffer (-30 for terminating char + "And the list goes on...\n\r").
+      if( oBufLength + strlen(buf) > MAX_STRING_LENGTH - 30 )
+      {
+        strcat( oBuf, "And the list goes on...\n\r" );
+        break;
+      }
+      strcat( oBuf, buf );
+      oBufLength += strlen(buf);
+    }
+    else
+    {
+      extract_char( mob );
+    }
+  }
+  if( count > 0 )
+  {
+    sprintf( buf, "Num)   Vnum          Name                &+cInGame&n/&+CMax&n Home Zone\n\r"
+                  "    &+W*&n=Special Func                         -Q=Quest Mob\n\r" );
+    send_to_char( buf, ch);
+    page_string(ch->desc, oBuf, 1);
+  }
+  else
+  {
+    sprintf( buf, "No mobs of race '%s' (%d) found.\n\r", race_names_table[raceIndex].ansi, raceIndex );
+    send_to_char( buf, ch );
   }
 }

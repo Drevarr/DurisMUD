@@ -2910,8 +2910,8 @@ string pad_ansi(const char *str, int length)
 
 string pad_ansi(const char *str, int length, bool trim_to_length)
 {
+  register char lookat;
   string ret_str(str);
-
   int to_pad = (length - strip_ansi(str).size());
 
   for( int i = 0; i < to_pad; i++ )
@@ -2919,16 +2919,101 @@ string pad_ansi(const char *str, int length, bool trim_to_length)
     ret_str += " ";
   }
 
-  if( trim_to_length )
+  // If we need to trim the end,
+  if( trim_to_length && to_pad < 0 )
   {
-    return ret_str.substr(0,length);
+    int count = 0, retLength = 0;
+    while( count < length )
+    {
+      // If we're at the beginning of a possible ansi code,
+      if( str[retLength] == '&' )
+      {
+        lookat = str[retLength+1];
+        // &n or &N ansi code found: skip past it without incrementing count.
+        if( lookat == 'n' || lookat == 'N' )
+        {
+          retLength += 2;
+        }
+        // If the next char is part of a possible ansi code, increment count and retLength by two.
+        else if( lookat == '+' || lookat == '-' || lookat == '=' )
+        {
+          // We're looking at the lowercase version of the next (3rd) char.
+          //   We use switch because there's more than 6 good codes => faster.
+          switch( LOWER(str[retLength+2]) )
+          {
+            // Valid color codes:
+            case 'b':
+            case 'c':
+            case 'g':
+            case 'l':
+            case 'm':
+            case 'r':
+            case 'w':
+            case 'y':
+              // For &=<x><y> where <x> is a valid color code, we check <y> for a valid color code.
+              if( lookat == '=' )
+              {
+                switch( LOWER(str[retLength+3]) )
+                {
+                  case 'b':
+                  case 'c':
+                  case 'g':
+                  case 'l':
+                  case 'm':
+                  case 'r':
+                  case 'w':
+                  case 'y':
+                    // If <y> is a valid color code, we skip &=<x><y> -> 4 chars.
+                    retLength += 4;
+                    break;
+                  // &=<x><y> where <x> is a color code, but <y> is not.  We count &=<x> -> 3 chars.
+                  default:
+                    count += 3;
+                    retLength += 3;
+                    break;
+                }
+              }
+              // For &+<x> or &-<x> where x is a color code, we skip these 3 characters.
+              else
+              {
+                retLength +=3;
+              }
+              break;
+            // &<+|-|=><x> where <x> is not a color code.  We count the &+ or &- or &= as regular chars.
+            default:
+              count += 2;
+              retLength += 2;
+              break;
+          }
+        }
+        // The '&' is a counted char. (We don't know about the next char).
+        else
+        {
+          count++;
+          retLength++;
+        }
+      }
+      // Otherwise, go to the next char.
+      else
+      {
+        count++;
+        retLength++;
+      }
+    }
+    // This can occur when we end with a bad ansi code (ie &=Rx will jump 3 chars).
+    if( count > length )
+    {
+      // We just cut off the last chars as they aren't valid ansi codes.
+      retLength -= (count - length);
+    }
+    return ret_str.substr( 0, retLength );
   }
   else
   {
     return ret_str;
   }
 }
-      
+
 string strip_ansi(const char *str)
 {
   int      i = 0;
