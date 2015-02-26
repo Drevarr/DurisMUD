@@ -3144,10 +3144,12 @@ void reset_zone(int zone, int force_item_repop)
         {
           if( (timer = get_current_artifact_info(temp, 0, NULL, NULL, NULL, NULL, FALSE, NULL)) )
           {
+            // If it's on the ground, load the room #.
             if( timer == -1 )
             {
               get_current_artifact_info(temp, 0, NULL, &room, NULL, NULL, FALSE, &timer);
             }
+            // If it's on a pfile, break.
             else
             {
               //statuslog(56, "didn't load arti obj #%d because already tracked", obj_index[temp].virtual_number);
@@ -3167,6 +3169,7 @@ void reset_zone(int zone, int force_item_repop)
             extract_obj(obj, TRUE);
             break;
           }
+          // If timer != 0, then it was on ground.
           if( IS_ARTIFACT(obj) && timer )
           {
             obj->timer[3] = timer;
@@ -3210,10 +3213,12 @@ void reset_zone(int zone, int force_item_repop)
 
         if( (timer = get_current_artifact_info(temp, 0, NULL, NULL, NULL, NULL, FALSE, NULL)) )
         {
+          // If on ground, load room # and timer.
           if( timer == -1 )
           {
             get_current_artifact_info(temp, 0, NULL, &room, NULL, NULL, FALSE, &timer);
           }
+          // Otherwise, it's on a pfile so don't load it.
           else
           {
             //statuslog(56, "didn't load arti obj #%d because already tracked", obj_index[temp].virtual_number);
@@ -3489,7 +3494,7 @@ void reset_zone(int zone, int force_item_repop)
               }
               else
               {
-                //statuslog(56, "didn't load arti obj #%d because already tracked", obj_index[temp].virtual_number);
+//                statuslog(56, "Didn't load arti obj #%d because already tracked.", obj_index[ZCMD.arg1].virtual_number);
                 break;
               }
             }
@@ -3509,18 +3514,18 @@ void reset_zone(int zone, int force_item_repop)
                 extract_obj(obj, TRUE);
                 break;
               }
+              // Artifact poof timer to BLOOD_DAYS * secs in a day.
+              if( IS_ARTIFACT(obj) && timer )
+              {
+                obj->timer[3] = timer;
+                obj_to_room( obj, real_room(room) );
+                break;
+              }
               if( mob )
               {
                 //Drannak trying out item stat randomization 3/28/14
                 if(!IS_ARTIFACT(obj))
                   randomizeitem(mob, obj);
-                // Artifact poof timer to BLOOD_DAYS * secs in a day.
-                if( IS_ARTIFACT(obj) && timer )
-                {
-                  obj->timer[3] = timer;
-                  obj_to_room( obj, real_room(room) );
-                  break;
-                }
                 obj->timer[3] = time(NULL);
                 obj_to_char(obj, mob);
                 last_cmd = 1;

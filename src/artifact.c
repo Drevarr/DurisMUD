@@ -522,7 +522,7 @@ int remove_owned_artifact(P_obj arti, P_char ch, int full_remove)
 
 
 //
-// Returns owner's racewar side if owner is found.  Otherwise returns 0.
+// Returns owner's racewar side if owner is found, -1 if on ground.  Otherwise returns 0.
 // pname/id/last_time/truly_unowned/blood changed if artifact file was
 //   successfully read.
 //
@@ -539,7 +539,7 @@ int get_current_artifact_info( int rnum, int vnum, char *pname, int *id,
   int      owner_race;
 
 
-  if (rnum >= 0)
+  if( rnum >= 0 )
   {
     vnum = obj_index[rnum].virtual_number;
   }
@@ -562,9 +562,10 @@ int get_current_artifact_info( int rnum, int vnum, char *pname, int *id,
     return 0;
   }
 
-  fscanf(f, "%s %d %lu %d %lu\n", name, &t_id, &t_last_time, &t_tu, &t_blood);
+  // Init name to empty string.
+  name[0] = '\0';
 
-  fclose(f);
+  fscanf(f, "%s %d %lu %d %lu\n", name, &t_id, &t_last_time, &t_tu, &t_blood);
 
 //  If on corpse return FALSE ?? why?
 //  if (t_tu) return FALSE;
@@ -573,11 +574,11 @@ int get_current_artifact_info( int rnum, int vnum, char *pname, int *id,
   if( pname )
   {
     // Copy name into pname
-    strcpy( pname, name );
+    strcpy( pname, skip_spaces(name) );
   }
 
   owner = (struct char_data *) mm_get(dead_mob_pool);
-  if (!dead_pconly_pool)
+  if( !dead_pconly_pool )
   {
     dead_pconly_pool = mm_create("PC_ONLY", sizeof(struct pc_only_data),
       offsetof(struct pc_only_data, switched),
@@ -585,8 +586,9 @@ int get_current_artifact_info( int rnum, int vnum, char *pname, int *id,
   }
   owner->only.pc = (struct pc_only_data *) mm_get(dead_pconly_pool);
 
-  if( restoreCharOnly(owner, skip_spaces(name)) >= 0 )
+  if( restoreCharOnly(owner, pname) >= 0 )
   {
+    fclose(f);
     if( RACE_GOOD(owner) )
     {
       owner_race = 1;
@@ -607,8 +609,9 @@ int get_current_artifact_info( int rnum, int vnum, char *pname, int *id,
   }
   else
   {
+
     // Try to hunt for obj in room save.
-    if( freopen(fname, "rt", f) )
+    if( (fseek(f, 0L, SEEK_SET) != -1) )
     {
       sprintf( name, "%s", fread_string(f) );
       fscanf(f, " %d %lu %d %lu\n", &t_id, &t_last_time, &t_tu, &t_blood);
@@ -630,6 +633,7 @@ int get_current_artifact_info( int rnum, int vnum, char *pname, int *id,
     }
     else
     {
+      fclose(f);
       owner_race = 0;
     }
   }
@@ -743,20 +747,20 @@ void list_artifacts(P_char ch, char *arg, int type)
     vnum = atoi(dire->d_name);
     if (!vnum)
       continue;
-logit(LOG_DEBUG, "Loading artifact file: %s%s", ARTIFACT_DIR, dire->d_name);
+
+    logit(LOG_DEBUG, "Loading artifact file: %s%s", ARTIFACT_DIR, dire->d_name);
     owning_side = get_current_artifact_info(-1, vnum, pname, &id, &last_time, &t_uo,
                                 !IS_TRUSTED(ch), &blood);
-
-    if (!owning_side)
+    if( !owning_side && t_uo != -1 )
       continue;
 
     obj = read_object(vnum, VIRTUAL);
 
-    if (!obj)
+    if( !obj )
       continue;
 
-    if ((type == ARTIFACT_IOUN && !CAN_WEAR(obj, ITEM_WEAR_IOUN)) ||
-        (type != ARTIFACT_IOUN && CAN_WEAR(obj, ITEM_WEAR_IOUN)))
+    if( (type == ARTIFACT_IOUN && !CAN_WEAR(obj, ITEM_WEAR_IOUN))
+      || (type != ARTIFACT_IOUN && CAN_WEAR(obj, ITEM_WEAR_IOUN)) )
     {
       extract_obj(obj, FALSE);
       continue;
@@ -770,7 +774,7 @@ logit(LOG_DEBUG, "Loading artifact file: %s%s", ARTIFACT_DIR, dire->d_name);
       continue;
     }
 
-    switch (owning_side)
+    switch( owning_side )
     {
     case 1:
       goodies++;
@@ -785,7 +789,8 @@ logit(LOG_DEBUG, "Loading artifact file: %s%s", ARTIFACT_DIR, dire->d_name);
       others++;
     }
 
-    if (IS_TRUSTED(ch) && !mortal )
+    // If an Immortal wants the Imm list.
+    if( IS_TRUSTED(ch) && !mortal )
     {
       strcpy(strn2, ctime(&last_time));
       strn2[strlen(strn2) - 1] = '\0';
@@ -810,8 +815,8 @@ logit(LOG_DEBUG, "Loading artifact file: %s%s", ARTIFACT_DIR, dire->d_name);
       sprintf(blooddate, "%d:%02d:%02d ", days, hours, minutes);
       if( t_uo == -1 )
       {
-        sprintf(strn, "%s\n%28s   %-30s%s (#%d)%s\r\n",
-              pname, blooddate, strn2, obj->short_description, vnum,
+        sprintf(strn, "%s - (Room #%d)\n%28s   %-30s%s (#%d)%s\r\n",
+              pad_ansi(pname, 60).c_str(), id, blooddate, strn2, obj->short_description, vnum,
               "(on ground)" );
       }
       else
@@ -854,6 +859,13 @@ logit(LOG_DEBUG, "Loading artifact file: %s%s", ARTIFACT_DIR, dire->d_name);
               "         &+WTotal:        %d\r\n",
           goodies, evils,
           goodies + evils);
+
+  if( IS_TRUSTED(ch) && !mortal && others > 0 )
+  {
+    char tempbuf[256];
+    sprintf( tempbuf, "         &+WOthers:       %d\r\n", others );
+    strcat( strn, tempbuf );
+  }
   send_to_char(strn, ch);
 
   if (writehtml == 1 && !artilist_mortal_main)
@@ -1603,6 +1615,8 @@ void set_timer_arti( P_char ch, char *arg )
 
   if( obj )
   {
+    sprintf(buf, " | %s | %d | %lu\n\r", obj->short_description, GET_OBJ_VNUM(obj), obj->timer[3] );
+    send_to_char( buf, ch );
     // Set timer to last timer minutes: current - ARTIFACT_BLOOD_DAY days + minutes,
     obj->timer[3] = time(NULL) - ARTIFACT_BLOOD_DAYS * SECS_PER_REAL_DAY + 60 * timer;
     return;
@@ -1689,6 +1703,8 @@ void set_timer_arti( P_char ch, char *arg )
     }
     else
     {
+      sprintf(buf, " | %s | %d | %lu\n\r", obj->short_description, GET_OBJ_VNUM(obj), obj->timer[3] );
+      send_to_char( buf, ch );
       obj->timer[3] = time(NULL) - ARTIFACT_BLOOD_DAYS * SECS_PER_REAL_DAY + 60 * timer;
       // Update the artifact file.
       save_artifact_data( owner, obj );
@@ -2231,6 +2247,8 @@ void dropped_arti_hunt()
         // Put Room's name, rooms vnum, time -1(!), obj timer.
         fprintf(f, "%s~\n %d %lu -1 %lu", world[obj->loc.room].name, world[obj->loc.room].number, time(NULL), obj->timer[3]);
         fclose(f);
+        debug( "Artifact '%s' %d saved in room '%s' %d.", obj->short_description, GET_OBJ_VNUM(obj),
+          world[obj->loc.room].name, world[obj->loc.room].number );
       }
     }
   }

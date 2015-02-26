@@ -2842,7 +2842,7 @@ int restoreCharOnly(P_char ch, char *name)
 
 #ifndef _PFILE_
   char     buff[SAV_MAXSIZE];
-  char    *buf = buff;
+  char    *buf;
   int      skill_off, affect_off, item_off, surname;
 #endif
   int      start, size, csize, type, room;
@@ -2850,12 +2850,16 @@ int restoreCharOnly(P_char ch, char *name)
   char     Gbuf1[MAX_STRING_LENGTH];
   char     b_savevers;
 
-  if (!name || !ch)
-    return 0;
+  if( !name || !ch )
+  {
+    return -1;
+  }
 
   strcpy(buff, name);
-  for (; *buf; buf++)
+  for( buf = buff; *buf; buf++ )
+  {
     *buf = LOWER(*buf);
+  }
   buf = buff;
   sprintf(Gbuf1, "%s/%c/%s", SAVE_DIR, *buff, buff);
 //  logit(LOG_FILE, "%s is the pfile string!", Gbuf1);
