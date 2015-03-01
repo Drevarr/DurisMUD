@@ -4492,10 +4492,12 @@ int wear(P_char ch, P_obj obj_object, int keyword, bool showit)
     break;
 
   case 19: /* Guild Insignia */
+  case 28: // Badge
     if( CAN_WEAR(obj_object, ITEM_GUILD_INSIGNIA) )
     {
       // Replace if Wearing Something or Wear New Item
-      return remove_and_wear(ch, obj_object, GUILD_INSIGNIA, keyword, comnd, showit);
+      // Using hardcoded 19, 'cause 28 is just a duplicate.
+      return remove_and_wear(ch, obj_object, GUILD_INSIGNIA, 19, comnd, showit);
     }
     else
     {
@@ -4779,6 +4781,7 @@ void do_wear(P_char ch, char *argument, int cmd)
     "horns",                    /* 24 */
     "ioun",
     "spider_body",
+    "badge"
     "\n"
   };
   int      loop = 0;
