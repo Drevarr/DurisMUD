@@ -385,35 +385,28 @@ int bs_boss(P_char ch, P_char pl, int cmd, char *arg)
 
 int braddistock(P_char ch, P_char pl, int cmd, char *arg)
 {
-  /*
-   * Check for periodic event calls
-   */
-  if (cmd == CMD_SET_PERIODIC)
-    return FALSE;
-
-  /*
-   * MobCombat() will call this function with pl, cmd, and arg set to null
-   */
-  if (!pl)
-    return FALSE;
-
-  if (IS_TRUSTED(pl))
-    return FALSE;
-
-  if (pl)
+  // Check for periodic event calls
+  if( cmd == CMD_SET_PERIODIC )
   {
-    if (cmd == CMD_NORTH && pl != ch && (GET_LEVEL(pl) > 14))
-    {
-      send_to_char
-        ("The spirit of Lord Braddistock says 'We don't want your kind around here!'",
-         ch);
-      act("$N says 'We don't want your kind around here!'", TRUE, pl, 0, ch,
-          TO_NOTVICT);
-      act("$N blocks your passage.", TRUE, pl, 0, ch, TO_CHAR);
-      act("$N blocks $n.", TRUE, pl, 0, ch, TO_NOTVICT);
-      return TRUE;
-    }
+    return FALSE;
   }
+
+  // MobCombat() will call this function with pl, cmd, and arg set to null
+  // Immortals aren't blocked.
+  if( !pl || IS_TRUSTED(pl) )
+  {
+    return FALSE;
+  }
+
+  if( cmd == CMD_NORTH && pl != ch && (GET_LEVEL(pl) > 14) )
+  {
+    send_to_char("The spirit of Lord Braddistock says 'We don't want your kind around here!'", ch);
+    act("$N says 'We don't want your kind around here!'", TRUE, pl, 0, ch, TO_NOTVICT);
+    act("$N blocks your passage.", TRUE, pl, 0, ch, TO_CHAR);
+    act("$N blocks $n.", TRUE, pl, 0, ch, TO_NOTVICT);
+    return TRUE;
+  }
+
   return FALSE;
 }
 
