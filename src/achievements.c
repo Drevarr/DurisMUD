@@ -142,10 +142,10 @@ void do_achievements(P_char ch, char *arg, int cmd)
   //-----Achievement: Master of Deception
   if(affected_by_spell(ch, ACH_DECEPTICON))
     sprintf(buf3, "  &+L%-40s&+L%-45s&+L%s\r\n",
-        "&+LMa&+rst&+Rer of De&+rcep&+Ltion&n", "&+BSuccessfully use 500 disguise kits", "&+BDisguise without disguise kits&n");
+        "&+LMa&+rst&+Rer of De&+rcep&+Ltion&n", "&+BSuccessfully use 500 disguise kits", "&+BDisguise doesnt consume a kit&n");
   else
     sprintf(buf3, "  &+L%-40s&+L%-45s&+L%s  &+W%d%%\r\n",
-        "&+LMa&+rst&+Rer of De&+rcep&+Ltion&n", "&+wSuccessfully use 500 disguise kits", "&+wDisguise without disguise kits&n", get_progress(ch, AIP_DECEPTICON, 500));
+        "&+LMa&+rst&+Rer of De&+rcep&+Ltion&n", "&+wSuccessfully use 500 disguise kits", "&+wDisguise doesnt consume a kit&n", get_progress(ch, AIP_DECEPTICON, 500));
   strcat(buf, buf3);
   //-----Master of Deception
 
@@ -329,7 +329,7 @@ void update_achievements(P_char ch, P_char victim, int cmd, int ach)
         affect_remove(ch, findaf);
         apply_achievement(ch, ACH_DECEPTICON);
         send_to_char("&+rCon&+Rgra&+Wtula&+Rtio&+rns! You have completed the &+RMaster of Deception&+r achievement!&n\r\n", ch);
-        send_to_char("&+yYou may now use the &+Ydisguise&+y skill without needing a &+Ldisguise kit&+y!&n\r\n", ch);
+        send_to_char("&+yYou may now use the &+Ydisguise&+y skill without it consuming a &+Ldisguise kit&+y but you must still have one in inventory!&n\r\n", ch);
       }
       findaf->modifier += cmd;
 
