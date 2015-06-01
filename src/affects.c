@@ -764,9 +764,6 @@ void apply_affs(P_char ch, int mode)
     else
     {
       int diff = GET_C_STR(ch) - stat_factor[(int) GET_RACE(ch)].Str;
-if( IS_PC(ch) ) debug( "PENIS CSTR: %d, stat_f: %d.", GET_C_STR(ch), stat_factor[(int) GET_RACE(ch)].Str );
-if( IS_PC(ch) ) debug( "PENIS diff: %d, diff^3: %d, sqrt^2: %d.", diff, diff*diff*diff,(int) sqrt(sqrt(diff * diff * diff)) );
-if( IS_PC(ch) ) debug( "PENIS old damroll: %d new damroll: %d.", ch->points.damroll, ch->points.damroll + (int) sqrt(sqrt(diff * diff * diff)) );
       diff = (int) sqrt(sqrt(diff * diff * diff));
       // 127 is the greatest value a byte can be in this system.
       if( diff + ch->points.damroll > 127 )
