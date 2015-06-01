@@ -3065,6 +3065,8 @@ string strip_ansi(const char *str)
  * memory during compile.  So it's a function, though a simple one.  JAB
  */
 
+/* Someone changed this from a range 0 .. 51 to 0 .. 24.
+ *   So, I'm changing it back below, but saving the old stuff just in case.
 int STAT_INDEX(int v)
 {
   if (v < 1)
@@ -3119,6 +3121,119 @@ int STAT_INDEX(int v)
     return 24;
 
 return 24;
+}
+*/
+
+// This function converts an attribute (range 0 .. 500 and some) to a proper
+//   index of the attribute type tables (range 0 .. 51).
+// Turn a GET_C_*** into a range of 0 .. 51 for use in the ***_app_type tables.
+// Example: str_app[STAT_INDEX(GET_C_STR(ch))].todam
+int STAT_INDEX( int v )
+{
+  if( v < 1 )
+    return 0;
+  else if( v < 10 )
+    return 1;
+  else if( v < 16 )
+    return 2;
+  else if( v < 22 )
+    return 3;
+  else if( v < 28 )
+    return 4;
+  else if( v < 34 )
+    return 5;
+  else if( v < 40 )
+    return 6;
+  else if( v < 46 )
+    return 7;
+  else if( v < 51 )
+    return 8;
+  else if( v < 56 )
+    return 9;
+  else if( v < 62 )
+    return 10;
+  else if( v < 68 )
+    return 11;
+  else if( v < 74 )
+    return 12;
+  else if( v < 80 )
+    return 13;
+  else if( v < 86 )
+    return 14;
+  else if( v < 92 )
+    return 15;
+  else if( v < 101 )
+    return 16;
+  else if( v < 113 )
+    return 17;
+  else if( v < 125 )
+    return 18;
+  else if( v < 137 )
+    return 19;
+  else if( v < 149 )
+    return 20;
+  else if( v < 161 )
+    return 21;
+  else if( v < 173 )
+    return 22;
+  else if( v < 185 )
+    return 23;
+  else if( v < 197 )
+    return 24;
+  else if( v < 209 )
+    return 25;
+  else if( v < 221 )
+    return 26;
+  else if( v < 233 )
+    return 27;
+  else if( v < 245 )
+    return 28;
+  else if( v < 257 )
+    return 29;
+  else if( v < 269 )
+    return 30;
+  else if( v < 281 )
+    return 31;
+  else if( v < 293 )
+    return 32;
+  else if( v < 305 )
+    return 33;
+  else if( v < 317 )
+    return 34;
+  else if( v < 329 )
+    return 35;
+  else if( v < 341 )
+    return 36;
+  else if( v < 353 )
+    return 37;
+  else if( v < 365 )
+    return 38;
+  else if( v < 377 )
+    return 39;
+  else if( v < 389 )
+    return 40;
+  else if( v < 401 )
+    return 41;
+  else if( v < 413 )
+    return 42;
+  else if( v < 425 )
+    return 43;
+  else if( v < 437 )
+    return 44;
+  else if( v < 449 )
+    return 45;
+  else if( v < 461 )
+    return 46;
+  else if( v < 473 )
+    return 47;
+  else if( v < 485 )
+    return 48;
+  else if( v < 497 )
+    return 49;
+  else if( v < 509 )
+    return 50;
+
+  return 51;
 }
 
 // This relates to stat_names3 where average = human at 100

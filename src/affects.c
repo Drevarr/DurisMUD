@@ -755,26 +755,33 @@ void apply_affs(P_char ch, int mode)
 
   ch->points.damroll = ch->points.base_damroll + ((mode) ? TmpAffs.Dam : 0);
 
-  P_obj wpn;
-
-  if (IS_PC(ch) && ch->points.damroll > damroll_cap)
-    ch->points.damroll = damroll_cap;
-
-  if (GET_C_STR(ch) > stat_factor[(int) GET_RACE(ch)].Str)
+  if( GET_C_STR(ch) > stat_factor[(int) GET_RACE(ch)].Str )
   {
-    if (GET_C_STR(ch) - stat_factor[(int) GET_RACE(ch)].Str < 9)
+    if( GET_C_STR(ch) - stat_factor[(int) GET_RACE(ch)].Str < 9 )
     {
-      ch->points.damroll +=
-        (int) (2 *
-               sqrt((GET_C_STR(ch) - stat_factor[(int) GET_RACE(ch)].Str)));
+      ch->points.damroll += (int) (2 * sqrt((GET_C_STR(ch) - stat_factor[(int) GET_RACE(ch)].Str)));
     }
     else
     {
       int diff = GET_C_STR(ch) - stat_factor[(int) GET_RACE(ch)].Str;
-
-      ch->points.damroll += (int) sqrt(sqrt(diff * diff * diff));
+if( IS_PC(ch) ) debug( "PENIS CSTR: %d, stat_f: %d.", GET_C_STR(ch), stat_factor[(int) GET_RACE(ch)].Str );
+if( IS_PC(ch) ) debug( "PENIS diff: %d, diff^3: %d, sqrt^2: %d.", diff, diff*diff*diff,(int) sqrt(sqrt(diff * diff * diff)) );
+if( IS_PC(ch) ) debug( "PENIS old damroll: %d new damroll: %d.", ch->points.damroll, ch->points.damroll + (int) sqrt(sqrt(diff * diff * diff)) );
+      diff = (int) sqrt(sqrt(diff * diff * diff));
+      // 127 is the greatest value a byte can be in this system.
+      if( diff + ch->points.damroll > 127 )
+      {
+        ch->points.damroll = 127;
+      }
+      else
+      {
+        ch->points.damroll += diff;
+      }
     }
   }
+
+  if (IS_PC(ch) && ch->points.damroll > damroll_cap)
+    ch->points.damroll = damroll_cap;
 
   ch->points.hitroll = ch->points.base_hitroll + ((mode) ? TmpAffs.Hit : 0);
 

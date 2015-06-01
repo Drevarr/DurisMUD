@@ -2760,7 +2760,8 @@ void do_stat(P_char ch, char *argument, int cmd)
     }
     else
     {
-      sprintf(buf, "%s  &+Y+Dam: &N%d\n", buf,
+      sprintf(buf, "%s  &+Y+Dam: &N%d+%d = %d\n", buf,
+              GET_DAMROLL(k), str_app[STAT_INDEX(GET_C_STR(k))].todam,
               GET_DAMROLL(k) + str_app[STAT_INDEX(GET_C_STR(k))].todam);
     }
     strcat(o_buf, buf);
