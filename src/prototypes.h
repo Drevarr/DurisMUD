@@ -1208,7 +1208,7 @@ char *one_argument(const char *, char *);
 char lower(char);
 int fill_word(char *);
 int is_abbrev(const char *, const char *);
-int is_number(char *);
+bool is_number(char *);
 int old_search_block(const char *, uint, uint, const char **, int);
 int search_block(char *, const char **, int);
 void GRANTSET(int, int);

@@ -68,6 +68,8 @@ extern int top_of_zone_table;
 extern struct zone_data *zone_table;
 extern void reset_racial_skills(P_char ch);
 
+char bad_on_off[MAX_INPUT_LENGTH];
+
 /* Macros */
 #define SETBIT_ROOM             0
 #define SETBIT_CHAR             1
@@ -124,8 +126,7 @@ static void setbit_syntax(P_char ch, int type);
 
 /* Syntax error */
 static void setbit_printOutTable(P_char ch, SetBitTable *, int size);
-static void setbit_printOutSubTable(P_char ch, char **subtable,
-    int entry_size);
+static void setbit_printOutSubTable(P_char ch, char **subtable, int entry_size);
 static int ac_strcasecmp(const char *s1, const char *s2);
 
 /* String insensitive case comparison */
@@ -140,6 +141,7 @@ static int ac_strcasecmp(const char *s1, const char *s2);
  */
 
 static void ac_ageCopy(void *, int, char *, int, int);
+static void ac_affModify(void *, int, char *, int, int);
 static void ac_bitCopy(void *, int, char *, int, int);
 static void ac_byteCopy(void *, int, char *, int, int);
 static void ac_hitmanaCopy(void *, int, char *, int, int);
@@ -177,7 +179,7 @@ void do_setbit(P_char ch, char *arg, int cmd)
   {
     return;
   }
-  if (setbit_parse(arg, &type, name, flag, value, &on_off) == -1)
+  if( setbit_parse(arg, &type, name, flag, value, &on_off) == -1 )
   {
     setbit_syntax(ch, -1);
     return;
@@ -254,8 +256,7 @@ void do_setbit(P_char ch, char *arg, int cmd)
 /*
  * ** Parses command into separate fields.
  */
-static int setbit_parse(char *arg, int *type, char *name, char *flag,
-    char *val, int *on_off)
+static int setbit_parse(char *arg, int *type, char *name, char *flag, char *val, int *on_off)
 {
   char     type_str[MAX_INPUT_LENGTH];
   char     on_off_str[MAX_INPUT_LENGTH];
@@ -324,20 +325,24 @@ static int setbit_parse(char *arg, int *type, char *name, char *flag,
   /*
    * On/Off
    */
-
-  if (atoi(on_off_str) == 0)
+  if( is_number(on_off_str) )
   {
-    *on_off = 0;
+    *on_off = atoi(on_off_str);
+    bad_on_off[0] = '\0';
   }
   else
   {
-    *on_off = atoi(on_off_str);
+    if( *on_off_str )
+    {
+      sprintf( bad_on_off, "%s", on_off_str );
+    }
+    else
+    {
+      sprintf( bad_on_off, " " );
+    }
   }
 
-  /*
-   * Return if OK
-   */
-
+  // Bad on_off_str .. may not matter
   return 0;
 }
 
@@ -1053,11 +1058,26 @@ static void setbit_dir(P_char ch, char *name, char *flag, char *value, int on_of
    * Executable section
    */
 
-  room_number = real_room(atoi(name));
-
-  if (room_number < 0 || room_number > top_of_world)
+  if( !strcmp(name, "here") )
   {
-    send_to_char("Invalid room number.\n\r", ch );
+    room_number = ch->in_room;
+  }
+  else
+  {
+    if( is_number(name) )
+    {
+      room_number = real_room(atoi(name));
+    }
+    else
+    {
+      room_number = -1;
+    }
+  }
+
+  if( room_number < 0 || room_number > top_of_world )
+  {
+    setbit_syntax(ch, SETBIT_DIR);
+    send_to_char("Invalid room number.  Please enter a number or 'here' for the room you are in.\n\r", ch );
     return;
   }
   room = world + room_number;
@@ -1070,7 +1090,7 @@ static void setbit_dir(P_char ch, char *name, char *flag, char *value, int on_of
    */
 
   bool bIsSetRoom = false;
-  switch (*flag)
+  switch( *flag )
   {
 
     case 'n':
@@ -1088,20 +1108,26 @@ static void setbit_dir(P_char ch, char *name, char *flag, char *value, int on_of
         default:
           if (toupper(flag[1]) == 'R') bIsSetRoom = true;
           where = room->dir_option[NORTH];
+          break;
       }
-
       break;
 
     case 'e':
     case 'E':
       where = room->dir_option[EAST];
-      if (toupper(flag[1]) == 'R') bIsSetRoom = true;
+      if( toupper(flag[1]) == 'R' )
+      {
+        bIsSetRoom = true;
+      }
       break;
 
     case 'w':
     case 'W':
       where = room->dir_option[WEST];
-      if (toupper(flag[1]) == 'R') bIsSetRoom = true;
+      if (toupper(flag[1]) == 'R')
+      {
+        bIsSetRoom = true;
+      }
       break;
 
     case 's':
@@ -1110,17 +1136,26 @@ static void setbit_dir(P_char ch, char *name, char *flag, char *value, int on_of
       {
         case 'W':
           where = room->dir_option[SOUTHWEST];
-          if (toupper(flag[2]) == 'R') bIsSetRoom = true;
+          if (toupper(flag[2]) == 'R')
+          {
+            bIsSetRoom = true;
+          }
           break;
         case 'E':
           where = room->dir_option[SOUTHEAST];
-          if (toupper(flag[2]) == 'R') bIsSetRoom = true;
+          if (toupper(flag[2]) == 'R')
+          {
+            bIsSetRoom = true;
+          }
           break;
         default:
-          if (toupper(flag[1]) == 'R') bIsSetRoom = true;
+          if (toupper(flag[1]) == 'R')
+          {
+            bIsSetRoom = true;
+          }
           where = room->dir_option[SOUTH];
+          break;
       }
-
       break;
 
     case 'u':
@@ -1142,14 +1177,17 @@ static void setbit_dir(P_char ch, char *name, char *flag, char *value, int on_of
       break;
   }
 
-  if (!where)
+  if( !where )
   {
-    send_to_char( "Invalid direction.\n\r", ch );
+    setbit_syntax(ch, SETBIT_DIR);
+    send_to_char( "Invalid direction.  The prefix to the flag must be a valid dir (n/s/e/w/nw/ne/se/sw/u/d).\n\r", ch );
+    send_to_char( "The rest of the flag can be one of: info, key, room.\n\r", ch );
+    setbit_printOutTable(ch, table, ARRAY_SIZE(table));
     return;
   }
 
   // convert a numerical from a vroom num to a real room num
-  if (bIsSetRoom)
+  if( bIsSetRoom )
   {
     if (-1 == atoi(value))
       room_number = -1;
@@ -1187,27 +1225,18 @@ static void setbit_aff(P_char ch, char *name, char *flag, char *value, int on_of
   /*
    * Table
    */
-
+  // Note: uint flags isn't represeted here.  You'd have to make a table for lookup.
+  //   using AFFTYPE_* in structs.h.
   SetBitTable table[] = {
-    {"type", OFFSET(type), (char **) spells, ac_skillCopy, sizeof(char *)},
-    {"dur", OFFSET(duration), NULL, ac_shintCopy},
-    {"mod", OFFSET(modifier), NULL, ac_sbyteCopy},
-    {"loc", OFFSET(location), (char **) apply_types, ac_objaffCopy,
-      sizeof(char *)},
-    {"bits", OFFSET(bitvector), (char **) affected1_bits, ac_bitCopy,
-      sizeof(flagDef)}
-    ,
-      {"bits2", OFFSET(bitvector2), (char **) affected2_bits, ac_bitCopy,
-        sizeof(flagDef)}
-    ,
-      {"bits3", OFFSET(bitvector3), (char **) affected3_bits, ac_bitCopy,
-        sizeof(flagDef)}
-    ,
-      {"bits4", OFFSET(bitvector4), (char **) affected4_bits, ac_bitCopy,
-        sizeof(flagDef)}
-    ,
-      {"bits5", OFFSET(bitvector5), (char **) affected5_bits, ac_bitCopy,
-        sizeof(flagDef)}
+    {"type", OFFSET(type), (char **) spells, ac_affModify, sizeof(char *)},
+    {"dur", OFFSET(duration), NULL, ac_intCopy},
+    {"mod", OFFSET(modifier), NULL, ac_intCopy},
+    {"loc", OFFSET(location), (char **) apply_types, ac_objaffCopy, sizeof(char *)},
+    {"bits", OFFSET(bitvector), (char **) affected1_bits, ac_bitCopy, sizeof(flagDef)},
+    {"bits2", OFFSET(bitvector2), (char **) affected2_bits, ac_bitCopy, sizeof(flagDef)},
+    {"bits3", OFFSET(bitvector3), (char **) affected3_bits, ac_bitCopy, sizeof(flagDef)},
+    {"bits4", OFFSET(bitvector4), (char **) affected4_bits, ac_bitCopy, sizeof(flagDef)},
+    {"bits5", OFFSET(bitvector5), (char **) affected5_bits, ac_bitCopy, sizeof(flagDef)}
   };
 
   /*
@@ -1239,8 +1268,7 @@ static void setbit_aff(P_char ch, char *name, char *flag, char *value, int on_of
 
   if (*af_num_str == '\0')
   {
-    send_to_char
-      ("Affect number should follow name immediately (no space)\r\n", ch);
+    send_to_char("Affect number should follow name immediately (no space)\r\n", ch);
     return;
   }
   af_num = atoi(af_num_str);
@@ -1266,8 +1294,7 @@ static void setbit_aff(P_char ch, char *name, char *flag, char *value, int on_of
    * Now, find the affect structure
    */
 
-  for (i = 0, af = ppl->affected;
-      i != af_num && af != NULL; i++, af = af->next) ;
+  for( i = 0, af = ppl->affected; i != af_num && af != NULL; i++, af = af->next ) ;
 
   if (af == NULL)
   {
@@ -1303,16 +1330,17 @@ static void setbit_parseTable(P_char ch, void *ptr, SetBitTable * table,
 
   entry = table + i;
 
-  if (entry->sb_subtable)
+  if( entry->sb_subtable )
   {
-    for (bit = 0;
-        (string =
-         *(char **) (((char *) entry->sb_subtable) +
-           entry->entry_size * bit + entry->entry_offset)) != NULL
-        && string[0] != '\n'; bit++)
-      if (SAME_STRING(string, value))
+    for( bit = 0; (string = *(char **) (((char *) entry->sb_subtable)
+      + entry->entry_size * bit + entry->entry_offset)) != NULL && string[0] != '\n'; bit++)
+    {
+      if( SAME_STRING(string, value) )
+      {
         break;
-    if (string == NULL || string[0] == '\n')
+      }
+    }
+    if( string == NULL || string[0] == '\n' )
     {
       setbit_printOutSubTable(ch, entry->sb_subtable, entry->entry_size);
       return;
@@ -1321,7 +1349,40 @@ static void setbit_parseTable(P_char ch, void *ptr, SetBitTable * table,
   else
   {
     /* Otherwise, convert value to actual integer. */
-    bit = atoi(value);
+    if( is_number( value ) )
+    {
+      bit = atoi(value);
+    }
+    else
+    {
+      char buf[128];
+
+      setbit_syntax(ch, type);
+      sprintf( buf, "'%s' is not a valid value.  Please enter a number instead.\n\r", value );
+      send_to_char( buf, ch );
+      return;
+    }
+  }
+
+  if( bad_on_off[0] != '\0' )
+  {
+    if( entry->sb_func == ac_bitCopy || entry->sb_func == ac_tongueCopy )
+    {
+      char buf[128];
+
+      sprintf( buf, "'%s' is not a valid value.  Please enter a number instead.\n\r", bad_on_off );
+      send_to_char( buf, ch );
+      return;
+    }
+  }
+  if( (entry->sb_func == ac_tongueCopy || entry->sb_func == ac_skillCopy)
+    && (on_off < 0 || on_off > 100) )
+  {
+    char buf[128];
+
+    sprintf( buf, "'%d' is not a valid value.  Please enter a number between 0 and 100.\n\r", on_off );
+    send_to_char( buf, ch );
+    return;
   }
 
   /* Now call copy function */
@@ -1397,9 +1458,7 @@ static void setbit_printOutSubTable(P_char ch, char **subtable, int entry_size)
 
   send_to_char("Valid sub-options are:\r\n", ch);
 
-  for (i = 0;
-      (string = *(char **) (((char *) subtable) + entry_size * i)) != NULL &&
-      string[0] != '\n'; i++)
+  for( i = 0; (string = *(char **) (((char *) subtable) + entry_size * i)) != NULL && string[0] != '\n'; i++ )
   {
 
     if (!(i % 3))
@@ -1473,19 +1532,20 @@ static int ac_strcasecmp(const char *str1, const char *str2)
 
 /* Macro to facilitate making of general copy functions */
 #define MAKE_COPY_FUNCTION(Type)                                        \
-  \
 static void ac_ ## Type ## Copy(void *where, int offset, char *value, int bit, int on_off) \
 {                                                                       \
   Type val = (Type) bit;                                                \
-  \
   bcopy((char *) &val, (char *) where + offset, sizeof(val));           \
 }
 
 /* General copy functions */
   MAKE_COPY_FUNCTION(byte)
   MAKE_COPY_FUNCTION(int)
-  MAKE_COPY_FUNCTION(long) MAKE_COPY_FUNCTION(short) MAKE_COPY_FUNCTION(sbyte)
-MAKE_COPY_FUNCTION(sh_int) MAKE_COPY_FUNCTION(ubyte)
+  MAKE_COPY_FUNCTION(long)
+  MAKE_COPY_FUNCTION(short)
+  MAKE_COPY_FUNCTION(sbyte)
+  MAKE_COPY_FUNCTION(sh_int)
+  MAKE_COPY_FUNCTION(ubyte)
   /* Specifical copy functions */
   /* For age, we set only the year using by finding the difference
      between current MUD time and intended age.  */
@@ -1577,6 +1637,21 @@ static void ac_skillCopy(void *where, int offset, char *value, int bit, int on_o
   {
     bcopy(&val, ((char *) &ch->only.pc->skills[skl]) + offset, sizeof(byte));
   }
+}
+
+/*
+ * ** For skill, "bit" is the actual skill number to practice - 1. ** And
+ * "on_off" indicates how learn a skill is.
+ */
+static void ac_affModify(void *where, int offset, char *value, int bit, int on_off)
+{
+  int      skl;
+  struct affected_type *af = (affected_type *)where;
+
+  value = skip_spaces(value);
+  skl = search_block(value, spells, FALSE);
+
+  af->type = skl;
 }
 
 /*

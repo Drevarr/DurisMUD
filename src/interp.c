@@ -1907,7 +1907,7 @@ int is_number(char *str)
   return (1);
 }
 */
-int is_number(char *str)
+bool is_number(char *str)
 {
   if (!str || !*str)            /* Test for NULL pointer or string. */
     return FALSE;
