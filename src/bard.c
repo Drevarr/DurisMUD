@@ -274,43 +274,75 @@ int bard_get_type(int skill)
 }
 
 // Chance of not messing up a song.
-// retval: 0 -> always messes up, 101 -> never messes up.
+// retval: 0 -> always messes up, 100 -> never messes up.
 //   inbetween -> linear % of not messing up (higher is better for the Bard).
 int bard_calc_chance(P_char ch, int song)
 {
-  P_obj    instrument;
-  int      chance, weight, instrument_skill;
+  P_obj       instrument;
+  int         chance, weight, instrument_skill, song_level, song_level2;
+  static bool DEBUG = TRUE;
 
-  /*if(IS_NPC(ch))
-    return 0;*/
+  if( song == -1 )
+  {
+    DEBUG = !DEBUG;
+    debug( "bard_calc_chance: DEBUG turned %s.", DEBUG ? "ON" : "OFF" );
+    return 0;
+  }
 
   if( !IS_ALIVE(ch) )
   {
     return 0;
   }
 
+  // Song level for base class (no spec).
+  song_level = get_song_level(flag2idx(ch->player.m_class), 0, song);
+  if( IS_SPECIALIZED(ch) )
+  {
+    // Song level for the spec.
+    song_level2 = get_song_level(flag2idx(ch->player.m_class), ch->player.spec, song);
+    // If song lost, level = MAXLVL, otherwise level is the minimum.
+    song_level = (song_level2 < 1) ? MAXLVL : (song_level < song_level2) ? song_level : song_level2;
+  }
+
   // Gods and NPCs never fail? .. umm ok.
   if( IS_TRUSTED(ch) || IS_NPC(ch) )
   {
+    if( IS_PC(ch) && DEBUG )
+    {
+      debug( "bard_calc_chance: '%s' has final percentage of 100 - God.", J_NAME(ch) );
+    }
     return 100;
   }
 
   if( !CAN_SING(ch) )
   {
+    if( DEBUG )
+    {
+      debug( "bard_calc_chance: '%s' has final percentage of 0 - can't sing.", J_NAME(ch) );
+    }
     return 0;
   }
 
-  chance = GET_CHAR_SKILL(ch, song);
+  // Chance augmented by 1% for each level above the minimum.
+  chance = GET_CHAR_SKILL(ch, song) + GET_LEVEL(ch) - song_level;
   instrument = has_instrument(ch);
 
   // No instrument -> no chance.
   if( !instrument )
   {
+    if( DEBUG )
+    {
+      debug( "bard_calc_chance: '%s' has final percentage of 0 - no instrument.", J_NAME(ch) );
+    }
     return 0;
   }
   // Artifacts don't mess up, ever.
   else if( IS_ARTIFACT(instrument) )
   {
+    if( DEBUG )
+    {
+      debug( "bard_calc_chance: '%s' has final percentage of 100 - arti instrument.", J_NAME(ch) );
+    }
     return 100;
   }
   // Playing the right instrument and can play said instrument...
@@ -327,6 +359,10 @@ int bard_calc_chance(P_char ch, int song)
   // Playing the wrong instrument -> always mess up the song.
   else
   {
+    if( DEBUG )
+    {
+      debug( "bard_calc_chance: '%s' has final percentage of 0 - wrong instrument.", J_NAME(ch) );
+    }
     return 0;
   }
 
@@ -368,12 +404,23 @@ int bard_calc_chance(P_char ch, int song)
     chance = (int) (chance * 1.1);
   }
 
+  // If they notch either the song or the instrument, then they auto-play correctly.
+  if( notch_skill(ch, song, 3.5)
+    || notch_skill(ch, instrument->value[0] + INSTRUMENT_OFFSET, 3.5) )
+  {
+    chance = 100;
+  }
+
   // Compared to number(1,90) and number(1,100) via >=
   // A minimum of 80% chance for a newbie?  Heck no.. try 25%.
   // And a maximum of 99% chance to complete ok.. hmm, always a 1% chance to fail? naah.. raised to 100.
   chance = BOUNDED(25, chance, 100);
   // Note: This debug won't show for artis and such that have auto 100 or auto 0 chance.
-  debug( "bard_calc_chance: '%s' has final % of %d.", J_NAME(ch), chance );
+  //   There are other debug messages above too for this.
+  if( DEBUG )
+  {
+    debug( "bard_calc_chance: '%s' has final percentage of %d.", J_NAME(ch), chance );
+  }
   return chance;
 }
 
@@ -1758,9 +1805,19 @@ void event_bardsong(P_char ch, P_char victim, P_obj obj, void *data)
   }
   if( number(1, 90) >= bard_calc_chance(ch, song) )
   {
+    // Song level for base class (no spec).
+    int song_level = get_song_level(flag2idx(ch->player.m_class), 0, song);
+    if( IS_SPECIALIZED(ch) )
+    {
+      // Song level for the spec.
+      int song_level2 = get_song_level(flag2idx(ch->player.m_class), ch->player.spec, song);
+      // If song lost, level = MAXLVL, otherwise level is the minimum.
+      song_level = (song_level2 < 1) ? MAXLVL : (song_level < song_level2) ? song_level : song_level2;
+    }
+
     act("Uh oh.. how did the song go, anyway?", FALSE, ch, 0, 0, TO_CHAR);
     act("$n stutters in $s song, and falls silent.", FALSE, ch, 0, 0, TO_ROOM);
-    set_short_affected_by(ch, FIRST_INSTRUMENT,  PULSE_VIOLENCE);
+    set_short_affected_by(ch, FIRST_INSTRUMENT, song_level / 3 + WAIT_SEC );
     do_action(ch, 0, CMD_BLUSH);
     stop_singing(ch);
     return;
@@ -1888,14 +1945,13 @@ void do_play(P_char ch, char *arg, int cmd)
 {
   int      s, level, i;
   P_obj    instrument;
+  P_nevent play_event;
   struct affected_type af;
 
-  /* muhaahaha
-  if(IS_NPC(ch))
-    return;*/
-  if(!(ch))
+  if( !IS_ALIVE(ch) )
   {
-    logit(LOG_EXIT, "do_play in bard.c called without ch");
+    logit(LOG_EXIT, "do_play in bard.c called without a living ch: %s%s.", (ch==NULL) ? "" : "DEAD ",
+      (ch==NULL) ? "NULL" : J_NAME(ch) );
     raise(SIGSEGV);
   }
 
@@ -1922,6 +1978,7 @@ void do_play(P_char ch, char *arg, int cmd)
     logit(LOG_WIZ, "%s plays %s [%d]",
           GET_NAME(ch), arg, world[ch->in_room].number);
   }
+
   if(!arg || !*arg)
   {
     if(IS_AFFECTED3(ch, AFF3_SINGING))
@@ -1931,23 +1988,46 @@ void do_play(P_char ch, char *arg, int cmd)
       stop_singing(ch);
       return;
     }
-    send_to_char("Sing/play what song?\r\n", ch);
-    return;
   }
   arg = skip_spaces(arg);
-  if(!arg || !*arg)
+  if( !arg || !*arg )
   {
     send_to_char("Sing/play what song?\r\n", ch);
     return;
   }
 
-  s = -1;
-  for (i = 0; songs[i].name && s == -1; i++)
-    if(is_abbrev(arg, songs[i].name))
+  // Toggle debugging.
+  if( IS_TRUSTED(ch) && isname( arg, "debug" ) )
+  {
+    bard_calc_chance( ch, -1 );
+    return;
+  }
+
+  for( i = 0, s = -1; songs[i].name; i++ )
+  {
+    if( is_abbrev(arg, songs[i].name))
     {
       s = songs[i].song;
+      break;
     }
-  if(s == -1 || GET_CHAR_SKILL(ch, s) == 0)
+  }
+  if( (play_event = get_scheduled(ch, event_bardsong)) != NULL )
+  {
+    if( *(int *)(play_event->data) == s )
+    {
+      send_to_char( "&+WYou are already playing that song?!&n\n\r", ch );
+      return;
+    }
+    else
+    {
+      disarm_char_events(ch, event_bardsong);
+      REMOVE_BIT(ch->specials.affected_by3, AFF3_SINGING);
+      send_to_char( "You change up your song...\n\r", ch );
+    }
+  }
+
+  // If song not found or char doesn't know it.
+  if( s == -1 || GET_CHAR_SKILL(ch, s) == 0 )
   {
     send_to_char("You don't know that song.\r\n", ch);
     return;
@@ -1956,57 +2036,56 @@ void do_play(P_char ch, char *arg, int cmd)
   stop_singing(ch);
 
   instrument = has_instrument(ch);
-  if(!instrument && (!IS_NPC(ch)))
+  // NPCs and Gods do not need instruments, but players do.
+  if( !instrument && !(IS_NPC(ch) || IS_TRUSTED(ch)) )
   {
-    act("You start singing aloud, but that wont make any effect.",
-      FALSE, ch, 0, 0, TO_CHAR);
-    act("$n starts to sing aloud.",
-      FALSE, ch, 0, 0, TO_ROOM);
+    act("You start singing aloud, but that wont make any effect.", FALSE, ch, 0, 0, TO_CHAR);
+    act("$n starts to sing aloud.", FALSE, ch, 0, 0, TO_ROOM);
     return;
   }
-  if(IS_TRUSTED(ch) ||
-    IS_NPC(ch))
+  if( IS_TRUSTED(ch) || IS_NPC(ch) )
   {
-    act("&+GYou start singing aloud with a beautiful voice.",
-      FALSE, ch, instrument, 0, TO_CHAR);
-    act("&+G$n starts singing aloud with a beautiful voice.",
-     FALSE, ch, instrument, 0, TO_ROOM);
+    act("&+GYou start singing aloud with a beautiful voice.", FALSE, ch, instrument, 0, TO_CHAR);
+    act("&+G$n starts singing aloud with a beautiful voice.", FALSE, ch, instrument, 0, TO_ROOM);
     level = GET_LEVEL(ch);
   }
   else
   {
-    if((bard_get_type(s) != instrument->value[0] + INSTRUMENT_OFFSET) &&
-        !IS_ARTIFACT(instrument))
+    // If not wrong instrument.. artis can play any song.
+    if( (bard_get_type(s) != instrument->value[0] + INSTRUMENT_OFFSET) && !IS_ARTIFACT(instrument) )
     {
-      act
-        ("&+rYou start playing your $q&+r, but this instrument won't work for this song.",
+      act("&+rYou start playing your $q&+r, but this instrument won't work for this song.",
          FALSE, ch, instrument, 0, TO_CHAR);
-      act("$n starts playing $p and singing aloud.",
-        FALSE, ch, instrument, 0, TO_ROOM);
+      act("$n starts playing $p and singing aloud.", FALSE, ch, instrument, 0, TO_ROOM);
 //        play_sound(SOUND_HARP, NULL, ch->in_room, TO_ROOM);
       return;
     }
     else
     {
-      act("&+WYou start playing your $q &+Wand singing aloud.",
-        FALSE, ch, instrument, 0, TO_CHAR);
-      act("&+W$n starts playing $p &+Wand singing aloud.",
-        FALSE, ch, instrument, 0, TO_ROOM);
-      level = GET_LEVEL(ch) / 2;
+      act("&+WYou start playing your $q &+Wand singing aloud.", FALSE, ch, instrument, 0, TO_CHAR);
+      act("&+W$n starts playing $p &+Wand singing aloud.", FALSE, ch, instrument, 0, TO_ROOM);
+      level = GET_LEVEL(ch);
 //        play_sound(SOUND_HARP, NULL, ch->in_room, TO_ROOM);
     }
   }
-  if(number(1, 100) >= bard_calc_chance(ch, s))
+  if( number(1, 100) > bard_calc_chance(ch, s) )
   {
-    act("Uh oh.. how did the song go, anyway?",
-      FALSE, ch, 0, 0, TO_CHAR);
-    act("$n stutters in $s song, and falls silent.",
-      FALSE, ch, 0, 0, TO_ROOM);
-    set_short_affected_by(ch, FIRST_INSTRUMENT, 3 * PULSE_VIOLENCE);
+    // Song level for base class (no spec).
+    int song_level = get_song_level(flag2idx(ch->player.m_class), 0, s);
+    if( IS_SPECIALIZED(ch) )
+    {
+      // Song level for the spec.
+      int song_level2 = get_song_level(flag2idx(ch->player.m_class), ch->player.spec, s);
+      // If song lost, level = MAXLVL, otherwise level is the minimum.
+      song_level = (song_level2 < 1) ? MAXLVL : (song_level < song_level2) ? song_level : song_level2;
+    }
+    act("Uh oh.. how did the song go, anyway?", FALSE, ch, 0, 0, TO_CHAR);
+    act("$n stutters in $s song, and falls silent.", FALSE, ch, 0, 0, TO_ROOM);
+    set_short_affected_by(ch, FIRST_INSTRUMENT, song_level / 2 + WAIT_SEC );
     do_action(ch, 0, CMD_BLUSH);
     return;
   }
-  if(!IS_AFFECTED3(ch, AFF3_SINGING))
+  if( !IS_AFFECTED3(ch, AFF3_SINGING) )
   {
     bzero(&af, sizeof(af));
     af.flags = AFFTYPE_NOSAVE | AFFTYPE_NODISPEL | AFFTYPE_NOSHOW;
@@ -2014,8 +2093,6 @@ void do_play(P_char ch, char *arg, int cmd)
     af.bitvector3 = AFF3_SINGING;
     affect_to_char(ch, &af);
   }
-
-  disarm_char_events(ch, event_bardsong);
 
   if(!(get_scheduled(ch, event_bardsong)))
   {
