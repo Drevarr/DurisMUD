@@ -432,17 +432,18 @@ int magic_deck(P_obj obj, P_char ch, int cmd, char *argument)
       {
         sprintf(buf, "&+CDealer&+R BUST&+y, so &+RY&+CO&+BU &+GW&+YI&+MN&+C!&+R!&+y&n\n");
         send_to_char(buf, ch);
-        do_win(ch, bettype, betamt, 1);
+        do_win(ch, bettype, 2*betamt, 1);
       }
       else if( player_total > dealer_total )
       {
-        do_win(ch, bettype, betamt, 1);
+        do_win(ch, bettype, 2*betamt, 1);
         sprintf(buf, "&+RY&+CO&+BU &+GW&+YI&+MN&+C!&+R!&+y! with %d versus the dealers %d.\n", player_total, dealer_total);
         send_to_char(buf, ch);
       }
       else if( player_total == dealer_total )
       {
         act("&+yA &+YPUSH!&+y No winner no loser! Your &+Wbet&+y has been refunded.", FALSE, ch, obj, ch, TO_CHAR);
+        do_win(ch, bettype, betamt, 1);
       }
       // Can assume player total < dealer total.
       else

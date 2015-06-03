@@ -319,12 +319,14 @@ int cards_object( P_obj obj, P_char ch, int cmd, char *argument )
   return FALSE;
 }
 
+void event_dealersturn( P_char ch, P_char victim, P_obj obj, void *data );
+
 // *****************************************************************************
 // *****************************************************************************
 //                              GELLZ BLACKJACK
 // *****************************************************************************
-// Values on table object: [0] == Game status, [1] == theDeck, [2] == dealerHand
-//   [3] == playerHand (possible more players?)
+// Values on table object: [0] == Game status: BJ_PREBID, BJ_POSTBID, BJ_POSTDEAL, BJ_POSTHIT, BJ_DEALERSTURN
+// Timers on table object: [0] == theDeck, [1] == dealerHand, [2] == playerHand (possible more players?)
 int blackjack_table(P_obj obj, P_char ch, int cmd, char *argument)
 {
   P_Deck theDeck;
@@ -332,7 +334,6 @@ int blackjack_table(P_obj obj, P_char ch, int cmd, char *argument)
   char buf[MAX_STRING_LENGTH];
   char arg[MAX_INPUT_LENGTH];
   char arg2[MAX_INPUT_LENGTH];
-  P_obj coins;
   int betamt, bettype;
   static bool lock_game = FALSE;
 
@@ -344,7 +345,6 @@ int blackjack_table(P_obj obj, P_char ch, int cmd, char *argument)
       obj->value[0] = BJ_PREBID;
       obj->timer[0] = obj->timer[1] = obj->timer[2] = obj->timer[3] = obj->timer[4] = obj->timer[5] = 0;
     }
-    // This is kinda dubious 'cause we add our own CMD_PERIODIC event later on in the function.
     return FALSE;
   }
 
@@ -354,9 +354,9 @@ int blackjack_table(P_obj obj, P_char ch, int cmd, char *argument)
     return FALSE;
   }
 
-  theDeck = (P_Deck) obj->timer[1];
-  dealerHand = (P_Hand) obj->timer[2];
-  playerHand = (P_Hand) obj->timer[3];
+  theDeck = (P_Deck) obj->timer[0];
+  dealerHand = (P_Hand) obj->timer[1];
+  playerHand = (P_Hand) obj->timer[2];
 
   // Aaah.. the suspense! ;)
   if( cmd == CMD_PERIODIC && obj->value[0] == BJ_DEALERSTURN )
@@ -380,52 +380,34 @@ int blackjack_table(P_obj obj, P_char ch, int cmd, char *argument)
         act( "\n&+yThe &+CDealer&+y decides to &+Wstay&+y with his current hand!&n\n\n", FALSE, ch, obj, ch, TO_CHAR);
         if( playerHand->BlackjackValue() > dealerHand->BlackjackValue() )
         {
-          sprintf( buf, "&+RY&+CO&+BU &+GW&+YI&+MN&+C!&+R!&+y! with %d versus the dealers %d.\n",
+          sprintf( buf, "&+RY&+CO&+BU &+GW&+YI&+MN&+C!&+R!&+y! with &+Y%d&+y versus the dealers &+Y%d&+y.\n",
             playerHand->BlackjackValue(), dealerHand->BlackjackValue() );
           send_to_char(buf, ch);
-          coins = obj->contains;
-          coins->value[0] *= 2;
-          coins->value[1] *= 2;
-          coins->value[2] *= 2;
-          coins->value[3] *= 2;
-          obj->contains = NULL;
-          obj_to_char(coins, ch);
+          // Return the bid + winnings.
+          ch->points.cash[obj->value[2]] += 2*obj->value[1];
         }
         else if( playerHand->BlackjackValue() == dealerHand->BlackjackValue() )
         {
           act("&+yA &+YPUSH!&+y No winner no loser! You pull your &+Wbet&+y from the table.", FALSE, ch, obj, ch, TO_CHAR);
-          coins = obj->contains;
-          obj_from_obj(coins);
-          obj_to_char(coins, ch);
+          // Return the bid.
+          ch->points.cash[obj->value[2]] += obj->value[1];
         }
         // Can assume player total < dealer total.
         else
         {
-          sprintf(buf, "&+RYou LOSE!!&+C Dealers %d &+rbeats your %d.\n", 
+          sprintf(buf, "&+RYou LOSE!!&+C Dealers &+Y%d &+rbeats your &+Y%d&+r.\n",
             dealerHand->BlackjackValue(), playerHand->BlackjackValue() );
           send_to_char(buf, ch);
-          coins = obj->contains;
-          obj->contains = NULL;
-          extract_obj(coins, TRUE);
         }
       }
       else
       {
         send_to_char("&+CDealer&+R BUST&+y, so &+RY&+CO&+BU &+GW&+YI&+MN&+C!&+R!&+y&n\n", ch);
-        coins = obj->contains;
-        coins->value[0] *= 2;
-        coins->value[1] *= 2;
-        coins->value[2] *= 2;
-        coins->value[3] *= 2;
-        obj->contains = NULL;
-        obj_to_char(coins, ch);
+        // Return the bid + winnings.
+        ch->points.cash[obj->value[2]] += 2*obj->value[1];
       }
       // Reset the table:
-      delete theDeck;
-      delete dealerHand;
-      delete playerHand;
-      obj->value[0] = BJ_PREBID;
-      obj->timer[0] = obj->timer[1] = obj->timer[2] = obj->timer[3] = obj->timer[4] = obj->timer[5] = 0;
+      goto reset_table;
     }
     return TRUE;
   }
@@ -577,10 +559,8 @@ int blackjack_table(P_obj obj, P_char ch, int cmd, char *argument)
       send_to_char_f(ch, "&=BRWTFs&n");
     }
     send_to_char_f(ch, "&+y on the table.&n\n");
-    coins = read_object( VOBJ_COINS, VIRTUAL );
-    coins->value[bettype] = betamt;
-    // Put the coins in the table!
-    obj->contains = coins;
+    obj->value[1] = betamt;
+    obj->value[2] = bettype;
     return TRUE;
   } // End cmd == CMD_OFFER
 
@@ -616,11 +596,11 @@ int blackjack_table(P_obj obj, P_char ch, int cmd, char *argument)
       else
       {
         theDeck = new Deck;
-        obj->timer[1] = (long) theDeck;
+        obj->timer[0] = (long) theDeck;
         dealerHand = new Hand;
-        obj->timer[2] = (long) dealerHand;
+        obj->timer[1] = (long) dealerHand;
         playerHand = new Hand(ch);
-        obj->timer[3] = (long) playerHand;
+        obj->timer[2] = (long) playerHand;
         act( STR_CARDS_SHUFFLE, FALSE, ch, obj, ch, TO_CHAR);
         // Shuffle the deck 7 times...
         theDeck->Shuffle( 7 );
@@ -667,7 +647,7 @@ int blackjack_table(P_obj obj, P_char ch, int cmd, char *argument)
       send_to_char( buf, ch );
 
       obj->value[0] = BJ_DEALERSTURN;
-      add_event(event_object_proc, WAIT_SEC, 0, 0, obj, 0, 0, 0);
+      add_event(event_dealersturn, 2, 0, 0, obj, 0, 0, 0);
       return TRUE;
     }                         // End say keyword for 'stay'
     // Start Keyword for 'fold' - player folds
@@ -687,19 +667,8 @@ int blackjack_table(P_obj obj, P_char ch, int cmd, char *argument)
       {
         act( STR_CARDS_FOLD, FALSE, ch, obj, ch, TO_CHAR);
       }
-      // Clear the bet.
-      coins = obj->contains;
-      if( coins )
-      {
-        extract_obj(coins, TRUE);
-      }
       // Reset the table:
-      delete theDeck;
-      delete dealerHand;
-      delete playerHand;
-      obj->value[0] = BJ_PREBID;
-      obj->timer[0] = obj->timer[1] = obj->timer[2] = obj->timer[3] = obj->timer[4] = obj->timer[5] = 0;
-      return TRUE;
+      goto reset_table;
     } // End say keyword for 'fold'
     // Start Keyword for 'hit' - add another card to player's hand.
     else if( !strcmp(arg, "hit") )
@@ -730,20 +699,8 @@ int blackjack_table(P_obj obj, P_char ch, int cmd, char *argument)
         send_to_char(buf, ch);
         act( STR_CARDS_BUST, FALSE, ch, obj, ch, TO_CHAR);
 
-        // Clear the bet.
-        coins = obj->contains;
-        obj->contains = NULL;
-        if( coins )
-        {
-          extract_obj(coins, TRUE);
-        }
         // Reset the table:
-        delete theDeck;
-        delete dealerHand;
-        delete playerHand;
-        obj->value[0] = BJ_PREBID;
-        obj->timer[0] = obj->timer[1] = obj->timer[2] = obj->timer[3] = obj->timer[4] = obj->timer[5] = 0;
-        return TRUE;
+        goto reset_table;
       }
       return TRUE;
     } // End say keyword 'hit'
@@ -759,6 +716,14 @@ int blackjack_table(P_obj obj, P_char ch, int cmd, char *argument)
       {
         sprintf(buf, "Game Status is: %d. \n", obj->value[0]);
         send_to_char(buf, ch);
+      }
+      // If we're pre-bid, then no sense in showing it (to mortals).
+      if( IS_TRUSTED(ch) || obj->value[0] != BJ_PREBID )
+      {
+        sprintf( buf, "The current bid is: %d %s.\n\r", obj->value[1],
+          (obj->value[2]==0) ? STR_COPP : (obj->value[2]==1) ? STR_SILV :
+          (obj->value[2]==2) ? STR_GOLD : (obj->value[2]==3) ? STR_PLAT : "&=BRWTFs&n" );
+        send_to_char( buf, ch );
       }
       if( obj->value[0] ==  BJ_PREBID )
       {
@@ -792,5 +757,28 @@ int blackjack_table(P_obj obj, P_char ch, int cmd, char *argument)
     } // End keyword 'showhand'
   } // End cmd == CMD_SAY
     return FALSE;
+
+reset_table:
+  delete theDeck;
+  delete dealerHand;
+  delete playerHand;
+  obj->value[0] = BJ_PREBID;
+  obj->value[1] = obj->value[2] = 0;
+  obj->timer[0] = obj->timer[1] = obj->timer[2] = obj->timer[3] = obj->timer[4] = obj->timer[5] = 0;
+  return TRUE;
 } // End GELLZ Blackjack Table
+
+// All this does is call the object proc.
+void event_dealersturn( P_char ch, P_char victim, P_obj obj, void *data )
+{
+  // If the object procs...
+  if( blackjack_table( obj, ch, CMD_PERIODIC, NULL ) )
+  {
+    // If we need to proc again.
+    if( obj->value[0] == BJ_DEALERSTURN )
+    {
+      add_event(event_dealersturn, 2, 0, 0, obj, 0, 0, 0);
+    }
+  }
+}
 // GELLZ Blackjack End
