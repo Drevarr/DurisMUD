@@ -5664,17 +5664,19 @@ void do_time(P_char ch, char *argument, int cmd)
   char    *tmstr;
   char     Gbuf1[MAX_STRING_LENGTH], Gbuf2[MAX_STRING_LENGTH];
   const char *suf;
-  int      weekday, day;
+  int      weekday, day, hour;
   long     ct;
   struct tm *lt;
   struct time_info_data uptime;
 
   argument = one_argument(argument, Gbuf1);
-  
+
   if( IS_TRUSTED(ch) && GET_LEVEL(ch) >= FORGER && strlen(Gbuf1) )
   {
-    time_info.hour = atoi(Gbuf1) % 24;
-    wizlog(56, "%s set the time to %d", GET_NAME(ch), atoi(Gbuf2));
+    hour = time_info.hour = atoi(Gbuf1) % 24;
+
+    wizlog(56, "%s set the time to %d:00 or %d:00%s.", GET_NAME(ch), time_info.hour,
+      (hour == 0) ? 12 : (hour > 12) ? hour - 12 : hour, (hour > 11) ? "pm" : "am" );
     send_to_char("You set the time.\n", ch);
     astral_clock_setMapModifiers();
     return;
