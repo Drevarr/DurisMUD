@@ -620,7 +620,10 @@ void die_follower(P_char ch)
 {
   while( ch->followers )
   {
-    die( ch->followers->follower, ch->followers->follower);
+    if( ch->followers->follower && IS_ALIVE(ch->followers->follower) )
+    {
+      die( ch->followers->follower, ch->followers->follower);
+    }
   }
 }
 
