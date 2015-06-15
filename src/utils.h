@@ -1209,6 +1209,8 @@ IS_GIANT(ch) || IS_PC_PET(ch) || IS_PC(ch) || IS_UNDEAD(ch) || IS_EFREET(ch)) &&
 
 #define CRYPT(a,b) ((char *) crypt((a),(b)))
 
+char *CRYPT2( char *passwd, char *name );
+
 #define IS_BLIND(ch)  (IS_AFFECTED(ch, AFF_BLIND)) // || IS_DAYBLIND(ch))
 
 #define IS_DAYBLIND(ch) (!has_innate(ch, INNATE_EYELESS) && \

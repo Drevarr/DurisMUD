@@ -1234,8 +1234,7 @@ void do_string(P_char ch, char *arg, int cmd)
       }
       else if (!ch->desc)
         return;
-      strncpy(mob->only.pc->pwd, CRYPT(string, mob->player.name), 10);
-      *(mob->only.pc->pwd + 10) = '\0';
+      strcpy( mob->only.pc->pwd, CRYPT2(string, mob->player.name) );
       ch->desc->str = NULL;
       send_to_char("Password set.\r\n", ch);
       return;

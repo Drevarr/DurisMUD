@@ -4090,9 +4090,8 @@ void select_pwd(P_desc d, char *arg)
     }
     else
     {
-      if (strn_cmp
-          (CRYPT(arg, d->character->only.pc->pwd), d->character->only.pc->pwd,
-           10))
+      if( (d->character->only.pc->pwd[0] != '$' && strn_cmp(CRYPT(arg, d->character->only.pc->pwd), d->character->only.pc->pwd, 10))
+        || (d->character->only.pc->pwd[0] == '$' && strcmp( CRYPT2(arg, d->character->only.pc->pwd), d->character->only.pc->pwd)) )
       {
         SEND_TO_Q("Invalid password.\r\n", d);
         SEND_TO_Q("Invalid password ... disconnecting.\r\n", d);
@@ -4105,7 +4104,7 @@ void select_pwd(P_desc d, char *arg)
         STATE(d) = CON_FLUSH;
         return;
       }
-      
+
       /* Check if already playing */
       for (k = descriptor_list; k; k = k->next)
       {
@@ -4136,23 +4135,20 @@ void select_pwd(P_desc d, char *arg)
       {
         if (!tmp_ch->desc && IS_PC(tmp_ch) &&
             !str_cmp(GET_NAME(d->character), GET_NAME(tmp_ch)))
-        {          
+        {
           reconnect(d, tmp_ch);
           return;
         }
       }
-      
-      if ((d->rtype =
-           restoreCharOnly(d->character, GET_NAME(d->character))) >= 0)
+
+      if ((d->rtype = restoreCharOnly(d->character, GET_NAME(d->character))) >= 0)
       {
 
         /* by reserving the last available socket for an immort, gods should
            almost always be able to connect.  JAB */
         if ((used_descs >= avail_descs) && (GET_LEVEL(d->character) < AVATAR))
         {
-          SEND_TO_Q
-            ("Sorry, the game is almost full and the last slot is reserved...\r\n",
-             d);
+          SEND_TO_Q("Sorry, the game is almost full and the last slot is reserved...\r\n", d);
           STATE(d) = CON_FLUSH;
           return;
         }
@@ -4198,7 +4194,7 @@ void select_pwd(P_desc d, char *arg)
         STATE(d) = CON_FLUSH;
         return;
       }
-      
+
       logit(LOG_COMM, "%s [%s@%s] has connected.", GET_NAME(d->character),
             d->login, d->host);
       sql_log(d->character, CONNECTLOG, "Connected");
@@ -4219,6 +4215,14 @@ void select_pwd(P_desc d, char *arg)
       {
         SEND_TO_Q(motd.c_str(), d);
       }
+
+      // Use better passwords now.
+      if( d->character->only.pc->pwd[0] != '$' )
+      {
+        SEND_TO_Q("\n\r\n\r&=LRUpgrading password - All characters now in use!&n\n\r\n\r", d);
+        strcpy( d->character->only.pc->pwd, CRYPT2(arg, GET_NAME(d->character)) );
+      }
+
       SEND_TO_Q("\r\n*** PRESS RETURN: ", d);
       STATE(d) = CON_RMOTD;
       echo_on(d);
@@ -4228,17 +4232,14 @@ void select_pwd(P_desc d, char *arg)
     /* password for a new player */
   case CON_PWDGET:
     echo_on(d);
-    if (!valid_password(d, arg))
+    if( !valid_password(d, arg) )
     {
-      sprintf(Gbuf1, "Please enter a password for %s: ",
-              GET_NAME(d->character));
+      sprintf(Gbuf1, "Please enter a password for %s: ", GET_NAME(d->character));
       SEND_TO_Q(Gbuf1, d);
       echo_off(d);
       return;
     }
-    strncpy(d->character->only.pc->pwd, CRYPT(arg, d->character->player.name),
-            10);
-    *(d->character->only.pc->pwd + 10) = '\0';
+    strcpy( d->character->only.pc->pwd, CRYPT2(arg, d->character->player.name) );
     echo_on(d);
     SEND_TO_Q("\r\nPlease retype password: ", d);
     echo_off(d);
@@ -4248,14 +4249,10 @@ void select_pwd(P_desc d, char *arg)
 
     /* confirmation of new password */
   case CON_PWDCNF:
-    if (strn_cmp
-        (CRYPT(arg, d->character->only.pc->pwd), d->character->only.pc->pwd,
-         10))
+    if( strcmp(CRYPT2(arg, d->character->only.pc->pwd), d->character->only.pc->pwd) )
     {
       echo_on(d);
-      sprintf(Gbuf1,
-              "Passwords don't match.\r\nPlease enter a password for %s: ",
-              GET_NAME(d->character));
+      sprintf(Gbuf1,"Passwords don't match.\r\nPlease enter a password for %s: ", GET_NAME(d->character));
       SEND_TO_Q(Gbuf1, d);
       echo_off(d);
       STATE(d) = CON_PWDGET;
@@ -4273,9 +4270,7 @@ void select_pwd(P_desc d, char *arg)
 
     /* new password for an existing player */
   case CON_PWDNEW:
-    if (strn_cmp
-        (CRYPT(arg, d->character->only.pc->pwd), d->character->only.pc->pwd,
-         10))
+    if( strcmp(CRYPT2(arg, d->character->only.pc->pwd), d->character->only.pc->pwd) )
     {
       echo_on(d);
       SEND_TO_Q("\r\nInvalid password, password change aborted.\r\n", d);
@@ -4298,9 +4293,7 @@ void select_pwd(P_desc d, char *arg)
       echo_off(d);
       return;
     }
-    strncpy(d->character->only.pc->pwd, CRYPT(arg, d->character->player.name),
-            10);
-    *(d->character->only.pc->pwd + 10) = '\0';
+    strcpy(d->character->only.pc->pwd, CRYPT2(arg, d->character->player.name) );
     echo_on(d);
     SEND_TO_Q("\r\nPlease retype your new password: ", d);
     echo_off(d);
@@ -4310,9 +4303,7 @@ void select_pwd(P_desc d, char *arg)
     /* Confirm pw for changing pw */
   case CON_PWDNCNF:
     echo_on(d);
-    if (strn_cmp
-        (CRYPT(arg, d->character->only.pc->pwd), d->character->only.pc->pwd,
-         10))
+    if( strcmp(CRYPT2(arg, d->character->only.pc->pwd), d->character->only.pc->pwd) )
     {
       SEND_TO_Q("\r\nPasswords don't match.\r\nPassword change aborted\r\n",
                 d);
@@ -4322,9 +4313,8 @@ void select_pwd(P_desc d, char *arg)
       SEND_TO_Q(MENU, d);
       return;
     }
-    SEND_TO_Q
-      ("Password changed, you must enter game and save and/or rent for the change\r\n"
-       "to be made permanent.\r\n", d);
+    SEND_TO_Q("Password changed, you must enter game and save and/or rent for the change\r\n"
+      "to be made permanent.\r\n", d);
 
     STATE(d) = CON_SLCT;
     SEND_TO_Q(MENU, d);
@@ -4334,9 +4324,7 @@ void select_pwd(P_desc d, char *arg)
 
     /* Confirm pw for deleting character */
   case CON_PWDDCNF:
-    if (strn_cmp
-        (CRYPT(arg, d->character->only.pc->pwd), d->character->only.pc->pwd,
-         10))
+    if( strcmp(CRYPT2(arg, d->character->only.pc->pwd), d->character->only.pc->pwd) )
     {
       echo_on(d);
       SEND_TO_Q("\r\nInvalid password, character delete aborted.\r\n", d);

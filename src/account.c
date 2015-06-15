@@ -141,8 +141,7 @@ void get_account_password(P_desc d, char *arg)
     return;
   }
 
-  if (strn_cmp
-      (CRYPT(arg, d->account->acct_password), d->account->acct_password, 10))
+  if( strcmp(CRYPT2(arg, d->account->acct_password), d->account->acct_password) )
   {
     SEND_TO_Q("Invalid Password ... disconnecting\r\n", d);
     d->account = free_account(d->account);
@@ -392,8 +391,7 @@ void get_new_account_password(P_desc d, char *arg)
     return;
   }
 
-  strncpy(password, CRYPT(arg, d->account->acct_name), 10);
-  *(password + 10) = '\0';
+  strcpy( password, CRYPT2(arg, d->account->acct_name) );
   d->account->acct_password = str_dup(password);
   STATE(d) = CON_VERIFY_NEW_ACCT_PASSWD;
   verify_new_account_password(d, NULL);
@@ -411,8 +409,7 @@ void verify_new_account_password(P_desc d, char *arg)
   }
   echo_on(d);
 
-  if (strn_cmp
-      (CRYPT(arg, d->account->acct_password), d->account->acct_password, 10))
+  if( strcmp(CRYPT2(arg, d->account->acct_password), d->account->acct_password) )
   {
     SEND_TO_Q("Passwords do not match!\r\n", d);
     get_new_account_password(d, NULL);
@@ -1267,7 +1264,7 @@ void generate_account_confirmation_code(P_desc d, char *arg)
   FILE    *f = NULL;
 
   sprintf(a, "%d%d", rand(), time(NULL));
-  sprintf(b, "%s", CRYPT(a, d->account->acct_name));
+  sprintf(b, "%s", CRYPT2(a, d->account->acct_name));
 
   sprintf(a, "/tmp/%s.confirmation", d->account->acct_name);
   f = fopen(a, "w");

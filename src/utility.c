@@ -5777,3 +5777,22 @@ bool sub_string_set( const char *name, const char **strset )
 
   return FALSE;
 }
+
+char *CRYPT2( char *passwd, char *name )
+{
+  char buf[40];
+
+  // If it's not already encrypted.
+  if( *name != '$' )
+  {
+    sprintf( buf, "$1$" );
+    strncpy( buf+3, name, 8 );
+    strcat( buf, "$" );
+  }
+  else
+  {
+    sprintf( buf, "%s", name );
+  }
+
+  return crypt( passwd, buf );
+}

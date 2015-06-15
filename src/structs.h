@@ -1190,7 +1190,7 @@ struct pc_only_data {           /* values only used by PCs        */
   ubyte screen_length;          /* adjust paging to fit terminal */
   ubyte echo_toggle;
   ush_int prompt;
-  char pwd[12];                 /* 'CRYPT'ed password    */
+  char pwd[40];                 /* 'CRYPT'ed password    */
 
 /* coins in bank */
   int spare1;
@@ -1596,7 +1596,7 @@ struct descriptor_data {
   char last_command[MAX_INPUT_LENGTH];
   P_acct account;
   /* SAM 7-94, used to allow confirming commands */
-  char old_pwd[12];             /* old password held here when
+  char old_pwd[40];             /* old password held here when
                                    changing SAM 7-94 */
   struct edit_data *editor;     /* for new editor code */
   int out_compress;             /* are we compressing output ? */

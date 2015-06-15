@@ -623,16 +623,16 @@ void manual_log(P_char ch)
   {
     strncat( buf2, LOG_MSG(), space);
     space -= strlen(LOG_MSG());
-    
+
     if( space <= 0 )
       break;
   }
-  
+
   mysql_str(buf2, log_sql);
 
   sprintf(a, "%d%ld", rand(), time(NULL));
-  sprintf(b, "%s", CRYPT(a,ch->player.name));
-  
+  sprintf(b, "%s", CRYPT2(a, ch->player.name));
+
   db_query("INSERT INTO MANUAL_LOG VALUES( 0, '%s', '%s', %d, 0, NOW() )", log_sql, b, GET_PID(ch));
 
   sprintf(buf, "Your log is @ '&+Whttp://duris.game-host.org/duris/php/stats/mylog.php?password=%s&n' \n", b);

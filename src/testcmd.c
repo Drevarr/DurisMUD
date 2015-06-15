@@ -282,6 +282,27 @@ void do_test(P_char ch, char *arg, int cmd)
 
   arg = one_argument(arg, buff);
 
+  if( isname("passwd", buff) )
+  {
+    char buf1[MAX_STRING_LENGTH];
+    char buf2[MAX_STRING_LENGTH];
+
+    arg = skip_spaces(arg);
+    sprintf( buf1, "%s", CRYPT( arg, GET_NAME(ch) ) );
+    sprintf( buf2, "%s", CRYPT2( arg, GET_NAME(ch) ) );
+    sprintf( buff, "%s\n\rcrypt1: %s, crypt1(crypt1): %s.\n\rcrypt2: %s, crypt2(crypt2): %s.\n\r",
+      arg, buf1, CRYPT( arg, buf1 ), buf2, CRYPT2( arg, buf2 ) );
+    send_to_char( buff, ch );
+    sprintf( buf1, "%s", CRYPT2( arg, buf2 ) );
+    if( !strcmp( buf1, buf2 ) )
+      send_to_char( "They are the same.\n\r", ch );
+    else
+      send_to_char( "They are not the same.\n\r", ch );
+    send_to_char( "Your password is '", ch );
+    send_to_char( ch->only.pc->pwd, ch );
+    send_to_char( "'.\n\r", ch );
+    return;
+  }
   if( isname("room", buff) )
   {
     do_test_room(ch, arg, cmd);
