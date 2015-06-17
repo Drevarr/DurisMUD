@@ -35,11 +35,20 @@ extern bool has_skin_spell(P_char);
 
 #define INSTRUMENT_OFFSET (FIRST_INSTRUMENT-184)
 extern Skill skills[];
-void     event_bardsong(P_char, P_char, P_obj, void *);
+void   event_bardsong(P_char, P_char, P_obj, void *);
 
 #define IS_SONG(song) (song >= FIRST_SONG && song <= LAST_SONG)
-#define SONG_AGGRESSIVE           BIT_1
-#define SONG_ALLIES               BIT_2
+#define NUM_VERSES(ch, song) (GET_LEVEL(ch))  /* Right now we do the simple thing and make each song have
+                                               *   the same number of verses as ch's level.  We might want
+                                               *   to update with x verses for each song (sleep could have 10
+                                               *   verses for example) + some function of ch's level / skill
+                                               *   so they can extend the song at higher levels/skill.
+                                               */
+
+#define BARD_SKILL_NOTCH_CHANCE 5.0
+
+#define SONG_AGGRESSIVE         BIT_1
+#define SONG_ALLIES             BIT_2
 
 /*
  * Main code.. muhahahahaa
@@ -259,6 +268,7 @@ P_obj has_instrument(P_char ch)
   return NULL;
 }
 
+// Translate from SONG_XXX to INSTRUMENT_YYY where YYY is the instrument needed to play song XXX.
 int bard_get_type(int skill)
 {
   int      i;
@@ -365,12 +375,7 @@ int bard_calc_chance(P_char ch, int song)
     return 0;
   }
 
-  // level out the chance to between 80 and 110% (extra 10 for +max stat)
-  /* Commenting this out as stats don't affect chance atm and it's already upper bound by 100.
-  chance = BOUNDED(80, chance, 110);
-  */
-
-  // modify chance by other 'distractions' the bard might be experiencing
+  // Modify chance by other 'distractions' the bard might be experiencing
   // 15% chance reduction for casting
   if( IS_CASTING(ch) )
   {
@@ -404,8 +409,8 @@ int bard_calc_chance(P_char ch, int song)
   }
 
   // If they notch either the song or the instrument, then they auto-play correctly.
-  if( notch_skill(ch, song, 3.5)
-    || notch_skill(ch, instrument->value[0] + INSTRUMENT_OFFSET, 3.5) )
+  if( notch_skill(ch, song, BARD_SKILL_NOTCH_CHANCE)
+    || notch_skill(ch, instrument->value[0] + INSTRUMENT_OFFSET, BARD_SKILL_NOTCH_CHANCE) )
   {
     chance = 100;
   }
@@ -1690,8 +1695,8 @@ void event_echosong(P_char ch, P_char victim, P_obj obj, void *data)
   int i = 0, songLevel = 0, room = 0, song = 0;
   struct song_description *songDescrip = 0;
   struct echo_details *echoDetails = 0;
-  
-  if(!(ch))
+
+  if( ch == NULL )
   {
     logit(LOG_EXIT, "event_echosong called in bard.c without ch");
     raise(SIGSEGV);
@@ -1768,7 +1773,7 @@ void event_echosong(P_char ch, P_char victim, P_obj obj, void *data)
 
 void event_bardsong(P_char ch, P_char victim, P_obj obj, void *data)
 {
-  int    echoChance = 0,song, l, room, i, terrainType = SECT_INSIDE;
+  int    echoChance = 0, song, l, room, i, terrainType = SECT_INSIDE, song_chance;
   P_obj  instrument = NULL;
   struct affected_type *af, *af2;
   struct char_link_data *cld, *next_cld;
@@ -1810,7 +1815,20 @@ void event_bardsong(P_char ch, P_char victim, P_obj obj, void *data)
     }
     return;
   }
-  if( number(1, 90) >= bard_calc_chance(ch, song) )
+
+  song_chance = bard_calc_chance(ch, song);
+  // Ok, this averages song_chance with 75, if song_chance < 75, so closer to 3/4 chance to complete verse.
+  //   So, @1 chance -> 38%, @25 chance -> 50%, and at 75%, it stays 75%.
+  // We do this because we want them to have a good chance of completing one of many verses.
+  if( song_chance > 0 )
+  {
+    // Ideally, we'd take NUM_VERSES(ch, song) and create a multiplier such that the total chance for failing
+    //   the song overall was equal to the sum of the chances to fail each verse.
+    //   So, a song with 5 verses would have a (100 - song_chance) / 5 chance of failure or
+    //     100 - (100 - song_chance) / 5 chance of success.  But below is easier.
+    song_chance = (song_chance >= 75) ? song_chance : ((song_chance + 75) / 2);
+  }
+  if( number(1, 100) > song_chance )
   {
     // Song level for base class (no spec).
     int song_level = get_song_level(flag2idx(ch->player.m_class), 0, song);
@@ -1824,7 +1842,7 @@ void event_bardsong(P_char ch, P_char victim, P_obj obj, void *data)
 
     act("Uh oh.. how did the song go, anyway?", FALSE, ch, 0, 0, TO_CHAR);
     act("$n stutters in $s song, and falls silent.", FALSE, ch, 0, 0, TO_ROOM);
-    set_short_affected_by(ch, FIRST_INSTRUMENT, song_level / 3 + WAIT_SEC );
+    set_short_affected_by(ch, TAG_BARDSONG_FAILURE, song_level / 3 + WAIT_SEC );
     do_action(ch, 0, CMD_BLUSH);
     stop_singing(ch);
     return;
@@ -1887,18 +1905,11 @@ void event_bardsong(P_char ch, P_char victim, P_obj obj, void *data)
     return;
   }
 
-  notch_skill(ch, song, 3.5);
-  if( instrument = has_instrument(ch) )
-  {
-    if( bard_get_type(song) == instrument->value[0] + INSTRUMENT_OFFSET )
-    {
-      notch_skill(ch, instrument->value[0] + INSTRUMENT_OFFSET, 3.5);
-    }
-  }
   for( af = ch->affected; af; af = af2 )
   {
     af2 = af->next;
-    if( af->bitvector3 == AFF3_SINGING && af->duration == 1 )
+    // Modifier contains verses left (at 0 stop, < 0 is buggy really, so stop).
+    if( af->bitvector3 == AFF3_SINGING && --(af->modifier) <= 0 )
     {
       act("&+BYou finish your song.", FALSE, ch, 0, 0, TO_CHAR);
       act("&+B$n finishes $s song.", FALSE, ch, 0, 0, TO_ROOM);
@@ -1950,7 +1961,7 @@ void event_bardsong(P_char ch, P_char victim, P_obj obj, void *data)
 
 void do_play(P_char ch, char *arg, int cmd)
 {
-  int      s, level, i;
+  int      s, verses, i;
   P_obj    instrument;
   P_nevent play_event;
   struct affected_type af;
@@ -1981,7 +1992,7 @@ void do_play(P_char ch, char *arg, int cmd)
     send_to_char("&+WThe words to this song are ... what ... you can't remember!\r\n", ch);
     return;
   }
-  if(affected_by_spell(ch, FIRST_INSTRUMENT))
+  if(affected_by_spell(ch, TAG_BARDSONG_FAILURE))
   {
     send_to_char("&+yYou haven't regained your composure.\r\n", ch);
     return;
@@ -2002,7 +2013,7 @@ void do_play(P_char ch, char *arg, int cmd)
       send_to_char("You stop your song.\r\n", ch);
       act("$n stops singing abruptly.", FALSE, ch, 0, 0, TO_ROOM);
       stop_singing(ch);
-      set_short_affected_by(ch, FIRST_INSTRUMENT, 2 * WAIT_SEC );
+      set_short_affected_by(ch, TAG_BARDSONG_FAILURE, 2 * WAIT_SEC );
     }
     else
     {
@@ -2062,7 +2073,7 @@ void do_play(P_char ch, char *arg, int cmd)
   {
     act("&+GYou start singing aloud with a beautiful voice.", FALSE, ch, instrument, 0, TO_CHAR);
     act("&+G$n starts singing aloud with a beautiful voice.", FALSE, ch, instrument, 0, TO_ROOM);
-    level = GET_LEVEL(ch);
+    verses = NUM_VERSES(ch, s);
   }
   else
   {
@@ -2079,11 +2090,12 @@ void do_play(P_char ch, char *arg, int cmd)
     {
       act("&+WYou start playing your $q &+Wand singing aloud.", FALSE, ch, instrument, 0, TO_CHAR);
       act("&+W$n starts playing $p &+Wand singing aloud.", FALSE, ch, instrument, 0, TO_ROOM);
-      level = GET_LEVEL(ch);
+      verses = NUM_VERSES(ch, s);
 //        play_sound(SOUND_HARP, NULL, ch->in_room, TO_ROOM);
     }
   }
-  if( number(1, 100) > bard_calc_chance(ch, s) )
+  // Min 50% chance to fail the first chords when first learning the song.
+  if( number(1, 100) > (100 + bard_calc_chance(ch, s))/2 )
   {
     // Song level for base class (no spec).
     int song_level = get_song_level(flag2idx(ch->player.m_class), 0, s);
@@ -2096,15 +2108,20 @@ void do_play(P_char ch, char *arg, int cmd)
     }
     act("Uh oh.. how did the song go, anyway?", FALSE, ch, 0, 0, TO_CHAR);
     act("$n stutters in $s song, and falls silent.", FALSE, ch, 0, 0, TO_ROOM);
-    set_short_affected_by(ch, FIRST_INSTRUMENT, song_level / 2 + WAIT_SEC );
+    set_short_affected_by(ch, TAG_BARDSONG_FAILURE, song_level / 2 + WAIT_SEC );
     do_action(ch, 0, CMD_BLUSH);
     return;
   }
   if( !IS_AFFECTED3(ch, AFF3_SINGING) )
   {
     bzero(&af, sizeof(af));
+    // We set the type to the instrument needed.
+    af.type = bard_get_type(s);
     af.flags = AFFTYPE_NOSAVE | AFFTYPE_NODISPEL | AFFTYPE_NOSHOW;
-    af.duration = (int) (level / 10 + 2);
+    // This af is removed when the number of verses left == 0.
+    af.duration = -1;
+    // Modifier contains the number of verses left to sing (I guess they learn 1 verse per level atm).
+    af.modifier = verses;
     af.bitvector3 = AFF3_SINGING;
     affect_to_char(ch, &af);
   }
@@ -2133,7 +2150,7 @@ void do_riff(P_char ch, char *arg, int cmd)
     return;
   }
 
-  if( affected_by_spell(ch, FIRST_INSTRUMENT) )
+  if( affected_by_spell(ch, TAG_BARDSONG_FAILURE) )
   {
     send_to_char("&+yYou haven't regained your composure.\r\n", ch);
     return;
@@ -2175,7 +2192,7 @@ void do_riff(P_char ch, char *arg, int cmd)
 
   if(number(1, 100) < GET_CHAR_SKILL(ch, SKILL_RIFF))
   {
-    notch_skill(ch, SKILL_RIFF, get_property("skill.notch.offensive", 6.25)); 
+    notch_skill(ch, SKILL_RIFF, BARD_SKILL_NOTCH_CHANCE );
   }
 
   if(number(1, 90) > GET_CHAR_SKILL(ch, SKILL_RIFF))
