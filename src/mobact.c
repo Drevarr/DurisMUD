@@ -743,14 +743,15 @@ bool MobCastSpell(P_char ch, P_char victim, P_obj object, int spl, int lvl)
           continue;
         if(IS_NPC(tch))
           MobStartFight(tch, ch);
-
-        else
+        else if( tch->only.pc->aggressive >= 0 && tch->only.pc->aggressive < GET_HIT(tch) )
+        {
 #ifndef NEW_COMBAT
           hit(tch, ch, tch->equipment[PRIMARY_WEAPON]);
 #else
-          hit(tch, ch, tch->equipment[WIELD], TYPE_UNDEFINED,
-              getBodyTarget(tch), TRUE, FALSE);
+          hit(tch, ch, tch->equipment[WIELD], TYPE_UNDEFINED, getBodyTarget(tch), TRUE, FALSE);
 #endif
+        }
+
         if(!char_in_list(ch) || !char_in_list(tch))
           return FALSE;
       }
@@ -768,15 +769,14 @@ bool MobCastSpell(P_char ch, P_char victim, P_obj object, int spl, int lvl)
         {
           if(number(1, 150) <= (GET_LEVEL(victim) + STAT_INDEX(GET_C_INT(victim))))
           {
-            MobStartFight(victim, ch);
+            if( IS_NPC(victim) || (victim->only.pc->aggressive >= 0 && victim->only.pc->aggressive < GET_HIT(victim)) )
+              MobStartFight(victim, ch);
             if(!char_in_list(ch) || !char_in_list(victim))
               return FALSE;
           }
         }
       }
     }
-
-
   }
   /*
      The following constructs the requisite struct * spellcast_datatype
@@ -834,7 +834,7 @@ bool MobCastSpell(P_char ch, P_char victim, P_obj object, int spl, int lvl)
     return TRUE;
   }
 
-  if((duration <= 4) || (lvl >= 60))
+  if( (duration <= 4) || (lvl >= 60) )
     event_spellcast(ch, victim, object, &castdata);
   else
   {

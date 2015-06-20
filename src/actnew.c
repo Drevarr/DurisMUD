@@ -182,9 +182,7 @@ void do_aggr(P_char ch, char *arg, int cmd)
       send_to_char("You are not aggressive to monsters.\r\n", ch);
       return;
     }
-    sprintf(Gbuf2,
-        "You will be aggressive unless hp < %d.\r\n",
-        ch->only.pc->aggressive);
+    sprintf(Gbuf2, "You will be aggressive unless hp < %d.\r\n", ch->only.pc->aggressive);
 
     send_to_char(Gbuf2, ch);
     return;
