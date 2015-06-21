@@ -2298,6 +2298,18 @@ void obj_affect_remove(P_obj obj, struct obj_affect *af)
     obj->condition = 1;
   }
 
+  // Find the assoicated event and disarm it
+  LOOP_EVENTS_OBJ( e, obj->nevents )
+  {
+    if( e->func != event_obj_affect )
+      continue;
+    if( *((struct obj_affect **)e->data) == af )
+    {
+      disarm_single_event(e);
+      break;
+    }
+  }
+
   if( obj->affects == af )
   {
     obj->affects = af->next;
@@ -2348,27 +2360,17 @@ void obj_affect_remove(P_obj obj, struct obj_affect *af)
       obj_affect_remove(obj, t_af);
   }
 
-  // Find the assoicated event and disarm it
-  LOOP_EVENTS_OBJ( e, obj->nevents )
-  {
-    if( e->func != event_obj_affect )
-      continue;
-    if( *((struct obj_affect **)e->data) == af )
-    {
-      disarm_single_event(e);
-      break;
-    }
-  }
-
   mm_release(dead_obj_affect_pool, af);
 }
 
 void event_obj_affect(P_char, P_char, P_obj obj, void *data)
 {
   struct obj_affect *af = *((struct obj_affect **)data);
+
+  obj_affect_remove(obj, af);
+
   if( af->type == TAG_OBJ_DECAY )
     Decay(obj);
-  obj_affect_remove(obj, af);
 }
 
 /*
@@ -2460,11 +2462,13 @@ int affect_from_obj(P_obj obj, sh_int spell)
 
   struct affected_type *hjp, *tmp;
 
-  for (af = obj->affects; af; af = next)
+  for( af = obj->affects; af; af = next )
   {
     next = af->next;
     if (af->type == spell)
+    {
       obj_affect_remove(obj, af);
+    }
   }
 }
 
