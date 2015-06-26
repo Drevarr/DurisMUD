@@ -1845,28 +1845,31 @@ void update_epic_zone_alignment(int zone_number, int delta)
 #endif  
 }
 
+// Should return a number 0.0 or greater. (0.0: no epics, 1.0: full epics, 2.0: double epics, etc).
 float get_epic_zone_alignment_mod(int zone_number, ubyte racewar)
 {
 #ifdef __NO_MYSQL__
   return 1.0;
 #else
-  
-  float mod = 1.0;
+
+  float mod = 1.0, minPercentage;
   int alignment = 0;
-  
+
   if(!qry("SELECT alignment FROM zones WHERE number = %d", zone_number))
     return mod;
-  
+
   MYSQL_RES *res = mysql_store_result(DB);
-  
+
   if(mysql_num_rows(res) < 1)
-    return mod;
-  
+    return 1.0;
+
   MYSQL_ROW row = mysql_fetch_row(res);
-  
-  if(row)
+
+  if( row )
+  {
     alignment = atoi(row[0]);
-  
+  }
+
   mysql_free_result(res);
 
   if((alignment < 0 && racewar == RACEWAR_GOOD) || (alignment > 0 && racewar == RACEWAR_EVIL))
@@ -1877,12 +1880,18 @@ float get_epic_zone_alignment_mod(int zone_number, ubyte racewar)
   else if((alignment > 0 && racewar == RACEWAR_GOOD) || (alignment < 0 && racewar == RACEWAR_EVIL))
   {
     // good alignment, good racewar or evil alignment, evil racewar
-    mod -= ((float) abs(alignment)) * (float) get_property("epic.zone.alignmentMod", 0.10);    
+    mod -= ((float) abs(alignment)) * (float) get_property("epic.zone.alignmentMod", 0.10);
   }
-  
+
+  minPercentage = get_property("epic.alignment.minPercentage", 0.10);
+  // If the minimum percentage is more than the current modifier, up the current mod to the minimum.
+  if( minPercentage > mod )
+    mod = minPercentage;
+
   debug("get_epic_zone_alignment_mod(zone_number=%d, racewar=%d): %f", zone_number, (int) racewar, mod);
-  
+
   return mod;
+
 #endif
 }
 
