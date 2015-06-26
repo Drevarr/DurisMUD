@@ -481,7 +481,8 @@ int vecna_minifist(P_obj obj, P_char ch, int cmd, char *arg)
     return FALSE;
   }
 
-  if( number(0, 100) <= 6 )
+  // 5% chance to proc.
+  if( number(1, 100) <= 5 )
   {
     victim = ch->specials.fighting;
     if( !IS_ALIVE(victim) )
@@ -496,7 +497,7 @@ int vecna_minifist(P_obj obj, P_char ch, int cmd, char *arg)
     act("&+LYour &+Gtwisted longsword &+Lshrieks in &+rrage &+Lat the sight of $N!&n", FALSE, ch, NULL, victim, TO_CHAR);
     act("&n$n's &+Gtwisted longsword &+Lshrieks in &+rrage &+Lat the sight of you!&n", FALSE, ch, NULL, victim, TO_VICT);
     act("$n's &+Gtwisted longsword &+Lshrieks in &+rrage &+Lat the sight of $N!&n", FALSE, ch, NULL, victim, TO_NOTVICT);
-    spell_bigbys_clenched_fist(51, ch, 0, SPELL_TYPE_SPELL, victim, 0);
+    spell_bigbys_clenched_fist(41, ch, 0, SPELL_TYPE_SPELL, victim, 0);
     return TRUE;
   }
   return FALSE;
