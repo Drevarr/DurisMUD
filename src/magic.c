@@ -2133,8 +2133,7 @@ void event_living_stone_death(P_char ch, P_char victim, P_obj obj, void *data)
   extract_char(ch);
 }
 
-void spell_living_stone(int level, P_char ch, char *arg, int type,
-                        P_char victim, P_obj obj)
+void spell_living_stone(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   P_char   mob;
   int      lvl;
@@ -7882,17 +7881,15 @@ bool has_skin_spell(P_char ch)
     return true;
 }
 #define MACE_OF_EARTH_VNUM 23805
-void spell_stone_skin(int level, P_char ch, char *arg, int type,
-                      P_char victim, P_obj obj)
+void spell_stone_skin(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
   int      absorb = (level / 4) + number(1, 4);
 
   if(!has_skin_spell(victim))
   {
-    if(GET_SPEC(ch, CLASS_CONJURER, SPEC_EARTH) ||
-      (victim->equipment[WIELD] &&
-      (obj_index[victim->equipment[WIELD]->R_num].virtual_number == MACE_OF_EARTH_VNUM)))
+    if( has_innate(ch, INNATE_LIVING_STONE) || (victim->equipment[WIELD]
+      && (obj_index[victim->equipment[WIELD]->R_num].virtual_number == MACE_OF_EARTH_VNUM)) )
     {
       absorb = (int) (absorb * 1.5);
       act("&+LLiving stone sprouts up and covers $n's flesh.",

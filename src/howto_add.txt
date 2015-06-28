@@ -67,3 +67,13 @@ Howto Add a Command:
     <MIN LVL> is the lowest level the command is available to.
   Fourth, in prototypes.h, define "void do_<new function name>(P_char ch, char *arg, int cmd);"
   Fifth, in whatever .c file is most appropriate, define the new function.
+
+Howto Add an Innate:
+  First, in structs.h, add INNATE_<new innate> and increment LAST_INNATE.
+  Second, in innates.c, add to the end of innate_data the new name of the innate,
+    and, if there is a function associated with it ("innate <function>"), put the function as the second argument.
+    Otherwise, put NULL as the second variable.
+  Third, in innates.c, if there's an innate function associated with it, define the function.
+  Fourth, in innates.c, assign the innate to the appropriate classes/races in assign_innates().
+  Fifth, if there's no "innate <function>" for the innate, hardcode the innate into the game where appropriate.
+    Use "has_innate(ch, INNATE_<new innate>)" to check for it.

@@ -6424,12 +6424,12 @@ bool monk_critic(P_char ch, P_char victim)
     "$N dies as $n sinks five fingers into soft spots in $S shoulder."
   };
 
-  send_to_char("You sneak in and deliver a strike to a pressure point!\r\n", ch);
-
   if( !IS_ALIVE(ch) || !IS_ALIVE(victim) || IS_CONSTRUCT(victim))
   {
     return FALSE;
   }
+
+  send_to_char("You sneak in and deliver a strike to a pressure point!\r\n", ch);
 
   if(GET_SPEC(ch, CLASS_MONK, SPEC_WAYOFSNAKE) ||
       (GET_CLASS(ch, CLASS_MONK) && IS_NPC(ch) && GET_LEVEL(ch) > 50))

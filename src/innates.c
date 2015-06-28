@@ -137,7 +137,7 @@ const struct innate_data
 } innates_data[LAST_INNATE + 1] =
 {
   {
-  "horse body", 0},
+  "horse body", NULL},
   {
   "levitate", do_levitate},
   {
@@ -151,37 +151,37 @@ const struct innate_data
   {
   "doorbash", do_doorbash},
   {
-  "infravision", 0},
+  "infravision", NULL},
   {
   "summon horde", do_summon_orc},
   {
-  "ultravision", 0},
+  "ultravision", NULL},
   {
-  "outdoor sneak", 0},
+  "outdoor sneak", NULL},
   {
   "bodyslam", do_bodyslam},
   {
   "summon mount", do_summon_mount},
   {
-  "anti-good", 0},
+  "anti-good", NULL},
   {
-  "anti-evil", 0},
+  "anti-evil", NULL},
   {
   "ogre roar", do_ogre_roar},
   {
   "blast", do_blast},
   {
-  "ud-sneak", 0},
+  "ud-sneak", NULL},
   {
   "shift_astral", do_shift_astral},
   {
   "shift_prime", do_shift_prime},
   {
-  "vampiric touch", 0},
+  "vampiric touch", NULL},
   {
   "bite", do_bite},
   {
-  "leap", 0},
+  "leap", NULL},
   {
   "doorkick", do_doorkick},
   {
@@ -189,11 +189,11 @@ const struct innate_data
   {
   "charge", do_charge},
   {
-  "waterbreath", 0},
+  "waterbreath", NULL},
   {
   "enlarge", do_enlarge},
   {
-  "regeneration", 0},
+  "regeneration", NULL},
   {
   "reduce", do_reduce},
   {
@@ -207,13 +207,13 @@ const struct innate_data
   {
   "firestorm", do_firestorm},
   {
-  "protection from fire", 0},
+  "protection from fire", NULL},
   {
   "tupor", do_tupor},
   {
-  "sneak", 0},
+  "sneak", NULL},
   {
-  "protection from lightning", 0},
+  "protection from lightning", NULL},
   {
   "plane shift", do_plane_shift},
   {
@@ -233,17 +233,17 @@ const struct innate_data
   {
   "shapechange", do_shapechange},
   {
-  "battle frenzy", 0},
+  "battle frenzy", NULL},
   {
   "throw lightning", do_throw_lightning},
   {
-  "fly", 0},
+  "fly", NULL},
   {
   "stone skin", do_stone_skin},
   {
   "phantasmal form", do_phantasmal_form},
   {
-  "farsee", 0},
+  "farsee", NULL},
   {
   "shade movement", do_shade_movement},
   {
@@ -251,69 +251,69 @@ const struct innate_data
   {
   "god call", do_god_call},
   {
-  "forest sight", 0},
+  "forest sight", NULL},
   {
   "battlerage", do_battle_rage},
   {
-  "damage spread", 0},
+  "damage spread", NULL},
   {
-  "troll skin", 0},
+  "troll skin", NULL},
   {
-  "dayvision", 0},
+  "dayvision", NULL},
   {
-  "spell absorb", 0},
+  "spell absorb", NULL},
   {
-  "vulnerable to fire", 0},
+  "vulnerable to fire", NULL},
   {
-  "vulnerable to cold", 0},
+  "vulnerable to cold", NULL},
   {
-  "eyeless", 0},
+  "eyeless", NULL},
   {
-  "wildmagic", 0},
+  "wildmagic", NULL},
   {
-  "knight", 0},
+  "knight", NULL},
   {
-  "sense weakness", 0},
+  "sense weakness", NULL},
   {
   "acid blood"},
   {
   "conjure water", do_conjure_water},
   {
-  "barter", 0},
+  "barter", NULL},
   {
-  "weapon immunity", 0},
+  "weapon immunity", NULL},
   {
-  "magic resistance", 0},
+  "magic resistance", NULL},
   {
-  "battlefield aid", 0},
+  "battlefield aid", NULL},
   {
-  "perception", 0},
+  "perception", NULL},
   {
-  "dayblind", 0},
+  "dayblind", NULL},
   {
   "summon book", do_summon_book},
   {
-  "quick thinker", 0},
+  "quick thinker", NULL},
   {
-  "resurrection", 0},
+  "resurrection", NULL},
   {
-  "improved healing", 0},
+  "improved healing", NULL},
   {
-  "gamblers luck", 0},
+  "gamblers luck", NULL},
   {
-  "blood scent", 0},
+  "blood scent", NULL},
   {
-  "unholy alliance", 0},
+  "unholy alliance", NULL},
   {
-  "mummify", 0},
+  "mummify", NULL},
   {
-  "frightening presence", 0},
+  "frightening presence", NULL},
   {
-  "blindsinging", 0},
+  "blindsinging", NULL},
   {
-  "improved flee", 0}, // Deceiver Spec
+  "improved flee", NULL}, // Deceiver Spec
   {
-  "echo", 0},
+  "echo", NULL},
   {
   "branch", do_branch},
   {
@@ -321,105 +321,106 @@ const struct innate_data
   {
   "summon imp", do_summon_imp},
   {
-  "hammer master", 0},
+  "hammer master", NULL},
   {
-  "axe master", 0},
+  "axe master", NULL},
   {
   "gaze", do_innate_gaze},
   {
-  "embrace death", 0},
+  "embrace death", NULL},
   {
   "drain life", do_lifedrain},
   {
   "pyrokinesis", do_immolate},
   {
-  "vulnerable to sun", 0},
+  "vulnerable to sun", NULL},
   {
-  "decrepify", 0},
+  "decrepify", NULL},
   {
-  "groundfighting", 0},
+  "groundfighting", NULL},
   {
-  "bow mastery", 0},
+  "bow mastery", NULL},
   {
   "summon warg", do_summon_warg},
   {
-  "hatred", 0},
+  "hatred", NULL},
   {
-  "evasion", 0},
+  "evasion", NULL},
   {
-  "mind of the dragon", 0},
+  "mind of the dragon", NULL},
   {
   "shift ethereal", do_shift_ethereal},
   {
-  "astral affinity", 0},
+  "astral affinity", NULL},
   {
-  "two daggers", 0},
+  "two daggers", NULL},
   {
-  "holy light", 0},
+  "holy light", NULL},
   {
-  "command aura", 0},
+  "command aura", NULL},
   {
-  "deceptive flee", 0},
-  {"miner", 0},
+  "deceptive flee", NULL},
+  {"miner", NULL},
   {"foundry", do_foundry},
   {"fade", do_fade},
-  {"spacial focus", 0},
+  {"spacial focus", NULL},
   {"lay hands", do_layhand},
-  {"holy crusade", 0},
-  {"magical reduction", 0},
+  {"holy crusade", NULL},
+  {"magical reduction", NULL},
   {"aura_of_protection", do_aura_protection},
   {"aura_of_precision", do_aura_precision},
   {"aura_of_battlelust", do_aura_battlelust},
   {"aura_of_endurance", do_aura_endurance},
   {"aura_of_improved_healing", do_aura_healing},
   {"aura_of_vigor", do_aura_vigor},
-  {"speedy", 0},
-  {"dauntless", 0},
+  {"speedy", NULL},
+  {"dauntless", NULL},
   {"summon totem", do_summon_totem},
-  {"entrapment", 0},
-  {"protection from cold", 0},
-  {"protection from acid", 0},
-  {"fire aura", 0},
+  {"entrapment", NULL},
+  {"protection from cold", NULL},
+  {"protection from acid", NULL},
+  {"fire aura", NULL},
   {"spawn", do_spawn},
-  {"warcallers fury", 0},
-  {"spirit of the rrakkma", 0},
-  {"diseased bite", 0},
+  {"warcallers fury", NULL},
+  {"spirit of the rrakkma", NULL},
+  {"diseased bite", NULL},
   {"divine force", do_divine_force},
-  {"undead fealty", 0},
+  {"undead fealty", NULL},
   {"call of the grave", do_call_grave},
-  {"sacrilegious power", 0}, // Vampire innate
-  {"blur", 0}, // Not passive, but no supporting func anymore.
-  {"rapier and dirk", 0}, // Swashbuckler
-  {"elemental body", 0},
-  {"amorphous body", 0},
+  {"sacrilegious power", NULL}, // Vampire innate
+  {"blur", NULL}, // Not passive, but no supporting func anymore.
+  {"rapier and dirk", NULL}, // Swashbuckler
+  {"elemental body", NULL},
+  {"amorphous body", NULL},
   {"engulf", do_engulf},
   {"slime", do_slime},
-  {"dual wielding master", 0},
-  {"speed", 0},
-  {"ice aura", 0},
-  {"requiem", 0},
+  {"dual wielding master", NULL},
+  {"speed", NULL},
+  {"ice aura", NULL},
+  {"requiem", NULL},
   {"ally", do_spawn},
   {"summon host", do_summon_host},
-  {"spider body", 0},
-  {"swamp sneak", 0},
-  {"calming", 0},
-  {"longsword master", 0},
-  {"melee mastery", 0},
-  {"bulwark", 0},
-  {"wall climbing", 0},
-  {"woodland renewal", 0},
-  {"natural movement", 0},
-  {"magic vulnerability", 0},
-  {"two-handed sword mastery", 0},
-  {"holy combat", 0},
-  {"giant avoidance", 0},
-  {"seadog", 0},
+  {"spider body", NULL},
+  {"swamp sneak", NULL},
+  {"calming", NULL},
+  {"longsword master", NULL},
+  {"melee mastery", NULL},
+  {"bulwark", NULL},
+  {"wall climbing", NULL},
+  {"woodland renewal", NULL},
+  {"natural movement", NULL},
+  {"magic vulnerability", NULL},
+  {"two-handed sword mastery", NULL},
+  {"holy combat", NULL},
+  {"giant avoidance", NULL},
+  {"seadog", NULL},
   {"aura_of_spell_protection", do_aura_spell_protection},
-  {"vision of the dead", 0},
+  {"vision of the dead", NULL},
   {"remort", do_remort},
-  {"elemental power", 0},
-  {"intercept", 0},
-  {"detect subversion", 0 }
+  {"elemental power", NULL},
+  {"intercept", NULL},
+  {"detect subversion", NULL },
+  {"living stone", NULL }
 };
 
 string list_innates(int race, int cls, int spec)
@@ -1026,8 +1027,11 @@ void assign_innates()
   ADD_CLASS_INNATE(INNATE_WATERBREATH, CLASS_CONJURER, 30, SPEC_WATER);
   ADD_CLASS_INNATE(INNATE_CONJURE_WATER, CLASS_CONJURER, 30, SPEC_WATER);
   ADD_CLASS_INNATE(INNATE_REGENERATION, CLASS_CONJURER, 36, SPEC_WATER);
+  ADD_CLASS_INNATE(INNATE_LIVING_STONE, CLASS_CONJURER, 30, SPEC_EARTH);
   ADD_CLASS_INNATE(INNATE_STONE, CLASS_CONJURER, 30, SPEC_EARTH);
   ADD_CLASS_INNATE(INNATE_REGENERATION, CLASS_SUMMONER, 30, SPEC_NATURALIST);
+  ADD_CLASS_INNATE(INNATE_STONE, CLASS_SUMMONER, 30, SPEC_NATURALIST);
+  ADD_CLASS_INNATE(INNATE_LIVING_STONE, CLASS_SUMMONER, 30, SPEC_NATURALIST);
   ADD_CLASS_INNATE(INNATE_HASTE, CLASS_SUMMONER, 30, SPEC_CONTROLLER);
   ADD_CLASS_INNATE(INNATE_PROT_COLD, CLASS_SUMMONER, 30, SPEC_MENTALIST);
   ADD_CLASS_INNATE(INNATE_PROT_FIRE, CLASS_SUMMONER, 30, SPEC_MENTALIST);
