@@ -598,7 +598,7 @@ int orb_of_the_sea(P_obj obj, P_char ch, int cmd, char *arg)
     return (FALSE);
 */
   // If we can't find the victim
-  if( (cmd == CMD_GOTHIT && !(data = (struct proc_data *) arg) && !(victim = (P_char) arg))
+  if( (cmd == CMD_GOTHIT && !(data = (struct proc_data *) arg) && !(victim = data->victim))
     || (cmd == CMD_MELEE_HIT && !(victim = (P_char) arg)) )
   {
     return FALSE;
