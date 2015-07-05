@@ -2997,8 +2997,8 @@ void perform_eq_wipe(P_char ch)
   {
     longestptime = ch->player.time.played;
     playing_time = real_time_passed((long) ((time(0) - ch->player.time.logon) + ch->player.time.played), 0);
-    sprintf( Gbuf1, "New Longest Ptime: '%s' %d with %d %dH%dM%dS",
-      J_NAME(ch), ch->only.pc->pid, ch->player.time.played, playing_time.hour, playing_time.minute, playing_time.second );
+    sprintf( Gbuf1, "New Longest Ptime: '%s' %d with %d %dD%dH%dM%dS",
+      J_NAME(ch), ch->only.pc->pid, ch->player.time.played, playing_time.day, playing_time.hour, playing_time.minute, playing_time.second );
     debug( Gbuf1 );
     logit( LOG_STATUS, Gbuf1 );
   }
