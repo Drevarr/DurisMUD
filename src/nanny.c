@@ -2948,6 +2948,8 @@ int number_of_players(void)
 
 void perform_eq_wipe(P_char ch)
 {
+  static long longestptime = 0;
+  struct time_info_data playing_time;
   int i;
   P_obj obj, obj2;
   P_ship ship;
@@ -2990,6 +2992,16 @@ void perform_eq_wipe(P_char ch)
   }
   else
     debug( "%s had no ship.", ch->player.name );
+
+  if( longestptime < ch->player.time.played )
+  {
+    longestptime = ch->player.time.played;
+    playing_time = real_time_passed((long) ((time(0) - ch->player.time.logon) + ch->player.time.played), 0);
+    sprintf( Gbuf1, "New Longest Ptime: '%s' %d with %d %dH%dM%dS",
+      J_NAME(ch), ch->only.pc->pid, ch->player.time.played, playing_time.hour, playing_time.minute, playing_time.second );
+    debug( Gbuf1 );
+    logit( LOG_STATUS, Gbuf1 );
+  }
 /*
   ch->only.pc->frags = 0;
   ch->only.pc->epics = 0;
