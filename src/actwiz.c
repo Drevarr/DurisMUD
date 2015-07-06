@@ -4289,6 +4289,7 @@ void do_snoop(P_char ch, char *argument, int cmd)
 {
   static char arg[MAX_STRING_LENGTH];
   P_char   victim;
+  P_desc   point;
   int      level;
   snoop_by_data *snoop_by_ptr;
 
@@ -4367,6 +4368,30 @@ void do_snoop(P_char ch, char *argument, int cmd)
   snoop_by_ptr->snoop_by = ch;
 
   victim->desc->snoop.snoop_by_list = snoop_by_ptr;
+
+  // We need to move down past our victim on the descriptor list so things display properly.
+  // First we pull ch->desc from the list:
+  // If we're pulling from the head of the list
+  if( descriptor_list == ch->desc )
+  {
+    descriptor_list = descriptor_list->next;
+  }
+  // If we're pulling from the middle of the list
+  else
+  {
+    // Find the previous item and set it's next to the next item.
+    point = descriptor_list;
+    while( point->next != ch->desc )
+    {
+      point = point->next;
+    }
+    point->next = ch->desc->next;
+  }
+  // Point is now who we're snooping.
+  point = ch->desc->snoop.snooping->desc;
+  // Now we want to put ch->desc after point
+  ch->desc->next = point->next;
+  point->next = ch->desc;
 
   if(level < 58)
     send_to_char("&+CSomeone starts snooping you.&N\n", victim);

@@ -34,6 +34,8 @@ void make_prompt(void)
   P_obj    t_obj_f = NULL;
   P_desc   point, next_point;
   char     promptbuf[MAX_INPUT_LENGTH]; /*, pname[512]; */
+  char     promptbuf2[MAX_INPUT_LENGTH], *pPrompt;
+  snoop_by_data *snoop_by_ptr;
   int      percent, t_ch_p = 0;
   char     prompt_buf[256];
   bool     ansi;
@@ -56,8 +58,6 @@ void make_prompt(void)
     {
       continue;
     }
-    // Reset the promptmode (decides when to display another prompt).
-    point->prompt_mode = FALSE;
 
     if (point->showstr_count)
     {
@@ -74,6 +74,8 @@ void make_prompt(void)
         logit(LOG_COMM, "Closing socket on write error");
         close_socket(point);
       }
+      // Reset the promptmode (decides when to display another prompt).
+      point->prompt_mode = FALSE;
       continue;
     }
     if (point->str)
@@ -83,6 +85,7 @@ void make_prompt(void)
         logit(LOG_COMM, "Closing socket on write error");
         close_socket(point);
       }
+      point->prompt_mode = FALSE;
       continue;
     }
     /* Online zone editing maybe?
@@ -97,6 +100,7 @@ void make_prompt(void)
     // Don't show a prompt if awaiting a yes/no answer - SAM 7-94
     if( point->connected || point->confirm_state == CONFIRM_AWAIT )
     {
+      point->prompt_mode = FALSE;
       continue;
     }
 
@@ -124,6 +128,7 @@ void make_prompt(void)
       UpdateScreen(t_ch, 0);
       sprintf(promptbuf, "&+R>&n");
       send_to_char(promptbuf, t_ch);
+      point->prompt_mode = FALSE;
       return;
     }
     if( t_ch_p )
@@ -351,13 +356,25 @@ void make_prompt(void)
 #endif
       }
 
-      if (IS_SET(t_ch_p, PROMPT_TWOLINE) &&
-          (t_ch_p & (PROMPT_HIT | PROMPT_MAX_HIT | PROMPT_MANA |
-                     PROMPT_MAX_MANA | PROMPT_MOVE | PROMPT_MAX_MOVE)))
-        if (ansi)
-          strcat(promptbuf, "\033[0;32m >\n\033[32m<");
+      if( IS_SET(t_ch_p, PROMPT_TWOLINE)
+        && (t_ch_p & (PROMPT_HIT | PROMPT_MAX_HIT | PROMPT_MANA | PROMPT_MAX_MANA | PROMPT_MOVE | PROMPT_MAX_MOVE)) )
+      {
+        if( ansi )
+        {
+          strcat(promptbuf, "\033[0;32m >\n");
+          sprintf(promptbuf2, "\033[32m<");
+        }
         else
-          strcat(promptbuf, " >\n<");
+        {
+          strcat(promptbuf, " >\n");
+          sprintf(promptbuf2, "<");
+        }
+        pPrompt = promptbuf2 + strlen(promptbuf2);
+      }
+      else
+      {
+        pPrompt = promptbuf + strlen(promptbuf);
+      }
 
       /* the prompt elements only active while fighting */
       if( t_ch_f && (t_ch->in_room == t_ch_f->in_room) )
@@ -369,13 +386,13 @@ void make_prompt(void)
           {
             if( ansi )
             {
-              sprintf( promptbuf + strlen(promptbuf), " \033[0;34;1mT: %s",
+              sprintf( pPrompt + strlen(pPrompt), " \033[0;34;1mT: %s",
                 (t_ch != tank && !CAN_SEE(t_ch, tank)) ? "someone"
                 : (IS_PC(tank) ? PERS(tank, t_ch, 0, true) : (FirstWord((tank)->player.name))));
             }
             else
             {
-              sprintf(promptbuf + strlen(promptbuf), " T: %s",
+              sprintf(pPrompt + strlen(pPrompt), " T: %s",
                 (t_ch != tank && !CAN_SEE(t_ch, tank)) ? "someone"
                 : (IS_PC(tank) ? PERS(tank, t_ch, 0, true) : (FirstWord((tank)->player.name))));
             }
@@ -383,36 +400,36 @@ void make_prompt(void)
           if( IS_SET(t_ch_p, PROMPT_STATUS) && IS_SET(t_ch_p, PROMPT_TANK_COND) )
           {
             if (ansi)
-              strcat(promptbuf, " \033[0;36mTP:\033[0m");
+              strcat(pPrompt, " \033[0;36mTP:\033[0m");
             else
-              strcat(promptbuf, " TP:");
+              strcat(pPrompt, " TP:");
             if (GET_POS(tank) == POS_STANDING)
               if (ansi)
-                strcat(promptbuf, "\033[0;32m sta\033[0m");
+                strcat(pPrompt, "\033[0;32m sta\033[0m");
               else
-                strcat(promptbuf, " sta");
+                strcat(pPrompt, " sta");
             else if (GET_POS(tank) == POS_SITTING)
               if (ansi)
-                strcat(promptbuf, "\033[0;32m sit\033[0m");
+                strcat(pPrompt, "\033[0;32m sit\033[0m");
               else
-                strcat(promptbuf, " sit");
+                strcat(pPrompt, " sit");
             else if (GET_POS(tank) == POS_KNEELING)
               if (ansi)
-                strcat(promptbuf, "\033[0;32m kne\033[0m");
+                strcat(pPrompt, "\033[0;32m kne\033[0m");
               else
-                strcat(promptbuf, " kne");
+                strcat(pPrompt, " kne");
             else if (GET_POS(tank) == POS_PRONE)
               if (ansi)
-                strcat(promptbuf, "\033[0;32m ass\033[0m");
+                strcat(pPrompt, "\033[0;32m ass\033[0m");
               else
-                strcat(promptbuf, " ass");
+                strcat(pPrompt, " ass");
           }
           if( IS_SET(t_ch_p, PROMPT_TANK_COND) )
           {
             if (ansi)
-              strcat(promptbuf, "\033[0m TC:");
+              strcat(pPrompt, "\033[0m TC:");
             else
-              strcat(promptbuf, " TC:");
+              strcat(pPrompt, " TC:");
             if (GET_MAX_HIT(tank) > 0)
             {
               percent = (100 * GET_HIT(tank)) / GET_MAX_HIT(tank);
@@ -424,58 +441,58 @@ void make_prompt(void)
             if (percent >= 100)
             {
               if (ansi)
-                strcat(promptbuf, "\033[0;32m excellent");
+                strcat(pPrompt, "\033[0;32m excellent");
               else
-                strcat(promptbuf, " excellent");
+                strcat(pPrompt, " excellent");
             }
             else if (percent >= 90)
             {
               if (ansi)
-                strcat(promptbuf, "\033[0;33m few scratches");
+                strcat(pPrompt, "\033[0;33m few scratches");
               else
-                strcat(promptbuf, " few scratches");
+                strcat(pPrompt, " few scratches");
             }
             else if (percent >= 75)
             {
               if (ansi)
-                strcat(promptbuf, "\033[0;33;40;1m small wounds");
+                strcat(pPrompt, "\033[0;33;40;1m small wounds");
               else
-                strcat(promptbuf, " small wounds");
+                strcat(pPrompt, " small wounds");
             }
             else if (percent >= 50)
             {
               if (ansi)
-                strcat(promptbuf, "\033[0;35;40;1m few wounds");
+                strcat(pPrompt, "\033[0;35;40;1m few wounds");
               else
-                strcat(promptbuf, " few wounds");
+                strcat(pPrompt, " few wounds");
             }
             else if (percent >= 30)
             {
               if (ansi)
-                strcat(promptbuf, "\033[0;35m nasty wounds");
+                strcat(pPrompt, "\033[0;35m nasty wounds");
               else
-                strcat(promptbuf, " nasty wounds");
+                strcat(pPrompt, " nasty wounds");
             }
             else if (percent >= 15)
             {
               if (ansi)
-                strcat(promptbuf, "\033[0;31;40;1m pretty hurt");
+                strcat(pPrompt, "\033[0;31;40;1m pretty hurt");
               else
-                strcat(promptbuf, " pretty hurt");
+                strcat(pPrompt, " pretty hurt");
             }
             else if (percent >= 0)
             {
               if (ansi)
-                strcat(promptbuf, "\033[0;31m awful");
+                strcat(pPrompt, "\033[0;31m awful");
               else
-                strcat(promptbuf, " awful");
+                strcat(pPrompt, " awful");
             }
             else
             {
               if (ansi)
-                strcat(promptbuf, "\033[0;31m bleeding, close to death");
+                strcat(pPrompt, "\033[0;31m bleeding, close to death");
               else
-                strcat(promptbuf, " bleeding, close to death");
+                strcat(pPrompt, " bleeding, close to death");
             }
           }
         }
@@ -483,13 +500,13 @@ void make_prompt(void)
         {
           if( ansi )
           {
-            sprintf(promptbuf + strlen(promptbuf), " \033[0;31mE: %s",
+            sprintf(pPrompt + strlen(pPrompt), " \033[0;31mE: %s",
               (!CAN_SEE(t_ch, t_ch_f)) ? "someone" : (IS_PC(t_ch_f) ? PERS(t_ch_f, t_ch, 0, true)
               : (FirstWord((t_ch_f)->player.name))));
           }
           else
           {
-            sprintf(promptbuf + strlen(promptbuf), " E: %s",
+            sprintf(pPrompt + strlen(pPrompt), " E: %s",
               (!CAN_SEE(t_ch, t_ch_f) ) ? "someone" : (IS_PC(t_ch_f) ? PERS(t_ch_f, t_ch, 0, true)
               : (FirstWord((t_ch_f)->player.name))));
           }
@@ -497,29 +514,29 @@ void make_prompt(void)
         if( IS_SET(t_ch_p, PROMPT_STATUS) && IS_SET(t_ch_p, PROMPT_ENEMY_COND) )
         {
           if (ansi)
-            strcat(promptbuf, " \033[0;36mEP:\033[0m");
+            strcat(pPrompt, " \033[0;36mEP:\033[0m");
           else
-            strcat(promptbuf, " EP:");
+            strcat(pPrompt, " EP:");
           if (GET_POS(t_ch_f) == POS_STANDING)
             if (ansi)
-              strcat(promptbuf, "\033[0;32m sta\033[0m");
+              strcat(pPrompt, "\033[0;32m sta\033[0m");
             else
-              strcat(promptbuf, " sta");
+              strcat(pPrompt, " sta");
           else if (GET_POS(t_ch_f) == POS_SITTING)
             if (ansi)
-              strcat(promptbuf, "\033[0;32m sit\033[0m");
+              strcat(pPrompt, "\033[0;32m sit\033[0m");
             else
-              strcat(promptbuf, " sit");
+              strcat(pPrompt, " sit");
           else if (GET_POS(t_ch_f) == POS_KNEELING)
             if (ansi)
-              strcat(promptbuf, "\033[0;32m kne\033[0m");
+              strcat(pPrompt, "\033[0;32m kne\033[0m");
             else
-              strcat(promptbuf, " kne");
+              strcat(pPrompt, " kne");
           else if (GET_POS(t_ch_f) == POS_PRONE)
             if (ansi)
-              strcat(promptbuf, "\033[0;32m ass\033[0m");
+              strcat(pPrompt, "\033[0;32m ass\033[0m");
             else
-              strcat(promptbuf, " ass");
+              strcat(pPrompt, " ass");
         }
         if( IS_SET(t_ch_p, PROMPT_ENEMY_COND) )
         {
@@ -532,64 +549,64 @@ void make_prompt(void)
             percent = -1;
           }
           if (ansi)
-            strcat(promptbuf, "\033[0;36m EC:");
+            strcat(pPrompt, "\033[0;36m EC:");
           else
-            strcat(promptbuf, " EC:");
+            strcat(pPrompt, " EC:");
           if (percent >= 100)
           {
             if (ansi)
-              strcat(promptbuf, "\033[0;32m excellent");
+              strcat(pPrompt, "\033[0;32m excellent");
             else
-              strcat(promptbuf, " excellent");
+              strcat(pPrompt, " excellent");
           }
           else if (percent >= 90)
           {
             if (ansi)
-              strcat(promptbuf, "\033[0;33m few scratches");
+              strcat(pPrompt, "\033[0;33m few scratches");
             else
-              strcat(promptbuf, " few scratches");
+              strcat(pPrompt, " few scratches");
           }
           else if (percent >= 75)
           {
             if (ansi)
-              strcat(promptbuf, "\033[0;33;40;1m small wounds");
+              strcat(pPrompt, "\033[0;33;40;1m small wounds");
             else
-              strcat(promptbuf, " small wounds");
+              strcat(pPrompt, " small wounds");
           }
           else if (percent >= 50)
           {
             if (ansi)
-              strcat(promptbuf, "\033[0;35;40;1m few wounds");
+              strcat(pPrompt, "\033[0;35;40;1m few wounds");
             else
-              strcat(promptbuf, " few wounds");
+              strcat(pPrompt, " few wounds");
           }
           else if (percent >= 30)
           {
             if (ansi)
-              strcat(promptbuf, "\033[0;35m nasty wounds");
+              strcat(pPrompt, "\033[0;35m nasty wounds");
             else
-              strcat(promptbuf, " nasty wounds");
+              strcat(pPrompt, " nasty wounds");
           }
           else if (percent >= 15)
           {
             if (ansi)
-              strcat(promptbuf, "\033[0;31;40;1m pretty hurt");
+              strcat(pPrompt, "\033[0;31;40;1m pretty hurt");
             else
-              strcat(promptbuf, " pretty hurt");
+              strcat(pPrompt, " pretty hurt");
           }
           else if (percent >= 0)
           {
             if (ansi)
-              strcat(promptbuf, "\033[0;31m awful");
+              strcat(pPrompt, "\033[0;31m awful");
             else
-              strcat(promptbuf, " awful");
+              strcat(pPrompt, " awful");
           }
           else
           {
             if (ansi)
-              strcat(promptbuf, "\033[0;31m bleeding, close to death");
+              strcat(pPrompt, "\033[0;31m bleeding, close to death");
             else
-              strcat(promptbuf, " bleeding, close to death");
+              strcat(pPrompt, " bleeding, close to death");
           }
         }
       }
@@ -597,27 +614,27 @@ void make_prompt(void)
       {
         if( ansi )
         {
-          strcat(promptbuf, "\033[32m E: ");
-          strcat(promptbuf, FirstWord(t_obj_f->name) );
-          strcat(promptbuf, " EC: " );
+          strcat(pPrompt, "\033[32m E: ");
+          strcat(pPrompt, FirstWord(t_obj_f->name) );
+          strcat(pPrompt, " EC: " );
           if(t_obj_f->condition > 90)
-            strcat(promptbuf, "\033[1;32m");
+            strcat(pPrompt, "\033[1;32m");
           else if(t_obj_f->condition > 70)
-            strcat(promptbuf, "\033[32m");
+            strcat(pPrompt, "\033[32m");
           else if(t_obj_f->condition > 50)
-            strcat(promptbuf, "\033[0;33m");
+            strcat(pPrompt, "\033[0;33m");
           else if(t_obj_f->condition > 20)
-            strcat(promptbuf, "\033[0;31m");
+            strcat(pPrompt, "\033[0;31m");
           else
-            strcat(promptbuf, "\033[1;31m");
+            strcat(pPrompt, "\033[1;31m");
 
-          sprintf(promptbuf + strlen(promptbuf), "%d ", t_obj_f->condition );
+          sprintf(pPrompt + strlen(pPrompt), "%d ", t_obj_f->condition );
         }
         else
         {
-          strcat(promptbuf, " E: ");
-          strcat(promptbuf, FirstWord(t_obj_f->name) );
-          sprintf(promptbuf + strlen(promptbuf), " EC: %d",
+          strcat(pPrompt, " E: ");
+          strcat(pPrompt, FirstWord(t_obj_f->name) );
+          sprintf(pPrompt + strlen(pPrompt), " EC: %d",
             t_obj_f->condition );
         }
       }
@@ -626,26 +643,26 @@ void make_prompt(void)
       {
         if( ansi )
         {
-          strcat(promptbuf, "\033[0;35m");
+          strcat(pPrompt, "\033[0;35m");
         }
-        sprintf(promptbuf + strlen(promptbuf), " Vis: %d", t_ch->only.pc->wiz_invis);
+        sprintf(pPrompt + strlen(pPrompt), " Vis: %d", t_ch->only.pc->wiz_invis);
       }
       if( IS_SET(t_ch->specials.act, PLR_AFK) )
       {
         if( ansi )
-          strcat(promptbuf, "\033[0m (\033[31;40;1mAFK\033[0m)");
+          strcat(pPrompt, "\033[0m (\033[31;40;1mAFK\033[0m)");
         else
-          strcat(promptbuf, " (AFK)");
+          strcat(pPrompt, " (AFK)");
       }
     }
     if( ansi )
-      strcat(promptbuf, "\033[0;32m> ");
+      strcat(pPrompt, "\033[0;32m> ");
     else
-      strcat(promptbuf, " > ");
+      strcat(pPrompt, " > ");
 
     if( t_ch && t_ch->desc && t_ch->desc->term_type == TERM_MSP )
     {
-      strcat(promptbuf, "\033[0m\n</prompt>\n");
+      strcat(pPrompt, "\033[0m\n</prompt>\n");
     }
 
     if( t_ch_p )
@@ -655,9 +672,32 @@ void make_prompt(void)
       append_prompt(point->character, prompt_buf);
       write_to_pc_log(point->character, prompt_buf, LOG_PUBLIC);
 
-      if (write_to_descriptor(point->descriptor, promptbuf) < 0)
+      snoop_by_ptr = point->snoop.snoop_by_list;
+      while( snoop_by_ptr )
       {
-        logit(LOG_COMM, "Closing socket on write error");
+        write_to_q("&+B%&n ", &snoop_by_ptr->snoop_by->desc->output, 1);
+        write_to_q(promptbuf, &snoop_by_ptr->snoop_by->desc->output, 1);
+        if( IS_SET(t_ch_p, PROMPT_TWOLINE) )
+        {
+          write_to_q("&+B%&n ", &snoop_by_ptr->snoop_by->desc->output, 1);
+          write_to_q(promptbuf2, &snoop_by_ptr->snoop_by->desc->output, 1);
+        }
+        write_to_q("\n", &snoop_by_ptr->snoop_by->desc->output, 1);
+        process_output( snoop_by_ptr->snoop_by->desc );
+
+        snoop_by_ptr = snoop_by_ptr->next;
+      }
+
+      point->prompt_mode = FALSE;
+      if( write_to_descriptor(point->descriptor, promptbuf) < 0 )
+      {
+        logit(LOG_COMM, "Closing socket on write error: promptbuf.");
+        close_socket(point);
+        continue;
+      }
+      if( IS_SET(t_ch_p, PROMPT_TWOLINE) && write_to_descriptor(point->descriptor, promptbuf2) < 0)
+      {
+        logit(LOG_COMM, "Closing socket on write error: promptbuf2.");
         close_socket(point);
         continue;
       }
@@ -665,7 +705,7 @@ void make_prompt(void)
       {
         if (write_to_descriptor(point->descriptor, "\033[0m") < 0)
         {
-          logit(LOG_COMM, "Closing socket on write error");
+          logit(LOG_COMM, "Closing socket on write error: normalize.");
           close_socket(point);
           continue;
         }

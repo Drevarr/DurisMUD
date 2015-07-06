@@ -604,9 +604,7 @@ void game_loop(int s)
         else
         {
           /* good connection, send them on their way :) */
-          SEND_TO_Q
-            ("Please enter your term type (<CR> ansi, '3' MSP, '?' help): ",
-             point);
+          SEND_TO_Q("Please enter your term type (<CR> ansi, '3' MSP, '?' help): ", point);
           point->connected = CON_TERM;
           point->wait = 1;
         }
@@ -671,8 +669,7 @@ void game_loop(int s)
 
     /* process_commands */
     PROFILE_START(commands);
-    for (point = descriptor_list, player_count = 0; point;
-         point = next_to_process)
+    for( point = descriptor_list, player_count = 0; point; point = next_to_process )
     {
       next_to_process = point->next;
       t_ch = point->character;
@@ -800,8 +797,7 @@ void game_loop(int s)
         }
         else
 #ifdef SMART_PROMPT
-        if (point->character &&
-              (IS_PC(point->character) || IS_MORPH(point->character)))
+        if (point->character && (IS_PC(point->character) || IS_MORPH(point->character)))
         {
           if( IS_SET(GET_PLYR(point->character)->specials.act, PLR_OLDSMARTP)
             && !point->showstr_count && !point->str && !point->olc && !IS_FIGHTING(GET_PLYR(point->character)))
@@ -814,10 +810,8 @@ void game_loop(int s)
           }
         }
 /*
-              !IS_SET(GET_PLYR(point->character)->specials.act,
-                        PLR_SMARTPROMPT) &&
-              !IS_SET(GET_PLYR(point->character)->specials.act,
-                      PLR_OLDSMARTP))
+              !IS_SET(GET_PLYR(point->character)->specials.act, PLR_SMARTPROMPT)
+           && !IS_SET(GET_PLYR(point->character)->specials.act, PLR_OLDSMARTP))
 */
 #endif
 //        point->prompt_mode = TRUE;
@@ -1915,9 +1909,8 @@ void append_prompt(P_char ch ,char *promptbuf)
   if(!ch)
     return;
 
-  if(!IS_TRUSTED(ch) &&
-      (ch->desc->connected == CON_PLYNG ||
-       ch->desc->connected == CON_SLCT)) {
+  if(!IS_TRUSTED(ch) && (ch->desc->connected == CON_PLYNG || ch->desc->connected == CON_SLCT))
+  {
     ;
   }
   else
@@ -2223,6 +2216,7 @@ int process_output(P_desc t)
     && ((t->prompt_mode == (PLR_FLAGGED(realChar, PLR_SMARTPROMPT))
     || (t->prompt_mode != PLR_FLAGGED(realChar, PLR_OLDSMARTP)))) )
   {
+    if( !t->snoop.snooping || !t->snoop.snooping->desc || !t->snoop.snooping->desc->prompt_mode)
     if( write_to_descriptor(t->descriptor, "\r\n") < 0 )
     {
       return (-1);
@@ -2244,24 +2238,23 @@ int process_output(P_desc t)
     if( PLR_FLAGGED(realChar, PLR_SMARTPROMPT) )
       format_text(buf, 1, t, MAX_STRING_LENGTH);
 #endif
-    snoop_by_ptr = t->snoop.snoop_by_list;
 
+    snoop_by_ptr = t->snoop.snoop_by_list;
     while( snoop_by_ptr )
 /*    if (t->snoop.snoop_by) {*/
     {
 
       /* desc check makes snoop go wacky?  one never knows.. */
-
-/*      if (snoop_by_ptr->snoop_by->desc)
-      {*/
-      write_to_q("&+C%&n ", &snoop_by_ptr->snoop_by->desc->output, 1);
-      write_to_q(buf, &snoop_by_ptr->snoop_by->desc->output, 1);
-/*      }*/
+//      if (snoop_by_ptr->snoop_by->desc)
+//      {
+        write_to_q("\n&+C%&n ", &snoop_by_ptr->snoop_by->desc->output, 1);
+        write_to_q(buf, &snoop_by_ptr->snoop_by->desc->output, 1);
+//      }
 
       snoop_by_ptr = snoop_by_ptr->next;
     }
-    ibuf = strlen(buf);
 
+    ibuf = strlen(buf);
     /* Go through and convert/strip color symbols -Ithor */
     for( i = 0, j = 0; (i < ibuf) && (j < (sizeof(buffer))); i++ )
     {
@@ -2396,9 +2389,9 @@ int process_output(P_desc t)
       !IS_SET(GET_PLYR(t->character)->specials.act, PLR_COMPACT))
   {
     if (write_to_descriptor(t->descriptor, "\r\n") < 0)
-        {
-                      return (-1);
-        }
+    {
+      return (-1);
+    }
   }
   return (1);
 }
@@ -2419,8 +2412,6 @@ int process_input(P_desc t)
   sofar = 0;
   flag = 0;
   begin = strlen(t->buf);
-
-
 
   /*
    * Read in some stuff
@@ -2455,7 +2446,6 @@ int process_input(P_desc t)
   }
 
   while (!ISNEWL(*(t->buf + begin + sofar - 1)));
- 
 
   *(t->buf + begin + sofar) = 0;
 
@@ -2568,7 +2558,7 @@ int process_input(P_desc t)
 */
       while (snoop_by_ptr)
       {
-        write_to_q("% ", &snoop_by_ptr->snoop_by->desc->output, 1);
+        write_to_q("&+c%&n ", &snoop_by_ptr->snoop_by->desc->output, 1);
         write_to_q(tmp, &snoop_by_ptr->snoop_by->desc->output, 1);
         write_to_q("\r\n", &snoop_by_ptr->snoop_by->desc->output, 1);
 
