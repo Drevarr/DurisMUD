@@ -530,13 +530,11 @@ int calculate_undead_time(P_char ch, int circle, bool bStatOnly)
 {
   float    remem_time, time_mult, tick_factor;
 
-  if(!(ch) ||
-     !IS_ALIVE(ch))
+  if( !IS_ALIVE(ch) )
   {
-    return 9999; // In effect, creates a huge mem time due to this
-                     // strange situation.
-  } 
-  
+    return 9999; // In effect, creates a huge mem time due to this strange situation.
+  }
+
   if(IS_SEMI_CASTER(ch))
   {
     time_mult = 1.7;
@@ -546,13 +544,15 @@ int calculate_undead_time(P_char ch, int circle, bool bStatOnly)
     time_mult = 0.85;
   }
 
+  // Around 14-20
   tick_factor = MAX(1, STAT_INDEX(GET_C_POW(ch)));
-  
+
+  // For every point above the 'racial 100', subtract .7 points from tick_factor.
   if(GET_C_INT(ch) > stat_factor[(int) GET_RACE(ch)].Int)
   {
     tick_factor += 0.7 * (GET_C_INT(ch) - (stat_factor[(int) GET_RACE(ch)].Int));
   }
-  
+
   if(GET_C_WIS(ch) > stat_factor[(int) GET_RACE(ch)].Wis)
   {
     tick_factor += 0.7 * (GET_C_WIS(ch) - (stat_factor[(int) GET_RACE(ch)].Wis)) / 2;
@@ -560,13 +560,11 @@ int calculate_undead_time(P_char ch, int circle, bool bStatOnly)
 
   remem_time = (int) ((time_mult * lfactor[circle - 1]) / (fake_sqrt_table[GET_LEVEL(ch) - 1] * tick_factor));
 
-  if(!bStatOnly &&
-     IS_AFFECTED(ch, AFF_MEDITATE) &&
-     GET_CHAR_SKILL(ch, SKILL_MEDITATE) > number(0, 100))
+  if( !bStatOnly && IS_AFFECTED(ch, AFF_MEDITATE) && GET_CHAR_SKILL(ch, SKILL_MEDITATE) > number(0, 100) )
   {
     remem_time *= 0.5;
   }
-  
+
   return (int) remem_time;
 }
 
@@ -1188,8 +1186,7 @@ void do_assimilate(P_char ch, char *argument, int cmd)
     return;
   }
 
-  sprintf(Gbuf1, "You currently have the following spell "
-          "slots available:\n");
+  sprintf(Gbuf1, "You currently have the following spell slots available:\n");
   for (circle = 1; circle <= get_max_circle(ch); circle++)
   {
     available = ch->specials.undead_spell_slots[circle];
@@ -1239,8 +1236,7 @@ void do_assimilate(P_char ch, char *argument, int cmd)
     if (IS_ANGEL(ch))
       send_to_char("\n&+WYou call to the heavens above for the gift of magic.\n", ch);
     else
-      send_to_char("&+LYou begin to invoke evil and assimilate the "
-                   "powers of darkness.\n", ch);
+      send_to_char("&+LYou begin to invoke evil and assimilate the powers of darkness.\n", ch);
     //if (!IS_AFFECTED2(ch, AFF2_MEMORIZING))
     //  CharWait(ch, 1 * PULSE_VIOLENCE);
   }
