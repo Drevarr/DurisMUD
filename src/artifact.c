@@ -2556,13 +2556,12 @@ void arti_clear_sql( P_char ch, char *arg )
   char      buf[MAX_STRING_LENGTH];
   int       vnum;
   P_obj     arti;
-  arti_data artidata;
 
   if( !*arg || !strcmp(arg, "?") || !strcmp(arg, "help") )
   {
     send_to_char( "This command clears the arti data for a specific arti vnum.\n\r", ch );
     send_to_char( "It should only be used by those who know what they're doing.\n\r", ch );
-    send_to_char( "This will clear the entire entry from the DB, be forewarned.\n\r", ch );
+    send_to_char( "This will delete the entire entry from the Mortal and Immortal DB, be forewarned.\n\r", ch );
     return;
   }
   if( GET_LEVEL(ch) < FORGER )
@@ -2582,29 +2581,27 @@ void arti_clear_sql( P_char ch, char *arg )
     send_to_char("&+WThat's not a vnum for any object, wth?&n\n\r", ch );
     return;
   }
-  if( !IS_ARTIFACT(arti) )
+  if( IS_ARTIFACT(arti) )
   {
     act("$p &+Wis not an artifact.", FALSE, ch, arti, 0, TO_CHAR);
   }
-  else if( !get_artifact_data_sql(vnum, &artidata) )
+
+  // Remove from artifacts table:
+  if( qry( "DELETE FROM artifacts WHERE vnum = '%d'", vnum ) )
   {
-    send_to_char("&+WThere is no data for this artifact atm.&n\n\r", ch );
-  }
-  else if( !remove_owned_artifact_sql(arti, -1) )
-  {
-    send_to_char("&+WFailed to remove entry from DB.  wth?&n\n\r", ch );
+    act("&+WThe artifact data for $p&+W has been cleared from the Immortal list.  You fool!", FALSE, ch, arti, 0, TO_CHAR);
+    if( qry( "DELETE FROM artifacts_mortal WHERE vnum = '%d'", vnum ) )
+    {
+      act("&+WThe artifact data for $p&+W has been cleared from the Mortal list.  You fool!", FALSE, ch, arti, 0, TO_CHAR);
+    }
+    else
+    {
+      send_to_char("&+WFailed to remove entry from mortal DB.&n\n\r", ch );
+    }
   }
   else
   {
-    act("&+WThe artifact data for $p&+W has been cleared.  You fool!", FALSE, ch, arti, 0, TO_CHAR);
-    send_to_char("If you want to undo this, the data was:\n\r", ch );
-    sprintf( buf, "&+Yvnum: &n%d&+Y, owned: &n%c&+Y, locType: &n%d&+Y, location: &n%d&+Y, timer: &n%ld&+Y, type: &n%d&+Y.&n\n\r",
-      artidata.vnum, artidata.owned ? 'Y' : 'N', artidata.locType, artidata.location, artidata.timer, artidata.type);
-    send_to_char( buf, ch );
-    send_to_char("If you want to undo this and are an &+rOverlord&n, just execute (&+Wdo not miss the where-vnum part!&n):\n\r", ch );
-    sprintf( buf, "sql UPDATE artifacts SET owned='%c', locType=%d, location=%d, timer=FROM_UNIXTIME(%lu), type=%d where vnum=%d\n\r",
-      artidata.owned ? 'Y' : 'N', artidata.locType, artidata.location, artidata.timer, artidata.type, artidata.vnum );
-    send_to_char( buf, ch );
+    send_to_char("&+WFailed to remove entry from main DB.  wth?&n\n\r", ch );
   }
   extract_obj(arti);
 }
