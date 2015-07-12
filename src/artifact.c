@@ -3194,18 +3194,18 @@ void event_artifact_check_bind_sql( P_char ch, P_char vict, P_obj obj, void * ar
               qry("UPDATE artifact_bind SET owner_pid = %d, timer = %ld WHERE vnum = %d", artidata.location, curr_time, list->vnum);
               logit(LOG_ARTIFACT, "event_artifact_check_bind_sql(): artifact '%s' %d merged with '%s' %d's soul.",
                 arti ? OBJ_SHORT(arti) : "NULL", list->vnum, J_NAME(owner), artidata.location );
-              debug( "%3d: artifact '%s'%6d merged with '%s' %d's soul.",
+              debug( "%3d: artifact '%s&n'%6d merged with '%s' %d's soul.",
                 ++counter, pad_ansi( arti ? OBJ_SHORT(arti) : "NULL", 35, TRUE).c_str(), list->vnum, J_NAME(owner), artidata.location );
             }
             else
             {
-              debug( "%3d: artifact '%s'%6d is ready to merge, but owner '%s' %d not online.",
+              debug( "%3d: artifact '%s&n'%6d is ready to merge, but owner '%s' %d not online.",
                 ++counter, pad_ansi( arti ? OBJ_SHORT(arti) : "NULL", 35, TRUE).c_str(), list->vnum, get_player_name_from_pid(artidata.location), artidata.location );
             }
           }
           else if( list->timer > curr_time )
           {
-            debug( "%3d: artifact '%s'%6d's timer is later than curr_time.",
+            debug( "%3d: artifact '%s&n'%6d's timer is later than curr_time.",
               ++counter, pad_ansi( arti ? OBJ_SHORT(arti) : "NULL", 35, TRUE).c_str(), list->vnum, J_NAME(owner), artidata.location );
             qry("UPDATE artifact_bind SET owner_pid = %d, timer = %ld WHERE vnum = %d", artidata.location, curr_time, list->vnum);
           }
@@ -3213,7 +3213,7 @@ void event_artifact_check_bind_sql( P_char ch, P_char vict, P_obj obj, void * ar
       }
       else
       {
-        debug( "%3d: artifact '%s'%6d is not on a player atm.",
+        debug( "%3d: artifact '%s&n'%6d is not on a player atm.",
           ++counter, pad_ansi( arti ? OBJ_SHORT(arti) : "NULL", 35, TRUE).c_str(), list->vnum );
       }
     }
@@ -3221,7 +3221,7 @@ void event_artifact_check_bind_sql( P_char ch, P_char vict, P_obj obj, void * ar
     {
       logit(LOG_ARTIFACT, "event_artifact_check_bind_sql(): artifact '%s' %d is unowned, but bound.",
         arti ? OBJ_SHORT(arti) : "NULL", list->vnum );
-      debug( "%3d: artifact '%s' %d is unowned, but bound.  Setting owner_pid = -1 and timer = 0.",
+      debug( "%3d: artifact '%s&n' %d is unowned, but bound.  Setting owner_pid = -1 and timer = 0.",
         ++counter, pad_ansi( arti ? OBJ_SHORT(arti) : "NULL", 35, TRUE).c_str(), list->vnum );
       qry("UPDATE artifact_bind SET owner_pid = -1, timer = 0 WHERE vnum = %d", list->vnum);
     }
@@ -3282,7 +3282,7 @@ void arti_fixit_sql( P_char ch )
     {
       sql_update_bind_data( vnum, &location, &timer);
       qry("UPDATE artifacts SET timer = FROM_UNIXTIME(%lu) WHERE vnum = %d", new_time, vnum);
-      send_to_char_f( ch, "%3d) '%s'%6d - timer reset and now owned by '%s' %d.\n\r",
+      send_to_char_f( ch, "%3d) '%s&n'%6d - timer reset and now owned by '%s' %d.\n\r",
         ++counter, pad_ansi( arti ? OBJ_SHORT(arti) : "NULL", 35, TRUE).c_str(), vnum, get_player_name_from_pid(location), location );
     }
   }
