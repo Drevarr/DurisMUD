@@ -3349,6 +3349,12 @@ void do_quaff(P_char ch, char *argument, int cmd)
     return;
   }
 
+  if( GET_OBJ_VNUM(temp) == VOBJ_EPIC_BOTTLE_EPICS && GET_LEVEL(ch) < 46 )
+  {
+    act("&+CYou suddenly feel.. like doing some exp so you can quaff $p!\r\n", TRUE, ch, temp, 0, TO_CHAR);
+    return;
+  }
+
   if(affected_by_spell(ch, TAG_POTION_TIMER))
   {
     send_to_char("Your body cannot yet handle another jolt of magical influence!\r\n", ch);
@@ -3385,6 +3391,7 @@ void do_quaff(P_char ch, char *argument, int cmd)
 
   if(equipped)
     unequip_char(ch, HOLD);
+
   //epic potion
   if(GET_OBJ_VNUM(temp) == VOBJ_EPIC_BOTTLE_EPICS)
   {
