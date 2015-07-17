@@ -32,7 +32,8 @@
 #include "map.h"
 #include "ctf.h"
 #include "handler.h"
-
+#include "vnum.obj.h"
+#include "vnum.room.h"
 /*
    extern variables
  */
@@ -2022,57 +2023,67 @@ int tiamat(P_char ch, P_char pl, int cmd, char *arg)
    */
   if (cmd == CMD_SET_PERIODIC)
     return TRUE;
-    
-  if(IS_IMMOBILE(ch))
-    return false;
-    
-  if(cmd == CMD_DEATH)
+
+  if( IS_IMMOBILE(ch) )
+    return FALSE;
+
+  if( cmd == CMD_DEATH )
   {
-    debug("&+LTiamat death called.");
     act("&+WWith her very last breath, &+LTiamat &+Wcloses her eyes.\n"
         "&+LTiamat's &+Wbody begins to shimmer brilliantly, her flesh becoming more and more translucent!\n"
         "&+WAs the light subsides, only a few pieces of her once great body remain.", FALSE, ch, 0, 0, TO_ROOM);
 
-    for (t_obj = ch->carrying; t_obj; t_obj = next)
+    for( t_obj = ch->carrying; t_obj; t_obj = next )
     {
       next = t_obj->next_content;
       obj_from_char(t_obj);
       obj_to_room(t_obj, ch->in_room);
     }
-    
-    for (i = 0; i < MAX_WEAR; i++)
+
+    for( i = 0; i < MAX_WEAR; i++ )
       if (ch->equipment[i])
         obj_to_room(unequip_char(ch, i), ch->in_room);
-    
-    P_obj obj = read_object(55080, VIRTUAL);
-    obj_to_room(obj, ch->in_room);
-    obj->value[0] = SECS_PER_MUD_DAY / PULSE_MOBILE * WAIT_SEC;
 
-    return true;
+    P_obj obj = read_object(VOBJ_WH_DRAGONHEART_TIAMAT, VIRTUAL);
+    obj_to_room(obj, ch->in_room);
+    // 3 mud days to complete (object ticks are the same as mob ticks.. *sigh*).
+    // (Sec / MudDay) * (Pulse / Sec) * (ObjPulse / Pulse) = ObjPulse / MudWeek
+    obj->value[0] = (3 * SECS_PER_MUD_DAY * WAIT_SEC) / PULSE_MOBILE;
+    // Time in minutes = ObjPulse * (Pulse / ObjPulse) * (Sec / Pulse) = Secs
+    obj->value[1] = ((obj->value[0] * PULSE_MOBILE) / WAIT_SEC);
+    // Secs / 3600 = Hrs
+    obj->value[2] =  obj->value[1] / 3600;
+    // (Secs / 60) % 60 = Remainder of Mins
+    obj->value[3] = (obj->value[1] / 60) % 60;
+    // Secs % 60 = Remainder of Secs.
+    obj->value[4] = (obj->value[1]) % 60;
+    debug("&+LTiamat death: Heart decays in &+C%d&+L obj ticks = &+C%d&+L sec = &+C%d&+L:&+C%02d&+L:&+C%02d&+L.&n",
+      obj->value[0], obj->value[1], obj->value[2], obj->value[3], obj->value[4]);
+    logit(LOG_OBJ, "Tiamat death: Heart decays in %d obj ticks = %d sec = %d:%02d:%02d.",
+      obj->value[0], obj->value[1], obj->value[2], obj->value[3], obj->value[4]);
+    // Value1 is break chance haha.. need to 0 that out.
+    obj->value[1] = 0;
+
+    return TRUE;
   }
 
-  if (ch->in_room == real_room(19617))
+  if (ch->in_room == real_room(VROOM_TIAMAT_HOME) )
   {
-    if(cmd == CMD_SOUTH &&
-      !IS_TRUSTED(pl))
+    if( cmd == CMD_SOUTH && !IS_TRUSTED(pl) )
     {
-      act("$N &+Rgrowls in anger, as you approach $S treasure!", FALSE, pl, 0,
-          ch, TO_CHAR);
-      act
-        ("$N &+Rgrowls in anger, as $n&+R makes an attempt at $S treasure!",
-         FALSE, pl, 0, ch, TO_ROOM);
-      
+      act("$N &+Rgrowls in anger, as you approach $S treasure!", FALSE, pl, 0, ch, TO_CHAR);
+      act("$N &+Rgrowls in anger, as $n&+R makes an attempt at $S treasure!", FALSE, pl, 0, ch, TO_ROOM);
+
       MobStartFight(ch, pl);
-      
       return TRUE;
     }
-    
-    if ((cmd == CMD_SLAP))
+
+    if( (cmd == CMD_SLAP) )
     {
       MobStartFight(ch, pl);
       return FALSE;
     }
-    
+
     if (affected_by_spell(ch, SPELL_SILENCE))
     {
       act("&+LWith a mighty &+RROAR&+l, &+LTiamat shreds the blanket of silence!", 0,

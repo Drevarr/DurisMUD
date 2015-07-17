@@ -2175,9 +2175,9 @@ void assign_objects(void)
   obj_index[real_object0(53663)].func.obj = nuke_damnation; 
   obj_index[real_object0(97932)].func.obj = collar_frost; 
   obj_index[real_object0(97931)].func.obj = collar_flames; 
-  obj_index[real_object0(55080)].func.obj = dragon_heart_decay; 
-  obj_index[real_object0(55081)].func.obj = dragon_heart_decay; 
-  obj_index[real_object0(55082)].func.obj = dragon_heart_decay; 
+  obj_index[real_object0(VOBJ_WH_DRAGONHEART_TIAMAT)].func.obj = dragon_heart_decay; 
+  obj_index[real_object0(VOBJ_WH_DRAGONHEART_BAHAMUT)].func.obj = dragon_heart_decay; 
+  obj_index[real_object0(VOBJ_WH_DRAGONHEART_DRAGONNIA)].func.obj = dragon_heart_decay; 
   obj_index[real_object0(55420)].func.obj = lancer_gift; 
   obj_index[real_object0(55077)].func.obj = splinter;
   
@@ -2308,7 +2308,7 @@ void assign_rooms(void)
   }
 
   world[real_room0(19890)].funct = GithyankiCave;
- // world[real_room0(19617)].funct = TiamatThrone;
+ // world[real_room0(VROOM_TIAMAT_HOME)].funct = TiamatThrone;
   
   /* inns */
   world[real_room0(18729)].funct = inn;

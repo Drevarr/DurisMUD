@@ -104,10 +104,10 @@ int wh_corpse_decay(P_obj obj, P_char ch, int cmd, char *args)
   {
     P_obj    corpse;
 
-    corpse = read_object(VOBJ_WINTERHAVEN_ROT_CORPSE, VIRTUAL);
+    corpse = read_object(VOBJ_WH_ROTTING_CORPSE, VIRTUAL);
     if (!corpse)
     {
-      logit(LOG_OBJ, "wh_corpse_decay: unable to load obj #%d", VOBJ_WINTERHAVEN_ROT_CORPSE);
+      logit(LOG_OBJ, "wh_corpse_decay: unable to load obj #%d", VOBJ_WH_ROTTING_CORPSE);
       return FALSE;
     }
     corpse->weight = obj->weight;
@@ -4148,10 +4148,10 @@ int key_mold(P_obj obj, P_char ch, int cmd, char *args)
   {
     P_obj    corpse;
 
-    corpse = read_object(VOBJ_WINTERHAVEN_ROT_CORPSE, VIRTUAL);
+    corpse = read_object(VOBJ_WH_ROTTING_CORPSE, VIRTUAL);
     if (!corpse)
     {
-      logit(LOG_EXIT, "wh_corpse_decay: unable to load obj #%d.", VOBJ_WINTERHAVEN_ROT_CORPSE);
+      logit(LOG_EXIT, "wh_corpse_decay: unable to load obj #%d.", VOBJ_WH_ROTTING_CORPSE);
       raise(SIGSEGV);
     }
     corpse->weight = obj->weight;
@@ -4232,15 +4232,13 @@ int tiamat_human_to_rareloads(P_char ch, P_char pl, int cmd, char *arg)
 
 int dragonnia_heart(P_char ch, P_char pl, int cmd, char *arg)
 {
-  if (cmd == CMD_DEATH)
-  {
-    P_obj    obj;
+  P_obj    obj;
 
-    obj = read_object(VOBJ_WINTERHAVEN_HEART_DRAGONNIA, VIRTUAL);
-    if (!(obj))
+  if( cmd == CMD_DEATH )
+  {
+    if( !(obj = read_object(VOBJ_WH_DRAGONHEART_DRAGONNIA, VIRTUAL)) )
     {
-      logit(LOG_EXIT, "winterhaven_object: death object for mob %d doesn't exist",
-            GET_VNUM(ch));
+      logit(LOG_EXIT, "dragonnia_heart: could not load heart vnum %d", VOBJ_WH_DRAGONHEART_DRAGONNIA );
       raise(SIGSEGV);
     }
 
@@ -4250,7 +4248,23 @@ int dragonnia_heart(P_char ch, P_char pl, int cmd, char *arg)
     act("&+GDragonnia&+W's body begins to shimmer brilliantly, her flesh becoming more and more translucent!&n", FALSE, ch, obj, obj, TO_ROOM);
     act("&+WAs the light subsides, only a few pieces of her once great body remain.&n", FALSE, ch, obj, obj, TO_ROOM);
 
-    obj->value[0] = SECS_PER_MUD_DAY / PULSE_MOBILE * WAIT_SEC;
+    // 3 mud days to complete (object ticks are the same as mob ticks.. *sigh*).
+    // (Sec / MudDay) * (Pulse / Sec) * (ObjPulse / Pulse) = ObjPulse / MudWeek
+    obj->value[0] = (3 * SECS_PER_MUD_DAY * WAIT_SEC) / PULSE_MOBILE;
+    // Time in minutes = ObjPulse * (Pulse / ObjPulse) * (Sec / Pulse) = Secs
+    obj->value[1] = ((obj->value[0] * PULSE_MOBILE) / WAIT_SEC);
+    // Secs / 3600 = Hrs
+    obj->value[2] =  obj->value[1] / 3600;
+    // (Secs / 60) % 60 = Remainder of Mins
+    obj->value[3] = (obj->value[1] / 60) % 60;
+    // Secs % 60 = Remainder of Secs.
+    obj->value[4] = (obj->value[1]) % 60;
+    debug("&+GDragonnia death: Heart decays in &+C%d&+G obj ticks = &+C%d&+G sec = &+C%d&+G:&+C%02d&+G:&+C%02d&+G.&n",
+      obj->value[0], obj->value[1], obj->value[2], obj->value[3], obj->value[4]);
+    logit(LOG_OBJ, "Dragonnia death: Heart decays in %d obj ticks = %d sec = %d:%02d:%02d.",
+      obj->value[0], obj->value[1], obj->value[2], obj->value[3], obj->value[4]);
+    // Value1 is break chance haha.. need to 0 that out.
+    obj->value[1] = 0;
 
     return FALSE;
   }
@@ -4260,49 +4274,126 @@ int dragonnia_heart(P_char ch, P_char pl, int cmd, char *arg)
 
 int dragon_heart_decay(P_obj obj, P_char ch, int cmd, char *args)
 {
+  int    loc;
+  P_char carrier;
+  P_obj  decayed_heart;
 
   if( cmd == CMD_SET_PERIODIC )
     return TRUE;
+
+  if( cmd == CMD_EXAMINE )
+  {
+    generic_find(args, FIND_OBJ_INV | FIND_OBJ_ROOM | FIND_OBJ_EQUIP | FIND_CHAR_ROOM,
+      ch, &carrier, &decayed_heart);
+
+    if( obj == decayed_heart )
+    {
+      // obj->value[0] == ObjTicks to decay.
+      // ObjTick * (MudTick / ObjTick) / ((MudTick / Sec) * (Sec / MudDay)) == MudDays left (floored to int).
+      switch( (obj->value[0] * PULSE_MOBILE) / (WAIT_SEC * SECS_PER_MUD_DAY)  )
+      {
+        case 2:
+          send_to_char( "&+WYou still have over &+B2&+W days before this &+rheart&+W goes bad.&n\n", ch );
+          break;
+        case 1:
+          send_to_char( "&+WYou have over &+B1&+W day before this &+rheart&+W goes bad.&n\n", ch );
+          break;
+        case 0:
+          send_to_char( "&+WYou have less than &+B1&+W day before this &+rheart&+W goes bad.  Hurry!&n\n", ch );
+          break;
+        default:
+          send_to_char_f( ch, "&+WIt seems this &+rheart&+W will last for &+B%d&+W days, no worries.&n\n",
+            (obj->value[0] * PULSE_MOBILE) / (WAIT_SEC * SECS_PER_MUD_DAY) );
+          break;
+      }
+      return TRUE;
+    }
+    return FALSE;
+  }
 
   if( cmd != CMD_PERIODIC )
     return FALSE;
 
   if( !obj->value[0]-- )
   {
-    P_obj    corpse;
 
-    corpse = read_object(VOBJ_WINTERHAVEN_ROT_HEART, VIRTUAL);
-    if (!corpse)
+    if( !(decayed_heart = read_object(VOBJ_WH_DRAGONHEART_ROTTED, VIRTUAL)) )
     {
-      logit(LOG_EXIT, "wh_corpse_decay: unable to load obj #%d.", VOBJ_WINTERHAVEN_ROT_HEART);
+      logit(LOG_EXIT, "wh_corpse_decay: unable to load decayed heart #%d.", VOBJ_WH_DRAGONHEART_ROTTED);
       raise(SIGSEGV);
     }
-    corpse->weight = obj->weight;
-    set_obj_affected(corpse, 15000, TAG_OBJ_DECAY, 0);
+    decayed_heart->weight = obj->weight;
+    set_obj_affected(decayed_heart, 15000, TAG_OBJ_DECAY, 0);
 
-    if (OBJ_CARRIED(obj))
+    if( OBJ_CARRIED(obj) )
     {
-      P_char   carrier;
-
       carrier = obj->loc.carrying;
       send_to_char("Something starts to smell really bad...\r\n", carrier);
-      obj_to_char(corpse, carrier);
-
+      obj_to_char(decayed_heart, carrier);
     }
-    else if (OBJ_ROOM(obj))
+    else if( OBJ_WORN(obj) )
+    {
+      carrier = obj->loc.wearing;
+      send_to_char("Something starts to smell really bad...\r\n", carrier);
+      // This _should_ only be HOLD = 18.
+      for( loc = 0; loc < MAX_WEAR; loc++ )
+      {
+        if( carrier->equipment[loc] == obj )
+        {
+          break;
+        }
+      }
+      if( loc == MAX_WEAR )
+      {
+        debug( "Dragon heart '%s' %d supposedly equipped but not!", OBJ_SHORT(obj), GET_OBJ_VNUM(obj) );
+        logit( LOG_OBJ, "Dragon heart '%s' %d supposedly equipped but not!", OBJ_SHORT(obj), GET_OBJ_VNUM(obj) );
+        obj_to_char(decayed_heart, carrier);
+      }
+      else
+      {
+        if( loc != HOLD )
+        {
+          debug( "Dragon heart '%s' %d equipped in non-hold slot %d!", OBJ_SHORT(obj), GET_OBJ_VNUM(obj), loc );
+          logit( LOG_OBJ, "Dragon heart '%s' %d equipped in non-hold slot %d!", OBJ_SHORT(obj), GET_OBJ_VNUM(obj), loc );
+        }
+        // Remove the heart.
+        unequip_char( carrier, loc );
+        // And put decayed heart in its place.
+        equip_char( carrier, decayed_heart, loc, TRUE);
+      }
+    }
+    else if( OBJ_ROOM(obj) )
     {
       send_to_room("Something starts to smell really bad...\r\n", obj->loc.room);
-      obj_to_room(corpse, obj->loc.room);
-
+      obj_to_room(decayed_heart, obj->loc.room);
     }
-    else if (OBJ_INSIDE(obj))
+    else if( OBJ_INSIDE(obj) )
     {
-      obj_to_obj(corpse, obj->loc.inside);
+      obj_to_obj(decayed_heart, obj->loc.inside);
     }
     else
     {
-      extract_obj(corpse);
+      extract_obj(decayed_heart);
     }
+    switch( GET_OBJ_VNUM(obj) )
+    {
+      case VOBJ_WH_DRAGONHEART_TIAMAT:
+        debug( "dragon_heart_decay: &+LTiamat's heart decayed.&n" );
+        logit( LOG_OBJ, "dragon_heart_decay: Tiamat's heart decayed." );
+        break;
+      case VOBJ_WH_DRAGONHEART_DRAGONNIA:
+        debug( "dragon_heart_decay: &+GDragonnia's heart decayed.&n" );
+        logit( LOG_OBJ, "dragon_heart_decay: Dragonnia's heart decayed." );
+        break;
+      case VOBJ_WH_DRAGONHEART_BAHAMUT:
+        debug( "dragon_heart_decay: &+WBahamut's heart decayed.&n" );
+        logit( LOG_OBJ, "dragon_heart_decay: Bahamut's heart decayed." );
+        break;
+      default:
+        debug( "dragon_heart_decay: Unknown item decaying - '%s' %d?!?", OBJ_SHORT(obj), GET_OBJ_VNUM(obj) );
+        break;
+    }
+
     extract_obj(obj, TRUE); // Not an arti, but 'in game.'
     return TRUE;
   }

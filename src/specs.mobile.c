@@ -5919,55 +5919,63 @@ int goodie_guardian(P_char ch, P_char pl, int cmd, char *arg)
 
 
 #define BAHAMUT_HELPER_LIMIT    3
-
-
 int bahamut(P_char ch, P_char pl, int cmd, char *arg)
 {
   register P_char i;
   int num, count = 0;
   P_char   dragon;
-  P_obj t_obj, next;
+  P_obj t_obj, next, heart;
 
-  if (cmd == CMD_SET_PERIODIC)
+  if( cmd == CMD_SET_PERIODIC )
   {
     return TRUE;
   }
-  if (!ch)
+
+  if( cmd == CMD_DEATH )
   {
-    return FALSE;
-  }
-  
-  if(cmd == CMD_DEATH)
-  {
-    debug("&+WBahamut death called.&n");
     act("&+WWith his very last breath, Bahamut closes his eyes.\n&n"
     "&+WBahamut's body begins to shimmer brilliantly, his flesh becoming more and more translucent!\n&n"
     "&+WAs the light subsides, only a few pieces of his once great body remain.&n", FALSE, ch, 0, 0, TO_ROOM);
 
-    for (t_obj = ch->carrying; t_obj; t_obj = next)
+    for( t_obj = ch->carrying; t_obj; t_obj = next )
     {
       next = t_obj->next_content;
       obj_from_char(t_obj);
       obj_to_room(t_obj, ch->in_room);
     }
-    
+
     for (num = 0; num < MAX_WEAR; num++)
       if (ch->equipment[num])
         obj_to_room(unequip_char(ch, num), ch->in_room);
-        
-    P_obj obj = read_object(55081, VIRTUAL);
-    obj_to_room(obj, ch->in_room);
-    obj->value[0] = SECS_PER_MUD_DAY / PULSE_MOBILE * WAIT_SEC;
 
-    return true;
+    heart = read_object(VOBJ_WH_DRAGONHEART_BAHAMUT, VIRTUAL);
+    obj_to_room(heart, ch->in_room);
+    // 3 mud days to complete (object ticks are the same as mob ticks.. *sigh*).
+    // (Sec / MudDay) * (Pulse / Sec) * (ObjPulse / Pulse) = ObjPulse / MudWeek
+    heart->value[0] = (3 * SECS_PER_MUD_DAY * WAIT_SEC) / PULSE_MOBILE;
+    // Time in minutes = ObjPulse * (Pulse / ObjPulse) * (Sec / Pulse) = Secs
+    heart->value[1] = ((heart->value[0] * PULSE_MOBILE) / WAIT_SEC);
+    // Secs / 3600 = Hrs
+    heart->value[2] =  heart->value[1] / 3600;
+    // (Secs / 60) % 60 = Remainder of Mins
+    heart->value[3] = (heart->value[1] / 60) % 60;
+    // Secs % 60 = Remainder of Secs.
+    heart->value[4] = (heart->value[1]) % 60;
+    debug("&+WBahamut death: Heart decays in &+C%d&+W obj ticks = &+C%d&+W sec = &+C%d&+W:&+C%02d&+W:&+C%02d&+W.&n",
+      heart->value[0], heart->value[1], heart->value[2], heart->value[3], heart->value[4]);
+    logit(LOG_OBJ, "Bahamut death: Heart decays in %d obj ticks = %d sec = %d:%02d:%02d.",
+      heart->value[0], heart->value[1], heart->value[2], heart->value[3], heart->value[4]);
+    // Value1 is break chance haha.. need to 0 that out.
+    heart->value[1] = 0;
+    return TRUE;
   }
-  
-  if (cmd != 0)
+
+  if( cmd != CMD_PERIODIC )
   {
     return FALSE;
   }
-  
-  if (IS_FIGHTING(ch))
+
+  if( IS_FIGHTING(ch) )
   {
     /*
      * attempt to "summon" a silver dragon...only possible if less than BAHAMUT_HELP_LIMIT
@@ -6001,7 +6009,6 @@ int bahamut(P_char ch, P_char pl, int cmd, char *arg)
   }
 
   return FALSE;
-
 }
 
 #undef BAHAMUT_HELPER_LIMIT
