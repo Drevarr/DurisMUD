@@ -10373,24 +10373,16 @@ void remember(P_char ch, P_char victim, bool check_group_remember)
 {
   Memory  *tmp;
   struct group_list *gl;
-  
-  if(!(ch) ||
-     !(victim) ||
-     !IS_ALIVE(ch) ||
-     !IS_ALIVE(victim) ||
-     !IS_NPC(ch) ||
-     IS_NPC(victim) ||
-     IS_TRUSTED(victim) ||
-     !HAS_MEMORY(ch))
+
+  if( !IS_ALIVE(ch) || !IS_ALIVE(victim) || !IS_NPC(ch) || IS_NPC(victim)
+    || IS_TRUSTED(victim) || !HAS_MEMORY(ch) )
   {
     return;
   }
 
-  if(check_group_remember &&
-     NPC_REMEMBERS_GROUP(ch) &&
-     victim->group)
+  if( check_group_remember && NPC_REMEMBERS_GROUP(ch) && victim->group )
   {
-    for (gl = victim->group; gl; gl = gl->next)
+    for( gl = victim->group; gl; gl = gl->next )
     {
       if (ch->in_room == gl->ch->in_room)
       {
@@ -10403,7 +10395,7 @@ void remember(P_char ch, P_char victim, bool check_group_remember)
   }
 
   /* don't let golems aggro their own guildees */
-  if((IS_OP_GOLEM(ch) || IS_GH_GOLEM(ch)) && (GET_A_NUM(ch) == GET_A_NUM(victim)))
+  if( (IS_OP_GOLEM(ch) || IS_GH_GOLEM(ch)) && (GET_A_NUM(ch) == GET_A_NUM(victim)) )
   {
     return;
   }
@@ -10422,40 +10414,40 @@ void remember(P_char ch, P_char victim, bool check_group_remember)
 }
 
 
-/* make ch forget victim */
-void forget(P_char ch, P_char victim)
+// Make ch forget victim
+// Returns true iff successful (ch was remembering victim and is no longer).
+bool forget(P_char ch, P_char victim)
 {
   Memory  *curr, *prev = NULL;
+  int pid;
 
+  // PCs don't have memory, cannot call get_pid on npc.
+  // This handles ch == victim since, if ch==victim, !NPC || NPC == true.
+  if( !IS_NPC(ch) || IS_NPC(victim) )
+   return FALSE;
 
-  if(!IS_NPC(ch))
-    return;
+  if( !(curr = ch->only.npc->memory) )
+    return FALSE;
 
-  if(IS_NPC(victim))
-   return; //cannot call get_pid on npc
+  pid = GET_PID(victim);
 
-
-  if(!(curr = ch->only.npc->memory))
-    return;
-
-  if(ch == victim)
-  return;
-
-  while (curr && (curr->pcID != GET_PID(victim)))
+  while( curr && (curr->pcID != pid) )
   {
     prev = curr;
     curr = curr->next;
   }
 
-  if(!curr)
-    return;                     /* person wasn't there at all. */
+  // Victim wasn't on ch's pissed list.
+  if( !curr )
+    return FALSE;
 
-  if(curr == ch->only.npc->memory)
+  if( curr == ch->only.npc->memory )
     ch->only.npc->memory = curr->next;
   else
     prev->next = curr->next;
 
   FREE(curr);
+  return TRUE;
 }
 
 int CheckFor_remember(P_char ch, P_char victim)

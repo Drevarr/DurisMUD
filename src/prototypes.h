@@ -1711,7 +1711,7 @@ int room_has_good_enemy(const P_char);
 int mobact_trapHandle(P_char);
 void remember(struct char_data *ch, struct char_data *victim);
 void remember(struct char_data *ch, struct char_data *victim, bool check_group_remember);
-void forget(struct char_data *ch, struct char_data *victim);
+bool forget(struct char_data *ch, struct char_data *victim);
 bool CheckForRemember(P_char ch);
 P_char FindDispelTarget(P_char, int);
 P_char FindJuiciestTarget(P_char);

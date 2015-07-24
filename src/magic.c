@@ -16600,8 +16600,7 @@ void spell_mass_heal(int level, P_char ch, char *arg, int type, P_char victim,
   }
 }
 
-void spell_prayer(int level, P_char ch, char *arg, int type, P_char victim,
-                     P_obj obj)
+void spell_prayer(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   P_char tch;
   P_char tvict;
@@ -16609,51 +16608,65 @@ void spell_prayer(int level, P_char ch, char *arg, int type, P_char victim,
   struct group_list *group;
   char Gbuf1[MAX_STRING_LENGTH];
   bool prayer;
-  
-  if(!(ch) ||
-     !IS_ALIVE(ch))
+
+  if( !IS_ALIVE(ch) )
   {
     return;
   }
-  
+
   god_name = get_god_name(ch);
-  
-  sprintf(Gbuf1,
-    "$n &+wopenly prays out to %s, asking for intervention!",
-    god_name);
+  sprintf(Gbuf1, "$n &+wopenly prays out to %s, asking for intervention!", god_name);
   act(Gbuf1, FALSE, ch, 0, 0, TO_ROOM);
-  sprintf(Gbuf1,
-    "&+wYou pray to&n %s.",
-    god_name);
+  sprintf(Gbuf1, "&+wYou pray to&n %s.", god_name);
   act(Gbuf1, FALSE, ch, 0, 0, TO_CHAR);
 
-  for (group = ch->group; group; group = group->next)
+  if( !ch->group && !IS_NPC(ch) )
   {
-    tch = group->ch;
-    prayer = false;
-    
-    if(IS_PC(tch) &&
-       tch->in_room == ch->in_room)
+    prayer = FALSE;
+
+    for( tvict = character_list; tvict; tvict = tvict->next )
     {
-      for (tvict = character_list; tvict; tvict = tvict->next)
+      if( IS_NPC(tvict) )
       {
-        if(IS_NPC(tvict))
+        if( forget(tvict, ch) )
         {
-          prayer = true;
-          forget(tvict, tch);
+          prayer = TRUE;
         }
       }
     }
-    
-    if(prayer)
+
+    if( prayer )
+      send_to_char("&+WYour past transgressions will no longer haunt you.&n\n", ch);
+    return;
+  }
+
+  for( group = ch->group; group; group = group->next )
+  {
+    tch = group->ch;
+    prayer = FALSE;
+
+    if( IS_PC(tch) && tch->in_room == ch->in_room )
     {
-      ("&+WYour past transgressions will no longer haunt you.&n\n", tch);
+      for( tvict = character_list; tvict; tvict = tvict->next )
+      {
+        if( IS_NPC(tvict) )
+        {
+          if( forget(tvict, tch) )
+          {
+            prayer = TRUE;
+          }
+        }
+      }
+    }
+
+    if( prayer )
+    {
+      send_to_char("&+WYour past transgressions will no longer haunt you.&n\n", tch);
     }
   }
 }
 
-void spell_mass_barkskin(int level, P_char ch, char *arg, int type,
-                         P_char victim, P_obj obj)
+void spell_mass_barkskin(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   LOOP_THRU_PEOPLE(victim, ch)
   {
