@@ -584,7 +584,7 @@ bool auction_list(P_char ch, char *args)
     string buy_price_str(buf);
 
     char mine_flag[] = " ";
-    if( GET_PID(ch) == seller_pid || GET_PID(ch) == winning_bidder_pid ) 
+    if( GET_PID(ch) == seller_pid || GET_PID(ch) == winning_bidder_pid )
       strcpy(mine_flag, "*");
 
     // Only display Buy it now price if there is one.
@@ -592,25 +592,25 @@ bool auction_list(P_char ch, char *args)
     {
       // Display vnum for gods.
       if( IS_TRUSTED(ch) )
-        sprintf(buff, "&+W%s)&+W%s&n[&+B%5d&n] %d &n%s &n[%s&n] &+WBid: &n%s&+W Buy: &n%s\r\n", 
-          auction_id, mine_flag, obj_vnum, quantity, pad_ansi(obj_short, 45).c_str(), 
-          format_time(secs_remaining).c_str(), pad_ansi(cur_price_str.c_str(), 6).c_str(), 
-          pad_ansi(buy_price_str.c_str(), 6).c_str() );
+        sprintf(buff, "&+W%s)&+W%s&n[&+B%6d&n] %d &n%s&n [%s&n] &+WBid: &n%s&+W Buy: &n%s\r\n",
+          auction_id, mine_flag, obj_vnum, quantity, pad_ansi(obj_short, 45, TRUE).c_str(),
+          format_time(secs_remaining).c_str(), pad_ansi(cur_price_str.c_str(), 7).c_str(),
+          pad_ansi(buy_price_str.c_str(), 7).c_str() );
       else
-        sprintf(buff, "&+W%s)&+W%s&n %d %s &n[%s&n] &+WBid: &n%s&+W Buy: &n%s\r\n",
-          auction_id, mine_flag, quantity, pad_ansi(obj_short, 45).c_str(), 
-          format_time(secs_remaining).c_str(), pad_ansi(cur_price_str.c_str(), 6).c_str(), 
+        sprintf(buff, "&+W%s)&+W%s&n %d %s&n [%s&n] &+WBid: &n%s&+W Buy: &n%s\r\n",
+          auction_id, mine_flag, quantity, pad_ansi(obj_short, 45, TRUE).c_str(),
+          format_time(secs_remaining).c_str(), pad_ansi(cur_price_str.c_str(), 6).c_str(),
           pad_ansi(buy_price_str.c_str(), 6).c_str() );
     }
     else
     {
       if( IS_TRUSTED(ch) )
-        sprintf(buff, "&+W%s)&+W%s&n[&+B%5d&n] %d &n%s &n[%s&n] &+WBid: &n%s&+W\r\n", 
-          auction_id, mine_flag, obj_vnum, quantity, pad_ansi(obj_short, 45).c_str(),
+        sprintf(buff, "&+W%s)&+W%s&n[&+B%6d&n] %d &n%s&n [%s&n] &+WBid: &n%s&+W\r\n",
+          auction_id, mine_flag, obj_vnum, quantity, pad_ansi(obj_short, 45, TRUE).c_str(),
           format_time(secs_remaining).c_str(), pad_ansi(cur_price_str.c_str(), 6).c_str() );
       else
-        sprintf(buff, "&+W%s)&+W%s&n %d %s &n[%s&n] &+WBid: &n%s&+W\r\n",
-          auction_id, mine_flag, quantity, pad_ansi(obj_short, 45).c_str(), 
+        sprintf(buff, "&+W%s)&+W%s&n %d %s&n [%s&n] &+WBid: &n%s&+W\r\n",
+          auction_id, mine_flag, quantity, pad_ansi(obj_short, 45, TRUE).c_str(),
           format_time(secs_remaining).c_str(), pad_ansi(cur_price_str.c_str(), 6).c_str() );
     }
 
