@@ -121,10 +121,10 @@ void do_achievements(P_char ch, char *arg, int cmd)
   //-----Achievement: You Strahd Me
   if(affected_by_spell(ch, ACH_YOUSTRAHDME))
     sprintf(buf3, "  &+L%-34s&+L%-50s&+L%s\r\n",
-        "&+LYou &+rStrahd &+LMe At Hello&n", "&+Bsee &+chelp achievements&n", "&+Bsee &+chelp you strahd me&n");
+        "&+LYou &+rStrahd &+LMe At Hello&n", "&+BSee &+chelp strahd&n", "&+Bsee &+chelp you strahd me&n");
   else
     sprintf(buf3, "  &+L%-34s&+L%-50s&+L%s\r\n",
-        "&+LYou &+rStrahd &+LMe At Hello&n", "&+wsee &+chelp achievements&n", "&+wan unknown reward&n");
+        "&+LYou &+rStrahd &+LMe At Hello&n", "&+wSee &+chelp strahd&n", "&+wan unknown reward&n");
   strcat(buf, buf3);
   //-----You Strahd Me
 
@@ -152,10 +152,10 @@ void do_achievements(P_char ch, char *arg, int cmd)
   //-----Achievement: Full Base Stats 100 - gellz
   if(affected_by_spell(ch, ACH_DEATHSDOOR))
     sprintf(buf2, "  &+L%-55s&+L%-45s&+L%s\r\n",
-        "&+MTo&+mug&+Mhe&+mn &+MU&+mp &+MPr&+min&+Mce&+mss&n", "&+BGet 100 in all stats", "&+BAbililty to use &+LDea&+wths&+L Do&+wor&n");
+        "&+MTo&+mug&+Mhe&+mn &+MU&+mp &+MPr&+min&+Mce&+mss&n", "&+BGet 100 in all stats(help toughen up)", "&+BAbililty to use &+LDea&+wths&+L Do&+wor&n");
   else
     sprintf(buf2, "  &+L%-55s&+L%-45s&+L%s\r\n",
-        "&+MTo&+mug&+Mhe&+mn &+MU&+mp &+MPr&+min&+Mce&+mss&n", "&+wGet 100 in all stats", "&+wAbililty to use &+LDea&+wths&+L Do&+wor&n");
+        "&+MTo&+mug&+Mhe&+mn &+MU&+mp &+MPr&+min&+Mce&+mss&n", "&+wGet 100 in all stats(help toughen up)", "&+wAbililty to use &+LDea&+wths&+L Do&+wor&n");
   strcat(buf, buf2);
   //-----END Achievement: Full Base Stats 100
 
