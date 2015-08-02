@@ -4445,8 +4445,7 @@ void do_attributes(P_char ch, char *argument, int cmd)
             GET_HITROLL(ch) + str_app[STAT_INDEX(GET_C_STR(ch))].tohit,
             GET_DAMROLL(ch) + str_app[STAT_INDEX(GET_C_STR(ch))].todam);
     if (IS_NPC(ch) || GET_CLASS(ch, CLASS_MONK))
-      sprintf(buf + strlen(buf), "   Barehand Damage: %dd%d",
-              ch->points.damnodice, ch->points.damsizedice);
+      sprintf(buf + strlen(buf), "   Barehand Damage: %dd%d", ch->points.damnodice, ch->points.damsizedice);
   }
   else
   {
@@ -6575,8 +6574,10 @@ void do_who(P_char ch, char *argument, int cmd)
       sprintf(buf, "      &+YHit Points = &n%d&+Y(&n%d&+Y), Movement Points = &n%d&+Y(&n%d&+Y), Alignment = &n%d\n",
         GET_HIT(tch), GET_MAX_HIT(tch), GET_VITALITY(tch), GET_MAX_VITALITY(tch), GET_ALIGNMENT(tch));
     }
-    
-    /*Wrecks heh! &+YArmor Class = &n0&+Y, Hitroll = &n0&+Y, Damroll = &n0\n*/
+
+    sprintf( buf + strlen(buf), "      &+YArmor Class = &n%d&+Y, Hitroll = &n%d&+Y, Damroll = &n%d\n",
+      calculate_ac(tch), GET_HITROLL(tch) + str_app[STAT_INDEX(GET_C_STR(tch))].tohit,
+      GET_DAMROLL(tch) + str_app[STAT_INDEX(GET_C_STR(tch))].todam );
 
     sprintf(buf3, "      &+YExperience to next level = &n%d&+Y.\n",
             (new_exp_table[GET_LEVEL(tch) + 1] - GET_EXP(tch)));
