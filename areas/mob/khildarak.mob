@@ -160,7 +160,7 @@ A 0 0 0 -1
 #17012
 duergar guard clansdwarf dwarf archer~
 a &+bduergar archer&N~
-a &+Bduergar archer&N scans the area intently
+a &+Bduergar archer&N scans the area intently.&N
 ~
 This duergar is fairly large, his bald head bearing a tatoo of a large
 fist. He gives you a stern glance.
@@ -356,7 +356,7 @@ PD 6 16384 0 -1
 #17027
 duergar dwarf elder~
 &+Lthe clan&N &+relder&N~
-&+LThe clan&N &+relder &+Ldemonstrates a battle skill&N
+&+LThe clan&N &+relder &+Ldemonstrates a battle skill.&N
 ~
 This duergar is average in size, a blood red tatoo in the shape of an axe
 can be seen on his bald head. His face conveys a feeling of experience
@@ -370,7 +370,7 @@ PD 6 16384 0 -1
 #17028
 duergar guard clansdwarf dwarf~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N watches the elder carefully
+a &+rclansdwarf&N watches the elder carefully.
 ~
 This duergar is fairly large, his bald head bearing a blood red tatto in the
 shape of an axe. He seems to ignore you on purpose.
@@ -558,7 +558,7 @@ PD 6 1 0 -1
 #17042
 guard duergar clansdwarf dwarf~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N guards the barter room
+a &+rclansdwarf&N guards the barter room.
 ~
 This duergar is fairly large, he bears the tatoo of a large fist, indicating
 that he is from clan Crushing Fist and has been hired to protect this area.
@@ -798,7 +798,7 @@ PD 6 1 0 -1
 #17060
 guard duergar clansdwarf dwarf~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N watches over the elders room
+a &+rclansdwarf&N watches over the elders room.
 ~
 This duergar is fairly large, he bears the tatoo of a large fist, indicating
 that he is from clan Crushing Fist and has been hired to protect this area.
@@ -1333,7 +1333,7 @@ PD 6 1 0 -1
 #17100
 duergar dwarf officer clansdwarf~
 the &+cguild officer&N~
-The clan &+cguild officer&N sits at his desk
+The clan &+cguild officer&N sits at his desk.
 ~
 This duergar is average sized, a small tatoo of an eel shows on his bald
 head. He seems quite busy.
@@ -1346,7 +1346,7 @@ PD 6 1 0 -1
 #17101
 duergar clansdwarf dwarf shopkeeper~
 a &+Bclansdwarf&N~
-a &+Bclansdwarf&N is selling the clans crafts
+a &+Bclansdwarf&N is selling the clans crafts.&N
 ~
 This dwarf is an average duergar, he doesnt seem to care if you buy
 anything or not as he watches you distrustfully. A small tatoo of an
@@ -1360,7 +1360,7 @@ PD 6 1 0 -1
 #17102
 duergar dwarf elder~
 &+bthe clan elder&N~
-&+bThe clan elder ignores you&N
+&+bThe clan elder ignores you.&N
 ~
 This duergar is average in size, a tatoo in the shape of an eel can be
 seen on his bald head. His face conveys a feeling of experience and wisdom.
@@ -1373,7 +1373,7 @@ PD 6 1 0 -1
 #17103
 duergar dwarf priest~
 a &+rcrafts priest&N~
-The clan &+rcrafts priest&N watches you silently
+The clan &+rcrafts priest&N watches you silently.
 ~
 This duergar is average in size, a tatoo of an eel shows on his bare
 forhead. He looks at you with stern silence.
@@ -1399,7 +1399,7 @@ PD 6 1 0 -1
 #17105
 duergar dwarf clansdwarf~
 a &+Bclansdwarf&N~
-a &+Bclansdwarf&N works on the clans crafts
+a &+Bclansdwarf&N works on the clans crafts.
 ~
 This duergar is very small, a tatoo of an eel can be seen on her
 bald head. She seems not to notice you as she goes about her craft.
@@ -1412,7 +1412,7 @@ PD 6 1 0 -1
 #17106
 duergar dwarf clansdwarf~
 a &+Bclansdwarf&N~
-a &+Bclansdwarf&N is cleaning fish&N
+a &+Bclansdwarf&N is cleaning fish.&N
 ~
 This duergar is very small, a tatoo of an eel can be seen on her
 bald head. She seems not to notice you as she goes about her craft.
@@ -1425,7 +1425,7 @@ PD 6 1 0 -1
 #17107
 duergar dwarf clansdwarf~
 a &+Bclansdwarf&N~
-a &+Bclansdwarf&N is trying to catch some fish&N
+a &+Bclansdwarf&N is trying to catch some fish.&N
 ~
 This duergar is very small, a tatoo of an eel can be seen on her
 bald head. She seems not to notice you as she goes about her craft.
@@ -1438,7 +1438,7 @@ PD 6 1 0 -1
 #17108
 duergar clansdwarf dwarf shopkeeper~
 a &+Bclansdwarf&N~
-a &+Bclansdwarf&N is selling the clans crafts
+a &+Bclansdwarf&N is selling the clans crafts.
 ~
 This dwarf is an average duergar, he doesnt seem to care if you buy
 anything or not as he watches you distrustfully. A tatoo of a bear claw
@@ -1452,7 +1452,7 @@ PD 6 1 0 -1
 #17109
 duergar dwarf clansdwarf~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N works on the clans crafts
+a &+rclansdwarf&N works on the clans crafts.
 ~
 This duergar is very small, a tatoo of a circle can be seen on her
 bald head. She seems not to notice you as she goes about her craft.
@@ -1465,7 +1465,7 @@ PD 6 1 0 -1
 #17110
 duergar dwarf officer clansdwarf~
 the &+cguild officer&N~
-The clan &+cguild officer&N sits at his desk
+The clan &+cguild officer&N sits at his desk.
 ~
 This duergar is average sized, a small tatoo of a bear claw shows on his bald
 head. He seems quite busy.
@@ -1478,7 +1478,7 @@ PD 6 1 0 -1
 #17111
 duergar dwarf priest~
 a &+rcrafts priest&N~
-The clan &+rcrafts priest&N watches you silently
+The clan &+rcrafts priest&N watches you silently.
 ~
 This duergar is average in size, a tatoo of a bear claw shows on his bare
 forhead. He looks at you with stern silence.
@@ -1491,7 +1491,7 @@ PD 6 1 0 -1
 #17112
 duergar dwarf elder~
 &+mthe clan elder&N~
-&+mThe clan elder watches you nervously
+&+mThe clan elder watches you nervously.
 ~
 This duergar is average in size, a tatoo in the shape of a bear claw
 can be seen on his bald head. His face conveys a feeling of experience
@@ -1518,7 +1518,7 @@ PD 6 1 0 -1
 #17114
 duergar clansdwarf dwarf shopkeeper~
 a &+Bclansdwarf&N~
-a &+Bclansdwarf&N is selling the clans crafts
+a &+Bclansdwarf&N is selling the clans crafts.
 ~
 This dwarf is an average duergar, he doesnt seem to care if you buy
 anything or not as he watches you distrustfully. A small tatoo of a
@@ -1532,7 +1532,7 @@ PD 6 1 0 -1
 #17115
 duergar dwarf officer clansdwarf~
 the &+cguild officer&N~
-The clan &+cguild officer&N sits at his desk
+The clan &+cguild officer&N sits at his desk.
 ~
 This duergar is average sized, a tatoo of a scroll shows on his bald
 head. He seems quite busy.
@@ -1545,7 +1545,7 @@ PD 6 1 0 -1
 #17116
 duergar dwarf priest~
 a &+rcrafts priest&N~
-The clan &+rcrafts priest&N watches you silently
+The clan &+rcrafts priest&N watches you silently.
 ~
 This duergar is average in size, a tatoo of a scroll shows on his bare
 forhead. He looks at you with stern silence.
@@ -1558,7 +1558,7 @@ PD 6 1 0 -1
 #17117
 duergar dwarf elder~
 &+ythe clan elder&N~
-&+yThe clan elder glares at you&N
+&+yThe clan elder glares at you.&N
 ~
 This duergar is average in size, a tatoo in the shape of a scroll
 can be seen on his bald head. His face conveys a feeling of experience
@@ -1572,7 +1572,7 @@ PD 6 1 0 -1
 #17118
 duergar dwarf clansdwarf cook~
 a &+Wcook&N~
-a &+Wclansdwarf&N is busy preparing gourmet fungi
+a &+Wclansdwarf&N is busy preparing gourmet fungi.
 ~
 This duergar is very small, the tatoo of a small mushroom can be seen on her
 forehead. She seems not to notice you as she busies herself with meal
@@ -1586,7 +1586,7 @@ PD 6 1 0 -1
 #17119
 duergar dwarf officer clansdwarf~
 the &+cguild officer&N~
-The clan &+cguild officer&N sits at his desk
+The clan &+cguild officer&N sits at his desk.
 ~
 This duergar is average sized, a small tatoo of an arrow shows on his bald
 head. He seems quite busy.
@@ -1612,7 +1612,7 @@ PD 6 1 0 -1
 #17121
 duergar dwarf clansdwarf~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N works on the clans crafts
+a &+rclansdwarf&N works on the clans crafts.
 ~
 This duergar is very small, tatoo in the shape of an arrow can be seen on her
 bald head. She seems not to notice you as she goes about her craft.
@@ -1625,7 +1625,7 @@ PD 6 1 0 -1
 #17122
 duergar dwarf elder~
 the clan &+relder&N~
-The clan &+relder&N works on his craft&N
+The clan &+relder&N works on his craft.&N
 ~
 This duergar is average in size, a tatoo in the shape of an arrow
 can be seen on his bald head. His face conveys a feeling of experience
@@ -1639,7 +1639,7 @@ PD 6 1 0 -1
 #17123
 duergar dwarf priest~
 a &+rcrafts priest&N~
-The clan &+rcrafts priest&N watches you silently
+The clan &+rcrafts priest&N watches you silently.
 ~
 This duergar is average in size, a tatoo in he shape of an arrow shows on his
 forhead. He looks at you with stern silence.
@@ -1652,7 +1652,7 @@ PD 6 1 0 -1
 #17124
 duergar clansdwarf dwarf shopkeeper~
 a &+Bclansdwarf&N~
-a &+Bclansdwarf&N is selling the clans crafts
+a &+Bclansdwarf&N is selling the clans crafts.
 ~
 This dwarf is an average duergar, he doesnt seem to care if you buy
 anything or not as he watches you distrustfully. A small tatoo of a
@@ -1666,7 +1666,7 @@ PD 6 1 0 -1
 #17125
 duergar dwarf priest~
 a &+rcrafts priest&N~
-The clan &+rcrafts priest&N watches you silently
+The clan &+rcrafts priest&N watches you silently.
 ~
 This duergar is average in size, a tatoo of an eye shows on his bare
 forhead. He looks at you with stern silence.
@@ -1679,7 +1679,7 @@ PD 6 32 0 -1
 #17126
 duergar dwarf officer clansdwarf~
 the &+cguild officer&N~
-The clan &+cguild officer&N sits at his desk
+The clan &+cguild officer&N sits at his desk.
 ~
 This duergar is average sized, a blood red tatoo in the shape of an axe
 can be seen on his forehead. He hardly notices you as he works.
@@ -1692,7 +1692,7 @@ PD 6 16384 0 -1
 #17127
 guard duergar clansdwarf dwarf~
 a &+rclansdwarf&N~
-A &+rclansdwarf&N watches over the guild room
+A &+rclansdwarf&N watches over the guild room.
 ~
 This duergar is fairly large, he bears the tatoo of a large fist, indicating
 that he is from clan Crushing Fist and has been hired to protect this area.
@@ -1706,7 +1706,7 @@ PD 6 1 0 -1
 #17128
 duergar dwarf officer clansdwarf~
 the &+cguild officer&N~
-The clan &+cguild officer&N sits at his desk
+The clan &+cguild officer&N sits at his desk.
 ~
 This duergar is average sized, a tatoo in the shape of an eye
 can be seen on his forehead. He hardly notices you as he works.
@@ -1719,7 +1719,7 @@ PD 6 32 0 -1
 #17129
 duergar dwarf elder~
 the clan &+relder&N~
-&+rThe clan &+Lelder&N &+rdemonstrates a spell&N
+&+rThe clan &+Lelder&N &+rdemonstrates a spell.&N
 ~
 This duergar is average in size, a tatoo in the shape of an eye
 can be seen on his bald head. His face conveys a feeling of experience
@@ -1746,7 +1746,7 @@ PD 6 32 0 -1
 #17131
 duergar dwarf clansdwarf cook~
 a &+Wcook&N~
-a &+Wclansdwarf&N is busy preparing gourmet fungi
+a &+Wclansdwarf&N is busy preparing gourmet fungi.
 ~
 This duergar is very small, the tatoo of an eye can be seen on her
 forehead. She seems not to notice you as she busies herself with meal
@@ -1760,7 +1760,7 @@ PD 6 32 0 -1
 #17132
 duergar dwarf guard~
 a &+mclansdwarf&N~
-a &+mclansdwarf&N guards the entrance to the clanhouse
+a &+mclansdwarf&N guards the entrance to the clanhouse.
 ~
 This duergar is average in size, a dark tatoo of an eye can be seen on
 his bald head. He stands as still as a statue, his eyes never leaving you.
@@ -1773,7 +1773,7 @@ PD 6 1 0 -1
 #17133
 duergar dwarf guard~
 a &+mclansdwarf&N~
-a &+mclansdwarf&N guards the entrance to the clanhouse
+a &+mclansdwarf&N guards the entrance to the clanhouse.
 ~
 This duergar is average in size, a tatoo of an eye can be seen on
 his bald head. He stands as still as a statue, his eyes never leaving you.
@@ -1786,7 +1786,7 @@ PD 6 1 0 -1
 #17134
 duergar dwarf guard~
 a &+mclansdwarf&N~
-a &+mclansdwarf&N guards the entrance to the clanhouse
+a &+mclansdwarf&N guards the entrance to the clanhouse.
 ~
 This duergar is average in size, a tatoo of a dagger can be seen on
 his bald head. He stands as still as a statue, his eyes never leaving you.
@@ -1799,7 +1799,7 @@ PD 6 8192 0 -1
 #17135
 duergar dwarf guard~
 a &+mclansdwarf&N~
-a &+mclansdwarf&N guards the entrance to the clanhouse
+a &+mclansdwarf&N guards the entrance to the clanhouse.
 ~
 This duergar is average in size, a tatoo of a dagger can be seen on
 his bald head. He stands as still as a statue, his eyes never leaving you.
@@ -1812,7 +1812,7 @@ PD 6 8192 0 -1
 #17136
 duergar dwarf elder~
 the clan &+Lelder&N~
-&+LThe clan&N &+relder&+L demonstrates a skill&N
+&+LThe clan&N &+relder&+L demonstrates a skill.&N
 ~
 This duergar is average in size, a tatoo in the shape of a dagger
 can be seen on his bald head. His face conveys a feeling of experience
@@ -1826,7 +1826,7 @@ PD 6 8192 0 -1
 #17137
 duergar dwarf officer clansdwarf~
 the &+cguild officer&N~
-The clan &+cguild officer&N sits at his desk
+The clan &+cguild officer&N sits at his desk.
 ~
 This duergar is average sized, a tatoo in the shape of a dagger
 can be seen on his forehead. He hardly notices you as he works.
@@ -1839,7 +1839,7 @@ PD 6 8192 0 -1
 #17138
 guard duergar clansdwarf dwarf~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N watches over the guild room
+a &+rclansdwarf&N watches over the guild room.
 ~
 This duergar is fairly large, he bears the tatoo of a large fist, indicating
 that he is from clan Crushing Fist and has been hired to protect this area.
@@ -1853,7 +1853,7 @@ PD 6 1 0 -1
 #17139
 duergar dwarf priest~
 a &+rcrafts priest&N~
-The clan &+rcrafts priest&N watches you silently
+The clan &+rcrafts priest&N watches you silently.
 ~
 This duergar is average in size, a tatoo of a dagger shows on his bare
 forhead. He looks at you with stern silence.
@@ -1879,7 +1879,7 @@ PD 6 8192 0 -1
 #17141
 duergar dwarf clansdwarf cook~
 a &+Wcook&N~
-a &+Wclansdwarf&N is busy preparing gourmet fungi
+a &+Wclansdwarf&N is busy preparing gourmet fungi.
 ~
 This duergar is very small, the tatoo of a dagger can be seen on her
 forehead. She seems not to notice you as she busies herself with meal
@@ -1893,7 +1893,7 @@ PD 6 8192 0 -1
 #17142
 steeder spider mount~
 a &+Llarge steeder&N~
-a &+Llarge steeder&N makes strange clicking sounds&N
+a &+Llarge steeder&N makes strange clicking sounds.&N
 ~
 This large spider has makings similiar to a tarantula, but much larger. Large
 hook like appendages protrude out of its mouth. The hooks make a strange
@@ -1907,7 +1907,7 @@ AS 0 1 0 3
 #17143
 guard justice duergar clansdwarf dwarf~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N watches the area closely
+a &+rclansdwarf&N watches the area closely.
 ~
 This duergar is fairly large, he bears the tatoo of a set of crossed swords.
 He watches you closely, never taking his eyes off of you.
@@ -1934,7 +1934,7 @@ PD 0 1 0 -1
 #17145
 duergar dwarf clansdwarf scavenger~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N scavenges for anything valuable&N
+a &+rclansdwarf&N scavenges for anything valuable.&N
 ~
 This duergar is very small, the tatoo in the shape of a red dot can be seen on
 her forehead. She seems not to notice you as she searches the room.
@@ -1977,7 +1977,7 @@ PD 0 1 0 -1
 #17148
 duergar auctioneer~
 &+Lthe &+rauctioneer&N~
-&+LThe great &+Rauctioneer&+L of the Khildarak Clan Gold Stock sits here, selling &+Ywares&+L.
+&+LThe great &+Rauctioneer&+L of the Khildarak Clan Gold Stock sits here, selling &+Ywares&N.
 ~
    &+LDressed very well for an inhabitant of Khildarak, more like a merchant
 &+Lthen a soldier, this clansdwarf rests here behind a large desk, holding
@@ -2008,7 +2008,7 @@ PD 6 20480 0 -1
 #17150
 duergar clansdwarf dwarf shopkeeper~
 a &+Bclansdwarf&N~
-a &+Bclansdwarf&N is selling the clans crafts
+a &+Bclansdwarf&N is selling the clans crafts.
 ~
 This dwarf is an average duergar, he doesnt seem to care if you buy
 anything or not as he watches you distrustfully. A small tatoo of a
@@ -2022,7 +2022,7 @@ PD 6 1 0 -1
 #17151
 duergar dwarf officer clansdwarf~
 the &+cguild officer&N~
-The clan &+cguild officer&N sits at his desk
+The clan &+cguild officer&N sits at his desk.
 ~
 This duergar is average sized, a small tatoo of a red dot shows on his bald
 head. He seems quite busy.
@@ -2048,7 +2048,7 @@ PD 6 1 0 -1
 #17153
 duergar dwarf elder~
 the clan &+relder&N~
-The clan &+relder&N rambles on about his greatest adventures
+The clan &+relder&N rambles on about his greatest adventures.
 ~
 This duergar is average in size, a red dot tatoo in the shape of an axe
 can be seen on his bald head. His face conveys a feeling of experience
@@ -2062,7 +2062,7 @@ PD 6 1 0 -1
 #17154
 duergar dwarf priest~
 a &+rcrafts priest&N~
-The clan &+rcrafts priest&N watches you silently
+The clan &+rcrafts priest&N watches you silently.
 ~
 This duergar is average in size, a small red dot tatoo shows on his bare
 forhead. He looks at you with stern silence.
@@ -2075,7 +2075,7 @@ PD 6 1 0 -1
 #17155
 duergar clansdwarf dwarf shopkeeper~
 a &+Bclansdwarf&N~
-a &+Bclansdwarf&N is selling the clans crafts
+a &+Bclansdwarf&N is selling the clans crafts.
 ~
 This dwarf is an average duergar, he doesnt seem to care if you buy
 anything or not as he watches you distrustfully. A small tatoo in the
@@ -2089,7 +2089,7 @@ PD 6 1 0 -1
 #17156
 duergar dwarf officer clansdwarf~
 the &+cguild officer&N~
-The clan &+cguild officer&N sits at his desk
+The clan &+cguild officer&N sits at his desk.
 ~
 This duergar is average sized, a tatoo of an arch shows on his bald
 head. He seems quite busy.
@@ -2102,7 +2102,7 @@ PD 6 1 0 -1
 #17157
 duergar dwarf clansdwarf~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N works on the clans crafts
+a &+rclansdwarf&N works on the clans crafts.
 ~
 This duergar is very small, a tatoo in the shape of an arch can be seen on her
 bald head. She seems not to notice you as she goes about her craft.
@@ -2128,7 +2128,7 @@ PD 6 1 0 -1
 #17159
 duergar dwarf priest~
 a &+rcrafts priest&N~
-The clan &+rcrafts priest&N watches you silently
+The clan &+rcrafts priest&N watches you silently.
 ~
 This duergar is average in size, a tatoo in the shape of an arch shows on his
 forhead. He looks at you with stern silence.
@@ -2141,7 +2141,7 @@ PD 6 1 0 -1
 #17160
 duergar dwarf elder~
 the clan &+yelder&N~
-The clan &+yelder&N seems to ignore you
+The clan &+yelder&N seems to ignore you.
 ~
 This duergar is average in size, a tatoo in the shape of an arch can be
 seen on his bald head. His face conveys a feeling of experience
@@ -2155,7 +2155,7 @@ PD 6 1 0 -1
 #17161
 duergar clansdwarf dwarf shopkeeper~
 a &+Bclansdwarf&N~
-a &+Bclansdwarf&N is selling the clans crafts
+a &+Bclansdwarf&N is selling the clans crafts.
 ~
 This dwarf is an average duergar, he doesnt seem to care if you buy
 anything or not as he watches you distrustfully. A small tatoo of a
@@ -2169,7 +2169,7 @@ PD 6 1 0 -1
 #17162
 duergar clansdwarf dwarf shopkeeper~
 a &+Bclansdwarf&N~
-a &+Bclansdwarf&N is ready to serve you
+a &+Bclansdwarf&N is ready to serve you.
 ~
 This dwarf is an average duergar, he doesnt seem to care if you buy
 anything or not as he watches you distrustfully. A small tatoo of a
@@ -2183,7 +2183,7 @@ PD 6 1 0 -1
 #17163
 duergar clansdwarf dwarf shopkeeper~
 a &+Bclansdwarf&N~
-a &+Bclansdwarf&N is ready to serve you
+a &+Bclansdwarf&N is ready to serve you.
 ~
 This dwarf is an average duergar, he doesnt seem to care if you buy
 anything or not as he watches you distrustfully. A small tatoo of a
@@ -2197,7 +2197,7 @@ PD 6 1 0 -1
 #17164
 duergar dwarf clansdwarf~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N sits at the bar relaxing
+a &+rclansdwarf&N sits at the bar relaxing.
 ~
 This duergar is average in size. He looks fairly relaxed as he rests after
 a long days work.
@@ -2210,7 +2210,7 @@ PD 6 1 0 -1
 #17165
 drow warrior~
 a &+mdrow warrior&N~
-a &+mdrow warrior&N shares stories of his adventures
+a &+mdrow warrior&N shares stories of his adventures.
 ~
 This drow warrior looks lean and agile. He looks you up and down as if
 sizing you up for battle.
@@ -2223,7 +2223,7 @@ PL 0 1 0 -1
 #17166
 troll~
 a &+gtroll&N from Ghore~
-A &+gtroll&N from Ghore is &+ypuking&N on himself
+A &+gtroll&N from Ghore is &+ypuking&N on himself.
 ~
 This troll seems like a giant in these surroundings. He is several times the
 size of a normal duergar, with green skin and yellow teeth. He looks at you
@@ -2238,7 +2238,7 @@ PT 0 1 0 -1
 #17167
 troll~
 a &+gtroll&N~
-A &+gtroll&N visiting from Ghore looks around as if confused
+A &+gtroll&N visiting from Ghore looks around as if confused.
 ~
 This troll seems like a giant in these surroundings. He is several times the
 size of a normal duergar, with green skin and yellow teeth. He looks at you
@@ -2319,7 +2319,7 @@ PD 6 1 0 -1
 #17173
 guard justice duergar clansdwarf _nosneak_~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N watches the area closely
+a &+rclansdwarf&N watches the area closely.&N
 ~
 This duergar is fairly large, he bears the tatoo of a large fist, indicating
 that he is from clan Crushing Fist and has been hired to protect this area.
@@ -2333,7 +2333,7 @@ PD 6 1 0 -1
 #17174
 duergar merchant~
 a &+rduergar merchant&N~
-a &+rduergar merchant&N watches his cart closely
+a &+rduergar merchant&N watches his cart closely.&N
 ~
 This duergar is from another city, selling odds and ends from his hometown.
 He watches you and his cart carefully.
@@ -2346,7 +2346,7 @@ PD 0 1 0 -1
 #17175
 duergar female woman pregnant girl~
 a &+rpregnant duergar&N~
-A &+rpregnant duergar&N looks through the merchants carts
+A &+rpregnant duergar&N looks through the merchants carts.&N
 ~
 This duergar female is quite small and fragile looking, her stomach sticking
 way out causing her to lean back as she stands. She looks at you and quickly
@@ -2360,7 +2360,7 @@ PD 6 1 0 -1
 #17176
 duergar female woman girl~
 a &+rclansdwarf&N~
-A &+rclansdwarf&N looks through the merchants carts
+A &+rclansdwarf&N looks through the merchants carts.&N
 ~
 This duergar female is quite small and fragile looking. She glances at you
 and quickly looks away.
@@ -2373,7 +2373,7 @@ PD 6 1 0 -1
 #17177
 duergar clansdwarf merchant~
 a &+Bclansdwarf&N~
-a &+Bclansdwarf&N shouts as he pushes his cart
+a &+Bclansdwarf&N shouts as he pushes his cart.&N
 ~
 This duergar is average size, bearing the tatoo of a small red dot. He watches
 his cart closely, ready to catch any thieves.
@@ -2798,7 +2798,7 @@ PD 6 1 0 -1
 #17208
 duergar dwarf clansdwarf male guard~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N plays with his child
+a &+rclansdwarf&N plays with his child.
 ~
 This duergar is average in size, the tatoo of a mining pick can be seen on his
 forehead. He glares at you.
@@ -2811,7 +2811,7 @@ PD 6 1 0 -1
 #17209
 duergar dwarf clansdwarf child~
 a &+rduergar child&N~
-a &+rduergar child&N immitates the faces on the wall
+a &+rduergar child&N immitates the faces on the wall.
 ~
 This child is very young and small. He immitates the faces of emotion on the
 walls as he plays with his father.
@@ -3365,7 +3365,7 @@ PD 6 1 0 -1
 #17251
 duergar dwarf clansdwarf slayer~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N scans the area for vermin
+a &+rclansdwarf&N scans the area for vermin.&N
 ~
 This duergar is young, an apprentice judging from the job he has been given.
 He scans the streets looking for small vermin. His bald head bears the tatoo
@@ -3445,7 +3445,7 @@ PD 6 1 0 -1
 #17257
 guard justice duergar clansdwarf _nosneak_~
 a &+rclansdwarf&N~
-a &+rclansdwarf&N watches the area closely
+a &+rclansdwarf&N watches the area closely.&N
 ~
 This duergar is fairly large, he bears the tatoo of a set of crossed swords.
 He watches you closely, never taking his eyes off of you.
@@ -3471,7 +3471,7 @@ ac 0 0 0 -1
 #17259
 duergar dwarf clansdwarf child~
 a &+rduergar child&N~
-a &+rduergar child&N hunts vermin
+a &+rduergar child&N hunts vermin.
 ~
 This child is very young and small. He seems quite happy hunting and killing
 the vermin that the slayers have missed.
@@ -3496,7 +3496,7 @@ PD 6 1 0 -1
 #17261
 snake cavern _nobite_~
 a &+ycavern sn&+Ya&+yke&N~
-A &+ycavern sn&+Ya&+yke&N coils and strikes&N
+A &+ycavern sn&+Ya&+yke&N coils and strikes.&N
 ~
 This snake is fairly large with a diamond shaped head, indicating it might
 be deadly.
