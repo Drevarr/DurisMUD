@@ -141,18 +141,17 @@ void do_disguise(P_char ch, char *arg, int cmd)
       send_to_char( "You start removing your disguise.\n\r", ch );
       justice_witness(ch, NULL, CRIME_DISGUISE);
       CharWait(ch, PULSE_VIOLENCE * 3);
-      return;
     }
     // Otherwise they are clueless
     else
     {
       send_to_char("Disguise as who or what?\r\n", ch);
-      return;
     }
+    return;
   }
 
   // Disguising when already disgusied? I think not!
-  if ((*arg) && IS_DISGUISE(ch))
+  if( IS_DISGUISE(ch) )
   {
     send_to_char("You need to remove your disguise (just 'disguise') before trying to disguise again!\r\n", ch);
     return;
@@ -161,9 +160,7 @@ void do_disguise(P_char ch, char *arg, int cmd)
   one_argument(arg, name);
 
   // Search the disguise_list to see if we're looking for an npc disguise
-  i = search_block(name, disguise_list, 0);
-
-  if (i != -1)
+  if( (i = search_block(name, disguise_list, 0)) >= 0 )
   {
     disguise_npc = TRUE;
   }
@@ -172,64 +169,55 @@ void do_disguise(P_char ch, char *arg, int cmd)
     target = (struct char_data *) mm_get(dead_mob_pool);
     target->only.pc = (struct pc_only_data *) mm_get(dead_pconly_pool);
 
-    if ((restoreCharOnly(target, skip_spaces(arg)) < 0) || !target)
+    // Bad / no pfile. Note: target will never be NULL because of above.
+    if( (restoreCharOnly(target, skip_spaces(arg)) < 0) )
     {
-      if (target)
-      {
-        free_char(target);
-        target = NULL;
-      }
+      free_char(target);
+      target = NULL;
     }
 
     // Character dosn't exist
-    if (!target)
+    if( !target )
     {
       send_to_char("Disguise as who?\r\n", ch);
       return;
     }
 
-    // disguise as himself?
-    if (target == ch)
+    // Disguise as himself?
+    if( target == ch )
     {
       send_to_char("It is too hard to disguise into that loser!\r\n", ch);
-      if (target)
-        free_char(target);
+      free_char(target);
       return;
     }
 
     // No disguising as immortals
-    if (!IS_TRUSTED(ch) && target && GET_LEVEL(target) > 56)
+    if( !IS_TRUSTED(ch) && GET_LEVEL(target) > 56 )
     {
       send_to_char("You really don't want to disguise yourself as a God!\r\n", ch);
-      if (target)
-        free_char(target);
+      free_char(target);
       return;
     }
 
     // Dissalow imms disguising as higher levle imms
-    if (IS_TRUSTED(ch))
+    if (IS_TRUSTED(ch) )
     {
-      if (GET_LEVEL(ch) < GET_LEVEL(target))
+      if( GET_LEVEL(ch) <= GET_LEVEL(target) )
       {
         send_to_char("No you don't!\r\n", ch);
-        if (target)
-          free_char(target);
+        free_char(target);
         return;
       }
     }
 
     // If it's a mortal disguising
-    if (!IS_TRUSTED(ch))
+    if( !IS_TRUSTED(ch) )
     {
-      if (GET_RACE(target) == RACE_ILLITHID ||
-          GET_RACE(target) == RACE_CENTAUR ||
-          GET_RACE(target) == RACE_THRIKREEN ||
-          GET_RACE(target) == RACE_MINOTAUR ||
-          GET_RACE(target) == RACE_TROLL)
+      if( GET_RACE(target) == RACE_ILLITHID || GET_RACE(target) == RACE_CENTAUR || GET_RACE(target) == RACE_THRIKREEN
+        || GET_RACE(target) == RACE_MINOTAUR || GET_RACE(target) == RACE_TROLL )
       {
         send_to_char("Disguising into that is just short of impossible.\r\n", ch);
-        if (target)
-          free_char(target);
+        free_char(target);
         return;
       }
     }
@@ -238,82 +226,85 @@ void do_disguise(P_char ch, char *arg, int cmd)
   equipped = FALSE;
 
   // Check if we have a disguise kit
-  if (!IS_TRUSTED(ch) || !affected_by_spell(ch, ACH_DECEPTICON))
+  if( !IS_TRUSTED(ch) || !affected_by_spell(ch, ACH_DECEPTICON) )
   {
-    if (!(temp = get_obj_in_list_vis(ch, "_disguise_kit_", ch->carrying)))
+    if( !(temp = get_obj_in_list_vis(ch, "_disguise_kit_", ch->carrying)) )
     {
       temp = ch->equipment[HOLD];
       equipped = TRUE;
-      if ((temp == 0) || !isname("_disguise_kit_", temp->name))
+      if( (temp == 0) || !isname("_disguise_kit_", temp->name) )
       {
         act("You need a disguise kit.", FALSE, ch, 0, 0, TO_CHAR);
-        if (target)
+        if( target )
           free_char(target);
         return;
       }
     }
   }
-  if (IS_TRUSTED(ch) || affected_by_spell(ch, ACH_DECEPTICON))
+  if( IS_TRUSTED(ch) || affected_by_spell(ch, ACH_DECEPTICON) )
     skl_lvl = 200;
 
   percent = number(1, 101);
 
-  if (target)
+  if( target )
   {
     percent += 30;
 
-    if (racewar(ch, target))
+    if( racewar(ch, target) )
       percent += 20;
 
-    if (GET_RACE(ch) != GET_RACE(target))
+    if( GET_RACE(ch) != GET_RACE(target) )
       percent += 30;
-    if (GET_SEX(ch) != GET_SEX(target))
+    if( GET_SEX(ch) != GET_SEX(target) )
       percent += 10;
   }
-  else
+  else if( GET_RACE(ch) != disguise_list_data[i].race )
   {
-    if (GET_RACE(ch) != disguise_list_data[i].race)
-      percent += 30;
+    percent += 30;
   }
 
-  if (percent > skl_lvl)
+  if( percent > skl_lvl )
   {
     send_to_char("You do a horrid job", ch);
     notch_skill(ch, SKILL_DISGUISE, 25);
     justice_witness(ch, NULL, CRIME_DISGUISE);
     CharWait(ch, PULSE_VIOLENCE * 3);
-    if (!IS_TRUSTED(ch) && !affected_by_spell(ch, ACH_DECEPTICON) && number(0, 1))
+    if( !IS_TRUSTED(ch) && !affected_by_spell(ch, ACH_DECEPTICON) && number(0, 1) )
     {
       send_to_char(", and ruin your disguise kit in the process.\r\n", ch);
-      if (equipped)
+      if( equipped )
         unequip_char(ch, HOLD);
       extract_obj(temp, TRUE); // An artifact disguise kit?
     }
     else
       send_to_char(", but manage to salvage the rest of the kit's supplies.\r\n", ch);
-    if (target)
+    if( target )
       free_char(target);
 
     return;
   }
-  if (target)
+
+  // Set size.
+  if( target )
     the_size = GET_SIZE(target);
   else
     the_size = disguise_list_data[i].size;
-  if ((GET_ALT_SIZE(ch) < (the_size - 1)) && !IS_TRUSTED(ch))
+
+  if( (GET_ALT_SIZE(ch) < (the_size - 1)) && !IS_TRUSTED(ch) )
   {
     send_to_char("You're too small for that!\r\n", ch);
     CharWait(ch, PULSE_VIOLENCE * 2);
   }
-  else if ((GET_ALT_SIZE(ch) > (the_size + 1)) && !IS_TRUSTED(ch))
+  else if( (GET_ALT_SIZE(ch) > (the_size + 1)) && !IS_TRUSTED(ch) )
   {
     send_to_char("You're too big for that!\r\n", ch);
     CharWait(ch, PULSE_VIOLENCE * 2);
   }
   else
   {
-    update_achievements(ch, 0, 1, 3); //char, novictim, 1 increment, decepticon achievement
-    if (target)
+    // char, novictim, 1 increment, 3 = decepticon achievement
+    update_achievements(ch, 0, 1, 3);
+    if( target )
     {
       IS_DISGUISE_PC(ch) = TRUE;
       IS_DISGUISE_NPC(ch) = FALSE;
@@ -329,8 +320,7 @@ void do_disguise(P_char ch, char *arg, int cmd)
         ch->disguise.title = str_dup(GET_TITLE(target));
       sprintf(Gbuf1, "You disguise yourself into %s.\r\n", GET_NAME(target));
       send_to_char(Gbuf1, ch);
-      sprintf(Gbuf1, "%s starts disguising into %s.", GET_NAME(ch),
-              GET_NAME(target));
+      sprintf(Gbuf1, "%s starts disguising into %s.", GET_NAME(ch), GET_NAME(target));
     }
     else
     {
@@ -347,32 +337,29 @@ void do_disguise(P_char ch, char *arg, int cmd)
 
       ch->disguise.name = str_dup(disguise_list_data[i].name[k]);
 
-      sprintf(Gbuf1, "%s is standing here, busy with his own matters.",
-              disguise_list_data[i].name[k]);
+      sprintf(Gbuf1, "%s is standing here, busy with his own matters.", disguise_list_data[i].name[k]);
 
       ch->disguise.longname = str_dup(Gbuf1);
       //GET_DISGUISE_TITLE(ch) = ch->disguise.name = ch->disguise.longname = str_dup(disguise_list_data[i].name[number(0, 2)]);
       ch->disguise.race = disguise_list_data[i].race;
       ch->disguise.hit = GET_LEVEL(ch) * 4;
-      sprintf(Gbuf1, "You disguise yourself into a %s.\r\n",
-              disguise_list[i]);
+      sprintf(Gbuf1, "You disguise yourself into a %s.\r\n", disguise_list[i]);
       send_to_char(Gbuf1, ch);
-      sprintf(Gbuf1, "%s starts disguising into a %s.", GET_NAME(ch),
-              disguise_list[i]);
+      sprintf(Gbuf1, "%s starts disguising into a %s.", GET_NAME(ch), disguise_list[i]);
     }
     SET_BIT(ch->specials.act, PLR_NOWHO);
     justice_witness(ch, NULL, CRIME_DISGUISE);
-    act(Gbuf1, TRUE, ch, 0, target, TO_ROOM);
-    if (!IS_TRUSTED(ch) && !affected_by_spell(ch, ACH_DECEPTICON))
+    act(Gbuf1, TRUE, ch, NULL, NULL, TO_ROOM);
+    if( !IS_TRUSTED(ch) && !affected_by_spell(ch, ACH_DECEPTICON) )
     {
-      if (equipped)
+      if( equipped )
         unequip_char(ch, HOLD);
       extract_obj(temp, TRUE); // An artifact disguise kit?
     }
     notch_skill(ch, SKILL_DISGUISE, 6.25);
     CharWait(ch, PULSE_VIOLENCE * 5);
   }
-  if (target)
+  if( target )
     free_char(target);
   return;
 }

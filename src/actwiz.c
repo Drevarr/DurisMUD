@@ -3700,8 +3700,6 @@ void do_nchat(P_char ch, char *argument, int cmd)
   char   Gbuf2[MAX_STRING_LENGTH];
   P_char to;
 
-  all = good = evil = undead = FALSE;
-
   if( !IS_ALIVE(ch) )
   {
     return;
@@ -3754,6 +3752,8 @@ void do_nchat(P_char ch, char *argument, int cmd)
   {
     argument++;
   }
+
+  all = good = evil = undead = FALSE;
 
   if( !*argument )
   {
@@ -3855,10 +3855,13 @@ void do_nchat(P_char ch, char *argument, int cmd)
     {
       continue;
     }
+    /* Allowing disguised people to hear nchat
+     * Just a FYI, this doesn't allow people to nchat across racewars.
     if( IS_DISGUISE(to) || IS_DISGUISE_ILLUSION(to) || IS_DISGUISE_SHAPE(to) )
     {
       continue;
     }
+    */
     if( IS_TRUSTED(to) )
     {
       sprintf(Gbuf1, "&+W%s&n&+m racewar-chats &+w(%s&+w): '&+Y%s&n&+w'\n",

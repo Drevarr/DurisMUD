@@ -3007,9 +3007,7 @@ int restoreCharOnly(P_char ch, char *name)
     logit(LOG_FILE, "Warning: Save file is only %d bytes.", size);
     fprintf(stderr, "Problem restoring save file of: %s\n", name);
     logit(LOG_FILE, "Problem restoring save file of %s.", name);
-    send_to_char
-      ("There is something wrong with your save file!  Please talk to a God.\r\n",
-       ch);
+    send_to_char("There is something wrong with your save file!  Please talk to a God.\r\n", ch);
     return -2;
   }
   type = (int) GET_BYTE(buf);
