@@ -2083,10 +2083,10 @@ struct mcname {
 
 #define SPEC_ELEMENTALIST 1
 #define SPEC_SPIRITUALIST 2
-#define SPEC_ANIMALIST 3
+#define SPEC_ANIMALIST    3
 
 #define SPEC_BLADEMASTER 1
-#define SPEC_WOODSMAN    2
+#define SPEC_HUNTSMAN    2
 #define SPEC_MARSHALL    3
 
 #define SPEC_ZEALOT  1

@@ -12378,7 +12378,7 @@ void spell_endurance(int level, P_char ch, char *arg, int type, P_char victim,
 
   if(affected_by_spell(ch, SPELL_MIELIKKI_VITALITY) &&
      !GET_CLASS(ch, CLASS_DRUID) &&
-     !GET_SPEC(ch, CLASS_RANGER, SPEC_WOODSMAN))
+     !GET_SPEC(ch, CLASS_RANGER, SPEC_HUNTSMAN))
   {
     send_to_char("&+GThe Goddess Mielikki is aiding your health, and prevents the endurance spell from functioning...\r\n", victim);
     return;
@@ -21690,7 +21690,7 @@ void spell_mielikki_vitality(int level, P_char ch, char *arg, int type, P_char v
   /*  // They get endurance, no need for this.
   if((GET_CLASS(ch, CLASS_RANGER) &&
      !affected_by_spell(ch, SPELL_ENDURANCE)) ||
-     GET_SPEC(ch, CLASS_RANGER, SPEC_WOODSMAN))
+     GET_SPEC(ch, CLASS_RANGER, SPEC_HUNTSMAN))
   {
     af.modifier = number(25, 50);
     af.location = APPLY_MOVE_REG;

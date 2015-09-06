@@ -1136,7 +1136,7 @@ void spell_sap_nature(int level, P_char ch, char *arg, int type, P_char victim, 
 
   if( affected_by_spell(victim, SPELL_MIELIKKI_VITALITY)
     && !GET_CLASS(victim, CLASS_DRUID)
-    && !GET_SPEC(victim, CLASS_RANGER, SPEC_WOODSMAN) )
+    && !GET_SPEC(victim, CLASS_RANGER, SPEC_HUNTSMAN) )
   {
     send_to_char("&+GThe Goddess Mielikki is aiding your health, and prevents the endurance spell from functioning", ch );
     return;
