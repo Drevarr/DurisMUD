@@ -1015,8 +1015,10 @@ int epic_stone(P_obj obj, P_char ch, int cmd, char *arg)
 
     if(zone_number > 0 && zone_number != RANDOM_ZONE_ID)
     {
-      int delta = GET_RACEWAR(ch) == RACEWAR_EVIL ? -1 : 1;
-      update_epic_zone_alignment(zone_number, delta);
+      int delta = GET_RACEWAR(ch);
+      delta = (delta == RACEWAR_EVIL) ? -1 : (delta == RACEWAR_GOOD ? 1 : 0);
+      if( delta != 0 )
+        update_epic_zone_alignment(zone_number, delta);
 
       // set completed flag
       epic_zone_completions.push_back(epic_zone_completion(zone_number, time(NULL), delta));
@@ -1884,6 +1886,11 @@ float get_epic_zone_alignment_mod(int zone_number, ubyte racewar)
   {
     // good alignment, good racewar or evil alignment, evil racewar
     mod -= ((float) abs(alignment)) * (float) get_property("epic.zone.alignmentMod", 0.10);
+  }
+  // Undead / Illithids don't get a modifier atm.
+  else
+  {
+    return 1;
   }
 
   minPercentage = get_property("epic.alignment.minPercentage", 0.10);
