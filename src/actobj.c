@@ -5720,6 +5720,11 @@ void do_salvage(P_char ch, char *argument, int cmd)
   {
     reciperoll = (reciperoll * 2) / 3;
   }
+  else if( itemval >= 100 )
+  {
+    // 100k -> autofail (playerroll will be around 500 or so at max).
+    reciperoll = 100000;
+  }
 
   playerroll = GET_C_LUK(ch) + GET_LEVEL(ch)*2 + GET_CHAR_SKILL(ch, SKILL_SALVAGE);
   if( scitools > 0 )
