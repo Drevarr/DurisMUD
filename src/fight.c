@@ -362,6 +362,7 @@ void update_dam_factors()
   dam_factor[DF_MELEEMASTERY] = get_property("damage.modifier.meleemastery", 1.100);
   dam_factor[DF_DRACOLICHVAMP] = get_property("vamping.dracolich", 0.500);
   dam_factor[DF_NEG_AC_MULT] = get_property("damage.neg.armorclass.multiplier", 0.500);
+  dam_factor[DF_DODGE_AGI_MODIFIER] = get_property("damage.dodge.agi.multiplier", 1.500);
 }
 
 // The swashbuckler is considered the victim. // May09 -Lucrot
@@ -8164,7 +8165,7 @@ int dodgeSucceed(P_char char_dodger, P_char attacker, P_obj wpn)
      learned = (int) ((GET_CHAR_SKILL(char_dodger, SKILL_DODGE)) * 1.25) -
      (WeaponSkill(attacker, wpn));
      */
-  learned = (int) ((GET_C_AGI(char_dodger)) * 1.00) - (WeaponSkill(attacker, wpn));
+  learned = (int) ((GET_C_AGI(char_dodger)) * dam_factor[DF_DODGE_AGI_MODIFIER]) - (WeaponSkill(attacker, wpn));
 
   //Dwarves now get the DnD 3.5 dodgeroll bonus vs giant races
   if( has_innate( char_dodger, INNATE_GIANT_AVOIDANCE )
@@ -8204,10 +8205,16 @@ int dodgeSucceed(P_char char_dodger, P_char attacker, P_obj wpn)
     percent = (int) (percent * 0.50);
   }
 
-  if(IS_AFFECTED5(char_dodger, AFF5_DAZZLEE) ||
-      IS_STUNNED(char_dodger))
+  // 1/5 the chance if dazzled (typical 2% max 10%).
+  if(IS_AFFECTED5(char_dodger, AFF5_DAZZLEE) )
   {
-    percent =  0;
+    percent /= 5;
+  }
+
+  // 6% of 50% is 3% chance to dodge stunned (6% of 10% is 0%).
+  if( IS_STUNNED(char_dodger) )
+  {
+    percent = (6 * percent) / 100;
   }
 
 
@@ -8240,10 +8247,10 @@ int dodgeSucceed(P_char char_dodger, P_char attacker, P_obj wpn)
 
   // Drows receive special dodge bonus now based on level.
   // Level 56 drow has 10% innate dodge.  Excessive weight will negate this bonus.
-  if(GET_RACE(char_dodger) == RACE_DROW &&
-      !IS_STUNNED(char_dodger) &&
-      ((int) (load_modifier(char_dodger) / 100) < 50) &&
-      !number(0, 10))
+  // This is actually a 9% dodge for all !stunned drow within weight limit..
+  //   I set the weight limit to 100 since the range for load_modifier is between 75 and 300.
+  if( GET_RACE(char_dodger) == RACE_DROW && !IS_STUNNED(char_dodger)
+    && (load_modifier(char_dodger) < 100) && !number(0, 10))
   {
     //debug("Drow dodge (%s).", GET_NAME(char_dodger));
   }

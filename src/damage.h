@@ -67,7 +67,8 @@
 #define DF_MELEEMASTERY         51
 #define DF_DRACOLICHVAMP        52
 #define DF_NEG_AC_MULT          53
-#define LAST_DF                 53
+#define DF_DODGE_AGI_MODIFIER   54
+#define LAST_DF                 54
 
 #define SPLDAM_GENERIC   1
 #define SPLDAM_FIRE      2
