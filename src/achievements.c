@@ -466,6 +466,9 @@ void do_addicted_blood(P_char ch, char *arg, int cmd)
 
 void update_addicted_to_blood(P_char ch, P_char victim)
 {
+  int allies;
+  P_char tch;
+
   if( IS_NPC(victim) && GET_LEVEL(victim) >= GET_LEVEL(ch) - 5
     && !IS_PC_PET(victim) && !affected_by_spell(victim, TAG_CONJURED_PET) )
   {
@@ -491,26 +494,20 @@ void update_addicted_to_blood(P_char ch, P_char victim)
       //check to see if we've hit 30 kills
       if( af->modifier >= 30)
       {
-        int group_size;
-        if( ch->group )
+        affect_remove( ch, af );
+
+        allies = 1;
+        for( tch = world[ch->in_room].people; tch; tch = tch->next_in_room )
         {
-          group_size = 0;
-          group_list *grp = ch->group;
-          while( grp )
+          if( tch != ch && IS_PC(tch) && !opposite_racewar(ch, tch) && !IS_TRUSTED(tch) )
           {
-            if( IS_PC(grp->ch) )
-            {
-              group_size++;
-            }
-            grp = grp->next;
+            allies++;
           }
         }
-        else
-          group_size = 1;
-        affect_remove( ch, af );
+
         send_to_char("&+rCon&+Rgra&+Wtula&+Rtio&+rns! You have completed &+rAddicted to Blood&+r!&n\r\n", ch);
         send_to_char("&+yEnjoy an &+Yexp bonus&+y and &+W5 platinum coins&+y!&n\r\n", ch);
-        gain_exp(ch, NULL, GET_EXP(victim) * 5 / group_size, EXP_BOON);
+        gain_exp(ch, NULL, GET_EXP(victim) * 5 / allies, EXP_BOON);
         ADD_MONEY(ch, 5000);
       }
       // Otherwise, add a kill.
