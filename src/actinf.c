@@ -6325,6 +6325,7 @@ void do_who(P_char ch, char *argument, int cmd)
 
     if( !*pattern || is_abbrev(pattern, tch->player.name)
       || is_abbrev(pattern, race_names_table[GET_RACE(tch)].normal)
+      || (is_abbrev(pattern, "dwarf") && IS_DWARF(tch))
       || (is_abbrev(pattern, "hardcore") && IS_HARDCORE(tch))
       || (is_abbrev(pattern, "spec") && IS_SPECIALIZED(tch))
       || (is_abbrev(pattern, "multi") && IS_MULTICLASS_PC(tch))
