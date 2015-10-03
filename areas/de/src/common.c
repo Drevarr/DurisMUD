@@ -119,8 +119,8 @@ const struct race_names race_names_table[LAST_RACE + 2] = {
   {"Snake", "Snake", "&+gS&+Gn&+ga&+Gk&+ge&n", "RS"},
   {"Insect", "Insect", "&+wI&+Ln&+ws&+Le&+wc&+Lt&n", "I"},
   {"Arachnid", "Arachnid", "&+wA&+Lr&+wa&+Lc&+wh&+Ln&+wi&+Ld&n", "AS"},
-  {"Aquatic Animal", "Aquatic Animal", "&+bAquatic Animal&n", "F"}, // 60
-  {"Winged Animal", "Winged Animal", "&+WWinged Animal&n", "B"},
+  {"Aquatic Animal", "AquaticAnimal", "&+bAquatic Animal&n", "F"}, // 60
+  {"Winged Animal", "WingedAnimal", "&+WWinged Animal&n", "B"},
   {"Quadruped", "Quadruped", "&+yQuadruped&n", "AE"},
   {"Primate", "Primate", "&+yP&+Lr&+yi&+Lm&+ya&+Lt&+ye&n", "AA"},
   {"Humanoid", "Humanoid", "&+LH&+yu&+Lm&+ya&+Ln&+yo&+Li&+yd&n", "H"},
@@ -654,6 +654,7 @@ flagDef  extra2_bits[] = {
   {"STOREITEM", "Bought from shop", 0, 0},
   {"SOULBIND", "Soul bound item", 0, 0},
   {"CRAFTED", "Crafted Item", 0, 0},
+  {"QUESTITEM", "Quest Item", 0, 0},
   {0}
 };
 
@@ -861,7 +862,7 @@ flagDef  affected2_bits[] = {
   {"PROT_ACID", "Prot acid", 1, 0},
   {"POISONED", "Poisoned", 0, 0},
   {"SOULSHIELD", "Soulshield", 1, 0},
-  {"DUERGAR_HIDE", "Duergar hide", 0, 0},
+  {"SILENCED", "Silenced", 0, 0},
   {"MINOR_INVIS", "Minor invis", 1, 0},
   {"VAMP_TOUCH", "Vampiric touch", 1, 0},
   {"STUNNED", "Stunned", 0, 0},
@@ -963,7 +964,7 @@ flagDef  affected5_bits[] = {
   {"BLOOD_SCENT", "Blood scent", 0, 0},
   {"FLESH_ARMOR", "Flesh armor", 1, 0},
   {"WET", "Wet", 0, 0},
-  {"DHARMA", "Unused", 1, 0},
+  {"DHARMA", "Dharma", 1, 0},
   {"ENH_HIDE", "Enhanced hide", 0, 0},
   {"LISTEN", "Listen", 0, 0},
   {"PROT_UNDEAD", "Prot undead", 1, 0},
@@ -974,7 +975,7 @@ flagDef  affected5_bits[] = {
   {"NO BLIND", "No blind", 0, 0},
   {"MAGICAL GLOW", "Magical glow", 0, 0},
   {"REFRESHING GLOW", "Refreshing glow", 0, 0},
-  {"MINE", "Mine", 1, 0},
+  {"MINERS SIGHT", "Miners sight", 1, 0},
   {"STANCE OFFENSIVE", "Stance offensive", 0, 0},
   {"STANCE DEFENSIVE", "Stance defensive", 0, 0},
   {"OBSCURING MIST", "Obscuring mist", 1, 0},
@@ -982,6 +983,8 @@ flagDef  affected5_bits[] = {
   {"DECAYING_FLESH", "Decaying Flesh", 1, 0},
   {"DREADNAUGHT", "Dreadnaught", 1, 0},
   {"FOREST_SIGHT", "Forest Sight", 1, 0},
+  {"THORNSKIN", "Thornskin", 1, 0},
+  {"FOLLOWING", "Following", 1, 0},
   {0}
 };
 

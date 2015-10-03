@@ -228,6 +228,8 @@ typedef unsigned int uint;
 #define ITEM2_STOREITEM    BIT_13  /* Item Bought From a Shop */
 #define ITEM2_SOULBIND     BIT_14  /* Item is Soulbound */
 #define ITEM2_CRAFTED      BIT_15
+#define ITEM2_QUESTITEM    BIT_16
+
 /* Bitvector for 'anti_flags' */
 /*
 #define ITEM_ALLOW_ALL         BIT_1

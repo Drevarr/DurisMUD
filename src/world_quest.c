@@ -828,11 +828,12 @@ int quest_buy_map(P_char ch)
 }
 
 
-// return vnum for item from zone.
+// Return random vnum for item from zone.
 int getItemFromZone(int zone)
 {
-  char     buf[MAX_STRING_LENGTH], buff[MAX_STRING_LENGTH],
-           arg[MAX_INPUT_LENGTH];
+  /* For debugging...
+  char     buf[MAX_STRING_LENGTH];
+  */
   long     ct, diff_time;
   char    *tmstr;
   int      count, i, choice, zone_count, world_index, room_count, length;
@@ -843,75 +844,56 @@ int getItemFromZone(int zone)
   int valid_items[1000];
   int list = 0;
 
-  *buff = '\0';
   length = 0;
-  for (i = 0; i <= top_of_objt; i++)
+  for( i = 0; i <= top_of_objt; i++ )
+  {
     if ((obj_index[i].virtual_number >= world[z_num->real_bottom].number) &&
         (obj_index[i].virtual_number <= world[z_num->real_top].number))
     {
-      /*
-       * easier to just load one, and free it, than load only
-       * ones that aren't already in game.
-       */
+      // Easier to just load one, and free it, than load only ones that aren't already in game.
       if ((t_obj = read_object(obj_index[i].virtual_number, VIRTUAL)))
       {
-        if (IS_SET(t_obj->extra_flags, ITEM_NORENT) || 
-            IS_SET(t_obj->str_mask, STRUNG_KEYS) ||
-            t_obj->type == ITEM_POTION ||
-            !IS_SET(t_obj->wear_flags, ITEM_TAKE) ||
-            IS_SET(t_obj->extra_flags, ITEM_TRANSIENT) ||
-	    (t_obj->type != ITEM_WAND &&
-	     t_obj->type != ITEM_STAFF &&
-	     t_obj->type != ITEM_WEAPON &&
-	     t_obj->type != ITEM_ARMOR &&
-	     t_obj->type != ITEM_WORN &&
-	     t_obj->type != ITEM_BOOK &&
-	     t_obj->type != ITEM_QUIVER &&
-	     t_obj->type != ITEM_INSTRUMENT &&
-	     t_obj->type != ITEM_SPELLBOOK &&
-	     t_obj->type != ITEM_TOTEM &&
-	     t_obj->type != ITEM_SHIELD &&
-	     t_obj->type != ITEM_FIREWEAPON ) ||
-            IS_SET(t_obj->bitvector, AFF_STONE_SKIN) ||
-            IS_SET(t_obj->bitvector, AFF_HIDE) ||
-            IS_SET(t_obj->bitvector, AFF_SNEAK) ||
-            IS_SET(t_obj->bitvector, AFF_FLY) ||
-            IS_SET(t_obj->bitvector, AFF4_NOFEAR) ||
-            IS_SET(t_obj->bitvector2, AFF2_AIR_AURA) ||
-            IS_SET(t_obj->bitvector2, AFF2_EARTH_AURA) ||
-            IS_SET(t_obj->bitvector3, AFF3_INERTIAL_BARRIER) ||
-            IS_SET(t_obj->bitvector3, AFF3_REDUCE) ||
-            IS_SET(t_obj->bitvector2, AFF2_GLOBE) ||
-            IS_ARTIFACT(t_obj) ||
-            isname("_noquest_", t_obj->name) ||
-            GET_OBJ_WEIGHT(t_obj) > 99 ||
-            IS_SET(t_obj->bitvector, AFF_HASTE) ||
-            IS_SET(t_obj->bitvector, AFF_DETECT_INVISIBLE) ||            
-            IS_SET(t_obj->bitvector4, AFF4_DETECT_ILLUSION) ||
-            IS_NOSHOW(t_obj))
+        if( IS_SET(t_obj->extra_flags, ITEM_NORENT) || IS_SET(t_obj->str_mask, STRUNG_KEYS)
+          || !IS_SET(t_obj->wear_flags, ITEM_TAKE) || IS_SET(t_obj->extra_flags, ITEM_TRANSIENT)
+          // These are _allowed_ types
+          || (t_obj->type != ITEM_WAND && t_obj->type != ITEM_STAFF
+            && t_obj->type != ITEM_ARMOR && t_obj->type != ITEM_WORN
+            && t_obj->type != ITEM_BOOK && t_obj->type != ITEM_QUIVER
+            && t_obj->type != ITEM_INSTRUMENT && t_obj->type != ITEM_SPELLBOOK
+            && t_obj->type != ITEM_TOTEM && t_obj->type != ITEM_SHIELD
+            && t_obj->type != ITEM_FIREWEAPON && t_obj->type != ITEM_WEAPON
+            && t_obj->type != ITEM_POTION)
+          || IS_SET(t_obj->bitvector, AFF_STONE_SKIN) || IS_SET(t_obj->bitvector, AFF_HIDE)
+          || IS_SET(t_obj->bitvector, AFF_SNEAK) || IS_SET(t_obj->bitvector, AFF_FLY)
+          || IS_SET(t_obj->bitvector, AFF4_NOFEAR) || IS_SET(t_obj->bitvector2, AFF2_AIR_AURA)
+          || IS_SET(t_obj->bitvector2, AFF2_EARTH_AURA) || IS_SET(t_obj->bitvector3, AFF3_INERTIAL_BARRIER)
+          || IS_SET(t_obj->bitvector3, AFF3_REDUCE) || IS_SET(t_obj->bitvector2, AFF2_GLOBE)
+          || IS_SET(t_obj->bitvector, AFF_HASTE) || IS_SET(t_obj->bitvector, AFF_DETECT_INVISIBLE)
+          || IS_SET(t_obj->bitvector4, AFF4_DETECT_ILLUSION) || IS_NOSHOW(t_obj) || GET_OBJ_WEIGHT(t_obj) > 99
+          || IS_ARTIFACT(t_obj) || isname("_noquest_", t_obj->name) || IS_OBJ_STAT2(t_obj, ITEM2_QUESTITEM) )
         {
           extract_obj(t_obj, FALSE);
           continue;
         }
-        //sprintf(buf, "%6d  %5d  %-s\n",
-        //      obj_index[i].virtual_number, obj_index[i].number - 1,
-        //    (t_obj->short_description) ?
-        //  t_obj->short_description : "None");
+        /* Debugging code.
+        sprintf(buf, "%6d  %5d  %-s\n", obj_index[i].virtual_number, obj_index[i].number - 1,
+          (t_obj->short_description) ? t_obj->short_description : "None");
+        wizlog(56, buf);
+        */
 
-        //wizlog(56, buf);
-        valid_items[list] = obj_index[i].virtual_number;
-        list++;
+        valid_items[list++] = obj_index[i].virtual_number;
         extract_obj(t_obj, FALSE);
         t_obj = NULL;
 
       }
       else
-        logit(LOG_DEBUG, "do_world(): obj %d not loadable",
-            obj_index[i].virtual_number);
+      {
+        logit(LOG_DEBUG, "do_world(): obj %d not loadable", obj_index[i].virtual_number);
+      }
     }
+  }
 
-
-  if(list == 0)
+  if( list == 0 )
     return -1;
 
   return valid_items[number(0, list-1)];

@@ -3175,7 +3175,7 @@ void reset_zone(int zone, int force_item_repop)
           }
 
           ival = itemvalue(obj);
-          if( !ITEM_LOAD_CHECK(ival) )
+          if( !ITEM_LOAD_CHECK(obj, ival) )
           {
             extract_obj(obj);
             last_cmd = 1;
@@ -3238,7 +3238,7 @@ void reset_zone(int zone, int force_item_repop)
         }
 
         ival = itemvalue(obj);
-        if( !ITEM_LOAD_CHECK(ival) )
+        if( !ITEM_LOAD_CHECK(obj, ival) )
         {
           extract_obj(obj);
  	        last_cmd = 1;
@@ -3286,7 +3286,7 @@ void reset_zone(int zone, int force_item_repop)
             break;
           }
           ival = itemvalue(obj);
-          if( !ITEM_LOAD_CHECK(ival) )
+          if( !ITEM_LOAD_CHECK(obj, ival) )
           {
             extract_obj(obj);
             last_cmd = 1;
@@ -3373,7 +3373,7 @@ void reset_zone(int zone, int force_item_repop)
                   break;
                 }
                 ival = itemvalue(obj);
-                if( !ITEM_LOAD_CHECK(ival) )
+                if( !ITEM_LOAD_CHECK(obj, ival) )
                 {
                   extract_obj(obj);
                   last_cmd = 1;
@@ -3432,7 +3432,7 @@ void reset_zone(int zone, int force_item_repop)
                   break;
                 }
                 ival = itemvalue(obj);
-                if( !ITEM_LOAD_CHECK(ival) )
+                if( !ITEM_LOAD_CHECK(obj, ival) )
                 {
                   extract_obj(obj);
                   last_cmd = 1;
@@ -3485,7 +3485,7 @@ void reset_zone(int zone, int force_item_repop)
                 break;
               }
               ival = itemvalue(obj);
-              if( !ITEM_LOAD_CHECK(ival) )
+              if( !ITEM_LOAD_CHECK(obj, ival) )
               {
                 extract_obj(obj);
                 last_cmd = 1;
@@ -3554,7 +3554,7 @@ void reset_zone(int zone, int force_item_repop)
                 break;
               }
               ival = itemvalue(obj);
-              if( !ITEM_LOAD_CHECK(ival) )
+              if( !ITEM_LOAD_CHECK(obj, ival) )
               {
                 extract_obj(obj);
                 last_cmd = 1;

@@ -5,9 +5,13 @@
 #include "prototypes.h"
 #include "utils.h"
 #include "interp.h"
+#include "vnum.obj.h"
+#include "tradeskill.h"
+#include "comm.h"
 
-void     create_zone(int theme, int map_room1, int map_room2, int level_range,
-                     int rooms);
+extern P_index obj_index;
+
+void create_zone(int theme, int map_room1, int map_room2, int level_range, int rooms);
 
 /*  1-10 =  5, 11-20 =  6, 21-30 =  7, 31-35 =  8, 36-40 =  9, 41-45 = 10,
    46-50 = 12, 51-55 = 14, 56-59 = 16, 60    = 20, randomized +/- 1 */
@@ -153,10 +157,7 @@ randObjAff roaaExtra1[];
 randObjAff roaaExtra2[];  // currently nothing applicable in here*/
 
 
-//
 // user func for testing random object goodness
-//
-
 void Encrypt(char *text, int sizeOfText, const char *key, int sizeOfKey)
 {
   int      offSet = 0;
@@ -179,34 +180,31 @@ void do_randobj(P_char ch, char *strn, int val)
   char Gbuf5[MAX_STRING_LENGTH];
   extern const struct class_names class_names_table[];
 
-  if (!IS_TRUSTED(ch))
+  if( !IS_TRUSTED(ch) )
   {
-    send_to_char("bad.\r\n", ch);
+    send_to_char("Bad mortal or mob.. bad!.\r\n", ch);
     return;
   }
 
 
- if (!str_cmp("test", strn))
-     {
-/*
-         if (isascii("äåö"))
-		wizlog(56, "1 ja");
-	else 
-		wizlog(56, "1 nej");
+/* Dunno where this came from...
+  if (!str_cmp("test", strn))
+  {
+    if (isascii("äåö"))
+		  wizlog(56, "1 ja");
+	  else
+		  wizlog(56, "1 nej");
 
-	if ( isprint("öäå"))
-	          wizlog(56, "2 ja");
-        else
-                  wizlog(56, "2 nej");
+    if ( isprint("öäå"))
+      wizlog(56, "2 ja");
+    else
+      wizlog(56, "2 nej");
 
+    wizlog(56, "jag äter glass med trä sked öäå.");
+  }
 */
-	wizlog(56, "jag äter glass med trä sked öäå.");
-     }
 
- 
- 
-  
-  if (!str_cmp("remove", strn))
+  if( !str_cmp("remove", strn) )
   {
 
     reset_lab(0);
@@ -214,11 +212,11 @@ void do_randobj(P_char ch, char *strn, int val)
     reset_lab(2);
 
     wizlog(56, "Reset map random");
-
+    return;
   }
 
 
-  if (!str_cmp("map", strn))
+  if( !str_cmp("map", strn) )
   {
     create_lab(0);
     create_lab(1);
@@ -227,24 +225,47 @@ void do_randobj(P_char ch, char *strn, int val)
     return;
   }
 
-  if (!str_cmp("piece", strn))
+  if( !str_cmp("piece", strn) )
   {
     o = create_material(ch, ch);
     obj_to_char(o, ch);
     return;
   }
-  if (!str_cmp("stone", strn))
+  if( !str_cmp("stone", strn) )
   {
     o = create_stones(ch);
     obj_to_char(o, ch);
     return;
   }
-  if (!str_cmp("eq", strn))
+  if( !str_cmp("eq", strn) )
   {
     o = create_random_eq_new(ch, ch, -1, -1);
     obj_to_char(o, ch);
     sprintf(Gbuf5, "o %s", o->name);
     do_stat(ch, Gbuf5, CMD_STAT);
+    return;
+  }
+
+  if( !str_cmp("recipe", strn) )
+  {
+    o = random_zone_item(ch);
+    if( !o )
+    {
+      send_to_char( "Failed creating random zone item.\n", ch );
+      return;
+    }
+
+    if( obj_index[o->R_num].virtual_number == VOBJ_RANDOM_ARMOR ||
+        obj_index[o->R_num].virtual_number == VOBJ_RANDOM_THRUSTED ||
+        obj_index[o->R_num].virtual_number == VOBJ_RANDOM_WEAPON )
+    {
+      act("Created random object: $q.  Deleting it.", FALSE, ch, o, NULL, TO_CHAR);
+      extract_obj(o);
+      return;
+    }
+    create_recipe(ch, o);
+    extract_obj(o);
+
     return;
   }
 
@@ -260,11 +281,7 @@ void do_randobj(P_char ch, char *strn, int val)
     return;
   }
 
-
-
-  send_to_char("Syntax: randobj <stone, piece, eq, mob, zone> \r\n", ch);
-
-
+  send_to_char("Syntax: randobj <remove, map, stone, piece, eq, recipe, mob, zone> \r\n", ch);
 }
 
 

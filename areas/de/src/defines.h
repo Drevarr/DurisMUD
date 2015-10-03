@@ -79,6 +79,10 @@ typedef unsigned int uint;
 #define BIT_31  1073741824U
 #define BIT_32  2147483648U
 
+#define MAX_INT_SIGNED    2147483647
+#define MIN_INT_SIGNED   -2147483647
+#define MAX_INT_UNSIGNED  4294967295U
+
 /* The following defs are for obj_data  */
 
 /* note:  before reassigning any of these, especially the ones that you have no
@@ -190,7 +194,7 @@ typedef unsigned int uint;
 #define ITEM_NORESET       BIT_15
 #define ITEM_NOLOCATE      BIT_16       /* Item cannot be located       */
 #define ITEM_NOIDENTIFY    BIT_17       /* Item cannot be identified    */
-#define ITEM_NOSUMMON      BIT_18       /* if in inventory cannot be summoned */
+#define ITEM_NOSUMMON      BIT_18       /* if worn cannot be summoned */
 #define ITEM_LIT           BIT_19       /* Item has a light spell cast on it */
 #define ITEM_TRANSIENT     BIT_20       /* Item which dissolves when dropped */
 #define ITEM_NOSLEEP       BIT_21       /* If in inventory, cannot be slept */
@@ -224,6 +228,8 @@ typedef unsigned int uint;
 #define ITEM2_STOREITEM    BIT_13  /* Item Bought From a Shop */
 #define ITEM2_SOULBIND     BIT_14  /* Item is Soulbound */
 #define ITEM2_CRAFTED      BIT_15
+#define ITEM2_QUESTITEM    BIT_16
+
 /* Bitvector for 'anti_flags' */
 /*
 #define ITEM_ALLOW_ALL         BIT_1
@@ -504,7 +510,7 @@ typedef unsigned int uint;
 /* The following defs and structures are related to char_data   */
 
 	/* For 'equipment' */
-
+#define WEAR_NONE              -1
 #define WEAR_LIGHT              0       /* should not be used any longer! */
 #define WEAR_FINGER_R           1
 #define WEAR_FINGER_L           2
@@ -611,6 +617,8 @@ struct attr_names_struct {
 #define KARMA	9
 #define LUCK	10
 #define MAX_ATTRIBUTES LUCK
+
+#define MIN_LEVEL_FOR_ATTRIBUTES 20
 
 /* Predifined  conditions */
 #define DRUNK        0
@@ -791,6 +799,7 @@ struct attr_names_struct {
 #define AFF5_DREADNAUGHT        BIT_26
 #define AFF5_FOREST_SIGHT       BIT_27
 #define AFF5_THORNSKIN          BIT_28
+#define AFF5_FOLLOWING          BIT_29
 
 
 /* modifiers to char's abilities */
@@ -975,6 +984,7 @@ struct attr_names_struct {
 #define RACEWAR_EVIL         2
 #define RACEWAR_UNDEAD       3
 #define RACEWAR_NEUTRAL      4
+#define MAX_RACEWAR          4
 
 /* class defn's (PC) */
 #define CLASS_NONE            0
@@ -1279,11 +1289,13 @@ struct material_data {
 };
 
 #define _NEW_LOW_NECRO_ 0
-#define PLAYERLESS_ZONE_SPEED_MODIFIER 3
-#define WH_HIGH_PRIEST_VNUM 55184
-#define IMAGE_REFLECTION_VNUM 250
-#define DRAGONLORD_PLATE_VNUM 25723
-#define REVENANT_CROWN_VNUM 22070
+#define PLAYERLESS_ZONE_SPEED_MODIFIER     3
+#define WH_HIGH_PRIEST_VNUM            55184
+#define IMAGE_REFLECTION_VNUM            250
+#define DRAGONLORD_PLATE_VNUM          25723
+#define REVENANT_CROWN_VNUM            22070
+#define DWARVEN_ANCESTOR_VNUM             75
+
 #define SNEAK(ch) (IS_AFFECTED(ch, AFF_SNEAK) || UD_SNEAK(ch) || OUTDOOR_SNEAK(ch))
 #define LEVITATE(ch, dir) (IS_AFFECTED(ch, AFF_LEVITATE) && ((dir == UP) || (dir == DOWN)))
 
@@ -1293,5 +1305,7 @@ struct material_data {
 #define FIND_AND_ASK   2
 
 #define RANDOM_ZONES 1 // Set to 1 to enable
+
+#define MAX_ALTITUDE 3
 
 #endif /* _DURIS_DEFINES_H_ */

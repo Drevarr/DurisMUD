@@ -196,5 +196,6 @@ void event_fish_check(P_char ch, P_char victim, P_obj, void *data);
 bool player_recipes_exists(char *charname);
 void create_recipes_file(const char *dir, char *name);
 void create_recipes_name(char *name);
+void create_recipe(P_char ch, P_obj temp);
 
 #endif // _TRADESKILL_H_

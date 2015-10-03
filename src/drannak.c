@@ -850,9 +850,14 @@ void random_recipe(P_char ch, P_char victim)
   if( result < chance )
   {
     P_obj reward = random_zone_item(ch);
-    if( obj_index[reward->R_num].virtual_number == VOBJ_RANDOM_ARMOR ||
-        obj_index[reward->R_num].virtual_number == VOBJ_RANDOM_THRUSTED ||
-        obj_index[reward->R_num].virtual_number == VOBJ_RANDOM_WEAPON )
+    if( !reward )
+    {
+      return;
+    }
+
+    if( obj_index[reward->R_num].virtual_number == VOBJ_RANDOM_ARMOR
+      || obj_index[reward->R_num].virtual_number == VOBJ_RANDOM_THRUSTED
+      || obj_index[reward->R_num].virtual_number == VOBJ_RANDOM_WEAPON )
     {
       extract_obj(reward);
       return;
@@ -1281,7 +1286,15 @@ void randomizeitem(P_char ch, P_obj obj)
 
 P_obj random_zone_item(P_char ch)
 {
-  P_obj reward = read_object(real_object(getItemFromZone(GET_ZONE(ch))), REAL);
+  P_obj reward;
+
+  reward = read_object(real_object(getItemFromZone(GET_ZONE(ch))), REAL);
+
+  if( reward->type == ITEM_POTION )
+  {
+    extract_obj(reward);
+    reward = NULL;
+  }
 
   if(!reward)
     reward = create_random_eq_new(ch, ch, -1, -1);
@@ -2019,20 +2032,18 @@ bool calmcheck(P_char ch)
 
 void enhance(P_char ch, P_obj source, P_obj material)
 {
-  int mod = 0;
   char buf[MAX_STRING_LENGTH];
   P_obj robj;
   long robjint;
   int cost, searchcount, maxsearch, tries, sval;
   bool validobj;
-  int val, minval, chluck, wearflags;
+  int newval, minval, chluck, wearflags;
 
   if(!ch || !source || !material)
     return;
 
   chluck = (GET_C_LUK(ch));
   sval = itemvalue(source);
-  val = itemvalue(material);
   minval = itemvalue(source) - 5;
   searchcount = 0;
   maxsearch = 20000;
@@ -2049,7 +2060,8 @@ void enhance(P_char ch, P_obj source, P_obj material)
     return;
   }
 
-  if( itemvalue( source ) > 100 )
+  // 95 can enhance to a max ival 99 item.
+  if( sval > 95 )
   {
     send_to_char( "This item is too powerful to be enhanced further.\n", ch );
     return;
@@ -2058,7 +2070,7 @@ void enhance(P_char ch, P_obj source, P_obj material)
   if( IS_SET(source->wear_flags, ITEM_GUILD_INSIGNIA) )
     minval +=5;
 
-  if( val < minval )
+  if( itemvalue(material) < minval )
   {
     char buf[MAX_STRING_LENGTH], buf2[MAX_STRING_LENGTH];
     sprintf(buf2, "%s", source->short_description);
@@ -2067,7 +2079,7 @@ void enhance(P_char ch, P_obj source, P_obj material)
     return;
   }
 
-  if( val <= 20 )
+  if( sval <= 20 )
   {
     cost = 1000;
   }
@@ -2083,27 +2095,29 @@ void enhance(P_char ch, P_obj source, P_obj material)
     return;
   }
 
-  mod = 1;
   if(number(1, 1200) < chluck)
   {
-    mod += 3;
+    newval = sval + 4;
     maxsearch *= 4;
     send_to_char("&+YYou feel &+MEXTREMELY Lucky&+Y!\r\n", ch);
   }
   else if(number(1, 800) < chluck)
   {
-    mod += 2;
+    newval = sval + 3;
     maxsearch *= 3;
     send_to_char("&+YYou feel &+MVery Lucky&+Y!\r\n", ch);
   }
   else if(number(1, 400) < chluck)
   {
-    mod ++;
+    newval = sval + 2;
     maxsearch *= 2;
     send_to_char("&+YYou feel &+MLucky&+Y!\r\n", ch);
   }
+  else
+  {
+    newval = sval + 1;
+  }
 
-  mod += itemvalue(source);
   validobj = FALSE;
   /*debug sprintf(buf, "validobj value: %d\n\r", validobj);
     send_to_char(buf, ch);*/
@@ -2117,16 +2131,17 @@ void enhance(P_char ch, P_obj source, P_obj material)
     {
       validobj = FALSE;
     }
-    else if(!IS_SET(robj->wear_flags, ITEM_TAKE) || robj->type == ITEM_KEY || IS_SET(robj->extra_flags, ITEM_ARTIFACT) || IS_SET(robj->extra_flags, ITEM_NOSELL) || IS_SET(robj->extra_flags, ITEM_NORENT) || IS_SET(robj->extra_flags, ITEM_NOSHOW) || IS_SET(robj->extra_flags, ITEM_TRANSIENT))
+    else if( !IS_SET(robj->wear_flags, ITEM_TAKE) || IS_SET(robj->extra_flags, ITEM_ARTIFACT)
+      || IS_SET(robj->extra_flags, ITEM_NOSELL) || IS_SET(robj->extra_flags, ITEM_NORENT)
+      || IS_SET(robj->extra_flags, ITEM_NOSHOW) || IS_SET(robj->extra_flags, ITEM_TRANSIENT)
+      || IS_OBJ_STAT2(robj, ITEM2_QUESTITEM) )
     {
       validobj = FALSE;
       extract_obj(robj);
     }
-    else if( itemvalue(robj) != mod
-      || (robj->type == ITEM_STAFF && robj->value[3] > 0)
-      || robj->type == ITEM_TREASURE || robj->type == ITEM_POTION
-      || robj->type == ITEM_MONEY || robj->type == ITEM_KEY
-      || robj->type == ITEM_WAND )
+    else if( itemvalue(robj) != newval || (robj->type == ITEM_STAFF && robj->value[3] > 0)
+      || robj->type == ITEM_TREASURE || robj->type == ITEM_POTION || robj->type == ITEM_MONEY
+      || robj->type == ITEM_KEY || robj->type == ITEM_WAND )
     {
       validobj = FALSE;
       extract_obj(robj);

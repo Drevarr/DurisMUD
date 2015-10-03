@@ -1412,6 +1412,8 @@ char *CRYPT2( char *passwd, char *name );
 #define MAGICDAMBONUS(ch) ((GET_C_STR(ch) < 121) ? 100 : (GET_C_STR(ch) < 141) ? 110 : (GET_C_STR(ch) < 181) ? 120 : 130)
 
 // Approaches 25% chance as ival approaches infinity.  ival 1 -> 100% chance, 2 -> ~94.5%...
-#define ITEM_LOAD_CHECK(ival) ((100 * ival + 5000) / (4 * ival + 47) > number(0, 99))
+// Quest items have 100% load.
+#define ITEM_LOAD_CHECK(item, ival) ( IS_OBJ_STAT2(item, ITEM2_QUESTITEM) ? TRUE \
+  : ((100 * ival + 5000) / (4 * ival + 47) > number(0, 99)) )
 
 #endif /* _DURIS_UTILS_H_ */

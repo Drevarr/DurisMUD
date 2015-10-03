@@ -654,6 +654,7 @@ flagDef  extra2_bits[] = {
   {"STOREITEM", "Bought from shop", 0, 0},
   {"SOULBIND", "Soul bound item", 0, 0},
   {"CRAFTED", "Crafted Item", 0, 0},
+  {"QUESTITEM", "Quest Item", 0, 0},
   {0}
 };
 
