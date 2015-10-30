@@ -22,6 +22,9 @@
 #define LOWEST_ORE_VNUM     400260
 #define NUMBER_ORE_TYPES         8
 
+// The maximum level mob that can be conjured without use of a greater orb of magic.
+#define CONJURE_MAXLVL_NO_ORB 56
+
 // The below reg ore vnums are outdated; the new vnums are in order starting with above.
 #define SMALL_IRON_ORE 194
 #define MEDIUM_IRON_ORE 196

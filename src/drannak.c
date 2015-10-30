@@ -1489,7 +1489,7 @@ void do_conjure(P_char ch, char *argument, int cmd)
     }
 
 
-    if( (GET_LEVEL(t_ch) > 51) && !vnum_in_inv(ch, VOBJ_GREATER_ORB_MAGIC) && !IS_TRUSTED(ch) )
+    if( (GET_LEVEL(t_ch) > CONJURE_MAXLVL_NO_ORB) && !vnum_in_inv(ch, VOBJ_GREATER_ORB_MAGIC) && !IS_TRUSTED(ch) )
     {
       send_to_char("You must have a &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+mM&+Ma&+Wg&+Mi&+mc&n in your &+Winventory&n in order to &+Ysummon&n a being of such &+Mgreat&+M power&n.\r\n", ch);
       extract_char(t_ch);
@@ -1548,7 +1548,7 @@ void do_conjure(P_char ch, char *argument, int cmd)
     // Stop mobs from randomly sitting all the time.
     t_ch->only.npc->default_pos = POS_STANDING + STAT_NORMAL;
 
-    if(GET_LEVEL(t_ch) > 56 && !IS_TRUSTED(ch))
+    if(GET_LEVEL(t_ch) > CONJURE_MAXLVL_NO_ORB && !IS_TRUSTED(ch))
     {
       vnum_from_inv(ch, VOBJ_GREATER_ORB_MAGIC, 1);
       act("$n &+Ltosses their &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+mM&+Ma&+Wg&+Mi&+mc&n &+Linto the &+Cair&+L, which quickly forms an &+Rextra-dimensional &+Lpocket&n!", TRUE, ch, 0,
