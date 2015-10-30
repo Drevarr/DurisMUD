@@ -1211,7 +1211,7 @@ void chant_jin_touch(P_char ch, char *argument, int cmd)
 
 void chant_ki_strike(P_char ch, char *argument, int cmd)
 {
-  P_char   vict = NULL;
+  P_char   vict = NULL, master;
   char     name[256];
   int      dam, percent;
   int      skl_lvl = 0;
@@ -1223,50 +1223,44 @@ void chant_ki_strike(P_char ch, char *argument, int cmd)
     return;
   }
 
-  if (IS_PC(ch))
+  if( IS_PC(ch) )
     skl_lvl = GET_CHAR_SKILL(ch, SKILL_KI_STRIKE);
   else
-    skl_lvl = MAX(100, GET_LEVEL(ch) * 2);
+    skl_lvl = MIN(100, GET_LEVEL(ch) * 2);
 
-  if (argument)
+  if( argument )
     one_argument(argument, name);
-  if (!argument || !*argument || !(vict = get_char_room_vis(ch, name)))
+  if( !argument || !*argument || !(vict = get_char_room_vis(ch, name)) )
   {
-    if(ch->specials.fighting &&
-      (GET_STAT(ch->specials.fighting) != STAT_DEAD))
-       vict = ch->specials.fighting;
+    if( ch->specials.fighting && (GET_STAT(ch->specials.fighting) != STAT_DEAD) )
+      vict = ch->specials.fighting;
   }
-  if (!vict || (GET_STAT(vict) == STAT_DEAD))
+  if( !vict || (GET_STAT(vict) == STAT_DEAD) )
   {
     send_to_char("Chant on whom?\r\n", ch);
     return;
   }
-  if (vict == ch)
+  if( vict == ch )
   {
     send_to_char("You hum to yourself.\r\n", ch);
     return;
   }
-  if (!affect_timer(ch,
-        WAIT_SEC * get_property("timer.secs.monkKistrike", 45),
-        SKILL_KI_STRIKE))
+  if( !affect_timer(ch, WAIT_SEC * get_property("timer.secs.monkKistrike", 45), SKILL_KI_STRIKE) )
   {
     send_to_char("Yer not in proper mood for that right now!\r\n", ch);
     return;
   }
-  if (CHAR_IN_SAFE_ZONE(ch))
+  if( CHAR_IN_SAFE_ZONE(ch) )
   {
-    send_to_char
-      ("You feel ashamed to try to disrupt the tranquility of this place.\r\n",
-       ch);
+    send_to_char("You feel ashamed to try to disrupt the tranquility of this place.\r\n", ch);
     return;
   }
-  if ((IS_SET(world[ch->in_room].room_flags, SINGLE_FILE)) &&
-      (!AdjacentInRoom(ch, vict)))
+  if( (IS_SET(world[ch->in_room].room_flags, SINGLE_FILE)) && (!AdjacentInRoom(ch, vict)) )
   {
     send_to_char("Your target is too far for your touch to reach!\n", ch);
     return;
   }
-  if (number(1, 100) > skl_lvl)
+  if( number(1, 100) > skl_lvl )
   {
     appear(ch);
     send_to_char("You forgot the words for the chant.\r\n", ch);
@@ -1281,6 +1275,20 @@ void chant_ki_strike(P_char ch, char *argument, int cmd)
 
     return;
   }
+
+  // A surprise for those who want to use epic skills via charmies.
+  if( IS_NPC(ch) && IS_PC(vict) && (master = get_linked_char(ch, LNK_PET)) != NULL )
+  {
+    if( IS_PC(master) )
+    {
+      act("&+YThe chi-power of $n&+r's &+Wki strike&+Y breaks $N&+Y's control.&n", FALSE, ch, 0, master, TO_NOTVICT);
+      act("&+YThe chi-power of $n&+r's &+Wki strike&+Y breaks your control.&n", FALSE, ch, 0, master, TO_VICT);
+      act("&+YThe power of your &+Wki strike&+Y frees you from $N&+Y's control!", FALSE, ch, 0, master, TO_CHAR);
+      clear_links(ch, LNK_PET);
+      vict = master;
+    }
+  }
+
   if (!IS_FIGHTING(ch) && !IS_DESTROYING(ch))
     set_fighting(ch, vict);
   appear(ch);
@@ -1405,9 +1413,7 @@ void chant_tiger_palm(P_char ch, char *arg, int cmd)
   }
 
   set_short_affected_by(ch, SKILL_TIGER_PALM, WAIT_SEC * (BOUNDED(4, (GET_CHAR_SKILL(ch, SKILL_TIGER_PALM) / 2), 55)));
-  send_to_char
-     ("&+rYou invoke the power of the tiger palm concentration.\r\n"
-     , ch);
+  send_to_char("&+rYou invoke the power of the tiger palm concentration.\r\n", ch);
   act("&+r$n&+r's concentration grows as $e summons $s inner chi-powers.&n", FALSE, ch, 0, 0, TO_ROOM);
 }
 
