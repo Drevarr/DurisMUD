@@ -54,7 +54,7 @@ void event_track_move(P_char ch, P_char vict, P_obj obj, void *data)
     return;
   }
 
-  if (!IS_SET(ch->specials.affected_by3, AFF3_TRACKING))
+  if( !IS_SET(ch->specials.affected_by3, AFF3_TRACKING) )
   {
     send_to_char("Something breaks your concentration, and you abandon the hunt.\r\n", ch);
     return;
@@ -95,16 +95,26 @@ void event_track_move(P_char ch, P_char vict, P_obj obj, void *data)
       && IS_SET(EXIT(ch, dir)->exit_info, EX_CLOSED)
       && !IS_SET(EXIT(ch, dir)->exit_info, EX_LOCKED))
     {
-      sprintf(buf, "%s %s%s", EXIT(ch, (int) dir)->keyword ?
-              FirstWord(EXIT(ch, (int) dir)->keyword) : "door",
-              ((dir == DOWN) || (dir == UP)) ? "to " : "", dirs[(int) dir]);
-      send_to_char("You open the ", ch);
+      if( (dir == DOWN) || (dir == UP) )
+      {
+        sprintf(buf, "You open the %sward %s.\n", dirs[dir],
+          EXIT(ch, dir)->keyword ? FirstWord(EXIT(ch, dir)->keyword) : "door" );
+      }
+      else
+      {
+        sprintf(buf, "You open the %s to the %s.\n",
+          EXIT(ch, dir)->keyword ? FirstWord(EXIT(ch, dir)->keyword) : "door", dirs[dir] );
+      }
       send_to_char(buf, ch);
-      send_to_char(".\r\n", ch);
       sprintf(buf, "%s", dirs[(int) dir]);
       do_open(ch, buf, 0);
     }
 
+    if( IS_AFFECTED( ch, AFF_HIDE ) )
+    {
+      send_to_char( "You leave the shadows and continue your hunt.\n", ch );
+      REMOVE_BIT( ch->specials.affected_by, AFF_HIDE );
+    }
     do_move(ch, NULL, exitnumb_to_cmd(dir));
 
     // Could die from various crap
@@ -275,9 +285,7 @@ void do_track(P_char ch, char *arg, int cmd) //do_track_not_in_use
 */
 
 #ifdef NOTRACK
-  send_to_char
-    ("Tracking is a passive skill. If you know how, you will see tracks.\r\n",
-     ch);
+  send_to_char("Tracking is a passive skill. If you know how, you will see tracks.\r\n", ch);
   return;
 #endif
 

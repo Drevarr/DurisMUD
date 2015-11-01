@@ -70,6 +70,7 @@ extern P_char character_list;
 extern Skill skills[];
 extern const int new_exp_table[];
 
+extern void event_track_move(P_char ch, P_char vict, P_obj obj, void *data);
 
 /*
  * allow players to 'set up camp' and rent out in the wilderness.  JAB
@@ -1949,33 +1950,39 @@ void do_sneak(P_char ch, char *argument, int cmd)
 
 void do_hide(P_char ch, char *argument, int cmd)
 {
-  byte     percent;
+  byte     roll;
   int      skl_lvl = 0, vis_mode;
   bool     tried = FALSE;
   P_obj    obj_object, next_obj, tobj, next_tobj;
   char     Gbuf1[MAX_STRING_LENGTH], Gbuf2[MAX_STRING_LENGTH];
 
-  if (!SanityCheck(ch, "do_hide"))
+  if( !SanityCheck(ch, "do_hide") )
   {
     logit(LOG_DEBUG, "do_hide failed SanityCheck");
     return;
   }
   one_argument(argument, Gbuf1);
 
-  if (!*Gbuf1 &&
-      (!GET_CHAR_SKILL(ch, SKILL_HIDE) || (IS_NPC(ch) && !IS_THIEF(ch))))
+  if( !*Gbuf1 && (!GET_CHAR_SKILL(ch, SKILL_HIDE) || (IS_NPC(ch) && !IS_THIEF(ch))) )
   {
     send_to_char("What would you like to hide?\r\n", ch);
     return;
   }
-  else if ((str_cmp(Gbuf1, "all") == 0) || strstr(Gbuf1, "all."))
+  else if( (str_cmp(Gbuf1, "all") == 0) || strstr(Gbuf1, "all.") )
   {
     send_to_char("Sorry, you can't hide everything at once!\r\n", ch);
     return;
   }
-  else
-    if ((str_cmp(Gbuf1, "me") == 0 || str_cmp(Gbuf1, "self") == 0 || !*Gbuf1))
+  else if( (str_cmp(Gbuf1, "me") == 0 || str_cmp(Gbuf1, "self") == 0 || !*Gbuf1) )
   {
+    if( IS_AFFECTED3(ch, AFF3_TRACKING) )
+    {
+      send_to_char("You abandon the hunt.\r\n", ch);
+      ch->specials.tracking = 0;
+      REMOVE_BIT(ch->specials.affected_by3, AFF3_TRACKING);
+      disarm_char_nevents(ch, event_track_move);
+    }
+
     if (IS_NPC(ch) && IS_THIEF(ch))
       skl_lvl = BOUNDED(1, (dice(5, 2) + (GET_LEVEL(ch) - 5) * 4), 95);
     else if (IS_PC(ch))
@@ -1983,8 +1990,7 @@ void do_hide(P_char ch, char *argument, int cmd)
 
     if (!skl_lvl)
     {
-      send_to_char("You better leave the art of hiding to the thieves.\r\n",
-                   ch);
+      send_to_char("You better leave the art of hiding to the thieves.\r\n", ch);
       return;
     }
     if (ch->specials.z_cord > 0)
@@ -1992,27 +1998,23 @@ void do_hide(P_char ch, char *argument, int cmd)
       send_to_char("There's really nowhere to hide up here.\r\n", ch);
       return;
     }
-    if (IS_RIDING(ch))
+    if( IS_RIDING(ch) )
     {
       send_to_char("While mounted? I don't think so...\r\n", ch);
       return;
     }
-    if (affected_by_spell(ch, SPELL_FAERIE_FIRE))
+    if( affected_by_spell(ch, SPELL_FAERIE_FIRE) )
     {
-      send_to_char
-        ("How on earth are you going to hide with this stuff all over you?\r\n",
-         ch);
+      send_to_char("How on earth are you going to hide with this &+mstuff&n all over you?\r\n", ch);
       return;
     }
-    
-    if(!IS_WATERFORM(ch) &&
-      (IS_WATER(ch->in_room) ||
-       IS_WATER_ROOM(ch->in_room)))
+
+    if( !IS_WATERFORM(ch) && (IS_WATER(ch->in_room) || IS_WATER_ROOM(ch->in_room)) )
     {
       send_to_char("It is too &+bwet&n to hide here. Go find dry land...\r\n", ch);
       return;
     }
-    
+
     if( IS_FIGHTING(ch) || IS_DESTROYING(ch) )
     {
       send_to_char("Hide behind your weapon, you're a little busy for anything else.\r\n", ch);
@@ -2021,12 +2023,12 @@ void do_hide(P_char ch, char *argument, int cmd)
     send_to_char("You attempt to hide yourself.\r\n", ch);
     if (IS_AFFECTED(ch, AFF_HIDE))
       REMOVE_BIT(ch->specials.affected_by, AFF_HIDE);
-    percent = number(1, 101);   /*
-                                 * 101% is a complete failure
-                                 */
+    // 101% is a complete failure
+    roll = number(1, 101);
 
-    if (GET_C_LUK(ch) / 2 > number(0,100)) {
-      percent = (int) (percent * 0.90);
+    if( GET_C_LUK(ch) / 2 > number(0,100) )
+    {
+      roll = (int) (roll * 0.90);
     }
 
     if (GET_SPEC(ch, CLASS_ROGUE, SPEC_THIEF) && GET_CHAR_SKILL(ch, SKILL_HIDE) > 90)
@@ -2036,34 +2038,34 @@ void do_hide(P_char ch, char *argument, int cmd)
     else
       CharWait(ch, PULSE_VIOLENCE * 3);
 
-      /*  destroy your tracks! */
-      for (tobj = world[ch->in_room].contents; tobj; tobj = next_tobj)
+    /*  destroy your tracks! */
+    for( tobj = world[ch->in_room].contents; tobj; tobj = next_tobj )
+    {
+      next_tobj = tobj->next_content;
+      if( tobj->R_num == real_object(VNUM_TRACKS) )
       {
-        next_tobj = tobj->next_content;
-        if (tobj->R_num == real_object(VNUM_TRACKS))
-        {
-          extract_obj(tobj);
-          tobj = NULL;
-        }
+        extract_obj(tobj);
+        tobj = NULL;
       }
+    }
 
     if (GET_RACE(ch) == RACE_PSBEAST)
     {
       if( IS_TWILIGHT_ROOM(ch->in_room) || !IS_LIGHT(ch->in_room) )
       {
-        percent = 0;
+        roll = 0;
         send_to_char("&+LYou blend into the shadows...&n\r\n", ch);
       }
     }
     notch_skill(ch, SKILL_HIDE, 17);
-    if (percent > skl_lvl + agi_app[STAT_INDEX(GET_C_AGI(ch))].hide)
+    if( roll > skl_lvl + agi_app[STAT_INDEX(GET_C_AGI(ch))].hide )
     {
       return;
     }
     SET_BIT(ch->specials.affected_by, AFF_HIDE);
     struct affected_type af;
 
-    if (number(0, 101) < GET_CHAR_SKILL(ch, SKILL_AMBUSH))
+    if( number(0, 101) < GET_CHAR_SKILL(ch, SKILL_AMBUSH) )
     {
       send_to_char("&+LYou find a particulary good spot.&n\r\n", ch);
       affect_from_char(ch, SKILL_AMBUSH);
@@ -2073,7 +2075,6 @@ void do_hide(P_char ch, char *argument, int cmd)
       affect_to_char(ch, &af);
     }
     return;
-
   }
   else if (sscanf(Gbuf1, "all.%s", Gbuf2) != 1)
   {                             /*
