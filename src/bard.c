@@ -1537,73 +1537,70 @@ void bard_dissonance(int l, P_char ch, P_char victim, int song)
   int empower = GET_CHAR_SKILL(ch, SKILL_EMPOWER_SONG);
   int in_room, c_roll, t_roll;
 
-  if(!(ch) ||
-    !IS_ALIVE(ch))
+  if( !IS_ALIVE(ch) )
   {
     return;
   }
 
   c_roll = empower / 3 + GET_LEVEL(ch) + GET_C_CHA(ch) / 2 + GET_C_LUK(ch) / 5;
-  
+
   for (t = world[ch->in_room].people; t; t = t_next)
   {
     t_next = t->next_in_room;
-    
-    if(!should_area_hit(ch, t))
+
+    // If, for whatever reason, our bard has stopped singing, stop song effects.
+    if( !IS_AFFECTED3(ch, AFF3_SINGING) )
+    {
+      break;
+    }
+
+    if( !should_area_hit(ch, t) )
     {
       continue;
     }
-    
-    if(IS_TRUSTED(t))
+
+    if( IS_TRUSTED(t) )
     {
       continue;
     }
-    
-    if(GET_SPEC(ch, CLASS_BARD, SPEC_DISHARMONIST))
+
+    if( GET_SPEC(ch, CLASS_BARD, SPEC_DISHARMONIST) )
     {
       c_roll += (int) (c_roll * 1.20);
     }
-    
-    if(!grouped(ch, t) &&
-       GET_CLASS(t, CLASS_BARD) &&
-       IS_AFFECTED3(t, AFF3_SINGING))
+
+    // Below here are aggressive things that don't hit the bard's group.
+    if( grouped(ch, t) )
     {
-      t_roll =  (GET_CHAR_SKILL(t, SKILL_EMPOWER_SONG) / 3) +
-                GET_LEVEL(t) +
-                (GET_C_CHA(t) / 2) +
-                (GET_C_LUK(t) / 5);
-               
-  
-      if(c_roll + number(0, 50) > t_roll + number(0, 50))
+      continue;
+    }
+
+    if( IS_AFFECTED3(t, AFF3_SINGING) )
+    {
+      t_roll = (GET_CHAR_SKILL(t, SKILL_EMPOWER_SONG) / 3) + GET_LEVEL(t) + (GET_C_CHA(t) / 2) + (GET_C_LUK(t) / 5);
+
+      if( c_roll + number(0, 50) > t_roll + number(0, 50) )
       {
 
-        act("You have &+ym&+Ya&+yn&+Yg&+yl&+Ye&+yd&n $N's singing!",
-          TRUE, ch, 0, t, TO_CHAR);        
-        act("$n's &+Chorn blasting&n &+ym&+Ya&+yn&+Yg&+yl&+Ye&+ys&n your song...",
-          TRUE, ch, 0, t, TO_VICT);
-        act("$N's &+Csong&n is &+ym&+Ya&+yn&+Yg&+yl&+Ye&+yd&n!",
-          TRUE, ch, 0, t, TO_NOTVICT);
+        act("You have &+ym&+Ya&+yn&+Yg&+yl&+Ye&+yd&n $N's singing!", TRUE, ch, 0, t, TO_CHAR);
+        act("$n's &+Chorn blasting&n &+ym&+Ya&+yn&+Yg&+yl&+Ye&+ys&n your song...", TRUE, ch, 0, t, TO_VICT);
+        act("$N's &+Csong&n is &+ym&+Ya&+yn&+Yg&+yl&+Ye&+yd&n!", TRUE, ch, 0, t, TO_NOTVICT);
 
         CharWait(t, PULSE_VIOLENCE);
-          
+
         stop_singing(t);
         break;
       }
     }
-    
-    if(!grouped(ch, t) &&
-       IS_NPC(t) &&
-       IS_AFFECTED3(ch, AFF3_SINGING) &&
-       get_linked_char(t, LNK_PET) &&
-       get_linked_char(t, LNK_PET)->in_room == ch->in_room &&
-       c_roll > number(1, 2000))
+
+    if( IS_NPC(t) && get_linked_char(t, LNK_PET) && get_linked_char(t, LNK_PET)->in_room == ch->in_room
+      && c_roll > number(1, 2000) )
     {
-      act("$N &+Wshudders and quivers&n for a moment...",
-        TRUE, ch, 0, t, TO_ROOM);
-      act("$N &+Wshudders and quivers&n for a moment.",
-        TRUE, ch, 0, t, TO_CHAR); 
-        
+      act("$N &+Wshudders and quivers&n for a moment...", TRUE, ch, 0, t, TO_ROOM);
+      act("$N &+Wshudders and quivers&n for a moment.", TRUE, ch, 0, t, TO_CHAR);
       clear_all_links(t);
+      // Pets go away after 1 1/2 min to prevent cheese.
+      add_event(event_pet_death, 90 * WAIT_SEC, t, NULL, NULL, 0, NULL, 0);
     }
   }
 }
