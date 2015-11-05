@@ -1387,7 +1387,7 @@ bool ac_can_see(P_char sub, P_char obj, bool check_z)
 
   // Now, we need to look at the room obj is in too see if sub can see anything in it.
   oroom = obj->in_room;
-  if( !IS_MAP_ROOM(oroom) )
+  if( !IS_MAP_ROOM(oroom) && oroom >= 0 )
   {
     // Check for dayblind: Light room with dayblind subject.
     if( dayblind && !CAN_NIGHTPEOPLE_SEE(oroom) )
@@ -1454,7 +1454,6 @@ bool ac_can_see(P_char sub, P_char obj, bool check_z)
   }
 
   return TRUE;
-
 }
 
 /*
@@ -2748,12 +2747,15 @@ char *PERS(P_char ch, P_char vict, int short_d, bool noansi)
     if( has_innate(vict, INNATE_DAYBLIND) && !CAN_NIGHTPEOPLE_SEE(ch->in_room) )
     {
       bool globe = FALSE;
-      for( P_char rch = world[ch->in_room].people; rch; rch = rch->next_in_room )
+      if( ch->in_room >= 0 )
       {
-        if( IS_AFFECTED4(rch, AFF4_GLOBE_OF_DARKNESS) )
+        for( P_char rch = world[ch->in_room].people; rch; rch = rch->next_in_room )
         {
-          globe = TRUE;
-          break;
+          if( IS_AFFECTED4(rch, AFF4_GLOBE_OF_DARKNESS) )
+          {
+            globe = TRUE;
+            break;
+          }
         }
       }
       if( !globe )
@@ -2765,12 +2767,15 @@ char *PERS(P_char ch, P_char vict, int short_d, bool noansi)
     else if( !IS_AFFECTED2(vict, AFF2_ULTRAVISION) && !CAN_DAYPEOPLE_SEE(ch->in_room) )
     {
       bool flame = FALSE;
-      for( P_char rch = world[ch->in_room].people; rch; rch = rch->next_in_room )
+      if( ch->in_room >= 0 )
       {
-        if( IS_AFFECTED4(rch, AFF4_MAGE_FLAME) )
+        for( P_char rch = world[ch->in_room].people; rch; rch = rch->next_in_room )
         {
-          flame = TRUE;
-          break;
+          if( IS_AFFECTED4(rch, AFF4_MAGE_FLAME) )
+          {
+            flame = TRUE;
+            break;
+          }
         }
       }
       if( !flame )
