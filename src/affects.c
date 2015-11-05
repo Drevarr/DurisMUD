@@ -2333,7 +2333,7 @@ void event_room_affect(P_char ch, P_char victim, P_obj obj, void *data)
  * affect, SILENT flag will be removed when affect wears off
  */
 //---------------------------------------------------------------------------------
-void affect_to_room(int room, struct room_affect *af)
+struct room_affect *affect_to_room(int room, struct room_affect *af)
 {
   struct room_affect *affected_alloc;
   struct event_room_affect_data data;
@@ -2355,7 +2355,7 @@ void affect_to_room(int room, struct room_affect *af)
   affected_alloc->next = world[room].affected;
   world[room].affected = affected_alloc;
 
-  // This line guarentees taht af->room_flags don't include any flags already set.
+  // This line guarentees that af->room_flags don't include any flags already set.
   //   This is important for when the affect wears off.
   affected_alloc->room_flags = affected_alloc->room_flags & ~(world[room].room_flags);
   world[room].room_flags |= affected_alloc->room_flags;
@@ -2364,6 +2364,8 @@ void affect_to_room(int room, struct room_affect *af)
   data.af = affected_alloc;
   add_event(event_room_affect, af->duration, 0, 0, 0, 0, &data, sizeof(data));
   affected_alloc->duration = 1 + af->duration / PULSES_IN_TICK;
+
+  return affected_alloc;
 }
 
 //---------------------------------------------------------------------------------

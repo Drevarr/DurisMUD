@@ -1846,27 +1846,25 @@ int do_simple_move_skipping_procs(P_char ch, int exitnumb, unsigned int flags)
   }
   if( (flags & MVFLG_DRAG_FOLLOWERS) && ch->followers )
   {
+    struct room_affect raf, *praf = NULL;
+
     if( IS_AFFECTED4(ch, AFF4_GLOBE_OF_DARKNESS) && IS_PC(ch) && !CAN_NIGHTPEOPLE_SEE(was_in) )
     {
-      struct room_affect  af;
-
-      memset(&af, 0, sizeof(struct room_affect));
-      af.type = SPELL_GLOBE_OF_DARKNESS;
-      af.duration = 1;
-      af.room_flags = MAGIC_DARK;
-      af.ch = ch;
-      affect_to_room(was_in, &af);
+      memset(&raf, 0, sizeof(struct room_affect));
+      raf.type = SPELL_GLOBE_OF_DARKNESS;
+      raf.duration = 1;
+      raf.room_flags = MAGIC_DARK;
+      raf.ch = ch;
+      praf = affect_to_room(was_in, &raf);
     }
     else if( IS_AFFECTED4(ch, AFF4_MAGE_FLAME) && IS_PC(ch) && !CAN_DAYPEOPLE_SEE(was_in) )
     {
-      struct room_affect  af;
-
-      memset(&af, 0, sizeof(struct room_affect));
-      af.type = SPELL_GLOBE_OF_DARKNESS;
-      af.duration = 1;
-      af.room_flags = MAGIC_LIGHT;
-      af.ch = ch;
-      affect_to_room(was_in, &af);
+      memset(&raf, 0, sizeof(struct room_affect));
+      raf.type = SPELL_MAGE_FLAME;
+      raf.duration = 1;
+      raf.room_flags = MAGIC_LIGHT;
+      raf.ch = ch;
+      praf = affect_to_room(was_in, &raf);
     }
 
     /*  this is a little lag when you have many tch following you
@@ -1930,6 +1928,11 @@ int do_simple_move_skipping_procs(P_char ch, int exitnumb, unsigned int flags)
           num_followed++;
         }
       }
+    }
+
+    if( praf != NULL )
+    {
+      affect_room_remove( was_in, praf );
     }
 
     if( IS_MAP_ROOM(ch->in_room) )
