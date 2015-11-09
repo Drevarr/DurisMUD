@@ -423,7 +423,7 @@ G 1 77726 24 0 100 0 0 0           *    a stone dagger
 G 1 77727 1 0 100 0 0 0            *    a crystal lockpick
 M 0 77723 14 77867 100 0 0 0       * the Neogi militia guard
 M 0 77727 1 77867 100 0 0 0        * the captain of the guard
-E 1 77729 1 14 100 0 0 0           *   the bangle of the Dreamer
+E 1 77729 1 14 25 0 0 0            *   the bangle of the Dreamer
 F 1 77716 8 77867 100 0 0 0        * the Neogi soldier (following)
 F 1 77716 8 77867 100 0 0 0        * the Neogi soldier (following)
 M 0 77749 5 77869 100 0 0 0        * the Neogi assassin
