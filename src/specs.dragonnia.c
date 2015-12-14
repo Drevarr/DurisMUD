@@ -1018,15 +1018,15 @@ int baby_dragon(P_char ch, P_char pl, int cmd, char *arg)
 
   if( ch->specials.fighting )
   {
+    act("$n is crying.", 0, ch, 0, 0, TO_ROOM);
     for( tmp_ch = world[ch->in_room].people; tmp_ch; tmp_ch = tmp_ch->next_in_room )
     {
-      if( tmp_ch && (tmp_ch->specials.fighting == ch) )
+      if( IS_ALIVE(tmp_ch) && (tmp_ch->specials.fighting == ch) )
       {
         /* Commented this out.. to make it harder to cheese the dragonslayer achievement.
         if( OUTSIDE(ch) && !ch->group )
          */
         {
-          act("$n is crying.", 0, ch, 0, 0, TO_ROOM);
           act("$n cries louder.", 0, ch, 0, 0, TO_ROOM);
           if( ++num_tears >= 10 )
           {
@@ -1044,6 +1044,10 @@ int baby_dragon(P_char ch, P_char pl, int cmd, char *arg)
                 case 2:
                   call_protector(ch, tmp_ch, real_mobile(6803), H_FRIEND);
                   break;
+              }
+              if( !IS_ALIVE(tmp_ch) )
+              {
+                return;
               }
             }
           }
