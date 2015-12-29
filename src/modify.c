@@ -33,7 +33,6 @@ extern P_desc descriptor_list;
 extern P_char character_list;
 extern P_room world;
 extern int slow_death;
-extern int tics;
 extern struct mm_ds *dead_mob_pool;
 extern struct mm_ds *dead_pconly_pool;
 
