@@ -1923,7 +1923,7 @@ void do_dismiss(P_char ch, char *argument, int cmd)
 
   if( !argument || !*argument )
   {
-    for( k = ch->followers; k; k = x )
+    for( x = k = ch->followers; k; k = x )
     {
       x = k->next;
 
