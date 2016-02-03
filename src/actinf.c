@@ -6214,6 +6214,12 @@ void do_who(P_char ch, char *argument, int cmd)
     send_to_char("Morphs do not possess the extra-sensory organs necessary to detect who all is in the world at the moment.\n", ch);
     return;
   }
+  if( GET_LEVEL(ch) < 2 )
+  {
+    send_to_char("You may not use this command until level two.\n", ch );
+    statuslog( 56, "&+R%s&+R is trying to check who at level 1.&n", GET_NAME(ch) );
+    return;
+  }
 
   *pattern = 0;
 
