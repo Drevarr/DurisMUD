@@ -11442,6 +11442,7 @@ void do_whois(P_char ch, char *arg, int cmd)
   char ip_address[MAX_STRING_LENGTH];
   char name[MAX_INPUT_LENGTH];
   int  pid;
+  P_char targ;
   MYSQL_RES *res;
   MYSQL_ROW row;
 
@@ -11449,10 +11450,12 @@ void do_whois(P_char ch, char *arg, int cmd)
 
   if( *name == '\0' || !strcmp( name, "?" ) || !strcmp( name, "help" ) )
   {
-    send_to_char("&+YSyntax: &+wwhois <player_name|ip ip_address>&n\n"
+    send_to_char("&+YSyntax: &+wwhois <player_name>|ip <ip_address>&n\n"
       "Where &+w<player_name>&n is the name of the player to look up,\n"
       "Or &+w[ip_address]&n is the ip address to look up (use % as a wildcard).\n", ch);
     send_to_char("i.e. &+wwhois Lohrr&n or &+wwhois ip 173.224.193.243&n or &+wwhois ip 173.224.%.%&n.\n", ch);
+    send_to_char("Those in &+CCyan&n are online and connected, and those in &+BBlue&n are linkdead,"
+      " and those in &+yBrown&n are at the menu.\n", ch );
     return;
   }
   if( !strcmp( name, "ip" ) )
@@ -11498,10 +11501,54 @@ void do_whois(P_char ch, char *arg, int cmd)
     send_to_char_f( ch, "Could not find any names matching ip address '%s'.\n", ip_address );
     return;
   }
-  send_to_char_f( ch, "&+YNames:&N %s", row[0] );
+  send_to_char( "&+YNames:&N ", ch );
+  if( (targ = get_char_online( row[0] )) != NULL )
+  {
+    if( targ->desc != NULL )
+    {
+      send_to_char_f( ch, "&+C%s&n", row[0] );
+    }
+    else
+    {
+      send_to_char_f( ch, "&+B%s&n", row[0] );
+    }
+  }
+  else
+  {
+    // If they're not in game per above check, but have a desc, then they're at menu somewhere.
+    if( get_descriptor_from_name(row[0]) )
+    {
+      send_to_char_f( ch, "&+y%s&n", row[0] );
+    }
+    else
+    {
+      send_to_char_f( ch, "%s", row[0] );
+    }
+  }
   while( row = mysql_fetch_row(res) )
   {
-    send_to_char_f( ch, ", %s", row[0] );
+    if( (targ = get_char_online( row[0] )) != NULL )
+    {
+      if( targ->desc != NULL )
+      {
+        send_to_char_f( ch, ", &+C%s&n", row[0] );
+      }
+      else
+      {
+        send_to_char_f( ch, ", &+B%s&n", row[0] );
+      }
+    }
+    else
+    {
+      if( get_descriptor_from_name(row[0]) )
+      {
+        send_to_char_f( ch, ", &+y%s&n", row[0] );
+      }
+      else
+      {
+        send_to_char_f( ch, ", %s", row[0] );
+      }
+    }
   }
   mysql_free_result(res);
   send_to_char( ".\n", ch );

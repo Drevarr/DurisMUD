@@ -5867,3 +5867,20 @@ bool item_load_check( P_obj item, int ival, int zone_percent )
   }
   return FALSE;
 }
+
+// Takes a char's name and looks through the descriptors for it.
+P_desc get_descriptor_from_name( char *name )
+{
+  for( P_desc d = descriptor_list; d; d = d->next)
+  {
+    if( !d->character || !d->character->player.name )
+    {
+      continue;
+    }
+    if( !strcmp(name, d->character->player.name) )
+    {
+      return d;
+    }
+  }
+  return NULL;
+}
