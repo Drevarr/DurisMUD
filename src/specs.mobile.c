@@ -152,7 +152,7 @@ int harpy_evil(P_char ch, P_char pl, int cmd, char *arg)
       send_to_char("You do not seem to have anything like that.\r\n", pl);
       return TRUE;
     }
-    if( GET_OBJ_VNUM(obj) == VOBJ_HARPY_CHOOSE_FEATHER )
+    if( OBJ_VNUM(obj) == VOBJ_HARPY_CHOOSE_FEATHER )
     {
       act("$n gives $p to $N.", 1, pl, obj, ch, TO_NOTVICT);
       act("$n gives you $p.", 0, pl, obj, ch, TO_VICT);
@@ -201,7 +201,7 @@ int harpy_good(P_char ch, P_char pl, int cmd, char *arg)
       send_to_char("You do not seem to have anything like that.\r\n", pl);
       return TRUE;
     }
-    if( GET_OBJ_VNUM(obj) == VOBJ_HARPY_CHOOSE_FEATHER )
+    if( OBJ_VNUM(obj) == VOBJ_HARPY_CHOOSE_FEATHER )
     {
       act("$n gives $p to $N.", 1, pl, obj, ch, TO_NOTVICT);
       act("$n gives you $p.", 0, pl, obj, ch, TO_VICT);
@@ -11093,7 +11093,7 @@ int claw_cavern_drow_mage(P_char ch, P_char pl, int cmd, char *arg)
       return TRUE;
     }
 
-    if( GET_OBJ_VNUM(obj) == VOBJ_CLWCVRN_RAINBOW_KEY )
+    if( OBJ_VNUM(obj) == VOBJ_CLWCVRN_RAINBOW_KEY )
     {
       act("$n gives $p to $N.", 1, pl, obj, ch, TO_NOTVICT);
       act("$n gives you $p.", 0, pl, obj, ch, TO_VICT);
@@ -16619,21 +16619,21 @@ int smelter(P_char ch, P_char pl, int cmd, char *argument)
         return FALSE;
       }
       // If it's not a valid ore vnum.
-      if( GET_OBJ_VNUM(obj) < LOWEST_ORE_VNUM || GET_OBJ_VNUM(obj) > LOWEST_ORE_VNUM + NUMBER_ORE_TYPES * 3 - 1 )
+      if( OBJ_VNUM(obj) < LOWEST_ORE_VNUM || OBJ_VNUM(obj) > LOWEST_ORE_VNUM + NUMBER_ORE_TYPES * 3 - 1 )
       {
         return FALSE;
       }
 
-      if( (GET_OBJ_VNUM(obj) - LOWEST_ORE_VNUM) % 3 == 2 )
+      if( (OBJ_VNUM(obj) - LOWEST_ORE_VNUM) % 3 == 2 )
       {
         act( "$n says '$p is too big to smelt into something bigger.'", FALSE, ch, obj, NULL, TO_ROOM );
         return TRUE;
       }
 
-      if( vnum_in_inv( ch, GET_OBJ_VNUM(obj) ) > 1 )
+      if( vnum_in_inv( ch, OBJ_VNUM(obj) ) > 1 )
       {
         act( "$n says 'I already have enough of $p to smelt.'", FALSE, ch, obj, NULL, TO_ROOM );
-        type = (GET_OBJ_VNUM(obj) - LOWEST_ORE_VNUM) / 3;
+        type = (OBJ_VNUM(obj) - LOWEST_ORE_VNUM) / 3;
         switch( type )
         {
           case 0:
@@ -16661,7 +16661,7 @@ int smelter(P_char ch, P_char pl, int cmd, char *argument)
         else
         {
           GET_PLATINUM(ch) -= amount;
-          finish_smelt( ch, pl, GET_OBJ_VNUM(obj) );
+          finish_smelt( ch, pl, OBJ_VNUM(obj) );
           return TRUE;
         }
       }
@@ -16672,9 +16672,9 @@ int smelter(P_char ch, P_char pl, int cmd, char *argument)
         act("You give $p to $N.", FALSE, pl, obj, ch, TO_CHAR);
         obj_to_char(obj, ch);
         // If we have enough ores to smelt.
-        if( vnum_in_inv( ch, GET_OBJ_VNUM(obj) ) > 1 )
+        if( vnum_in_inv( ch, OBJ_VNUM(obj) ) > 1 )
         {
-          switch( (GET_OBJ_VNUM(obj) - LOWEST_ORE_VNUM) / 3 )
+          switch( (OBJ_VNUM(obj) - LOWEST_ORE_VNUM) / 3 )
           {
           case 0:
           case 1:
@@ -16695,7 +16695,7 @@ int smelter(P_char ch, P_char pl, int cmd, char *argument)
           if( amount - GET_PLATINUM(ch) <= 0 )
           {
             GET_PLATINUM(ch) -= amount;
-            finish_smelt( ch, pl, GET_OBJ_VNUM(obj) );
+            finish_smelt( ch, pl, OBJ_VNUM(obj) );
             return TRUE;
           }
           else
@@ -16724,16 +16724,16 @@ void finish_smelt( P_char ch, P_char pl, int vnum )
     for( obj = ch->carrying; obj; obj = obj->next_content )
     {
       // If it's a small/medium adamantium ore..
-      if( GET_OBJ_VNUM(obj) == LOWEST_ORE_VNUM + 7 * 3
-        || GET_OBJ_VNUM(obj) == LOWEST_ORE_VNUM + 7 * 3 + 1 )
+      if( OBJ_VNUM(obj) == LOWEST_ORE_VNUM + 7 * 3
+        || OBJ_VNUM(obj) == LOWEST_ORE_VNUM + 7 * 3 + 1 )
       {
         // Look through the rest of the list for the same vnum.
         for( ore = obj->next_content; ore; ore = ore->next_content )
         {
           // If we've found a match.
-          if( GET_OBJ_VNUM(obj) == GET_OBJ_VNUM(ore) )
+          if( OBJ_VNUM(obj) == OBJ_VNUM(ore) )
           {
-            vnum = GET_OBJ_VNUM(obj);
+            vnum = OBJ_VNUM(obj);
             price = 100;
             break;
           }
@@ -16749,18 +16749,18 @@ void finish_smelt( P_char ch, P_char pl, int vnum )
       for( obj = ch->carrying; obj; obj = obj->next_content )
       {
         // If it's a small/medium gold/plat/mith ore..
-        if( ((GET_OBJ_VNUM(obj) - LOWEST_ORE_VNUM) % 3 == 0
-          || (GET_OBJ_VNUM(obj) - LOWEST_ORE_VNUM) % 3 == 1)
-          && GET_OBJ_VNUM(obj) >= LOWEST_ORE_VNUM + 4 * 3
-          && GET_OBJ_VNUM(obj) <= LOWEST_ORE_VNUM + 6 * 3 + 1 )
+        if( ((OBJ_VNUM(obj) - LOWEST_ORE_VNUM) % 3 == 0
+          || (OBJ_VNUM(obj) - LOWEST_ORE_VNUM) % 3 == 1)
+          && OBJ_VNUM(obj) >= LOWEST_ORE_VNUM + 4 * 3
+          && OBJ_VNUM(obj) <= LOWEST_ORE_VNUM + 6 * 3 + 1 )
         {
           // Look through the rest of the list for the same vnum.
           for( ore = obj->next_content; ore; ore = ore->next_content )
           {
             // If we've found a match.
-            if( GET_OBJ_VNUM(obj) == GET_OBJ_VNUM(ore) )
+            if( OBJ_VNUM(obj) == OBJ_VNUM(ore) )
             {
-              vnum = GET_OBJ_VNUM(obj);
+              vnum = OBJ_VNUM(obj);
               price = 50;
               break;
             }
@@ -16777,18 +16777,18 @@ void finish_smelt( P_char ch, P_char pl, int vnum )
       for( obj = ch->carrying; obj; obj = obj->next_content )
       {
         // If it's a small/medium iron/tin/copper/silver ore..
-        if( (( (GET_OBJ_VNUM(obj) - LOWEST_ORE_VNUM) % 3 == 0
-          || (GET_OBJ_VNUM(obj) - LOWEST_ORE_VNUM) ) % 3 == 1)
-          && GET_OBJ_VNUM(obj) >= LOWEST_ORE_VNUM
-          && GET_OBJ_VNUM(obj) <= LOWEST_ORE_VNUM + 3 * 3 + 1 )
+        if( (( (OBJ_VNUM(obj) - LOWEST_ORE_VNUM) % 3 == 0
+          || (OBJ_VNUM(obj) - LOWEST_ORE_VNUM) ) % 3 == 1)
+          && OBJ_VNUM(obj) >= LOWEST_ORE_VNUM
+          && OBJ_VNUM(obj) <= LOWEST_ORE_VNUM + 3 * 3 + 1 )
         {
           // Look through the rest of the list for the same vnum.
           for( ore = obj->next_content; ore; ore = ore->next_content )
           {
             // If we've found a match.
-            if( GET_OBJ_VNUM(obj) == GET_OBJ_VNUM(ore) )
+            if( OBJ_VNUM(obj) == OBJ_VNUM(ore) )
             {
-              vnum = GET_OBJ_VNUM(obj);
+              vnum = OBJ_VNUM(obj);
               price = 10;
               break;
             }
@@ -16817,7 +16817,7 @@ void finish_smelt( P_char ch, P_char pl, int vnum )
   {
     for( obj = ch->carrying; obj; obj = obj->next_content )
     {
-      if( GET_OBJ_VNUM(obj) == vnum )
+      if( OBJ_VNUM(obj) == vnum )
       {
         break;
       }
@@ -16829,7 +16829,7 @@ void finish_smelt( P_char ch, P_char pl, int vnum )
     }
     for( ore = obj->next_content; ore; ore = ore->next_content )
     {
-      if( GET_OBJ_VNUM(ore) == vnum )
+      if( OBJ_VNUM(ore) == vnum )
       {
         break;
       }
@@ -16849,7 +16849,7 @@ void finish_smelt( P_char ch, P_char pl, int vnum )
   ore->cost = price;
   obj_to_char( ore, pl );
 
-  switch( (GET_OBJ_VNUM(ore) - LOWEST_ORE_VNUM) / 3 )
+  switch( (OBJ_VNUM(ore) - LOWEST_ORE_VNUM) / 3 )
   {
     case 0:
       sprintf( oreType, "&+ciron&n" );

@@ -1,11 +1,10 @@
-
 /*
-   ***************************************************************************
-   *  File: specs.underworld.c                                 Part of Duris *
-   *  Usage: Special Procs for UnderWorld area                                 *
-   *  Copyright  1993 - Rod Reed (Barlows)   john@cyberstore.ca                *
-   *  Copyright 1994 - 2008 - Duris Systems Ltd.                             *
-   ***************************************************************************
+ ***************************************************************************
+ *  File: specs.underworld.c                                 Part of Duris *
+ *  Usage: Special Procs for UnderWorld area                               *
+ *  Copyright  1993 - Rod Reed (Barlows)   john@cyberstore.ca              *
+ *  Copyright 1994 - 2008 - Duris Systems Ltd.                             *
+ ***************************************************************************
  */
 
 #include <stdio.h>
@@ -2016,7 +2015,7 @@ int githpc_special_weap(P_obj obj, P_char ch, int cmd, char *arg)
         /* bug */
         else
         {
-          wizlog(MINLVLIMMORTAL, "githpc_special_weap: Item '%s' vnum (%d) not recognized.\n", obj->short_description, GET_OBJ_VNUM(obj) );
+          wizlog(MINLVLIMMORTAL, "githpc_special_weap: Item '%s' vnum (%d) not recognized.\n", obj->short_description, OBJ_VNUM(obj) );
         }
         return TRUE;
       }

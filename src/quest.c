@@ -238,7 +238,7 @@ void give_reward(struct quest_complete_data *qcp, P_char mob, P_char pl)
       }
 
       // No duplicating artifacts.
-      if( get_artifact_data_sql(GET_OBJ_VNUM(obj), NULL) )
+      if( get_artifact_data_sql(OBJ_VNUM(obj), NULL) )
       {
         // It's imperative that we extract FALSE (no poofing arti data)..
         extract_obj(obj);

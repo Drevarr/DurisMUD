@@ -417,7 +417,7 @@ void add_event(event_func func, int delay, P_char ch, P_char victim, P_obj obj, 
     debug( "add_event: func: '%s' has ch: %s %d and obj: %s %d.",
       (func == NULL) ? "NULL" : get_function_name((void*)func),
       ch ? J_NAME(ch) : "NULL", ch ? GET_ID(ch) : -1,
-      obj ? OBJ_SHORT(obj) : "NULL", obj ? GET_OBJ_VNUM(obj) : -1 );
+      obj ? OBJ_SHORT(obj) : "NULL", obj ? OBJ_VNUM(obj) : -1 );
 //    return;
   }
 
@@ -426,7 +426,7 @@ void add_event(event_func func, int delay, P_char ch, P_char victim, P_obj obj, 
   {
     debug( "add_event: victim '%s' & !ch, func: %s, obj: %s %d.", J_NAME(victim),
       (func == NULL) ? "NULL" : get_function_name((void*)func),
-      obj ? OBJ_SHORT(obj) : "NULL", obj ? GET_OBJ_VNUM(obj) : -1 );
+      obj ? OBJ_SHORT(obj) : "NULL", obj ? OBJ_VNUM(obj) : -1 );
     return;
   }
 
@@ -986,7 +986,7 @@ void show_world_events(P_char ch, const char* arg)
 //                    "    %-5d | %-5d | %-12.12s | %-12.12s | %-8d | 0x%08.8x\n",
               "    %-5d | %-5d | %-12.12s | %-12.12s | %-8d | %p\n",
               ev->element, ev->timer, ev->ch ? GET_NAME(ev->ch) : "   none",
-              ev->victim ? GET_NAME(ev->victim) : "   none", ev->obj ? GET_OBJ_VNUM(ev->obj) : 0, ev->data);
+              ev->victim ? GET_NAME(ev->victim) : "   none", ev->obj ? OBJ_VNUM(ev->obj) : 0, ev->data);
           }
           else
           {

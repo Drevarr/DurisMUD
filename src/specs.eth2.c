@@ -244,7 +244,7 @@ int eth2_tree_obj(P_obj obj, P_char ch, int cmd, char *arg)
 
       for( int i = 0; replace_objs[i][0] != -1; i++ )
       {
-        if( GET_OBJ_VNUM(o) == replace_objs[i][0] )
+        if( OBJ_VNUM(o) == replace_objs[i][0] )
         {
           P_char mob = read_mobile( replace_objs[i][1], VIRTUAL );
           if( !mob )

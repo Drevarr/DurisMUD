@@ -749,7 +749,7 @@ void shopping_sell(char *arg, P_char ch, P_char keeper, int shop_nr)
       statuslog(ch->player.level,
         "&+LSALE:&n (%s&n) just sold [%d] (%s&n) for (%s&n) at [%d]!",
           GET_NAME(ch),
-          GET_OBJ_VNUM(temp1),
+          OBJ_VNUM(temp1),
           temp1->short_description,
           coin_stringv(sale),
           (ch->in_room == NOWHERE) ? -1 : world[ch->in_room].number);

@@ -463,13 +463,13 @@ int blackness_sword(P_obj obj, P_char ch, int cmd, char *arg)
 
   ankh_loc = WEAR_NONE;
   if( ch->equipment[WEAR_NECK_1] )
-    if( GET_OBJ_VNUM(ch->equipment[WEAR_NECK_1]) == VOBJ_HIGHWAY_ANKH_BLACKSWORD )
+    if( OBJ_VNUM(ch->equipment[WEAR_NECK_1]) == VOBJ_HIGHWAY_ANKH_BLACKSWORD )
     {
       ankh_loc = WEAR_NECK_1;
       ankh = ch->equipment[WEAR_NECK_1];
     }
   if( ankh_loc == WEAR_NONE && ch->equipment[WEAR_NECK_2] )
-    if( GET_OBJ_VNUM(ch->equipment[WEAR_NECK_2]) == VOBJ_HIGHWAY_ANKH_BLACKSWORD )
+    if( OBJ_VNUM(ch->equipment[WEAR_NECK_2]) == VOBJ_HIGHWAY_ANKH_BLACKSWORD )
     {
       ankh_loc = WEAR_NECK_2;
       ankh = ch->equipment[WEAR_NECK_2];

@@ -170,7 +170,7 @@ void spell_faerie_sight(int level, P_char ch, char *arg, int type, P_char victim
 */
   for( t_obj = ch->carrying; t_obj; t_obj = t_obj->next_content )
   {
-    if( GET_OBJ_VNUM(t_obj) == VOBJ_INGRED_FAERIE_DUST )
+    if( OBJ_VNUM(t_obj) == VOBJ_INGRED_FAERIE_DUST )
     {
       af.bitvector2 = AFF2_DETECT_MAGIC | AFF2_DETECT_GOOD | AFF2_DETECT_EVIL;
       extract_obj(t_obj);

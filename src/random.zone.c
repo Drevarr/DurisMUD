@@ -1216,7 +1216,7 @@ int random_quest_mob_proc(P_char ch, P_char pl, int cmd, char *arg)
       return TRUE;
     }
 
-    if (GET_OBJ_VNUM(obj) == RANDOM_EQ_VNUM && obj->value[5] == x)
+    if (OBJ_VNUM(obj) == RANDOM_EQ_VNUM && obj->value[5] == x)
     {
       gain_epic(pl, EPIC_RANDOM_ZONE, 0, value_pts / 100 );
 

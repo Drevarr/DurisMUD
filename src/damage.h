@@ -87,6 +87,7 @@
 #define ELEMENTAL_DAM(type) ((type >= SPLDAM_FIRE && type <= SPLDAM_ACID) || (type == SPLDAM_EARTH))
 
 /* all flags below share the same vector */
+#define PHSDAM_NONE           0
 #define PHSDAM_TOUCH      BIT_1
 #define PHSDAM_NOREDUCE   BIT_2
 #define PHSDAM_NOSHIELDS  BIT_3

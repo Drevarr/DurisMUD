@@ -52,7 +52,7 @@
                           ( GET_VNUM(ch) == MOB_GOOD_SAGE || \
                             GET_VNUM(ch) == MOB_EVIL_SAGE ) )
 
-#define IS_NEXUS_STONE(obj) ( GET_OBJ_VNUM(obj) == OBJ_NEXUS_STONE )
+#define IS_NEXUS_STONE(obj) ( OBJ_VNUM(obj) == OBJ_NEXUS_STONE )
 
 /*
  

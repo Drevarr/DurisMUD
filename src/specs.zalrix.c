@@ -76,7 +76,7 @@ int drowcrusher(P_obj obj, P_char ch, int cmd, char *arg)
     return FALSE;
 
   /* check vnum of stone we hit, to the stone that we WANT to hit */
-  if( GET_OBJ_VNUM(obj2) != VOBJ_YUANTI_CRUSHERSTONE )
+  if( OBJ_VNUM(obj2) != VOBJ_YUANTI_CRUSHERSTONE )
   {
     act("You playfully hit $p&n, *tink* *tink*", TRUE, ch, obj2, 0, TO_CHAR);
     return TRUE;

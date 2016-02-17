@@ -510,7 +510,7 @@ void do_get(P_char ch, char *argument, int cmd)
            continue; */
 
         if( (IS_CARRYING_N(ch) + 1) <= CAN_CARRY_N(ch) ||
-          ( (GET_OBJ_VNUM(o_obj) > LOWEST_MAT_VNUM) && (GET_OBJ_VNUM(o_obj) <= HIGHEST_MAT_VNUM)) )
+          ( (OBJ_VNUM(o_obj) > LOWEST_MAT_VNUM) && (OBJ_VNUM(o_obj) <= HIGHEST_MAT_VNUM)) )
         {
           if ((IS_CARRYING_W(ch) + GET_OBJ_WEIGHT(o_obj)) <= CAN_CARRY_W(ch))
           {
@@ -581,7 +581,7 @@ void do_get(P_char ch, char *argument, int cmd)
        */
 
       if( IS_CARRYING_N(ch) < CAN_CARRY_N(ch)
-        || ((GET_OBJ_VNUM(o_obj) > LOWEST_MAT_VNUM) && (GET_OBJ_VNUM(o_obj) <= HIGHEST_MAT_VNUM)) )
+        || ((OBJ_VNUM(o_obj) > LOWEST_MAT_VNUM) && (OBJ_VNUM(o_obj) <= HIGHEST_MAT_VNUM)) )
       {
         if( (IS_CARRYING_W(ch) + GET_OBJ_WEIGHT(o_obj)) <= CAN_CARRY_W(ch) )
         {
@@ -712,7 +712,7 @@ void do_get(P_char ch, char *argument, int cmd)
           if( CAN_SEE_OBJ(ch, o_obj) )
           {
             if( IS_CARRYING_N(ch) < CAN_CARRY_N(ch)
-              || ((GET_OBJ_VNUM(o_obj) >= LOWEST_MAT_VNUM) && (GET_OBJ_VNUM(o_obj) <= HIGHEST_MAT_VNUM) ))
+              || ((OBJ_VNUM(o_obj) >= LOWEST_MAT_VNUM) && (OBJ_VNUM(o_obj) <= HIGHEST_MAT_VNUM) ))
             {
               if( ((IS_CARRYING_W(ch) + GET_OBJ_WEIGHT(o_obj)) < CAN_CARRY_W(ch)) || OBJ_CARRIED(s_obj) )
               {
@@ -744,7 +744,7 @@ void do_get(P_char ch, char *argument, int cmd)
                         // If the artifact was picked up across racewar lines.
                         if( (s_obj->value[5] != RACEWAR_NONE) && (GET_RACEWAR(ch) != s_obj->value[5]) )
                         {
-                          int vnum = GET_OBJ_VNUM(o_obj);
+                          int vnum = OBJ_VNUM(o_obj);
                           int owner_pid = -1;
                           int timer = time(NULL);
                           // This sets the 'soul' of the artifact to the new owner.
@@ -925,7 +925,7 @@ void do_get(P_char ch, char *argument, int cmd)
         if (o_obj)
         {
           if (IS_CARRYING_N(ch) < CAN_CARRY_N(ch)
-            || ((GET_OBJ_VNUM(o_obj) >= LOWEST_MAT_VNUM) && (GET_OBJ_VNUM(o_obj) <= HIGHEST_MAT_VNUM) ))
+            || ((OBJ_VNUM(o_obj) >= LOWEST_MAT_VNUM) && (OBJ_VNUM(o_obj) <= HIGHEST_MAT_VNUM) ))
           {
             if( ((IS_CARRYING_W(ch) + GET_OBJ_WEIGHT(o_obj)) < CAN_CARRY_W(ch)) || OBJ_CARRIED(s_obj) )
             {
@@ -955,7 +955,7 @@ void do_get(P_char ch, char *argument, int cmd)
                       // If the artifact was picked up across racewar lines.
                       if( (s_obj->value[5] != RACEWAR_NONE) && (GET_RACEWAR(ch) != s_obj->value[5]) )
                       {
-                        int vnum = GET_OBJ_VNUM(o_obj);
+                        int vnum = OBJ_VNUM(o_obj);
                         int owner_pid = -1;
                         int timer = time(NULL);
                         sql_update_bind_data(vnum, &owner_pid, &timer);
@@ -2713,7 +2713,7 @@ void do_eat(P_char ch, char *argument, int cmd)
         " handing it to another Immortal who knows or can figure it out.  The reason for this is to"
         " figure out if the artifact is duplicated or if it's being pulled from a char for some"
         " reason, etc.  However, since your hungry, we just won't update it this time.  You can use"
-        " '&+wartifact clear %d&+Y' to clear the DB entry if need be.&n\n\r", GET_OBJ_VNUM(temp) );
+        " '&+wartifact clear %d&+Y' to clear the DB entry if need be.&n\n\r", OBJ_VNUM(temp) );
     }
   }
 
@@ -2878,7 +2878,7 @@ void do_eat(P_char ch, char *argument, int cmd)
 
   if( updateArtiList )
   {
-    sprintf( Gbuf1, "%d", GET_OBJ_VNUM(temp) );
+    sprintf( Gbuf1, "%d", OBJ_VNUM(temp) );
     arti_clear_sql( ch, Gbuf1 );
   }
   extract_obj(temp);
@@ -3795,7 +3795,7 @@ int wear(P_char ch, P_obj obj_object, int keyword, bool showit )
   {
   case 0: /* None */
     logit(LOG_OBJ, "wear(): object worn in invalid location (%s, '%s' %d)",
-      J_NAME(ch), obj_object->short_description, GET_OBJ_VNUM(obj_object) );
+      J_NAME(ch), obj_object->short_description, OBJ_VNUM(obj_object) );
     break;
 
   case 1: /* Finger */
@@ -5279,12 +5279,12 @@ bool find_chance(P_char ch)
 
 bool is_salvageable(P_obj temp)
 {
-  if( GET_OBJ_VNUM(temp) == VOBJ_RANDOM_ARMOR )
+  if( OBJ_VNUM(temp) == VOBJ_RANDOM_ARMOR )
   {
     return FALSE;
   }
 
-  if( GET_OBJ_VNUM(temp) > 400237 && GET_OBJ_VNUM(temp) < 400259 )
+  if( OBJ_VNUM(temp) > 400237 && OBJ_VNUM(temp) < 400259 )
   {
     return TRUE;
   }
@@ -5301,7 +5301,7 @@ bool is_salvageable(P_obj temp)
     return FALSE;
 	}
 
-  if( GET_OBJ_VNUM(temp) == 366 )
+  if( OBJ_VNUM(temp) == 366 )
   {
     return FALSE;
   }
@@ -5316,12 +5316,12 @@ bool is_salvageable(P_obj temp)
     return FALSE;
   }
 
-  if( GET_OBJ_VNUM(temp) == 352 )
+  if( OBJ_VNUM(temp) == 352 )
   {
     return FALSE;
   }
 
-  if( GET_OBJ_VNUM(temp) == 98 )
+  if( OBJ_VNUM(temp) == 98 )
   {
     return FALSE;
   }
@@ -5385,7 +5385,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
     return;
   }
 
-  itemvnum = GET_OBJ_VNUM(item);
+  itemvnum = OBJ_VNUM(item);
 
   // Handle salvage materials
   if((itemvnum >= LOWEST_MAT_VNUM) && (itemvnum <= HIGHEST_MAT_VNUM))
@@ -5650,7 +5650,7 @@ void do_salvage(P_char ch, char *argument, int cmd)
   newcost = number( 190, 220 );
   // Since the vnum's are sequential, the greatest rarity gets a 1.3 modifier, lowest gets 100% of value.
   // To do this, we want 400000 to map to 1, and 400209 to map to 1.3:
-//    modifier = ((GET_OBJ_VNUM(salvaged) - LOWEST_MAT_VNUM) * 0.3) / (HIGHEST_MAT_VNUM - LOWEST_MAT_VNUM) + 1;
+//    modifier = ((OBJ_VNUM(salvaged) - LOWEST_MAT_VNUM) * 0.3) / (HIGHEST_MAT_VNUM - LOWEST_MAT_VNUM) + 1;
   // However, 200 * 1.3 = only 2 gold, 6 silver.  We want this to be much more profitable, so, instead of
   //   mapping to 1.3, we want to map to 13 -> 2 plat, 6 gold; we set the multiplier to 13 - 1 = 12.
   modifier = ((matvnum - LOWEST_MAT_VNUM) * 12.0) / (float)(HIGHEST_MAT_VNUM - LOWEST_MAT_VNUM) + 1.0;

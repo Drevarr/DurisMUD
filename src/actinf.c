@@ -848,7 +848,7 @@ char *show_obj_to_char(P_obj object, P_char ch, int mode, int print)
     // Now Imms can see timers on other's eq.
     if( IS_ARTIFACT(object) && IS_TRUSTED(ch) )
     {
-      artifact_timer_sql( GET_OBJ_VNUM(object), buf + strlen(buf) );
+      artifact_timer_sql( OBJ_VNUM(object), buf + strlen(buf) );
     }
 
     /*
@@ -7379,7 +7379,7 @@ bool get_equipment_list(P_char ch, char *buf, int list_only)
 
         if (IS_ARTIFACT(t_obj))
         {
-          artifact_timer_sql( GET_OBJ_VNUM(t_obj), tempbuf );
+          artifact_timer_sql( OBJ_VNUM(t_obj), tempbuf );
           strcat(buf, tempbuf);
         }
 

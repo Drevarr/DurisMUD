@@ -919,7 +919,7 @@ if(!obj)
 if(strstr(obj->name, "_ore_"))
 return 0;
 
-int objvir = GET_OBJ_VNUM(obj);
+int objvir = OBJ_VNUM(obj);
 if((objvir >= 400000) && (objvir < 400202))
 return 0;
 

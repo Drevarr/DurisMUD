@@ -4009,7 +4009,7 @@ void do_craft(P_char ch, char *argument, int cmd)
     int invVnum = 0; // Vnum of the current inventory object.
     for( P_obj inventory = ch->carrying; inventory; inventory = inventory->next_content )
     {
-      invVnum = GET_OBJ_VNUM(inventory);
+      invVnum = OBJ_VNUM(inventory);
 
       if( invVnum == lowQualityMaterialVnum )
         invLowMats++;
@@ -4058,7 +4058,7 @@ void do_craft(P_char ch, char *argument, int cmd)
     for( P_obj inventory = ch->carrying; inventory; inventory = nextObj )
     {
       nextObj = inventory->next_content;
-      invVnum = GET_OBJ_VNUM(inventory);
+      invVnum = OBJ_VNUM(inventory);
 
       if( (numLowest > 0) && (invVnum == lowQualityMaterialVnum) )
       {

@@ -423,7 +423,7 @@ void do_test(P_char ch, char *arg, int cmd)
         }
         if( obj->value[3] < 0 )
         {
-          send_to_char_f(ch, "Shield '%s' %d needs a fix to make val3 positive.\n", OBJ_SHORT(obj), GET_OBJ_VNUM(obj));
+          send_to_char_f(ch, "Shield '%s' %d needs a fix to make val3 positive.\n", OBJ_SHORT(obj), OBJ_VNUM(obj));
           currac = MAX(currac, -obj->value[3]);
         }
         else
@@ -437,7 +437,7 @@ void do_test(P_char ch, char *arg, int cmd)
             if( obj->affected[afnum].modifier > 0 )
             {
               send_to_char_f(ch, "Shield '%s' %d needs a fix to make a%dmod negative.\n",
-                OBJ_SHORT(obj), GET_OBJ_VNUM(obj), afnum);
+                OBJ_SHORT(obj), OBJ_VNUM(obj), afnum);
               currac += obj->affected[afnum].modifier;
             }
             currac -= obj->affected[afnum].modifier;
@@ -446,7 +446,7 @@ void do_test(P_char ch, char *arg, int cmd)
         if( currac <= 0 )
         {
           send_to_char_f( ch, "Shield '%s' %d needs a fix, since it has %d total ac.\n",
-            OBJ_SHORT(obj), GET_OBJ_VNUM(obj), currac );
+            OBJ_SHORT(obj), OBJ_VNUM(obj), currac );
         }
         sum += currac;
         if( currac > maxac )
@@ -568,12 +568,12 @@ void do_test(P_char ch, char *arg, int cmd)
         }
         if( currac == maxac )
         {
-          send_to_char_f( ch, "%2d) '%s' %6d.\n", ++count, pad_ansi(OBJ_SHORT(obj), 35, TRUE).c_str(), GET_OBJ_VNUM(obj) );
+          send_to_char_f( ch, "%2d) '%s' %6d.\n", ++count, pad_ansi(OBJ_SHORT(obj), 35, TRUE).c_str(), OBJ_VNUM(obj) );
         }
         // Sneak in and keep a record of minac shields too.
         if( currac == minac )
         {
-          sprintf( buff + strlen(buff), "%2d) '%s' %6d.\n", ++count2, pad_ansi(OBJ_SHORT(obj), 35, TRUE).c_str(), GET_OBJ_VNUM(obj) );
+          sprintf( buff + strlen(buff), "%2d) '%s' %6d.\n", ++count2, pad_ansi(OBJ_SHORT(obj), 35, TRUE).c_str(), OBJ_VNUM(obj) );
         }
       }
       extract_obj(obj);

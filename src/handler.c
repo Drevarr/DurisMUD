@@ -1424,8 +1424,8 @@ void obj_to_char(P_obj object, P_char ch)
 
   if( !ch )
   {
-    logit(LOG_MOB, "obj_to_char: no ch, obj vnum %d", object ? GET_OBJ_VNUM(object) : -1);
-    logit(LOG_OBJ, "obj_to_char: no ch, obj vnum %d", object ? GET_OBJ_VNUM(object) : -1);
+    logit(LOG_MOB, "obj_to_char: no ch, obj vnum %d", object ? OBJ_VNUM(object) : -1);
+    logit(LOG_OBJ, "obj_to_char: no ch, obj vnum %d", object ? OBJ_VNUM(object) : -1);
     return;
   }
 
@@ -1444,7 +1444,7 @@ void obj_to_char(P_obj object, P_char ch)
 
   if( !OBJ_NOWHERE(object) )
   {
-    logit(LOG_DEBUG, "obj_to_char: wonders never cease, obj vnum %d not in NOWHERE", GET_OBJ_VNUM(object));
+    logit(LOG_DEBUG, "obj_to_char: wonders never cease, obj vnum %d not in NOWHERE", OBJ_VNUM(object));
     return;
 /*
     act("&+gWith a scurry, bugs appear from nowhere, engulfing $p.", TRUE, ch, object, 0, TO_ROOM);
@@ -1583,7 +1583,7 @@ void equip_char(P_char ch, P_obj obj, int pos, int nodrop)
     logit(LOG_EXIT, "equip_char: !ch or !obj or pos out of bounds or !ch->equipment[pos].");
     logit(LOG_EXIT, "equip_char: ch: '%s' %d, obj: '%s' %d, pos: %d.",
       (!ch) ? "NULL" : J_NAME(ch), !IS_ALIVE(ch) ? -1 : IS_NPC(ch) ? GET_VNUM(ch) : GET_PID(ch),
-      (!obj) ? "NULL" : OBJ_SHORT(obj), (!obj) ? -1 : GET_OBJ_VNUM(obj), pos );
+      (!obj) ? "NULL" : OBJ_SHORT(obj), (!obj) ? -1 : OBJ_VNUM(obj), pos );
     raise(SIGSEGV);
   }
   if( !OBJ_NOWHERE(obj) )
@@ -2223,9 +2223,9 @@ void obj_from_room(P_obj object)
   }
 
   if (!OBJ_ROOM(object))
-  { // FYI, get_obj_vnum raises SIGSEGV when there is no object. Dec08 -Lucrot
+  { // FYI, OBJ_VNUM raises SIGSEGV when there is no object. Dec08 -Lucrot
     logit(LOG_DEBUG, "obj (%d) not in room in obj_from_room.",
-      GET_OBJ_VNUM(object));
+      OBJ_VNUM(object));
     return;
   }
   /* remove object from room */
@@ -3232,9 +3232,9 @@ P_obj get_obj_in_list_vis(P_char ch, char *name, P_obj list, bool no_tracks )
     for (i = list, j = 1; i && (j <= k); i = i->next_content)
     {
       if( isname(tmp, i->name)
-        || (IS_PC(ch) && IS_TRUSTED(ch) && atoi(name) > 0 && atoi(name) == GET_OBJ_VNUM(i)) )
+        || (IS_PC(ch) && IS_TRUSTED(ch) && atoi(name) > 0 && atoi(name) == OBJ_VNUM(i)) )
       {
-        if( CAN_SEE_OBJ(ch, i) || IS_NOSHOW(i) && GET_OBJ_VNUM(i) != VNUM_TRACKS )
+        if( CAN_SEE_OBJ(ch, i) || IS_NOSHOW(i) && OBJ_VNUM(i) != VNUM_TRACKS )
         {
           if (j == k)
             return (i);
@@ -3248,7 +3248,7 @@ P_obj get_obj_in_list_vis(P_char ch, char *name, P_obj list, bool no_tracks )
     for (i = list, j = 1; i && (j <= k); i = i->next_content)
     {
       if( isname(tmp, i->name)
-        || (IS_PC(ch) && IS_TRUSTED(ch) && atoi(name) > 0 && atoi(name) == GET_OBJ_VNUM(i)) )
+        || (IS_PC(ch) && IS_TRUSTED(ch) && atoi(name) > 0 && atoi(name) == OBJ_VNUM(i)) )
       {
         if (CAN_SEE_OBJ(ch, i) || IS_NOSHOW(i))
         {
@@ -3302,7 +3302,7 @@ P_obj get_obj_vis(P_char ch, char *name, int zrange )
   {
     if( (t_obj = ch->equipment[i]) )
     {
-      if( (vnum && vnum == GET_OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
+      if( (vnum && vnum == OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
       {
         if (CAN_SEE_OBJ(ch, t_obj) || IS_NOSHOW(t_obj))
         {
@@ -3319,7 +3319,7 @@ P_obj get_obj_vis(P_char ch, char *name, int zrange )
   t_obj = ch->carrying;
   while( t_obj )
   {
-    if( (vnum && vnum == GET_OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
+    if( (vnum && vnum == OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
     {
       if (CAN_SEE_OBJ(ch, t_obj) || IS_NOSHOW(t_obj))
       {
@@ -3336,7 +3336,7 @@ P_obj get_obj_vis(P_char ch, char *name, int zrange )
   t_obj = world[ch->in_room].contents;
   while( t_obj )
   {
-    if( (vnum && vnum == GET_OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
+    if( (vnum && vnum == OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
     {
       if (CAN_SEE_OBJ(ch, t_obj) || IS_NOSHOW(t_obj))
       {
@@ -3354,7 +3354,7 @@ P_obj get_obj_vis(P_char ch, char *name, int zrange )
   {
     for( t_obj = object_list, j = 0; t_obj && (j < k); t_obj = t_obj->next )
     {
-      if( (vnum && vnum == GET_OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
+      if( (vnum && vnum == OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
       {
         // If you can see it, or it's flagged noshow... then you can see it?
         //   Yes, the NOSHOW flag means you can't see it when you look in room,
@@ -3373,7 +3373,7 @@ P_obj get_obj_vis(P_char ch, char *name, int zrange )
   {
     for( t_obj = object_list, j = 0; t_obj && (j <= k); t_obj = t_obj->next )
     {
-      if( (vnum && vnum == GET_OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
+      if( (vnum && vnum == OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
       {
         if( CAN_SEE_OBJZ(ch, t_obj, zrange) || IS_NOSHOW(t_obj) )
         {
@@ -3428,9 +3428,9 @@ P_obj get_obj_vis_no_tracks(P_char ch, char *name, int zrange )
   {
     if( (t_obj = ch->equipment[i]) )
     {
-      if( (vnum && vnum == GET_OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
+      if( (vnum && vnum == OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
       {
-        if( CAN_SEE_OBJ(ch, t_obj) || IS_NOSHOW(t_obj) && GET_OBJ_VNUM(t_obj) != VNUM_TRACKS )
+        if( CAN_SEE_OBJ(ch, t_obj) || IS_NOSHOW(t_obj) && OBJ_VNUM(t_obj) != VNUM_TRACKS )
         {
           if( ++j == k )
           {
@@ -3445,9 +3445,9 @@ P_obj get_obj_vis_no_tracks(P_char ch, char *name, int zrange )
   t_obj = ch->carrying;
   while( t_obj )
   {
-    if( (vnum && vnum == GET_OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
+    if( (vnum && vnum == OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
     {
-      if( CAN_SEE_OBJ(ch, t_obj) || IS_NOSHOW(t_obj) && GET_OBJ_VNUM(t_obj) != VNUM_TRACKS )
+      if( CAN_SEE_OBJ(ch, t_obj) || IS_NOSHOW(t_obj) && OBJ_VNUM(t_obj) != VNUM_TRACKS )
       {
         if( ++j == k )
         {
@@ -3462,9 +3462,9 @@ P_obj get_obj_vis_no_tracks(P_char ch, char *name, int zrange )
   t_obj = world[ch->in_room].contents;
   while( t_obj )
   {
-    if( (vnum && vnum == GET_OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
+    if( (vnum && vnum == OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
     {
-      if( CAN_SEE_OBJ(ch, t_obj) || IS_NOSHOW(t_obj) && GET_OBJ_VNUM(t_obj) != VNUM_TRACKS )
+      if( CAN_SEE_OBJ(ch, t_obj) || IS_NOSHOW(t_obj) && OBJ_VNUM(t_obj) != VNUM_TRACKS )
       {
         if( ++j == k )
         {
@@ -3480,12 +3480,12 @@ P_obj get_obj_vis_no_tracks(P_char ch, char *name, int zrange )
   {
     for( t_obj = object_list, j = 0; t_obj && (j < k); t_obj = t_obj->next )
     {
-      if( (vnum && vnum == GET_OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
+      if( (vnum && vnum == OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
       {
         // If you can see it, or it's flagged noshow... then you can see it?
         //   Yes, the NOSHOW flag means you can't see it when you look in room,
         //   but it shows when you try to interact with it (ie push button / touch flowers / l <extra desc> etc).
-        if( CAN_SEE_OBJ(ch, t_obj) || IS_NOSHOW(t_obj) && GET_OBJ_VNUM(t_obj) != VNUM_TRACKS )
+        if( CAN_SEE_OBJ(ch, t_obj) || IS_NOSHOW(t_obj) && OBJ_VNUM(t_obj) != VNUM_TRACKS )
         {
           if( ++j == k )
           {
@@ -3499,9 +3499,9 @@ P_obj get_obj_vis_no_tracks(P_char ch, char *name, int zrange )
   {
     for( t_obj = object_list, j = 0; t_obj && (j <= k); t_obj = t_obj->next )
     {
-      if( (vnum && vnum == GET_OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
+      if( (vnum && vnum == OBJ_VNUM(t_obj)) || isname(tmp, t_obj->name) )
       {
-        if( CAN_SEE_OBJZ(ch, t_obj, zrange) || IS_NOSHOW(t_obj) && GET_OBJ_VNUM(t_obj) != VNUM_TRACKS )
+        if( CAN_SEE_OBJZ(ch, t_obj, zrange) || IS_NOSHOW(t_obj) && OBJ_VNUM(t_obj) != VNUM_TRACKS )
         {
           if( ++j == k )
           {

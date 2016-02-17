@@ -3462,7 +3462,7 @@ void do_quaff(P_char ch, char *argument, int cmd)
     return;
   }
 
-  if( GET_OBJ_VNUM(bottle) == VOBJ_EPIC_BOTTLE_EPICS && GET_LEVEL(ch) < 46 )
+  if( OBJ_VNUM(bottle) == VOBJ_EPIC_BOTTLE_EPICS && GET_LEVEL(ch) < 46 )
   {
     act("&+CYou suddenly feel.. like doing some exp so you can quaff $p!\r\n", TRUE, ch, bottle, 0, TO_CHAR);
     return;
@@ -3486,8 +3486,8 @@ void do_quaff(P_char ch, char *argument, int cmd)
     if( has_innate(ch, INNATE_QUICK_THINKING) || affected_by_spell(ch, SPELL_COMBAT_MIND) )
       chance = (int)(chance * 1.25);
 
-    if( number(0, 99) >= chance && GET_OBJ_VNUM(bottle) != VOBJ_EPIC_BOTTLE_EPICS
-      && GET_OBJ_VNUM(bottle) != VOBJ_EPIC_TOCORPSE_POTION )
+    if( number(0, 99) >= chance && OBJ_VNUM(bottle) != VOBJ_EPIC_BOTTLE_EPICS
+      && OBJ_VNUM(bottle) != VOBJ_EPIC_TOCORPSE_POTION )
     {
       act("Whoops!  You spilled it!", TRUE, ch, 0, 0, TO_CHAR);
       act("$n attempts to quaff $p, but spills it instead!", TRUE, ch, bottle, 0, TO_ROOM);
@@ -3506,7 +3506,7 @@ void do_quaff(P_char ch, char *argument, int cmd)
     unequip_char(ch, HOLD);
 
   //epic potion
-  if(GET_OBJ_VNUM(bottle) == VOBJ_EPIC_BOTTLE_EPICS)
+  if(OBJ_VNUM(bottle) == VOBJ_EPIC_BOTTLE_EPICS)
   {
     gain_epic(ch, EPIC_BOTTLE, 0, 75);
     send_to_char("&+CYou suddenly feel.. epic!\r\n", ch);

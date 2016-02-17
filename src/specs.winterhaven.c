@@ -4340,16 +4340,16 @@ int dragon_heart_decay(P_obj obj, P_char ch, int cmd, char *args)
       }
       if( loc == MAX_WEAR )
       {
-        debug( "Dragon heart '%s' %d supposedly equipped but not!", OBJ_SHORT(obj), GET_OBJ_VNUM(obj) );
-        logit( LOG_OBJ, "Dragon heart '%s' %d supposedly equipped but not!", OBJ_SHORT(obj), GET_OBJ_VNUM(obj) );
+        debug( "Dragon heart '%s' %d supposedly equipped but not!", OBJ_SHORT(obj), OBJ_VNUM(obj) );
+        logit( LOG_OBJ, "Dragon heart '%s' %d supposedly equipped but not!", OBJ_SHORT(obj), OBJ_VNUM(obj) );
         obj_to_char(decayed_heart, carrier);
       }
       else
       {
         if( loc != HOLD )
         {
-          debug( "Dragon heart '%s' %d equipped in non-hold slot %d!", OBJ_SHORT(obj), GET_OBJ_VNUM(obj), loc );
-          logit( LOG_OBJ, "Dragon heart '%s' %d equipped in non-hold slot %d!", OBJ_SHORT(obj), GET_OBJ_VNUM(obj), loc );
+          debug( "Dragon heart '%s' %d equipped in non-hold slot %d!", OBJ_SHORT(obj), OBJ_VNUM(obj), loc );
+          logit( LOG_OBJ, "Dragon heart '%s' %d equipped in non-hold slot %d!", OBJ_SHORT(obj), OBJ_VNUM(obj), loc );
         }
         // Remove the heart.
         unequip_char( carrier, loc );
@@ -4370,7 +4370,7 @@ int dragon_heart_decay(P_obj obj, P_char ch, int cmd, char *args)
     {
       extract_obj(decayed_heart);
     }
-    switch( GET_OBJ_VNUM(obj) )
+    switch( OBJ_VNUM(obj) )
     {
       case VOBJ_WH_DRAGONHEART_TIAMAT:
         debug( "dragon_heart_decay: &+LTiamat's heart decayed.&n" );
@@ -4385,7 +4385,7 @@ int dragon_heart_decay(P_obj obj, P_char ch, int cmd, char *args)
         logit( LOG_OBJ, "dragon_heart_decay: Bahamut's heart decayed." );
         break;
       default:
-        debug( "dragon_heart_decay: Unknown item decaying - '%s' %d?!?", OBJ_SHORT(obj), GET_OBJ_VNUM(obj) );
+        debug( "dragon_heart_decay: Unknown item decaying - '%s' %d?!?", OBJ_SHORT(obj), OBJ_VNUM(obj) );
         break;
     }
 

@@ -641,7 +641,7 @@ void epic_stone_absorb(P_obj obj)
       continue;
 
     /* if the other object is smaller epic stone, absorb it */
-    if( GET_OBJ_VNUM(tobj) <= GET_OBJ_VNUM(obj) && obj_index[tobj->R_num].func.obj == epic_stone )
+    if( OBJ_VNUM(tobj) <= OBJ_VNUM(obj) && obj_index[tobj->R_num].func.obj == epic_stone )
     {
       extract_obj(tobj);
     }
@@ -702,7 +702,7 @@ int epic_stone_payout(P_obj obj, P_char ch)
 void epic_stone_feed_artifacts(P_obj obj, P_char ch)
 {
   int feed_amount = 0;
-  switch(GET_OBJ_VNUM(obj))
+  switch(OBJ_VNUM(obj))
   {
     case EPIC_MONOLITH:
       feed_amount = 3600 * get_property("artifact.feeding.epic.hours.monolith", 12);
@@ -763,10 +763,10 @@ void epic_stone_level_char(P_obj obj, P_char ch)
     debug( "epic_stone_level_char: Bad argument(s)." );
     logit( LOG_DEBUG, "epic_stone_level_char: Bad argument(s): Char '%s' : %s, obj: %s (%d).",
       (ch == NULL) ? "NULL" : J_NAME(ch), IS_ALIVE(ch) ? "ALIVE" : "NOT ALIVE",
-      (obj == NULL) ? "NULL" : obj->short_description, (obj == NULL) ? -1 : GET_OBJ_VNUM(obj) );
+      (obj == NULL) ? "NULL" : obj->short_description, (obj == NULL) ? -1 : OBJ_VNUM(obj) );
     epiclog( 56, "epic_stone_level_char: Bad argument(s): Char '%s' : %s, obj: %s (%d).",
       (ch == NULL) ? "NULL" : J_NAME(ch), IS_ALIVE(ch) ? "ALIVE" : "NOT ALIVE",
-      (obj == NULL) ? "NULL" : obj->short_description, (obj == NULL) ? -1 : GET_OBJ_VNUM(obj) );
+      (obj == NULL) ? "NULL" : obj->short_description, (obj == NULL) ? -1 : OBJ_VNUM(obj) );
     return;
   }
 

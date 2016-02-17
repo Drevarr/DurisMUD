@@ -1041,7 +1041,7 @@ void do_fix(P_char ch, char *argument, int cmd)
   {
     nextobj = t_obj->next_content;
 
-    if(GET_OBJ_VNUM(t_obj) == imat)
+    if(OBJ_VNUM(t_obj) == imat)
     {
       i++;
     }
@@ -1087,7 +1087,7 @@ void do_fix(P_char ch, char *argument, int cmd)
     for (t_obj = ch->carrying; t_obj; t_obj = nextobj)
     {
       nextobj = t_obj->next_content;
-      if(GET_OBJ_VNUM(t_obj) == imat)
+      if(OBJ_VNUM(t_obj) == imat)
       {
         obj_from_char(t_obj);
         extract_obj(t_obj);

@@ -341,13 +341,13 @@ void vnum_from_inv(P_char ch, int item, int count)
   {
     nextobj = t_obj->next_content;
 
-    if((GET_OBJ_VNUM(t_obj) == item) && (i > 0) )
+    if((OBJ_VNUM(t_obj) == item) && (i > 0) )
     {
       obj_from_char(t_obj);
       if( IS_ARTIFACT(t_obj) )
       {
         logit( LOG_ARTIFACT, "vnum_from_inv: Extracting artifact '%s' %d from '%s' %d.  Not changing arti list!",
-          OBJ_SHORT(t_obj), GET_OBJ_VNUM(t_obj), J_NAME(ch), GET_ID(ch) );
+          OBJ_SHORT(t_obj), OBJ_VNUM(t_obj), J_NAME(ch), GET_ID(ch) );
       }
       extract_obj(t_obj);
       i--;
@@ -363,7 +363,7 @@ int vnum_in_inv(P_char ch, int cmd)
   {
     nextobj = t_obj->next_content;
 
-    if(GET_OBJ_VNUM(t_obj) == cmd)
+    if(OBJ_VNUM(t_obj) == cmd)
       count++;
   }
   return count;
@@ -987,7 +987,7 @@ void randomizeitem(P_char ch, P_obj obj)
   {
     nextobj = t_obj->next_content;
 
-    if( GET_OBJ_VNUM(t_obj) == 1250 )
+    if( OBJ_VNUM(t_obj) == 1250 )
     {
       rchance = (number(1, 100));
       if( isname("cross", t_obj->name) )
@@ -1301,7 +1301,7 @@ P_obj random_zone_item(P_char ch)
 
   if(reward)
   {
-    debug( "random_zone_item: %s reward was: %s (%d)", J_NAME(ch), reward->short_description, GET_OBJ_VNUM(reward) );
+    debug( "random_zone_item: %s reward was: %s (%d)", J_NAME(ch), reward->short_description, OBJ_VNUM(reward) );
 
     REMOVE_BIT(reward->extra_flags, ITEM_SECRET);
     REMOVE_BIT(reward->extra_flags, ITEM_INVISIBLE);
@@ -2147,7 +2147,7 @@ void enhance(P_char ch, P_obj source, P_obj material)
       validobj = FALSE;
       extract_obj(robj);
     }
-    else if(GET_OBJ_VNUM(robj) == GET_OBJ_VNUM(source))
+    else if(OBJ_VNUM(robj) == OBJ_VNUM(source))
     {
       validobj = FALSE;
       extract_obj(robj);
@@ -2279,14 +2279,14 @@ void do_enhance(P_char ch, char *argument, int cmd)
     act("&+yYour $p&+y cannot be used in this way... try something else&n.", FALSE, ch, material, 0, TO_CHAR);
     return;
   }
-  else if(GET_OBJ_VNUM(material) == GET_OBJ_VNUM(source))
+  else if(OBJ_VNUM(material) == OBJ_VNUM(source))
   {
     send_to_char("&+yYou cannot enhance an item with itself!\r\n", ch);
     return;
   }
   // If source is a weapon, material must be either a weapon or an essence.
   if( IS_SET(source->wear_flags, ITEM_WIELD) && !IS_SET(material->wear_flags, ITEM_WIELD)
-    && (GET_OBJ_VNUM(material) < 400238 || GET_OBJ_VNUM(material) > 400258) )
+    && (OBJ_VNUM(material) < 400238 || OBJ_VNUM(material) > 400258) )
   {
     send_to_char("&+YWeapons&+y can only enhance other &+Yweapons&n!\r\n", ch);
     return;
@@ -2300,7 +2300,7 @@ void do_enhance(P_char ch, char *argument, int cmd)
   }
   */
 
-  if(GET_OBJ_VNUM(material) > 400237 && GET_OBJ_VNUM(material) < 400259)
+  if(OBJ_VNUM(material) > 400237 && OBJ_VNUM(material) < 400259)
     modenhance(ch, source, material);
   else
     enhance(ch, source, material);
@@ -2352,7 +2352,7 @@ void modenhance(P_char ch, P_obj source, P_obj material)
     }
   }
 
-  int modtype = GET_OBJ_VNUM(material);
+  int modtype = OBJ_VNUM(material);
   switch (modtype)
   {
     case 400238:
@@ -2552,7 +2552,7 @@ void modenhance(P_char ch, P_obj source, P_obj material)
   obj_from_char(material);
   extract_obj(material);
 
-  P_obj tempobj = read_object(GET_OBJ_VNUM(source), VIRTUAL);
+  P_obj tempobj = read_object(OBJ_VNUM(source), VIRTUAL);
   char tempdesc[MAX_STRING_LENGTH], short_desc[MAX_STRING_LENGTH], keywords[MAX_STRING_LENGTH];
 
   sprintf(keywords, "%s enhanced", tempobj->name);
@@ -2702,7 +2702,7 @@ void enhancematload( P_char ch, P_char killer )
     if( gift )
     {
       // Show reward to master if killer is a pet.
-      debug( "enhancematload: '%s' (%d) rewarded to %s.", gift->short_description, GET_OBJ_VNUM(gift),
+      debug( "enhancematload: '%s' (%d) rewarded to %s.", gift->short_description, OBJ_VNUM(gift),
         IS_PC_PET(killer) ? J_NAME(get_linked_char(killer, LNK_PET)) : J_NAME(killer) );
       obj_to_char( gift, ch );
     }

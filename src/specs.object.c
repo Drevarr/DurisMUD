@@ -1478,20 +1478,20 @@ int item_switch(P_obj obj, P_char ch, int cmd, char *arg)
   if( in_room < 0 )
   {
     send_to_char("This item is broken.  Talk to a god!\n", ch);
-    wizlog( MINLVLIMMORTAL, "item_switch: The switch '%s' (%d) is broken!", obj->short_description, GET_OBJ_VNUM(obj) );
+    wizlog( MINLVLIMMORTAL, "item_switch: The switch '%s' (%d) is broken!", obj->short_description, OBJ_VNUM(obj) );
     return TRUE;
   }
   door = obj->value[2];
   if( door < 0 || door >= NUM_EXITS )
   {
     send_to_char("This item is broken (exit # out of range).  Talk to a god!\n", ch);
-    wizlog( MINLVLIMMORTAL, "item_switch: The switch '%s' (%d) has out of range exit %d!", obj->short_description, GET_OBJ_VNUM(obj), door );
+    wizlog( MINLVLIMMORTAL, "item_switch: The switch '%s' (%d) has out of range exit %d!", obj->short_description, OBJ_VNUM(obj), door );
     return TRUE;
   }
   if (!world[in_room].dir_option[door])
   {
     send_to_char("This item is broken (exit doesn't exist).  Talk to a god!\n", ch);
-    wizlog( MINLVLIMMORTAL, "item_switch: The switch '%s' (%d) has exit %d which doesn't exit!", obj->short_description, GET_OBJ_VNUM(obj), door );
+    wizlog( MINLVLIMMORTAL, "item_switch: The switch '%s' (%d) has exit %d which doesn't exit!", obj->short_description, OBJ_VNUM(obj), door );
     return TRUE;
   }
   if( !IS_SET(world[in_room].dir_option[door]->exit_info, EX_BLOCKED) )
@@ -12389,7 +12389,7 @@ int huntsman_ward(P_obj obj, P_char ch, int cmd, char *argument)
   int      dam, item;
   char     buf[256];
 
-  item = GET_OBJ_VNUM(obj);
+  item = OBJ_VNUM(obj);
 
   if( cmd == CMD_HIDE )
   {
@@ -14441,7 +14441,7 @@ int moonstone(P_obj obj, P_char ch, int cmd, char *argument)
     && obj_index[obj->R_num].virtual_number != 433) )
   {
     logit(LOG_DEBUG, "moonstone: obj proc called with no obj or non-moonstone obj: '%s' %d.",
-      !obj ? "Null" : obj->short_description, !obj ? -1 : GET_OBJ_VNUM(obj) );
+      !obj ? "Null" : obj->short_description, !obj ? -1 : OBJ_VNUM(obj) );
   }
 
   if (cmd == CMD_SET_PERIODIC)

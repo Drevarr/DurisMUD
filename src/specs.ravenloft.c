@@ -84,7 +84,7 @@ int ravenloft_bell(P_obj bell, P_char ch, int cmd, char *arg)
     return FALSE;
   }
 
-  if( !(weapon = ch->equipment[WIELD]) || GET_OBJ_VNUM(weapon) != VOBJ_RAVENLOFT_MALLET || !OBJ_WORN_POS(weapon, WIELD) )
+  if( !(weapon = ch->equipment[WIELD]) || OBJ_VNUM(weapon) != VOBJ_RAVENLOFT_MALLET || !OBJ_WORN_POS(weapon, WIELD) )
   {
     return FALSE;
   }
@@ -98,7 +98,7 @@ int ravenloft_bell(P_obj bell, P_char ch, int cmd, char *arg)
       roomIndex = real_room0(VROOM_RAVENLOFT_SWORDCASE);
       for( swordcase = world[roomIndex].contents; swordcase; swordcase = swordcase->next_content )
       {
-        if( GET_OBJ_VNUM(swordcase) == VOBJ_RAVENLOFT_LOCKED_CASE )
+        if( OBJ_VNUM(swordcase) == VOBJ_RAVENLOFT_LOCKED_CASE )
         {
           break;
         }

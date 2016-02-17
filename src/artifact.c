@@ -522,7 +522,7 @@ void addOnGroundArtis_sql()
 //   the new time to poof.
 void artifact_feed_to_min_sql( P_obj arti, int min_minutes )
 {
-  int vnum = GET_OBJ_VNUM(arti), location;
+  int vnum = OBJ_VNUM(arti), location;
   long unsigned oldtime, to_time;
   P_char owner;
   P_obj  cont;
@@ -662,7 +662,7 @@ void artifact_switch_check( P_char ch, P_obj arti )
   }
 
   // Load up the variables.
-  vnum = GET_OBJ_VNUM(arti);
+  vnum = OBJ_VNUM(arti);
   sql_get_bind_data(vnum, &owner_pid, &timer);
 
   // If a pvp loot happened, and timeframe has passed, set to 0 for binding
@@ -727,7 +727,7 @@ void artifact_switch_check( P_char ch, P_obj arti )
 //   ascertain the true location of the arti (on a char / in a room / etc).
 void artifact_update_sql( P_obj arti, char owned, time_t timer )
 {
-  int type, locType, location, vnum = arti ? GET_OBJ_VNUM(arti) : -1;
+  int type, locType, location, vnum = arti ? OBJ_VNUM(arti) : -1;
   bool new_owned, update_existing = FALSE;
   P_char owner;
   P_obj obj1;
@@ -791,12 +791,12 @@ void artifact_update_sql( P_obj arti, char owned, time_t timer )
       if( OBJ_WORN(obj1) )
       {
         logit( LOG_ARTIFACT, "arti_update_sql: OBJ_WORN but no loc.wearing, arti vnum %d/container vnum %d.",
-          vnum, GET_OBJ_VNUM(obj1) );
+          vnum, OBJ_VNUM(obj1) );
       }
       else
       {
         logit( LOG_ARTIFACT, "arti_update_sql: OBJ_CARRIED but no loc.carrying, arti vnum %d.",
-          vnum, GET_OBJ_VNUM(obj1) );
+          vnum, OBJ_VNUM(obj1) );
       }
       return;
     }
@@ -970,7 +970,7 @@ void artifact_update_sql( int vnum, bool owned, int locType, int location, time_
 // Returns true if successfully removed.
 bool remove_owned_artifact_sql( P_obj arti, int pid )
 {
-  int vnum = arti ? GET_OBJ_VNUM(arti) : -1;
+  int vnum = arti ? OBJ_VNUM(arti) : -1;
   bool update_existing = FALSE;
   MYSQL_RES *res;
   MYSQL_ROW row = NULL;
@@ -984,7 +984,7 @@ bool remove_owned_artifact_sql( P_obj arti, int pid )
   if( !arti || !IS_ARTIFACT(arti) )
   {
     logit( LOG_ARTIFACT, "remove_owned_artifact_sql: called with non-artifact '%s' %d.",
-      arti ? arti->short_description : "NULL", arti ? GET_OBJ_VNUM(arti) : -1 );
+      arti ? arti->short_description : "NULL", arti ? OBJ_VNUM(arti) : -1 );
     return FALSE;
   }
 
@@ -1074,7 +1074,7 @@ void artifact_update_location_sql( P_obj arti )
   }
 
   // Get data from DB.
-  timerStarted = get_artifact_data_sql( GET_OBJ_VNUM(arti), &artidata );
+  timerStarted = get_artifact_data_sql( OBJ_VNUM(arti), &artidata );
 
   // Get outer-most container.
   while( OBJ_INSIDE(cont) && cont->loc.inside )
@@ -1168,7 +1168,7 @@ void artifact_feed_sql(P_char owner, P_obj arti, int feed_seconds, bool soulChec
   {
     statuslog(MINLVLIMMORTAL, "artifact_feed_sql: called with null / NPC owner or NULL arti.");
     debug( "artifact_feed_sql: called with owner (%s) and arti (%s) %d.", owner ? J_NAME(owner) : "NULL",
-      arti ? arti->short_description : "NULL", arti ? GET_OBJ_VNUM(arti) : -1 );
+      arti ? arti->short_description : "NULL", arti ? OBJ_VNUM(arti) : -1 );
     return;
   }
   if( IS_TRUSTED(owner) )
@@ -1176,7 +1176,7 @@ void artifact_feed_sql(P_char owner, P_obj arti, int feed_seconds, bool soulChec
     return;
   }
 
-  vnum = GET_OBJ_VNUM(arti);
+  vnum = OBJ_VNUM(arti);
   sql_get_bind_data(vnum, &owner_pid, &timer);
 
   // Anti artifact sharing for feeding check
@@ -1221,7 +1221,7 @@ void artifact_feed_sql(P_char owner, P_obj arti, int feed_seconds, bool soulChec
   }
 
   statuslog(MINLVLIMMORTAL, "Artifact: %s [%d] on %s fed [&+G%c%ld&+Lh &+G%ld&+Lm &+G%ld&+Ls&n]",
-    arti->short_description, GET_OBJ_VNUM(arti), GET_NAME(owner),
+    arti->short_description, OBJ_VNUM(arti), GET_NAME(owner),
     negFeed ? '-' : ' ', feed_seconds / 3600, (feed_seconds / 60) % 60, feed_seconds % 60 );
 
   if( artidata.owned && (artidata.locType == ARTIFACT_ON_PC || artidata.locType == ARTIFACT_ONCORPSE)
@@ -1302,7 +1302,7 @@ void poof_artifact( P_obj arti )
 
   if( !IS_ARTIFACT(arti) )
   {
-    logit( LOG_ARTIFACT, "poof_artifact: Non-arti vnum %d!", GET_OBJ_VNUM(arti) );
+    logit( LOG_ARTIFACT, "poof_artifact: Non-arti vnum %d!", OBJ_VNUM(arti) );
     return;
   }
 
@@ -1348,7 +1348,7 @@ void poof_artifact( P_obj arti )
       break;
     case LOC_INSIDE:
       logit( LOG_ARTIFACT, "poof_artifact: Bad loc arti(%d)-container(%d) inside nothing.",
-        GET_OBJ_VNUM(arti), GET_OBJ_VNUM(cont) );
+        OBJ_VNUM(arti), OBJ_VNUM(cont) );
     case LOC_NOWHERE:
     default:
       break;
@@ -1359,7 +1359,7 @@ void poof_artifact( P_obj arti )
   }
 
   // Logit.
-  logit( LOG_ARTIFACT, "poof_artifact: Poofing '%s' %d from %s!", OBJ_SHORT(arti), GET_OBJ_VNUM(arti),
+  logit( LOG_ARTIFACT, "poof_artifact: Poofing '%s' %d from %s!", OBJ_SHORT(arti), OBJ_VNUM(arti),
     owner ? J_NAME(owner) : OBJ_ROOM(arti) ? world[arti->loc.room].name : "unknown location" );
 
   // And get rid of it.
@@ -1371,7 +1371,7 @@ void poof_artifact( P_obj arti )
   {
     writeCharacter(owner, RENT_CRASH, owner->in_room);
   }
-  if( cont != NULL && GET_OBJ_VNUM(cont) == VOBJ_CORPSE && IS_SET(cont->value[CORPSE_FLAGS], PC_CORPSE) )
+  if( cont != NULL && OBJ_VNUM(cont) == VOBJ_CORPSE && IS_SET(cont->value[CORPSE_FLAGS], PC_CORPSE) )
   {
     writeCorpse(cont);
   }
@@ -1457,7 +1457,7 @@ P_obj artifact_in_bag_search( P_obj contents, int vnum )
   for( temp = contents; temp; temp = temp->next_content )
   {
     // Found it.
-    if( GET_OBJ_VNUM(temp) == vnum )
+    if( OBJ_VNUM(temp) == vnum )
     {
       return temp;
     }
@@ -1484,7 +1484,7 @@ P_obj artifact_find( int vnum )
 
   for( obj = object_list; obj; obj = obj->next )
   {
-    if( GET_OBJ_VNUM(obj) == vnum )
+    if( OBJ_VNUM(obj) == vnum )
     {
       cont = obj;
       while( OBJ_INSIDE(cont) && cont->loc.inside )
@@ -1507,7 +1507,7 @@ P_obj artifact_find( int vnum )
           break;
         case LOC_INSIDE:
           logit( LOG_ARTIFACT, "artifact_find: Bad loc arti(%d)-container(%d) inside nothing.",
-            vnum, GET_OBJ_VNUM(cont) );
+            vnum, OBJ_VNUM(cont) );
           break;
         // Lost artis. :(
         case LOC_NOWHERE:
@@ -1545,7 +1545,7 @@ P_obj artifact_find( arti_data artidata )
           {
             if( obj = ch->equipment[i] )
             {
-              if( GET_OBJ_VNUM(obj) == vnum )
+              if( OBJ_VNUM(obj) == vnum )
               {
                 return obj;
               }
@@ -1578,7 +1578,7 @@ P_obj artifact_find( arti_data artidata )
           {
             if( obj = ch->equipment[i] )
             {
-              if( GET_OBJ_VNUM(obj) == vnum )
+              if( OBJ_VNUM(obj) == vnum )
               {
                 return obj;
               }
@@ -1626,7 +1626,7 @@ P_obj artifact_find( arti_data artidata )
       // Search the room's contents.
       for( obj = world[rroom].contents; obj; obj = obj->next_content )
       {
-        if( GET_OBJ_VNUM(obj) == vnum )
+        if( OBJ_VNUM(obj) == vnum )
         {
           return obj;
         }
@@ -1751,7 +1751,7 @@ void arti_files_to_sql( P_char ch, char *arg )
       else if( arti = artifact_find(artidata) )
       {
         sprintf( buf, "Found another copy of arti %s (%d) in game, pulling it.\n\r",
-          OBJ_SHORT(arti), GET_OBJ_VNUM(arti) );
+          OBJ_SHORT(arti), OBJ_VNUM(arti) );
         send_to_char( buf, ch );
         extract_obj(arti, FALSE);
       }
@@ -1778,7 +1778,7 @@ void arti_files_to_sql( P_char ch, char *arg )
               if( tmpch && IS_NPC(tmpch) )
               {
                 sprintf( buf, "  &+YFound another copy of arti '&n%s&+Y' &+w%d&+Y on '&n%s&+Y' &+w%d&+Y, pulling it.&n\n\r",
-                  OBJ_SHORT(arti), GET_OBJ_VNUM(arti), J_NAME(tmpch), GET_VNUM(tmpch) );
+                  OBJ_SHORT(arti), OBJ_VNUM(arti), J_NAME(tmpch), GET_VNUM(tmpch) );
                 send_to_char( buf, ch );
                 extract_obj(obj, FALSE);
               }
@@ -1786,7 +1786,7 @@ void arti_files_to_sql( P_char ch, char *arg )
             else
             {
               sprintf( buf, "  &+YFound another copy of arti '&n%s&+Y' &+w%d&+Y in game not on a char, pulling it.&n\n\r",
-                OBJ_SHORT(arti), GET_OBJ_VNUM(arti) );
+                OBJ_SHORT(arti), OBJ_VNUM(arti) );
               send_to_char( buf, ch );
               extract_obj(obj, TRUE); // Yes, we want to remove the arti data here.
             }
@@ -1861,7 +1861,7 @@ void event_artifact_check_poof_sql( P_char ch, P_char vict, P_obj obj, void * ar
         {
           for( arti = world[location].contents; arti; arti = arti->next_content )
           {
-            if( GET_OBJ_VNUM(arti) == vnum )
+            if( OBJ_VNUM(arti) == vnum )
             {
               break;
             }
@@ -1870,13 +1870,13 @@ void event_artifact_check_poof_sql( P_char ch, P_char vict, P_obj obj, void * ar
         // Here things get hairy.  We need to find a copy of the arti that's on ground or in a container
         //   that's not on an Immortal or in a bag possessed by an Immortal.  This case should never come
         //   up, but just in case.
-        if( !arti || GET_OBJ_VNUM(arti) != vnum )
+        if( !arti || OBJ_VNUM(arti) != vnum )
         {
           // Find the artifact in game, if it is.
           found = FALSE;
           for( arti = object_list; arti && !found; arti = arti->next )
           {
-            if( GET_OBJ_VNUM(arti) == vnum )
+            if( OBJ_VNUM(arti) == vnum )
             {
               cont = arti;
               // Find outermost container.
@@ -1904,13 +1904,13 @@ void event_artifact_check_poof_sql( P_char ch, P_char vict, P_obj obj, void * ar
                   break;
                 case LOC_INSIDE:
                   logit( LOG_ARTIFACT, "event_artifact_check_poof_sql: Bad loc on 'OnGround' arti(%d)-container vnum %d inside nothing.",
-                    cont->loc_p, vnum, GET_OBJ_VNUM(cont) );
+                    cont->loc_p, vnum, OBJ_VNUM(cont) );
                   break;
                 // Lost artis. :(
                 case LOC_NOWHERE:
                 default:
                   logit( LOG_ARTIFACT, "event_artifact_check_poof_sql: Bad loc_p (%d) on 'OnGround' arti(%d)-container vnum %d.",
-                    cont->loc_p, vnum, GET_OBJ_VNUM(cont) );
+                    cont->loc_p, vnum, OBJ_VNUM(cont) );
                   break;
               }
             }
@@ -1921,7 +1921,7 @@ void event_artifact_check_poof_sql( P_char ch, P_char vict, P_obj obj, void * ar
             arti = NULL;
           }
         }
-        if( !arti || GET_OBJ_VNUM(arti) != vnum )
+        if( !arti || OBJ_VNUM(arti) != vnum )
         {
           logit( LOG_ARTIFACT, "event_artifact_check_poof_sql: Could not find 'OnGround' artifact vnum %d anywhere.",
             vnum );
@@ -2042,7 +2042,7 @@ void event_artifact_check_poof_sql( P_char ch, P_char vict, P_obj obj, void * ar
         corpse = NULL;
         for( arti = object_list; arti; arti = arti->next )
         {
-          if( GET_OBJ_VNUM(arti) == vnum )
+          if( OBJ_VNUM(arti) == vnum )
           {
             cont = arti;
             // Find outermost container.
@@ -2050,7 +2050,7 @@ void event_artifact_check_poof_sql( P_char ch, P_char vict, P_obj obj, void * ar
             {
               cont = cont->loc.inside;
 
-              if( GET_OBJ_VNUM(cont) == VOBJ_CORPSE && IS_SET(cont->value[CORPSE_FLAGS], PC_CORPSE)
+              if( OBJ_VNUM(cont) == VOBJ_CORPSE && IS_SET(cont->value[CORPSE_FLAGS], PC_CORPSE)
                 && isname(name, cont->name) )
               {
                 corpse = cont;
@@ -2081,13 +2081,13 @@ void event_artifact_check_poof_sql( P_char ch, P_char vict, P_obj obj, void * ar
                   break;
                 case LOC_INSIDE:
                   logit( LOG_ARTIFACT, "event_artifact_check_poof_sql: Bad loc on 'OnCorpse' arti(%d)-container vnum %d inside nothing.",
-                    cont->loc_p, vnum, GET_OBJ_VNUM(cont) );
+                    cont->loc_p, vnum, OBJ_VNUM(cont) );
                   break;
                 // Lost artis. :(
                 case LOC_NOWHERE:
                 default:
                   logit( LOG_ARTIFACT, "event_artifact_check_poof_sql: Bad loc_p (%d) on 'OnCorpse' arti(%d)-container vnum %d.",
-                    cont->loc_p, vnum, GET_OBJ_VNUM(cont) );
+                    cont->loc_p, vnum, OBJ_VNUM(cont) );
                   break;
               }
               break;
@@ -2104,7 +2104,7 @@ void event_artifact_check_poof_sql( P_char ch, P_char vict, P_obj obj, void * ar
           // Check for arti in anyplace other than on an Immortal.
           for( arti = object_list; arti && !found; arti = arti->next )
           {
-            if( GET_OBJ_VNUM(arti) == vnum )
+            if( OBJ_VNUM(arti) == vnum )
             {
               cont = arti;
               // Find outermost container.
@@ -2131,13 +2131,13 @@ void event_artifact_check_poof_sql( P_char ch, P_char vict, P_obj obj, void * ar
                   break;
                 case LOC_INSIDE:
                   logit( LOG_ARTIFACT, "event_artifact_check_poof_sql: Bad loc on 'OnCorpse' arti(%d)-container vnum %d inside nothing.",
-                    cont->loc_p, vnum, GET_OBJ_VNUM(cont) );
+                    cont->loc_p, vnum, OBJ_VNUM(cont) );
                   break;
                 // Lost artis. :(
                 case LOC_NOWHERE:
                 default:
                   logit( LOG_ARTIFACT, "event_artifact_check_poof_sql: Bad loc_p (%d) on 'OnCorpse' arti(%d)-container vnum %d.",
-                    cont->loc_p, vnum, GET_OBJ_VNUM(cont) );
+                    cont->loc_p, vnum, OBJ_VNUM(cont) );
                   break;
               }
             }
@@ -2466,14 +2466,14 @@ void arti_hunt_sql( P_char ch, char *arg )
       }
 
       sprintf( buf, "%-12s has %s&n (%6d) : ", J_NAME(owner),
-        pad_ansi(arti->short_description, 35, TRUE).c_str(), GET_OBJ_VNUM(arti) );
+        pad_ansi(arti->short_description, 35, TRUE).c_str(), OBJ_VNUM(arti) );
       send_to_char( buf, ch );
 
-      if( !get_artifact_data_sql( GET_OBJ_VNUM(arti), &artidata ) )
+      if( !get_artifact_data_sql( OBJ_VNUM(arti), &artidata ) )
       {
         send_to_char( "&+WNot yet tracked - adding.&n\n", ch );
         // If there's one in zone, pull it.
-        if( (arti2 = artifact_find(GET_OBJ_VNUM(arti))) )
+        if( (arti2 = artifact_find(OBJ_VNUM(arti))) )
         {
           send_to_char( "&+WPulled artifact from zone.\n\r", ch );
           extract_obj(arti2);
@@ -2500,7 +2500,7 @@ void arti_hunt_sql( P_char ch, char *arg )
         extract_char( mob );
         send_to_char( buf, ch );
         // If there's one in zone, pull it.
-        if( (arti2 = artifact_find(GET_OBJ_VNUM(arti))) )
+        if( (arti2 = artifact_find(OBJ_VNUM(arti))) )
         {
           send_to_char( "&+WPulled artifact from zone.\n\r", ch );
           extract_obj(arti2);
@@ -2512,7 +2512,7 @@ void arti_hunt_sql( P_char ch, char *arg )
         sprintf( buf, "&+ROn ground:&N '%s' %d.\n", world[real_room0(artidata.location)].name, artidata.location );
         send_to_char( buf, ch );
         // If there's one in zone, pull it.
-        if( (arti2 = artifact_find(GET_OBJ_VNUM(arti))) )
+        if( (arti2 = artifact_find(OBJ_VNUM(arti))) )
         {
           send_to_char( "&+WPulled artifact from zone.\n\r", ch );
           extract_obj(arti2);
@@ -2537,13 +2537,13 @@ void arti_hunt_sql( P_char ch, char *arg )
         sprintf( buf, "%-12s has %s&n (%6d) : ", J_NAME(owner),
           pad_ansi(arti->short_description, 35, TRUE).c_str(), obj_index[arti->R_num].virtual_number );
         send_to_char( buf, ch );
-        if( !get_artifact_data_sql( GET_OBJ_VNUM(arti), &artidata ) )
+        if( !get_artifact_data_sql( OBJ_VNUM(arti), &artidata ) )
         {
           send_to_char( "&+WNot yet tracked - adding.&n\n", ch );
           // If they managed to get it on pfile and not in DB, give them full timer.
           artifact_update_sql( arti, 'Y', time(NULL) + ARTIFACT_BLOOD_DAYS * SECS_PER_REAL_DAY );
           // If there's one in zone, pull it.
-          if( (arti2 = artifact_find(GET_OBJ_VNUM(arti))) )
+          if( (arti2 = artifact_find(OBJ_VNUM(arti))) )
           {
             send_to_char( "&+WPulled artifact from zone.\n\r", ch );
             extract_obj(arti2);
@@ -2991,7 +2991,7 @@ void arti_swap_sql( P_char ch, char *arg )
   for( arti1 = object_list; arti1; arti1 = arti1->next )
   {
     // Found it in game!
-    if( GET_OBJ_VNUM(arti1) == vnum1 )
+    if( OBJ_VNUM(arti1) == vnum1 )
     {
       cont = arti1;
       while( OBJ_INSIDE(cont) && cont->loc.inside )
@@ -3537,7 +3537,7 @@ void arti_player_sql( P_char ch, char *arg )
     }
     else
     {
-      sprintf(buf, "&+RError reading query result.  Skipping... '%s' %d.\n", OBJ_SHORT(arti), GET_OBJ_VNUM(arti) );
+      sprintf(buf, "&+RError reading query result.  Skipping... '%s' %d.\n", OBJ_SHORT(arti), OBJ_VNUM(arti) );
       send_to_char( buf, ch );
       extract_obj( arti );
       continue;

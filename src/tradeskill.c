@@ -186,11 +186,11 @@ P_obj get_hammer(P_char ch)
   return NULL;
 }
 
-// #define IS_MINING_PICK(obj) ( GET_OBJ_VNUM(obj) == 253 || \
-                              // GET_OBJ_VNUM(obj) == 338 || \
-                              // GET_OBJ_VNUM(obj) == 10640 || \
-                              // GET_OBJ_VNUM(obj) == 95531 || \
-                              // GET_OBJ_VNUM(obj) == 49018 )
+// #define IS_MINING_PICK(obj) ( OBJ_VNUM(obj) == 253 || \
+                              // OBJ_VNUM(obj) == 338 || \
+                              // OBJ_VNUM(obj) == 10640 || \
+                              // OBJ_VNUM(obj) == 95531 || \
+                              // OBJ_VNUM(obj) == 49018 )
 
 #define IS_MINING_PICK(obj) (isname("pick", obj->name) && obj->type == ITEM_WEAPON)
 
@@ -595,7 +595,7 @@ void do_forge(P_char ch, char *argument, int cmd)
     // Count up the materials ch has on hand.
     for( inventory = ch->carrying; inventory; inventory = inventory->next_content )
     {
-      invVnum = GET_OBJ_VNUM( inventory );
+      invVnum = OBJ_VNUM( inventory );
 
       if( invVnum == lowQualityMaterialVnum )
       {
@@ -633,7 +633,7 @@ void do_forge(P_char ch, char *argument, int cmd)
     for( inventory = ch->carrying; inventory; inventory = invNextObj )
     {
       invNextObj = inventory->next_content;
-      invVnum = GET_OBJ_VNUM( inventory );
+      invVnum = OBJ_VNUM( inventory );
 
       if( (invVnum == lowQualityMaterialVnum) && (numLowQuality > 0) )
       {
@@ -1611,7 +1611,7 @@ void event_mine_check( P_char ch, P_char victim, P_obj, void *data )
         send_to_char( "Your efforts were thwarted by a mysterious force.  Tell a God.\n\r", ch );
         return;
       }
-      int type = GET_OBJ_VNUM(ore) - 504;
+      int type = OBJ_VNUM(ore) - 504;
       // Base price based on gem type.
       switch( type / 8 )
       {
@@ -1772,7 +1772,7 @@ void event_mine_check( P_char ch, P_char victim, P_obj, void *data )
       else
       {
         logit(LOG_DEBUG, "event_mine_check: %s has pick '%s' (%d) but not in slot WIELD/WIELD2.",
-          J_NAME(ch), pick->short_description, GET_OBJ_VNUM(pick) );
+          J_NAME(ch), pick->short_description, OBJ_VNUM(pick) );
       }
       return;
     }
@@ -1791,7 +1791,7 @@ void event_mine_check( P_char ch, P_char victim, P_obj, void *data )
   }
 
   // If pick breaks, return.
-  if(!number(0,4) && (GET_OBJ_VNUM(pick) != 83318) && DamageOneItem(ch, 1, pick, false))
+  if(!number(0,4) && (OBJ_VNUM(pick) != 83318) && DamageOneItem(ch, 1, pick, false))
   {
     return;
   }
@@ -1908,7 +1908,7 @@ int smith(P_char ch, P_char pl, int cmd, char *arg)
     for( tobj = ch->carrying; tobj; tobj = tobj->next_content )
     {
       // If we found a needed ore.
-      if( forge_item_list[choice].ore_needed[i] == GET_OBJ_VNUM(tobj) )
+      if( forge_item_list[choice].ore_needed[i] == OBJ_VNUM(tobj) )
       {
         // Stick it in the needed_ore array
         needed_ore[j++] = tobj;
@@ -2012,7 +2012,7 @@ bool invalid_mine_room(int rroom_id)
   
   for( P_obj tobj = world[rroom_id].contents; tobj; tobj = tobj->next )
   {
-    if( GET_OBJ_VNUM(tobj) == VOBJ_MINE )
+    if( OBJ_VNUM(tobj) == VOBJ_MINE )
       return TRUE;
   }
 
@@ -2097,7 +2097,7 @@ void load_mines(bool set_event, bool load_all, int map)
   mine_type = mine_data[map].type;
   for( P_obj tobj = object_list; tobj; tobj = tobj->next )
   {
-    if( (GET_OBJ_VNUM(tobj) == mine_type) && (tobj->loc.room > 0) &&
+    if( (OBJ_VNUM(tobj) == mine_type) && (tobj->loc.room > 0) &&
         (world[tobj->loc.room].number >= mine_data[map].start) &&
         (world[tobj->loc.room].number <= mine_data[map].end) )
     {
@@ -2345,7 +2345,7 @@ void do_mine(P_char ch, char *arg, int cmd)
     {
       next = tobj->next;
 
-      if( (GET_OBJ_VNUM(tobj) == VOBJ_MINE)
+      if( (OBJ_VNUM(tobj) == VOBJ_MINE)
         && (!strcmp(arg, mine_data[i].abbrev))
         && (world[tobj->loc.room].number >= mine_data[i].start)
         && (world[tobj->loc.room].number <= mine_data[i].end) )
@@ -2353,7 +2353,7 @@ void do_mine(P_char ch, char *arg, int cmd)
         extract_obj(tobj, TRUE); // Not an arti, but 'in game.'
       }
       // The all factor
-      else if ( GET_OBJ_VNUM(tobj) == VOBJ_MINE && (!strcmp(arg, "all")) )
+      else if ( OBJ_VNUM(tobj) == VOBJ_MINE && (!strcmp(arg, "all")) )
       {
         extract_obj(tobj, TRUE);
       }
@@ -3408,7 +3408,7 @@ int itemvalue( P_obj obj )
       if( mod < 1 || mod > LAST_RACE )
       {
         debug( "itemvalue: obj '%s' %d has APPLY_..._RACE %d and bad modifier %d.",
-          obj->short_description, GET_OBJ_VNUM(obj), obj->affected[i].location, mod );
+          obj->short_description, OBJ_VNUM(obj), obj->affected[i].location, mod );
         workingvalue += 100;
       }
       else
@@ -3440,7 +3440,7 @@ int itemvalue( P_obj obj )
           // Should never be the case but..
           default:
             debug( "itemvalue: obj '%s' %d has 'bad' APPLY_..._RACE %d, modifier %d.",
-              obj->short_description, GET_OBJ_VNUM(obj), obj->affected[i].location, mod );
+              obj->short_description, OBJ_VNUM(obj), obj->affected[i].location, mod );
             workingvalue += 100;
             break;
         }
@@ -3522,7 +3522,7 @@ int itemvalue( P_obj obj )
   {
     if( workingvalue != 1 )
     {
-      debug( "Always load obj '%s' %d has stats giving ival %d.", OBJ_SHORT(obj), GET_OBJ_VNUM(obj), workingvalue );
+      debug( "Always load obj '%s' %d has stats giving ival %d.", OBJ_SHORT(obj), OBJ_VNUM(obj), workingvalue );
     }
     return 1;
   }
@@ -3785,7 +3785,7 @@ void do_refine(P_char ch, char *arg, int cmd)
       return;
     }
 
-    vnum = GET_OBJ_VNUM(obj);
+    vnum = OBJ_VNUM(obj);
     // Must be salvaged material, and cannot be the highest salvage type.
     if( (vnum > 400208) || (vnum < 400000) )
     {
@@ -3807,11 +3807,11 @@ void do_refine(P_char ch, char *arg, int cmd)
   // Check for other materials of same quality/type
   for( t_obj = ch->carrying; t_obj; t_obj = t_obj->next_content )
   {
-    if(GET_OBJ_VNUM(t_obj) == vnum)
+    if(OBJ_VNUM(t_obj) == vnum)
     {
       i++;
     }
-    if((GET_OBJ_VNUM(t_obj) > 193) && (GET_OBJ_VNUM(t_obj) < 234))
+    if((OBJ_VNUM(t_obj) > 193) && (OBJ_VNUM(t_obj) < 234))
     {
       o++;
     }
@@ -3840,19 +3840,19 @@ void do_refine(P_char ch, char *arg, int cmd)
   {
     nextobj = t_obj->next_content;
 
-    if((GET_OBJ_VNUM(t_obj) == vnum) && i > 0 )
+    if((OBJ_VNUM(t_obj) == vnum) && i > 0 )
     {
       obj_from_char(t_obj);
       extract_obj(t_obj, TRUE); // Not an arti, but 'in game.'
       send_to_char("You take the item and gently pour the melted ore over the item...\n", ch);
       i--;
     }
-    if( o && (GET_OBJ_VNUM(t_obj) > 193) && (GET_OBJ_VNUM(t_obj) < 234) )
+    if( o && (OBJ_VNUM(t_obj) > 193) && (OBJ_VNUM(t_obj) < 234) )
     {
       o--;
       obj_from_char(t_obj);
       extract_obj(t_obj, TRUE); // Not an arti, but 'in game.'
-      orechance = (GET_OBJ_VNUM(t_obj) - 194);
+      orechance = (OBJ_VNUM(t_obj) - 194);
     }
   }
 
@@ -5315,7 +5315,7 @@ int calc_ore_cost( P_char ch, P_obj ore )
 {
   // Cost in copper.
   float newcost;
-  int vnum = GET_OBJ_VNUM(ore);
+  int vnum = OBJ_VNUM(ore);
 
   // Type of metal: 0=iron, 1=steel, 2=copper, 3=silver, 4=gold, 5=platinum, 6=mithril, 7=adamantium.
   switch( (vnum-LOWEST_ORE_VNUM) / 3 )

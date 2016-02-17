@@ -333,7 +333,7 @@ int proc_soldon_hat( P_obj obj, P_char ch, int cmd, char *argument )
   }
 
   // Make sure he's rubbing it, he's alive, it's worn by him, and it's his hat.
-  if( cmd != CMD_RUB || !IS_ALIVE(ch) || !OBJ_WORN_BY(obj, ch) || GET_OBJ_VNUM(obj) != 435 )
+  if( cmd != CMD_RUB || !IS_ALIVE(ch) || !OBJ_WORN_BY(obj, ch) || OBJ_VNUM(obj) != 435 )
   {
     return FALSE;
   }

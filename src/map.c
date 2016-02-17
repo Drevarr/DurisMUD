@@ -374,23 +374,23 @@ int whats_in_maproom(P_char ch, int room, int distance, int show_regardless)
           val = MIN(val, CONTAINS_CORPSE);
         }
       }
-      else if(GET_OBJ_VNUM(obj) == VOBJ_GEMMINE && (( (has_innate(ch, INNATE_MINER) ||
+      else if(OBJ_VNUM(obj) == VOBJ_GEMMINE && (( (has_innate(ch, INNATE_MINER) ||
         IS_AFFECTED5(ch, AFF5_MINE)) && distance < 2 ) || IS_TRUSTED(ch) ) )
       {
         val = MIN(val, CONTAINS_GEMMINE);
       }
-      else if(GET_OBJ_VNUM(obj) == VOBJ_MINE && (( (has_innate(ch, INNATE_MINER) ||
+      else if(OBJ_VNUM(obj) == VOBJ_MINE && (( (has_innate(ch, INNATE_MINER) ||
         IS_AFFECTED5(ch, AFF5_MINE)) && distance < 3 ) || IS_TRUSTED(ch) ) )
       {
         val = MIN(val, CONTAINS_MINE);
       }
       // Using track scan ?
-      else if( (GET_OBJ_VNUM(obj) == VNUM_TRACKS) && (( distance <= (GET_CHAR_SKILL(ch, SKILL_IMPROVED_TRACK) / 20) )
+      else if( (OBJ_VNUM(obj) == VNUM_TRACKS) && (( distance <= (GET_CHAR_SKILL(ch, SKILL_IMPROVED_TRACK) / 20) )
         || IS_TRUSTED(ch)) )
       {
         val = MIN(val, CONTAINS_TRACK);
       }
-      else if( (GET_OBJ_VNUM(obj) == VOBJ_BLOOD) && (( distance <= (GET_CHAR_SKILL(ch, SKILL_IMPROVED_TRACK) / 20) )
+      else if( (OBJ_VNUM(obj) == VOBJ_BLOOD) && (( distance <= (GET_CHAR_SKILL(ch, SKILL_IMPROVED_TRACK) / 20) )
         || IS_TRUSTED(ch)) )
       {
         if( (obj->value[1] == BLOOD_FRESH) && (GET_CHAR_SKILL(ch, SKILL_IMPROVED_TRACK) > number(50, 80)) )
@@ -402,15 +402,15 @@ int whats_in_maproom(P_char ch, int room, int distance, int show_regardless)
           val = MIN(val, CONTAINS_OLD_BLOOD);
         }
       }
-      else if( obj->type == ITEM_TELEPORT && GET_OBJ_VNUM(obj) >= 99800 && GET_OBJ_VNUM(obj) <= 99899 )
+      else if( obj->type == ITEM_TELEPORT && OBJ_VNUM(obj) >= 99800 && OBJ_VNUM(obj) <= 99899 )
       {
         val = MIN(val, CONTAINS_PORTAL);
       }
-      else if( GET_OBJ_VNUM(obj) == GH_DOOR_VNUM )
+      else if( OBJ_VNUM(obj) == GH_DOOR_VNUM )
       {
         val = MIN(val, CONTAINS_GUILDHALL);
       }
-      else if( GET_OBJ_VNUM(obj) == CARGO_CRATE_VNUM && (world[room].sector_type == SECT_WATER_NOSWIM
+      else if( OBJ_VNUM(obj) == CARGO_CRATE_VNUM && (world[room].sector_type == SECT_WATER_NOSWIM
         || world[room].sector_type == SECT_OCEAN || world[room].sector_type == SECT_UNDRWLD_NOSWIM) )
       {
         val = MIN(val, CONTAINS_CARGO);

@@ -4843,7 +4843,7 @@ void do_purge(P_char ch, char *argument, int cmd)
         {
           act("You purged artifact $p; not removing it from the artifact list.", FALSE, ch, obj, 0, TO_CHAR);
           sprintf( buf, "&+WIf you wish to clear the artifact entry, use '&+wartifact clear %d&+W'.&n\n\r",
-            GET_OBJ_VNUM(obj) );
+            OBJ_VNUM(obj) );
         }
         extract_obj(obj);
         obj = NULL;
@@ -12067,7 +12067,7 @@ void where_nowhere(P_char ch, char *args)
       || (OBJ_WORN(obj) && ( obj->loc.wearing == NULL )) || (OBJ_CARRIED(obj) && ( obj->loc.carrying == NULL ))
       || (OBJ_INSIDE(obj) && ( obj->loc.inside == NULL )) )
     {
-      sprintf( buf, "%3d) %d %6d %s&n\n", ++count, obj->loc_p, GET_OBJ_VNUM(obj), OBJ_SHORT(obj) );
+      sprintf( buf, "%3d) %d %6d %s&n\n", ++count, obj->loc_p, OBJ_VNUM(obj), OBJ_SHORT(obj) );
       send_to_char( buf, ch );
     }
   }
@@ -12248,7 +12248,7 @@ void do_where(P_char ch, char *argument, int cmd)
     /* objects */
     for( k = object_list; k && !flag; k = k->next )
     {
-      if( v_num == GET_OBJ_VNUM(k) )
+      if( v_num == OBJ_VNUM(k) )
       {
         // wizinvis checks
         P_obj tobj = k;
@@ -12412,7 +12412,7 @@ void do_where(P_char ch, char *argument, int cmd)
       o_count++;
       count++;
       sprintf(buf2, "%3d. [%6d] %s &+Y- &n%s\n",
-              o_count, GET_OBJ_VNUM(k), pad_ansi(k->short_description, 40).c_str(), where_obj(k, FALSE));
+              o_count, OBJ_VNUM(k), pad_ansi(k->short_description, 40).c_str(), where_obj(k, FALSE));
       if ((strlen(buf2) + length + 35) > MAX_STRING_LENGTH)
       {
         strcpy(buf2, "   ...the list is too long...\n");

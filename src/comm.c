@@ -3262,7 +3262,7 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj, void *vict_o
     {
       if (!OBJ_ROOM(obj))
       {
-        logit(LOG_DEBUG, "Comm.c act: no ch but obj (%d) in nowhere.", GET_OBJ_VNUM(obj));
+        logit(LOG_DEBUG, "Comm.c act: no ch but obj (%d) in nowhere.", OBJ_VNUM(obj));
         return;
       }
       to = world[obj->loc.room].people;

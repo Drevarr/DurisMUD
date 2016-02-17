@@ -3346,7 +3346,7 @@ void reset_zone(int zone, int force_item_repop)
           else
           {
             logit(LOG_DEBUG, "reset_zone: object '%s' %d could not be placed on bad mob - zone %s.",
-              OBJ_SHORT(obj), GET_OBJ_VNUM(obj), zone_table[zone].filename);
+              OBJ_SHORT(obj), OBJ_VNUM(obj), zone_table[zone].filename);
             extract_obj(obj);
           }
         }

@@ -452,13 +452,13 @@ int room_of_sanctum(int room, P_char ch, int cmd, char *arg)
   }
 
   if( archbishop && archbishop->equipment[HOLD]
-    && GET_OBJ_VNUM(archbishop->equipment[HOLD]) == VOBJ_DRAGONNIA_ARCHBISHOP_KEY)
+    && OBJ_VNUM(archbishop->equipment[HOLD]) == VOBJ_DRAGONNIA_ARCHBISHOP_KEY)
   {
-    if( ch->equipment[HOLD] && GET_OBJ_VNUM(ch->equipment[HOLD]) == VOBJ_DRAGONNIA_ARCHBISHOP_KEY)
+    if( ch->equipment[HOLD] && OBJ_VNUM(ch->equipment[HOLD]) == VOBJ_DRAGONNIA_ARCHBISHOP_KEY)
     {
       obj_to_char( unequip_char(ch, HOLD), ch );
     }
-    for( key = ch->carrying; key && GET_OBJ_VNUM(key) != VOBJ_DRAGONNIA_ARCHBISHOP_KEY; key = key->next_content)
+    for( key = ch->carrying; key && OBJ_VNUM(key) != VOBJ_DRAGONNIA_ARCHBISHOP_KEY; key = key->next_content)
       ;
     if( key )
     {
@@ -479,7 +479,7 @@ int room_of_sanctum(int room, P_char ch, int cmd, char *arg)
     return TRUE;
   }
   if( bishop && bishop->equipment[HOLD]
-    && GET_OBJ_VNUM(bishop->equipment[HOLD]) == VOBJ_DRAGONNIA_BISHOP_KEY)
+    && OBJ_VNUM(bishop->equipment[HOLD]) == VOBJ_DRAGONNIA_BISHOP_KEY)
   {
     act("A strange force doesn't let you unlock the sanctum.", 0, ch, 0, 0, TO_CHAR);
     act("A strange force doesn't let $n unlocks the sanctum.", 1, ch, 0, 0, TO_ROOM);

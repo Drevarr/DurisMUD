@@ -397,9 +397,9 @@ int carrying_flag(P_ship ship)
   {
     for (obj = world[real_room0(ship->room[i].roomnum)].contents; obj; obj = obj->next_content)
     {
-      if (GET_OBJ_VNUM(obj) == 790 ||
-	  GET_OBJ_VNUM(obj) == 791 ||
-	  GET_OBJ_VNUM(obj) == 792)
+      if (OBJ_VNUM(obj) == 790 ||
+	  OBJ_VNUM(obj) == 791 ||
+	  OBJ_VNUM(obj) == 792)
 	return TRUE;
     }
     for (ch = world[real_room0(ship->room[i].roomnum)].people; ch; ch = ch->next_in_room)

@@ -11101,7 +11101,7 @@ void event_mob_proc(P_char mob, P_char victim, P_obj object, void *data)
 
   if( object != NULL )
   {
-    debug("event_mob_proc: non-NULL object: %s %d.", OBJ_SHORT(object), GET_OBJ_VNUM(object) );
+    debug("event_mob_proc: non-NULL object: %s %d.", OBJ_SHORT(object), OBJ_VNUM(object) );
   }
 
   // If mob is lagged, we re-schedule for after the lag wears off.

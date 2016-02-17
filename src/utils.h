@@ -535,7 +535,7 @@ int race_size(int race);
 
 #define CAN_WEAR(obj, part) (IS_SET((obj)->wear_flags, part))
 
-#define GET_OBJ_VNUM(obj) ( !obj ? raise(SIGSEGV) : obj_index[obj->R_num].virtual_number )
+#define OBJ_VNUM(obj) ( !obj ? raise(SIGSEGV) : obj_index[obj->R_num].virtual_number )
 #define OBJ_SHORT(obj) ((obj)->short_description)
 #define GET_OBJ_PROC(obj) ( !obj ? raise(SIGSEGV) : obj_index[obj->R_num].func.obj )
 

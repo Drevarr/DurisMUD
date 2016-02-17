@@ -3216,85 +3216,126 @@ bool decrease_skin_counter(P_char ch, unsigned int skin)
   return FALSE;
 }
 
-int try_mangle(P_char ch, P_char victim)
+// Attempt by a berserker to slam weapon aside and deal damage, possibly disarming opponent in the process.
+// Similar to riposte.
+bool try_mangle( P_char mangler, P_char attacker, P_obj weap )
 {
-  P_obj weap;
-  int skl = (int)(GET_CHAR_SKILL(ch, SKILL_MANGLE) / 20);
-
-  if(skl < 1 ||
-      notch_skill(ch, SKILL_MANGLE, get_property("skill.notch.defensive", 17)) ||
-      IS_IMMOBILE(ch) ||
-      IS_TRUSTED(victim) ||
-      !IS_HUMANOID(victim) ||
-      !(MIN_POS(ch, POS_STANDING + STAT_NORMAL)))
+  int skl, wloc;
+  struct damage_messages messages =
   {
-    return 0;
+    "You &+rmangle&n $S forearm with $q.",
+    "$n &+rmangles&n you with $q.",
+    "$n &+rmangles&n $N with $q.",
+    "You &+Rmangle&N $N to death.",
+    "$n &+Rmangles&n you to death.",
+    "$n &+Rmangles&n $N to death.",
+    DAMMSG_TERSE, weap
+  };
+
+  // Can't mangle vs a non-weapon.
+  if( !weap || (weap->type != ITEM_WEAPON) || IS_SET(weap->extra_flags, ITEM_NODROP) )
+  {
+    return FALSE;
   }
 
-  if(!(weap = victim->equipment[WIELD]))
-    if(!weap && !(weap = victim->equipment[WIELD2]))
-      if(!weap && !(weap = victim->equipment[WIELD3]))
-        if(!weap && !(weap = victim->equipment[WIELD4]))
-          return 0;
+  skl = GET_CHAR_SKILL(mangler, SKILL_MANGLE);
+
+  if( IS_TRUSTED(attacker) || IS_IMMOBILE(mangler) || !IS_HUMANOID(attacker) || !MIN_POS(mangler, POS_STANDING + STAT_NORMAL)
+    || (skl < 20 && !notch_skill( mangler, SKILL_MANGLE, get_property("skill.notch.defensive", 17) )) )
+  {
+    return FALSE;
+  }
+
+  // Make sure weap is wielded.
+  if( weap == attacker->equipment[WIELD] )
+  {
+    wloc = WIELD;
+  }
+  else if( weap == attacker->equipment[WIELD2] )
+  {
+    wloc = WIELD2;
+  }
+  else if( weap == attacker->equipment[WIELD3] )
+  {
+    wloc = WIELD3;
+  }
+  else if( weap == attacker->equipment[WIELD4] )
+  {
+    wloc = WIELD4;
+  }
+  else
+    return FALSE;
+
+  /* Checked above now, and has weapon as argument to function.
+  // Find a weapon to disarm (must exist and be a weapon and not be cursed).
+  if( (weap = attacker->equipment[WIELD]) == NULL || (weap->type != ITEM_WEAPON) || IS_SET(weap->extra_flags, ITEM_NODROP) )
+    if( (weap = attacker->equipment[WIELD2]) == NULL || (weap->type != ITEM_WEAPON) || IS_SET(weap->extra_flags, ITEM_NODROP) )
+      if( (weap = attacker->equipment[WIELD3]) == NULL || (weap->type != ITEM_WEAPON) || IS_SET(weap->extra_flags, ITEM_NODROP) )
+        if( (weap = attacker->equipment[WIELD4]) == NULL || (weap->type != ITEM_WEAPON) || IS_SET(weap->extra_flags, ITEM_NODROP) )
+          return FALSE;
+  */
 
   // Epic parry now reduces mangle percentage. Jan08 -Lucrot
-  if(GET_CHAR_SKILL(victim, SKILL_EXPERT_PARRY))
+  if( GET_CHAR_SKILL(attacker, SKILL_EXPERT_PARRY) )
   {
-    if((skl -= ((GET_CHAR_SKILL(victim, SKILL_EXPERT_PARRY)) / 20)) < 0)
-      return 0;
+    if( (skl -= GET_CHAR_SKILL( attacker, SKILL_EXPERT_PARRY )) < 20 )
+    {
+      return FALSE;
+    }
   }
 
   // Elite mobs are not affected as much. Jan08 -Lucrot
-  if(IS_ELITE(victim))
+  if( IS_ELITE(attacker) )
   {
-    skl = 1;
+    skl = 20;
   }
 
-  if(IS_ELITE(ch))
+  if( IS_ELITE(mangler) )
   {
-    skl += 5;
+    skl += 100;
   }
 
-  if((skl -= (int)((GET_C_DEX(victim) - GET_C_DEX(ch)) / 4)) < 0);
-  return 0;
-
-  skl = BOUNDED(0, skl, 5);
-
-  if(number(0, 200) > skl)
+  if( (skl -= ( GET_C_DEX(attacker) - GET_C_DEX(mangler) ) * 5) < 20 )
   {
-    return 0;
+    return FALSE;
   }
 
-  act("$n blocks your attack and slashes viciously at your arm.",
-      TRUE, ch, 0, victim, TO_VICT);
-  act("$n blocks $N's attack and slashes viciously at $S arm.",
-      TRUE, ch, 0, victim, TO_NOTVICT);
-  act("You block $N's attack and slash viciously at $S arm.",
-      TRUE, ch, 0, victim, TO_CHAR);
+  skl = BOUNDED(0, skl / 20, 5);
 
-  if(weap &&
-      !affected_by_spell(victim, SPELL_COMBAT_MIND) &&
-      !IS_SET(weap->extra_flags, ITEM_NODROP) &&
-      (weap->type == ITEM_WEAPON))
+  // 5% max chance.
+  if( number(0, 100) > skl )
   {
-    send_to_char("&=LYYou swing at your foe _really_ badly, losing control of your weapon!\r\n", victim);
-    act("$n stumbles with $s attack, losing control of $s weapon!", TRUE, victim, 0, 0, TO_ROOM);
+    return FALSE;
+  }
 
-    set_short_affected_by(victim, SKILL_DISARM, 2 * PULSE_VIOLENCE);
+  act("$n blocks your attack and slashes viciously at your arm.", TRUE, mangler, 0, attacker, TO_VICT);
+  act("$n blocks $N's attack and slashes viciously at $S arm.", TRUE, mangler, 0, attacker, TO_NOTVICT);
+  act("You block $N's attack and slash viciously at $S arm.", TRUE, mangler, 0, attacker, TO_CHAR);
 
-    P_obj weap = unequip_char(victim, WIELD);   
+  // 2-8 damage - can be mitigated.
+  if( melee_damage(mangler, attacker, 4. * dice(2, 4), PHSDAM_NONE, &messages) != DAM_NONEDEAD )
+    return TRUE;
 
-    obj_to_char(weap, victim);
+  // 25% chance to actually disarm.
+  if( weap && !number(0, 3) && !affected_by_spell(attacker, SPELL_COMBAT_MIND) )
+  {
+    send_to_char("&=LYYou swing at your foe _really_ badly, losing control of your weapon!\r\n", attacker);
+    act("$n stumbles with $s attack, losing control of $s weapon!", TRUE, attacker, 0, 0, TO_ROOM);
 
-    char_light(victim);
-    room_light(victim->in_room, REAL);
+    set_short_affected_by(attacker, SKILL_DISARM, 2 * PULSE_VIOLENCE);
+
+    unequip_char(attacker, wloc);
+    obj_to_char(weap, attacker);
+
+    char_light(attacker);
+    room_light(attacker->in_room, REAL);
   }
   else
   {
-    send_to_char("You stumble, but recover in time!\r\n", victim);
+    send_to_char("You stumble, but recover in time!\r\n", attacker);
   }
 
-  return 1;
+  return TRUE;
 }
 
 int try_riposte(P_char ch, P_char victim, P_obj wpn)
@@ -3412,11 +3453,6 @@ int try_riposte(P_char ch, P_char victim, P_obj wpn)
   if( expertriposte )
   {
     skl += expertriposte;
-  }
-
-  if( GET_CHAR_SKILL(ch, SKILL_MANGLE) > 0 && try_mangle(ch, victim) > 0 )
-  {
-    return FALSE;
   }
 
   // Simple comparison.
@@ -6755,7 +6791,7 @@ int required_weapon_skill(P_obj wpn)
       {
         char Gbuf[MAX_STRING_LENGTH];
         sprintf( Gbuf, "Weapon '%s' [%d] has 2h flag set and is a %s (%d).",
-          wpn->short_description, GET_OBJ_VNUM(wpn), (wpn->value[0] == WEAPON_DAGGER) ? "Dagger" : "Horn", wpn->value[0] );
+          wpn->short_description, OBJ_VNUM(wpn), (wpn->value[0] == WEAPON_DAGGER) ? "Dagger" : "Horn", wpn->value[0] );
         debug( Gbuf );
         logit( LOG_OBJ, Gbuf );
       }
@@ -8716,13 +8752,19 @@ int parrySucceed(P_char victim, P_char attacker, P_obj wpn)
 
   if(rapier_dirk(victim, attacker))
   {
-    return true;
+    return TRUE;
   }
 
-  // Riposte check.  
-  if(try_riposte(victim, attacker, wpn))
-    return true;
-  /* succeed */
+  // Riposte check.
+  if( try_riposte(victim, attacker, wpn) )
+    return TRUE;
+
+  // Mangle check.
+  if( try_mangle(victim, attacker, wpn) )
+  {
+    return TRUE;
+  }
+
 
   if(expertparry > number(1, 250) &&
       !IS_NPC(victim))
