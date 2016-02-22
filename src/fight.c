@@ -9246,8 +9246,6 @@ int calculate_attacks(P_char ch, int attacks[])
     }
   }
 
-// ADD_ATTACK PENIS END HERE
-
   //dex and dex max now grants extra attacks.
   P_obj weapon = ch->equipment[WIELD]; //harder to swing a lot with heavier weapons.
   double wpnweight = 0.00;
