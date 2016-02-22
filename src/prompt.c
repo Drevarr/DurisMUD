@@ -212,6 +212,10 @@ void make_prompt(void)
           {
             sprintf(promptbuf + strlen(promptbuf), "\033[0;31m %dm", GET_MANA(t_ch));
           }
+          else
+          {
+            sprintf(promptbuf + strlen(promptbuf), " \033[31;40;1;5m%dm", GET_MANA(t_ch));
+          }
         }
         else
         {
