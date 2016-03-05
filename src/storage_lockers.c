@@ -411,6 +411,8 @@ bool StorageLocker::MakeChests(P_char ch, char *args)
         p = AddLockerChest(new EqWearChest(CLASS_NECROMANCER, chestKeyword, chestDesc));
       IF_ISLOCKERTYPE("conjurer", "usable by a conjurer")
         p = AddLockerChest(new EqWearChest(CLASS_CONJURER, chestKeyword, chestDesc));
+      IF_ISLOCKERTYPE("rogue", "usable by a rogue")
+        p = AddLockerChest(new EqWearChest(CLASS_ROGUE, chestKeyword, chestDesc));
       IF_ISLOCKERTYPE("summoner", "usable by a summoner")
         p = AddLockerChest(new EqWearChest(CLASS_SUMMONER, chestKeyword, chestDesc));
       IF_ISLOCKERTYPE("assassin", "usable by an assassin")
