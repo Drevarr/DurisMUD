@@ -10374,7 +10374,7 @@ void do_garrote(P_char ch, char *argument, int cmd)
   }
   if( victsize > chsize + 1 )
   {
-    act("You can seem to get your arms around $s neck!", FALSE, ch, 0, victim, TO_CHAR);
+    act("You can't seem to get your arms around $s neck!", FALSE, ch, 0, victim, TO_CHAR);
     return;
   }
 
