@@ -2934,11 +2934,11 @@ void show_exits_to_char(P_char ch, int room_no, int mode)
 
   const char *exits[] = {
     "&+cNorth&n",
-    "&+cEast&n",
+    "&+cEast&n ",
     "&+cSouth&n",
-    "&+cWest&n",
-    "&+cUp&n",
-    "&+cDown&n",
+    "&+cWest&n ",
+    "&+cUp&n   ",
+    "&+cDown&n ",
     "&+cNorthwest&n",
     "&+cSouthwest&n",
     "&+cNortheast&n",
@@ -3218,7 +3218,7 @@ void show_exits_to_char(P_char ch, int room_no, int mode)
           break;
         }
         count++;
-        sprintf(buffer + strlen(buffer), "%s- ", exits[i]);
+        sprintf(buffer + strlen(buffer), "%14s- ", exits[i]);
         if( IS_SET(exit->exit_info, EX_ISDOOR) && IS_SET(exit->exit_info, EX_CLOSED) )
         {
           strcat(buffer, "(veiled)\n");
@@ -3235,13 +3235,13 @@ void show_exits_to_char(P_char ch, int room_no, int mode)
           break;
         }
         count++;
-        sprintf(buffer + strlen(buffer), "%s- ", exits[i]);
+        sprintf(buffer + strlen(buffer), "%14s- ", exits[i]);
         if( IS_SET(exit->exit_info, EX_CLOSED) )
         {
           sprintf(buffer + strlen(buffer), "(closed %s) ", FirstWord(EXIT(ch, i)->keyword));
           break;
         }
-        strcat(buffer, "&+LToo dark to tell.&n.");
+        strcat(buffer, "&+LToo dark to tell.&n\n");
         break;
       case 6:
         if( (exit->to_room == NOWHERE) || IS_SET(exit->exit_info, EX_SECRET)
