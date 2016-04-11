@@ -528,9 +528,9 @@ bool intercept_defensiveproc(P_char merc, P_char hitter)
 
   act("&+LAs $n&+L attempts to attack you, you &+Cintercept&+L the attack with your &+yhands&+L and &+ytwist&n $n's arm!&n",
       TRUE, hitter, 0, merc, TO_VICT);
-  act("&+LAs $n&+L attempts to attack $n, $N &+Cintercepts&+L the attack with their &+yhands&+L and &+ytwist&n $n's arm!&n",
+  act("&+LAs $n&+L attempts to attack $N, $N &+Cintercepts&+L the attack with $S &+yhands&+L and &+ytwist&n $n's arm!&n",
       TRUE, hitter, 0, merc, TO_NOTVICT);
-  act("&+LAs you attempt to attack $N, they quickly reach out, &+Cintercepting&+L the attack with their &+yhands&+L and quickly &+ytwist&n your arm!&n",
+  act("&+LAs you attempt to attack $N, $N quickly reaches out, &+Cintercepting&+L the attack with $S &+yhands&+L and quickly &+ytwist&n your arm!&n",
       TRUE, hitter, 0, merc, TO_CHAR);
 
   memset(&af, 0, sizeof(af));
