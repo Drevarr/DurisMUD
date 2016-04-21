@@ -24,6 +24,7 @@ extern const char *sector_types[];
 extern const char *sector_symbol[];
 extern mapSymbolInfo color_symbol[];
 extern P_index mob_index;
+extern int top_of_mobt;
 extern P_desc descriptor_list;
 extern int count_classes( P_char mob );
 extern long new_exp_table[];
@@ -289,7 +290,22 @@ void do_test(P_char ch, char *arg, int cmd)
 
   arg = one_argument(arg, buff);
 
-  if( isname("mapzones", buff) )
+  if( isname("stormdruid", buff) )
+  {
+    P_char mob;
+    int R_num, count;
+
+    send_to_char( "&=LgList of Storm Druids:&N\n", ch );
+    for( R_num = count = 0; R_num <= top_of_mobt; R_num++ )
+    {
+      mob = read_mobile( R_num, REAL );
+      if( GET_SPEC(mob, CLASS_DRUID, SPEC_STORM) )
+        send_to_char_f( ch, "%2d) %6d %s\n", ++count, GET_VNUM(mob), mob->player.short_descr );
+      extract_char(mob);
+    }
+    return;
+  }
+  else if( isname("mapzones", buff) )
   {
     send_to_char( "&=LCNum) Zone Name                           (Zon#)&n\n", ch );
     for( int i = 0, count = 0; i <= top_of_zone_table; i++ )

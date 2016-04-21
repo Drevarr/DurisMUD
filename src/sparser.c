@@ -1113,7 +1113,7 @@ bool saves_spell(P_char ch, int save_type)
   return (NewSaves(ch, save_type, 0));
 }
 
-char    *skip_spaces(char *string)
+char *skip_spaces(char *string)
 {
   for (; *string && ((*string) == ' '); string++) ;
 

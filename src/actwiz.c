@@ -174,6 +174,7 @@ void which_race( P_char ch, char *argument );
 void stat_race(P_char ch, char *arg);
 void event_mob_mundane(P_char, P_char, P_obj, void *);
 void which_stat(P_char ch, char *argument);
+void which_spec(P_char ch, char *argument);
 void which_food(P_char ch, char *argument);
 
 /*
@@ -3384,7 +3385,6 @@ void do_stat(P_char ch, char *argument, int cmd)
   else
     send_to_char(STAT_SYNTAX, ch);
 }
-
 #undef STAT_SYNTAX
 
 void do_echoa(P_char ch, char *argument, int cmd)
@@ -8332,10 +8332,6 @@ void do_inroom(P_char ch, char *args, int cmd)
   }
 }
 
-#define WHICH_SYNTAX "&+WSyntax:&n\n&+w   which room <zone flag>\n&+w   which zone <zone flag>\n" \
-  "&+w   which char|mob <mobact flag>\n&+w   which race <race name|race number>\n" \
-  "&+w   which obj|item <wear, extra(2), anti(2) or aff(2-6) flag>\n&+w   which stat <flag> <amount>&n\n"
-
 /*
  * this is 'where' based on flags, so we can find all the 'peace' rooms,
  * or 'no-ground' rooms, etc. It borrows code from both do_stat, and the
@@ -8360,8 +8356,7 @@ void concat_which_flags(const char *flagType, const char **flagNames, char *buf)
 }
 */
 
-void concat_which_flagsde(const char *flagType, const flagDef flagNames[],
-                          char *buf)
+void concat_which_flagsde(const char *flagType, const flagDef flagNames[], char *buf)
 {
   int      j;
 
@@ -8394,8 +8389,7 @@ bool check_flags(int *value, const char **flagNames, const char *flagName)
   return TRUE;
 }
 
-bool check_flagsde(int *value, const flagDef flagNames[],
-                   const char *flagName)
+bool check_flagsde(int *value, const flagDef flagNames[], const char *flagName)
 {
   int      i;
 
@@ -8426,6 +8420,12 @@ bool check_apply(int *value, const char *flagName)
   return TRUE;
 }
 
+#define WHICH_SYNTAX "&+WSyntax:&n\n&+w   which room <zone flag>\n&+w   which zone <zone flag>\n" \
+  "&+w   which char|mob <mobact flag>\n&+w   which race <race name|race number>\n" \
+  "&+w   which obj|item <wear, extra(2), anti(2) or aff(2-6) flag>\n&+w   which stat <flag> <amount>&n\n" \
+  "&+w   which spec <flag> <amount>&n\n"
+
+// Lists all mob/object types that match the search string.
 void do_which(P_char ch, char *args, int cmd)
 {
   typedef enum _whichObjFlagsEnum
@@ -8723,15 +8723,13 @@ void do_which(P_char ch, char *args, int cmd)
      */
 
     which = 0;
-    for (i = 0;
-         action_bits[i].flagShort && str_cmp(action_bits[i].flagShort, arg2);
-         i++) ;
-    if(!action_bits[i].flagShort)
+    for( i = 0; action_bits[i].flagShort && str_cmp(action_bits[i].flagShort, arg2); i++ )
+      ;
+    if( !action_bits[i].flagShort )
     {
       which = 1;
-      for (i = 0;
-           str_cmp(player_bits[i], arg2) && (player_bits[i][0] != '\n');
-           i++) ;
+      for( i = 0; str_cmp(player_bits[i], arg2) && (player_bits[i][0] != '\n'); i++ )
+        ;
       if(player_bits[i][0] == '\n')
       {
         send_to_char("Unknown flag, valid options are:\n", ch);
@@ -8801,7 +8799,12 @@ void do_which(P_char ch, char *args, int cmd)
   }
   else if( (*arg1 == 's') || (*arg1 == 'S') )
   {
-    which_stat( ch, rest );
+    if( is_abbrev(arg1, "spec") )
+      which_spec( ch, rest );
+    else if( is_abbrev(arg1, "stat") )
+      which_stat( ch, rest );
+    else
+      send_to_char(WHICH_SYNTAX, ch);
     return;
   }
   else if( (*arg1 == 'f') || (*arg1 == 'F') )
@@ -12428,4 +12431,70 @@ void do_where(P_char ch, char *argument, int cmd)
     send_to_char("Nothing found.\n", ch);
   else
     page_string(ch->desc, buf, 1);
+}
+
+// This looks through each mob type for the supplied class-spec.
+void which_spec(P_char ch, char *argument)
+{
+  char   buf[MAX_STRING_LENGTH], specname[MAX_STRING_LENGTH], *tmp;
+  int    mclass, spec, R_num, count;
+  bool   found;
+  P_char mob;
+
+  // Make the argument all lowercase.
+  tmp = argument;
+  while( *tmp != '\0' )
+  {
+    *tmp = LOWER( *tmp );
+    tmp++;
+  }
+
+  found = FALSE;
+  for( mclass = CLASS_NONE; mclass <= CLASS_COUNT; mclass++ )
+  {
+    for( spec = 0; spec < MAX_SPEC; spec++ )
+    {
+      // Get the ansi-less spec name..
+      sprintf( specname, "%s", strip_ansi(specdata[mclass][spec]).c_str() );
+      // And make it all lower case.
+      tmp = specname;
+      while( *tmp != '\0' )
+      {
+        *tmp = LOWER( *tmp );
+        tmp++;
+      }
+      // If we found a perfect match.
+      if( !strcmp(argument, specname) )
+      {
+        found = TRUE;
+        break;
+      }
+    }
+    if( found )
+      break;
+  }
+  if( !found )
+  {
+    send_to_char_f( ch, "&+YCould not find spec '&+w%s&+Y'.&n\n&+YDid you enter the full spec name?&n\n", argument );
+    return;
+  }
+
+  send_to_char_f( ch, "&=LWList of mobs with spec:&N %s&N\n", specdata[mclass][spec] );
+
+  // Convert from count to bitvector.
+  mclass = 1 << ( mclass - 1 );
+  // Convert from subscript (0-3) to actual count (1-4).
+  spec++;
+
+  // Walk through each mob type (skip mob 0 = prototype).
+  for( R_num = 1, count = 0; R_num <= top_of_mobt; R_num++ )
+  {
+    mob = read_mobile( R_num, REAL );
+    if( GET_SPEC(mob, mclass, spec) )
+        send_to_char_f( ch, "%2d) %6d %s\n", ++count, GET_VNUM(mob), mob->player.short_descr );
+    extract_char(mob);
+  }
+
+  if( count == 0 )
+    send_to_char( "&+YNone found.&n\n", ch );
 }
