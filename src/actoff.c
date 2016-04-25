@@ -9081,8 +9081,9 @@ void event_unflank(P_char ch, P_char victim, P_obj obj, void *args)
 
 void flanking_broken(struct char_link_data *cld)
 {
-  act("$N maneuvers $Mself into a better position.", FALSE, cld->linking, 0,
-      cld->linked, TO_ROOM);
+
+  act("$n maneuvers $mself into a better position.", FALSE, cld->linked, NULL, cld->linking, TO_ROOM);
+  act("You maneuver yourself into a better position.", FALSE, cld->linked, NULL, cld->linking, TO_CHAR);
 }
 
 bool flank(P_char ch, P_char victim)
