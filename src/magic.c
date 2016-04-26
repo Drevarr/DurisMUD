@@ -45,6 +45,7 @@
 #include "ctf.h"
 #include "achievements.h"
 #include "alliances.h"
+#include "utility.h"
 
 /*
  * external variables
@@ -7058,17 +7059,52 @@ void spell_healing_salve(int level, P_char ch, char *arg, int type,
   //  affect_from_char(victim, SPELL_WITHER);
 }
 
-void spell_sticks_to_snakes(int level, P_char ch, char *arg, int type,
-                            P_char victim, P_obj obj)
+int find_dam_type( char *name )
 {
-  int      snakes, arrowSnakes, dam, room;
+  // If we don't have a string, or no ansi in it.
+  if( !name || *name == '\0' || !sub_string_cs(name, "&+") )
+    return SPLDAM_GENERIC;
+
+  if( sub_string(name, "&+c") && sub_string(name, "&+l") )
+    return SPLDAM_SOUND;
+  if( sub_string(name, "&+r") )
+    return SPLDAM_FIRE;
+  if( sub_string(name, "&+b") )
+    return SPLDAM_COLD;
+  if( sub_string(name, "&+c") )
+    return SPLDAM_COLD;
+  if( sub_string_cs(name, "&+Y") )
+    return SPLDAM_LIGHTNING;
+  if( sub_string_cs(name, "&+G") )
+    return SPLDAM_ACID;
+  if( sub_string_cs(name, "&+g") )
+    return SPLDAM_GAS;
+  if( sub_string_cs(name, "&+L") )
+    return SPLDAM_NEGATIVE;
+  if( sub_string_cs(name, "&+W") )
+    return SPLDAM_HOLY;
+  if( sub_string(name, "&+m") )
+    return SPLDAM_PSI;
+  if( sub_string_cs(name, "&+w") )
+    return SPLDAM_SPIRIT;
+  if( sub_string_cs(name, "&+y") )
+    return SPLDAM_EARTH;
+
+  return SPLDAM_GENERIC;
+}
+
+void spell_sticks_to_snakes(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
+{
+  int snakes, arrowSnakes, room, num_dice, num_sides, dam_type;
+  P_obj arrows, inven, next_inven;
+
   struct damage_messages arrow_messages = {
-    "You turn $N's &+yarrow into a &+gsnake &nand send it against $M!",
-    "Your own &+yarrow&n turns into a &+gsnake and bites you, &+Lvanishing afterwards&n!",
-    "$N's own &+yarrow&n turns into a &+gsnake and bites&n $N, &+Lvanishing afterwards&n!",
-    "You turn $N's &+yarrow into a &+gsnake &nand send it against $N!",
-    "Your own &+yarrow&n turns into a &+gsnake and bites you, &+Lvanishing afterwards&n!",
-    "$N's own &+yarrow&n turns into a &+gsnake and bites&n $N, &+Lvanishing afterwards&n!",
+    "You turn $N's $q into a &+gsnake&n and send it against $M!",
+    "Your own $q turns into a &+gsnake&n and bites you, &+Lvanishing afterwards&n!",
+    "$N's own $q turns into a &+gsnake&n and bites $M, &+Lvanishing afterwards&n!",
+    "You turn $N's $q into a &+gsnake&n and it bites $M to death!",
+    "Your own $q turns into a &+gsnake&n and bites you &+rrea&+Rlly &+Lhard...",
+    "$N's own $q turns into a &+gsnake&n and bites $M to &+rdeath&n, &+Lvanishing afterwards&n!"
   };
   struct damage_messages messages = {
     "&+yYou turn a stick into a &+gsnake &+yand send it against $N!",
@@ -7082,16 +7118,43 @@ void spell_sticks_to_snakes(int level, P_char ch, char *arg, int type,
 
   room = victim->in_room;
 
-  if(level > 50)
-    dam = dice(8, 8);
-  else if(level > 30)
-    dam = dice(7, 7);
-  else if(level > 20)
-    dam = dice(6, 6);
+  if( level > 50 )
+  {
+    num_dice = 8;
+    num_sides = 8;
+  }
+  else if( level > 40 )
+  {
+    num_dice = 8;
+    num_sides = 7;
+  }
+  else if( level > 30 )
+  {
+    num_dice = 7;
+    num_sides = 7;
+  }
+  else if( level > 25 )
+  {
+    num_dice = 7;
+    num_sides = 6;
+  }
+  else if( level > 20 )
+  {
+    num_dice = 6;
+    num_sides = 6;
+  }
+  else if( level > 15 )
+  {
+    num_dice = 6;
+    num_sides = 5;
+  }
   else
-    dam = dice(5, 5);
+  {
+    num_dice = 5;
+    num_sides = 5;
+  }
 
-  switch (world[ch->in_room].sector_type)
+  switch( world[ch->in_room].sector_type )
   {
   case SECT_CITY:
   case SECT_ROAD:
@@ -7128,28 +7191,39 @@ void spell_sticks_to_snakes(int level, P_char ch, char *arg, int type,
 
   obj = victim->carrying;
 
-  while( obj = get_obj_in_list("arrow", victim->carrying) )
+  arrows = NULL;
+  for( inven = victim->carrying; inven != NULL; inven = next_inven )
   {
-    if( IS_ARTIFACT(obj) )
+    next_inven = inven->next_content;
+
+    // Artifact arrows?
+    if( IS_ARTIFACT(inven) || inven->type != ITEM_MISSILE || inven->value[3] != MISSILE_ARROW )
     {
-      break;
+      continue;
     }
-    extract_obj(obj, TRUE); // Artifact arrows?
-    arrowSnakes++;
+    obj_from_char( inven );
+    inven->next_content = arrows;
+    arrows = inven;
+    // Allow 8 total snakes.
+    if( ++arrowSnakes >= 8 - snakes )
+      break;
   }
 
-  while (snakes + arrowSnakes > 0 && is_char_in_room(victim, room))
+  while( arrows && IS_ALIVE(victim) )
   {
-    if(arrowSnakes > 0)
-    {
-      spell_damage(ch, victim, dam, SPLDAM_GENERIC, SPLDAM_ALLGLOBES, &arrow_messages);
-      arrowSnakes--;
-    }
-    else
-    {
-      spell_damage(ch, victim, dam, SPLDAM_GENERIC, SPLDAM_ALLGLOBES, &messages);
-      snakes--;
-    }
+    arrow_messages.obj = arrows;
+    dam_type = find_dam_type( OBJ_SHORT(arrows) );
+    // Increase the regular arrow damage by 25%.
+    spell_damage(ch, victim, 5 * dice(arrows->value[1], arrows->value[2]), dam_type, SPLDAM_ALLGLOBES, &arrow_messages);
+    obj = arrows;
+    arrows = arrows->next_content;
+    obj->next_content = NULL;
+    extract_obj(obj);
+  }
+  while( snakes && is_char_in_room(victim, room) )
+  {
+    spell_damage(ch, victim, dice(num_dice, num_sides), SPLDAM_GENERIC, SPLDAM_ALLGLOBES, &messages);
+    snakes--;
   }
 }
 

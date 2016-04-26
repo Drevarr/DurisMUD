@@ -5868,6 +5868,32 @@ bool sub_string( const char *str, const char *substr)
   return FALSE;
 }
 
+// Returns TRUE iff substr is found within str
+// This IS case sensitive!
+bool sub_string_cs( const char *str, const char *substr)
+{
+  int strlength = strlen(str);
+  int sublength = strlen(substr);
+  int i = 0;
+  int j;
+
+  // While substr will fit into strlength - i
+  while( strlength >= sublength + i )
+  {
+    j = 0;
+    // While the letters match..
+    while( str[i+j] == substr[j] )
+    {
+      j++;
+      // If we've found all the letters..
+      if( j == sublength )
+        return TRUE;
+    }
+    i++;
+  }
+  return FALSE;
+}
+
 // Looks through list of strings strset to see if name contains one of them.
 // Not case sensitive!
 // Returns TRUE iff name contains one of the strings in strset.

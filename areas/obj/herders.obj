@@ -328,8 +328,8 @@ tipped bone bolt~
 &+LA rock tipped &+Wbone crossbow bolt&N has been left here.~
 ~
 7 10 2 0 7 0 256 1 0 0 0
-0 10 10 2 0 0 0 0
-0 500 100
+0 5 4 2 0 0 0 0
+0 1000000 100
 E
 tipped bone bolt~
     &+LA bone crossbow bolt, tipped with rock.
@@ -340,8 +340,8 @@ bone bolt~
 &+WA bone crossbow bolt has been left here.~
 ~
 7 10 2 0 7 0 256 1 0 0 0
-0 8 8 2 0 0 0 0
-0 300 100
+0 4 3 2 0 0 0 0
+0 88473 100
 E
 bone bolt~
     &+LA bone crossbow bolt.

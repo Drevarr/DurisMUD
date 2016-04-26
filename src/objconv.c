@@ -949,7 +949,7 @@ void convertObj(P_obj obj)
   long     weight = 0, cost = 0;
   char     buf2[MAX_STRING_LENGTH];
 
-  if (!obj || IS_SET(obj->extra_flags, ITEM_IGNORE))
+  if( !obj || IS_SET(obj->extra_flags, ITEM_IGNORE) )
     return;
 
   obj->bitvector &= ~(AFF_SLEEP | AFF_FEAR | AFF_CHARM);
@@ -1030,7 +1030,15 @@ void convertObj(P_obj obj)
     break;
   case ITEM_MISSILE:
     /* 1 s * missle type */
-    cost = val3 * (val1 * 2) * val2 * (val0 / 2) * 10;
+//    cost = val3 * (val1 * 2) * val2 * (val0 / 2) * 10;
+    // Start with average damage * 10.
+    cost = ( obj->value[1] * (obj->value[2] + 1) ) * 5;
+    // cost = (10 * avgdam) squared * maxdamage cubed / 125
+    cost = (cost * cost * val1 * val1 * val1 * val2 * val2 * val2) / 125;
+    obj->cost = BOUNDED(1, cost, 5000000);
+    weight = obj->weight;
+    obj->weight = BOUNDED(0, weight, 10);
+    return;
     break;
   case ITEM_TREASURE:
   case ITEM_TRASH:
@@ -1137,8 +1145,6 @@ void convertObj(P_obj obj)
     weight = obj->weight;*/
 
   cost = BOUNDED(0, cost, 1000000);
-  if (cost < 0)
-    cost = 1;
   weight = BOUNDED(0, weight, 1000);
 
   /* at this point, we either have made cost/weight, or we're still using
@@ -1476,5 +1482,3 @@ void convertObj(P_obj obj)
   obj->curr_sp = obj->max_sp;   /* temporary */
 #endif
 }
-
-  

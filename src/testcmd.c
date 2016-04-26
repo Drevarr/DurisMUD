@@ -290,6 +290,58 @@ void do_test(P_char ch, char *arg, int cmd)
 
   arg = one_argument(arg, buff);
 
+  if( isname("missile", buff) )
+  {
+    int count, rnum, type, avgdam, maxdam;
+    P_obj obj;
+
+    type = 0;
+    arg = skip_spaces(arg);
+    if( !strcmp(arg, "arrow") )
+    {
+      type = MISSILE_ARROW;
+    }
+    else if( !strcmp(arg, "light") )
+    {
+      type = MISSILE_LIGHT_CBOW_QUARREL;
+    }
+    else if( !strcmp(arg, "heavy") )
+    {
+      type = MISSILE_HEAVY_CBOW_QUARREL;
+    }
+    else if( !strcmp(arg, "hand") )
+    {
+      type = MISSILE_HAND_CBOW_QUARREL;
+    }
+    else if( !strcmp(arg, "bullet") )
+    {
+      type = MISSILE_SLING_BULLET;
+    }
+    else if( !strcmp(arg, "dart") )
+    {
+      type = MISSILE_DART;
+    }
+    send_to_char_f( ch, "##)   VNUM 'object name                        '  dice  avg max    sugg actual\n" );
+    send_to_char_f( ch, "          *=ignore                                      dam dam   value value\n" );
+    for( rnum = count = 0; rnum <= top_of_objt; rnum++ )
+    {
+      obj = read_object( rnum, REAL );
+      if( obj->type == ITEM_MISSILE && (type == obj->value[3] || type == 0) )
+      {
+        // avgdam is actually 10 times the real avg dam to keep the .5's.
+        avgdam = ( obj->value[1] * (obj->value[2] + 1) ) * 5;
+        maxdam =  obj->value[1] * obj->value[2];
+
+        send_to_char_f( ch, "%2d) %6d%c'%s&n' %s%2dd%-2d&n %2d.%d  %2d %7d %d.\n", ++count, OBJ_VNUM(obj),
+          IS_SET(obj->extra_flags, ITEM_IGNORE) ? '*' : ' ', pad_ansi(OBJ_SHORT(obj), 35, TRUE).c_str(),
+          (obj->value[1] > 3) ? "&+R" : (obj->value[1]) == 3 ? "&+Y" : (obj->value[1]) == 2 ? "&+B" : "",
+          obj->value[1], obj->value[2], avgdam / 10, avgdam % 10, maxdam,
+          avgdam * avgdam * maxdam * maxdam * maxdam / 125, obj->cost );
+      }
+      extract_obj( obj );
+    }
+    return;
+  }
   if( isname("stormdruid", buff) )
   {
     P_char mob;
