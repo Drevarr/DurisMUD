@@ -3305,12 +3305,10 @@ bool make_wet(P_char ch, int duration)
 //---------------------------------------------------------------------------------
 void poo(P_char ch)
 {
-  P_obj    load;
+  P_obj load;
 
-  return; // Disabling.
-
-  if (IS_PC(ch) && (IS_CENTAUR(ch) || IS_MINOTAUR(ch) || IS_GOBLIN(ch)) &&
-      (number(0, 1000) == 42) && (load = read_object(51, VIRTUAL)))
+  if( IS_PC(ch) && (IS_CENTAUR( ch ) || IS_MINOTAUR( ch ) || IS_GOBLIN( ch ))
+    && (number( 0, 1000 ) == 42) && (load = read_object( 51, VIRTUAL )) )
   {
     if (IS_CENTAUR(ch))
     {
@@ -4225,8 +4223,7 @@ swimming_char(i);*/
 
     /* drop a load every now and then..  if there's a better place for
       this, lemme know */
-
-    //poo(i);  yeah, a better place would be a game run by 12 year olds - Jexni
+    poo(i);//  yeah, a better place would be a game run by 12 year olds - Jexni
 
     if (camp(i))
     {

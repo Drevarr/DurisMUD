@@ -4201,7 +4201,7 @@ bool violating_one_hour_rule( P_desc d )
   int timer;
 
   // Immortals don't violate the one hour rule, ever.
-  if( IS_TRUSTED(d->character) )
+  if( GET_LEVEL(d->character) >= MINLVLIMMORTAL )
   {
     return FALSE;
   }
