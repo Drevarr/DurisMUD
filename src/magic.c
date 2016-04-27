@@ -12812,16 +12812,13 @@ void spell_command_undead(int level, P_char ch, char *arg, int type,
   }
 }
 
-void spell_command_horde(int level, P_char ch, char *arg, int type,
-                         P_char victim, P_obj obj)
+void spell_command_horde(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   P_char   tar, tar2;
 
   if(IS_GOOD(ch))
   {
-    send_to_char
-      ("You don't even _consider_ such an evil act, meddling with undead!",
-       ch);
+    send_to_char("You don't even _consider_ such an evil act as meddling with undead!", ch);
     return;
   }
   for (tar = world[ch->in_room].people; tar; tar = tar2)
@@ -12833,8 +12830,7 @@ void spell_command_horde(int level, P_char ch, char *arg, int type,
   }
 }
 
-void spell_turn_undead(int level, P_char ch, char *arg, int type, P_char tch,
-                       P_obj obj)
+void spell_turn_undead(int level, P_char ch, char *arg, int type, P_char tch, P_obj obj)
 {
   int      diff;
   P_char   victim, next;
