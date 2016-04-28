@@ -432,7 +432,7 @@ affected_type *apply_achievement(P_char ch, int ach)
 void do_addicted_blood(P_char ch, char *arg, int cmd)
 {
   char   buf[MAX_STRING_LENGTH];
-  int    time;
+  int    time, bonus;
   struct affected_type *af;
   int    secs;
 
@@ -444,14 +444,28 @@ void do_addicted_blood(P_char ch, char *arg, int cmd)
   // Calculate 'seconds' until next tick.  Note: somtimes there will be 60 sec left.
   secs = 60 *(PULSES_IN_TICK - pulse) / PULSES_IN_TICK;
 
+/*
   sprintf( buf, "%s - %s\n%s\nYou are &+W%d%%&n complete.\n",
       "&+rAddicted to Blood&n", "&+wEXP and Plat Bonus&n", "&+wKill &+W30 &+wmobs within 30 minutes", get_progress(ch, TAG_ADDICTED_BLOOD, 30));
   send_to_char( buf, ch );
+*/
+
   af = ch->affected;
   while( af && !(af->type == TAG_ADDICTED_BLOOD) )
     af = af->next;
-  time = af ? af->duration*60 + secs : 0;
-  sprintf( buf, "You have %d:%s%d left.\n\n", time / 60, (time % 60) < 10 ? "0" : "", time % 60 );
+  if( af )
+  {
+    time = af->duration * 60 + secs;
+    bonus = (af->modifier > 11) ? ( (af->modifier - 10) / 2 ) : 0;
+  }
+  else
+  {
+    bonus = 0;
+    time = 0;
+  }
+  sprintf( buf, "You are currently receiving %d%% bonus experience on kills.\n", bonus );
+  send_to_char( buf, ch );
+  sprintf( buf, "You have %d:%s%d left before this bonus runs out.\n\n", time / 60, (time % 60) < 10 ? "0" : "", time % 60 );
   send_to_char( buf, ch );
 
   af = ch->affected;
@@ -466,7 +480,7 @@ void do_addicted_blood(P_char ch, char *arg, int cmd)
 
 void update_addicted_to_blood(P_char ch, P_char victim)
 {
-  int allies;
+  int allies, bonus;
   P_char tch;
 
   if( IS_NPC(victim) && GET_LEVEL(victim) >= GET_LEVEL(ch) - 5
@@ -479,7 +493,7 @@ void update_addicted_to_blood(P_char ch, P_char victim)
       memset(&aaf, 0, sizeof(struct affected_type));
       aaf.type = TAG_ADDICTED_BLOOD;
       aaf.modifier = 0;
-      aaf.duration = 30;
+      aaf.duration = 5;
       aaf.location = 0;
       aaf.flags = AFFTYPE_NOSHOW | AFFTYPE_PERM | AFFTYPE_NODISPEL;
       affect_to_char(ch, &aaf);
@@ -491,7 +505,28 @@ void update_addicted_to_blood(P_char ch, P_char victim)
     // This should always be true, but just in case...
     if( af )
     {
-      //check to see if we've hit 30 kills
+      af->duration = 5;
+      if( (bonus = (af->modifier - 10) / 2) > 0 )
+      {
+
+        allies = 1;
+        for( tch = world[ch->in_room].people; tch; tch = tch->next_in_room )
+        {
+          if( tch != ch && IS_PC(tch) && !opposite_racewar(ch, tch) && !IS_TRUSTED(tch) )
+          {
+            allies++;
+          }
+        }
+        gain_exp( ch, victim, GET_EXP(victim) * bonus / (allies * 100), EXP_KILL );
+      }
+      // Cap at 50 kills and 20% bonus exp.
+      if( af->modifier < 50 )
+      {
+        af->modifier += 1;
+      }
+
+/* Old addicted to blood chunked on 31st kill.
+      // Check to see if we've hit 30 kills
       if( af->modifier >= 30)
       {
         affect_remove( ch, af );
@@ -513,6 +548,7 @@ void update_addicted_to_blood(P_char ch, P_char victim)
       // Otherwise, add a kill.
       else
         af->modifier += 1;
+*/
     }
   }
 }
