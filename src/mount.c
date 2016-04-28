@@ -248,16 +248,18 @@ static int valid_ride(int room, P_char ch)
 void do_dismount(P_char ch, char *argument, int cmd)
 {
   P_char   mount = get_linked_char(ch, LNK_RIDING);
+  int sect = world[ch->in_room].sector_type;
 
   if (mount)
   {
     if (valid_ride(ch->in_room, mount))
     {
-      if (world[ch->in_room].sector_type >= SECT_WATER_SWIM &&
-          world[ch->in_room].sector_type <= SECT_OCEAN &&
-          GET_LEVEL(ch) < AVATAR && !IS_AFFECTED(ch, AFF_FLY) &&
-          !IS_AFFECTED(ch, AFF_LEVITATE))
+      if( (sect == SECT_WATER_SWIM || sect == SECT_WATER_NOSWIM || sect == SECT_NO_GROUND || sect == SECT_OCEAN
+        || sect == SECT_UNDRWLD_WATER || sect == SECT_UNDRWLD_NOSWIM || sect == SECT_UNDRWLD_NOGROUND)
+        && !IS_TRUSTED(ch) && !IS_AFFECTED(ch, AFF_FLY) && !IS_AFFECTED(ch, AFF_LEVITATE) )
+      {
         act("Here? That's not too wise.", FALSE, ch, 0, 0, TO_CHAR);
+      }
       else
       {
         act("You dismount $N.", FALSE, ch, 0, mount, TO_CHAR);
@@ -266,10 +268,8 @@ void do_dismount(P_char ch, char *argument, int cmd)
         unlink_char(ch, mount, LNK_RIDING);
       }
     }
-    else                        /*
-                                   mount not in same room??? How did this
-                                   happen?
-                                 */
+    // Mount not in same room??? How did this happen?
+    else
       stop_riding(ch);
   }
   else
