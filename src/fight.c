@@ -9450,12 +9450,14 @@ void perform_violence(void)
   int      i, room, skill;
   std::set<int> room_rnums;
   std::set<int>::iterator it;
-  int door, nearby_room;
-  P_char tmp_ch;
-
+  int      door, nearby_room;
+  P_char   tmp_ch;
+  bool     melee_exp_pulse;
   // loop through everyone fighting
 
   time_now = time(0);
+  melee_exp_pulse = ( (pulse % PULSE_VIOLENCE) == 0 );
+
 
   for( ch = destroying_list; ch; ch = ch->specials.next_destroying )
   {
@@ -9485,24 +9487,23 @@ void perform_violence(void)
 
     opponent = ch->specials.fighting;
 
-    if(!opponent && ch->in_room != NOWHERE)
+    if( !opponent && ch->in_room != NOWHERE )
     {
       logit(LOG_DEBUG, "%s fighting null opponent in (%d) perform_violence()!", GET_NAME(ch), world[ch->in_room].number);
       return;
     }
 
-    if (pulse % PULSE_VIOLENCE == 0 && opponent)
+    // If someone's hitting on opponent (ch is) then give opponent melee exp.
+    if( melee_exp_pulse && opponent && !IS_IMMOBILE(ch) && (opponent != ch) && IS_PC(opponent)
+      && (opponent->in_room == ch->in_room) )
     {
-      if(IS_SET(ch->specials.act2, PLR2_MELEE_EXP) && !IS_CASTING(ch) && !IS_IMMOBILE(ch))
-      {
-        gain_exp(ch, opponent, 0, EXP_MELEE);
-        REMOVE_BIT(ch->specials.act2, PLR2_MELEE_EXP);
-      }
+      // Make sure we're gaining a positive amount.
+      if( GET_LEVEL(ch) * 2 > GET_LEVEL(opponent) )
+        gain_exp(opponent, ch, GET_LEVEL(ch) * 2 - GET_LEVEL(opponent), EXP_MELEE);
     }
 
-    if (ch->specials.combat_tics > 0)
+    if( ch->specials.combat_tics-- > 0 )
     {
-      ch->specials.combat_tics--;
       continue;
     }
     else
@@ -9530,7 +9531,7 @@ void perform_violence(void)
       set_short_affected_by(opponent, TAG_PVPDELAY, WAIT_PVPDELAY);
     }
 
-    if(!FightingCheck(ch, opponent, "perform_violence"))
+    if( !FightingCheck(ch, opponent, "perform_violence") )
     {
       continue;
     }
@@ -9641,11 +9642,6 @@ void perform_violence(void)
       frightening_presence(ch, opponent);
     }
 
-    if(IS_PC(opponent) && ch == GET_OPPONENT(opponent) && IS_NPC(ch))
-    {
-      SET_BIT(opponent->specials.act2, PLR2_MELEE_EXP);
-    }
-
     room = ch->in_room;
 
     if(room == NOWHERE)
@@ -9675,11 +9671,6 @@ void perform_violence(void)
     if(is_char_in_room(ch, room) && IS_NPC(ch) && IS_AWAKE(ch) && CAN_ACT(ch))
     {
       MobCombat(ch);
-    }
-
-    if(IS_PC(ch) && num_hits && IS_NPC(opponent) && !IS_SET(ch->specials.act2, PLR2_MELEE_EXP))
-    {
-      SET_BIT(ch->specials.act2, PLR2_MELEE_EXP);
     }
 
     appear(ch);

@@ -1117,7 +1117,7 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
       return 0;
     }
 
-    if(IS_PC(ch) && IS_PC(victim))
+    if( IS_PC(ch) && IS_PC(victim) )
     {
 // debug("Pvp damage exp returning 0", XP);
       return 0;
@@ -1130,10 +1130,10 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
 
     // When someone else is tanking mob you damage, they get tanking exp
     P_char tank = GET_OPPONENT(victim);
-    if (tank && tank != ch && IS_PC(tank) && grouped(tank, ch))
+    if( tank && tank != ch && IS_PC(tank) && grouped(tank, ch) )
     {
-      // powerleveling stopgap
-      if (GET_LEVEL(tank) >= GET_LEVEL(ch) - (RACE_GOOD(ch) ? goodcap : evilcap))
+      // Powerleveling stopgap
+      if( GET_LEVEL(tank) >= GET_LEVEL(ch) - (RACE_GOOD(ch) ? goodcap : evilcap) )
       {
         gain_exp(tank, victim, XP, EXP_TANKING);
       }
@@ -1239,23 +1239,23 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
     XP = check_nexus_bonus(ch, (int)XP, NEXUS_BONUS_EXP); 
 // debug("tanking 7 (%d)", (int)XP);
   }
-  else if(type == EXP_MELEE)
+  else if( type == EXP_MELEE )
   {
-    if(ch == victim)
-    {
-// debug("Self-melee returning 0");
-      return 0;
-    }
-    if(IS_PC(ch) && IS_PC(victim) && !(pvp)) // Do not provide exps to same side combat melee exps.
+    // Do not provide exps to same side combat melee exps.
+    // We know that ch is a PC from the _only_ call to gain_exp with EXP_MELEE in fight.c
+    if( IS_PC(victim) && !(pvp) )
     {
 // debug("Same side melee returning 0");
       return 0;
     }
     // Just a small boost for lowbies, becomes insignificant at higher levels  -Odorf
-    XP *= GET_LEVEL(victim) * exp_mods[EXPMOD_MELEE];
+    XP *= exp_mods[EXPMOD_MELEE];
 // debug("melee 1 exp gain (%d)", (int)XP);
-    if (GET_LEVEL(victim) < GET_LEVEL(ch) - 5)
-        XP = XP / (1 + (GET_LEVEL(ch) - GET_LEVEL(victim) + 5) / 2); // no exp flow from fighting small mobs
+    // Little exp flow from fighting small mobs
+    if( GET_LEVEL(victim) < GET_LEVEL(ch) - 5 )
+        XP *= 2 / (1 + ( GET_LEVEL(ch) - GET_LEVEL(victim) + 5 ));
+    else
+        XP *= (GET_LEVEL(victim) - 1) / 5 + 1;
 // debug("melee 2 exp gain (%d)", (int)XP);
     XP = gain_global_exp_modifiers(ch, XP);
 // debug("melee 3 exp gain (%d)", (int)XP);
