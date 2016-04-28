@@ -92,6 +92,8 @@ mkdir Players/Backup/$DATESTR/Kingdoms
   cp Players/Kingdoms/* Players/Backup/$DATESTR/Kingdoms 2>/dev/null
 mkdir Players/Backup/$DATESTR/ShopKeepers
   cp Players/ShopKeepers/* Players/Backup/$DATESTR/ShopKeepers 2>/dev/null
+mkdir Players/Backup/$DATESTR/Assocs
+  cp Players/Assocs/* Players/Backup/$DATESTR/Assocs 2>/dev/null
 
 #These have subdirectories... we want all of it.
 mkdir Players/Backup/$DATESTR/Shapechange
