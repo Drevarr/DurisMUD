@@ -90,6 +90,7 @@ extern void GetMIA2(char *playerName, char *returned);
 extern int pulse;
 extern P_nevent ne_schedule[PULSES_IN_TICK];
 extern P_nevent ne_schedule_tail[PULSES_IN_TICK];
+extern const struct time_info_data time_info;
 
 #define TOGGLE_BIT(var, bit) ((var) = (var) ^ (bit))
 #define PLR_FLAGS(ch)          ((ch)->specials.act)
@@ -3720,12 +3721,6 @@ void enter_game(P_desc d)
 
   struct affected_type *af;
 
-  if ((af = get_spell_from_char(ch, TAG_RACE_CHANGE)) != NULL)
-  {
-    ch->player.race = af->modifier;
-    affect_remove(ch, af);
-  }
-
   if(IS_AFFECTED5(ch, AFF5_HOLY_DHARMA))
   {
     affect_from_char(ch, SPELL_HOLY_DHARMA);
@@ -3812,6 +3807,25 @@ if(d->character->base_stats.Wis < 80)
   }
 #endif
 
+  if( affected_by_spell(ch, SPELL_CURSE_OF_YZAR) )
+  {
+    if( !affected_by_spell(ch, TAG_RACE_CHANGE) )
+    {
+      // First race change in 5 sec.
+      add_event(event_change_yzar_race, 5 * WAIT_SEC, ch, ch, NULL, 0, NULL, sizeof(NULL));
+    }
+    else
+    {
+      // Amount of mud-hours until 3am.
+      int time_to_witching_hour = (time_info.hour >= 3) ? (27 - time_info.hour) : (3 - time_info.hour);
+      // Convert to seconds.
+      time_to_witching_hour = time_to_witching_hour * PULSES_IN_TICK;
+      // Subtract time passed in current mud hour.
+      time_to_witching_hour -= (300 - ne_event_time(get_scheduled( event_another_hour )));
+
+      add_event(event_change_yzar_race, time_to_witching_hour, ch, ch, NULL, 0, NULL, sizeof(NULL));
+    }
+  }
   // This is to remove the racial epic skills set with TAG_RACIAL_SKILLS
   // after the current wipe (as of 4/25/14) this should be removed - Torgal
 //  clear_racial_skills(ch); - And removed. - Lohrr

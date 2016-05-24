@@ -45,6 +45,7 @@ extern const char *dirs[], *dirs2[];
 extern const int rev_dir[];
 extern P_desc descriptor_list;
 extern const struct race_names race_names_table[];
+extern const struct time_info_data time_info;
 extern bool exit_wallable(int room, int dir, P_char ch);
 extern bool create_walls(int room, int exit, P_char ch, int level, int type,
                          int power, int decay, char *short_desc, char *desc,
@@ -3066,3 +3067,118 @@ void event_mirage(P_char ch, P_char vict, P_obj obj, void *data)
   add_event(event_mirage, 0, ch, NULL, NULL, 0, 0, 0);
 }
 
+// Curse of the Yzar... changes his race randomly every mud-night at 3am.
+void event_change_yzar_race(P_char ch, P_char victim, P_obj obj, void *data)
+{
+  int time_to_witching_hour;
+  struct affected_type *paf, af;
+
+  if( !IS_ALIVE(ch) )
+  {
+    return;
+  }
+
+  if( (paf = get_spell_from_char( ch, TAG_RACE_CHANGE )) != NULL )
+  {
+    send_to_char( "You feel &+Yho&+yrr&+Yible&n as &+Wbones&n shift and &+wsnap&n, and your &+rf&+yles&+rh&n falls to the ground.\n", ch );
+    act("$n slowly twists and shifts into A &+wSkeleton&n.", TRUE, ch, 0, 0, TO_ROOM);
+    affect_remove( ch, paf );
+  }
+
+  if( !IS_ALIVE(ch) )
+    return;
+
+  memset(&af, 0, sizeof(af));
+  af.type = TAG_RACE_CHANGE;
+  af.flags = AFFTYPE_PERM | AFFTYPE_NODISPEL | AFFTYPE_OFFLINE;
+  af.duration = 24;
+  af.modifier = RACE_SKELETON;
+
+  affect_to_char(ch, &af);
+
+  GET_RACE(ch) = number( RACE_NONE + 1, LAST_RACE );
+
+  act("A &+wSkeleton&n continues to change into $n.", TRUE, ch, 0, 0, TO_ROOM);
+
+  if( has_innate(ch, INNATE_AMORPHOUS_BODY) )
+  {
+    send_to_char( "The &+Rpain&n is almost unbearable as your &+Wbones&n dissolve into a pile of &+ggoo&n.\n", ch );
+  }
+  else if( IS_UNDEADRACE(ch) )
+  {
+    send_to_char( "The sense of &+Ldeath&n and &+ydecay&n fills your nostrils, your throat, and your lungs.\n", ch );
+  }
+  else if( IS_ELEMENTAL(ch) )
+  {
+    send_to_char( "Your engulfed in agony as your &+Wbones&n dissolve into ", ch );
+    switch( GET_RACE(ch) )
+    {
+      case RACE_F_ELEMENTAL:
+        send_to_char( "&+rflames&n.\n", ch );
+        break;
+      case RACE_A_ELEMENTAL:
+        send_to_char( "&+wthin air&n.\n", ch );
+        break;
+      case RACE_W_ELEMENTAL:
+        send_to_char( "&+Bchilly water&n.\n", ch );
+        break;
+      case RACE_V_ELEMENTAL:
+        send_to_char( "&+Lnothingness&n.\n", ch );
+        break;
+      case RACE_I_ELEMENTAL:
+        send_to_char( "&+Csolid ice&n.\n", ch );
+        break;
+      case RACE_E_ELEMENTAL:
+        send_to_char( "&+ycold earth&n.\n", ch );
+        break;
+    }
+  }
+  else if( GET_RACE(ch) == RACE_PLANT )
+  {
+    send_to_char( "As your &+Wbones&n collapse into &+Lashe&n, you feel &+gregrowth&n and somehow &+Ysticky&n.\n", ch );
+  }
+  else
+  {
+    send_to_char( "Your &+Wbones&n &+wcrack&n even more, twisting, &+Rtormenting&n you, as your body reforms.\n", ch );
+    send_to_char( "Your &+rblood&n congeals quickly forming a mass of &+Rmuscle&n and &+yskin&n.\n", ch );
+  }
+
+  // Amount of mud-hours until 3am.
+  time_to_witching_hour = (time_info.hour >= 3) ? (27 - time_info.hour) : (3 - time_info.hour);
+  // Convert to seconds.
+  time_to_witching_hour = time_to_witching_hour * PULSES_IN_TICK;
+  // Subtract time passed in current mud hour.
+  time_to_witching_hour -= (300 - ne_event_time(get_scheduled( event_another_hour )));
+
+  // Add 3 sec after 3am to change.
+  add_event(event_change_yzar_race, time_to_witching_hour + 12, victim, victim, NULL, 0, NULL, sizeof(NULL));
+}
+
+void spell_curse_of_yzar( int level, P_char ch, char *arg, int type, P_char victim, P_obj obj )
+{
+  struct affected_type af;
+
+  if( !IS_ALIVE(victim) )
+  {
+    send_to_char( "Try a living target.\n", ch );
+    return;
+  }
+
+  if( strcmp(GET_NAME( victim ), "Yzar") )
+  {
+    act("Your spell is ineffective against $N, since $E is not Yzar.", FALSE, ch, 0, victim, TO_CHAR);
+    return;
+  }
+
+  memset(&af, 0, sizeof(af));
+  af.type = SPELL_CURSE_OF_YZAR;
+  af.flags = AFFTYPE_PERM | AFFTYPE_NODISPEL | AFFTYPE_NOAPPLY;
+  af.duration = -1;
+
+  affect_to_char(victim, &af);
+  // First race change in 5 sec.
+  add_event(event_change_yzar_race, 5 * WAIT_SEC, victim, victim, NULL, 0, NULL, sizeof(NULL));
+
+  send_to_char( "You feel absolutely exhausted all of a sudden.  You begin to sweat.\n", victim );
+  send_to_char( "Your spell has taken hold of poor Yzar.\n", ch );
+}

@@ -4396,6 +4396,10 @@ SPELL_ADD(CLASS_SUMMONER, 11);
 //  SPELL_ADD(CLASS_DRUID, 10);
 //  SPELL_ADD(CLASS_RANGER, 11);
 
+  SPELL_CREATE_MSG( "curse of yzar", SPELL_CURSE_OF_YZAR, PULSE_SPELLCAST,
+                TAR_CHAR_ROOM,
+                spell_curse_of_yzar, "You &+Wscream&n in &+Rpain&n as the &+Yflesh&n falls from your bones.");
+
   SPELL_CREATE("moonwell", SPELL_MOONWELL, PULSE_SPELLCAST * 7,
                 TAR_CHAR_WORLD | TAR_NOCOMBAT, spell_moonwell);
   SPELL_ADD(CLASS_DRUID, 10);

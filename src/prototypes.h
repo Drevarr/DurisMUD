@@ -875,6 +875,7 @@ void add_event(event_func, int, P_char, P_char, P_obj, int, void*, int);
 
 P_nevent get_scheduled(P_char, event_func_type);
 P_nevent get_scheduled(P_obj, event_func_type);
+P_nevent get_scheduled(event_func_type);
 P_nevent get_next_scheduled_char(P_nevent, event_func_type);
 P_nevent get_next_scheduled_obj(P_nevent, event_func_type);
 void disarm_char_nevents(P_char, event_func_type);
@@ -2823,8 +2824,11 @@ void spell_iceflow_armor(int, P_char, char *, int, P_char, P_obj);
 void spell_negative_feedback_barrier(int, P_char, char *, int, P_char, P_obj);
 void spell_etheric_gust(int, P_char, char *, int, P_char, P_obj);
 
+void event_change_yzar_race(P_char ch, P_char victim, P_obj obj, void *data);
+
 /* sspells.c */
 void spell_single_doom_aoe(int, P_char, char *, int, P_char, P_obj);
+void spell_curse_of_yzar(int, P_char, char *, int, P_char, P_obj);
 
 void cast_restore_item(int, P_char, char *, int, P_char, P_obj);
 /* sillusionist.c */

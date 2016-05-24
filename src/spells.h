@@ -694,7 +694,8 @@
 #define SPELL_RETURN_SOUL            644
 #define SPELL_AMATTER_COLLISION      645
 #define SPELL_ARCTIC_BLAST           646
-#define LAST_SPELL SPELL_ARCTIC_BLAST
+#define SPELL_CURSE_OF_YZAR          647
+#define LAST_SPELL SPELL_CURSE_OF_YZAR
 
 #define FIRST_SKILL                  1000  /* should be a decent split point */
 #define SKILL_SNEAK                  1000

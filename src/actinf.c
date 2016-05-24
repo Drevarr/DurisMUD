@@ -5820,9 +5820,6 @@ void do_time(P_char ch, char *argument, int cmd)
   ct = time(0);
   uptime = real_time_passed(ct, boot_time);
 
-
- 
-
   //Auto Reboot - Drannak
   if( (uptime.day * 24 + uptime.hour) > 65 )
   {

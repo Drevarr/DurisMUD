@@ -781,7 +781,7 @@ for ((IN_ROOM) = world[(PLAYER)->in_room].people; (IN_ROOM) != NULL; (IN_ROOM) =
            (IS_DRACOLICH(ch)) || \
            (IS_AFFECTED(ch, AFF_WRAITHFORM) ) || \
            (IS_AFFECTED4(ch, AFF4_VAMPIRE_FORM) && !GET_CLASS(ch, CLASS_THEURGIST) ) || \
-           (RACE_PUNDEAD(ch)) || (OLD_RACE_PUNDEAD(GET_RACE(ch))))
+           (OLD_RACE_PUNDEAD(GET_RACE(ch))))
 
 #define IS_ANGELIC(ch) (IS_AFFECTED4(ch, AFF4_VAMPIRE_FORM) && GET_CLASS(ch, CLASS_THEURGIST))
 

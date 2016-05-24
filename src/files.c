@@ -320,6 +320,7 @@ int writeStatus(char *buf, P_char ch, bool updateTime )
   ADD_INT(buf, ch->player.secondary_class);
   ADD_BYTE(buf, ch->player.spec);
 
+/* This isn't the wrong race.
   //NEVER SAVE THE "WRONG" RACE.. Kvark
   if ((af = get_spell_from_char(ch, TAG_RACE_CHANGE)) != NULL)
   {
@@ -327,9 +328,10 @@ int writeStatus(char *buf, P_char ch, bool updateTime )
   }
   else
   {
+*/
     ADD_BYTE(buf, GET_RACE(ch));
-  }
-  
+//  }
+
   ADD_BYTE(buf, GET_RACEWAR(ch));
   ADD_BYTE(buf, GET_LEVEL(ch));
   ADD_BYTE(buf, GET_SEX(ch));
@@ -1791,11 +1793,15 @@ int writeCharacter(P_char ch, int type, int room)
   }
   else
   {
+/*
     struct affected_type *af;
+    int race_temp;
 
     if ((af = get_spell_from_char(ch, TAG_RACE_CHANGE)) != NULL)
     {
-      ch->player.race = af->modifier;
+      race_temp = GET_RACE(ch);
+
+      GET_RACE(ch) = af->modifier;
 
       ch->player.time.birth = time(NULL) - (racial_data[GET_RACE(ch)].base_age) * 2;
       // Set birthdate + base_age + 5 years.
@@ -1803,8 +1809,9 @@ int writeCharacter(P_char ch, int type, int room)
       // Add base_age to birthdate + base_age + 5 years.
       ch->player.time.birth -= (racial_data[GET_RACE(ch)].base_age) * SECS_PER_MUD_YEAR;
 
-      affect_remove(ch, af);
+      af->modifier = race_temp;
     }
+*/
     /*
      * if not, nuke the equip and inven (it has already been saved)
      */
@@ -2183,22 +2190,19 @@ int restoreStatus(char *buf, P_char ch)
   {
     ch->player.m_class = 1 << (GET_INTE(buf) - 1);
     GET_INTE(buf);
-   
-    
   }
   else
     ch->player.m_class = GET_INTE(buf);
-  if(stat_vers > 36)  
-  ch->player.secondary_class = GET_INTE(buf);
-  if(stat_vers > 38)  
-  ch->player.spec = GET_BYTE(buf);
+  if(stat_vers > 36)
+    ch->player.secondary_class = GET_INTE(buf);
+  if(stat_vers > 38)
+    ch->player.spec = GET_BYTE(buf);
 
-   if (IS_MULTICLASS_PC(ch))
-   {
-     ch->player.spec  = 0;
-   }
+  if (IS_MULTICLASS_PC(ch))
+  {
+    ch->player.spec  = 0;
+  }
 
-  
   GET_RACE(ch) = GET_BYTE(buf);
   GET_RACEWAR(ch) = GET_BYTE(buf);
   ch->player.level = GET_BYTE(buf);
@@ -2624,7 +2628,7 @@ int restoreAffects(char *buf, P_char ch)
         }
       }
     }
-    if (custom_messages == 0)
+    if( custom_messages == 0 )
       affect_to_char(ch, &af);
     else
     {
@@ -2634,7 +2638,8 @@ int restoreAffects(char *buf, P_char ch)
       if (wear_off_room)
         str_free(wear_off_room);
     }
-    if (IS_POISON(af.type)) {
+    if (IS_POISON(af.type))
+    {
       add_event(event_poison, PULSE_VIOLENCE * number(1,5), ch, 0, 0, 0, &af.type, sizeof(af.type));
     }
   }

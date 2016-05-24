@@ -627,6 +627,27 @@ void ne_events(void)
   count++;
 }
 
+// Returns the first instance of an event with func as the event function.
+// Note: This is only useful if there is only one such event, since the first instance
+//   may not be the next to occur.
+P_nevent get_scheduled( event_func func )
+{
+  P_nevent pEvent;
+
+  for( int i = 0; i < PULSES_IN_TICK; i++ )
+  {
+    pEvent = ne_schedule[i];
+    while( pEvent != NULL )
+    {
+      if( pEvent->func == func )
+      {
+        return pEvent;
+      }
+      pEvent = pEvent->next_sched;
+    }
+  }
+}
+
 P_nevent get_scheduled(P_char ch, event_func func)
 {
   P_nevent e;
