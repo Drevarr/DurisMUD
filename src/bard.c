@@ -692,28 +692,39 @@ void bard_drifting(int l, P_char ch, P_char victim, int song)
 }
 */
 
-void bard_healing(int l, P_char ch, P_char victim, int song)
+void bard_healing(int level, P_char ch, P_char victim, int song)
 {
   struct affected_type af;
+  int healed, old_hits;
+
+  // 12 hps for 100 cha + 14 hps at level 56 + 4 hps at level 56 = 30 total for bard... * 13 / 20 for others = 19.
+  // For lowest cha, we have 80 * .75 (75 racial con for githyanki is lowest for a bard and 80 is lowest rollable atm).
+  //   80 * .75 = 60 minimum cha without -cha eq / debuff.
+  //   Since healing is 31st lvl, for a 60 cha lvl 31, we get 7 + 7 + 2 = 16.
+  //   So, 16 minimum heal on bard and 16 * 13 / 20 = 10 healing on group.  This is minimum level, min cha.
+  // For maximum cha, we have about 150 (I doubt they'll go higher than this) * 120 (grey elf 120 racial cha is max)
+  //   150 * 1.2 = 180 max cha.  Max mortal level = 56 -> 180 / 8 + 56 / 4 + 56 / 14 = 22 + 14 + 4 = 40 for bard.
+  //   So, 40 max heal for bard and 40 * 13 / 20 = 26 for group members.
+  // I feel this is more than generous for a char that can also group stone / group globe / nuke / etc.
+  healed = GET_C_CHA(ch) / 8 + level / 4 + level / 14;
+
   if( !affected_by_spell(victim, SONG_HEALING)
     || (affected_by_spell(victim, SONG_HEALING) && (get_linked_char(victim, LNK_SNG_HEALING) == ch)))
   {
-    int healed, old_hits = GET_HIT(ch);
-    //healed = l * 3 * number(40, 80) / 100;
-    //spell_heal(l, ch, 0, 0, victim, NULL);
-    healed = GET_C_CHA(ch) / 3;
-    healed = healed + GET_LEVEL(ch);
+    old_hits = GET_HIT(ch);
+    // healed = l * 3 * number(40, 80) / 100;
+    // spell_heal(l, ch, 0, 0, victim, NULL);
 
     act("&+WYour body feels restored by the power of $n's soothing song!", FALSE, ch, 0, victim, TO_VICT);
-    if(ch == victim)
+    if( ch == victim )
     {
       act("&+WYour body feels restored by the power of your soothing song!", FALSE, ch, 0, victim, TO_CHAR);
       heal(victim, ch, healed , GET_MAX_HIT(victim) - number(1, 4));
     }
     else
     {
-      healed = (healed * .65);
-      heal(victim, ch, healed , GET_MAX_HIT(victim) - number(1, 4));
+      // 65% for everyone other than the bard.
+      heal(victim, ch, (healed * 13) / 20 , GET_MAX_HIT(victim) - number(1, 4));
     }
     update_pos(victim);
 
