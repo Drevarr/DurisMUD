@@ -2015,11 +2015,7 @@ int deleteCharacter(P_char ch, bool bDeleteLocker)
   sprintf( Gbuf1, "%s/%c/%s", SAVE_DIR, *name, name );
   strcpy( Gbuf2, Gbuf1 );
   sprintf( Gbuf2, "mv -f %s %s.bak", Gbuf1, Gbuf1 );
-  if( f = fopen( Gbuf1, "r" ) )
-  {
-    fclose( f );
-    system( Gbuf2 );
-  }
+  system( Gbuf2 );
 
   if( bDeleteLocker )
   {
