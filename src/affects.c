@@ -1734,8 +1734,6 @@ char affect_total(P_char ch, int kill_ch)
     return FALSE;
   }
 
-  bzero(&TmpAffs, sizeof(struct hold_data));
-
   all_affects(ch, FALSE);       /*
                                  * effectively resets character to a state
                                  * with NO affects

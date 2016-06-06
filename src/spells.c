@@ -3069,7 +3069,7 @@ void event_mirage(P_char ch, P_char vict, P_obj obj, void *data)
 // Curse of the Yzar... changes his race randomly every mud-night at 3am.
 void event_change_yzar_race(P_char ch, P_char victim, P_obj obj, void *data)
 {
-  int time_to_witching_hour, previous_hps;
+  int time_to_witching_hour, hps;
   struct affected_type *paf, af;
 
   if( !IS_ALIVE(ch) )
@@ -3077,7 +3077,7 @@ void event_change_yzar_race(P_char ch, P_char victim, P_obj obj, void *data)
     return;
   }
 
-  previous_hps = GET_HIT(ch);
+  hps = GET_HIT(ch);
 
   if( (paf = get_spell_from_char( ch, TAG_RACE_CHANGE )) != NULL )
   {
@@ -3098,7 +3098,10 @@ void event_change_yzar_race(P_char ch, P_char victim, P_obj obj, void *data)
   }
 
   GET_RACE(ch) = number( RACE_NONE + 1, LAST_RACE );
-  GET_HIT(ch) = previous_hps;
+  // We need to adjust for the change in racial maxhps.
+  all_affects( ch, FALSE );
+  all_affects( ch, TRUE );
+  GET_HIT(ch) = (hps < 1) ? 1 : hps;
 
   act("A &+wSkeleton&n continues to change into $n.", TRUE, ch, 0, 0, TO_ROOM);
 
