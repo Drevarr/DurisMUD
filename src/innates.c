@@ -1629,14 +1629,15 @@ void insectbite(P_char ch, P_char victim)
     "$n leaps towards $N and sinks $s jaws dripping with venom deep in $S flesh."};
   int i;
 
-  if ((GET_LEVEL(ch) + STAT_INDEX(GET_C_AGI(ch))) < number(1, GET_LEVEL(victim) + 2*STAT_INDEX(GET_C_AGI(victim)))) {
+  if ((GET_LEVEL(ch) + STAT_INDEX(GET_C_AGI(ch))) < number(1, GET_LEVEL(victim) + 2*STAT_INDEX(GET_C_AGI(victim))))
+  {
     send_to_char("You miss them by inches with your jaws!\n", ch);
     act("$n tries to sting $s foe with venom but misses.", FALSE, ch, 0, 0, TO_ROOM);
+    CharWait(ch, PULSE_VIOLENCE);
     return;
   }
 
-  if (raw_damage(ch, victim, number(GET_LEVEL(ch), GET_LEVEL(ch)*3), RAWDAM_DEFAULT, &messages) ==
-      DAM_NONEDEAD)
+  if( raw_damage(ch, victim, number(GET_LEVEL(ch), GET_LEVEL(ch)*3), RAWDAM_DEFAULT, &messages) == DAM_NONEDEAD )
   {
     i = 1 + GET_LEVEL(ch)/12;
     while (i-- && !bite_poison(ch, victim, i))
@@ -1644,6 +1645,10 @@ void insectbite(P_char ch, P_char victim)
 /*	replaced by the above statement, to prevent magical shrug working on non-magical innate */
 /*    while (i-- && !IS_AFFECTED2(victim, AFF2_POISONED))
       spell_poison(GET_LEVEL(ch), ch, 0, 0, victim, 0);*/
+    if( IS_ALIVE(ch) )
+    {
+      CharWait(ch, PULSE_VIOLENCE);
+    }
   }
 }
 
@@ -1665,14 +1670,15 @@ void event_snakebite(P_char ch, P_char victim, P_obj obj, void *data)
   if (!is_char_in_room(victim, ch->in_room))
     return;
 
-  if ((GET_LEVEL(ch) + STAT_INDEX(GET_C_AGI(ch))) < number(1, GET_LEVEL(victim) + 2*STAT_INDEX(GET_C_AGI(victim)))) {
+  if ((GET_LEVEL(ch) + STAT_INDEX(GET_C_AGI(ch))) < number(1, GET_LEVEL(victim) + 2*STAT_INDEX(GET_C_AGI(victim))))
+  {
     act("$n misses $N by inches with $s fangs!", FALSE, ch, 0, victim, TO_NOTVICT);
     act("$n misses you by inches with $s fangs!", FALSE, ch, 0, victim, TO_VICT);
+    CharWait(ch, PULSE_VIOLENCE);
     return;
   }
 
-  if (raw_damage(ch, victim, number(GET_LEVEL(ch), GET_LEVEL(ch)*3), RAWDAM_DEFAULT, &messages) ==
-      DAM_NONEDEAD)
+  if( raw_damage(ch, victim, number(GET_LEVEL(ch), GET_LEVEL(ch)*3), RAWDAM_DEFAULT, &messages) == DAM_NONEDEAD )
   {
     i = 1 + GET_LEVEL(ch)/12;
     while (i-- && !bite_poison(ch, victim, i))
@@ -1680,6 +1686,10 @@ void event_snakebite(P_char ch, P_char victim, P_obj obj, void *data)
 /*	replaced by the above statement, to prevent magical shrug working on non-magical innate */
 /*    while (i-- && !IS_AFFECTED2(victim, AFF2_POISONED))
       spell_poison(GET_LEVEL(ch), ch, 0, 0, victim, 0);*/
+    if( IS_ALIVE(ch) )
+    {
+      CharWait(ch, PULSE_VIOLENCE);
+    }
   }
 }
 
@@ -1736,6 +1746,10 @@ int parasitebite(P_char ch, P_char victim)
   if (IS_ALIVE(victim) && has_innate(ch, INNATE_DISEASED_BITE) && !number(0, 7-mod))
     spell_disease(level, ch, 0, SPELL_TYPE_SPELL, victim, 0);
 
+  if( IS_ALIVE(ch) )
+  {
+    CharWait(ch, PULSE_VIOLENCE);
+  }
 /*if (IS_ALIVE(victim) && has_innate(ch, INNATE_INFEST) && !number(0, 7-mod) && IS_ATTACHED_TO(ch, victim))
     infest(ch, victim); FOR LATER USE */
 
