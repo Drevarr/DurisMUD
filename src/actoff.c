@@ -78,6 +78,7 @@ extern void kick_messages(P_char, P_char, bool, struct damage_messages *);
 extern P_char misfire_check(P_char ch, P_char spell_target, int flag);
 extern void event_mob_mundane(P_char, P_char, P_obj, void *);
 extern P_char make_mirror(P_char);
+extern void do_bite(P_char ch, char *arg, int cmd);
 
 struct failed_takedown_messages
 {
@@ -3767,7 +3768,7 @@ void do_kick(P_char ch, char *argument, int cmd)
            (GET_RACE(ch) == RACE_INSECT) ||
            (GET_RACE(ch) == RACE_PARASITE))
   {
-    bite(ch, victim);
+    do_bite(ch, argument, cmd);
   }
   else
   {
