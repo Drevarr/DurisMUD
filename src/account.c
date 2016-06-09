@@ -575,7 +575,7 @@ void account_select_char(P_desc d, char *arg)
     SEND_TO_Q(motd, d);
 
   echo_on(d);
-  STATE(d) = CON_PLYNG;
+  STATE(d) = CON_PLAYING;
   d->character = ch;
   enter_game(d);
   d->prompt_mode = TRUE;
@@ -663,7 +663,7 @@ int is_char_in_game(struct acct_chars *c, P_desc d)
       ch->desc = d;
       sql_update_playerIP(ch);
       ch->specials.timer = 0;
-      STATE(d) = CON_PLYNG;
+      STATE(d) = CON_PLAYING;
 
       logit(LOG_COMM, "%s [%s@%s] has reconnected.", GET_NAME(d->character),
             d->login, d->host);

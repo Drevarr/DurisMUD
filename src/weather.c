@@ -239,7 +239,7 @@ void event_astral_clock(P_char ch, P_char victim, P_obj obj, void *data)
      */
     for (d = descriptor_list; d; d = d->next)
     {
-      if ((d->connected == CON_PLYNG) && (d->character)
+      if ((d->connected == CON_PLAYING) && (d->character)
           && (IS_AWAKE(d->character)))
       {
         int      r = d->character->in_room;

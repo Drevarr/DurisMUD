@@ -1572,7 +1572,7 @@ void point_update(void)
     if( IS_NPC(i) )
       continue;
 
-    if( i->desc && (i->desc->connected != CON_PLYNG) )
+    if( i->desc && (i->desc->connected != CON_PLAYING) )
       continue;
 
     if( !IS_AFFECTED(i, AFF_WRAITHFORM) )

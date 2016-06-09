@@ -3034,7 +3034,7 @@ void extract_char(P_char ch)
     if (ch->desc->connected != CON_DELETE)
     {
 #ifndef USE_ACCOUNT
-      ch->desc->connected = CON_SLCT;
+      ch->desc->connected = CON_MAIN_MENU;
       SEND_TO_Q(MENU, ch->desc);
       //  SEND_TO_Q("\r\n*** PRESS RETURN: ", ch->desc);
       //  ch->desc->connected = CON_RMOTD;
@@ -3870,12 +3870,12 @@ void ac_stopAllFromIgnoring(P_char ch)
 
   for (c = descriptor_list; c; c = c->next)
   {
-    if (c->character /*&& (c->connected == CON_PLYNG) */  &&
+    if (c->character /*&& (c->connected == CON_PLAYING) */  &&
         IS_PC(c->character)
         && /*(c->character->only.pc) && */
       (c->character->only.pc->ignored == ch))
     {
-      if (c->connected == CON_PLYNG)
+      if (c->connected == CON_PLAYING)
         send_to_char
           ("The person you are ignoring has just quit the game.\r\n",
            c->character);

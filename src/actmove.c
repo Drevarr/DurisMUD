@@ -1980,7 +1980,7 @@ void send_movement_noise(P_char ch, int num)
   {
     for (P_desc i = descriptor_list; i; i = i->next)
     {
-      if( i->connected != CON_PLYNG ||
+      if( i->connected != CON_PLAYING ||
           ch == i->character ||
           i->character->following == ch ||
           world[i->character->in_room].zone != world[ch->in_room].zone ||

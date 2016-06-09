@@ -961,7 +961,7 @@ void do_test(P_char ch, char *arg, int cmd)
     debug( "Searching for maliciousPID %d (%s)...", maliciousPID, arg );
     for( P_desc d = descriptor_list; d; d = d->next )
     {
-      if( d->character && d->connected == CON_PLYNG && GET_PID(d->character) == maliciousPID )
+      if( d->character && d->connected == CON_PLAYING && GET_PID(d->character) == maliciousPID )
       {
         debug( "Found maliciousPID %d, calling very_angry_npc on '%s'...", GET_PID(d->character), J_NAME(d->character) );
         very_angry_npc( ch, d->character, CMD_SHOUT, NULL );

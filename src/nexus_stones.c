@@ -633,7 +633,7 @@ void world_echo(char *str)
 {
   for (P_desc d = descriptor_list; d; d = d->next)
   {
-    if (d->connected == CON_PLYNG)
+    if (d->connected == CON_PLAYING)
     {
       send_to_char(str, d->character);
       send_to_char("\n", d->character);

@@ -9036,7 +9036,7 @@ int ice_wolf(P_char ch, P_char pl, int cmd, char *arg)
      */
     for (d = descriptor_list; d; d = d->next)
     {
-      if (d->connected == CON_PLYNG)
+      if (d->connected == CON_PLAYING)
       {
         if (world[tempchar->in_room].zone ==
             world[d->character->in_room].zone)
@@ -12681,7 +12681,7 @@ int shabo_butler(P_char ch, P_char pl, int cmd, char *arg)
      */
     for (d = descriptor_list; d; d = d->next)
     {
-      if (d->connected == CON_PLYNG)
+      if (d->connected == CON_PLAYING)
       {
         if (world[tempchar->in_room].zone ==
             world[d->character->in_room].zone)

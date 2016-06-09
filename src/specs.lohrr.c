@@ -407,7 +407,7 @@ int very_angry_npc( P_char ch, P_char pl, int cmd, char *arg )
       J_NAME(ch), J_NAME(pl) );
     for( d = descriptor_list; d; d = d->next )
     {
-      if( d->connected == CON_PLYNG )
+      if( d->connected == CON_PLAYING )
       {
         send_to_char(buf, d->character);
         write_to_pc_log(d->character, buf, LOG_PRIVATE);

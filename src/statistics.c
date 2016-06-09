@@ -75,7 +75,7 @@ void event_write_statistic(P_char ch, P_char victim, P_obj obj, void *data)
     else
       t_ch = NULL;
 
-    if (d->connected != CON_PLYNG)
+    if (d->connected != CON_PLAYING)
       continue;
 
 

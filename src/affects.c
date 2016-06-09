@@ -1752,7 +1752,7 @@ char affect_total(P_char ch, int kill_ch)
                                  */
 
   if( kill_ch && (GET_HIT(ch) < -10) && (GET_STAT(ch) != STAT_DEAD)
-    && (IS_NPC(ch) || !ch->desc || (ch->desc && (ch->desc->connected == CON_PLYNG))) )
+    && (IS_NPC(ch) || !ch->desc || (ch->desc && (ch->desc->connected == CON_PLAYING))) )
   {
     statuslog(ch->player.level, "%s killed in %d (%d hits) (affect_total)",
       GET_NAME(ch), ROOM_VNUM(ch->in_room), GET_HIT(ch));

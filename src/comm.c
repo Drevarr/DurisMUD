@@ -617,7 +617,7 @@ void game_loop(int s)
         {
           /* good connection, send them on their way :) */
           SEND_TO_Q("Please enter your term type (<CR> ansi, '3' MSP, '?' help): ", point);
-          point->connected = CON_TERM;
+          point->connected = CON_GET_TERM;
           point->wait = 1;
         }
       }
@@ -687,7 +687,7 @@ void game_loop(int s)
       t_ch = point->character;
 
       /* update max_users_playing for "who" information */
-      if ((point->connected) == CON_PLYNG)
+      if ((point->connected) == CON_PLAYING)
       {
         player_count++;
         if (player_count > max_users_playing)
@@ -702,11 +702,11 @@ void game_loop(int s)
         switch (point->connected)
         {
           /* these are either yes/no or <return> 60 second timeout */
-        case CON_APROPOS:
+        case CON_APPROPRIATE_NAME:
         case CON_FLUSH:
-        case CON_NMECNF:
-        case CON_QSEX:
-        case CON_TERM:
+        case CON_NAME_CONF:
+        case CON_GET_SEX:
+        case CON_GET_TERM:
           if (point->wait > 240)
           {
             write_to_descriptor(point->descriptor, "Idle Timeout\n");
@@ -721,17 +721,17 @@ void game_loop(int s)
         case CON_BONUS2:
         case CON_BONUS3:
         case CON_HOMETOWN:
-        case CON_NME:
-        case CON_PWDCNF:
-        case CON_PWDDCNF:
-        case CON_PWDGET:
-        case CON_PWDNCNF:
-        case CON_PWDNEW:
-        case CON_PWDNGET:
-        case CON_PWDNRM:
-        case CON_QCLASS:
-        case CON_QRACE:
-        case CON_QRETURN:
+        case CON_NAME:
+        case CON_PWD_CONF:
+        case CON_PWD_D_CONF:
+        case CON_PWD_GET:
+        case CON_PWD_NO_CONF:
+        case CON_PWD_NEW:
+        case CON_PWD_GET_NEW:
+        case CON_PWD_NORM:
+        case CON_GET_CLASS:
+        case CON_GET_RACE:
+        case CON_GET_RETURN:
         case CON_REROLL:
           if (point->wait > 2400)
           {
@@ -780,7 +780,7 @@ void game_loop(int s)
           show_string(point, comm);
         else if (point->str)    /* mail, boards */
           string_add(point, comm);
-        else if (point->connected == CON_PLYNG)
+        else if (point->connected == CON_PLAYING)
         {
           if (t_ch && t_ch->desc && IS_SET(t_ch->specials.act, PLR_PAGING_ON))
           {
@@ -889,7 +889,7 @@ void game_loop(int s)
     /* for action_delays[] related to combat --TAM 04/19/94 */
     for (point = descriptor_list; point; point = point->next)
     {
-      if (point->character && point->connected == CON_PLYNG)
+      if (point->character && point->connected == CON_PLAYING)
       {
 
         t_ch = point->character;
@@ -990,8 +990,8 @@ void game_loop(int s)
   {
     if (point->character)
     {
-      /* check for CON_PLYNG before extracting char. -DCL */
-      if (point->connected == CON_PLYNG)
+      /* check for CON_PLAYING before extracting char. -DCL */
+      if (point->connected == CON_PLAYING)
       {
         /* when you extract_char() a morph, it un_morph's first, which
            results in another save.  Unfortunatly, the save_silent(...3)
@@ -1428,7 +1428,7 @@ void close_socket(struct descriptor_data *d)
      */
     is_morphed = IS_MORPH(d->snoop.snooping);
 
-    if (d->character && (d->connected == CON_PLYNG) &&
+    if (d->character && (d->connected == CON_PLAYING) &&
         (GET_LEVEL(d->character) < 58))
       send_to_char("&+CYou are no longer being snooped.&N\r\n",
                    d->snoop.snooping);
@@ -1479,7 +1479,7 @@ void close_socket(struct descriptor_data *d)
 
   if (d->character)
   {
-    if (d->connected == CON_PLYNG)
+    if (d->connected == CON_PLAYING)
     {
       sql_disconnectIP(d->character);
       act("$n has lost $s link.", TRUE, GET_PLYR(d->character), 0, 0,
@@ -1832,7 +1832,7 @@ int new_descriptor(int s)
                         "feel this is in error, please e-mail multiplay@durismud.com\r\n");
     banlog(56, "Reject Connect from %s, banned site.", newd->host);
     logit(LOG_STATUS, "Rejected Connect from %s, banned site.", newd->host);
-    STATE(newd) = CON_TERM;
+    STATE(newd) = CON_GET_TERM;
 
 
     if (newd->descriptor)
@@ -1882,7 +1882,7 @@ int new_descriptor(int s)
 
   newd->term_type = TERM_ANSI;
   select_terminal(newd, "");
-  STATE(newd) = CON_NME;
+  STATE(newd) = CON_NAME;
   SEND_TO_Q
     ("By what name do you wish to be known? Type 'generate' to generate names.",
      newd);
@@ -1925,7 +1925,7 @@ void append_prompt(P_char ch ,char *promptbuf)
   if(!ch)
     return;
 
-  if(!IS_TRUSTED(ch) && (ch->desc->connected == CON_PLYNG || ch->desc->connected == CON_SLCT))
+  if(!IS_TRUSTED(ch) && (ch->desc->connected == CON_PLAYING || ch->desc->connected == CON_MAIN_MENU))
   {
     ;
   }
@@ -2228,7 +2228,7 @@ int process_output(P_desc t)
   snoop_by_data *snoop_by_ptr;
   P_char   realChar = t->original ? t->original : t->character;
 
-  if( STATE(t) == CON_PLYNG && IS_PC(realChar)
+  if( STATE(t) == CON_PLAYING && IS_PC(realChar)
     && ((t->prompt_mode == (PLR_FLAGGED(realChar, PLR_SMARTPROMPT))
     || (t->prompt_mode != PLR_FLAGGED(realChar, PLR_OLDSMARTP)))) )
   {
@@ -2720,8 +2720,8 @@ void send_to_char(const char *messg, P_char ch, int log)
     }
 
     if((!IS_TRUSTED(ch) || log != LOG_PUBLIC) && log != LOG_NONE &&
-        (ch->desc->connected == CON_PLYNG ||
-         ch->desc->connected == CON_SLCT)) {
+        (ch->desc->connected == CON_PLAYING ||
+         ch->desc->connected == CON_MAIN_MENU)) {
       write_to_pc_log(ch, messg, log);
     }
   }
@@ -2730,7 +2730,7 @@ void send_to_char(const char *messg, P_char ch, int log)
 bool send_to_pid(const char *str, int pid) {
         for (P_desc d = descriptor_list; d; d = d->next)
     {
-      if (d->connected == CON_PLYNG && IS_PC(d->character) && GET_PID(d->character) == pid )
+      if (d->connected == CON_PLAYING && IS_PC(d->character) && GET_PID(d->character) == pid )
       {
         send_to_char(str, d->character);
                                 return TRUE;

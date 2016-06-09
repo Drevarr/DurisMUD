@@ -935,7 +935,7 @@ void string_add(struct descriptor_data *d, char *str)
   if (terminator)
   {
     /* here we check for the abort option and reset the pointers */
-    if ((terminator == 2) && (STATE(d) == CON_EXDSCR))
+    if ((terminator == 2) && (STATE(d) == CON_GET_EXTRA_DESC))
     {
       FREE(*d->str);
       if (d->backstr)
@@ -949,7 +949,7 @@ void string_add(struct descriptor_data *d, char *str)
 
       SEND_TO_Q("Description aborted.\r\n", d);
       SEND_TO_Q(MENU, d);
-      d->connected = CON_SLCT;
+      d->connected = CON_MAIN_MENU;
     }
     else if ((d->str) && (*d->str) && (**d->str == '\0'))
     {
@@ -964,7 +964,7 @@ void string_add(struct descriptor_data *d, char *str)
       {
         SEND_TO_Q("Description cleared.\r\n", d);
         SEND_TO_Q(MENU, d);
-        d->connected = CON_SLCT;
+        d->connected = CON_MAIN_MENU;
       }
     }
     else if (!d->connected && (IS_SET(d->character->specials.act, PLR_MAIL)))
@@ -981,12 +981,12 @@ void string_add(struct descriptor_data *d, char *str)
       *d->str = NULL;
       d->str = NULL;
     }
-    else if (STATE(d) == CON_EXDSCR)
+    else if (STATE(d) == CON_GET_EXTRA_DESC)
     {
       if (terminator != 1)
         SEND_TO_Q("Description aborted.\r\n", d);
       SEND_TO_Q(MENU, d);
-      d->connected = CON_SLCT;
+      d->connected = CON_MAIN_MENU;
     }
     else if (STATE(d) == CON_TEXTED)
     {
@@ -1014,7 +1014,7 @@ void string_add(struct descriptor_data *d, char *str)
           TO_ROOM);
       FREE(d->storage);
       d->storage = NULL;
-      STATE(d) = CON_PLYNG;
+      STATE(d) = CON_PLAYING;
     }
     else if (!d->connected && d->character && !IS_NPC(d->character))
     {
@@ -1996,9 +1996,9 @@ void page_string_real(struct descriptor_data *d, char *str)
   int      i, pages;
 
   if (!IS_SET(d->character->specials.act, PLR_PAGING_ON) ||
-      d->connected == CON_SLCT)
+      d->connected == CON_MAIN_MENU)
   {
-    /* added CON_SLCT to disable paging when doing 'who' from menu. -JAB */
+    /* added CON_MAIN_MENU to disable paging when doing 'who' from menu. -JAB */
     SEND_TO_Q(str, d);
     return;
   }

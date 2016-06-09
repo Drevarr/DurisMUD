@@ -1,4 +1,4 @@
-  /****************************************************************************
+/****************************************************************************
  *  File: nanny.c                                            Part of Duris   *
  *  Usage: handle non-playing sockets (new character creation too)           *
  *  Copyright  1990, 1991 - see 'license.doc' for complete information.      *
@@ -3631,7 +3631,7 @@ void enter_game(P_desc d)
 //    if( d == k || !k->character )
 //      continue;
 //    
-//    if (k->connected == CON_PLYNG && d->host && k->host && !str_cmp(d->host, k->host) )
+//    if (k->connected == CON_PLAYING && d->host && k->host && !str_cmp(d->host, k->host) )
 //    {
 //      logit(LOG_STATUS, "%s and %s are logged in from the same IP address",
 //            d->character->player.name, k->character->player.name);
@@ -3911,7 +3911,7 @@ void select_terminal(P_desc d, char *arg)
 
   /* if it gets here, we have a valid term type, carry on... */
 #ifndef USE_ACCOUNT
-  STATE(d) = CON_NME;
+  STATE(d) = CON_NAME;
   SEND_TO_Q
     ("By what name do you wish to be known? Type 'generate' to generate names.",
      d);
@@ -4060,7 +4060,7 @@ void select_name(P_desc d, char *arg, int flag)
     }
     SEND_TO_Q("\n\r\n\r", d);
     SEND_TO_Q("Enter a name or type 'generate' to generate more names.\n", d);
-    STATE(d) = CON_NME;
+    STATE(d) = CON_NAME;
     return;
 
   }
@@ -4091,7 +4091,7 @@ void select_name(P_desc d, char *arg, int flag)
 
       /* legal name for existing character */
       SEND_TO_Q("Password: ", d);
-      STATE(d) = CON_PWDNRM;
+      STATE(d) = CON_PWD_NORM;
       echo_off(d);
       return;
     }
@@ -4106,7 +4106,7 @@ void select_name(P_desc d, char *arg, int flag)
         free_char(d->character);
         d->character = NULL;
       }
-      STATE(d) = CON_NME;
+      STATE(d) = CON_NAME;
       return;
     }
   }
@@ -4131,7 +4131,7 @@ void select_name(P_desc d, char *arg, int flag)
       d->character = NULL;
     }
     SEND_TO_Q(motd.c_str(), d);
-    STATE(d) = CON_NME;
+    STATE(d) = CON_NAME;
     return;
   }
   else if (bannedsite(d->host, 1))
@@ -4143,7 +4143,7 @@ void select_name(P_desc d, char *arg, int flag)
        "          - The Management \r\n\r\n"
        "By what name do you wish to be known? ", d);
     banlog(AVATAR, "&+yNew Character reject from %s, banned.", d->host);
-    STATE(d) = CON_NME;
+    STATE(d) = CON_NAME;
     return;
   }
   else if ((IS_SET(game_locked, LOCK_CONNECTIONS)) ||
@@ -4162,7 +4162,7 @@ void select_name(P_desc d, char *arg, int flag)
       d->character->player.name = str_dup(tmp_name);
       sprintf(Gbuf1, "You wish to be known as %s (Y/N)? ", tmp_name);
       SEND_TO_Q(Gbuf1, d);
-      STATE(d) = CON_NMECNF;
+      STATE(d) = CON_NAME_CONF;
       return;
     }
     else
@@ -4189,7 +4189,7 @@ P_char find_ch_from_same_host(P_desc d)
     if( d == k || !k->character )
       continue;
     
-    if (k->connected == CON_PLYNG && 
+    if (k->connected == CON_PLAYING && 
         d->character != k->character && 
         !IS_TRUSTED(k->character) && 
         d->host && k->host && 
@@ -4303,7 +4303,7 @@ void reconnect(P_desc d, P_char tmp_ch)
   sql_connectIP(tmp_ch);
   tmp_ch->only.pc->last_ip = ip2ul(d->host);
   tmp_ch->specials.timer = 0;
-  STATE(d) = CON_PLYNG;
+  STATE(d) = CON_PLAYING;
   act("$n has reconnected.", TRUE, tmp_ch, 0, 0, TO_ROOM);
   logit(LOG_COMM, "%s [%s@%s] has reconnected.",
         GET_NAME(d->character), d->login, d->host);
@@ -4342,7 +4342,7 @@ void select_pwd(P_desc d, char *arg)
   {
 
     /* password for existing player */
-  case CON_PWDNRM:
+  case CON_PWD_NORM:
     if (!*arg)
     {
       close_socket(d);
@@ -4423,7 +4423,7 @@ void select_pwd(P_desc d, char *arg)
           free_char(d->character);
           d->character = NULL;
         }
-        STATE(d) = CON_NME;
+        STATE(d) = CON_NAME;
         return;
       }
 
@@ -4495,7 +4495,7 @@ void select_pwd(P_desc d, char *arg)
     break;
 
     /* password for a new player */
-  case CON_PWDGET:
+  case CON_PWD_GET:
     echo_on(d);
     if( !valid_password(d, arg) )
     {
@@ -4509,18 +4509,18 @@ void select_pwd(P_desc d, char *arg)
     SEND_TO_Q("\r\nPlease retype password: ", d);
     echo_off(d);
 
-    STATE(d) = CON_PWDCNF;
+    STATE(d) = CON_PWD_CONF;
     break;
 
     /* confirmation of new password */
-  case CON_PWDCNF:
+  case CON_PWD_CONF:
     if( strcmp(CRYPT2(arg, d->character->only.pc->pwd), d->character->only.pc->pwd) )
     {
       echo_on(d);
       sprintf(Gbuf1,"Passwords don't match.\r\nPlease enter a password for %s: ", GET_NAME(d->character));
       SEND_TO_Q(Gbuf1, d);
       echo_off(d);
-      STATE(d) = CON_PWDGET;
+      STATE(d) = CON_PWD_GET;
       return;
     }
     echo_on(d);
@@ -4530,27 +4530,27 @@ void select_pwd(P_desc d, char *arg)
 	SEND_TO_Q("\r\nAre you NEW to the World of Duris? (y/n) ", d);
 	STATE(d) = CON_NEWBIE;
 /*    SEND_TO_Q(racetable, d);
-    STATE(d) = CON_QRACE;*/
+    STATE(d) = CON_GET_RACE;*/
     break;
 
     /* new password for an existing player */
-  case CON_PWDNEW:
+  case CON_PWD_NEW:
     if( strcmp(CRYPT2(arg, d->character->only.pc->pwd), d->character->only.pc->pwd) )
     {
       echo_on(d);
       SEND_TO_Q("\r\nInvalid password, password change aborted.\r\n", d);
-      STATE(d) = CON_SLCT;
+      STATE(d) = CON_MAIN_MENU;
       SEND_TO_Q(MENU, d);
       return;
     }
     echo_on(d);
     SEND_TO_Q("\r\nEnter your new password: ", d);
     echo_off(d);
-    STATE(d) = CON_PWDNGET;
+    STATE(d) = CON_PWD_GET_NEW;
     break;
 
     /* Retype new pw when changing */
-  case CON_PWDNGET:
+  case CON_PWD_GET_NEW:
     echo_on(d);
     if (!valid_password(d, arg))
     {
@@ -4562,11 +4562,11 @@ void select_pwd(P_desc d, char *arg)
     echo_on(d);
     SEND_TO_Q("\r\nPlease retype your new password: ", d);
     echo_off(d);
-    STATE(d) = CON_PWDNCNF;
+    STATE(d) = CON_PWD_NO_CONF;
     break;
 
     /* Confirm pw for changing pw */
-  case CON_PWDNCNF:
+  case CON_PWD_NO_CONF:
     echo_on(d);
     if( strcmp(CRYPT2(arg, d->character->only.pc->pwd), d->character->only.pc->pwd) )
     {
@@ -4574,26 +4574,26 @@ void select_pwd(P_desc d, char *arg)
                 d);
       /* restore old pwd */
       strcpy(d->character->only.pc->pwd, d->old_pwd);
-      STATE(d) = CON_SLCT;
+      STATE(d) = CON_MAIN_MENU;
       SEND_TO_Q(MENU, d);
       return;
     }
     SEND_TO_Q("Password changed, you must enter game and save and/or rent for the change\r\n"
       "to be made permanent.\r\n", d);
 
-    STATE(d) = CON_SLCT;
+    STATE(d) = CON_MAIN_MENU;
     SEND_TO_Q(MENU, d);
     if (d->rtype > 20)
       d->rtype -= 20;           /* let them off the hook (for an expired password).  JAB */
     break;
 
     /* Confirm pw for deleting character */
-  case CON_PWDDCNF:
+  case CON_PWD_D_CONF:
     if( strcmp(CRYPT2(arg, d->character->only.pc->pwd), d->character->only.pc->pwd) )
     {
       echo_on(d);
       SEND_TO_Q("\r\nInvalid password, character delete aborted.\r\n", d);
-      STATE(d) = CON_SLCT;
+      STATE(d) = CON_MAIN_MENU;
       SEND_TO_Q(MENU, d);
       return;
     }
@@ -4618,7 +4618,7 @@ void select_main_menu(P_desc d, char *arg)
   /* skip whitespaces */
   for (; isspace(*arg); arg++) ;
 
-  /* a little chicanery to force them to enter a valid password.  If they are in in CON_SLCT with a d->rtype
+  /* a little chicanery to force them to enter a valid password.  If they are in in CON_MAIN_MENU with a d->rtype
      greater than 20 (6 is normal max), they have to do the 'change password' thing.  JAB */
 
   if (d->rtype > 20)
@@ -4628,7 +4628,7 @@ void select_main_menu(P_desc d, char *arg)
        d);
     echo_off(d);
     strcpy(d->old_pwd, d->character->only.pc->pwd);
-    STATE(d) = CON_PWDNEW;
+    STATE(d) = CON_PWD_NEW;
     return;
   }
   switch (*arg)
@@ -4642,7 +4642,7 @@ void select_main_menu(P_desc d, char *arg)
       break;
     }
     enter_game(d);
-    STATE(d) = CON_PLYNG;
+    STATE(d) = CON_PLAYING;
     d->prompt_mode = TRUE;
     break;
   case '2':                    /* read background story */
@@ -4653,12 +4653,12 @@ void select_main_menu(P_desc d, char *arg)
     SEND_TO_Q("Enter current password.", d);
     echo_off(d);
     strcpy(d->old_pwd, d->character->only.pc->pwd);
-    STATE(d) = CON_PWDNEW;
+    STATE(d) = CON_PWD_NEW;
     break;
   case '4':                    /* change long description */
     /* same deal here as with password, rather than adding complicated code
        to solve a minor problem, they must enter the game to save changes to
-       their description.  Note that there is no 'case' for CON_EXDSCR, it
+       their description.  Note that there is no 'case' for CON_GET_EXTRA_DESC, it
        is checked for, and STATE changed in string_add() in modify.c */
     SEND_TO_Q("\r\nEnter your new description.\r\n\r\n", d);
     SEND_TO_Q("(/s saves /h for help)\r\n", d);
@@ -4681,7 +4681,7 @@ void select_main_menu(P_desc d, char *arg)
     }
     d->str = &d->character->player.description;
     d->max_str = 1024;
-    STATE(d) = CON_EXDSCR;
+    STATE(d) = CON_GET_EXTRA_DESC;
     break;
   case '5':                    /* delete char */
     if (GET_LEVEL(d->character) > 40)
@@ -4691,7 +4691,7 @@ void select_main_menu(P_desc d, char *arg)
       break;
     }
     SEND_TO_Q("Confirm deletion with your password.\r\n", d);
-    STATE(d) = CON_PWDDCNF;
+    STATE(d) = CON_PWD_D_CONF;
     break;
   default:
     SEND_TO_Q("Wrong option.\r\n", d);
@@ -4723,13 +4723,13 @@ void select_newbie(P_desc d, char *arg)
       SET_BIT(d->character->specials.act2, PLR2_NEWBIE);
       SEND_TO_Q("\r\nWelcome to Duris!\r\n", d);
       SEND_TO_Q(racewars, d);
-      STATE(d) = CON_RACEWAR;
+      STATE(d) = CON_SHOW_RACE_TABLE;
       break;
 
     case 'N':
     case 'n':
       SEND_TO_Q(racetable, d);
-      STATE(d) = CON_QRACE;
+      STATE(d) = CON_GET_RACE;
       break;
 
     default:
@@ -4758,7 +4758,7 @@ void select_hardcore(P_desc d, char *arg)
   case 'z':
   case 'Z':
     SEND_TO_Q(racetable, d);
-    STATE(d) = CON_QRACE;
+    STATE(d) = CON_GET_RACE;
     return;
 
   default:
@@ -4767,7 +4767,7 @@ void select_hardcore(P_desc d, char *arg)
     return;
   }
   display_classtable(d);
-  STATE(d) = CON_QCLASS;
+  STATE(d) = CON_GET_CLASS;
 
 }
 void select_sex(P_desc d, char *arg)
@@ -4788,7 +4788,7 @@ void select_sex(P_desc d, char *arg)
   case 'z':
   case 'Z':
     SEND_TO_Q(racetable, d);
-    STATE(d) = CON_QRACE;
+    STATE(d) = CON_GET_RACE;
     return;
 
   default:
@@ -4813,11 +4813,11 @@ void select_sex(P_desc d, char *arg)
 	}
   else {
 	  display_classtable(d);
-	  STATE(d) = CON_QCLASS;
+	  STATE(d) = CON_GET_CLASS;
 	}
 //re-enabling hardcore - drannak 
 /*   display_classtable(d);
-   STATE(d) = CON_QCLASS;*/
+   STATE(d) = CON_GET_CLASS;*/
 }
 
 
@@ -4845,7 +4845,7 @@ void select_race(P_desc d, char *arg)
     {
       if (arg[5] == '0')
       {
-        STATE(d) = CON_QRACE;
+        STATE(d) = CON_GET_RACE;
         return;
       }
       else
@@ -5077,23 +5077,23 @@ void select_race(P_desc d, char *arg)
   case 'x':
   case 'X':
     SEND_TO_Q(generaltable, d);
-    STATE(d) = CON_INFO;
+    STATE(d) = CON_SHOW_CLASS_RACE_TABLE;
     return;
   case 'y':
   case 'Y':
     SEND_TO_Q(racewars, d);
-    STATE(d) = CON_RACEWAR;
+    STATE(d) = CON_SHOW_RACE_TABLE;
     return;
 /*
   case 'z':
   case 'Z':
     SEND_TO_Q("\r\nIs your character Male or Female? (M/F) ", d);
-    STATE(d) = CON_QSEX;
+    STATE(d) = CON_GET_SEX;
     return;
 */
   default:
     SEND_TO_Q(racetable, d);
-    STATE(d) = CON_QRACE;
+    STATE(d) = CON_GET_RACE;
     return;
   }
 
@@ -5124,14 +5124,14 @@ void select_race(P_desc d, char *arg)
            (GET_RACE(d->character) != RACE_PILLITHID))
   {
     SEND_TO_Q("\r\nIs your character Male or Female (Z for race)? (M/F/Z) ", d);
-    STATE(d) = CON_QSEX;
+    STATE(d) = CON_GET_SEX;
   }
   else
   {
     d->character->player.sex = SEX_NEUTRAL;
 
     display_classtable(d);
-    STATE(d) = CON_QCLASS;
+    STATE(d) = CON_GET_CLASS;
   }
 }
 
@@ -5322,7 +5322,7 @@ void select_class(P_desc d, char *arg)
     else if( tolower(*arg) == 'z' )
     {
       SEND_TO_Q("\r\nIs your character Male or Female (Z for race)? (M/F/Z) ", d);
-      STATE(d) = CON_QSEX;
+      STATE(d) = CON_GET_SEX;
     }
     else
       continue;
@@ -5332,7 +5332,7 @@ void select_class(P_desc d, char *arg)
   if( cls > CLASS_COUNT )
   {
     display_classtable(d);
-    STATE(d) = CON_QCLASS;
+    STATE(d) = CON_GET_CLASS;
     return;
   }
 
@@ -5615,7 +5615,7 @@ void select_keepchar(P_desc d, char *arg)
   {
   case 'n':
     SEND_TO_Q("\r\n\r\nDeleting this character.r\n", d);
-    STATE(d) = CON_NME;
+    STATE(d) = CON_NAME;
     if (d->term_type == TERM_GENERIC)
       SEND_TO_Q(GREETINGS, d);
     else
@@ -6326,7 +6326,7 @@ void nanny(P_desc d, char *arg)
     break;
 
     /* Terminal type */
-  case CON_TERM:
+  case CON_GET_TERM:
     select_terminal(d, arg);
     break;
 
@@ -6427,7 +6427,7 @@ void nanny(P_desc d, char *arg)
 
 #else
     /* Name of player */
-  case CON_NME:
+  case CON_NAME:
     select_name(d, arg, 1);
     break;
 
@@ -6437,14 +6437,14 @@ void nanny(P_desc d, char *arg)
 #endif
 
     /* Name confirm for new player */
-  case CON_NMECNF:
+  case CON_NAME_CONF:
     /* skip whitespaces */
     for (; isspace(*arg); arg++) ;
     if (*arg == 'y' || *arg == 'Y')
     {
       SEND_TO_Q("\r\nEntering new character generation mode.\r\n", d);
       SEND_TO_Q(namechart, d);
-      STATE(d) = CON_APROPOS;
+      STATE(d) = CON_APPROPRIATE_NAME;
     }
     else
     {
@@ -6455,7 +6455,7 @@ void nanny(P_desc d, char *arg)
         FREE(d->character->player.name);
         d->character->player.name = 0;
 #ifndef USE_ACCOUNT
-        STATE(d) = CON_NME;
+        STATE(d) = CON_NAME;
 #else
         STATE(d) = CON_ACCT_NEW_CHAR;
 #endif
@@ -6496,9 +6496,9 @@ void nanny(P_desc d, char *arg)
 //      SEND_TO_Q(Gbuf1, d);
 
       SEND_TO_Q(racewars, d);
-      STATE(d) = CON_RACEWAR;
+      STATE(d) = CON_SHOW_RACE_TABLE;
 /*      SEND_TO_Q(racetable, d);
-      STATE(d) = CON_QRACE;*/
+      STATE(d) = CON_GET_RACE;*/
     }
     else
     {                           /* wrong email */
@@ -6510,7 +6510,7 @@ void nanny(P_desc d, char *arg)
 #endif
 
     /* Appropriate name for new player */
-  case CON_APROPOS:
+  case CON_APPROPRIATE_NAME:
     /* skip whitespaces */
     for (; isspace(*arg); arg++) ;
     if (*arg == 'y' || *arg == 'Y')
@@ -6525,12 +6525,12 @@ void nanny(P_desc d, char *arg)
       sprintf(Gbuf1, "\r\nPlease enter a password for %s: ",
               GET_NAME(d->character));
       SEND_TO_Q(Gbuf1, d);
-      STATE(d) = CON_PWDGET;
+      STATE(d) = CON_PWD_GET;
       echo_off(d);
 #else
       echo_on(d);
       SEND_TO_Q(racetable, d);
-      STATE(d) = CON_QRACE;
+      STATE(d) = CON_GET_RACE;
 #endif
 /*     } */
     }
@@ -6543,7 +6543,7 @@ void nanny(P_desc d, char *arg)
            d);
         FREE(d->character->player.name);
         d->character->player.name = 0;
-        STATE(d) = CON_NME;
+        STATE(d) = CON_NAME;
       }
       else
       {
@@ -6553,18 +6553,18 @@ void nanny(P_desc d, char *arg)
     break;
 #ifndef USE_ACCOUNT
     /* PASSWORD handling */
-  case CON_PWDGET:
-  case CON_PWDCNF:
-  case CON_PWDNEW:
-  case CON_PWDNGET:
-  case CON_PWDNCNF:
-  case CON_PWDDCNF:
-  case CON_PWDNRM:
+  case CON_PWD_GET:
+  case CON_PWD_CONF:
+  case CON_PWD_NEW:
+  case CON_PWD_GET_NEW:
+  case CON_PWD_NO_CONF:
+  case CON_PWD_D_CONF:
+  case CON_PWD_NORM:
     /* skip whitespaces */
     for (; isspace(*arg); arg++) ;
 
-    if (STATE(d) == CON_PWDNEW ||
-        STATE(d) == CON_PWDGET || STATE(d) == CON_PWDNRM)
+    if (STATE(d) == CON_PWD_NEW ||
+        STATE(d) == CON_PWD_GET || STATE(d) == CON_PWD_NORM)
     {
       /*
        ** Since we have turned off echoing for telnet client,
@@ -6595,7 +6595,7 @@ void nanny(P_desc d, char *arg)
 #endif
 
     /* Choose sex for new player */
-  case CON_QSEX:
+  case CON_GET_SEX:
     select_sex(d, arg);
     break;
 
@@ -6608,22 +6608,22 @@ void nanny(P_desc d, char *arg)
     break;
 
     /* Select class for new player */
-  case CON_QCLASS:
+  case CON_GET_CLASS:
     select_class(d, arg);
     break;
 
     /* Choose race for new player */
-  case CON_QRACE:
+  case CON_GET_RACE:
     select_race(d, arg);
     break;
 
     /* Krov: now triggers for general info table */
-  case CON_INFO:
+  case CON_SHOW_CLASS_RACE_TABLE:
     /* Race war info for new player */
-  case CON_RACEWAR:
+  case CON_SHOW_RACE_TABLE:
     for (; isspace(*arg); arg++) ;
     SEND_TO_Q(racetable, d);
-    STATE(d) = CON_QRACE;
+    STATE(d) = CON_GET_RACE;
     break;
 
     /* Reroll stats for new player */
@@ -6693,12 +6693,12 @@ void nanny(P_desc d, char *arg)
       SEND_TO_Q
         ("\r\n*** (Note: You MUST read and agree to all rules to play this mud!)\r\n",
          d);
-      STATE(d) = CON_QRETURN;
+      STATE(d) = CON_GET_RETURN;
     }
     break;
 
     /* Prepare for the mighty disclaimer */
-  case CON_QRETURN:
+  case CON_GET_RETURN:
 
     do_help(d->character, "rules", -4);
     SEND_TO_Q("\r\n", d);
@@ -6839,7 +6839,7 @@ void nanny(P_desc d, char *arg)
 #else
     SEND_TO_Q(MENU, d);
 #endif
-    STATE(d) = CON_SLCT;
+    STATE(d) = CON_MAIN_MENU;
     break;
 
   case CON_RMOTD:
@@ -6848,11 +6848,11 @@ void nanny(P_desc d, char *arg)
 #else
     SEND_TO_Q(MENU, d);
 #endif
-    STATE(d) = CON_SLCT;
+    STATE(d) = CON_MAIN_MENU;
     break;
 
     /* Main menu */
-  case CON_SLCT:
+  case CON_MAIN_MENU:
   case CON_DISPLAY_ACCT_MENU:
 #ifdef USE_ACCOUNT
     display_account_menu(d, arg);
@@ -6865,7 +6865,7 @@ void nanny(P_desc d, char *arg)
     SEND_TO_Q
       ("Please enter term type (<CR> for ANSI, '1' for Generic, '9' for Quick): ",
        d);
-    STATE(d) = CON_TERM;
+    STATE(d) = CON_GET_TERM;
     break;
 
     /* Flush output messages, then kill the descriptor */

@@ -1975,7 +1975,7 @@ void event_artifact_check_poof_sql( P_char ch, P_char vict, P_obj obj, void * ar
           for( desc = descriptor_list; desc; desc = desc->next )
           {
             // Char must be in game and exist.
-            if( desc->connected != CON_PLYNG || !(owner = GET_TRUE_CHAR_D(desc)) )
+            if( desc->connected != CON_PLAYING || !(owner = GET_TRUE_CHAR_D(desc)) )
             {
               continue;
             }

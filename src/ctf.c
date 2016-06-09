@@ -369,7 +369,7 @@ void ctf_notify(const char *msg, int racewar)
   {
     for (d = descriptor_list; d; d = d->next)
     {
-      if (d->connected == CON_PLYNG)
+      if (d->connected == CON_PLAYING)
       {
 	if (IS_TRUSTED(d->character) ||
 	    racewar == 0 ||

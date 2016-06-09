@@ -797,7 +797,7 @@ void ereglog(int level, const char *format, ...)
   lbuf[sizeof(lbuf)] = 0;
   for (d = descriptor_list; d; d = d->next)
   {
-    if (d->connected == CON_PLYNG &&
+    if (d->connected == CON_PLAYING &&
         IS_TRUSTED(d->character) &&
         GET_LEVEL(d->character) >= level &&
         IS_SET(d->character->specials.act, PLR_SNOTIFY))
@@ -822,7 +822,7 @@ void wizlog(int level, const char *format, ...)
 
   for (d = descriptor_list; d; d = d->next)
   {
-    if (d->connected == CON_PLYNG &&
+    if (d->connected == CON_PLAYING &&
         IS_TRUSTED(d->character) &&
         GET_LEVEL(d->character) >= level &&
         IS_SET(d->character->specials.act, PLR_WIZLOG))
@@ -866,7 +866,7 @@ void loginlog(int level, const char *format, ...)
 
   for (d = descriptor_list; d; d = d->next)
   {
-    if ((d->connected == CON_PLYNG) &&
+    if ((d->connected == CON_PLAYING) &&
         IS_TRUSTED(d->character) &&
         (GET_LEVEL(d->character) >= level) &&
         IS_SET(d->character->specials.act, PLR_PLRLOG))
@@ -892,7 +892,7 @@ void statuslog(int level, const char *format, ...)
 
   for( d = descriptor_list; d; d = d->next )
   {
-    if( d->connected == CON_PLYNG && IS_TRUSTED(d->character)
+    if( d->connected == CON_PLAYING && IS_TRUSTED(d->character)
       && GET_LEVEL(d->character) >= level && IS_SET(d->character->specials.act, PLR_STATUS) )
     {
       send_to_char(lbuf, d->character);
@@ -920,7 +920,7 @@ void epiclog(int level, const char *format, ...)
 
   for( d = descriptor_list; d; d = d->next )
   {
-    if( d->connected == CON_PLYNG && IS_TRUSTED(d->character)
+    if( d->connected == CON_PLAYING && IS_TRUSTED(d->character)
       && GET_LEVEL(d->character) >= level && IS_SET(d->character->specials.act3, PLR3_EPICWATCH) )
     {
       send_to_char(lbuf, d->character);
@@ -947,7 +947,7 @@ void banlog(int level, const char *format, ...)
 
   for (d = descriptor_list; d; d = d->next)
   {
-    if (d->connected == CON_PLYNG &&
+    if (d->connected == CON_PLAYING &&
         IS_TRUSTED(d->character) &&
         GET_LEVEL(d->character) >= level &&
         IS_SET(d->character->specials.act, PLR_BAN))
@@ -5387,7 +5387,7 @@ P_char find_player_by_pid(int pid)
 {
   for (P_desc desc = descriptor_list; desc; desc = desc->next)
   {
-    if (STATE(desc) == CON_PLYNG && desc->character && 
+    if (STATE(desc) == CON_PLAYING && desc->character && 
         IS_PC(desc->character) && GET_PID(desc->character) == pid )
       return desc->character;
   }
@@ -5399,7 +5399,7 @@ P_char find_player_by_name(const char *name)
 {
   for (P_desc desc = descriptor_list; desc; desc = desc->next)
   {
-    if (STATE(desc) == CON_PLYNG && desc->character && 
+    if (STATE(desc) == CON_PLAYING && desc->character && 
         IS_PC(desc->character) && !strcmp(GET_NAME(desc->character), name) )
       return desc->character;
   }
@@ -5755,13 +5755,30 @@ void disconnect_rooms(int v1, int v2)
   }
 }
 
-P_char get_char_online(char *name)
+// Looks through the characters for one named name.
+P_char get_char_online( char *name, bool include_linkdead )
 {
-  P_char   i;
+  P_char i;
+  P_desc d;
 
-  for (i = character_list; i; i = i->next)
-    if (isname(name, GET_NAME(i)))
-      return i;
+  // We wanna check just the non-linkdeads first since that's the most likely case.
+  for( d = descriptor_list; d; d = d->next )
+  {
+    if( (STATE( d ) == CON_PLAYING) && isname(name, GET_NAME( d->character )) )
+    {
+      return d->character;
+    }
+  }
+
+  if( include_linkdead )
+  {
+    for( i = character_list; i; i = i->next )
+    {
+      if (isname(name, GET_NAME(i)))
+        return i;
+    }
+  }
+
   return 0;
 }
 
@@ -5788,13 +5805,13 @@ bool is_pid_online( int pid, bool includeLD )
     for( P_desc temp_d = descriptor_list; temp_d; temp_d = temp_d->next )
     {
       // Not checking people at the menu.
-      // If you wanted to check them, could add && connected != CON_SLCT (at menu) or such.
-      if( temp_d->connected != CON_PLYNG )
+      // If you wanted to check them, could add && connected != CON_MAIN_MENU (at menu) or such.
+      if( temp_d->connected != CON_PLAYING )
       {
         continue;
       }
 
-      // Just making sure.  (If they're CON_PLYNG, they pretty much have to have a char, don't they?)
+      // Just making sure.  (If they're CON_PLAYING, they pretty much have to have a char, don't they?)
       if( (temp_ch = (temp_d->original != NULL) ? temp_d->original : temp_d->character) == NULL )
       {
         continue;

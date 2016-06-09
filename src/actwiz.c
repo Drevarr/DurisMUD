@@ -691,7 +691,7 @@ void do_echo(P_char ch, char *argument, int cmd)
     
     for (d = descriptor_list; d; d = d->next)
     {
-      if(d->connected == CON_PLYNG && 
+      if(d->connected == CON_PLAYING && 
 	  ch->in_room == d->character->in_room)
       {
         write_to_pc_log(d->character, buf, LOG_PRIVATE);
@@ -1529,7 +1529,7 @@ void stat_game(P_char ch)
       t_ch = d->character;
     else
       t_ch = NULL;
-    if(d->connected != CON_PLYNG)
+    if(d->connected != CON_PLAYING)
       continue;
     if(t_ch)
     {
@@ -3435,7 +3435,7 @@ void do_echoa(P_char ch, char *argument, int cmd)
     
     for (d = descriptor_list; d; d = d->next)
     {
-      if(d->connected == CON_PLYNG)
+      if(d->connected == CON_PLAYING)
       {
         if(GET_LEVEL(d->character) >= level)
         {
@@ -3479,7 +3479,7 @@ void do_echoz(P_char ch, char *arg, int cmd)
     
     for (d = descriptor_list; d; d = d->next)
     {
-      if(d->connected == CON_PLYNG)
+      if(d->connected == CON_PLAYING)
       {
         if(world[ch->in_room].zone == world[d->character->in_room].zone)
         {
@@ -3526,7 +3526,7 @@ void do_echog(P_char ch, char *arg, int cmd)
     
     for (d = descriptor_list; d; d = d->next)
     {
-      if(d->connected == CON_PLYNG)
+      if(d->connected == CON_PLAYING)
       {
         if(IS_RACEWAR_GOOD(d->character) || IS_TRUSTED(d->character))
         {
@@ -3573,7 +3573,7 @@ void do_echoe(P_char ch, char *arg, int cmd)
     
     for (d = descriptor_list; d; d = d->next)
     {
-      if(d->connected == CON_PLYNG)
+      if(d->connected == CON_PLAYING)
       {
         if((EVIL_RACE(d->character) || IS_TRUSTED(d->character)) &&
             (!(IS_RACEWAR_UNDEAD(d->character))))
@@ -3621,7 +3621,7 @@ void do_echou(P_char ch, char *arg, int cmd)
     
     for (d = descriptor_list; d; d = d->next)
     {
-      if(d->connected == CON_PLYNG)
+      if(d->connected == CON_PLAYING)
       {
         if(IS_RACEWAR_UNDEAD(d->character) || IS_TRUSTED(d->character))
         {
@@ -3994,7 +3994,7 @@ void do_wizmsg(P_char ch, char *arg, int cmd)
   {
     toChar = (d->original) ? d->original : d->character;
     // For descriptors in game and of appropriate level and listening to wiz channel.
-    if( (d->connected == CON_PLYNG) && (GET_LEVEL(toChar) >= min_level)
+    if( (d->connected == CON_PLAYING) && (GET_LEVEL(toChar) >= min_level)
       && !PLR_FLAGGED(toChar, PLR_WIZMUFFED) )
     {
       // Check to make sure wizinvis Gods stay anonymous.
@@ -7512,7 +7512,7 @@ void do_ptell(P_char ch, char *arg, int cmd)
 
   for (d = descriptor_list; d; d = d->next)
   {
-    if((STATE(d) == CON_PLYNG) && IS_TRUSTED(d->character) &&
+    if((STATE(d) == CON_PLAYING) && IS_TRUSTED(d->character) &&
         IS_SET(d->character->specials.act, PLR_PETITION) &&
         (d->character != vict) && (d->character != ch))
     {
@@ -10475,7 +10475,7 @@ void do_newb_spellup_all(P_char ch, char *arg, int cmd)
 
   for( d = descriptor_list; d; d = d->next )
   {
-    if( d->connected == CON_PLYNG && ch != d->character )
+    if( d->connected == CON_PLAYING && ch != d->character )
     {
       if (GET_LEVEL(d->character) <= 36)
       {
@@ -12202,7 +12202,7 @@ void do_where(P_char ch, char *argument, int cmd)
       if ((!t_ch) && d->original)
         t_ch = d->original;
 
-      if (t_ch && IS_PC(t_ch) && (d->connected == CON_PLYNG) &&
+      if (t_ch && IS_PC(t_ch) && (d->connected == CON_PLAYING) &&
           (d->character->in_room != NOWHERE) && CAN_SEE(ch, t_ch))
       {
         if (d->original)        /* If switched */
@@ -12266,7 +12266,7 @@ void do_where(P_char ch, char *argument, int cmd)
         t_ch = d->original;
       }
 
-      if( t_ch && IS_PC(t_ch) && (d->connected == CON_PLYNG)
+      if( t_ch && IS_PC(t_ch) && (d->connected == CON_PLAYING)
         && (d->character->in_room != NOWHERE) && CAN_SEE(ch, t_ch) && t_ch->player.racewar == racewar )
       {
         if (d->original)        /* If switched */
@@ -12380,7 +12380,7 @@ void do_where(P_char ch, char *argument, int cmd)
 
     for (d = descriptor_list; d; d = d->next)
     {
-      if (d->character && IS_PC(d->character) && (d->connected == CON_PLYNG)
+      if (d->character && IS_PC(d->character) && (d->connected == CON_PLAYING)
           && (d->character->in_room != NOWHERE) && CAN_SEE(ch, d->character))
       {
         if (world[d->character->in_room].zone == world[ch->in_room].zone)

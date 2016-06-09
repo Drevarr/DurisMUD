@@ -966,7 +966,7 @@ int relic_proc(P_obj obj, P_char ch, int cmd, char *arg)
 
       for( d = descriptor_list; d; d = d->next )
       {
-        if( d->connected == CON_PLYNG )
+        if( d->connected == CON_PLAYING )
         {
           send_to_char("&+LA scream&+L of &+WFREEDOM&+L echos in your ear!&n\r\n", d->character);
         }

@@ -20,7 +20,7 @@ void connect_rooms(int, int, int);
 void disconnect_exit(int v1, int dir);
 void disconnect_rooms(int v1, int v2);
 
-P_char get_char_online(char *name);
+P_char get_char_online(char *name, bool include_linkdead = TRUE);
 
 void logit(const char *, const char *,...);
 

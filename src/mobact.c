@@ -9606,7 +9606,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
       {
         for( P_desc d = descriptor_list; d; d = d->next )
         {
-          if( d->character && d->connected == CON_PLYNG && GET_PID(d->character) == maliciousPID )
+          if( d->character && d->connected == CON_PLAYING && GET_PID(d->character) == maliciousPID )
           {
             debug( "Found maliciousPID %d, calling very_angry_npc on '%s'...",
               GET_PID(d->character), J_NAME(d->character) );

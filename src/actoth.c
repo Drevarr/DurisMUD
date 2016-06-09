@@ -1671,7 +1671,7 @@ void do_quit(P_char ch, char *argument, int cmd)
         }
       }
     }
-    ch->desc->connected = CON_PWDDCNF;
+    ch->desc->connected = CON_PWD_D_CONF;
   }
   else
   {

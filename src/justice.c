@@ -2570,7 +2570,7 @@ void justice_hometown_echo(int town, const char *str)
     return;
 
   for (d = descriptor_list; d; d = d->next)
-    if ((d->connected == CON_PLYNG) &&
+    if ((d->connected == CON_PLAYING) &&
         (CHAR_IN_TOWN(d->character) == town) && (IS_AWAKE(d->character)))
     {
       send_to_char(str, d->character);

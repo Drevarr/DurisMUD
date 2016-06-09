@@ -6325,7 +6325,7 @@ void do_who(P_char ch, char *argument, int cmd)
   {
     tch = d->character;
 
-    if( d->connected != CON_PLYNG )
+    if( d->connected != CON_PLAYING )
       continue;
 
     total_ingame_connections++;
@@ -6729,7 +6729,7 @@ void do_users(P_char ch, char *argument, int cmd)
       continue;
     }
     // Descriptors at get name screen only.
-    if( getname && (d->connected != CON_NME) )
+    if( getname && (d->connected != CON_NAME) )
     {
       continue;
     }

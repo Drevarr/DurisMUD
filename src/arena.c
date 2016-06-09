@@ -112,7 +112,7 @@ void send_to_arena(char *msg, int race)
 
   for (d = descriptor_list; d; d = d->next)
   {
-    if (d->connected == CON_PLYNG)
+    if (d->connected == CON_PLAYING)
     {
       if (CHAR_IN_ARENA(d->character))
       {

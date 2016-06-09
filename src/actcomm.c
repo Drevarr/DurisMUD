@@ -596,7 +596,7 @@ void do_gcc(P_char ch, char *argument, int cmd)
       }
 
       // Skip ch, ppl at menu/char creation/etc, and deaf ppl.
-      if( to_ch == ch || i->connected != CON_PLYNG || is_silent( to_ch, FALSE )
+      if( to_ch == ch || i->connected != CON_PLAYING || is_silent( to_ch, FALSE )
         || IS_AFFECTED4(i->character, AFF4_DEAF) )
       {
         continue;

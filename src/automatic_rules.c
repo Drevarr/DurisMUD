@@ -114,7 +114,7 @@ void do_raid(P_char ch, char *argument, int cmd)
 
     for (i = descriptor_list; i; i = i->next)
     {
-      if (i->character && IS_PC(i->character) && (i->connected == CON_PLYNG))
+      if (i->character && IS_PC(i->character) && (i->connected == CON_PLAYING))
       {
         tch = NULL;
         if ((!str_cmp(arg1, "room") && (i->character->in_room == ch->in_room)) ||
