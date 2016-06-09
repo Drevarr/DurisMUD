@@ -665,12 +665,11 @@ void spell_forked_lightning(int level, P_char ch, char *arg, int type, P_char vi
 
   if( GET_LEVEL(ch) >= 53 )
   {
-    num_missiles ++;
+    num_missiles++;
   }
 
   // dam should total: 9 * level +/- 25 .. but 3 forks -> 3 * level +/- 8..
-  //   Making it vary a little more and do a little less..
-  dam = 3 * level + number(-20, 4);
+  dam = 2 * level + number(30, 64);
 
   if( NewSaves(victim, SAVING_SPELL, 0) )
   {
@@ -2951,9 +2950,8 @@ void spell_ice_spikes(int level, P_char ch, char *arg, int type, P_char victim, 
     num_missiles++;
   }
 
-  // dam should total: 9 * level +/- 25 .. but 3 spikes -> 3 * level +/- 8..
-  // Making it vary a little more and do a little less..
-  dam = 3 * level + number(-30, 4);
+  // dam should total about: 9 * level +/- 25 .. but 3 spikes -> 3 * level +/- 8..
+  dam = 2 * level + number(30, 64);
 
   if( NewSaves(victim, SAVING_SPELL, 0) )
   {
