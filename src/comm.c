@@ -84,6 +84,7 @@ void load_alliances();
 void initialize_transport();
 bool newLeaderBoard(P_char ch, char *arg, int cmd);
 bool newHardcoreBoard(P_char ch, char *arg, int cmd);
+void format_to_snoopers( char *from_string, char *to_string );
 
 /* local globals */
 
@@ -2222,6 +2223,7 @@ void clear_logs(P_char ch)
 int process_output(P_desc t)
 {
   char     buf[MAX_STRING_LENGTH + 1], buffer[MAX_STRING_LENGTH + 1];
+  char     buf2[MAX_STRING_LENGTH];
   bool     flg, bold = FALSE, blink = FALSE;
   int      ibuf = 0;
   int      i, j, k, bg = 0;
@@ -2255,7 +2257,10 @@ int process_output(P_desc t)
       format_text(buf, 1, t, MAX_STRING_LENGTH);
 #endif
 
-    snoop_by_ptr = t->snoop.snoop_by_list;
+    if( (snoop_by_ptr = t->snoop.snoop_by_list) != NULL )
+    {
+      format_to_snoopers( buf, buf2 );
+    }
     while( snoop_by_ptr )
 /*    if (t->snoop.snoop_by) {*/
     {
@@ -2263,8 +2268,7 @@ int process_output(P_desc t)
       /* desc check makes snoop go wacky?  one never knows.. */
 //      if (snoop_by_ptr->snoop_by->desc)
 //      {
-        write_to_q("\n&+C%&n ", &snoop_by_ptr->snoop_by->desc->output, 1);
-        write_to_q(buf, &snoop_by_ptr->snoop_by->desc->output, 1);
+          write_to_q(buf2, &snoop_by_ptr->snoop_by->desc->output, 1);
 //      }
 
       snoop_by_ptr = snoop_by_ptr->next;
@@ -2575,7 +2579,7 @@ int process_input(P_desc t)
 */
       while (snoop_by_ptr)
       {
-        write_to_q("&+c%&n ", &snoop_by_ptr->snoop_by->desc->output, 1);
+        write_to_q("&+y%&n ", &snoop_by_ptr->snoop_by->desc->output, 1);
         write_to_q(tmp, &snoop_by_ptr->snoop_by->desc->output, 1);
         write_to_q("\r\n", &snoop_by_ptr->snoop_by->desc->output, 1);
 
@@ -3794,4 +3798,35 @@ const char *delete_doubledollar(const char *string)
   *write1 = '\0';
 
   return string;
+}
+
+// Puts a Cyan % in front of each line.
+void format_to_snoopers( char *from_string, char *to_string )
+{
+  char *index, *index2;
+
+//  debug( "From: '%s'.", from_string );
+  index2 = to_string;
+  sprintf( index2, "&+C%%&N " );
+  index2 += 7;
+  index = from_string;
+  while( *index != '\0' )
+  {
+    if( *index == '\r' )
+    {
+      index++;
+      continue;
+    }
+    if( index[0] == '\n' && index[1] != '\0' )
+    {
+      sprintf( index2, "\n&+C%%&N " );
+      index2 += 8;
+      index++;
+    }
+    else
+    {
+      *(index2++) = *(index++);
+    }
+  }
+  *index2 = '\0';
 }
