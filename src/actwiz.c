@@ -2604,16 +2604,10 @@ void do_stat(P_char ch, char *argument, int cmd)
     get_class_string(k, buf2);
     strcat(buf, buf2);
     sprintf(buf + strlen(buf), " &+YRacewar: ");
-    if(IS_NPC(k))
+    if( IS_NPC(k) )
       sprintf(buf + strlen(buf), "&+wNPC&n");
-    else if(GET_RACEWAR(k) == RACEWAR_GOOD)
-      sprintf(buf + strlen(buf), "&+YGood&n");
-    else if(GET_RACEWAR(k) == RACEWAR_EVIL)
-      sprintf(buf + strlen(buf), "&+rEvil&n");
-    else if(GET_RACEWAR(k) == RACEWAR_UNDEAD)
-      sprintf(buf + strlen(buf), "&+LUndead&n");
-    else if(GET_RACEWAR(k) == RACEWAR_NEUTRAL)
-      sprintf(buf + strlen(buf), "&+yNeutral&n");
+    else if(GET_RACEWAR(k) >= 0 && GET_RACEWAR(k) <= MAX_RACEWAR )
+      sprintf( buf + strlen(buf), "&+%c%s&N", racewar_color[GET_RACEWAR(k)].color, racewar_color[GET_RACEWAR(k)].name );
     else
       sprintf(buf + strlen(buf), "&+RINVALID&n");
 
@@ -3819,13 +3813,13 @@ void do_nchat(P_char ch, char *argument, int cmd)
       if( all )
         sprintf(Gbuf2, "&+W*all*&n");
       else if( good )
-        sprintf(Gbuf2, "&+Ygood&n");
+        sprintf( Gbuf2, "&+%c%s&N", racewar_color[RACEWAR_GOOD].color, racewar_color[RACEWAR_GOOD].name );
       else if( evil )
-        sprintf(Gbuf2, "&+Revil&n");
+        sprintf( Gbuf2, "&+%c%s&N", racewar_color[RACEWAR_EVIL].color, racewar_color[RACEWAR_EVIL].name );
       else if( undead )
-        sprintf(Gbuf2, "&+Lundead&n");
+        sprintf( Gbuf2, "&+%c%s&N", racewar_color[RACEWAR_UNDEAD].color, racewar_color[RACEWAR_UNDEAD].name );
       else if( neutral )
-        sprintf(Gbuf2, "&+Mneutral&n");
+        sprintf( Gbuf2, "&+%c%s&N", racewar_color[RACEWAR_NEUTRAL].color, racewar_color[RACEWAR_NEUTRAL].name );
       else
         sprintf(Gbuf2, "&+Cundefined&n");
 
