@@ -964,15 +964,23 @@ void show_visual_status(P_char ch, P_char tar_char)
   //else
   if (!racewar(ch, tar_char) || IS_ILLITHID(ch)/* || IS_TRUSTED(ch)*/)
   {
-    sprintf(buf, "$N appears to be %s and %%s",
-            GET_RACE(tar_char) ? race_names_table[(int) GET_RACE1(tar_char)].
-            ansi : "&=LRBogus race!&n");
+    if( ch != tar_char )
+    {
+      sprintf(buf, "$N appears to be %s and %%s",
+        GET_RACE(tar_char) ? race_names_table[(int) GET_RACE1(tar_char)].ansi : "&=LRBogus race!&n");
+    }
+    else
+    {
+      sprintf(buf, "You appear to be %s and %%s",
+        GET_RACE(tar_char) ? race_names_table[(int) GET_RACE1(tar_char)].ansi : "&=LRBogus race!&n");
+    }
   }
   else
-    sprintf(buf, "This %s %%s",
-            race_names_table[(int) GET_RACE1(tar_char)].ansi);
+  {
+    sprintf(buf, "This %s %%s", race_names_table[(int) GET_RACE1(tar_char)].ansi);
+  }
 
-  if (percent >= 100)	
+  if (percent >= 100)
     sprintf(buf2, buf, "is in &+Gexcellent&n condition.");
   else if (percent >= 90)
     sprintf(buf2, buf, "has a &+yfew scratches&n.");
