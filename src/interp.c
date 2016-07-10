@@ -3206,7 +3206,7 @@ void assign_command_pointers(void)
 // This assumes exec_char is a valid PC that's in a valid room.
 void check_aggro_from_command( P_char exec_char )
 {
-  P_char master, mob, next_mob;
+  P_char exec_master, mob, mob_master, next_mob;
   int room, calming_chance;
 
   room = exec_char->in_room;
@@ -3219,10 +3219,10 @@ void check_aggro_from_command( P_char exec_char )
   }
 
   // Check for a PC master (controller of exec_char) that's in the same room.
-  master = get_linked_char( exec_char, LNK_PET );
-  if( !IS_ALIVE(master) || !IS_PC(master) || (master->in_room != room) )
+  exec_master = get_linked_char( exec_char, LNK_PET );
+  if( !IS_ALIVE(exec_master) || !IS_PC(exec_master) || (exec_master->in_room != room) )
   {
-    master = NULL;
+    exec_master = NULL;
   }
 
   for( mob = world[exec_char->in_room].people; mob && IS_ALIVE(exec_char); mob = next_mob )
@@ -3232,6 +3232,13 @@ void check_aggro_from_command( P_char exec_char )
     // Only consider aggro NPCs (not including self) that are not lagged nor fighting something else nor asleep/ko'd.
     if( !IS_NPC(mob) || !IS_AGGRESSIVE(mob) || (mob == exec_char) || !CAN_ACT(mob)
       || IS_FIGHTING(mob) || !IS_AWAKE(mob) )
+    {
+      continue;
+    }
+
+    // Pets only aggro chars when master is not in room, or when they are attacking master.
+    if( (( mob_master = get_linked_char(mob, LNK_PET) ) != NULL) && (mob_master->in_room == room)
+      && (GET_OPPONENT( exec_char ) != mob_master) )
     {
       continue;
     }
@@ -3255,38 +3262,38 @@ void check_aggro_from_command( P_char exec_char )
     }
 
     // If the mob can see the master of the executor, it may attack them (int check).
-    if( master && CAN_SEE(mob, master) && aggressive_to(mob, master)
+    if( exec_master && CAN_SEE(mob, exec_master) && aggressive_to(mob, exec_master)
       && (number( 1, 100 ) < GET_C_INT(mob) / 2) )
     {
       do_action(mob, "", CMD_SNEER);
-      MobStartFight(mob, master);
+      MobStartFight(mob, exec_master);
       // Just return if we kill the master, no need to pound on the charmie.
       // If we don't return, we need to set master to NULL.
-      if( !IS_ALIVE(master) )
+      if( !IS_ALIVE(exec_master) )
       {
         return;
       }
       // Room kicked master or some such.
-      if( master->in_room != room )
+      if( exec_master->in_room != room )
       {
-        master = NULL;
+        exec_master = NULL;
       }
       continue;
     }
 
     // If the mob can see the executor of the command and doesn't like them or their boss.
-    if( CAN_SEE(mob, exec_char) && (aggressive_to( mob, exec_char ) || ( master && aggressive_to(mob, master) )) )
+    if( CAN_SEE(mob, exec_char) && (aggressive_to( mob, exec_char ) || ( exec_master && aggressive_to(mob, exec_master) )) )
     {
       MobStartFight(mob, exec_char);
       // If they killed the executor, or room kicked them etc.
       if( !IS_ALIVE(exec_char) || (exec_char->in_room != room) )
       {
         // Then start on the owner!
-        if( IS_ALIVE(master) && master->in_room == room )
+        if( IS_ALIVE(exec_master) && exec_master->in_room == room )
         {
-          exec_char = master;
+          exec_char = exec_master;
           calming_chance = CALMCHANCE( exec_char ) + (has_innate( exec_char, INNATE_CALMING )) ? 10 : 0;
-          master = NULL;
+          exec_master = NULL;
         }
         else
         {
