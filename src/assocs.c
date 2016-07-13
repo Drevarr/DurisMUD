@@ -111,10 +111,13 @@ void sql_update_assoc_table()
   }
 }
 
-void Guild::add_prestige_epics( P_char ch, int epics, int epic_type )
+void Guild::add_points_from_epics( P_char ch, int epics, int epic_type )
 {
   int assoc_members = 1;
   int room = ch->in_room;
+  // add construction points
+  int cp_notch = get_property("prestige.constructionPoints.notch", 100);
+  int construction_points;
 
   if( (GET_ASSOC(ch) != this) || (epics < (int) get_property("prestige.epicsMinimum", 4.000)) )
   {
@@ -135,7 +138,7 @@ void Guild::add_prestige_epics( P_char ch, int epics, int epic_type )
     }
   }
 
-  debug("check_assoc_prestige_epics(): assoc_members: %d, epics: %d, epic_type: %d", assoc_members, epics, epic_type);
+  debug("add_points_from_epics: assoc_members: %d, epics: %d, epic_type: %d", assoc_members, epics, epic_type);
 
   // If members in group are above 3...
   if( assoc_members >= (int) get_property("prestige.guildedInGroupMinimum", 3.000) )
@@ -159,11 +162,20 @@ void Guild::add_prestige_epics( P_char ch, int epics, int epic_type )
 
     prest = check_nexus_bonus(ch, prest, NEXUS_BONUS_PRESTIGE);
 
-    debug("add_prestige_epics(): '%s' gaining: %d", get_name().c_str(), prest);
+    debug("add_points_from_epics(): '%s' gaining: %d", get_name().c_str(), prest);
 
     send_to_char("&+bYour guild gained prestige!\n", ch);
+    construction_points = MAX(0, (int) ((prestige+prest) / cp_notch) - (prestige/cp_notch));
     add_prestige( prest );
   }
+
+  if( construction_points > 0 )
+  {
+    statuslog(GREATER_G, "Association %s &ngained %d construction points.", name, construction_points );
+    logit(LOG_STATUS, "Association %s &ngained %d construction points.", name, construction_points );
+    construction += construction_points;
+  }
+
 }
 
 bool Guild::sub_money( int p, int g, int s, int c )

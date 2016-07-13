@@ -196,7 +196,7 @@ class Guild
     unsigned long get_prestige( ) { return prestige; }
     void add_prestige( int prest ) { prestige += prest; save(); }
     void set_prestige( int prest ) { prestige = prest; save(); }
-    void add_prestige_epics( P_char ch, int epics, int epic_type );
+    void add_points_from_epics( P_char ch, int epics, int epic_type );
 
     unsigned long get_construction( ) { return construction; }
     void add_construction( int cps ) { construction += cps; save(); }
