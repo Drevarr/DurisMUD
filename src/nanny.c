@@ -4128,9 +4128,10 @@ void select_name(P_desc d, char *arg, int flag)
     return;
   }
   /* new player */
-  if (IS_SET(game_locked, LOCK_CREATE) || !strcmp(get_mud_info("lock").c_str(), "create"))
+  if( (IS_SET(game_locked, LOCK_CREATE) || !strcmp(get_mud_info("lock").c_str(), "create"))
+    && !pfile_exists("Players/Accepted", tmp_name) )
   {
-    if (!flag && d->character)
+    if( !flag && d->character )
     {
       free_char(d->character);
       d->character = NULL;
