@@ -446,42 +446,39 @@ void ilienze_sword_proc_messages(struct damage_messages *messages, const char *s
           "&+rUnholy &+Rflames&n &+rflow down $n's &+rblade and shoot in a %s &+rtowards $N&+r.&n", sub);
 }
 
+void cegilunes_broken( struct char_obj_link_data *cold )
+{
+  wear_off_message( cold->ch, cold->affect );
+  affect_remove( cold->ch, cold->affect );
+}
+
 void spell_cegilunes_searing_blade(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
-  bool weapon = false;
+  bool weapon = FALSE;
 
   if( !IS_ALIVE(ch) )
   {
     return;
   }
 
-  if(ch->equipment[WIELD] &&
-    FLAME_REAVER_WEAPONS(ch->equipment[WIELD]))
-  {
-    weapon = true;
-  }
-    
-  if(!weapon &&
-     ch->equipment[WIELD2] &&
-     FLAME_REAVER_WEAPONS(ch->equipment[WIELD2]))
-  {
-    weapon = true;
-  }
-  
-  if(!weapon)
+  // If they don't have a prime or secondary reaver weapon.
+  if( !(( (obj = ch->equipment[WIELD]) && FLAME_REAVER_WEAPONS(obj) )
+    || ( (obj = ch->equipment[WIELD2]) && FLAME_REAVER_WEAPONS(obj) )
+    || ( (obj = ch->equipment[WIELD3]) && FLAME_REAVER_WEAPONS(obj) )
+    || ( (obj = ch->equipment[WIELD4]) && FLAME_REAVER_WEAPONS(obj) )) )
   {
     send_to_char("You need to wield the correct type of weapon!\n", ch);
     return;
   }
 
-  if(affected_by_spell(ch, SPELL_CEGILUNE_BLADE))
+  if( affected_by_spell(ch, SPELL_CEGILUNE_BLADE) )
   {
     send_to_char("&+LCegilune can infuse your weapon no further.&n\n", ch);
     return;
   }
 
-  if(!affected_by_spell(ch, SPELL_ILIENZES_FLAME_SWORD))
+  if( !affected_by_spell(ch, SPELL_ILIENZES_FLAME_SWORD) )
   {
     send_to_char("&+LYour weapon glows for a moment, and then grows cool once more.&n\n", ch);
     return;
@@ -492,17 +489,16 @@ void spell_cegilunes_searing_blade(int level, P_char ch, char *arg, int type, P_
   bzero(&af, sizeof(af));
 
   af.type = SPELL_CEGILUNE_BLADE;
-  af.duration = MIN(afp->duration,  level / 1);
+  af.duration = MIN(afp->duration,  level / 2);
   af.location = APPLY_NONE;
   af.modifier = 0;
 
-  affect_to_char(ch, &af);
+  linked_affect_to_char_obj( ch, &af, obj, LNK_CEGILUNE );
 
-  act("&+LYour weapon glows with a strange &+Rh&+rea&+Rt&+L as Cegilune infuses it.&n",
-    false, ch, 0, 0, TO_CHAR);
-
+  act("&+LYour weapon glows with a strange &+Rh&+rea&+Rt&+L as Cegilune infuses it.&n", false, ch, 0, 0, TO_CHAR);
 }
 
+// Called by reaver_hit_proc, this function handles the cegilune's proc.
 bool cegilune_blade(P_char ch, P_char victim, P_obj wpn)
 {
   int dam, wave;
@@ -554,70 +550,79 @@ bool cegilune_blade(P_char ch, P_char victim, P_obj wpn)
 
   if( !IS_ALIVE(ch) || !IS_ALIVE(victim) || !(wpn) || !FLAME_REAVER_WEAPONS(wpn) )
   {
-    return false;
+    return FALSE;
   }
 
-  for(int i=0;i<6;i++)
+  for( int i = 0; i < 6; i++ )
     tiers_messages[i].obj = wpn;
 
   afp = get_spell_from_char(ch, SPELL_CEGILUNE_BLADE);
-  if (!afp)
+  if( !afp )
     return FALSE;
 
-  /* chance for upgrading tier of damage */
-  if (!number(0,4)) {
-    /* modifier holds tier of damage */
-    switch(afp->modifier) {
-      case(0):
-        if (spell_damage(ch, victim, number(8,16), SPLDAM_FIRE,
-                         SPLDAM_NODEFLECT, &tiers_messages[afp->modifier]) != DAM_NONEDEAD) {
+  // Chance for upgrading tier of damage.
+  if( !number(0, 4) )
+  {
+    // Modifier holds tier of damage.
+    switch( afp->modifier++ )
+    {
+      case 0:
+        if( spell_damage(ch, victim, number(8,16), SPLDAM_FIRE, SPLDAM_NODEFLECT, &tiers_messages[afp->modifier])
+          != DAM_NONEDEAD )
+        {
           afp->modifier = 0;
           return TRUE;
         }
         break;
-      case(1):
-        if (spell_damage(ch, victim, number(16,32), SPLDAM_FIRE,
-                         SPLDAM_NODEFLECT, &tiers_messages[afp->modifier]) != DAM_NONEDEAD) {
+      case 1:
+        if( spell_damage(ch, victim, number(16,32), SPLDAM_FIRE, SPLDAM_NODEFLECT, &tiers_messages[afp->modifier])
+          != DAM_NONEDEAD )
+        {
           afp->modifier = 0;
           return TRUE;
         }
         break;
-      case(2):
-        if (spell_damage(ch, victim, number(32,40), SPLDAM_FIRE,
-                         SPLDAM_NODEFLECT, &tiers_messages[afp->modifier]) != DAM_NONEDEAD) {
+      case 2:
+        if( spell_damage(ch, victim, number(32,40), SPLDAM_FIRE, SPLDAM_NODEFLECT, &tiers_messages[afp->modifier])
+          != DAM_NONEDEAD )
+        {
           afp->modifier = 0;
           return TRUE;
         }
         break;
-      case(3):
-        if (spell_damage(ch, victim, number(40,56), SPLDAM_FIRE,
-                         SPLDAM_NODEFLECT, &tiers_messages[afp->modifier]) != DAM_NONEDEAD) {
+      case 3:
+        if( spell_damage(ch, victim, number(40,56), SPLDAM_FIRE, SPLDAM_NODEFLECT, &tiers_messages[afp->modifier])
+          != DAM_NONEDEAD )
+        {
           afp->modifier = 0;
           return TRUE;
         }
         break;
-      case(4):
-        if (spell_damage(ch, victim, number(56,64), SPLDAM_FIRE,
-                         SPLDAM_NODEFLECT, &tiers_messages[afp->modifier]) != DAM_NONEDEAD) {
+      case 4:
+        if( spell_damage(ch, victim, number(56,64), SPLDAM_FIRE, SPLDAM_NODEFLECT, &tiers_messages[afp->modifier])
+          != DAM_NONEDEAD )
+        {
           afp->modifier = 0;
           return TRUE;
         }
         break;
       default:
-        if (spell_damage(ch, victim, number(64,80), SPLDAM_FIRE,
-                         SPLDAM_NODEFLECT, &tiers_messages[afp->modifier]) != DAM_NONEDEAD) {
+        if( spell_damage(ch, victim, number(64,80), SPLDAM_FIRE, SPLDAM_NODEFLECT, &tiers_messages[5])
+          != DAM_NONEDEAD )
+        {
           afp->modifier = 0;
           return TRUE;
         }
-        afp->modifier--; // lets not go over max int
+        afp->modifier = 0; // lets not go over max int
         break;
     }
-    afp->modifier++;
   }
 
   // if we are on 3th tier or higher there is chance for immolate like attack
-  if (afp->modifier >= 3) {
-    if (!number(0,5)) {
+  if( afp->modifier >= 3 )
+  {
+    if( !number(0,5) )
+    {
       act("&+LYour $q&+L suddenly ig&+rni&+Rte&+rs &+Linto &+rf&+Rl&+ra&+Rm&+re&+Rs &+Las it strikes $N!&n",
           FALSE, ch, wpn, victim, TO_CHAR);
       act("&+L$n's $q&+L ignites into a raging &+ri&+Rn&+rf&+Re&+rr&+Rn&+ro &+Las it bites deep into your &+rflesh&+L.&n",
@@ -626,7 +631,7 @@ bool cegilune_blade(P_char ch, P_char victim, P_obj wpn)
           FALSE, ch, wpn, victim, TO_NOTVICT);
 
       af2p = get_spell_from_char(victim, TAG_CEGILUNE_FIRE);
-      if (!af2p)
+      if( !af2p )
       {
         memset(&af, 0, sizeof(af));
         af.type = TAG_CEGILUNE_FIRE;
@@ -648,12 +653,12 @@ bool cegilune_blade(P_char ch, P_char victim, P_obj wpn)
 void event_cegilune_searing(P_char ch, P_char vict, P_obj wpn, void *data)
 {
   struct damage_messages messages = {
-    0,
+    "",
     "&+LThe &+rf&+Ri&+rr&+Re&+rs &+Llick at your wound, causing you to scream in pain!&n",
-    0,
-    "&+L$N suddenly begins thrashing around violently. Several chunks of smoldering &+rflesh&+L fall from his body, and he topples to the ground, screaming violently--then is suddenly silent!&n",
+    "",
+    "&+L$N &+Lsuddenly begins thrashing around violently. Several chunks of smoldering &+rflesh&+L fall from $S body, and $E topples to the ground, screaming violently--then is suddenly silent!&n",
     "&+LThe &+rf&+Ri&+re&+Rr&+ry &+Lp&+rai&+Ln is too much for you to handle, and you think you hear the incessant cackling of &+md&+Lemoni&+mc &+Llaughter as your vision spins toward oblivion...&n",
-    "&+L$N suddenly begins thrashing around violently. Several chunks of smoldering &+rflesh&+L fall from his body, and he topples to the ground, screaming violently--then is suddenly silent!&n", 0
+    "&+L$N &+Lsuddenly begins thrashing around violently. Several chunks of smoldering &+rflesh&+L fall from$S body, and $E topples to the ground, screaming violently--then is suddenly silent!&n", 0
   };
 
   if( !IS_ALIVE(ch) || !IS_ALIVE(vict) || !FLAME_REAVER_WEAPONS(wpn) )
@@ -669,15 +674,15 @@ void event_cegilune_searing(P_char ch, P_char vict, P_obj wpn, void *data)
     return;
   }
 
-  if (!--(afp->modifier))
+  if( --(afp->modifier) <= 0 )
   {
     send_to_char("&+RThe flames engulfing your body subside.\n", vict);
     affect_remove(vict, afp);
     return;
   }
 
-  if (spell_damage(ch, vict, 12, SPLDAM_FIRE, SPLDAM_NODEFLECT, &messages) ==
-      DAM_NONEDEAD)
+  // This correlates to 3 to 12 damage
+  if( spell_damage(ch, vict, dice( 12, 4 ), SPLDAM_FIRE, SPLDAM_NODEFLECT, &messages) == DAM_NONEDEAD )
   {
     add_event(event_cegilune_searing, PULSE_VIOLENCE, ch, vict, wpn, 0, 0, 0);
   }
@@ -1172,7 +1177,7 @@ bool reaver_hit_proc(P_char ch, P_char victim, P_obj weapon)
   if (affected_by_spell(ch, SPELL_CHILLING_IMPLOSION) && kostchtchies_implosion(ch, victim, weapon))
     return TRUE;
 
-  if (affected_by_spell(ch, SPELL_CEGILUNE_BLADE) && cegilune_blade(ch, victim, weapon))
+  if( is_linked_to( ch, weapon, LNK_CEGILUNE ) && cegilune_blade(ch, victim, weapon) )
     return TRUE;
 
   if (affected_by_spell(ch, SPELL_ILIENZES_FLAME_SWORD) && ilienze_sword(ch, victim, weapon))

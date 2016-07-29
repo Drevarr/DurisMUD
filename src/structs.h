@@ -118,12 +118,12 @@ typedef struct combat_data *P_combat;
 #define AFFTYPE_NOMSG      BIT_4  // affect should not produce a wear_off_message
 #define AFFTYPE_CUSTOM1    BIT_5  // those flags are to be used for
 #define AFFTYPE_CUSTOM2    BIT_6  // spec/skill specific distinguishing
-#define AFFTYPE_LINKED     BIT_7
+#define AFFTYPE_LINKED_CH  BIT_7
 #define AFFTYPE_NOSAVE     BIT_8
 #define AFFTYPE_NOAPPLY    BIT_9  // do not apply anything from this affect on char, it's used to store data only
 #define AFFTYPE_PERM       BIT_10 // affect will not disappear upon death
 #define AFFTYPE_OFFLINE    BIT_11 // Continue to countdown timer while offline.
-
+#define AFFTYPE_LINKED_OBJ BIT_12
 #define AFFTYPE_STORE (AFFTYPE_NOAPPLY |\
                        AFFTYPE_NODISPEL |\
                        AFFTYPE_NOSHOW)
@@ -249,32 +249,37 @@ struct edit_data {
 
 #define NUM_TROOP_DEFENSE       3
 
-#define LNK_CONSENT         1
-#define LNK_RIDING          2
-#define LNK_GUARDING        3
-#define LNK_EVENT           4
-#define LNK_SNOOPING        5
-#define LNK_FLANKING        6
-#define LNK_SONG            7
-#define LNK_BATTLE_ORDERS   8
-#define LNK_PET             9
-#define LNK_ETHEREAL        10
-#define LNK_ESSENCE_OF_WOLF 11
-#define LNK_DEFEND          12
-#define LNK_BLOOD_ALLIANCE  13
-#define LNK_SUPPRESS_SOUND  14
-#define LNK_CAST_WORLD      15
-#define LNK_CAST_ROOM       16
-#define LNK_PALADIN_AURA    17
-#define LNK_GRAPPLED        18
-#define LNK_CIRCLING        19
-#define LNK_TETHER	    20
-#define LNK_SNG_HEALING	21
+#define LNK_CONSENT          0
+#define LNK_RIDING           1
+#define LNK_GUARDING         2
+#define LNK_EVENT            3
+#define LNK_SNOOPING         4
+#define LNK_FLANKING         5
+#define LNK_SONG             6
+#define LNK_BATTLE_ORDERS    7
+#define LNK_PET              8
+#define LNK_ETHEREAL         9
+#define LNK_ESSENCE_OF_WOLF 10
+#define LNK_DEFEND          11
+#define LNK_BLOOD_ALLIANCE  12
+#define LNK_SUPPRESS_SOUND  13
+#define LNK_CAST_WORLD      14
+#define LNK_CAST_ROOM       15
+#define LNK_PALADIN_AURA    16
+#define LNK_GRAPPLED        17
+#define LNK_CIRCLING        18
+#define LNK_TETHER          19
+#define LNK_SNG_HEALING     20
+#define LNK_CEGILUNE        21
 #define LNK_MAX             21
 
-#define LNKFLG_ROOM            BIT_1
-#define LNKFLG_AFFECT          BIT_2
-#define LNKFLG_EXCLUSIVE       BIT_3
+#define LNKFLG_NONE                 0
+#define LNKFLG_ROOM             BIT_1
+#define LNKFLG_AFFECT           BIT_2
+#define LNKFLG_EXCLUSIVE        BIT_3
+#define LNKFLG_OBJECT           BIT_4
+#define LNKFLG_BREAK_REMOVE     BIT_5
+#define LNKFLG_BREAK_DROP       BIT_6 // Not implemented yet.
 
 #define PET_NOCASH       BIT_1
 #define PET_NOORDER      BIT_2
@@ -1427,6 +1432,7 @@ struct char_data {
   struct group_list *group;       // Points to the head of the group list.
   struct char_link_data *linked;  // Slave links to other characters
   struct char_link_data *linking; // Master links to other characters
+  struct char_obj_link_data *obj_linked;
 };
 
 /* ======================================================================== */
@@ -2237,9 +2243,23 @@ struct char_link_data {
   struct char_link_data *next_linked;
 };
 
+typedef void (*link_obj_breakage_func)(struct char_obj_link_data*);
+
+struct char_obj_link_data {
+  ush_int type;
+  P_char  ch;
+  P_obj   obj;
+  struct affected_type *affect; // optional, for links dependant affects
+  struct char_obj_link_data *next;
+};
+
 struct link_description {
   char *name;
-  link_breakage_func break_func;
+  union {
+    link_breakage_func ch;
+    link_obj_breakage_func obj;
+  }
+  break_func;
   int flags;
 };
 

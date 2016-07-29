@@ -74,18 +74,15 @@ void update_skills(P_char ch)
       ch->only.pc->skills[s].taught = 100;
       ch->only.pc->skills[s].learned = 100;
 #endif
-    } 
+    }
     else if ( GET_LVL_FOR_SKILL(ch, s) > 0 && GET_LEVEL(ch) >= GET_LVL_FOR_SKILL(ch, s) )
     {
-      ch->only.pc->skills[s].taught =
-        MAX(ch->only.pc->skills[s].taught,
-            MAX(SKILL_DATA_ALL(ch, s).maxlearn[0],
-                SKILL_DATA_ALL(ch, s).maxlearn[ch->player.spec]));      
-      
+      ch->only.pc->skills[s].taught = MAX(ch->only.pc->skills[s].taught, MAX(SKILL_DATA_ALL(ch, s).maxlearn[0],
+        SKILL_DATA_ALL(ch, s).maxlearn[ch->player.spec]));
       lastlvl = ch->only.pc->skills[s].learned;
-      shouldbe = (GET_LEVEL(ch) * 3 / 2); 
+      shouldbe = (GET_LEVEL(ch) * 3 / 2);
       notched = lastlvl-shouldbe;
-      
+
       //debug("should be: %d, learned so far: %d, notched above: %d", shouldbe, lastlvl, notched);
 #if defined(CHAOS_MUD) && (CHAOS_MUD == 1)
       ch->only.pc->skills[s].learned = 100;
@@ -93,9 +90,9 @@ void update_skills(P_char ch)
 #else
       ch->only.pc->skills[s].learned =
         MAX(MIN(40, GET_LEVEL(ch) * 3 / 2), ch->only.pc->skills[s].learned);
-       
+
       //debug("new learned: %d", ch->only.pc->skills[s].learned);
-#endif    
+#endif
     } else {
       ch->only.pc->skills[s].taught = ch->only.pc->skills[s].learned = 0;
     }

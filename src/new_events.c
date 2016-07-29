@@ -412,6 +412,7 @@ void add_event(event_func func, int delay, P_char ch, P_char victim, P_obj obj, 
 // No reason an event can't have an object and a ch/victim. - Lohrr
 // Ok, here's the reason... we have an object-events list and a char-events list.
 // Well, now we have two lists: obj->nevents->next_obj_nev ... and ch->nevents->next_char_nev.
+/*
   if( obj && ch )
   {
     // Logging them anyway, just to test..
@@ -419,8 +420,9 @@ void add_event(event_func func, int delay, P_char ch, P_char victim, P_obj obj, 
       (func == NULL) ? "NULL" : get_function_name((void*)func),
       ch ? J_NAME(ch) : "NULL", ch ? GET_ID(ch) : -1,
       obj ? OBJ_SHORT(obj) : "NULL", obj ? OBJ_VNUM(obj) : -1 );
-//    return;
+    return;
   }
+*/
 
   // Should it be possible for an object to have a victim w/out a ch?
   if( victim && !ch )

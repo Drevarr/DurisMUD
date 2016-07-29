@@ -3618,6 +3618,94 @@ int stop_or_wear(const char denied[], P_char ch, P_obj obj_object, int position,
 }
 
 /*
+ * Returns TRUE if ch is wearing perm invis eq.
+ */
+int wearing_invis(P_char ch)
+{
+  int      found = 0, k;
+
+  for (k = 0; k < MAX_WEAR; k++)
+    if (ch->equipment[k] &&
+        IS_SET(ch->equipment[k]->bitvector, AFF_INVISIBLE))
+      found = 1;
+  return found;
+}
+
+/*
+ * The receiving code should handle displaying of messages to the user.
+ * - Sniktiorg 25.1.13
+ * New Remove code which handles only the removing of the item.  This
+ * allows for use in loops as well as in stand-alone capacities.  It 
+ * also facilitates removing an item by position which is used in the
+ * auto-replace wear code.  The procedure returns an int representing
+ * the following:
+ */
+#define REMOVE_SUCCESS        0
+#define REMOVE_CURSED         1
+#define REMOVE_BREAK_ENCHANT  2
+#define REMOVE_CANT_CARRY     3
+#define REMOVE_NOT_USING      4
+int remove_item(P_char ch, P_obj obj, int position)
+{
+  struct   obj_affect *o_af;
+
+  // Tests if Object Exists
+  if( obj )
+  {
+    if( IS_SET(obj->extra_flags, ITEM_NODROP) && !IS_TRUSTED(ch) )
+    {
+      return REMOVE_CURSED;
+    }
+    else if( CAN_CARRY_N(ch) > IS_CARRYING_N(ch) )
+    {
+      if( ch->equipment[WEAR_WAIST] && ch->equipment[WEAR_WAIST] == obj )
+      {
+        if( ch->equipment[WEAR_ATTACH_BELT_1] )
+        {
+          obj_to_char(unequip_char(ch, WEAR_ATTACH_BELT_1), ch);
+        }
+        if( ch->equipment[WEAR_ATTACH_BELT_2] )
+        {
+          obj_to_char(unequip_char(ch, WEAR_ATTACH_BELT_2), ch);
+        }
+        if( ch->equipment[WEAR_ATTACH_BELT_3] )
+        {
+          obj_to_char(unequip_char(ch, WEAR_ATTACH_BELT_3), ch);
+        }
+      }
+      // Remove holy sword spell effects if sword is removed.
+      if( ch->equipment[WIELD] && ch->equipment[WIELD] == obj )
+      {
+        strip_holy_sword( ch );
+      }
+
+      obj_to_char(unequip_char(ch, position), ch);
+
+      // Remove Affects
+      if (IS_SET(obj->bitvector, AFF_INVISIBLE) && affected_by_spell(ch, TAG_PERMINVIS) && !wearing_invis(ch))
+        affect_from_char(ch, TAG_PERMINVIS);
+
+      if (obj && (o_af = get_obj_affect(obj, SKILL_ENCHANT)))
+      {
+        affect_from_char(ch, o_af->data);
+        obj_affect_remove(obj, o_af);
+        return REMOVE_BREAK_ENCHANT;
+      }
+    }
+    else
+    {
+      return REMOVE_CANT_CARRY;
+    }
+  }
+  else // Object Doesn't Exist
+  {
+    return REMOVE_NOT_USING;
+  }
+
+  return REMOVE_SUCCESS;
+}
+
+/*
  * Helper function which wraps about Execute_Wear() and allows for the remove
  * and replace behavior used on single location items (ie. head, arms, body, etc). -Sniktiorg (Dec.1.12)
  */
@@ -3630,12 +3718,12 @@ int remove_and_wear(P_char ch, P_obj obj_object, int position, int keyword, int 
   if( temp )
   {
     removed = remove_item(ch, temp, position);
-    if( removed == 0 || removed == 2 )
+    if( removed == REMOVE_SUCCESS || removed == REMOVE_BREAK_ENCHANT )
     {
       if( showit )
       {
         act("You stop using $p.", FALSE, ch, temp, 0, TO_CHAR);
-        if( removed == 2 )
+        if( removed == REMOVE_BREAK_ENCHANT )
         {
           act("&+cSome of your &+Cmagic&+c dissipates...&n", FALSE, ch, 0, 0, TO_CHAR);
         }
@@ -3644,14 +3732,14 @@ int remove_and_wear(P_char ch, P_obj obj_object, int position, int keyword, int 
       execute_wear(ch, obj_object, position, keyword, showit);
       return TRUE;
     }
-    else if( removed == 1 )
+    else if( removed == REMOVE_CURSED )
     {
       if( showit )
       {
         act("$p won't budge!  Perhaps it's cursed?!?", TRUE, ch, temp, 0, TO_CHAR);
       }
     }
-    else if( removed == 3 )
+    else if( removed == REMOVE_CANT_CARRY )
     {
       if( showit )
       {
@@ -5046,92 +5134,6 @@ void do_grab(P_char ch, char *argument, int cmd)
   room_light(ch->in_room, REAL);
 }
 
-/* 
- * Returns TRUE if ch is wearing perm invis eq.
- */
-int wearing_invis(P_char ch)
-{
-  int      found = 0, k;
-
-  for (k = 0; k < MAX_WEAR; k++)
-    if (ch->equipment[k] &&
-        IS_SET(ch->equipment[k]->bitvector, AFF_INVISIBLE))
-      found = 1;
-  return found;
-}
-
-/* New Remove code which handles only the removing of the item.  This
- * allows for use in loops as well as in stand-alone capacities.  It 
- * also facilitates removing an item by position which is used in the
- * auto-replace wear code.  The procedure returns an int representing
- * the following:
- *     0 - Successful Remove
- *     1 - Cursed
- *     2 - Break Enchantment
- *     3 - Can't Carry
- *     4 - Not Using
- * The receiving code should handle displaying of messages to the user.
- * - Sniktiorg 25.1.13
- */
-int remove_item(P_char ch, P_obj obj_object, int position)
-{
-  struct   obj_affect *o_af;
-  int      ret_call;
-
-  // Set Default Return Call
-  ret_call = 0; // Defaults to Success (Optimistic, ain't we?)
-  
-  // Tests if Object Exists	
-  if (obj_object) 
-  {
-    if (IS_SET(obj_object->extra_flags, ITEM_NODROP) && !IS_TRUSTED(ch))
-    {
-      return 1; // Cursed!
-    }
-    else if (CAN_CARRY_N(ch) > IS_CARRYING_N(ch))
-    {
-      if (ch->equipment[WEAR_WAIST] && ch->equipment[WEAR_WAIST] == obj_object)
-      {
-        if (ch->equipment[WEAR_ATTACH_BELT_1])
-          obj_to_char(unequip_char(ch, WEAR_ATTACH_BELT_1), ch);
-        if (ch->equipment[WEAR_ATTACH_BELT_2])
-          obj_to_char(unequip_char(ch, WEAR_ATTACH_BELT_2), ch);
-        if (ch->equipment[WEAR_ATTACH_BELT_3])
-          obj_to_char(unequip_char(ch, WEAR_ATTACH_BELT_3), ch);
-      }
-      // Remove holy sword spell effects if sword is removed.
-      if (ch->equipment[WIELD] && ch->equipment[WIELD] == obj_object)
-      {
-        strip_holy_sword( ch );
-      }
-
-      obj_to_char(unequip_char(ch, position), ch);
-
-      // Remove Affects
-      if (IS_SET(obj_object->bitvector, AFF_INVISIBLE) && affected_by_spell(ch, TAG_PERMINVIS) && !wearing_invis(ch))
-        affect_from_char(ch, TAG_PERMINVIS);
-
-      if (obj_object && (o_af = get_obj_affect(obj_object, SKILL_ENCHANT)))
-      {
-        affect_from_char(ch, o_af->data);
-        ret_call = 2; // Break Enchantment
-        obj_affect_remove(obj_object, o_af);
-      }
-    }
-    else
-    {
-      ret_call = 3; // Can't Carry Anymore
-    }
-  }  
-  else // Object Doesn't Exist
-  {
-    ret_call = 4; // Not Using Item    
-  }
-
-  // Return
-  return ret_call;  
-}
-
 /* Modified Do_Remove which cuts down on repetition and allows for Do_Wear to 
  * properly replace worn equipment.
  * - Sniktiorg 25.1.13
@@ -5169,7 +5171,7 @@ void do_remove(P_char ch, char *argument, int cmd)
         temp_obj = ch->equipment[k];
 	      ret_type = remove_item(ch, ch->equipment[k], k);
 	      // Acknowledge Removal
-        if (ret_type == 0 || ret_type == 2)
+        if( ret_type == REMOVE_SUCCESS || ret_type == REMOVE_BREAK_ENCHANT )
         {
           act("You stop using $p.", FALSE, ch, temp_obj, 0, TO_CHAR);
 	        //Drannak - set affect noauction to prevent selling off equip prior to being fragged
@@ -5193,25 +5195,25 @@ void do_remove(P_char ch, char *argument, int cmd)
         // Parse Remaining Messages
         switch(ret_type)
         {
-          case 1 :
+          case REMOVE_CURSED:
             act("$p won't budge!  Perhaps it's cursed?!?", TRUE, ch, ch->equipment[k], 0, TO_CHAR);
             naked = FALSE;
       	    break;
-	        case 2 :
+	        case REMOVE_BREAK_ENCHANT:
             act("&+cSome of your &+Cmagic&+c dissipates...&n", FALSE, ch, 0, 0, TO_CHAR);
             break;
-          case 3 :
+          case REMOVE_CANT_CARRY:
             send_to_char("You can't carry that many items.\r\n", ch);
             break;
         } // End Switch
 
         // Break Out of Loop on Full Inventory
-        if (ret_type == 3)
+        if( ret_type == REMOVE_CANT_CARRY )
           break;
       } // End Loop
 
       // Give Appropriate Attire Change Messages
-      if (naked == TRUE && ret_type != 3)
+      if( naked == TRUE && ret_type != REMOVE_CANT_CARRY )
       {
         send_to_char("You are quite naked at the moment.\r\n", ch);
       }
@@ -5226,7 +5228,7 @@ void do_remove(P_char ch, char *argument, int cmd)
       obj_object = get_object_in_equip(ch, Gbuf1, &j);
       ret_type = remove_item(ch, obj_object, j);
       // Acknowledge Removal
-      if (ret_type == 0 || ret_type == 2)
+      if( ret_type == REMOVE_SUCCESS || ret_type == REMOVE_BREAK_ENCHANT )
       {
         act("You stop using $p.", FALSE, ch, obj_object, 0, TO_CHAR);
         act("$n stops using $p.", TRUE, ch, obj_object, 0, TO_ROOM);
@@ -5247,18 +5249,18 @@ void do_remove(P_char ch, char *argument, int cmd)
       }
 
       // Parse Remaining Messages
-      switch(ret_type)
+      switch( ret_type )
       {
-        case 1 :
+        case REMOVE_CURSED:
           act("$p won't budge!  Perhaps it's cursed?!?", TRUE, ch, obj_object, 0, TO_CHAR);
           break;
-        case 2 :
+        case REMOVE_BREAK_ENCHANT:
           act("&+cAs you remove the item, the &+Cenchantment &+cis broken...&n", FALSE, ch, obj_object, 0, TO_CHAR);
           break;
-        case 3 :
+        case REMOVE_CANT_CARRY:
           send_to_char("You can't carry that many items.\r\n", ch);
           break;
-        case 4 :
+        case REMOVE_NOT_USING:
           send_to_char("You are not using it.\r\n", ch);
           break;
       } // End Switch

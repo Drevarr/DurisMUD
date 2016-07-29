@@ -1,4 +1,3 @@
-
 /*
  * ***************************************************************************
  *  file: affects.c                                          part of Duris
@@ -84,6 +83,7 @@ float combat_by_class[CLASS_COUNT + 1][2];
 float combat_by_race[LAST_RACE + 1][3];
 float class_hitpoints[CLASS_COUNT + 1];
 struct mm_ds *dead_link_pool = NULL;
+struct mm_ds *dead_obj_link_pool = NULL;
 struct mm_ds *dead_obj_affect_pool = NULL;
 
 struct event_room_affect_data
@@ -100,9 +100,13 @@ extern void event_broken(struct char_link_data *);
 extern void charm_broken(struct char_link_data *);
 extern void casting_broken(struct char_link_data *);
 extern void tether_broken(struct char_link_data *);
+
+extern void cegilunes_broken(struct char_obj_link_data *);
+
 extern char *get_function_name(void *func);
-void     unlink_char_affect(P_char, struct affected_type *);
-struct link_description link_types[LNK_MAX + 1];
+void unlink_char_affect(P_char, struct affected_type *);
+void unlink_char_obj_affect(P_char, struct affected_type *);
+struct link_description link_types[LNK_MAX+1];
 
 int damroll_cap;
 int hitroll_cap;
@@ -2121,8 +2125,14 @@ void affect_remove(P_char ch, struct affected_type *af)
     }
   }
 
-  if( IS_SET(af->flags, AFFTYPE_LINKED) )
+  if( IS_SET(af->flags, AFFTYPE_LINKED_CH) )
+  {
     unlink_char_affect(ch, af);
+  }
+  if( IS_SET(af->flags, AFFTYPE_LINKED_OBJ) )
+  {
+    unlink_char_obj_affect(ch, af);
+  }
 
   mm_release(dead_affect_pool, af);
 
@@ -2754,61 +2764,67 @@ void remove_counter(P_char ch, int tag, int modifier)
  */
 
 //---------------------------------------------------------------------------------
-void define_link(int type, char *name, link_breakage_func break_func,
-                 int flags)
+void define_link(int type, char *name, link_breakage_func break_func, int flags)
 {
   link_types[type].name = name;
-  link_types[type].break_func = break_func;
-  link_types[type].flags = flags;
+  link_types[type].break_func.ch = break_func;
+  // Do not flag as object.
+  link_types[type].flags = flags & ~LNKFLG_OBJECT;
+}
+
+void define_olink(int type, char *name, link_obj_breakage_func break_func, int flags)
+{
+  link_types[type].name = name;
+  link_types[type].break_func.obj = break_func;
+  // Flag as object
+  link_types[type].flags = flags | LNKFLG_OBJECT;
 }
 
 //---------------------------------------------------------------------------------
 void initialize_links()
 {
   memset(link_types, 0, sizeof(link_types));
-  define_link(LNK_CONSENT, "CONSENT", NULL, LNKFLG_EXCLUSIVE);
-  define_link(LNK_RIDING, "RIDING", NULL, LNKFLG_EXCLUSIVE);
-  define_link(LNK_GUARDING, "GUARDING", guard_broken, LNKFLG_ROOM);
-  define_link(LNK_EVENT, "EVENT", event_broken, 0);
-  define_link(LNK_SNOOPING, "SNOOPING", NULL, 0);
-  define_link(LNK_FLANKING, "FLANKING", flanking_broken,
-              LNKFLG_ROOM | LNKFLG_EXCLUSIVE);
-  define_link(LNK_BATTLE_ORDERS, "BATTLE_ORDERS", NULL,
-              LNKFLG_ROOM | LNKFLG_EXCLUSIVE);
-  define_link(LNK_SONG, "SONG", song_broken, LNKFLG_AFFECT | LNKFLG_ROOM);
-  define_link(LNK_PET, "PET", charm_broken, LNKFLG_AFFECT | LNKFLG_EXCLUSIVE);
-  define_link(LNK_ESSENCE_OF_WOLF, "ESSENCE", essence_broken,
-              LNKFLG_ROOM | LNKFLG_EXCLUSIVE);
-  define_link(LNK_BLOOD_ALLIANCE, "BLOOD_ALLIANCE", NULL,
-              LNKFLG_EXCLUSIVE);
-  define_link(LNK_ETHEREAL, "ALLIED", NULL, LNKFLG_EXCLUSIVE);
-  define_link(LNK_CAST_ROOM, "CAST_ROOM", casting_broken, LNKFLG_ROOM);
-  define_link(LNK_CAST_WORLD, "CAST_WORLD", casting_broken, 0);
-   define_link(LNK_PALADIN_AURA, "PALADIN_AURA", aura_broken, LNKFLG_AFFECT | LNKFLG_ROOM);
-  define_link(LNK_GRAPPLED, "GRAPPLED", NULL, LNKFLG_ROOM);
-  define_link(LNK_CIRCLING, "CIRCLING", NULL, LNKFLG_ROOM | LNKFLG_EXCLUSIVE);
-  define_link(LNK_TETHER, "TETHERING", tether_broken, LNKFLG_ROOM);
-  define_link(LNK_SNG_HEALING, "SONG_HEALING", song_broken, LNKFLG_AFFECT | LNKFLG_ROOM);
+
+  define_link(LNK_CONSENT,          "CONSENT",            NULL,             LNKFLG_EXCLUSIVE);
+  define_link(LNK_RIDING,           "RIDING",             NULL,             LNKFLG_EXCLUSIVE);
+  define_link(LNK_GUARDING,         "GUARDING",           guard_broken,     LNKFLG_ROOM);
+  define_link(LNK_EVENT,            "EVENT",              event_broken,     LNKFLG_NONE);
+  define_link(LNK_SNOOPING,         "SNOOPING",           NULL,             LNKFLG_NONE);
+  define_link(LNK_FLANKING,         "FLANKING",           flanking_broken,  LNKFLG_ROOM | LNKFLG_EXCLUSIVE);
+  define_link(LNK_BATTLE_ORDERS,    "BATTLE_ORDERS",      NULL,             LNKFLG_ROOM | LNKFLG_EXCLUSIVE);
+  define_link(LNK_SONG,             "SONG",               song_broken,      LNKFLG_AFFECT | LNKFLG_ROOM);
+  define_link(LNK_PET,              "PET",                charm_broken,     LNKFLG_AFFECT | LNKFLG_EXCLUSIVE);
+  define_link(LNK_ESSENCE_OF_WOLF,  "ESSENCE",            essence_broken,   LNKFLG_ROOM | LNKFLG_EXCLUSIVE);
+  define_link(LNK_BLOOD_ALLIANCE,   "BLOOD_ALLIANCE",     NULL,             LNKFLG_EXCLUSIVE);
+  define_link(LNK_ETHEREAL,         "ALLIED",             NULL,             LNKFLG_EXCLUSIVE);
+  define_link(LNK_CAST_ROOM,        "CAST_ROOM",          casting_broken,   LNKFLG_ROOM);
+  define_link(LNK_CAST_WORLD,       "CAST_WORLD",         casting_broken,   LNKFLG_NONE);
+  define_link(LNK_PALADIN_AURA,     "PALADIN_AURA",       aura_broken,      LNKFLG_AFFECT | LNKFLG_ROOM);
+  define_link(LNK_GRAPPLED,         "GRAPPLED",           NULL,             LNKFLG_ROOM);
+  define_link(LNK_CIRCLING,         "CIRCLING",           NULL,             LNKFLG_ROOM | LNKFLG_EXCLUSIVE);
+  define_link(LNK_TETHER,           "TETHERING",          tether_broken,    LNKFLG_ROOM);
+  define_link(LNK_SNG_HEALING,      "SONG_HEALING",       song_broken,      LNKFLG_AFFECT | LNKFLG_ROOM);
+
+  define_olink(LNK_CEGILUNE,        "CEGILUNES_SEARING",  cegilunes_broken, LNKFLG_EXCLUSIVE | LNKFLG_BREAK_REMOVE );
 }
 
 //---------------------------------------------------------------------------------
-struct char_link_data *link_char_with_affect(P_char ch, P_char target,
-                                             ush_int type,
-                                             struct affected_type *af)
+struct char_link_data *link_char_with_affect(P_char ch, P_char target, ush_int type, struct affected_type *af)
 {
   struct char_link_data *cld;
 
   // attempt to create an undefined link - have a look at initialize_links
-  if (!link_types[type].name)
+  if( !link_types[type].name )
     raise(SIGSEGV);
 
   if (link_types[type].flags & LNKFLG_EXCLUSIVE)
     clear_links(ch, type);
 
-  if (!dead_link_pool)
-    dead_link_pool = mm_create("LINKS", sizeof(struct char_link_data),
-                               offsetof(struct char_link_data, next_linking),
-                               100);
+  if( !dead_link_pool )
+  {
+    dead_link_pool =
+      mm_create("LINKS", sizeof(struct char_link_data), offsetof(struct char_link_data, next_linking), 100);
+  }
 
   cld = (struct char_link_data *) mm_get(dead_link_pool);
   cld->affect = af;
@@ -2820,6 +2836,34 @@ struct char_link_data *link_char_with_affect(P_char ch, P_char target,
   ch->linking = target->linked = cld;
 
   return cld;
+}
+
+struct char_obj_link_data *link_char_obj_with_affect(P_char ch, P_obj obj, ush_int type, struct affected_type *af)
+{
+  struct char_obj_link_data *cold;
+
+  // attempt to create an undefined link - have a look at initialize_links
+  if( (type > LNK_MAX) || (type < 0) )
+    raise(SIGSEGV);
+
+  if( link_types[type].flags & LNKFLG_EXCLUSIVE )
+    clear_links(ch, type);
+
+  if( !dead_obj_link_pool )
+  {
+    dead_obj_link_pool =
+      mm_create("CHOBJLINKS", sizeof(struct char_obj_link_data), offsetof(struct char_obj_link_data, next), 100);
+  }
+
+  cold = (struct char_obj_link_data *) mm_get(dead_obj_link_pool);
+  cold->affect = af;
+  cold->ch = ch;
+  cold->obj = obj;
+  cold->type = type;
+  cold->next = ch->obj_linked;
+  ch->obj_linked = cold;
+
+  return cold;
 }
 
 //---------------------------------------------------------------------------------
@@ -2853,13 +2897,26 @@ P_char get_linking_char(P_char ch, ush_int type)
 }
 
 //---------------------------------------------------------------------------------
-int is_linked_to(P_char target, P_char ch, ush_int type)
+bool is_linked_to(P_char target, P_char ch, ush_int type)
 {
   struct char_link_data *cld;
 
   for (cld = ch->linking; cld; cld = cld->next_linking)
   {
     if (cld->type == type && cld->linked == target)
+      return TRUE;
+  }
+
+  return FALSE;
+}
+
+bool is_linked_to(P_char ch, P_obj obj, ush_int type)
+{
+  struct char_obj_link_data *cold;
+
+  for( cold = ch->obj_linked; cold; cold = cold->next )
+  {
+    if( (cold->type == type) && (cold->obj == obj) )
       return TRUE;
   }
 
@@ -2887,9 +2944,9 @@ void dispose_link(struct char_link_data *cld)
 
   if (link_types[cld->type].flags & LNKFLG_AFFECT)
   {
-    for (af = cld->linking->affected; af && af != cld->affect;
-         af = af->next) ;
-    if (af)
+    for( af = cld->linking->affected; af && af != cld->affect; af = af->next )
+      ;
+    if( af )
       affect_remove(cld->linking, af);
   }
   mm_release(dead_link_pool, cld);
@@ -2952,14 +3009,67 @@ void clear_links(P_char ch, ush_int type)
     unlink_char(ch, tch, type);
 }
 
-//---------------------------------------------------------------------------------
-void linked_affect_to_char(P_char ch, struct affected_type *af, P_char source,
-                           int type)
+void clear_links( P_char ch, P_obj obj, int flag )
 {
-  af->flags |= AFFTYPE_LINKED | AFFTYPE_NOSAVE;
+  struct char_obj_link_data *cold, *cold_prev, *cold_next;
+  P_obj tobj;
+
+  // Remove all those at the head of the list.
+  while( (( cold = ch->obj_linked ) != NULL) && (cold->obj == obj)
+    && IS_SET(link_types[cold->type].flags, flag) )
+  {
+    if( IS_SET( link_types[cold->type].flags, LNKFLG_OBJECT) && link_types[cold->type].break_func.obj )
+      link_types[cold->type].break_func.obj(cold);
+    ch->obj_linked = cold->next;
+    cold->next = NULL;
+    mm_release(dead_link_pool, cold);
+  }
+
+  // Remove all those after the head of the list.
+  //   Set previous to the head (which we know from the above loop is not a hit).
+  if( (cold_prev = ch->obj_linked) != NULL )
+  {
+    // First look at the second item in the list..
+    // If it exists...
+    for( cold = cold_prev->next; cold != NULL; cold = cold_next )
+    {
+      // Set cold_next to the second item after cold_prev in the list (possibly NULL).
+      cold_next = cold->next;
+      // If we have a hit,
+      if( cold->obj == obj )
+      {
+        // Remove cold from the list.
+        cold_prev->next = cold_next;
+        // And free memory.
+        cold->next = NULL;
+        mm_release(dead_link_pool, cold);
+      }
+      // If we don't have a hit, move cold_prev down the list one.
+      else
+      {
+        cold_prev = cold;
+      }
+    }
+  }
+}
+
+//---------------------------------------------------------------------------------
+void linked_affect_to_char(P_char ch, struct affected_type *af, P_char source, int type)
+{
+  af->flags |= AFFTYPE_LINKED_CH | AFFTYPE_NOSAVE;
   if (af->duration == 0)
     af->duration = 1;
   link_char_with_affect(ch, source, type, affect_to_char(ch, af));
+}
+
+void linked_affect_to_char_obj(P_char ch, struct affected_type *af, P_obj obj, int type)
+{
+  af->flags |= AFFTYPE_LINKED_OBJ | AFFTYPE_NOSAVE;
+
+  if( af->duration == 0 )
+    af->duration = 1;
+  link_char_obj_with_affect(ch, obj, type, affect_to_char(ch, af) );
+
 }
 
 //---------------------------------------------------------------------------------
@@ -2985,8 +3095,8 @@ void internal_unlink_char(P_char ch, struct char_link_data *cld, struct char_lin
     cld->linked->linked = cld->next_linked;
   if (cld->affect)
     wear_off_message(cld->linking, cld->affect);
-  if (link_types[cld->type].break_func)
-    link_types[cld->type].break_func(cld);
+  if( !IS_SET( link_types[cld->type].flags, LNKFLG_OBJECT) && link_types[cld->type].break_func.ch )
+    link_types[cld->type].break_func.ch(cld);
   dispose_link(cld);
 }
 
@@ -3018,6 +3128,34 @@ void unlink_char_affect(P_char ch, struct affected_type *af)
 
   if (cld)
     internal_unlink_char(ch, cld, prev);
+}
+
+void unlink_char_obj_affect(P_char ch, struct affected_type *af)
+{
+  struct char_obj_link_data *cold, *prev = NULL;
+
+  for( cold = ch->obj_linked; cold; prev = cold, cold = cold->next )
+  {
+    if( af == cold->affect )
+      break;
+  }
+
+  if( cold )
+  {
+    // If not at the head..
+    if( prev )
+    {
+      // Remove from the middle.
+      prev->next = cold->next;
+    }
+    else
+    {
+      // Remove from the head.
+      ch->obj_linked = cold->next;
+    }
+    cold->next = NULL;
+    mm_release(dead_link_pool, cold);
+  }
 }
 
 //---------------------------------------------------------------------------------

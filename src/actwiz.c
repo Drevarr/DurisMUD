@@ -3106,9 +3106,10 @@ void do_stat(P_char ch, char *argument, int cmd)
       strcat(o_buf, "\n");
     }
 
-    if(k->linking || k->linked)
+    if( k->linking || k->linked || k->obj_linked )
     {
       struct char_link_data *link;
+      struct char_obj_link_data *olink;
 
       strcat(o_buf, "&+YLinks:\n&+Y-------\n");
       for (link = k->linking; link; link = link->next_linking)
@@ -3124,6 +3125,11 @@ void do_stat(P_char ch, char *argument, int cmd)
                 "%s (%s): &+Ylinked to&n %s.\n",
                 link_types[link->type].name,
                 "slave", link->linking->player.name);
+      }
+      for( olink = k->obj_linked; olink; olink = olink->next )
+      {
+        sprintf(o_buf + strlen(o_buf), "%s: &+Ylinked to&n %s.\n", link_types[olink->type].name,
+          OBJ_SHORT(olink->obj) );
       }
       strcat(o_buf, "\n");
     }

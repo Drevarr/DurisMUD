@@ -14956,8 +14956,7 @@ void spell_pword_stun(int level, P_char ch, char *arg, int type, P_char victim, 
   }
 }
 
-void spell_dispel_magic(int level, P_char ch, char *arg, int type,
-                        P_char victim, P_obj obj)
+void spell_dispel_magic(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type *af, *next_af_dude;
   int      mod, success = 0, nosave = 0;
@@ -14977,7 +14976,7 @@ void spell_dispel_magic(int level, P_char ch, char *arg, int type,
      * no save when cast or on consenting target
      */
 
-    if(ch == victim && level < 57 && !IS_TRUSTED(ch))
+    if( ch == victim && level < 57 && !IS_TRUSTED(ch) )
     {
       send_to_char("You dispel the very spell you are casting!\n", ch);
       return;
@@ -14998,7 +14997,7 @@ void spell_dispel_magic(int level, P_char ch, char *arg, int type,
     act("You try to dispel $N's magic.", FALSE, ch, 0, victim, TO_CHAR);
     act("$n tries to dispel $N's magic!", FALSE, ch, 0, victim, TO_NOTVICT);
 
-    for (af = victim->affected; af; af = next_af_dude)
+    for( af = victim->affected; af; af = next_af_dude )
     {
       next_af_dude = af->next;
 
@@ -15023,10 +15022,8 @@ void spell_dispel_magic(int level, P_char ch, char *arg, int type,
           {
             orig = victim->only.npc->orig_char;
 
-            act("$n suddenly changes shape, reforming into $N.", FALSE,
-                victim, NULL, orig, TO_NOTVICT);
-            send_to_char("You suddenly feel yourself going back to normal.\n",
-                         victim);
+            act("$n suddenly changes shape, reforming into $N.", FALSE, victim, NULL, orig, TO_NOTVICT);
+            send_to_char("You suddenly feel yourself going back to normal.\n", victim);
 
             send_to_char("and you succeed!\n", ch);
             act("and succeeds!", FALSE, ch, 0, victim, TO_NOTVICT);

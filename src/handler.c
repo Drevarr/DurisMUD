@@ -1648,6 +1648,7 @@ P_obj unequip_char(P_char ch, int pos)
   if (IS_PC(ch) && GET_ITEM_TYPE(ch->equipment[pos]) == ITEM_ARMOR)
     ch->only.pc->prestige -= obj->value[2];
 
+  clear_links( ch, obj, LNKFLG_BREAK_REMOVE );
   all_affects(ch, FALSE);
   ch->equipment[pos] = NULL;
   obj->loc_p = LOC_NOWHERE;
