@@ -13308,14 +13308,11 @@ int set_proc(P_obj obj, P_char ch, int cmd, char *arg)
 
 int unspec_altar(P_obj obj, P_char ch, int cmd, char *arg)
 {
-  if (cmd != CMD_PRAY || !ch)
+  if( cmd != CMD_PRAY || !IS_ALIVE(ch) || !IS_PC(ch) )
     return FALSE;
 
-  if (!strstr(arg, "altar"))
+  if( !strstr(arg, "altar") )
     return FALSE;
-
- if(!ch)
- return FALSE;
 
 		/*
         if(GET_SPEC(ch, CLASS_SORCERER, SPEC_WIZARD))
@@ -13325,8 +13322,8 @@ int unspec_altar(P_obj obj, P_char ch, int cmd, char *arg)
 		do_save_silent(ch, 1); // racial skills require a save.
            }*/
 
-
   unspecialize(ch, obj);
+  return TRUE;
 }
 
 int unmulti_altar(P_obj obj, P_char ch, int cmd, char *arg)
