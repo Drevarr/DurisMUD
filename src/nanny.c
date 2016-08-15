@@ -3177,7 +3177,7 @@ void enter_game(P_desc d)
 //    GET_HOME(ch) = GET_BIRTHPLACE(ch) = GET_ORIG_BIRTHPLACE(ch);
 //    r_room = real_room(GET_HOME(ch));
 //  }
-  else if( IS_SHIP_ROOM(world[r_room].number) )
+  else if( IS_SHIP_ROOM(r_room) )
   {
     r_room = real_room(GET_BIRTHPLACE(ch));
   }
