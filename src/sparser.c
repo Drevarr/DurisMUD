@@ -2277,7 +2277,6 @@ void do_cast(P_char ch, char *argument, int cmd)
     return;
   }
 
-PENIS:
   if( cmd == CMD_INSTACAST )
   {
     SpellCastShow(ch, spl);
