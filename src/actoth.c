@@ -4345,116 +4345,68 @@ void show_toggles(P_char ch)
 }
 
 static const char *toggles_list[] = {
-  "?",                          /*
-                                 * * 00
-                                 */
-  "brief",                      /*
-                                 * * 01
-                                 */
-  "compact",                    /*
-                                 * * 02
-                                 */
-  "who",                        /*
-                                 * * 03
-                                 */
-  "vicious",                    /*
-                                 * * 04
-                                 */
-  "tell",                       /*
-                                 * * 05
-                                 */
-  "names",                      /*
-                                 * * 06
-                                 */
-  "gcc",                        /*
-                                 * * 07
-                                 */
-  "shout",                      /*
-                                 * * 08
-                                 */
-  "anonymous",                  /*
-                                 * * 09
-                                 */
-  "petition",                   /*
-                                 * * 10
-                                 */
-  "paging",                     /*
-                                 * * 11
-                                 */
-  "echo",                       /*
-                                 * * 12
-                                 */
-  "wimpy",                      /*
-                                 * * 13
-                                 */
-  "aggimmunity",                /*
-                                 * * 14
-                                 */
-  "terminal",                   /*
-                                 * * 15
-                                 */
-  "savenotify",                 /*
-                                 * * 16
-                                 */
-  "wizmessages",                /*
-                                 * * 17
-                                 */
-  "wizlog",                     /*
-                                 * * 18
-                                 */
-  "status",                     /*
-                                 * * 19
-                                 */
-  "vnum",                       /*
-                                 * * 20
-                                 */
-  "screensize",                 /*
-                                 * * 21
-                                 */
-  "smartprompt",                /*
-                                 * * 22
-                                 */
-  "fog",                        /*
-                                 * * 23
-                                 */
-  "map",                        /* 24 */
-  "debug",                      /* 25 */
-  "oldsmartprompt",             /* 26 */
-  "ban",                        /* 27 */
-  "logmsg",                     /* 28 */
-  "nolocate",                   /* 29 */
-  "titles",                     /* 30 */
-  "battle",                     /* 31 */
-  "kingdom",                    /* 32 */
+  "?",                    // 0
+  "brief",
+  "compact",
+  "who",
+  "vicious",
+  "tell",                 // 5
+  "names",
+  "gcc",
+  "shout",
+  "anonymous",
+  "petition",             // 10
+  "paging",
+  "echo",
+  "wimpy",
+  "aggimmunity",
+  "terminal",             // 15
+  "savenotify",
+  "wizmessages",
+  "wizlog",
+  "status",
+  "vnum",                 // 20
+  "screensize",
+  "smartprompt",
+  "fog",
+  "map",
+  "debug",                // 25
+  "oldsmartprompt",
+  "ban",
+  "logmsg",
+  "no locate",
+  "titles",               // 30
+  "battle",
+  "kingdom",
   "shipmap",
   "take",
-  "terse",
+  "terse",                // 35
   "quickchant",
-  "rwc",                        /* 37 */
-  "project",                    /* 38 */
-  "zzxyzz",                     /* 39 */
-  "afk",                        /* 40 */
+  "rwc",
+  "project",
+  "zzxyzz",
+  "afk",                  // 40
   "nchat",
   "damage",
   "spec1",
   "spec2",
-  "spec3",                      /* 45 */
+  "spec3",                // 45
   "spec4",
   "spec_timer",
   "heal",
   "group needed",
-  "experience",                 /* 50 */
+  "experience",           // 50
   "showspec",
-  "hint",                       /* 52 */
+  "hint",
   "webinfo",
   "acc",
-  "quest",                      /* 55 */
+  "quest",                // 55
   "boon",
   "newbie",
   "beep",
   "underline",
-  "surname",                    /* 60 */
-  "nolevel",
+  "surname",              // 60
+  "no level",
   "epic",
   "petdamage",
   "guildname",
@@ -4520,8 +4472,8 @@ static const char *tog_messages[][2] = {
    "You turn on ban messages.\r\n"},
   {"You turn off login/logout messages.\r\n",
    "You turn on login/logout messages.\r\n"},
-  {"You turn your no-locate status off.\r\n",
-   "You turn your no-locate status on.\r\n"},
+  {"You turn your &+Wno-locate&n status off.\r\n",
+   "You turn your &+Wno-locate&n status on.\r\n"},
   {"You will now see player titles.\r\n",
    "You will no longer see player titles.\r\n"},
   {"You turn your battle alert status off.\r\n",
@@ -4613,15 +4565,15 @@ void do_toggle(P_char ch, char *arg, int cmd)
       return;
     }
   }
-  arg = one_argument(arg, Gbuf1);
+  arg = skip_spaces(arg);
 
-  if( !*Gbuf1 )
+  if( !*arg )
   {
     // Doesn't care about morphs: just sending a message to send_ch.
     show_toggles(send_ch);
     return;
   }
-  tog_nr = (old_search_block(Gbuf1, 0, strlen(Gbuf1), toggles_list, 0) - 1);
+  tog_nr = (old_search_block(arg, 0, strlen(arg), toggles_list, 0) - 1);
 
   if( tog_nr < 0 )
   {

@@ -1120,9 +1120,10 @@ char *skip_spaces(char *string)
     return NULL;
   }
 
-  for (; *string && ((*string) == ' '); string++) ;
+  while( *string == ' ' )
+    string++;
 
-  return (string);
+  return string;
 }
 
 void show_abort_casting(P_char ch)
