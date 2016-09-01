@@ -2156,7 +2156,7 @@ void return_home(P_char ch, P_char victim, P_obj obj, void *data)
 
  LOOP_EVENTS_CH(ev, ch->nevents)
  {
-   if (ev->func == mob_hunt_event)
+   if (ev->func == event_mob_hunt)
    {
      add_event(return_home, 30, ch, 0, 0, 0, 0, 0);
      return;
@@ -2171,7 +2171,7 @@ void return_home(P_char ch, P_char victim, P_obj obj, void *data)
 
  h_data.hunt_type = HUNT_JUSTICE_SPECROOM;
  h_data.targ.room = real_room(GET_BIRTHPLACE(ch));
- add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &h_data, sizeof(hunt_data));
+ add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &h_data, sizeof(hunt_data));
  //AddEvent(EVENT_MOB_HUNT, PULSE_MOB_HUNT, TRUE, ch, h_data);
  add_event(return_home, 30, ch, 0, 0, 0, 0, 0);
 }

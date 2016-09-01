@@ -1416,7 +1416,7 @@ static byte FFS_ship(int src, int target, int *ttl_steps)
 
   if (src < 0 || src > top_of_world || target < 0 || target > top_of_world)
   {
-    logit(LOG_DEBUG, "Illegal value passed to find_first_step (graph.c)");
+    logit(LOG_DEBUG, "Illegal value passed to FFS_ship (graph.c)");
     return BFS_ERROR;
   }
   if (src == target)
@@ -1479,7 +1479,7 @@ static byte FFS_wagon(int src, int target, int *ttl_steps)
 
   if (src < 0 || src > top_of_world || target < 0 || target > top_of_world)
   {
-    logit(LOG_DEBUG, "Illegal value passed to find_first_step (graph.c)");
+    logit(LOG_DEBUG, "Illegal value passed to FFS_wagon (graph.c)");
     return BFS_ERROR;
   }
   if (src == target)
@@ -1536,7 +1536,7 @@ static byte FFS_flying(int src, int target, int *ttl_steps)
   
   if (src < 0 || src > top_of_world || target < 0 || target > top_of_world)
   {
-    logit(LOG_DEBUG, "Illegal value passed to find_first_step (graph.c)");
+    logit(LOG_DEBUG, "Illegal value passed to FFS_flying (graph.c)");
     return BFS_ERROR;
   }
   if (src == target)
@@ -1603,30 +1603,36 @@ static byte FFS_flying(int src, int target, int *ttl_steps)
 /*
  * NOTE: this uses REAL room numbers!! 
  */
-byte find_first_step(int src, int target, long hunt_flags,
-                  int is_ship, int wagon_type, int *ttl_steps)
+byte find_first_step(int src, int target, long hunt_flags, int is_ship, int wagon_type, int *ttl_steps)
 {
   int      curr_dir;
   int      curr_room;
+  // setup some flags.  code is cleaner with booleans than with checking bit flags...
+  bool can_fly = IS_SET(hunt_flags, BFS_CAN_FLY);
+  bool can_dispel = IS_SET(hunt_flags, BFS_CAN_DISPEL);
+  bool can_break = IS_SET(hunt_flags, BFS_BREAK_WALLS);
+  bool stay_zone = IS_SET(hunt_flags, BFS_STAY_ZONE);
+  bool no_mob = IS_SET(hunt_flags, BFS_AVOID_NOMOB);
+  bool rr_targ = IS_SET(hunt_flags, BFS_ROADRANGER);
+  struct room_direction_data *exit;
   ulong    i = 0U;
   P_char tar;
+
 
   if(is_ship)
   {
     return FFS_ship(src, target, ttl_steps);
   }
-  
+
   if(wagon_type == WAGON_TYPE_WAGON)
   {
     return FFS_wagon(src, target, ttl_steps);
   }
-  
+
   if (wagon_type == WAGON_TYPE_FLYING)
   {
     return FFS_flying(src, target, ttl_steps);
   }
-
-  bool rr_targ = IS_SET(hunt_flags, BFS_ROADRANGER);
 
   if (!dead_bfs_pool)
     dead_bfs_pool = mm_create("HUNT", sizeof(struct bfs_queue_struct),
@@ -1638,39 +1644,42 @@ byte find_first_step(int src, int target, long hunt_flags,
     return BFS_ERROR;
   }
 
-  if ((rr_targ ? IS_ROADRANGER_TARGET(src) : (src == target)))
+  if( (rr_targ ? IS_ROADRANGER_TARGET(src) : (src == target)) )
   {
     return BFS_ALREADY_THERE;
   }
-  
-  // setup some flags.  code is cleaner with booleans than with checking
-  // bit flags...
-  bool can_fly = IS_SET(hunt_flags, BFS_CAN_FLY);
-  bool can_dispel = IS_SET(hunt_flags, BFS_CAN_DISPEL);
-  bool can_break = IS_SET(hunt_flags, BFS_BREAK_WALLS);
-  bool stay_zone = IS_SET(hunt_flags, BFS_STAY_ZONE);
-  
-  // clear marks first 
+
+#define YN(x) (x ? "YES" : "NO")
+debug( "From room: %d, can_fly: %s, can_dispel: %s, can_break: %s, stay_zone: %s, no_mob: %s.", world[src].number,
+  YN(can_fly), YN(can_dispel), YN(can_break), YN(stay_zone), YN(no_mob) );
+
+  // clear marks first
   bfs_clear_marks();
   BFSMARK(src);
 
   // first, enqueue the first steps, saving which direction we're going. 
   for (curr_dir = 0; curr_dir < NUM_EXITS; curr_dir++)
   {
-    if(VALID_EDGE(src, curr_dir) && 
-      (can_fly || !NEEDS_FLY(src, curr_dir)) &&
-      (!stay_zone || SAME_ZONE(src, curr_dir)) &&
-      (can_dispel || !IS_WALLED(src, curr_dir) || 
-      (can_break && IS_BREAKABLE(src, curr_dir))))
+    exit = world[src].dir_option[curr_dir];
+    if( VALID_EDGE2(exit) )
     {
-      BFSMARK(TOROOM(src, curr_dir));
-      bfs_enqueue(TOROOM(src, curr_dir), curr_dir, 1);
+      // Mark it first so we only check it once.
+      BFSMARK( exit->to_room );
+      if( HOMETOWN_CHECK(src, exit->to_room)
+        && (can_fly || !NEEDS_FLY( src, curr_dir ))
+        && (!stay_zone || SAME_ZONE(src, curr_dir ))
+        && (can_dispel || !IS_WALLED( src, curr_dir ) || ( can_break && IS_BREAKABLE(src, curr_dir) ))
+        && (!no_mob || !IS_SET( world[exit->to_room].room_flags, NO_MOB )) )
+      {
+        // Enqueue it only if it passes the checks.
+        bfs_enqueue(exit->to_room, curr_dir, 1);
+      }
     }
   }
   // now, do the classic BFS. 
-  while (queue_head)
+  while( queue_head )
   {
-    if (i++ > BFS_MAX_ROOMS)
+    if( i++ > BFS_MAX_ROOMS )
     {
       // ack!  we searched too many rooms... Who the heck is in the room?
       for(tar = world[queue_head->room].people; tar; tar = tar->next_in_room)
@@ -1691,9 +1700,7 @@ byte find_first_step(int src, int target, long hunt_flags,
           continue;
         }
       }
-      
       // debug
-     
       /*
       logit(LOG_DEBUG,"too many rooms searched from room (%d) target (%d) is_ship (%d) wagon_type(%d)",
         ROOM_VNUM(src),
@@ -1705,8 +1712,8 @@ byte find_first_step(int src, int target, long hunt_flags,
 
       return BFS_ERROR;
     }
-    
-    if ((rr_targ ? IS_ROADRANGER_TARGET(queue_head->room) : (queue_head->room == target)))
+
+    if( (rr_targ ? IS_ROADRANGER_TARGET(queue_head->room) : (queue_head->room == target)) )
     {
       curr_dir = queue_head->dir;
       *ttl_steps = queue_head->step_no;
@@ -1715,18 +1722,23 @@ byte find_first_step(int src, int target, long hunt_flags,
     }
     else
     {
-      for (curr_dir = 0; curr_dir < NUM_EXITS; curr_dir++)
+      for( curr_dir = 0; curr_dir < NUM_EXITS; curr_dir++ )
       {
-        if (VALID_EDGE(queue_head->room, curr_dir) &&
-            (can_fly || !NEEDS_FLY(queue_head->room, curr_dir)) &&
-            (!stay_zone || SAME_ZONE(queue_head->room, curr_dir)) &&
-            (can_dispel || 
-             !IS_WALLED(queue_head->room, curr_dir) || 
-             (can_break && IS_BREAKABLE(queue_head->room, curr_dir)))) 
+        curr_room = queue_head->room;
+        exit = world[curr_room].dir_option[curr_dir];
+        if( VALID_EDGE2(exit) )
         {
-          BFSMARK(TOROOM(queue_head->room, curr_dir));
-          bfs_enqueue(TOROOM(queue_head->room, curr_dir), queue_head->dir,
-                      queue_head->step_no + 1);
+          // Mark it first so we only check it once.
+          BFSMARK( exit->to_room );
+          if( HOMETOWN_CHECK(curr_room, exit->to_room)
+            && (can_fly || !NEEDS_FLY( curr_room, curr_dir ))
+            && (!stay_zone || SAME_ZONE(curr_room, curr_dir ))
+            && (can_dispel || !IS_WALLED( curr_room, curr_dir ) || ( can_break && IS_BREAKABLE(curr_room, curr_dir) ))
+            && (!no_mob || !IS_SET( world[exit->to_room].room_flags, NO_MOB )) )
+          {
+            // Enqueue it only if it passes the checks.
+            bfs_enqueue(exit->to_room, curr_dir, queue_head->step_no + 1 );
+          }
         }
       }
       bfs_dequeue();

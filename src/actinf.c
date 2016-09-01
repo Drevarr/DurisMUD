@@ -2825,7 +2825,14 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
     }
     else if (world[room_no].sector_type == SECT_CASTLE_GATE)
     {
-      send_to_char("&+LA Large Iron Portcullis&n\n", ch);
+      send_to_char("&+LA Large Iron Portcullis&n", ch);
+      if( IS_SET(ch->specials.act, PLR_VNUM) && IS_TRUSTED(ch) )
+      {
+        sprintf(buffer, " [&+R%d&N:&+C%d&N]\n", zone_table[world[room_no].zone].number, world[room_no].number);
+        send_to_char(buffer, ch);
+      }
+      else
+        send_to_char( "\n", ch );
     }
     else
     {

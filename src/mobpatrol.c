@@ -188,15 +188,14 @@ void event_patrol_move(P_char ch, P_char vict, P_obj obj, void *data)
       else if (!VALID_PATROL_ROOM(ch->in_room))
       {  // if not in a valid patrolling room - find one!
         int dummy = 0;
-        dir = find_first_step(ch->in_room, 0, 
-                              BFS_CAN_FLY | BFS_BREAK_WALLS | BFS_ROADRANGER,
-                              0,0, &dummy);
-        if (dir < 0)
+        dir = find_first_step(ch->in_room, 0, BFS_CAN_FLY | BFS_BREAK_WALLS | BFS_ROADRANGER | BFS_AVOID_NOMOB,
+          0, 0, &dummy);
+        if( dir < 0 )
         {
           mobsay(ch, "Well, I'm seriously screwed with no way to get back to the road.");
-	  die(ch, ch);
+      	  die(ch, ch);
           return;
-        }                            
+        }
       }
       else
       {

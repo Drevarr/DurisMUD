@@ -823,21 +823,19 @@ typedef int (*room_proc_type) (int, P_char, int, char *);
 
 /* ========================= Structure for room ========================== */
 struct room_data {
-  int number;                   /* Room number                        */
-  ush_int zone;                 /* Room zone (for resetting)          */
-  byte sector_type;             /* sector type (move/hide)            */
+  int number;                                         /* Room number                        */
+  ush_int zone;                                       /* Room zone (for resetting)          */
+  byte sector_type;                                   /* sector type (move/hide)            */
   int continent;
-  char *name;                   /* Rooms name 'You are ...'           */
-  char *description;            /* Shown when entered                 */
-  struct extra_descr_data
-   *ex_description;             /* for examine/look                   */
-  struct room_direction_data
-   *dir_option[NUM_EXITS];     /* Directions                         */
-  ulong room_flags;             /* DEATH, DARK ... etc                */
-//  ulong resources;            /* what resources the room contains   */
-//  ubyte kingdom_num;          /* matches guild or town number       */
-//  ubyte kingdom_type;         /* town, pc, npc                      */
-  byte light;                   /* Number of lightsources in room     */
+  char *name;                                         /* Rooms name 'You are ...'           */
+  char *description;                                  /* Shown when entered                 */
+  struct extra_descr_data *ex_description;            /* for examine/look                   */
+  struct room_direction_data *dir_option[NUM_EXITS];  /* Directions                         */
+  ulong room_flags;                                   /* DEATH, DARK ... etc                */
+//  ulong resources;                                  /* what resources the room contains   */
+//  ubyte kingdom_num;                                /* matches guild or town number       */
+//  ubyte kingdom_type;                               /* town, pc, npc                      */
+  byte light;                                         /* Number of lightsources in room     */
   byte justice_area;
   byte chance_fall;
   byte current_speed;

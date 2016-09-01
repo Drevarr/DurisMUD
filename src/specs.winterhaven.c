@@ -1608,7 +1608,7 @@ int wh_janitor(P_char ch, P_char pl, int cmd, char *arg)
 
     LOOP_EVENTS_CH(ev, ch->nevents)
     {
-      if (ev->func == mob_hunt_event)
+      if (ev->func == event_mob_hunt)
       {
         return FALSE;
       }
@@ -1616,7 +1616,7 @@ int wh_janitor(P_char ch, P_char pl, int cmd, char *arg)
     data.hunt_type = HUNT_ROOM;
     data.targ.room = well_room;
     data.huntFlags = BFS_STAY_ZONE;
-    add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
+    add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
   }
   break;
   }

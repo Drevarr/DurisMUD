@@ -1400,7 +1400,7 @@ int duergar_guild(int room, P_char ch, int cmd, char *arg)
     killer->player.m_class = CLASS_WARRIOR;
     data.hunt_type = HUNT_HUNTER;
     data.targ.victim = ch;
-    add_event(mob_hunt_event, PULSE_MOB_HUNT, killer, NULL, NULL, 0, &data, sizeof(hunt_data));
+    add_event(event_mob_hunt, PULSE_MOB_HUNT, killer, NULL, NULL, 0, &data, sizeof(hunt_data));
     //AddEvent(EVENT_MOB_HUNT, PULSE_MOB_HUNT, TRUE, killer, data);
   }
   act("$N jumps from the shadows, surprising you!", FALSE, ch, 0, killer,

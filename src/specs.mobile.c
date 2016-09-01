@@ -2297,7 +2297,7 @@ int guild_guard(P_char ch, P_char pl, int cmd, char *arg)
 
     LOOP_EVENTS_CH(ev, pl->nevents)
     {
-      if (ev->func == mob_hunt_event)
+      if (ev->func == event_mob_hunt)
       {
         break;
       }

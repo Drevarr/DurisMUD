@@ -573,14 +573,14 @@ return FALSE;
 
       LOOP_EVENTS_CH(ev, ch->nevents)
       {
-        if (ev->func == mob_hunt_event) /* ah!  good..  */
+        if (ev->func == event_mob_hunt) /* ah!  good..  */
           return FALSE;
       }
       /* hmm.. I'm targetting someone, but not hunting or
          fighting... fix it */
       data.hunt_type = HUNT_JUSTICE_INVADER;
       data.targ.victim = ch->specials.arrest_by;
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
       //AddEvent(EVENT_MOB_HUNT, PULSE_MOB_HUNT, TRUE, ch, data);
       return TRUE;
     }
@@ -617,7 +617,7 @@ return FALSE;
 
   data.hunt_type = HUNT_JUSTICE_SPECROOM;
   data.targ.room = real_room(GET_BIRTHPLACE(ch));
-  add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
+  add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
   //AddEvent(EVENT_MOB_HUNT, PULSE_MOB_HUNT, TRUE, ch, data);
   return TRUE;
 }
@@ -716,7 +716,7 @@ void JusticeGuardHunt(P_char ch)
 
     data.hunt_type = HUNT_JUSTICE_SPECROOM;
     data.targ.room = real_room(hometowns[CHAR_IN_TOWN(ch) - 1].report_room);
-    add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
+    add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
     //AddEvent(EVENT_MOB_HUNT, PULSE_MOB_HUNT, TRUE, ch, data);
 
     return;
@@ -782,7 +782,7 @@ void JusticeGuardHunt(P_char ch)
     {
       data.hunt_type = HUNT_JUSTICE_SPECROOM;
       data.targ.room = real_room(GET_BIRTHPLACE(ch));
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
       //AddEvent(EVENT_MOB_HUNT, PULSE_MOB_HUNT, TRUE, ch, data);
     }
     else
@@ -1099,7 +1099,7 @@ int justice_send_guards(int to_rroom, P_char victim, int type, int how_many)
     rr = real_room(hometowns[town - 1].guard_room[i]);
     if (rr == NOWHERE)
       continue;
-    dir = find_first_step(rr, to_rroom, BFS_CAN_FLY | BFS_CAN_DISPEL, 0, 0, &dist);
+    dir = find_first_step(rr, to_rroom, BFS_CAN_FLY | BFS_CAN_DISPEL | BFS_AVOID_NOMOB, 0, 0, &dist);
     if (dir == BFS_ALREADY_THERE)
       dist = 0;
     else if (dir < 0)
@@ -1167,7 +1167,7 @@ int justice_send_guards(int to_rroom, P_char victim, int type, int how_many)
     if (npc_has_spell_slot(tch, SPELL_DISPEL_MAGIC))
       data.huntFlags |= BFS_CAN_DISPEL;
     
-    add_event(mob_hunt_event, PULSE_MOB_HUNT, tch, NULL, NULL, 0, &data, sizeof(hunt_data));
+    add_event(event_mob_hunt, PULSE_MOB_HUNT, tch, NULL, NULL, 0, &data, sizeof(hunt_data));
     //AddEvent(EVENT_MOB_HUNT, PULSE_MOB_HUNT, TRUE, tch, data);
     how_many--;
 
@@ -1446,7 +1446,7 @@ void justice_send_witness(P_char ch, P_char attacker, P_char victim, int rroom,
 
   data.hunt_type = HUNT_JUSTICE_SPECROOM;
   data.targ.room = real_room(hometowns[CHAR_IN_TOWN(ch) - 1].report_room);
-  add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
+  add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
   //AddEvent(EVENT_MOB_HUNT, PULSE_MOB_HUNT, TRUE, ch, data);
 
   return;
@@ -2464,7 +2464,7 @@ int shout_and_hunt(P_char ch, int max_distance, const char *shout_str, int (*loc
 
       LOOP_EVENTS_CH(ev, target->nevents)
       {
-        if (ev->func == mob_hunt_event)
+        if (ev->func == event_mob_hunt)
         {
           break;
         }
@@ -2482,7 +2482,7 @@ int shout_and_hunt(P_char ch, int max_distance, const char *shout_str, int (*loc
 //       debug("Okay boss mob is shouting at this point and we calling for find_first_step in justice.c 2421");
       if( find_first_step(target->in_room, ch->in_room, (IS_MAGE(target) ? BFS_CAN_FLY : 0) |
         (npc_has_spell_slot(target, SPELL_DISPEL_MAGIC) ? BFS_CAN_DISPEL : 0) |
-        BFS_BREAK_WALLS, 0, 0, &dummy) < 0)
+        BFS_BREAK_WALLS | BFS_AVOID_NOMOB, 0, 0, &dummy) < 0)
       {
 //        debug( "shout_and_hunt: mob (%s) no first step to room (%d).", J_NAME(target), ch->in_room);
         continue;
@@ -2506,7 +2506,7 @@ int shout_and_hunt(P_char ch, int max_distance, const char *shout_str, int (*loc
       }
       found_help = TRUE;
 //    debug( "shout_and_hunt: adding hunt event mob (%s) to room (%d).", J_NAME(target), ch->in_room);
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, target, NULL, NULL, 0, &data, sizeof(hunt_data));
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, target, NULL, NULL, 0, &data, sizeof(hunt_data));
       //AddEvent(EVENT_MOB_HUNT, PULSE_MOB_HUNT, TRUE, target, data);
     }
   }

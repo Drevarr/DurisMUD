@@ -64,7 +64,8 @@ void event_track_move(P_char ch, P_char vict, P_obj obj, void *data)
 
 //debug( "Victim: %s, specs.tracking: %d", vict ? J_NAME(vict) : "NULL", ch->specials.tracking );
   dir = find_first_step(ch->in_room,(vict ? vict->in_room : ch->specials.tracking),
-    (IS_SET(ch->specials.affected_by, AFF_FLY) ? BFS_CAN_FLY : 0) | BFS_CAN_DISPEL, 0, 0, &dist);
+    (IS_SET(ch->specials.affected_by, AFF_FLY) ? BFS_CAN_FLY : 0) | BFS_CAN_DISPEL | (IS_NPC(ch) ? BFS_AVOID_NOMOB : 0),
+    0, 0, &dist);
 
   if( dir == BFS_ERROR || dir == BFS_NO_PATH )
   {

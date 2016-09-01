@@ -9065,21 +9065,21 @@ bool TryToGetHome(P_char ch)
    */
   LOOP_EVENTS_CH(ev, ch->nevents)
   {
-    if( ev->func == mob_hunt_event )
+    if( ev->func == event_mob_hunt )
     {
       return FALSE;
     }
   }
   data.hunt_type = HUNT_ROOM;
   data.targ.room = rr_birth;
-  data.huntFlags = BFS_BREAK_WALLS;
+  data.huntFlags = BFS_BREAK_WALLS | BFS_AVOID_NOMOB;
   if(npc_has_spell_slot(ch, SPELL_DISPEL_MAGIC))
     data.huntFlags |= BFS_CAN_DISPEL;
   if(IS_MAGE(ch) || IS_AFFECTED(ch, AFF_FLY))
     data.huntFlags |= BFS_CAN_FLY;
-  if(!get_scheduled(ch, mob_hunt_event))
+  if(!get_scheduled(ch, event_mob_hunt))
   {
-    add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
+    add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
   }
   //AddEvent(EVENT_MOB_HUNT, PULSE_MOB_HUNT, TRUE, ch, data);
 
@@ -9494,7 +9494,7 @@ bool InitNewMobHunt(P_char ch)
 
   LOOP_EVENTS_CH(ev, ch->nevents)
   {
-    if(ev->func == mob_hunt_event)
+    if(ev->func == event_mob_hunt)
     {
       return FALSE;
     }
@@ -9529,19 +9529,21 @@ bool InitNewMobHunt(P_char ch)
         return FALSE;
 
       long hunt_flags = (IS_MAGE(ch) || IS_AFFECTED(ch, AFF_FLY)) ? BFS_CAN_FLY : 0;
+      hunt_flags |= BFS_AVOID_NOMOB;
+
       if(((GET_LEVEL(ch) * 2) + GET_C_INT(ch))  >= 190)
         hunt_flags |= (npc_has_spell_slot(ch, SPELL_DISPEL_MAGIC) ? BFS_CAN_DISPEL : BFS_BREAK_WALLS);
 
       if(IS_SET(ch->specials.act, ACT_STAY_ZONE))
         hunt_flags |= BFS_STAY_ZONE;
 
-      if(!get_scheduled(ch, mob_hunt_event) &&
+      if(!get_scheduled(ch, event_mob_hunt) &&
          find_first_step(ch->in_room, tmpch->in_room, hunt_flags, 0, 0, &dummy) >= 0)
       {
         data.huntFlags = hunt_flags;
         data.hunt_type = HUNT_HUNTER;
         data.targ.victim = tmpch;
-        add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
+        add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
         
         //AddEvent(EVENT_MOB_HUNT, PULSE_MOB_HUNT, TRUE, ch, data);
         return TRUE;
@@ -9566,7 +9568,7 @@ bool InitNewMobHunt(P_char ch)
  * This code will deal with adding a new event for the next step.  return
  * TRUE if I did something, otherwise, FALSE
  */
-void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
+void event_mob_hunt(P_char ch, P_char victim, P_obj obj, void *d)
 //bool NewMobHunt(void)
 {
   char     buf[MAX_STRING_LENGTH];
@@ -9673,7 +9675,9 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
     /* TIMKEN LAG patch, only track people in our zone EVER */
     if(world[cur_room].zone != world[targ_room].zone)
       return;
+    // Add the stay zone flag per above and the avoid no-mob rooms flag since mob.
     data->huntFlags |= BFS_STAY_ZONE;
+    data->huntFlags |= BFS_AVOID_NOMOB;
 
     /*
      * if the mob doesn't hate the victim, then don't hunt them!
@@ -9697,10 +9701,10 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
      * Okay.. if anything falls in here, they can't move right now, but
      * they should try later...
      */
-    if(!get_scheduled(ch, mob_hunt_event))
+    if(!get_scheduled(ch, event_mob_hunt))
     {
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
-    }    
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
+    }
     return;
   }
 
@@ -9712,26 +9716,26 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
     do_wake(ch, NULL, 0);
 
   }
-  if(!get_scheduled(ch, mob_hunt_event))
+  if(!get_scheduled(ch, event_mob_hunt))
   {
-    add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
+    add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
     return;
   }
   if(GET_POS(ch) != POS_STANDING)
   {
     do_stand(ch, NULL, 0);
   }
-  if(!get_scheduled(ch, mob_hunt_event))
+  if(!get_scheduled(ch, event_mob_hunt))
   {
-    add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
+    add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
     return;
   }
   if(GET_STAT(ch) != STAT_NORMAL)
   {
     do_alert(ch, NULL, 0);
-    if(!get_scheduled(ch, mob_hunt_event))
+    if(!get_scheduled(ch, event_mob_hunt))
     {
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
     }
     return;
   }
@@ -9769,32 +9773,32 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
     if(npc_has_spell_slot(ch, SPELL_GREATER_RAVENFLIGHT))
     {
       MobCastSpell(ch, ch, 0, SPELL_GREATER_RAVENFLIGHT, GET_LEVEL(ch));
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
       return;
     }
 
     if(npc_has_spell_slot(ch, SPELL_FLY))
     {
       MobCastSpell(ch, ch, 0, SPELL_FLY, GET_LEVEL(ch));
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
       return;
     }
     else if(npc_has_spell_slot(ch, SPELL_POWERCAST_FLY))
     {
       MobCastSpell(ch, ch, 0, SPELL_POWERCAST_FLY, GET_LEVEL(ch));
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
       return;
     }
     else if(npc_has_spell_slot(ch, SPELL_LEVITATE))
     {
       MobCastSpell(ch, ch, 0, SPELL_LEVITATE, GET_LEVEL(ch));
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
       return;
     }
     else if(npc_has_spell_slot(ch, SPELL_RAVENFLIGHT))
     {
       MobCastSpell(ch, ch, 0, SPELL_RAVENFLIGHT, GET_LEVEL(ch));
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
       return;
     }
     /*
@@ -9814,7 +9818,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
     if(npc_has_spell_slot(ch, SPELL_INVIGORATE))
     {
       MobCastSpell(ch, ch, 0, SPELL_INVIGORATE, GET_LEVEL(ch));
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
       return;
     }
   }
@@ -9902,7 +9906,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
       /*
        * they flee?  whatever happened, stay on them...
        */
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
       return;
     }
     return;
@@ -9918,7 +9922,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
       next_step = number(0, NUM_EXITS - 1);
       if(!world[ch->in_room].dir_option[(int) next_step])
       {
-        add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+        add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
         return;
       }
     }
@@ -9960,7 +9964,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
            npc_has_spell_slot(ch, SPELL_DIMENSION_DOOR))
         {
           MobCastSpell(ch, vict, 0, SPELL_DIMENSION_DOOR, GET_LEVEL(ch));
-          add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
+          add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
             data, sizeof(hunt_data));
           return;
         }
@@ -9968,7 +9972,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
                 npc_has_spell_slot(ch, SPELL_SPIRIT_JUMP))
         {
           MobCastSpell(ch, vict, 0, SPELL_SPIRIT_JUMP, GET_LEVEL(ch));
-          add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
+          add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
             data, sizeof(hunt_data));
           return;
         }
@@ -9976,7 +9980,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
                  && npc_has_spell_slot(ch, SPELL_RELOCATE))
         {
           MobCastSpell(ch, vict, 0, SPELL_RELOCATE, GET_LEVEL(ch));
-          add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
+          add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
             data, sizeof(hunt_data));
           return;
         }
@@ -9984,7 +9988,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
                  npc_has_spell_slot(ch, SPELL_SHADOW_TRAVEL))
         {
           MobCastSpell(ch, vict, 0, SPELL_SHADOW_TRAVEL, GET_LEVEL(ch));
-          add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
+          add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
             data, sizeof(hunt_data));
           return;
         }
@@ -9992,7 +9996,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
                  npc_has_spell_slot(ch, SPELL_ETHER_WARP))
         {
           MobCastSpell(ch, vict, 0, SPELL_ETHER_WARP, GET_LEVEL(ch));
-          add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
+          add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
             data, sizeof(hunt_data));
           return;
         }
@@ -10013,8 +10017,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
   {
     if(targ_room == real_room(GET_BIRTHPLACE(ch)))
       dummy2 = 0;
-    else if(find_first_step(real_room(GET_BIRTHPLACE(ch)), targ_room, data->huntFlags,
-                             0, 0, &dummy2) < 0)
+    else if(find_first_step(real_room(GET_BIRTHPLACE(ch)), targ_room, data->huntFlags, 0, 0, &dummy2) < 0)
       dummy2 = dummy + 1;       /*
                                  * if no path from recall room, make sure
                                  * dummy is smaller then dummy2
@@ -10023,7 +10026,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
     if((dummy2 < dummy) && npc_has_spell_slot(ch, SPELL_WORD_OF_RECALL))
     {
       MobCastSpell(ch, ch, 0, SPELL_WORD_OF_RECALL, GET_LEVEL(ch));
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
       return;
     }
   }
@@ -10045,20 +10048,17 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
      !IS_AFFECTED2(ch, AFF2_PASSDOOR))
   {
     /* animals don't open doors! */
-    if(!CAN_SPEAK(ch) &&
-       !IS_GREATER_RACE(ch))
+    if(!CAN_SPEAK(ch) && !IS_GREATER_RACE(ch))
     {
       justice_hunt_cancel(ch);
       return;
     }
-    /*
-     * okay.. closed door in the way.. just open it :)
-     *     */
+    // okay.. closed door in the way.. just open it :)
 
     sprintf(buf, "%s", dirs[(int) next_step]);
     do_open(ch, buf, 0);
-    
-    add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+
+    add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
     return;
   }
 
@@ -10079,14 +10079,14 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
             // FirstWord(EXIT(ch, (int) next_step)->keyword) : "door",
             // dirs[(int) next_step]);
     // do_open(ch, buf, 0);
-    // add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+    // add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
     // return;
   // }
   
   if(IS_WALLED(cur_room, next_step))
   {
     if(MobDestroyWall(ch, next_step,  IS_SET(data->huntFlags, BFS_BREAK_WALLS)))
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
     return;
   }
 
@@ -10102,8 +10102,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
 
   if((data->retry < 5) || (data->retry_dir != next_step))
   {
-    if((data->hunt_type == HUNT_JUSTICE_SPECVICT) ||
-        (data->hunt_type == HUNT_JUSTICE_SPECROOM))
+    if( (data->hunt_type == HUNT_JUSTICE_SPECVICT) || (data->hunt_type == HUNT_JUSTICE_SPECROOM) )
       JusticeGuardMove(ch, NULL, exitnumb_to_cmd(next_step));
     else
       do_move(ch, NULL, exitnumb_to_cmd(next_step));
@@ -10123,7 +10122,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
       data->retry = 0;
     }
   }
-  add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+  add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
   return;
 }
 
@@ -10357,7 +10356,7 @@ void MobRetaliateRange(P_char ch, P_char vict)
 
     /* if there's an error..  exit the function */
 
-    result = find_first_step(ch->in_room, vict->in_room, 1, 0, 0, &dummy);
+    result = find_first_step(ch->in_room, vict->in_room, BFS_CAN_FLY, 0, 0, &dummy);
     if(result >= 0)
       BreathWeapon(ch, result);
     else
@@ -10382,22 +10381,21 @@ void MobRetaliateRange(P_char ch, P_char vict)
     /* Are they hunting already? */
     LOOP_EVENTS_CH(ev, ch->nevents)
     {
-      if(ev->func == mob_hunt_event)
+      if(ev->func == event_mob_hunt)
       {
         return;
       }
     }
 
     /* Can they even get there? (rivers, etc) */
-    if(find_first_step(ch->in_room, vict->in_room,
-                        (IS_MAGE(ch) || IS_AFFECTED(ch, AFF_FLY)) ? BFS_CAN_FLY : 0,
-                        0, 0, &dummy)
-        >= 0)
+    if( find_first_step(ch->in_room, vict->in_room,
+      ( (( IS_MAGE(ch) || IS_AFFECTED(ch, AFF_FLY) ) ? BFS_CAN_FLY : 0) | BFS_AVOID_NOMOB ), 0, 0, &dummy) >= 0 )
     {
       data.hunt_type = HUNT_JUSTICE_INVADER;
       data.targ.victim = vict;
       data.huntFlags = (IS_MAGE(ch) || IS_AFFECTED(ch, AFF_FLY)) ? BFS_CAN_FLY : 0;
-      add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
+      data.huntFlags |= BFS_AVOID_NOMOB;
+      add_event(event_mob_hunt, PULSE_MOB_HUNT, ch, NULL, NULL, 0, &data, sizeof(hunt_data));
       //AddEvent(EVENT_MOB_HUNT, PULSE_MOB_HUNT, TRUE, ch, data);
       add_event(return_home, 30, ch, 0, 0, 0, 0, 0);
       return;

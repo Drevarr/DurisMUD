@@ -17,8 +17,8 @@
 #define BFS_CAN_DISPEL    BIT_2
 #define BFS_BREAK_WALLS   BIT_3
 #define BFS_STAY_ZONE     BIT_4
-#define BFS_ROADRANGER    BIT_5 // special type that ignores 'target' search for
-                                // a room "IS_ROADRANGER_TARGET()"
+#define BFS_ROADRANGER    BIT_5 // special type that ignores 'target' search for a room "IS_ROADRANGER_TARGET()"
+#define BFS_AVOID_NOMOB   BIT_6
 
 #define WAGON_TYPE_WAGON  1
 #define WAGON_TYPE_FLYING 2
@@ -63,6 +63,7 @@ extern int bfs_cur_marker;
 #define NEEDS_FLY(x, y) (TO_OCEAN(x,y) || TO_NOSWIM(x,y))
 #define TO_NOGROUND(x, y)(world[TOROOM(x, y)].sector_type == \
                           SECT_NO_GROUND)
+
 #define VALID_EDGE(x, y) (world[(x)].dir_option[(y)] && \
 			  (TOROOM(x, y) != NOWHERE) &&	\
                          /* (!IS_SECRET(x, y)) && */        \
@@ -75,6 +76,15 @@ extern int bfs_cur_marker;
                           (zone_table[world[x].zone].hometown == \
                            zone_table[world[TOROOM(x,y)].zone].hometown) && \
 			  (!IS_MARKED(TOROOM(x, y))))
+
+// Similar to VALID_EDGE, missing the hometown check, but faster due to less dereferencing.
+#define VALID_EDGE2(exit) ( (exit != NULL) && (exit->to_room != NOWHERE) && !IS_MARKED(exit->to_room) \
+  && !IS_SET(exit->exit_info, EX_LOCKED | EX_BLOCKED)                                                 \
+  && !IS_OCEAN_ROOM(exit->to_room) && (world[exit->to_room].sector_type != SECT_MOUNTAIN)             \
+  && !IS_SET(world[exit->to_room].room_flags, GUILD_ROOM) )
+
+// Handles the missing hometown check difference between VALID_EDGE() and VALID_EDGE2()
+#define HOMETOWN_CHECK( src, dest ) (zone_table[world[src].zone].hometown ==  zone_table[world[dest].zone].hometown)
 
 #define VALID_RADIAL_EDGE(x, y) (world[(x)].dir_option[(y)] && \
                                  (TOROOM(x, y) != NOWHERE) &&	\

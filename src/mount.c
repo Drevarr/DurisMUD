@@ -598,8 +598,7 @@ int wagon_pull(P_char ch, int mob)
       navi_info[mob].destination = navi_info[mob].start1;
   }
 
-  next_step =
-    find_first_step(ch->in_room, navi_info[mob].destination, 0, 0, WAGON_TYPE_WAGON, &dum);
+  next_step = find_first_step(ch->in_room, navi_info[mob].destination, 0, 0, WAGON_TYPE_WAGON, &dum);
 
   if ((next_step >= 0) && (next_step < NUM_EXITS))
   {

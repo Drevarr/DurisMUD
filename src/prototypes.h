@@ -1775,7 +1775,7 @@ bool MobMonk(P_char);
 bool MobAlchemist(P_char);
 bool MobBerserker(P_char);
 bool NewMobAct(P_char, int);
-void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *data);
+void event_mob_hunt(P_char ch, P_char victim, P_obj obj, void *data);
 bool NewMobHunt(void);
 bool MobDestroyWall(P_char ch, int dir, bool bTryHit = false);
 bool MobDestroyWall(P_char ch, P_obj wall, bool bTryHit = false);
