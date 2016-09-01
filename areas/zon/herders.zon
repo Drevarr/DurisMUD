@@ -2,7 +2,7 @@
 &+LThe Behemoth Herders&N~
 94646 1 0 40 50 1
 *
-* Zone edited with durisEdit v3.00
+* Zone edited with durisEdit v3.02
 *
 *
 D 0 94303 0 8 100 0 0 0
@@ -823,7 +823,7 @@ M 0 94426 4 94454 100 0 0 0        * a groaning zombie
 M 0 94427 5 94454 100 0 0 0        * a pale ghoul
 M 0 94426 4 94454 100 0 0 0        * a groaning zombie
 M 0 94427 5 94456 100 0 0 0        * a pale ghoul
-M 0 94364 1 94457 100 0 0 0        * Archahzel
+M 0 94364 1 94457 100 0 0 0        * Archazel
 E 1 94350 1 12 100 0 0 0           *   a villainous black cape
 E 1 94343 1 16 100 0 0 0           *   a huge bone broadsword
 F 1 94365 4 94457 100 0 0 0        * a minion of Archahzel (following)
