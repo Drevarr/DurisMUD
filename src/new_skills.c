@@ -562,6 +562,10 @@ void do_feign_death(P_char ch, char *arg, int cmd)
   af.type = SKILL_FEIGN_DEATH;
   af.flags = AFFTYPE_STORE | AFFTYPE_SHORT;
   af.duration = WAIT_SEC * get_property("timer.secs.feignDeath", 60);
+  if( GET_CLASS(ch, CLASS_NECROMANCER) )
+  {
+    af.duration /= 3;
+  }
   af.modifier = 0;
   affect_to_char(ch, &af);
 
