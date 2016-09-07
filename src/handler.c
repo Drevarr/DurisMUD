@@ -64,6 +64,8 @@ extern struct time_info_data time_info;
 extern struct arena_data arena;
 extern P_event event_list;
 extern const int dam_cap_data[];
+extern void update_ingame_racewar( int racewar );
+
 static char buf[MAX_INPUT_LENGTH];
 
 void     send_to_arena(char *msg, int race);
@@ -2822,6 +2824,7 @@ void extract_char(P_char ch)
   
   if (IS_PC(ch))
   {
+    update_ingame_racewar( -GET_RACEWAR(GET_TRUE_CHAR(ch)) );
     if (IS_AFFECTED2(ch, AFF2_CASTING))
       StopCasting(ch);
   }

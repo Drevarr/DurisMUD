@@ -509,7 +509,7 @@ void do_camp(P_char ch, char *arg, int cmd)
 
       i = i*100;
 
-      j = get_property("camp.timer", 9.00);
+      j = get_property("camp.timer", 9);
 
       i = (int) (i/j);
 
@@ -554,7 +554,7 @@ void do_camp(P_char ch, char *arg, int cmd)
   /*
    * this is short_affect_update time, about 140 seconds
    */
-  af.duration = IS_TRUSTED(ch) ? 0 : 9;
+  af.duration = IS_TRUSTED(ch) ? 0 : get_property("camp.timer", 9);
   af.modifier = (int) ch->in_room;
   af.bitvector = AFF_CAMPING;
   af.flags = AFFTYPE_NODISPEL;

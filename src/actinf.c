@@ -87,6 +87,10 @@ extern int avail_descs;
 extern int help_array[27][2];
 extern int info_array[27][2];
 extern int max_descs;
+extern int curr_ingame_good;
+extern int max_ingame_good;
+extern int curr_ingame_evil;
+extern int max_ingame_evil;
 extern int max_users_playing;
 extern int number_of_quests;
 extern int number_of_shops;
@@ -3763,7 +3767,10 @@ void do_world(P_char ch, char *argument, int cmd)
       sprintf(buf, "Number of active sockets:              %5d\n",
               used_descs);
       send_to_char(buf, ch);
-      sprintf(buf, "Max sockets used this boot:            %5d\n", max_descs);
+      sprintf(buf, "Max sockets used this boot:            %5d\n"
+        "Goods in game this boot(Curr/Max):      %5d / %5d\n"
+        "Evils in game this boot(Curr/Max):      %5d / %5d\n",
+        max_descs, curr_ingame_good, max_ingame_good, curr_ingame_evil, max_ingame_evil );
       send_to_char(buf, ch);
     }
     sprintf(buf, "Maximum allowable sockets:             %5d\n", avail_descs);

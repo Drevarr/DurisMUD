@@ -114,10 +114,45 @@ unsigned int game_locked_players = 0;
 unsigned int game_locked_level = 0;
 struct mm_ds *dead_pconly_pool = NULL;
 long int highestPCidNumb;
+int curr_ingame_good = 0;
+int max_ingame_good = 0;
+int curr_ingame_evil = 0;
+int max_ingame_evil = 0;
 
 void swapstat( P_desc d, char *arg);
 void select_swapstat( P_desc d, char *arg);
 void swapstats(P_char ch, int stat1, int stat2);
+
+void update_ingame_racewar( int racewar )
+{
+  int count;
+  if( racewar < 0 )
+  {
+    racewar *= -1;
+    count = -1;
+  }
+  else
+  {
+    count = 1;
+  }
+
+  if( racewar == RACEWAR_GOOD )
+  {
+    curr_ingame_good += count;
+    if( curr_ingame_good > max_ingame_good )
+    {
+      max_ingame_good = curr_ingame_good;
+    }
+  }
+  else if( racewar == RACEWAR_EVIL )
+  {
+    curr_ingame_evil += count;
+    if( curr_ingame_evil > max_ingame_evil )
+    {
+      max_ingame_evil = curr_ingame_evil;
+    }
+  }
+}
 
 int getNewPCidNumb(void)
 {
@@ -3768,6 +3803,10 @@ void enter_game(P_desc d)
   initialize_logs(ch, true);
 
   send_offline_messages(ch);
+
+  if( GET_LEVEL(ch) < MINLVLIMMORTAL )
+    update_ingame_racewar( GET_RACEWAR(ch) );
+
 //make sure existing chars have base stats 80 - Drannak
 if(d->character->base_stats.Str < 80)
   {
