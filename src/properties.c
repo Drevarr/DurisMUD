@@ -35,6 +35,7 @@ extern void update_stat_data();
 extern void update_dam_factors();
 extern void update_racial_dam_factors();
 extern void update_saving_throws();
+extern void update_breath_weapon_properties();
 extern float hp_mob_con_factor;
 extern float hp_mob_npc_pc_ratio;
 extern int damroll_cap;
@@ -115,6 +116,7 @@ void apply_properties()
   update_dam_factors();
   update_racial_dam_factors();
   update_saving_throws();
+  update_breath_weapon_properties();
   hp_mob_con_factor = get_property("hitpoints.mob.conFactor", 0.4);
   hp_mob_npc_pc_ratio = get_property("hitpoints.mob.NpcPcRatio", 2.0);
   damroll_cap = get_property("damage.damrollCap", 64);
@@ -226,8 +228,7 @@ void save_properties(P_char ch)
 void initialize_properties()
 {
   properties_count = load_properties(duris_properties);
-  qsort(duris_properties, properties_count, sizeof(struct property),
-        property_comp);
+  qsort(duris_properties, properties_count, sizeof(struct property), property_comp);
   apply_properties();
 }
 

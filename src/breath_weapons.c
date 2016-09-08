@@ -9,6 +9,9 @@
 #include "spells.h"
 #include "comm.h"
 
+float breath_dam_mod;
+float breath_saved_divisor;
+
 // Same as spell_fire_breath, which should be removed eventually.
 void breath_weapon_fire(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
@@ -29,7 +32,7 @@ void breath_weapon_fire(int level, P_char ch, char *arg, int type, P_char victim
   }
 
   save = BREATH_WEAPON_SAVE( ch, victim );
-  dam = (int) 4 * (dice(level + get_property("dragon.Breath.DamageMod", 1), 8) + level);
+  dam = (int) ( breath_dam_mod * (dice( level, 8 ) + level) );
 
   if( IS_PC_PET(ch) )
   {
@@ -38,7 +41,7 @@ void breath_weapon_fire(int level, P_char ch, char *arg, int type, P_char victim
 
   if( NewSaves(victim, SAVING_BREATH, save) )
   {
-    dam = (int) ((float)dam / get_property("dragon.Breath.savedDamage", 2.0));
+    dam = (int) ((float)dam / breath_saved_divisor);
   }
   // 5 - 250 damage.
   dam = BOUNDED(20, dam, 1000);
@@ -117,11 +120,13 @@ void breath_weapon_lightning(int level, P_char ch, char *arg, int type, P_char v
     return;
 
   save = BREATH_WEAPON_SAVE( ch, victim );
-  dam = 4 * (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 8) + level);
-  if(IS_PC_PET(ch))
-    dam /= 2;
+  dam = (int) ( breath_dam_mod * (dice( level, 8 ) + level) );
+  if( IS_PC_PET(ch) )
+  {
+    dam /= 4;
+  }
   if(NewSaves(victim, SAVING_BREATH, save))
-    dam = (int) ((float)dam / get_property("dragon.Breath.savedDamage", 2.0));
+    dam = (int) ((float)dam / breath_saved_divisor);
 
   if( IS_AFFECTED2(victim, AFF2_PROT_LIGHTNING) )
   {
@@ -154,15 +159,15 @@ void breath_weapon_frost(int level, P_char ch, char *arg, int type, P_char victi
   }
 
   save = BREATH_WEAPON_SAVE( ch, victim );
-  dam = 4 * (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 8) + level);
+  dam = (int) ( breath_dam_mod * (dice( level, 8 ) + level) );
   if( IS_PC_PET(ch) )
   {
-    dam /= 2;
+    dam /= 4;
   }
 
   if( NewSaves(victim, SAVING_BREATH, save) )
   {
-    dam = (int) ((float)dam / get_property("dragon.Breath.savedDamage", 2.0));
+    dam = (int) ((float)dam / breath_saved_divisor);
   }
   dam = BOUNDED(20, dam, 1000);
 
@@ -238,9 +243,12 @@ void breath_weapon_acid(int level, P_char ch, char *arg, int type, P_char victim
     return;
 
   save = BREATH_WEAPON_SAVE( ch, victim );
-  dam = 4 * (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 12) + level);
-  if(IS_PC_PET(ch))
-    dam /= 2;
+  dam = (int) ( breath_dam_mod * (dice( level, 12 ) + level) );
+  if( IS_PC_PET(ch) )
+  {
+    dam /= 4;
+  }
+
   if(NewSaves(victim, SAVING_BREATH, save))
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
 
@@ -295,13 +303,15 @@ void breath_weapon_poison(int level, P_char ch, char *arg, int type, P_char vict
     return;
 
   save = BREATH_WEAPON_SAVE( ch, victim );
-  dam = dice(level + get_property("dragon.Breath.DamageMod", 1), 2)
-    + ((level + get_property("dragon.Breath.DamageMod", 1)) / 4);
-  dam *= 4;
+  dam = (int) ( breath_dam_mod * (dice( level, 2 ) + dice( level, 4 ) + level) );
+
   if( IS_PC_PET(ch) )
-    dam /= 2;
+  {
+    dam /= 4;
+  }
+
   if(NewSaves(victim, SAVING_BREATH, save))
-    dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2.0));
+    dam = (int) (dam / breath_saved_divisor);
   dam = BOUNDED(20, dam, 1000);
 
   if( spell_damage(ch, victim, dam, SPLDAM_GAS, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) == DAM_NONEDEAD )
@@ -346,10 +356,14 @@ void breath_weapon_shadow_1(int level, P_char ch, char *arg, int type, P_char vi
     return;
 
   save = BREATH_WEAPON_SAVE( ch, victim );
-  dam = 4 * (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 5) + level);
+  dam = (int) ( breath_dam_mod * (dice( level, 5 ) + level) );
+  if( IS_PC_PET(ch) )
+  {
+    dam /= 4;
+  }
 
   if(NewSaves(victim, SAVING_BREATH, save))
-    dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2.0));
+    dam = (int) (dam / breath_saved_divisor);
 
   dam = BOUNDED(20, dam, 1000);
 
@@ -373,10 +387,14 @@ void breath_weapon_shadow_2(int level, P_char ch, char *arg, int type, P_char vi
     return;
 
   save = BREATH_WEAPON_SAVE( ch, victim );
-  dam = 4 * (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 7) + level);
+  dam = (int) ( breath_dam_mod * (dice( level, 7 ) + level) );
+  if( IS_PC_PET(ch) )
+  {
+    dam /= 4;
+  }
 
   if( NewSaves(victim, SAVING_BREATH, save) )
-    dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2.0));
+    dam = (int) (dam / breath_saved_divisor);
 
   dam = BOUNDED(20, dam, 1000);
 
@@ -406,9 +424,11 @@ void breath_weapon_blind(int level, P_char ch, char *arg, int type, P_char victi
     return;
 
   save = BREATH_WEAPON_SAVE( ch, victim );
-  dam = 4 * (int) (180 + dice(4, 10) + ((level + get_property("dragon.Breath.DamageMod", 1)) / 2));
+  dam = (int) ( breath_dam_mod * (( (7 * level) / 2 ) + dice( 4, 10 )) );
   if( IS_PC_PET(ch) )
-    dam /= 2;
+  {
+    dam /= 4;
+  }
   if( NewSaves(victim, SAVING_BREATH, save) )
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));;
 
@@ -447,10 +467,11 @@ void breath_weapon_crimson(int level, P_char ch, char *arg, int type, P_char vic
     return;
 
   save = BREATH_WEAPON_SAVE( ch, victim );
-  dam = 4 * (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 9) + level);
-
+  dam = (int) ( breath_dam_mod * (dice( level, 9 ) + level) );
   if( IS_PC_PET(ch) )
-    dam /= 2;
+  {
+    dam /= 4;
+  }
 
   if( NewSaves(victim, SAVING_BREATH, save) )
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
@@ -529,9 +550,11 @@ void breath_weapon_jasper(int level, P_char ch, char *arg, int type, P_char vict
     return;
 
   save = BREATH_WEAPON_SAVE( ch, victim );
-  dam = 4 * (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 7) + level);
+  dam = (int) ( breath_dam_mod * (dice( level, 7 ) + level) );
   if( IS_PC_PET(ch) )
-    dam /= 2;
+  {
+    dam /= 4;
+  }
   if( NewSaves(victim, SAVING_BREATH, save) )
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
 
@@ -561,10 +584,12 @@ void breath_weapon_azure(int level, P_char ch, char *arg, int type, P_char victi
     return;
 
   save = BREATH_WEAPON_SAVE( ch, victim );
-  dam = 4 * (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 8) + level);
+  dam = (int) ( breath_dam_mod * (dice( level, 8 ) + level) );
 
   if( IS_PC_PET(ch) )
-    dam /= 2;
+  {
+    dam /= 4;
+  }
   if( NewSaves(victim, SAVING_BREATH, save) )
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
 
@@ -595,10 +620,12 @@ void breath_weapon_basalt(int level, P_char ch, char *arg, int type, P_char vict
     return;
 
   save = BREATH_WEAPON_SAVE( ch, victim );
-  dam = 4 * (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 11) + level);
+  dam = (int) ( breath_dam_mod * (dice( level, 11 ) + level) );
 
   if( IS_PC_PET(ch) )
-    dam /= 2;
+  {
+    dam /= 4;
+  }
   if( NewSaves(victim, SAVING_BREATH, save) )
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
 
@@ -636,3 +663,8 @@ void breath_weapon_basalt_2(int level, P_char ch, char *arg, int type, P_char vi
   spell_basalt_light(level, ch, arg, type, victim, obj);
 }
 
+void update_breath_weapon_properties()
+{
+  breath_dam_mod = get_property("dragon.Breath.DamageMod", 1.0);
+  breath_saved_divisor = get_property("dragon.Breath.savedDamage", 2.0);
+}

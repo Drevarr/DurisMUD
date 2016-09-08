@@ -85,6 +85,7 @@ void initialize_transport();
 bool newLeaderBoard(P_char ch, char *arg, int cmd);
 bool newHardcoreBoard(P_char ch, char *arg, int cmd);
 void format_to_snoopers( char *from_string, char *to_string );
+void update_breath_weapon_properties();
 
 /* local globals */
 
@@ -365,7 +366,7 @@ void run_the_game(int port)
 
   calculate_map_coordinates();
   fprintf(stderr, "--  Done calculating maps coordinates.\r\n");
-  
+
   fprintf(stderr, "-- Calculating avg mob level for each zone.\r\n");
   calc_zone_mob_level();
   fprintf(stderr, "--  Done calculating mob level.\r\n");
@@ -376,12 +377,14 @@ void run_the_game(int port)
   load_cmd_attributes();
   fprintf(stderr, "--  Done loading command attributes.\r\n");
 
-  if ( no_ferries == 0 ) 
+  if ( no_ferries == 0 )
     init_ferries();
-  else 
+  else
     fprintf(stderr, "Starting without ferries.\r\n");
 
   initialize_transport();
+
+  update_breath_weapon_properties();
 
   //initialize_buildings();
 
