@@ -2174,7 +2174,6 @@ void do_give(P_char ch, char *argument, int cmd)
   int      amount, ctype;
   P_char   vict, rider;
   P_obj    obj;
-  int      quest = 0;
 
 /*  struct affected_type af;*/
 
@@ -2219,10 +2218,6 @@ void do_give(P_char ch, char *argument, int cmd)
       send_to_char("To who?\r\n", ch);
       return;
     }
-
-    if (IS_NPC(vict) && mob_index[real_mobile0(GET_RNUM(vict))].qst_func)
-      quest = 1;
-
 
     if( racewar(ch, vict) )
     {

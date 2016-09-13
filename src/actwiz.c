@@ -1604,7 +1604,7 @@ void do_stat(P_char ch, char *argument, int cmd)
   char     buf[MAX_STRING_LENGTH], o_buf[MAX_STRING_LENGTH];
   char    *timestr;
   char     time_left[128], showed_vals = FALSE;
-  int      i = 0, i2, i3, i4, m_virtual, num_tr, num_pr, count, x;
+  int      i = 0, i2, i3, i4, m_virtual, num_tr, num_pr, count, x, qi;
   Memory  *mem;
   struct affected_type *aff;
   struct extra_descr_data *desc;
@@ -2773,8 +2773,13 @@ void do_stat(P_char ch, char *argument, int cmd)
     if(IS_PC(k))
       sprintf(buf, "%s  &nSbank: %5d\n", buf, GET_BALANCE_SILVER(k));
     else
-      sprintf(buf, "%-52s  &+YQuest: &N%s\n", buf,
-              (mob_index[GET_RNUM(k)].qst_func ? "&+RExists" : "None"));
+    {
+      qi = find_quester_id( GET_RNUM(k) );
+
+      sprintf( buf, "%-52s  &+YQuest: &N%s\n", buf, mob_index[GET_RNUM(k)].qst_func
+        ? (has_quest_complete( qi ) ? "&+BComplete&N"
+        : ( has_quest_ask(qi) ? "&+RAsk&N" : "&+RRoomMsg&n" )) : "None" );
+    }
     strcat(o_buf, buf);
 
     sprintf(buf, "                                &+yCcoins: &N%5d",

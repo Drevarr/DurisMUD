@@ -1264,7 +1264,7 @@ void show_char_to_char(P_char i, P_char ch, int mode)
       29, 30, 10, 31, 11, 14, 15, 33, 34, 9, 32, 1,  2, 16, 17, 25, 26, 18,  7,
       36,  8, 38, -1
     };  // Also defined in get_equipment_list
-  int      diff, race;
+  int      diff, race, qi;
   struct affected_type *af;
   int      quester_id;
   bool     visobj, higher, lower;
@@ -1346,17 +1346,20 @@ void show_char_to_char(P_char i, P_char ch, int mode)
     if( IS_NPC(i) && (IS_NPC(ch) || PLR2_FLAGGED(ch, PLR2_SHOW_QUEST))
       && (GET_LEVEL(ch) <= get_property("look.showquestgiver.maxlvl", 30)) )
     {
+      qi = find_quester_id( GET_RNUM(i) );
+
       if( mob_index[GET_RNUM(i)].func.mob
         && !strcmp(get_function_name((void*)mob_index[GET_RNUM(i)].func.mob), "world_quest") )
       {
         strcat(buffer, "&+Y(Q)&n");
       }
-      else if( mob_index[GET_RNUM(i)].qst_func )
+      else if( has_quest_complete(qi) )
       {
-        if (has_quest(i))
-        {
-          strcat(buffer, "&+B(Q)&n");
-        }
+        strcat(buffer, "&+B(Q)&n");
+      }
+      else if( has_quest_ask(qi) )
+      {
+        strcat(buffer, "&+b(Q)&n");
       }
     }
 

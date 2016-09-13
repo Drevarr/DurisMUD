@@ -464,21 +464,20 @@ int quester(P_char ch, P_char pl, int cmd, char *arg)
     return (FALSE);
 
   /* if quester can't see player */
-  if (((!CAN_SEE(ch, pl) || !CAN_SEE(pl, ch)) && (GET_LEVEL(pl) < MINLVLIMMORTAL))
-    || IS_FIGHTING(ch) || IS_DESTROYING(ch) || (GET_STAT(ch) <= STAT_SLEEPING))       
+  if( ((!CAN_SEE(ch, pl) || !CAN_SEE(pl, ch)) && (GET_LEVEL(pl) < MINLVLIMMORTAL))
+    || IS_FIGHTING(ch) || IS_DESTROYING(ch) || (GET_STAT(ch) <= STAT_SLEEPING) )
     return (FALSE);
 
   if(affected_by_spell(ch, TAG_CONJURED_PET) || affected_by_spell(pl, TAG_CONJURED_PET))
-  return (FALSE);
+    return (FALSE);
 
   if (cmd == CMD_ASK || cmd == CMD_TELL)
   {                             /* player asked about quest */
     half_chop(arg, name, Gbuf1);
-    if (!*name || !*Gbuf1 || (!(vict = get_char_room_vis(pl, name)) &&
-                              (GET_LEVEL(pl) < MINLVLIMMORTAL)) ||
-        (vict != ch))
+    if( !*name || !*Gbuf1
+      || (!(vict = get_char_room_vis(pl, name)) && (GET_LEVEL(pl) < MINLVLIMMORTAL)) || (vict != ch) )
       return (FALSE);
-    if ((quester_id = find_quester_id(GET_RNUM(ch))) < 0)
+    if( (quester_id = find_quester_id( GET_RNUM(ch) )) < 0 )
       return (FALSE);
 
     if ((cmd == CMD_TELL) && IS_TRUSTED(pl) && !strn_cmp(Gbuf1, "quest", 5))
@@ -486,7 +485,7 @@ int quester(P_char ch, P_char pl, int cmd, char *arg)
       tell_quest(quester_id, pl);
       return (TRUE);
     }
-    for (qmp = quest_index[quester_id].quest_message; qmp; qmp = qmp->next)
+    for( qmp = quest_index[quester_id].quest_message; qmp; qmp = qmp->next)
     {
       if (qmp->key_words && isname(Gbuf1, qmp->key_words))
       {
@@ -505,12 +504,13 @@ int quester(P_char ch, P_char pl, int cmd, char *arg)
   }
   if (cmd == CMD_GIVE)
   {
-    /* This next chunk of code is to deal with the case where someone's 
+    /* This next chunk of code is to deal with the case where someone's
      * giving the quest mob money.  Need to check a different argument to
      * get the name.
      * -- DTS 2/28/95
      */
-    for (temparg = arg; isspace(*temparg); temparg++) ; /* skip whitespaces */
+    for (temparg = arg; isspace(*temparg); temparg++)
+      ; /* skip whitespaces */
     if (isdigit(*temparg))
       temparg = one_argument(arg, name);
 
@@ -897,24 +897,47 @@ float getQuestTropy(int questID)
   return (float) ((float) (trophy * 1.00) / (float) (total_trophy * 1.00));
 }
 
-int has_quest(P_char ch)
+bool has_quest(P_char ch)
 {
-  if (!IS_NPC(ch))
+  int qi;
+
+  if( !IS_NPC(ch) )
     return FALSE;
 
-  int arg;
-  int qi = find_quester_id(GET_RNUM(ch));
-  struct quest_msg_data *qdata = quest_index[qi].quest_message;
+  qi = find_quester_id(GET_RNUM(ch));
 
-  for (qdata = quest_index[qi].quest_message; qdata; qdata = qdata->next)
+  if( qi < 0 )
   {
-    if (sscanf(qdata->key_words, QC_ACTION " %d", &arg) == 1)
+    return FALSE;
+  }
+
+  if( quest_index[qi].quest_complete || quest_index[qi].quest_message )
+    return TRUE;
+
+  return FALSE;
+}
+
+bool has_quest_ask( int qi )
+{
+  int arg;
+  struct quest_msg_data *qdata;
+
+  for( qdata = quest_index[qi].quest_message; qdata; qdata = qdata->next )
+  {
+    if( sscanf(qdata->key_words, QC_ACTION " %d", &arg) == 1 )
     {
       continue;
     }
     else
       return TRUE;
   }
+  return FALSE;
+}
+
+bool has_quest_complete( int qi )
+{
+  if( quest_index[qi].quest_complete )
+    return TRUE;
 
   return FALSE;
 }

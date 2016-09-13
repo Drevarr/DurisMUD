@@ -2301,7 +2301,9 @@ void boot_the_quests(void);
 void quick_sort_quest_index(int, int);
 void tell_quest(int, P_char);
 float getQuestTropy(int);
-int has_quest(P_char);
+bool has_quest(P_char);
+bool has_quest_ask(int qi);
+bool has_quest_complete(int qi);
 
 /* randobj.c */
 
