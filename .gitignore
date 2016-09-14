@@ -1,6 +1,7 @@
 /dms
 /dms_new
 /dms.*
+/temp_letterfile
 /nohup.out
 /Duris.xcodeproj
 /build
