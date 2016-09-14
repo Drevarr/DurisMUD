@@ -36,6 +36,7 @@ extern void update_dam_factors();
 extern void update_racial_dam_factors();
 extern void update_saving_throws();
 extern void update_breath_weapon_properties();
+extern void update_regen_properties();
 extern float hp_mob_con_factor;
 extern float hp_mob_npc_pc_ratio;
 extern int damroll_cap;
@@ -117,6 +118,7 @@ void apply_properties()
   update_racial_dam_factors();
   update_saving_throws();
   update_breath_weapon_properties();
+  update_regen_properties();
   hp_mob_con_factor = get_property("hitpoints.mob.conFactor", 0.4);
   hp_mob_npc_pc_ratio = get_property("hitpoints.mob.NpcPcRatio", 2.0);
   damroll_cap = get_property("damage.damrollCap", 64);

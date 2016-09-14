@@ -85,7 +85,8 @@ void initialize_transport();
 bool newLeaderBoard(P_char ch, char *arg, int cmd);
 bool newHardcoreBoard(P_char ch, char *arg, int cmd);
 void format_to_snoopers( char *from_string, char *to_string );
-void update_breath_weapon_properties();
+extern void update_breath_weapon_properties();
+extern void update_regen_properties();
 
 /* local globals */
 
@@ -385,6 +386,7 @@ void run_the_game(int port)
   initialize_transport();
 
   update_breath_weapon_properties();
+  update_regen_properties();
 
   //initialize_buildings();
 

@@ -40,6 +40,8 @@
 #define ADD_RACIAL_INNATE(innate, race, level) (racial_innates[(innate)][(race)] = (level))
 #define ADD_CLASS_INNATE(innate, ch_class, level, spec) {(class_innates[(innate)][flag2idx(ch_class)-1][(spec)] = (level));SET_BIT(class_innates_at_all[(innate)], ch_class);}
 
+float regen_factor[REG_MAX + 1];
+
 extern Skill skills[];
 extern P_room world;
 extern P_event current_event;
@@ -3884,34 +3886,32 @@ int attuned_to_terrain(P_char ch)
 
 int get_innate_regeneration(P_char ch)
 {
+  int mult = 1, terr;
+
   switch(GET_RACE(ch))
   {
     case RACE_TROLL:
     {
-      if(affected_by_spell(ch, TAG_TROLL_BURN))
+      if( affected_by_spell(ch, TAG_TROLL_BURN) )
         return 1;
       else
-        return GET_LEVEL(ch) * 8;
+        mult += regen_factor[REG_TROLL];
     }
     case RACE_REVENANT:
-      return GET_LEVEL(ch) * 4;
+        mult += regen_factor[REG_REVENANT];
     default:
       break;
   }
 
-  if (GET_SPEC(ch, CLASS_RANGER, SPEC_HUNTSMAN) && (world[ch->in_room].sector_type == SECT_FOREST))
-  return GET_LEVEL(ch) * 8;
-  
-  if (GET_SPEC(ch, CLASS_CONJURER, SPEC_WATER))
-    return GET_LEVEL(ch) * 2;
+  if( GET_SPEC(ch, CLASS_RANGER, SPEC_HUNTSMAN) && IS_FOREST_ROOM(ch->in_room) )
+    mult += regen_factor[REG_HUNTSMAN];
 
-  {
-    int i = attuned_to_terrain(ch);
-    if (i)
-      return ((int) (GET_LEVEL(ch) * i));
-  }
+  if( GET_SPEC(ch, CLASS_CONJURER, SPEC_WATER) )
+    mult += regen_factor[REG_WATERMAGUS];
 
-  return GET_LEVEL(ch);
+  mult += attuned_to_terrain(ch);
+
+  return GET_LEVEL(ch) * mult;
 }
 
 int get_innate_resistance(P_char ch)
@@ -5100,3 +5100,12 @@ void do_squidrage(P_char ch, char *arg, int cmd)
   // 8th
   spell_displacement(level, ch, "", 0, ch, NULL);
 }
+
+void update_regen_properties()
+{
+  regen_factor[REG_TROLL] = get_property("hit.regen.Troll", 8.000);
+  regen_factor[REG_REVENANT] = get_property("hit.regen.Revenant", 4.000);
+  regen_factor[REG_HUNTSMAN] = get_property("hit.regen.Huntsman", 4.000);
+  regen_factor[REG_WATERMAGUS] = get_property("hit.regen.WaterMagus", 4.000);
+}
+

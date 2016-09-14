@@ -2406,4 +2406,10 @@ struct TimedShutdownData
   char IssuedBy[50];
 };
 
+#define REG_TROLL       0
+#define REG_REVENANT    1
+#define REG_HUNTSMAN    2
+#define REG_WATERMAGUS  3
+#define REG_MAX         3
+
 #endif /* _SOJ_STRUCTS_H_ */
