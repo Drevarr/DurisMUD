@@ -524,7 +524,7 @@ bool minotaur_race_proc(P_char ch, P_char victim)
   af.type = TAG_MINOTAUR_RAGE;
   af.flags = AFFTYPE_SHORT;
   af.duration = 2 * PULSE_VIOLENCE;
-  af.modifier = -1;
+  af.modifier = -1 - GET_LEVEL(ch) / 28;
 
   af.location = APPLY_COMBAT_PULSE;
   affect_to_char(ch, &af);
