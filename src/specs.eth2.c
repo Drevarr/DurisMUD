@@ -396,9 +396,10 @@ int eth2_aramus_crown(P_obj obj, P_char ch, int cmd, char *arg)
         bzero(&af, sizeof(af));
         af.duration = GET_LEVEL(ch);
 
-        switch( number(0, 6) )
+        switch( number(1, 13) )
         {
-          case 0:
+          case 1:
+          case 2:
             if (!IS_AFFECTED(ch, AFF_HASTE))
             {
               send_to_char("Your dreams are filled with visions of ultimate speed.\r\n", ch);
@@ -408,7 +409,8 @@ int eth2_aramus_crown(P_obj obj, P_char ch, int cmd, char *arg)
             }
             break;
 
-          case 1:
+          case 3:
+          case 4:
             if (!affected_by_spell(ch, SPELL_STONE_SKIN))
             {
               send_to_char("You dream of a lonely hillside, covered with rocky shale.\r\n", ch);
@@ -418,7 +420,8 @@ int eth2_aramus_crown(P_obj obj, P_char ch, int cmd, char *arg)
             }
             break;
 
-          case 2:
+          case 5:
+          case 6:
             if (!IS_AFFECTED(ch, AFF_FLY))
             {
               send_to_char("You dream of soaring above the fjords.\r\n", ch);
@@ -428,7 +431,8 @@ int eth2_aramus_crown(P_obj obj, P_char ch, int cmd, char *arg)
             }
             break;
 
-          case 3:
+          case 7:
+          case 8:
             if (!IS_AFFECTED(ch, AFF_BARKSKIN))
             {
               send_to_char("You dream of a dark and mysterious forest.\r\n", ch);
@@ -438,7 +442,8 @@ int eth2_aramus_crown(P_obj obj, P_char ch, int cmd, char *arg)
             }
             break;
 
-          case 4:
+          case 9:
+          case 10:
             if (!affected_by_spell(ch, SPELL_VITALITY))
             {
               send_to_char("In your dream, you feel life essence flowing freely through your veins.\r\n", ch);
@@ -449,7 +454,8 @@ int eth2_aramus_crown(P_obj obj, P_char ch, int cmd, char *arg)
             }
             break;
 
-          case 5:
+          case 11:
+          case 12:
             if (!affected_by_spell(ch, SPELL_INERTIAL_BARRIER))
             {
               send_to_char("Your dreams are filled with strange visions of interrupted motion.\r\n", ch);
@@ -459,7 +465,7 @@ int eth2_aramus_crown(P_obj obj, P_char ch, int cmd, char *arg)
             }
             break;
 
-          case 6:
+          case 13:
             send_to_char("You have a horrible nightmare of appearing in public totally naked!\r\n", ch);
             unequip_all(ch);
             break;
