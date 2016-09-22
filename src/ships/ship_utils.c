@@ -1858,3 +1858,35 @@ char *crew_bonuses( const ShipCrewData crew )
 
   return buf;
 }
+
+// Returns the type of capital item, or empty if none found.
+int ShipData::has_capital( )
+{
+  for( int i = 0; i < MAXSLOTS; i++ )
+  {
+    if( (slot[i].type == SLOT_WEAPON) && IS_SET(weapon_data[slot[i].index].flags, CAPITAL) )
+    {
+      return SLOT_WEAPON;
+    }
+    if( (slot[i].type == SLOT_EQUIPMENT) && IS_SET(equipment_data[slot[i].index].flags, CAPITAL) )
+    {
+        return SLOT_EQUIPMENT;
+    }
+  }
+  return SLOT_EMPTY;
+}
+
+// Checks for capital weapon and sends message
+bool ShipData::buy_check_capital( P_char ch )
+{
+  switch( has_capital() )
+  {
+    case SLOT_WEAPON:
+      send_to_char ("&+gYou already have a capital weapon! You can only have one capital item.&n\n", ch);
+      return TRUE;
+    case SLOT_EQUIPMENT:
+      send_to_char ("&+gYou already have capital equipment! You can only have one capital item.&n\n", ch);
+      return TRUE;
+  }
+  return FALSE;
+}

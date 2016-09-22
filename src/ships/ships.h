@@ -426,6 +426,8 @@ struct ShipData
     int slot_weight(int type) const;
     int get_maxspeed() const { return maxspeed + maxspeed_bonus; }
     int get_capacity() const { return SHIPTYPE_PEOPLE(m_class) + capacity_bonus; }
+    int has_capital(); // returns which type of capital item (SLOT_WEAPON/SLOT_EQUIPMENT) or SLOT_EMPTY if none found.
+    bool buy_check_capital( P_char ch ); // Checks for capital item and sends message to ch if it does.
 
     int maxarmor[4], armor[4];
     int maxinternal[4], internal[4];

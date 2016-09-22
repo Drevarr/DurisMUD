@@ -1804,17 +1804,12 @@ int buy_weapon(P_char ch, P_ship ship, char* arg1, char* arg2)
         return TRUE;
     }
 
-    if (IS_SET(weapon_data[w].flags, CAPITAL)) 
+    if( IS_SET(weapon_data[w].flags, CAPITAL) )
     {
-        for (int j = 0; j < MAXSLOTS; j++) 
-        {
-            if (((ship->slot[j].type == SLOT_WEAPON) && IS_SET(weapon_data[ship->slot[j].index].flags, CAPITAL)) ||
-                ((ship->slot[j].type == SLOT_EQUIPMENT) && IS_SET(equipment_data[ship->slot[j].index].flags, CAPITAL))) 
-            {
-                send_to_char ("&+gYou already have capital equipment! You can only have one.&n\n", ch);
-                return TRUE;
-            }
-        }
+      if( ship->buy_check_capital(ch) )
+      {
+        return TRUE;
+      }
     }
 
     int cost = weapon_data[w].cost;
@@ -1848,98 +1843,107 @@ int buy_equipment(P_char ch, P_ship ship, char* arg1)
 {
   struct affected_type *paf = get_spell_from_char(ch, AIP_CARGOCOUNT);
   bool quickbuild = (paf && paf->modifier >= 10000) ? TRUE : FALSE;
+  int equip_num, slot, j, cost, buildtime;
+  bool pvp;
 
-    if (!is_number(arg1)) 
-    {
-        send_to_char( "&+YSyntax: '&+gbuy &+Ge&+gquipment <number>&+Y'.&n\n", ch );
-        return TRUE;
-    }
+  if( !is_number(arg1) )
+  {
+    send_to_char( "&+YSyntax: '&+gbuy &+Ge&+gquipment <number>&+Y'.&n\n", ch );
+    return TRUE;
+  }
 
-    int e = atoi(arg1) - 1;
-    if( (e < 0) || (e >= MAXEQUIPMENT) )
-    {
-        send_to_char_f( ch, "Invalid equipment number.\n"
-          "&+YSyntax: '&+gbuy &+Ge&+gquipment <number 1-%d>&+Y'.&n\n", MAXEQUIPMENT - 1 );
-        return TRUE;
-    }
+  equip_num = atoi(arg1) - 1;
+  if( (equip_num < 0) || (equip_num >= MAXEQUIPMENT) )
+  {
+    send_to_char_f( ch, "Invalid equipment number.\n"
+      "&+YSyntax: '&+gbuy &+Ge&+gquipment <number 1-%d>&+Y'.&n\n", MAXEQUIPMENT );
+    return TRUE;
+  }
 
-    if( equipment_data[e].weight > SHIP_AVAIL_WEIGHT(ship) )
-    {
-        send_to_char_f(ch, "&+gThat equipment weighs &+w%d&+g! Your ship can only support &+w%d&+g more!&n\n",
-          equipment_data[e].weight, SHIP_AVAIL_WEIGHT(ship));
-        return TRUE;
-    }
-    if( !ship_allowed_equipment[ship->m_class][e] )
-    {
-        send_to_char_f(ch, "&+gSuch marvelous equipment can not be installed on such a pitiful hull!&n\n");
-        return TRUE;
-    }
+  if( equipment_data[equip_num].weight > SHIP_AVAIL_WEIGHT(ship) )
+  {
+    send_to_char_f(ch, "&+gThat equipment weighs &+w%d&+g! Your ship can only support &+w%d&+g more!&n\n",
+      equipment_data[equip_num].weight, SHIP_AVAIL_WEIGHT(ship));
+    return TRUE;
+  }
+  if( !ship_allowed_equipment[ship->m_class][equip_num] )
+  {
+    send_to_char_f(ch, "&+gSuch marvelous equipment can not be installed on such a pitiful hull!&n\n");
+    return TRUE;
+  }
 
-    int slot = 0;
-    while (slot < MAXSLOTS)
-    {
-        if (ship->slot[slot].type == SLOT_EMPTY)
-            break;
-        slot++;
-    }
-    if (slot >= MAXSLOTS)
-    {
-        send_to_char("&+gYou do not have a free slot to install this equipment!&n\n", ch);
-        return TRUE;
-    }
+  slot = 0;
+  while( slot < MAXSLOTS )
+  {
+    if( ship->slot[slot].type == SLOT_EMPTY )
+      break;
+    slot++;
+  }
+  if( slot >= MAXSLOTS )
+  {
+    send_to_char("&+gYou do not have a free slot to install this equipment!&n\n", ch);
+    return TRUE;
+  }
 
-    if( ship->frags < equipment_data[e].min_frags )
+  if( ship->frags < equipment_data[equip_num].min_frags )
+  {
+    send_to_char( "&+gI'm sorry, but not just anyone can buy this equipment!  You must earn it!&n\n", ch);
+    return TRUE;
+  }
+
+  for( j = 0; j < MAXSLOTS; j++ )
+  {
+    if( (ship->slot[j].type == SLOT_EQUIPMENT) && (ship->slot[j].index == equip_num) )
     {
-        send_to_char( "&+gI'm sorry, but not just anyone can buy this equipment!  You must earn it!&n\n", ch);
-        return TRUE;
+      send_to_char_f( ch, "&+gYou already have the &n%s&+g! You can only have one such item.&n\n",
+        equipment_data[equip_num].name );
+      return TRUE;
     }
+  }
 
-    if (IS_SET(equipment_data[e].flags, CAPITAL))
+  if( IS_SET(equipment_data[equip_num].flags, CAPITAL) )
+  {
+    if( ship->buy_check_capital(ch) )
     {
-        for (int j = 0; j < MAXSLOTS; j++)
-        {
-            if (((ship->slot[j].type == SLOT_WEAPON) && IS_SET(weapon_data[ship->slot[j].index].flags, CAPITAL)) ||
-                ((ship->slot[j].type == SLOT_EQUIPMENT) && IS_SET(equipment_data[ship->slot[j].index].flags, CAPITAL))) 
-            {
-                send_to_char ("&+gYou already have capital equipment! You can only have one such item.&n\n", ch);
-                return TRUE;
-            }
-        }
+      return TRUE;
     }
+  }
 
-    int cost = equipment_data[e].cost;
-    if (e == E_RAM) cost = eq_ram_cost(ship);
+  if( equip_num == E_RAM )
+    cost = eq_ram_cost(ship);
+  else
+    cost = equipment_data[equip_num].cost;
 
-    if (GET_MONEY(ch) < cost)
-    {
-        send_to_char_f(ch, "&+gThis equipment costs &n%s&+g!&n\n", coin_stringv(cost));
-        return TRUE;
-    }
+  if( GET_MONEY(ch) < cost )
+  {
+    send_to_char_f(ch, "&+gThis equipment costs &n%s&+g, and you ain't got that much on ya!&n\n", coin_stringv(cost));
+    return TRUE;
+  }
 
-    SUB_MONEY(ch, cost, 0);
-    set_equipment(ship, slot, e);
-    
+  SUB_MONEY(ch, cost, 0);
+  set_equipment(ship, slot, equip_num);
+
 /* Unused variable weight. - Lohrr
     int weight = equipment_data[e].weight;
     if (e == E_RAM) weight = eq_ram_weight(ship);
     if (e == E_LEVISTONE) weight = eq_levistone_weight(ship);
 */
-    int buildtime = equipment_data[e].weight * 75;
-    bool pvp = false;
-    pvp = ocean_pvp_state();
-    if( pvp )
-      buildtime *= 4;
-    // Achievement - Trader
-    if( quickbuild )
-    {
-      buildtime /= 2;
-    }
-    send_to_char_f(ch, "Thank you for your purchase, it will take %d hours to install the part.\r\n", (int) (buildtime / 75));
-    if (!IS_TRUSTED(ch) && BUILDTIME)
-        ship->timer[T_MAINTENANCE] += buildtime;
-    update_ship_status(ship);
-    write_ship(ship);
-    return TRUE;
+  buildtime = equipment_data[equip_num].weight * 75;
+  pvp = ocean_pvp_state();
+  if( pvp )
+    buildtime *= 4;
+  // Achievement - Trader
+  if( quickbuild )
+  {
+    buildtime /= 2;
+  }
+  send_to_char_f(ch, "Thank you for your purchase, it will take %d hours to install the %s.\r\n",
+    (int) (buildtime / 75), equipment_data[equip_num].name );
+  if( !IS_TRUSTED(ch) && BUILDTIME )
+    ship->timer[T_MAINTENANCE] += buildtime;
+  update_ship_status(ship);
+  write_ship(ship);
+  return TRUE;
 }
 
 
