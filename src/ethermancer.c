@@ -752,9 +752,8 @@ void event_frost_bolt(P_char ch, P_char victim, P_obj obj, void *data)
   temp = MIN(16, (fdata->level + 2));
   dam = dice(temp, 2);
 
-  if (spell_damage(ch, victim, dam, SPLDAM_COLD, SPLDAM_ALLGLOBES, &messages)
-      == DAM_NONEDEAD)
-    add_event(event_frost_bolt, PULSE_VIOLENCE, ch, victim, NULL, 0, fdata, sizeof(struct frost_data));
+  if( spell_damage(ch, victim, dam, SPLDAM_COLD, SPLDAM_ALLGLOBES, &messages) == DAM_NONEDEAD )
+    add_event(event_frost_bolt, (3 * PULSE_SPELLCAST) / 2, ch, victim, NULL, 0, fdata, sizeof(struct frost_data));
 }
 
 void spell_frost_bolt(int level, P_char ch, char *arg, int type, P_char victim, P_obj tar_obj)

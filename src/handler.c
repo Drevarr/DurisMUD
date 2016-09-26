@@ -574,8 +574,7 @@ void event_poison(P_char ch, P_char attacker, P_obj obj, void *data)
 /*
  * lose 10 hitpoints every 20 seconds
  */
-void poison_lifeleak(int level, P_char ch, char *arg, int type, P_char victim,
-                     struct affected_type *af)
+void poison_lifeleak(int level, P_char ch, char *arg, int type, P_char victim, struct affected_type *af)
 {
   if (!af) {
     if (!(af = poison_common(victim, POISON_LIFELEAK)))

@@ -3249,9 +3249,7 @@ void do_taste(P_char ch, char *argument, int cmd)
 
   if (GET_RACE(ch) == RACE_ILLITHID && GET_LEVEL(ch) < AVATAR)
   {
-    send_to_char
-      ("Ugh. Even if you had the means to eat, the thought revolts you.\r\n",
-       ch);
+    send_to_char("Ugh. Even if you had the means to eat, the thought revolts you.\r\n", ch);
     return;
   }
   one_argument(argument, arg);
@@ -3266,19 +3264,18 @@ void do_taste(P_char ch, char *argument, int cmd)
     do_sip(ch, argument, -4);
     return;
   }
-  if (!(temp->type == ITEM_FOOD))
+  if( !(temp->type == ITEM_FOOD) )
   {
-    act("It tastes inedible, aren't you glad it wasn't coated with poison?",
-        FALSE, ch, 0, 0, TO_CHAR);
+    act("It tastes inedible, aren't you glad it wasn't coated with poison?", FALSE, ch, 0, 0, TO_CHAR);
     return;
   }
   act("$n tastes the $q.", TRUE, ch, temp, 0, TO_ROOM);
   act("You taste the $q.", FALSE, ch, temp, 0, TO_CHAR);
 
-  if (temp->value[3] > 0)
+  if( temp->value[3] > 0 )
   {
     act("Oops, it did not taste good at all!", FALSE, ch, 0, 0, TO_CHAR);
-    poison_lifeleak(10, ch, 0, 0, ch, 0);
+    GET_HIT(ch) = MAX(1, GET_HIT(ch) - 10);
   }
   return;
 }

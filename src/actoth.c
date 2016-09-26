@@ -997,9 +997,9 @@ bool forage_sect( P_char ch, int sector, bool poisoned )
     text = "through the undergrowth";
     switch( number(1, 15) )
     {
-    case 1:
-      forage_obj = read_object( VOBJ_FORAGE_EDIBLE_ROOT, VIRTUAL );
-      break;
+      case 1:
+        forage_obj = read_object( VOBJ_FORAGE_EDIBLE_ROOT, VIRTUAL );
+        break;
       case 2:
         forage_obj = read_object( VOBJ_FORAGE_EDIBLE_SPROUTS, VIRTUAL );
         break;
