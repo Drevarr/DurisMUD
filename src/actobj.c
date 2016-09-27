@@ -784,7 +784,7 @@ void do_get(P_char ch, char *argument, int cmd)
                           // This sets the 'soul' of the artifact to the new owner.
                           sql_update_bind_data(vnum, &owner_pid, &timer);
                           // Feed artifact to at least the minimum for across racewar sides.
-                          artifact_feed_to_min_sql( o_obj, (ARTIFACT_BLOOD_DAYS / 2) * MINS_PER_REAL_DAY );
+                          artifact_feed_to_min_sql( o_obj, 5 * MINS_PER_REAL_DAY );
                         }
                       }
                       else
