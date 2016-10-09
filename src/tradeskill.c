@@ -228,6 +228,10 @@ int parchment_forge(P_obj obj, P_char ch, int cmd, char *arg)
   if(ch != temp_ch)
     return FALSE;
 
+  // This is broken atm.. and there's no way to forge atm as "waiter()" and "barmaid()" aren't linked to any mobs.
+  // If you want to fix it, find some mob that makes sense to add "smith()" to, and add it to their proc.
+  //   A warning though; this is a mess.
+  return FALSE;
 
   for (int tmp = 1; tmp < MAX_FORGE_ITEMS; tmp++)
   {
