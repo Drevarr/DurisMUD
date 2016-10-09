@@ -863,7 +863,7 @@ void AddFrags(P_char ch, P_char victim)
           real_gain = gain;
 
         sprintf(buffer, "You just gained %.02f frags!\r\n", real_gain/100.0);
-        send_to_char(buffer, tch);
+        send_to_char(buffer, tch, LOG_PUBLIC);
 
         tch->only.pc->oldfrags = tch->only.pc->frags;
         tch->only.pc->frags += (long)real_gain;
