@@ -3843,7 +3843,10 @@ int wear(P_char ch, P_obj obj_object, int keyword, bool showit )
   {
     if( showit )
       act("You can't use $p.", FALSE, ch, obj_object, 0, TO_CHAR);
-    return FALSE;
+    if( IS_TRUSTED(ch) && GET_LEVEL(ch) == OVERLORD )
+      send_to_char( "But you don't care...\n", ch );
+    else
+      return FALSE;
   }
 #if 1
   /*
