@@ -871,7 +871,10 @@ int staff_of_blue_flames(P_obj obj, P_char ch, int cmd, char *arg)
       act("You say 'light' to $p", FALSE, ch, obj, NULL, TO_CHAR);
       act("$p &+Rflares up!&N", FALSE, ch, obj, NULL, TO_CHAR);
       act("$n's $q &+Rflares up!&N", FALSE, ch, obj, NULL, TO_ROOM);
+      REMOVE_BIT(obj->bitvector4, AFF4_GLOBE_OF_DARKNESS);
+      REMOVE_BIT(ch->specials.affected_by4, AFF4_GLOBE_OF_DARKNESS);
       SET_BIT(obj->extra_flags, ITEM_LIT);
+      balance_affects(ch);
       return TRUE;
     }
 
@@ -882,11 +885,15 @@ int staff_of_blue_flames(P_obj obj, P_char ch, int cmd, char *arg)
       act("The flames covering $p die down.", FALSE, ch, obj, NULL, TO_CHAR);
       act("The flames covering $n's $q die down.", FALSE, ch, obj, NULL, TO_ROOM);
       REMOVE_BIT(obj->extra_flags, ITEM_LIT);
+      SET_BIT(obj->bitvector4, AFF4_GLOBE_OF_DARKNESS);
+      balance_affects(ch);
+//      spell_globe_of_darkness(60, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
       return TRUE;
     }
 
-    if( !IS_OBJ_STAT(obj, ITEM_LIT) )
-      return FALSE;
+// Disabled gellz - 1/11/16 to enable use with globe of dark spell
+//    if( !IS_OBJ_STAT(obj, ITEM_LIT) )
+//     return FALSE;
     curr_time = time(NULL);
 
     if( isname(arg, "fly") )
