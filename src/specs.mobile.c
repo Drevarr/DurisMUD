@@ -2198,6 +2198,7 @@ int guild_guard(P_char ch, P_char pl, int cmd, char *arg)
     if ((cmd == CMD_EAST) && !GET_SPEC(pl, CLASS_ROGUE, SPEC_ASSASSIN))
       block = TRUE;
     break;
+  case 139000:
   case 25001:
   case 25086:
   case 25201:
