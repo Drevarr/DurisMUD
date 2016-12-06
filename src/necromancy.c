@@ -2233,11 +2233,11 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type, P
 
 void do_exhume(P_char ch, char *argument, int cmd)
 {
-  int      now;
+  int      now, skl;
   P_obj    obj1 = NULL, obj2 = NULL;
   bool     found_something = FALSE, have_one = FALSE;
 
-  if ((GET_CHAR_SKILL(ch, SKILL_EXHUME) == 0) && !IS_TRUSTED(ch))
+  if( (( skl = GET_CHAR_SKILL(ch, SKILL_EXHUME) ) == 0) && !IS_TRUSTED(ch) )
   {
     send_to_char("You don't know how to exhume.\n", ch);
     return;
@@ -2277,20 +2277,18 @@ void do_exhume(P_char ch, char *argument, int cmd)
       return;
     }
 
-    if (!affect_timer(ch, get_property("timer.mins.exhume", 10) * WAIT_MIN, SKILL_EXHUME))
+    if( !affect_timer(ch, (get_property("timer.mins.exhume", 10) * WAIT_MIN * (150 - skl)) / 100, SKILL_EXHUME) )
     {
       send_to_char("Your weak arms need more rest.\r\n", ch);
       return;
     }
   }
   // on success
-
-  send_to_char
-    ("Your shovel breaks through the &+yearth&n, revealing a &+Lrotten corpse&n ready for use.\r\n",
-     ch);
+  notch_skill(ch, SKILL_EXHUME, 20 );
+  send_to_char("Your shovel breaks through the &+yearth&n, revealing a &+Lrotten corpse&n ready for use.\r\n", ch);
 
   /* charWait for exhume is skill dependent:  between 14 and 24 (with base skill of 40, its actually between 14-20) */
-  CharWait(ch, 24 - (GET_CHAR_SKILL(ch, SKILL_EXHUME) /10));
+  CharWait( ch, 6 * WAIT_SEC - (skl / 10) );
 
   obj1 = read_object(2, VIRTUAL);
   obj1->value[CORPSE_LEVEL] = MIN(50, GET_LEVEL(ch)+number(0,8)-4);
@@ -2332,7 +2330,7 @@ void do_spawn(P_char ch, char *argument, int cmd)
 
 void do_summon_host(P_char ch, char *argument, int cmd)
 {
-  int      now;
+  int      now, skl;
   P_obj    obj1 = NULL, obj2 = NULL;
   bool     found_something = FALSE, have_one = FALSE;
 
@@ -2347,6 +2345,7 @@ void do_summon_host(P_char ch, char *argument, int cmd)
   obj1 = ch->equipment[HOLD];
   obj2 = ch->equipment[WIELD];
   */
+  skl = GET_CHAR_SKILL(ch, SKILL_EXHUME);
   if (!IS_TRUSTED(ch))
   {
     /*
@@ -2381,7 +2380,7 @@ void do_summon_host(P_char ch, char *argument, int cmd)
       return;
     }
     */
-    if (!affect_timer(ch, get_property("timer.mins.exhume", 10) * WAIT_MIN, SKILL_EXHUME))
+    if( !affect_timer(ch, (get_property("timer.mins.exhume", 10) * WAIT_MIN * (150 - skl)) / 100, SKILL_EXHUME) )
     {
       send_to_char("Your spirit is too weak to summon a new host at this time.\r\n", ch);
       return;
@@ -2389,9 +2388,7 @@ void do_summon_host(P_char ch, char *argument, int cmd)
   }
   // on success
 
-  send_to_char
-    ("A &+Wholy be&+Ra&+Wm&n of &+Ylight&n appears before you.  As the &+Ylight &+Wdis&+wsip&+Lates&n, a &+Wsoul&+wless &+Lcorpse&n remains.\r\n",
-     ch);
+  send_to_char("A &+Wholy be&+Ra&+Wm&n of &+Ylight&n appears before you.  As the &+Ylight &+Wdis&+wsip&+Lates&n, a &+Wsoul&+wless &+Lcorpse&n remains.\r\n", ch);
 
   /* charWait for exhume is skill dependent:  between 14 and 24 (with base skill of 40, its actually between 14-20) */
   CharWait(ch, 24 - (GET_CHAR_SKILL(ch, SKILL_EXHUME) /10));
