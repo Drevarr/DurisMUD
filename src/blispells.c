@@ -901,59 +901,79 @@ void spell_firelance(int level, P_char ch, char *arg, int type, P_char victim, P
 
 }
 
+void event_drain_nature(P_char ch, P_char vict, P_obj obj, void *data)
+{
+  int healpoints, wavevalue, x;
+
+  healpoints = wavevalue = *((int *) data);
+
+  switch( world[vict->in_room].sector_type )
+  {
+  case SECT_UNDRWLD_CITY:
+  case SECT_CITY:
+    healpoints = (healpoints * 2) / 3;
+    break;
+  case SECT_FIELD:
+    healpoints = (healpoints * 4) / 3;
+    break;
+  case SECT_FOREST:
+  case SECT_UNDRWLD_MUSHROOM:
+    healpoints = (healpoints * 3) / 2;
+    break;
+  case SECT_HILLS:
+  case SECT_UNDRWLD_WILD:
+    healpoints = (healpoints * 5) / 4;
+    break;
+  case SECT_UNDERWATER_GR:
+  case SECT_UNDRWLD_SLIME:
+  case SECT_MOUNTAIN:
+  case SECT_UNDRWLD_MOUNTAIN:
+    healpoints = (healpoints * 6) / 5;
+    break;
+  case SECT_UNDRWLD_LOWCEIL:
+  case SECT_UNDRWLD_LIQMITH:
+    healpoints = (healpoints * 7) / 6;
+    break;
+  default:
+    break;
+  }
+
+  x = vamp(vict, healpoints, GET_MAX_HIT(vict));
+  update_pos(vict);
+
+  if( x > 0 && IS_FIGHTING(vict) )
+    gain_exp(ch, vict, x, EXP_HEALING);
+
+  wavevalue /= 2;
+  if( wavevalue > 1 )
+    add_event(event_drain_nature, 2, ch, vict, 0, 0, &wavevalue, sizeof(wavevalue));
+}
+
 // Heals the target/cures blind.
-void spell_drain_nature(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj )
+void spell_drain_nature( int level, P_char ch, char *arg, int type, P_char victim, P_obj obj )
 {
   struct affected_type af;
   int healpoints;
-  int duration = (int) (WAIT_SEC * 1.5 * 56 / level);
 
-  if(!IS_ALIVE(victim) || !IS_ALIVE(ch))
+  if( !IS_ALIVE(victim) || !IS_ALIVE(ch) )
     return;
 
-  healpoints = level * 5 / 2;
+  // 32 at level 21 -> 63 hps healing, 50 at level 56 -> 97 hps healing, modified by terrain.
+  healpoints = (level / 2) + 22;
 
-  if(!GET_CLASS(ch, CLASS_BLIGHTER))
+  if( !GET_CLASS(ch, CLASS_BLIGHTER) )
   {
     healpoints /= 2;
   }
 
   if( GET_CLASS(ch, CLASS_BLIGHTER) && IS_BLIND(victim) )
-  {
-    spell_cure_blind(level, ch, NULL, SPELL_TYPE_SPELL, victim, NULL);
-  }
+    spell_cure_blind(level, ch, NULL, SPELL_TYPE_SPELL, victim, obj);
 
   grapple_heal(victim);
 
-  switch (world[ch->in_room].sector_type)
+  if( healpoints < 8 )
   {
-    case SECT_CITY:
-      healpoints -= 20;
-      break;
-    case SECT_FIELD:
-      healpoints += 40;
-      break;
-    case SECT_FOREST:
-      healpoints += 60;
-      break;
-    case SECT_HILLS:
-      healpoints += 30;
-      break;
-    case SECT_UNDERWATER_GR:
-    case SECT_MOUNTAIN:
-      healpoints += 10;
-      break;
-    case SECT_UNDRWLD_WILD:
-    case SECT_UNDRWLD_CITY:
-    case SECT_UNDRWLD_MOUNTAIN:
-    case SECT_UNDRWLD_SLIME:
-    case SECT_UNDRWLD_LOWCEIL:
-    case SECT_UNDRWLD_LIQMITH:
-    case SECT_UNDRWLD_MUSHROOM:
-      healpoints += 5;
-      break;
-    default:
-      break;
+    healpoints = 8;
   }
 
   if( GET_SPEC(ch, CLASS_BLIGHTER, SPEC_SCOURGE) )
@@ -961,32 +981,10 @@ void spell_drain_nature(int level, P_char ch, char *arg, int type, P_char victim
     healpoints += 50;
   }
 
-  if(IS_NPC(victim))
-  {
-    heal(victim, ch, healpoints, GET_MAX_HIT(victim) - number(1, 4));
-  }
-  else
-  {
-    memset(&af, 0, sizeof(af));
-    af.type = SPELL_DRAIN_NATURE;
-    af.flags = AFFTYPE_SHORT | AFFTYPE_NOSAVE;
-    af.duration = duration;
-    af.location = APPLY_HIT_REG;
-    af.modifier = SECS_PER_MUD_HOUR * WAIT_SEC / duration * healpoints;
-    af.bitvector4 = AFF4_REGENERATION;
-    affect_to_char(victim, &af);
-    update_achievements(ch, victim, healpoints, 1);
+  add_event(event_drain_nature, 1, ch, victim, 0, 0, &healpoints, sizeof(healpoints));
 
-    if(IS_FIGHTING(victim))
-    {
-      gain_exp( ch, victim, MIN(healpoints, GET_MAX_HIT(victim) - GET_HIT(victim)), EXP_HEALING );
-      update_pos(victim);
-    }
-  }
-  if(ch == victim)
-  {
+  if( ch == victim )
     act( "&+yYou drain &+Whealth&+y from your surroundings.&n", FALSE, ch, 0, victim, TO_CHAR );
-  }
   else
   {
     act("&+y$n&+y sucks the &+glife&+y out of the surroundings, &+Whealing&+y you.&n",
