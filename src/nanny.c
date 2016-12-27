@@ -103,7 +103,9 @@ void     email_player_info(char *, char *, struct descriptor_data *);
 extern int email_in_use(char *, char *);
 extern void dump_email_reg_db(void);
 extern void ereglog(int, const char *, ...);
-int      get_name(char return_name[256]);
+extern void whois_ip( P_char ch, char *ip_address );
+
+int get_name(char return_name[256]);
 void displayShutdownMsg(P_char ch);
 void event_hatred_check(P_char, P_char, P_obj, void*);
 void event_halfling_check(P_char, P_char, P_obj, void*);
@@ -6339,10 +6341,14 @@ void newby_announce(P_desc d)
           class_names_table[flag2idx(d->character->player.m_class)].ansi,
           d->login ? d->login : "unknown", d->host ? d->host : "UNKNOWN");
   for (i = descriptor_list; i; i = i->next)
-    if (!i->connected && i->character &&
-        IS_SET(i->character->specials.act, PLR_NAMES) &&
-        IS_TRUSTED(i->character))
+  {
+    if( !i->connected && i->character && IS_SET(i->character->specials.act, PLR_NAMES)
+      && IS_TRUSTED(i->character) )
+    {
       send_to_char(Gbuf1, i->character);
+      whois_ip( i->character, d->host );
+    }
+  }
   /* timer, so they don't sit here forever */
   if (d->character->only.pc->prestige > 3)
   {
