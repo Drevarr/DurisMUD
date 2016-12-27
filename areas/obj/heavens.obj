@@ -7635,7 +7635,7 @@ some heirloom Blue &+cH&+Ca&+cz&+Ce&n~
 ~
 40 30 3 0 7 0 8192 16385 0 0 0
 25 1902 0 0 0 0 3 15
-0 20000 100
+0 2000 100
 E
 kola heirloom blue haze~
 &n   Similar to Black &+mK&+Lu&+ms&+Lh&n in that its psychoactive constituents reside in the
@@ -7654,7 +7654,7 @@ some landrace &+cMe&+Gd&+ci&+Gcu&+cs&n~
 ~
 40 30 3 0 7 0 8192 16385 0 0 0
 25 1903 0 0 0 0 3 5
-0 15000 100
+0 1500 100
 E
 batch landrace medicus~
 &n   This batch of &+GMe&+cd&+Gi&+ccu&+Gs&n consists of about five &+ybranches&n and their accompanying
@@ -7671,7 +7671,7 @@ some feral Black &+LK&+mu&+Ls&+mh&n~
 ~
 40 30 3 0 7 0 8192 16385 0 0 0
 25 1904 0 0 0 0 3 15
-0 40000 100
+0 4000 100
 E
 nuggets feral black kush~
 &n   This &+mh&+Le&+mr&+Lb&n is comprised of numerous &+mcalyces&n grouped in dense batches along a
@@ -7688,7 +7688,7 @@ some wild &+gGo&+Lo&+gt&+Lwi&+ge&+Lt&n~
 ~
 40 30 3 0 7 0 8192 16385 0 0 0
 25 1905 0 0 0 0 3 7
-0 12000 100
+0 1200 100
 E
 cluster wild gootwiet~
 &n   Like most wild &+LGo&+go&+Lt&+gwi&+Le&+gt&n, the shoots that have been clustered here are easily
@@ -7719,7 +7719,7 @@ a ceramic &+Cch&+ci&+Cl&+clu&+Cm&n~
 ~
 41 7 3 0 7 0 0 16385 0 0 0
 2 2 7 0 0 0 0 0
-0 50000 100
+0 25000 100
 E
 small ceramic chillum pipe~
 &n   This ceramic &+Cch&+ci&+Cl&+clu&+Cm&n is crafted of fired clay.  The whole of its surface has
@@ -7737,7 +7737,7 @@ an &+Lobsidian &+whookah&n~
 ~
 41 36 3 0 7 0 0 8404993 0 0 0
 3 3 5 0 0 0 0 0
-1 75000 100
+1 40000 100
 E
 obsidian hookah pipe~
 &n   Worked from a solid block of &+Lobsidian&n, this &+Lhookah&n is of an ancient design
@@ -7753,7 +7753,7 @@ a &+Gm&+cis&+Gt&+cw&+Gey&+cd&+L nose-&+ypipe&n~
 ~
 41 6 3 0 8 0 8256 8404993 0 0 0
 4 4 3 0 0 0 0 0
-0 100000 100
+0 75000 100
 E
 length mistweyd nosepipe nose pipe~
 &n   Carved from a short section of a branching piece of &+cm&+Gis&+ct&+Gw&+cey&+Gd&+y hardwood&n, this
@@ -7768,7 +7768,7 @@ a handcarved &+ypipe&n~
 ~
 41 6 3 0 7 0 8192 16385 0 0 0
 5 5 10 0 0 0 0 0
-0 125000 100
+0 80000 100
 E
 handcarved pipe~
 &n   The &+ystem&n of this pipe has been whittled from a piece of &+yhardwood&n, its core
