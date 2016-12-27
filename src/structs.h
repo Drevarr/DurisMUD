@@ -2437,4 +2437,12 @@ struct TimedShutdownData
 #define REG_WATERMAGUS  3
 #define REG_MAX         3
 
+typedef void cmd_func(P_char, char *, int);
+struct innate_data
+{
+  char     *name;
+  cmd_func *func;
+  int       skill; // What skill is associated?
+};
+
 #endif /* _SOJ_STRUCTS_H_ */

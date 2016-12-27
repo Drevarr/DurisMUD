@@ -64,8 +64,6 @@ extern const struct class_names class_names_table[];
 extern char *specdata[][MAX_SPEC];
 extern int racial_shrug_data[];
 
-typedef void cmd_func(P_char, char *, int);
-
 void     do_levitate(P_char, char *, int);
 void     do_darkness(P_char, char *, int);
 void     do_faerie_fire(P_char, char *, int);
@@ -132,12 +130,7 @@ int        bite_poison(P_char, P_char, int);
 bool GOOD_FOR_GAZING(P_char ch, P_char victim);
 
 extern const struct innate_data innates_data[];
-const struct innate_data
-{
-  char     *name;
-  cmd_func *func;
-  int       skill; // What skill is associated?
-} innates_data[LAST_INNATE + 1] =
+const struct innate_data innates_data[LAST_INNATE + 1] =
 {
   {
   "horse body", NULL, SKILL_NONE},

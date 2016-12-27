@@ -162,11 +162,6 @@ extern struct continent_misfire_data continent_misfire;
 extern struct misfire_properties_struct misfire_properties;
 
 typedef void cmd_func(P_char, char *, int);
-extern const struct innate_data
-{
-  char    *name;
-  cmd_func *func;
-} innates_data[LAST_INNATE + 1];
 
 void apply_zone_modifier(P_char ch);
 static P_char load_locker_char(P_char ch, char *locker_name, int bValidateAccess);
@@ -10924,10 +10919,10 @@ void stat_single_race( P_char ch, int race )
         send_to_char( ", " , ch );
       }
       first = FALSE;
-      send_to_char( innates_data[i].name, ch );
+      send_to_char_f( ch, "%s (%d)", innates_data[i].name, racial_innates[i][race] );
     }
   }
-  send_to_char( "\n\r", ch );
+  send_to_char( ".\n\r", ch );
 
 }
 
