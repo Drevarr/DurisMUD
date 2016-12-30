@@ -538,9 +538,9 @@ void do_fraglist(P_char ch, char *arg, int cmd)
     days = cap_timer;
   }
 
-  sprintf(buf, "Frag Level Cap: %d - &+%c%s&n, %d - Others\n&+YTimer:&+w %02d:%02d:%02d:%02d &+YFrags needed:&+w %.2f&n\n\n&+WTop Fraggers\n\n",
-    cap_level, racewar_color[cap_racewar].color, racewar_color[cap_racewar].name, cap_others,
-    days, hours, mins, secs, LEVEL_TO_FRAGS(cap_level + 1) );
+  sprintf(buf, "&+YFrag Level Cap:&+w %d - &+%c%s&n, &+w%d&N - Others, &+YTop Frag Amount: &+w%d.%02d\n&+YTimer:&+w %02d:%02d:%02d:%02d &+YFrags needed:&+w %.2f&n\n\n&+WTop Fraggers\n\n",
+    cap_level, racewar_color[cap_racewar].color, racewar_color[cap_racewar].name, cap_others, (int)(cap_frags / 100),
+    (int)(cap_frags % 100), days, hours, mins, secs, LEVEL_TO_FRAGS(cap_level + 1) );
 
   for (i = 0; i < MAX_FRAG_SIZE; i++)
   {
