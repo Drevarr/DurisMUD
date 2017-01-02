@@ -12937,5 +12937,4 @@ void choronize(char *argument)
       index++;
     }
   }
-  debug( "argument: %s", argument );
 }
