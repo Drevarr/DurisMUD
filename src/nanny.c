@@ -6349,7 +6349,8 @@ void newby_announce(P_desc d)
       whois_ip( i->character, d->host );
     }
   }
-  /* timer, so they don't sit here forever */
+/*
+  // timer, so they don't sit here forever
   if (d->character->only.pc->prestige > 3)
   {
     SEND_TO_Q
@@ -6360,6 +6361,7 @@ void newby_announce(P_desc d)
   }
   else
     d->character->only.pc->prestige++;
+*/
 }
 
 void wimps_in_approve_queue(void)
@@ -6835,7 +6837,7 @@ void nanny(P_desc d, char *arg)
     else if (!IS_TRUSTED(d->character) && approve_mode)
     {
       SEND_TO_Q
-        ("Now you have to wait for your character to be approved by a god.\r\nProcess should not take long.\r\nIf no god is on to approve you, you will be auto-approved in 5 mins.\r\n",
+        ("Now you have to wait for your character to be approved by a god.\r\nProcess should not take long.\r\nIf no god is on to approve you, you will &+WNOT&N be auto-approved.\r\n",
          d);
       STATE(d) = CON_ACCEPTWAIT;
       newby_announce(d);
