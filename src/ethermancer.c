@@ -498,8 +498,7 @@ void spell_wind_blade(int level, P_char ch, char *arg, int type, P_char
     
 }
 
-void spell_windwalk(int level, P_char ch, char *arg, int type, P_char victim,
-                    P_obj obj)
+void spell_windwalk(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int      location;
   char     buf[256] = { 0 };
@@ -580,8 +579,8 @@ void spell_windwalk(int level, P_char ch, char *arg, int type, P_char victim,
     distance += 15;
 
   if (!IS_TRUSTED(ch) &&
-      (how_close(ch->in_room, victim->in_room, distance) < 0) &&
-      (how_close(victim->in_room, ch->in_room, distance) < 0))
+      ((how_close(ch->in_room, victim->in_room, distance) < 0) ||
+      (how_close(victim->in_room, ch->in_room, distance) < 0)) )
   {
     send_to_char("&+yYou failed.\r\n", ch);
     return;
