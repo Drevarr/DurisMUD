@@ -7719,7 +7719,7 @@ a ceramic &+Cch&+ci&+Cl&+clu&+Cm&n~
 ~
 41 7 3 0 7 0 0 16385 0 0 0
 2 2 7 0 0 0 0 0
-0 25000 100
+0 60000 100
 E
 small ceramic chillum pipe~
 &n   This ceramic &+Cch&+ci&+Cl&+clu&+Cm&n is crafted of fired clay.  The whole of its surface has
@@ -7737,7 +7737,7 @@ an &+Lobsidian &+whookah&n~
 ~
 41 36 3 0 7 0 0 8404993 0 0 0
 3 3 5 0 0 0 0 0
-1 40000 100
+1 75000 100
 E
 obsidian hookah pipe~
 &n   Worked from a solid block of &+Lobsidian&n, this &+Lhookah&n is of an ancient design
@@ -7753,7 +7753,7 @@ a &+Gm&+cis&+Gt&+cw&+Gey&+cd&+L nose-&+ypipe&n~
 ~
 41 6 3 0 8 0 8256 8404993 0 0 0
 4 4 3 0 0 0 0 0
-0 75000 100
+0 35000 100
 E
 length mistweyd nosepipe nose pipe~
 &n   Carved from a short section of a branching piece of &+cm&+Gis&+ct&+Gw&+cey&+Gd&+y hardwood&n, this
@@ -7768,7 +7768,7 @@ a handcarved &+ypipe&n~
 ~
 41 6 3 0 7 0 8192 16385 0 0 0
 5 5 10 0 0 0 0 0
-0 80000 100
+0 45 100
 E
 handcarved pipe~
 &n   The &+ystem&n of this pipe has been whittled from a piece of &+yhardwood&n, its core
