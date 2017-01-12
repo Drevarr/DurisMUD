@@ -48,7 +48,6 @@ blood scent
 bodyslam
 GET_C_AGI(ch
 GET_C_AGI(vi
-GET_C_DEX(ch
 GET_C_LUK(ch
 GET_C_LUK(vi
 GET_C_STR(ch
@@ -237,8 +236,6 @@ GET_C_DEX(ch
 legsweep
 GET_C_LUK(ch
 GET_C_LUK(vi
-GET_C_LUK(ch
-GET_C_LUK(vi
 GET_C_AGI(ch
 GET_C_AGI(vi
 ~
@@ -246,8 +243,8 @@ listen
 GET_C_LUK(ch
 ~
 mangle
-GET_C_DEX(vi
-GET_C_DEX(ch
+GET_C_DEX(at
+GET_C_DEX(ma
 ~
 maul
 GET_C_LUK(ch
@@ -460,7 +457,6 @@ GET_C_LUK(vi
 throw
 GET_C_DEX(ch
 GET_C_LUK(ch
-GET_C_STR(ch
 ~
 throwpotion
 GET_C_AGI(ch
@@ -469,8 +465,6 @@ trample
 GET_C_DEX(ch
 GET_C_LUK(ch
 GET_C_LUK(vi
-GET_C_AGI(ch
-GET_C_AGI(vi
 GET_C_CHA(ch
 GET_C_DEX(ch
 GET_C_AGI(ch

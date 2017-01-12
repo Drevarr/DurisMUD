@@ -292,7 +292,7 @@ FUNCTIONNAME="void do_listen"
 parsefile
 
 echo "mangle" >> command_attributes.txt
-FUNCTIONNAME="int try_mangle"
+FUNCTIONNAME="bool mangleSucceed"
 parsefile
 
 echo "maul" >> command_attributes.txt
