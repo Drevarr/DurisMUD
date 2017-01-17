@@ -2312,3 +2312,50 @@ void clear_racial_skills(P_char ch)
   do_save_silent(ch, 1); // racial skills require a save.
 }
 
+void refund_epic_skills(P_char ch)
+{
+  int skl, er_skl, learned, cost_multiplier, multiplier_step;
+  int point_refund = 0;
+  int coins_refund = 0;
+
+  point_refund = coins_refund = 0;
+  multiplier_step = get_property("epic.progressFactor", 30) / 10;
+
+  for( skl = FIRST_SKILL; skl <= LAST_SKILL; skl++ )
+  {
+    if( !IS_EPIC_SKILL(skl) )
+    {
+      continue;
+    }
+    if( isname(skills[skl].name, "forge mine craft") )
+    {
+      continue;
+    }
+    if( (learned = (GET_CHAR_SKILL(ch, skl) / 10)) == 0 )
+    {
+      continue;
+    }
+    for( er_skl = 0; epic_rewards[er_skl].type; er_skl++ )
+    {
+      if( epic_rewards[er_skl].value == skl )
+      {
+        break;
+      }
+    }
+    if( !epic_rewards[er_skl].type )
+    {
+      continue;
+    }
+    while( learned-- > 0 )
+    {
+      cost_multiplier = 1 + learned / multiplier_step;
+      point_refund += cost_multiplier * epic_rewards[er_skl].points_cost * 3;
+      coins_refund += cost_multiplier * epic_rewards[er_skl].coins * 2;
+    }
+    ch->only.pc->skills[skl].learned = ch->only.pc->skills[skl].taught = 0;
+  }
+  insert_money_pickup(GET_PID(ch), coins_refund);
+  ch->only.pc->epics += point_refund;
+  send_to_char_f( ch, "&+WYour epic skills have been reset.&n\n&+WYou are refunded %d epics.&N\n&+WYou are refunded %s.&n\n",
+    point_refund, coins_to_string(coins_refund/1000, (coins_refund/100)%10, (coins_refund/10)%10, coins_refund%10, "&+W") );
+}

@@ -890,6 +890,9 @@ void zone_purge(int);
 void check_nevents();
 void disarm_single_event(P_nevent);
 
+// epic.c
+void refund_epic_skills(P_char ch);
+
 /* fight.c */
 bool rapier_dirk(P_char, P_char);
 int calculate_thac_zero(P_char, int);

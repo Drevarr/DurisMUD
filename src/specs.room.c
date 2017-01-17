@@ -214,6 +214,7 @@ int multiclass_proc(int room, P_char ch, int cmd, char *arg)
           ch->player.spec = 0;
           do_restore(ch, GET_NAME(ch), 0);
           forget_spells(ch, -1);
+          refund_epic_skills(ch);
           qry("DELETE FROM zone_trophy WHERE pid = %d", GET_PID(ch));
       }
       else

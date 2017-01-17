@@ -2308,7 +2308,7 @@ void assign_rooms(void)
 
 
   // testing for multiclass
-  //world[real_room0(1200)].funct = multiclass_proc;
+  world[real_room0(17)].funct = multiclass_proc;
   //world[real_room0(6801)].funct = multiclass_proc;
   world[real_room0(52904)].funct = multiclass_proc;
   
