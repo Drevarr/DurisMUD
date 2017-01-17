@@ -2586,7 +2586,7 @@ void do_phantasmal_form(P_char ch, char *arg, int cmd)
 
 void do_stone_skin(P_char ch, char *arg, int cmd)
 {
-  if (!check_innate_time(ch, INNATE_STONE))
+  if( !check_innate_time(ch, INNATE_STONE, 300) )
   {
     send_to_char("You're too tired to do that right now.\n", ch);
     return;
