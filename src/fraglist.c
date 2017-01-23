@@ -57,10 +57,10 @@ int fragWorthy(P_char ch, P_char victim)
      levels under you - no frag. */
 
   /* non-floating point floating point system, dig it?  100 frags = 1.00 */
-
+/* Commenting this out for the 2017 wipe.
   if ((ch->only.pc->frags > 2000) && (GET_LEVEL(victim) < 40))
     return FALSE;
-
+*/
 
   if (GET_LEVEL(victim) < 20)
     return FALSE;
