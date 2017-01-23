@@ -1794,7 +1794,7 @@ void do_epic_share(P_char ch, char *arg, int cmd)
           {
             tafp = get_epic_task(gl->ch);
             // Don't let nexus stones or pvp get replaced
-            if( tafp->modifier >= SPILL_BLOOD )
+            if( abs(tafp->modifier) >= SPILL_BLOOD )
               continue;
             tafp->type = afp->type;
             tafp->flags = afp->flags;

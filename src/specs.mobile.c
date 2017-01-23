@@ -16302,15 +16302,16 @@ int clear_epic_task_spec(P_char npc, P_char ch, int cmd, char *arg)
 
     // Count money
     int price = get_property("mobspecs.epicTaskClear.price", 10000000);
-    if( afp->modifier == SPILL_BLOOD )
+    int task = abs(afp->modifier);
+    if( task == SPILL_BLOOD )
     {
       mobsay(npc, "The gods are upset with your prayer to clear your &+Rspilling blood&n task.");
       price *= 2;
     }
     // a nexus stone
-    else if( (afp->modifier > SPILL_BLOOD) && afp->modifier <= SPILL_BLOOD + NEXUS_STONE_LAST )
+    else if( (task > SPILL_BLOOD) && (task <= SPILL_BLOOD + NEXUS_STONE_LAST) )
     {
-      nexus = get_nexus_stone( afp->modifier - SPILL_BLOOD );
+      nexus = get_nexus_stone( task - SPILL_BLOOD );
       if( !nexus )
       {
         debug("clear_epic_task_spec(): error, can't find nexus");

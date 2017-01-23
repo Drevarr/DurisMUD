@@ -940,7 +940,7 @@ void AddFrags(P_char ch, P_char victim)
   // When a player with a blood tasks dies, they now satisfy the pvp spill blood task.
   if( afp = get_epic_task(victim) )
   {
-    if(afp->modifier == SPILL_BLOOD && loss > 0 )
+    if( (abs( afp->modifier ) == SPILL_BLOOD) && (loss > 0) )
     {
       send_to_char("The &+yGods of Duris&n are very pleased with YOUR &+Rblood&n, too!!!\n", victim);
       send_to_char("You can now progress further in your quest for epic power!\n", victim);
