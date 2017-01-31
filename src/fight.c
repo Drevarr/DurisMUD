@@ -9322,9 +9322,9 @@ int calculate_attacks(P_char ch, int attacks[])
   // High dex now grants extra attacks (does not include bare hands).
   // Dex primary weapon
   weapon = ch->equipment[PRIMARY_WEAPON];
-  if( (weapon != NULL) && (weapon->type == ITEM_WEAPON) )
+  if( (weapon == NULL) || (weapon->type == ITEM_WEAPON) )
   {
-    int actpct = (100 * GET_OBJ_WEIGHT( weapon )) / GET_C_STR(ch);
+    int actpct = (100 * ( (weapon == NULL) ? 0 : GET_OBJ_WEIGHT(weapon) )) / GET_C_STR(ch);
 
     if( (( actpct <= 6 ) && ( GET_C_DEX(ch) >= 125 ))
       || (( actpct <= 20 ) && ( GET_C_DEX(ch) >= 150 )) )
@@ -9338,9 +9338,9 @@ int calculate_attacks(P_char ch, int attacks[])
   }
   // Dex secondary weapon
   weapon = ch->equipment[SECONDARY_WEAPON];
-  if( (weapon != NULL) && (weapon->type == ITEM_WEAPON) )
+  if( (weapon == NULL) || (weapon->type == ITEM_WEAPON) )
   {
-    int actpct = (100 * GET_OBJ_WEIGHT( weapon )) / GET_C_STR(ch);
+    int actpct = (100 * ( (weapon == NULL) ? 0 : GET_OBJ_WEIGHT(weapon) )) / GET_C_STR(ch);
 
     if( (actpct <= 6) && (GET_C_DEX(ch) >= 150) )
     {
