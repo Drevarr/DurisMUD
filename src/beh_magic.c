@@ -27,7 +27,8 @@ extern P_room world;
 void spell_beholder_sleep(int level, P_char ch, P_char victim, P_obj obj)
 {
   struct affected_type af;
-  int save = 2;
+  int save = 2, i;
+  bool NOSLEEP;
 
   if (!(victim && ch))
   {
@@ -39,20 +40,27 @@ void spell_beholder_sleep(int level, P_char ch, P_char victim, P_obj obj)
   {
     return;
   }
-  
+
   appear(ch);
 
-  if(resists_spell(ch, victim) ||
-    IS_TRUSTED(victim))
+  NOSLEEP = FALSE;
+  for( i = 0; i < MAX_WEAR; i++ )
   {
-    act("The beam seems to have no effect on $n&n.", FALSE, victim, 0, 0,
-        TO_ROOM);
+    if( victim->equipment[i] && IS_SET(victim->equipment[i]->extra_flags, ITEM_NOSLEEP) )
+    {
+      NOSLEEP = TRUE;
+      break;
+    }
+  }
+
+  if( resists_spell(ch, victim) || IS_TRUSTED(victim) || NOSLEEP )
+  {
+    act("The beam seems to have no effect on $n&n.", FALSE, victim, 0, 0, TO_ROOM);
     send_to_char("You feel no ill effects.\r\n", victim);
     return;
   }
 
-  if(IS_NPC(ch) &&
-     GET_RACE(ch) == RACE_BEHOLDER)
+  if( IS_NPC(ch) && GET_RACE(ch) == RACE_BEHOLDER )
   {
     save = (int) (GET_LEVEL(ch) / 10);
   }
@@ -344,8 +352,7 @@ void spell_beholder_disintegrate(int level, P_char ch, P_char victim, P_obj obj)
   
   dam = dice(level, 12);
 
-  if(!NewSaves(victim, SAVING_SPELL, save) &&
-    !IS_TRUSTED(victim))
+  if( !NewSaves(victim, SAVING_SPELL, save) && !IS_TRUSTED(victim) )
   {
     /* only destroy one piece of eq at a time, and even then only if the PC
        gets unlucky */
@@ -377,7 +384,7 @@ void spell_beholder_disintegrate(int level, P_char ch, P_char victim, P_obj obj)
 
             obj = victim->equipment[i];
 
-            if(!IS_ARTIFACT(obj))
+            if( !IS_ARTIFACT(obj) && (( obj->condition -= number(1, 10) ) < 1) )
             {
               act("$N&n's $q&n turns red hot, disappearing in a puff of smoke!",
                 TRUE, ch, obj, victim, TO_VICT);
