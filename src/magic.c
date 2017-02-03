@@ -4136,114 +4136,118 @@ void spell_full_harm(int level, P_char ch, char *arg, int type, P_char victim,
   spell_damage(ch, victim, dam, SPLDAM_HOLY, RAWDAM_NOKILL, &messages);
 }
 
-void event_fleshdecay(P_char ch, P_char victim, P_obj obj, void *data)
+// ch and victim is backwards so disarm will work right.
+void event_fleshdecay(P_char victim, P_char ch, P_obj obj, void *data)
 {
   int dam;
-  int count = *((int*)data);
-  int rand1 = number(1, 100);
+  int num_waves = *((int*)data);
+  struct damage_messages dam_msgs1 = {
+    "A &+gslimy&n piece of $N's &+rflesh &nbreaks apart from $S body and falls to the &+yground&n.\n",
+    "&nA &+gslimy &npiece of your &+rflesh&n breaks apart from your body and falls to the &+yground&n.\n",
+    "A &+gslimy&n piece of $N's &+rflesh &nbreaks apart from $S body and falls to the &+yground&n.\n",
+    "A &+gslimy&n piece of $N's &+rflesh &nbreaks apart from $S body and falls to the &+yground&n.\n",
+    "&nA &+gslimy &npiece of your &+rflesh&n breaks apart from your body and falls to the &+yground&n.\n",
+    "A &+gslimy&n piece of $N's &+rflesh &nbreaks apart from $S body and falls to the &+yground&n.\n", 0
+  };
+
+  struct damage_messages dam_msgs2 = {
+    "$N's skin continues to &+gde&+Gca&+Ly &nas the spell consumes $S &+rflesh&n.",
+    "&nYour skin continues to &+gde&+Gca&+Ly &nas the spell consumes your &+rflesh&n.\n",
+    "$N's skin continues to &+gde&+Gca&+Ly &nas the spell consumes $S &+rflesh&n.",
+    "$N's skin continues to &+gde&+Gca&+Ly &nas the spell consumes $S &+rflesh&n.",
+    "&nYour skin continues to &+gde&+Gca&+Ly &nas the spell consumes your &+rflesh&n.\n",
+    "$N's skin continues to &+gde&+Gca&+Ly &nas the spell consumes $S &+rflesh&n.", 0
+  };
+
+  if( !IS_AFFECTED5(victim, AFF5_DECAYING_FLESH) )
+    return;
 
   dam = dice(5, 10);
 
-  if ((GET_HIT(ch) - dam) > 0)
+  if( (GET_HIT(victim) - dam) > 0 )
   {
-    GET_HIT(ch) -= dam;
-    
-    if(rand1 > 50)
+    if( number(1, 100) > 50 )
     {
-    send_to_char("&nA &+gslimy &npiece of your &+rflesh&n breaks apart from your body and falls to the &+yground&n.\n", ch);
-    act("A &+gslimy&n piece of $n's &+rflesh &nbreaks apart from their body and falls to the &+yground&n\n", TRUE, ch, NULL, NULL,
-        TO_NOTVICT);
-    make_bloodstain(ch);
+      melee_damage(ch, victim, dam, PHSDAM_NOREDUCE, &dam_msgs1);
     }
     else
     {
-    send_to_char("&nYour skin continues to &+gde&+Gca&+Ly &nas the spell consumes your &+rflesh&n.\n", ch);
-    act("$n's skin continues to &+gde&+Gca&+Ly &nas the spell consumes their &+rflesh&n.", TRUE, ch, NULL, NULL,
-        TO_NOTVICT);
-    make_bloodstain(ch);
+      melee_damage(ch, victim, dam, PHSDAM_NOREDUCE, &dam_msgs2);
     }
   }
 
-  if (count >= 0)
+  if( --num_waves > 0 )
   {
-    count--;
-    add_event(event_fleshdecay, PULSE_VIOLENCE, ch, 0, 0, 0, &count, sizeof(count));
-  }
-  
-}
-
-void spell_decaying_flesh(int level, P_char ch, char *arg, int type,
-                            P_char victim, P_obj obj)
-{
-  struct affected_type af;
-
-  if(ch == victim)
-   {
-	send_to_char("You decide that would not be the best use of your dark arts.&n\n", ch);
-       return;
-   }
-
-    if(!victim)
-    victim = ch;
-  
-  if(!IS_ALIVE(ch) ||
-    !IS_ALIVE(victim))
-  {
-    return;
-  }
-  if(IS_AFFECTED5(victim, AFF5_DECAYING_FLESH))
-  {
-    struct affected_type *af1;
-
-    for (af1 = victim->affected; af1; af1 = af1->next)
-      if(af1->type == SPELL_DECAYING_FLESH && af1->modifier >= 5)
-      {
-        
-        send_to_char("&nTheir flesh cannot be afflicted any further.\r\n",
-                     ch);
-		return;
-      }
-   
-  }
-
-  memset(&af, 0, sizeof(af));
-  af.type = SPELL_DECAYING_FLESH;
-  af.bitvector5 = AFF5_DECAYING_FLESH;
-  af.duration = 100;
-  af.flags = AFFTYPE_SHORT;
-
-  if(!IS_AFFECTED5(victim, AFF5_DECAYING_FLESH))
-  {
-    act("&+R$n &nraises their hand and points directly at &+L$N\n"
-	     "&+L$N &nsuddenly turns &+ggreen &nas their &+Rflesh &nbegins to &+Lwither&n and &+rrot&n.", FALSE, ch, 0, victim, TO_NOTVICT);
-    act("You &nraise your hand and point directly at &+L$N\n"
-	     "&+L$N &nsuddenly turns &+ggreen &nas their &+Rflesh &nbegins to &+Lwither&n and &+rrot&n.", FALSE, ch, 0, victim, TO_CHAR);
-   act("&+R$n &nraises their hand and points directly at &+LYOU&n!\n"
-	          "Your &+Rskin&n suddenly turns &+ggreen &nand starts &+Lwithering &nand &+rrotting &nright before your eyes!", FALSE, ch, 0, victim, TO_VICT);
-    af.modifier = 1;
-    affect_to_char(victim, &af);
-    int numb = number(2, 6);
-    add_event(event_fleshdecay, PULSE_VIOLENCE, victim, 0, 0, 0, &numb, sizeof(numb));
-
-	
+    // ch and victim is backwards so disarm will work right.
+    add_event(event_fleshdecay, PULSE_VIOLENCE, victim, ch, NULL, 0, &num_waves, sizeof(num_waves));
   }
   else
   {
-    act("&+R$n &nagain points at &+L$N &ncausing the existing &+gdecay&n to worsen&n.", FALSE, ch, 0, victim, TO_ROOM);
-    act("&+RYou &nagain point at &+L$N &ncausing the existing &+gdecay&n to worsen&n.", FALSE, ch, 0, victim, TO_CHAR);
-    //af.modifier += 1;
-   // af->modifier ++;
-  
-     struct affected_type *af1;
+    affect_from_char( victim, SPELL_DECAYING_FLESH );
+  }
+}
 
-    for (af1 = victim->affected; af1; af1 = af1->next)
-      if(af1->type == SPELL_DECAYING_FLESH)
+void spell_decaying_flesh(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
+{
+  struct affected_type af;
+  int num_waves = number(2, 6);
+
+  if( ch == victim )
+  {
+    send_to_char("You decide that would not be the best use of your dark arts.&n\n", ch);
+    return;
+  }
+
+  if( !IS_ALIVE(ch) || !IS_ALIVE(victim) )
+  {
+    return;
+  }
+
+  if( IS_AFFECTED5(victim, AFF5_DECAYING_FLESH) )
+  {
+    struct affected_type *af1;
+
+    for( af1 = victim->affected; af1; af1 = af1->next )
+    {
+      if( af1->type != SPELL_DECAYING_FLESH )
+        continue;
+      if( af1->modifier >= 5 )
       {
-        
-        af1->modifier = af1->modifier++;
-        af1->duration = af1->duration + 100;
+        act("&n$S flesh cannot be afflicted any further.", FALSE, ch, 0, victim, TO_CHAR);
       }
-  }  
+      else
+      {
+        act("&+R$n &nagain points at &+L$N &ncausing the existing &+gdecay&n to worsen&n.", FALSE, ch, 0, victim, TO_ROOM);
+        act("&+RYou &nagain point at &+L$N &ncausing the existing &+gdecay&n to worsen&n.", FALSE, ch, 0, victim, TO_CHAR);
+
+        af1->modifier = af1->modifier++;
+      }
+      break;
+    }
+    disarm_char_nevents( victim, event_fleshdecay );
+    // This is backwards so disarm will work right.
+    add_event(event_fleshdecay, PULSE_VIOLENCE, victim, ch, NULL, 0, &num_waves, sizeof(num_waves));
+  }
+  else
+  {
+    act("&+R$n &nraises $s hand and points directly at &+L$N.\n"
+	    "&+L$N &nsuddenly turns &+ggreen &nas $S &+Rflesh &nbegins to &+Lwither&n and &+rrot&n.", FALSE, ch, 0, victim, TO_NOTVICT);
+    act("You &nraise your hand and point directly at &+L$N.\n"
+	    "&+L$N &nsuddenly turns &+ggreen &nas $S &+Rflesh &nbegins to &+Lwither&n and &+rrot&n.", FALSE, ch, 0, victim, TO_CHAR);
+    act("&+R$n &nraises $s hand and points directly at &+LYOU&n!\n"
+	    "Your &+Rskin&n suddenly turns &+ggreen &nand starts &+Lwithering &nand &+rrotting &nright before your eyes!", FALSE, ch, 0, victim, TO_VICT);
+
+    memset(&af, 0, sizeof(af));
+    af.type = SPELL_DECAYING_FLESH;
+    af.bitvector5 = AFF5_DECAYING_FLESH;
+    af.duration = -1;
+    af.flags = AFFTYPE_NODISPEL | AFFTYPE_NOSAVE;
+    af.modifier = 1;
+    affect_to_char(victim, &af);
+    // This is backwards so disarm will work right.
+    add_event(event_fleshdecay, PULSE_VIOLENCE, victim, ch, NULL, 0, &num_waves, sizeof(num_waves));
+  }
+
   attack_back(ch, victim, TRUE);
 }
 
