@@ -3781,55 +3781,59 @@ int chance_roundkick(P_char ch, P_char victim)
   {
     return 0;
   }
-  
+
   if(affected_by_spell(ch, SKILL_BASH))
   {
-    send_to_char
-      ("You haven't reoriented yourself yet enough for another kick!\n", ch);
+    send_to_char("You haven't reoriented yourself yet enough for another kick!\n", ch);
     return 0;
   }
-  
-  if(GET_CHAR_SKILL(ch, SKILL_ROUNDKICK) < 1)
+
+  if( (GET_CHAR_SKILL(ch, SKILL_ROUNDKICK) < 1) && !IS_TRUSTED(ch) )
   {
     send_to_char("You don't know how to roundkick.\n", ch);
     return 0;
   }
-  
-  if(IS_NPC(ch) &&
-     LEGLESS(ch)) // Legless define includes immaterial. This hack allows the phantom
-     // monk to use roundkick.
+
+  if( IS_NPC(ch) && LEGLESS(ch) ) // Legless define includes immaterial. This hack allows the phantom
+                                  // monk to use roundkick.
   {
     send_to_char("You don't possess the necessary body parts to roundkick.\n", ch);
     return 0;
   }
-  
+
   if(IS_IMMATERIAL(victim))
   {
     send_to_char("That thing has mist for a body!\n", ch);
     CharWait(victim, (int) (PULSE_VIOLENCE * 0.250));
     return 0;
   }
-  
-  if(!on_front_line(ch) ||
-    !on_front_line(victim))
+
+  if( !on_front_line(ch) || !on_front_line(victim) )
   {
     send_to_char("You can't reach them!\n", ch);
     return 0;
   }
-  
-  if(!CanDoFightMove(ch, victim))
+
+  if( !CanDoFightMove(ch, victim) )
   {
     return 0;
   }
-  
-  if(get_takedown_size(victim) > get_takedown_size(ch) ||
-      get_takedown_size(victim) < get_takedown_size(ch) - 1)
+
+  if( (get_takedown_size(victim) > get_takedown_size(ch))
+    || (get_takedown_size(victim) < get_takedown_size(ch) - 1) )
   {
     send_to_char("You can't figure out how to kick them!\n", ch);
     return 0;
   }
 
-  percent_chance = (int) (1 * GET_CHAR_SKILL(ch, SKILL_ROUNDKICK));
+  if( IS_TRUSTED(ch) )
+  {
+    percent_chance = 200;
+  }
+  else
+  {
+    percent_chance = GET_CHAR_SKILL(ch, SKILL_ROUNDKICK);
+  }
 
   percent_chance =
     (int) (percent_chance *
@@ -3909,28 +3913,19 @@ bool roundkick(P_char ch, P_char victim)
   if(!notch_skill(ch, SKILL_ROUNDKICK, get_property("skill.notch.offensive", 7))
     && percent_chance < number(0, 100))
   {
-    if(melee_damage(ch, victim, (int) (dam / 2), PHSDAM_TOUCH, 0) != DAM_NONEDEAD)
-      return false;
+    if( melee_damage(ch, victim, (int) (dam / 2), PHSDAM_TOUCH, 0) != DAM_NONEDEAD )
+      return FALSE;
 
-    if(!IS_ALIVE(ch) ||
-      !IS_ALIVE(victim))
-        return false;
-    else
-    {
-      act("You lose your footing and fall to your knees!", FALSE, ch, 0, victim,
-          TO_CHAR);
-      act("$n falls to $s knees after $s bad kick!", FALSE, ch, 0, victim,
-          TO_VICT);
-      act("$n falls to $s knees after $s bad kick!", FALSE, ch, 0, victim,
-          TO_NOTVICT);
-      SET_POS(ch, POS_KNEELING + GET_STAT(ch));
-    }
+    act("You lose your footing and fall to your knees!", FALSE, ch, 0, victim, TO_CHAR);
+    act("$n falls to $s knees after $s bad kick!", FALSE, ch, 0, victim, TO_VICT);
+    act("$n falls to $s knees after $s bad kick!", FALSE, ch, 0, victim, TO_NOTVICT);
+    SET_POS(ch, POS_KNEELING + GET_STAT(ch));
   }
-  else if(melee_damage(ch, victim, MAX(1, dam), PHSDAM_TOUCH, &messages) == DAM_NONEDEAD)
+  else if( melee_damage(ch, victim, MAX(1, dam), PHSDAM_TOUCH, &messages) == DAM_NONEDEAD )
   {
     CharWait(victim, PULSE_VIOLENCE);
     set_short_affected_by(ch, SKILL_BASH, 2 * PULSE_VIOLENCE);
-    
+
     if(GET_C_DEX(ch) - GET_C_AGI(victim) > number(0, 100))
       {
         act("You do a &+cmagnificent maneuver&n, delivering a full &+yroundhouse kick&n to $N's chest!", FALSE, ch, 0, victim, TO_CHAR);
@@ -3975,13 +3970,12 @@ void do_roundkick(P_char ch, char *argument, int cmd)
   victim = ParseTarget(ch, argument);
   victim = guard_check(ch, victim);
 
-  if(!victim)
+  if( !victim )
   {
     send_to_char("Kick who?\n", ch);
     return;
   }
   roundkick(ch, victim);
-
 }
 
 void do_assist_core(P_char ch, P_char victim)
