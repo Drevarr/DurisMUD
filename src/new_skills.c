@@ -2230,6 +2230,12 @@ void do_summon_mount(P_char ch, char *arg, int cmd)
     return;
   }
 
+  if( IS_PC_PET(ch) )
+  {
+    send_to_char( "No mount for pets.\n", ch );
+    return;
+  }
+
   send_to_char("You begin calling for a mount..\r\n", ch);
   sumtime = number(70 - GET_LEVEL(ch), 100 + number(1, 200 - 2 * GET_LEVEL(ch)));
   add_event(mount_summoning_thing, sumtime, ch, 0, 0, 0, 0, 0);
