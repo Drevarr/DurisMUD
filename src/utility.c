@@ -6252,6 +6252,8 @@ void trim_and_end_colorless( char *orig, char *good, int length )
   int chars_left;
   bool colored;
   char *index, *last_ansi_sequence;
+  // Arih: Track buffer start to prevent underflow in backward searches (infinite loop bug fix)
+  char *good_start;
 
   if( length <= 1 )
   {
@@ -6261,6 +6263,9 @@ void trim_and_end_colorless( char *orig, char *good, int length )
     }
     return;
   }
+
+  // Arih: Track the starting position of the good buffer to prevent pointer underflow
+  good_start = good;
 
   // Skip leading spaces first for the new title.
   while( isspace(*orig) )
@@ -6360,6 +6365,18 @@ void trim_and_end_colorless( char *orig, char *good, int length )
           chars_left -= 3;
         }
       }
+      // Arih: Fixed infinite loop bug - handle unrecognized '&' patterns by escaping as '&&'
+      // If we have '&' followed by something unrecognized (e.g. &r, &x), escape it as '&&'
+      // Without this else clause, index pointer never advances, causing infinite loop
+      else
+      {
+        // Copy the & as && to escape it
+        *(good++) = '&';
+        last_ansi_sequence = good;
+        *(good++) = '&';
+        index++;
+        chars_left -= 2;
+      }
     }
     // Regular character
     else
@@ -6393,8 +6410,8 @@ void trim_and_end_colorless( char *orig, char *good, int length )
         {
           // All ansi sequences are at least 2 characters long.
           --good;
-          // All ansi sequences begin with '&', so backtrack to it.
-          while( *(good - 1) != '&' )
+          // Arih: Added bounds check to prevent infinite loop when searching backward for '&'
+          while( good > good_start && *(good - 1) != '&' )
           {
             good--;
           }
@@ -6411,8 +6428,8 @@ void trim_and_end_colorless( char *orig, char *good, int length )
       {
         // All ansi sequences are at least 2 characters long (skip the last char).
         --good;
-        // All ansi sequences begin with '&', so backtrack to it.
-        while( *(good - 1) != '&' )
+        // Arih: Added bounds check to prevent infinite loop when searching backward for '&'
+        while( good > good_start && *(good - 1) != '&' )
         {
           good--;
         }
@@ -6426,8 +6443,8 @@ void trim_and_end_colorless( char *orig, char *good, int length )
       {
         // Skip the non-ansi sequence char and the last char of the ansi sequence.
         good -= 2;
-        // All ansi sequences begin with '&', so backtrack to it.
-        while( *(good - 1) != '&' )
+        // Arih: Added bounds check to prevent infinite loop when searching backward for '&'
+        while( good > good_start && *(good - 1) != '&' )
         {
           good--;
         }
@@ -6474,8 +6491,8 @@ void trim_and_end_colorless( char *orig, char *good, int length )
       {
         // All ansi sequences are at least 2 characters long.
         --good;
-        // All ansi sequences begin with '&', so backtrack to it.
-        while( *(good - 1) != '&' )
+        // Arih: Added bounds check to prevent infinite loop when searching backward for '&'
+        while( good > good_start && *(good - 1) != '&' )
         {
           good--;
         }
@@ -6492,8 +6509,8 @@ void trim_and_end_colorless( char *orig, char *good, int length )
     {
       // All ansi sequences are at least 2 characters long (skip the last char).
       --good;
-      // All ansi sequences begin with '&', so backtrack to it.
-      while( *(good - 1) != '&' )
+      // Arih: Added bounds check to prevent infinite loop when searching backward for '&'
+      while( good > good_start && *(good - 1) != '&' )
       {
         good--;
       }
@@ -6507,8 +6524,8 @@ void trim_and_end_colorless( char *orig, char *good, int length )
     {
       // Skip the non-ansi sequence char and the last char of the ansi sequence.
       good -= 2;
-      // All ansi sequences begin with '&', so backtrack to it.
-      while( *(good - 1) != '&' )
+      // Arih: Added bounds check to prevent infinite loop when searching backward for '&'
+      while( good > good_start && *(good - 1) != '&' )
       {
         good--;
       }

@@ -2995,6 +2995,41 @@ void Guild::name_title( P_char member, char *args )
   while( isspace(*args) )
     args++;
 
+  // Arih: Validate ANSI codes to prevent infinite loop and provide user feedback
+  // Check for invalid '&' sequences before processing
+  char *check = args;
+  while( *check != '\0' )
+  {
+    if( *check == '&' )
+    {
+      // Valid patterns: &n, &N, &&, &+X, &-X, &=XX where X is valid ansi char
+      if( check[1] == 'n' || check[1] == 'N' || check[1] == '&' )
+      {
+        check += 2;
+        continue;
+      }
+      else if( (check[1] == '+' || check[1] == '-') && is_ansi_char(check[2]) )
+      {
+        check += 3;
+        continue;
+      }
+      else if( check[1] == '=' && is_ansi_char(check[2]) && is_ansi_char(check[3]) )
+      {
+        send_to_char( "&+RBackground colors (&=XX) are not allowed in rank names.&n\n", member );
+        return;
+      }
+      else
+      {
+        send_to_char( "&+RInvalid ANSI color code in rank name.&n\n", member );
+        send_to_char( "Valid codes: &+n (reset), &&& (literal &), &+X or &-X (where X is a color letter).\n", member );
+        send_to_char( "Valid color letters: r, R, g, G, b, B, c, C, m, M, y, Y, w, W, l, L, d, D, o\n", member );
+        send_to_char_f( member, "Problem at position %d: '%.20s'\n", (int)(check - args), check );
+        return;
+      }
+    }
+    check++;
+  }
+
   // Check string length and trim if necessry.
   trim_and_end_colorless( args, titles[rank_number], ASC_MAX_STR_RANK );
 
