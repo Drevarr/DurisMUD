@@ -885,7 +885,8 @@ void bard_sleep(int l, P_char ch, P_char victim, int song)
 {
   struct affected_type af;
   P_obj    tmp_obj;
-  int      i, level;
+  int i;
+  int level = GET_LEVEL(ch);
 
   if(IS_TRUSTED(victim))
     return;
