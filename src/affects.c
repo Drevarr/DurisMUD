@@ -2177,7 +2177,7 @@ void affect_from_char(P_char ch, int skill)
  * Return TRUE if a char is affected by a spell (SPELL_XXX)
  */
 
-struct affected_type *get_spell_from_char(P_char ch, int spell)
+struct affected_type *get_spell_from_char(P_char ch, int spell, void *context)
 {
   struct affected_type *hjp;
 
@@ -2188,7 +2188,7 @@ struct affected_type *get_spell_from_char(P_char ch, int spell)
 
   for( hjp = ch->affected; hjp; hjp = hjp->next )
   {
-    if( hjp->type == spell )
+    if( hjp->type == spell && (context == NULL || hjp->context == context) )
     {
       return hjp;
     }

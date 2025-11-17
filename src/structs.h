@@ -1177,8 +1177,9 @@ struct affected_type {
   uint flags;                                   /* flags describing affect behavior, see AFFTYPE_* defines */
   int modifier;                 /* This is added to apropriate ability     */
   ubyte location;               /* Tells which ability to change(APPLY_XXX)*/
+  void *context;
   unsigned short level;
-  unsigned long bitvector;       /* Tells which bits to set (AFF_XXX)       */
+  unsigned long bitvector;		 /* Tells which bits to set (AFF_XXX)       */
   unsigned long bitvector2;      /* Tells which bits to set (AFF2_XXX)      */
   unsigned long bitvector3;
   unsigned long bitvector4;

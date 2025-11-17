@@ -104,7 +104,7 @@ int flag2idx(int flag)
 void update_skills(P_char ch) {
 }
 
-struct affected_type *get_spell_from_char(P_char ch, int spell)
+struct affected_type *get_spell_from_char(P_char ch, int spell, void *context)
 {
   return 0;
 }

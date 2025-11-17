@@ -3118,18 +3118,11 @@ void spell_rest( int level, P_char ch, char *arg, int type, P_char victim, P_obj
   if( (afp = get_spell_from_char( victim, TAG_RESTED )) != NULL )
   {
     afp->duration = 150;
-    if( GET_LEVEL(ch) == OVERLORD )
-    {
-      afp->type = TAG_WELLRESTED;
-      act( "You refresh $N's rested bonus and upgrade it to well-rested.", FALSE, ch, NULL, victim, TO_CHAR );
-      debug( "%s refreshed %s's rested bonus and upgrades it to well-rested!", J_NAME(ch), J_NAME(victim) );
-    }
-    else
-    {
-      afp->duration = 150;
-      act( "You refresh $N's rested bonus.", FALSE, ch, NULL, victim, TO_CHAR );
-      debug( "%s refreshed %s's rested bonus!", J_NAME(ch), J_NAME(victim) );
-    }
+    
+    afp->type = TAG_WELLRESTED;
+    act( "You refresh $N's rested bonus and upgrade it to well-rested.", FALSE, ch, NULL, victim, TO_CHAR );
+    debug( "%s refreshed %s's rested bonus and upgrades it to well-rested!", J_NAME(ch), J_NAME(victim) );
+
     return;
   }
 

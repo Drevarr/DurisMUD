@@ -13072,17 +13072,14 @@ void apply_zone_spell(P_char ch, int count, const char *zone_name, P_obj obj, in
         message = SETMSG_PROTECT;
       }
       break;
+	case SPELL_ARMOR:
     case SPELL_BARKSKIN:
-      if( !IS_AFFECTED(ch, AFF_BARKSKIN) )
-      {
-        spell_barkskin(count * 5, ch, 0, 0, ch, 0);
-        message = SETMSG_PROTECT;
-      }
-      break;
-    case SPELL_ARMOR:
+	case SPELL_THORNSKIN:
+	case SPELL_SPIRIT_ARMOR:
+	case SPELL_FLESH_ARMOR:
       if( !IS_AFFECTED(ch, AFF_ARMOR) )
       {
-        spell_armor(MIN(56, count * 10), ch, 0, 0, ch, 0);
+        (skills[spell].spell_pointer)(MIN(56, count * 10), ch, 0, 0, ch, 0);
         message = SETMSG_PROTECT;
       }
       break;
@@ -13107,15 +13104,64 @@ void apply_zone_spell(P_char ch, int count, const char *zone_name, P_obj obj, in
 		message = SETMSG_STRENGTH;
 	  }
 	  break;
-    case SPELL_STRENGTH:
-    case SPELL_BLESS:
+	case SPELL_STRENGTH:
+	case SPELL_BLESS:
       if( !affected_by_spell(ch, spell) )
       {
         (skills[spell].spell_pointer)(MIN(56, count * 10), ch, 0, 0, ch, 0);
         message = SETMSG_STRENGTH;
       }
       break;
-  }
+	case SPELL_CONJURE_ELEMENTAL:
+	  if (obj->timer[0] + get_property("timer.conjureElement.generic", 300) < time(NULL))
+	  {
+		(skills[spell].spell_pointer)(MAX(30, count * 10), ch, 0, 0, ch, 0);
+		obj->timer[0] = time(NULL);
+        message = SETMSG_STRENGTH;
+	  }
+	  break;
+	case SPELL_INVIGORATE:
+	  if (obj->timer[0] + get_property("timer.invigorate.generic", 60) < time(NULL) &&
+	      GET_VITALITY(ch) < GET_MAX_VITALITY(ch))
+	  {
+		(skills[spell].spell_pointer)(MAX(30, count * 10), ch, 0, 0, ch, 0);
+		obj->timer[0] = time(NULL);
+        message = SETMSG_STRENGTH;
+	  }
+	  break;
+	case SPELL_ENDURANCE:
+	  if ( !affected_by_spell(ch, spell) && !affected_by_spell(ch, SPELL_MIELIKKI_VITALITY) )
+	  {
+		(skills[spell].spell_pointer)(MAX(30, count * 10), ch, 0, 0, ch, 0);
+        message = SETMSG_STRENGTH;
+	  }
+	  break;
+	case SONG_DRAGONS:
+	  if ( !affected_by_spell(ch, spell) )
+	  {
+		  P_char tch = NULL, next = NULL;
+		  for (tch = world[ch->in_room].people; tch; tch = next)
+		  {
+			  next = tch->next_in_room;
+
+			  if ((ch != tch) && !grouped(ch, tch))
+			  {
+				  continue;
+			  }
+
+			  // Sing the song.
+			  (bard_dragons)(MIN(56, count * 10), ch, tch, spell);
+		  }
+	  }
+	  break;
+	default:
+		if (!affected_by_spell(ch, spell))
+		{
+			(skills[spell].spell_pointer)(MIN(56, count * 10), ch, 0, 0, ch, 0);
+			message = SETMSG_PROTECT;
+		}
+		break;
+	}
 
   if( message == SETMSG_PROTECT )
   {
@@ -13200,13 +13246,22 @@ int random_set(P_char ch, P_obj obj, int count, int cmd, char *arg)
   }
 
   // Why do we return true here?
-  if( count < 3 )
+  if( count < 2 )
   {
-    return TRUE;
+    return FALSE;
+  }
+
+  zone_name = strstr(obj->short_description, " &+rfrom") + 9;
+  int context;
+  // Find the matching zone for the random eq.
+  for( context = 0; context <= top_of_zone_table; context++ )
+  {
+    if( strstr(zone_name, zone_table[context].name) )
+      break;
   }
 
   // Look for a random item proc..
-  afp = get_spell_from_char(ch, TAG_SETPROC);
+  afp = get_spell_from_char(ch, TAG_SETPROC, (void*)context);
   if( !afp )
   {
     memset(&af, 0, sizeof(af));
@@ -13215,10 +13270,9 @@ int random_set(P_char ch, P_obj obj, int count, int cmd, char *arg)
     af.location = APPLY_HIT;
     // This should be indefinite: Only changes upon eq removal/wear new eq.
     af.duration = -1;
-    afp = affect_to_char(ch, &af);
+	af.context = (void*)context;
+	afp = affect_to_char(ch, &af);
   }
-
-  zone_name = strstr(obj->short_description, " &+rfrom") + 9;
 
   // This right here creates the argument between sets of two different zones being on one char.
   disarm_char_nevents(ch, event_random_set_proc);
